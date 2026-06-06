@@ -3,142 +3,1194 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<title>سفرساز شخصی</title>
-
-<!-- فونت فارسی حرفه‌ای -->
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+<title>سفرساز — طراحی سفر شخصی</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-  body {
-    margin: 0;
-    font-family: "Vazirmatn", sans-serif;
-    background: #f5f7fa;
-    color: #1e1e1e;
-  }
+:root {
+  --copper:        #b87333;
+  --copper-light:  #d4956a;
+  --copper-dark:   #8b5520;
+  --copper-glow:   rgba(184,115,51,0.18);
+  --navy:          #0b2740;
+  --navy-mid:      #0f3355;
+  --navy-light:    #164570;
+  --white:         #ffffff;
+  --off-white:     #f7f5f2;
+  --text-main:     #1a1a2e;
+  --text-muted:    #6b7280;
+  --border:        rgba(184,115,51,0.22);
+  --shadow-card:   0 4px 28px rgba(11,39,64,0.10);
+  --radius-sm:     8px;
+  --radius-md:     14px;
+  --radius-lg:     22px;
+}
 
-  /* TOP BAR */
-  .topbar {
-    background: #0f3a52;
-    color: white;
-    padding: 18px 20px;
-    font-size: 14px;
-    text-align: center;
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* HERO */
-  .hero {
-    background: linear-gradient(135deg, #0f3a52, #0a2a3d);
-    color: white;
-    padding: 80px 20px;
-    text-align: center;
-  }
+html { scroll-behavior: smooth; }
 
-  .hero h1 {
-    font-size: 26px;
-    margin-bottom: 15px;
-    font-weight: 700;
-  }
+body {
+  font-family: "Vazirmatn", sans-serif;
+  background: var(--off-white);
+  color: var(--text-main);
+  line-height: 1.7;
+}
 
-  .hero p {
-    max-width: 600px;
-    margin: auto;
-    font-size: 15px;
-    line-height: 1.9;
-    opacity: 0.85;
-  }
+a { text-decoration: none; color: inherit; }
 
-  .btn {
-    margin-top: 25px;
-    display: inline-block;
-    background: #2ecc71;
-    color: white;
-    padding: 14px 22px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.2s;
-  }
+/* ━━━━━━━━━━━  TOP ANNOUNCEMENT BAR  ━━━━━━━━━━━ */
+.announce-bar {
+  background: var(--copper);
+  color: var(--white);
+  font-size: 12.5px;
+  font-weight: 500;
+  text-align: center;
+  padding: 8px 16px;
+  letter-spacing: 0.01em;
+}
 
-  .btn:hover {
-    background: #27ae60;
-  }
+.announce-bar span { margin: 0 10px; opacity: 0.75; }
 
-  /* SECTION */
-  .section {
-    max-width: 1000px;
-    margin: -40px auto 0;
-    padding: 20px;
-  }
+/* ━━━━━━━━━━━  HEADER  ━━━━━━━━━━━ */
+header {
+  background: var(--navy);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.35);
+}
 
-  .card {
-    background: white;
-    border-radius: 16px;
-    padding: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-  }
+.header-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 68px;
+  gap: 20px;
+}
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-top: 20px;
-  }
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
 
-  .item {
-    background: #f5f7fa;
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 13px;
-  }
+.logo-mark {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--copper), var(--copper-dark));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 2px 12px var(--copper-glow);
+}
 
-  /* MOBILE */
-  @media(max-width: 768px){
-    .grid {
-      grid-template-columns: 1fr;
-    }
+.logo-text {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1;
+}
 
-    .hero h1 {
-      font-size: 22px;
-    }
-  }
+.logo-text sub {
+  display: block;
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--copper-light);
+  letter-spacing: 0.05em;
+}
 
+/* Nav */
+nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.nav-item {
+  position: relative;
+  padding: 8px 14px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.82);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+
+.nav-item:hover {
+  color: var(--copper-light);
+  background: rgba(255,255,255,0.05);
+}
+
+.nav-item.active {
+  color: var(--copper-light);
+}
+
+/* Dropdown */
+.nav-item .dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+  min-width: 180px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  z-index: 200;
+}
+
+.nav-item:hover .dropdown { display: block; }
+
+.dropdown a {
+  display: block;
+  padding: 10px 16px;
+  font-size: 13px;
+  color: var(--text-main);
+  transition: background 0.15s;
+}
+
+.dropdown a:hover {
+  background: var(--off-white);
+  color: var(--copper);
+}
+
+/* Header CTA */
+.header-cta {
+  background: linear-gradient(135deg, var(--copper), var(--copper-dark));
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 20px;
+  border-radius: var(--radius-sm);
+  transition: opacity 0.2s, transform 0.2s;
+  flex-shrink: 0;
+  box-shadow: 0 2px 14px var(--copper-glow);
+}
+
+.header-cta:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* ━━━━━━━━━━━  HERO  ━━━━━━━━━━━ */
+.hero {
+  background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 55%, #1a3a55 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 80px 24px 130px;
+  text-align: center;
+}
+
+/* decorative circles */
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--copper-glow) 0%, transparent 70%);
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(184,115,51,0.15);
+  border: 1px solid var(--border);
+  color: var(--copper-light);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-bottom: 22px;
+  letter-spacing: 0.02em;
+}
+
+.hero h1 {
+  font-size: clamp(28px, 5vw, 46px);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.4;
+  max-width: 700px;
+  margin: 0 auto 18px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(90deg, var(--copper-light), var(--copper));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.72);
+  max-width: 520px;
+  margin: 0 auto 36px;
+  line-height: 2;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--copper), var(--copper-dark));
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 14px 30px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 20px var(--copper-glow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(184,115,51,0.4);
+}
+
+.btn-outline {
+  border: 1.5px solid rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.88);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: var(--radius-sm);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.btn-outline:hover {
+  border-color: var(--copper-light);
+  background: rgba(255,255,255,0.05);
+}
+
+/* ━━━━━━━━━━━  SEARCH BOX (floated card)  ━━━━━━━━━━━ */
+.search-wrap {
+  max-width: 1000px;
+  margin: -56px auto 0;
+  padding: 0 24px;
+  position: relative;
+  z-index: 10;
+}
+
+.search-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 50px rgba(11,39,64,0.15);
+  padding: 28px 30px;
+  border: 1px solid rgba(184,115,51,0.12);
+}
+
+.search-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-card h3::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 18px;
+  background: var(--copper);
+  border-radius: 4px;
+}
+
+.search-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.field label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  letter-spacing: 0.03em;
+}
+
+.field input, .field select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: var(--radius-sm);
+  font-family: "Vazirmatn", sans-serif;
+  font-size: 13.5px;
+  color: var(--text-main);
+  background: var(--off-white);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  direction: rtl;
+}
+
+.field input:focus, .field select:focus {
+  border-color: var(--copper);
+  box-shadow: 0 0 0 3px var(--copper-glow);
+}
+
+.search-btn {
+  background: linear-gradient(135deg, var(--copper), var(--copper-dark));
+  color: var(--white);
+  border: none;
+  padding: 11px 24px;
+  border-radius: var(--radius-sm);
+  font-family: "Vazirmatn", sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 2px 14px var(--copper-glow);
+}
+
+.search-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 22px rgba(184,115,51,0.38);
+}
+
+/* ━━━━━━━━━━━  HOT DESTINATIONS  ━━━━━━━━━━━ */
+.section {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 60px 24px;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.section-header h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+.section-header h2 span {
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.see-all {
+  font-size: 13px;
+  color: var(--copper);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap 0.2s;
+}
+
+.see-all:hover { gap: 8px; }
+
+/* Destination Cards */
+.dest-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.dest-card {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.dest-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(11,39,64,0.18);
+}
+
+.dest-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.dest-card:hover img { transform: scale(1.06); }
+
+.dest-card .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(11,39,64,0.88) 0%, transparent 55%);
+}
+
+.dest-info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 18px;
+  color: var(--white);
+}
+
+.dest-tag {
+  display: inline-block;
+  background: var(--copper);
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+
+.dest-info h4 { font-size: 16px; font-weight: 700; }
+
+.dest-info p {
+  font-size: 12px;
+  opacity: 0.78;
+  margin-top: 2px;
+}
+
+/* ━━━━━━━━━━━  SERVICES ROW  ━━━━━━━━━━━ */
+.services-bg {
+  background: var(--navy);
+  padding: 60px 0;
+}
+
+.services-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.services-inner .section-header h2 { color: var(--white); }
+.services-inner .section-header h2 span { color: rgba(255,255,255,0.5); }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.srv-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  transition: background 0.25s, border-color 0.25s, transform 0.25s;
+  cursor: pointer;
+}
+
+.srv-card:hover {
+  background: rgba(184,115,51,0.12);
+  border-color: var(--border);
+  transform: translateY(-3px);
+}
+
+.srv-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, rgba(184,115,51,0.3), rgba(184,115,51,0.1));
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.srv-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.srv-card p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.58);
+  line-height: 1.8;
+}
+
+.srv-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  color: var(--copper-light);
+  font-weight: 600;
+  margin-top: 14px;
+  transition: gap 0.2s;
+}
+
+.srv-link:hover { gap: 9px; }
+
+/* ━━━━━━━━━━━  HOW IT WORKS  ━━━━━━━━━━━ */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.step {
+  text-align: center;
+  padding: 28px 20px;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  position: relative;
+  transition: transform 0.25s;
+}
+
+.step:hover { transform: translateY(-3px); }
+
+.step-num {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--copper), var(--copper-dark));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0 auto 16px;
+  box-shadow: 0 4px 16px var(--copper-glow);
+}
+
+.step h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.step p {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+/* connector line between steps */
+.steps-grid .step:not(:last-child)::after {
+  content: '←';
+  position: absolute;
+  top: 50%;
+  left: -14px;
+  transform: translateY(-50%);
+  color: var(--copper);
+  font-size: 18px;
+  opacity: 0.5;
+}
+
+/* ━━━━━━━━━━━  STATS STRIP  ━━━━━━━━━━━ */
+.stats-strip {
+  background: linear-gradient(90deg, var(--copper-dark), var(--copper), var(--copper-dark));
+  padding: 30px 24px;
+}
+
+.stats-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+
+.stat-item h3 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--white);
+}
+
+.stat-item p {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.75);
+  margin-top: 4px;
+}
+
+/* ━━━━━━━━━━━  TESTIMONIALS  ━━━━━━━━━━━ */
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.testi-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  border-top: 3px solid var(--copper);
+}
+
+.stars {
+  color: var(--copper);
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.testi-card p {
+  font-size: 13.5px;
+  color: var(--text-main);
+  line-height: 1.9;
+  margin-bottom: 16px;
+}
+
+.testi-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy-light), var(--navy));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.testi-author div h5 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.testi-author div p {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1;
+}
+
+/* ━━━━━━━━━━━  CTA BANNER  ━━━━━━━━━━━ */
+.cta-banner {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+  border-radius: var(--radius-lg);
+  padding: 50px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(11,39,64,0.15);
+}
+
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, var(--copper-glow) 0%, transparent 70%);
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cta-banner h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.cta-banner p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.68);
+  margin-bottom: 28px;
+}
+
+/* ━━━━━━━━━━━  FOOTER  ━━━━━━━━━━━ */
+footer {
+  background: #071e30;
+  color: rgba(255,255,255,0.65);
+  padding: 50px 24px 24px;
+}
+
+.footer-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.footer-brand .logo-text { font-size: 22px; color: white; }
+.footer-brand p {
+  font-size: 13px;
+  line-height: 1.9;
+  margin-top: 12px;
+  opacity: 0.6;
+}
+
+.footer-col h5 {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 14px;
+}
+
+.footer-col a {
+  display: block;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 9px;
+  transition: color 0.2s;
+}
+
+.footer-col a:hover { color: var(--copper-light); }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12.5px;
+}
+
+.footer-bottom a { color: var(--copper-light); }
+
+/* ━━━━━━━━━━━  RESPONSIVE  ━━━━━━━━━━━ */
+@media (max-width: 900px) {
+  .search-grid { grid-template-columns: 1fr 1fr; }
+  .search-btn { grid-column: 1 / -1; }
+  .dest-grid { grid-template-columns: 1fr 1fr; }
+  .services-grid { grid-template-columns: 1fr; }
+  .steps-grid { grid-template-columns: 1fr 1fr; }
+  .stats-inner { grid-template-columns: 1fr 1fr; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  nav { display: none; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 60px 20px 110px; }
+  .dest-grid { grid-template-columns: 1fr; }
+  .steps-grid { grid-template-columns: 1fr; }
+  .stats-inner { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .search-grid { grid-template-columns: 1fr; }
+  .header-inner { padding: 0 16px; }
+}
+
+/* ━━━━━━━━━━━  ANIMATIONS  ━━━━━━━━━━━ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-badge  { animation: fadeUp 0.5s ease both; }
+.hero h1     { animation: fadeUp 0.5s 0.1s ease both; }
+.hero p      { animation: fadeUp 0.5s 0.2s ease both; }
+.hero-btns   { animation: fadeUp 0.5s 0.3s ease both; }
+.search-card { animation: fadeUp 0.5s 0.4s ease both; }
 </style>
-
 </head>
-
 <body>
 
-<div class="topbar">
-  ✈️ سفر شخصی‌سازی شده — شما انتخاب می‌کنید چگونه سفر کنید
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar">
+  🎯 سفر شخصی‌سازی شده &nbsp;<span>|</span>&nbsp; ✅ بدون تور آماده &nbsp;<span>|</span>&nbsp; 📞 پشتیبانی ۲۴ ساعته &nbsp;<span>|</span>&nbsp; 🏆 بیش از ۱۲,۰۰۰ مسافر راضی
 </div>
 
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+
+    <div class="logo">
+      <div class="logo-mark">✈️</div>
+      <div class="logo-text">
+        سفرساز
+        <sub>SAFARAZ.IR</sub>
+      </div>
+    </div>
+
+    <nav>
+      <div class="nav-item active">مقصدها
+        <div class="dropdown">
+          <a href="#">اروپا</a>
+          <a href="#">آسیای جنوب شرقی</a>
+          <a href="#">خاورمیانه</a>
+          <a href="#">آمریکا</a>
+          <a href="#">آفریقا</a>
+        </div>
+      </div>
+      <div class="nav-item">خدمات
+        <div class="dropdown">
+          <a href="#">رزرو هتل</a>
+          <a href="#">بلیط هوایی</a>
+          <a href="#">ترانسفر فرودگاهی</a>
+          <a href="#">بیمه سفر</a>
+        </div>
+      </div>
+      <div class="nav-item">راهنمای سفر</div>
+      <div class="nav-item">درباره ما</div>
+      <div class="nav-item">تماس</div>
+    </nav>
+
+    <a class="header-cta" href="#">طراحی سفر رایگان ←</a>
+
+  </div>
+</header>
+
+<!-- HERO -->
 <div class="hero">
-  <h1>سفر را خودت طراحی کن</h1>
+  <div class="hero-badge">🌍 سفر به روش خودت</div>
+  <h1>سفرت را <em>خودت</em> طراحی کن</h1>
   <p>
-    دیگر تور آماده وجود ندارد.  
-    شما انتخاب می‌کنید کجا بروید، چه زمانی بروید و چگونه سفر کنید.
+    دیگر تور آماده وجود ندارد. شما انتخاب می‌کنید کجا بروید، چه زمانی و چگونه سفر کنید.
+    ما فقط اجرا می‌کنیم.
   </p>
-
-  <a class="btn" href="trip.html">شروع طراحی سفر</a>
+  <div class="hero-btns">
+    <a class="btn-primary" href="#">شروع طراحی سفر</a>
+    <a class="btn-outline" href="#">مشاوره رایگان</a>
+  </div>
 </div>
 
+<!-- SEARCH CARD -->
+<div class="search-wrap">
+  <div class="search-card">
+    <h3>جستجوی سفر دلخواه</h3>
+    <div class="search-grid">
+      <div class="field">
+        <label>مقصد سفر</label>
+        <input type="text" placeholder="مثلاً: استانبول، بالی، پاریس…" />
+      </div>
+      <div class="field">
+        <label>تاریخ رفت</label>
+        <input type="text" placeholder="تاریخ رفت" />
+      </div>
+      <div class="field">
+        <label>تاریخ برگشت</label>
+        <input type="text" placeholder="تاریخ برگشت" />
+      </div>
+      <div class="field">
+        <label>تعداد مسافر</label>
+        <select>
+          <option>۱ نفر</option>
+          <option>۲ نفر</option>
+          <option>۳ نفر</option>
+          <option>۴+ نفر</option>
+        </select>
+      </div>
+      <button class="search-btn">جستجو ←</button>
+    </div>
+  </div>
+</div>
+
+<!-- HOT DESTINATIONS -->
 <div class="section">
-  <div class="card">
+  <div class="section-header">
+    <h2>مقصدهای پرطرفدار
+      <span>انتخاب هزاران مسافر ایرانی</span>
+    </h2>
+    <a class="see-all" href="#">مشاهده همه →</a>
+  </div>
 
-    <h3>✨ امکانات سفرساز هوشمند</h3>
+  <div class="dest-grid">
 
-    <div class="grid">
-      <div class="item">📅 انتخاب تاریخ دقیق سفر</div>
-      <div class="item">📍 انتخاب مقصد دلخواه</div>
-      <div class="item">✈️ هوایی یا زمینی</div>
-      <div class="item">🏨 انتخاب هتل</div>
-      <div class="item">🚖 نوع ترانسفر</div>
-      <div class="item">👤 سفر کاملاً شخصی</div>
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=600&q=80" alt="استانبول" />
+      <div class="overlay"></div>
+      <div class="dest-info">
+        <div class="dest-tag">پرطرفدار</div>
+        <h4>استانبول</h4>
+        <p>ترکیه — ۲ ساعت پروازی</p>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600&q=80" alt="پاریس" />
+      <div class="overlay"></div>
+      <div class="dest-info">
+        <div class="dest-tag">اروپا</div>
+        <h4>پاریس</h4>
+        <p>فرانسه — ۶ ساعت پروازی</p>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&q=80" alt="بالی" />
+      <div class="overlay"></div>
+      <div class="dest-info">
+        <div class="dest-tag">آسیا</div>
+        <h4>بالی</h4>
+        <p>اندونزی — ۸ ساعت پروازی</p>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format&fit=crop&crop=center" alt="دبی" />
+      <div class="overlay"></div>
+      <div class="dest-info">
+        <div class="dest-tag">خاورمیانه</div>
+        <h4>دبی</h4>
+        <p>امارات — ۱.۵ ساعت پروازی</p>
+      </div>
     </div>
 
   </div>
 </div>
+
+<!-- SERVICES -->
+<div class="services-bg">
+  <div class="services-inner">
+    <div class="section-header">
+      <h2>خدمات سفرساز
+        <span>از مشاوره تا اجرا — همه چیز در یک جا</span>
+      </h2>
+      <a class="see-all" href="#" style="color:rgba(255,255,255,0.6)">مشاهده همه →</a>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="srv-card">
+        <div class="srv-icon">✈️</div>
+        <h4>بلیط هوایی</h4>
+        <p>رزرو بلیط چارتر و سیستمی به تمام مقصدهای جهان با بهترین قیمت و بدون واسطه</p>
+        <a class="srv-link" href="#">رزرو بلیط →</a>
+      </div>
+
+      <div class="srv-card">
+        <div class="srv-icon">🏨</div>
+        <h4>رزرو هتل</h4>
+        <p>انتخاب از بیش از ۵۰۰,۰۰۰ هتل در سراسر دنیا با قیمت تضمینی و بازپرداخت رایگان</p>
+        <a class="srv-link" href="#">رزرو هتل →</a>
+      </div>
+
+      <div class="srv-card">
+        <div class="srv-icon">🚖</div>
+        <h4>ترانسفر فرودگاهی</h4>
+        <p>سرویس خصوصی یا اشتراکی از فرودگاه تا هتل با راننده حرفه‌ای و خودرو مجهز</p>
+        <a class="srv-link" href="#">رزرو ترانسفر →</a>
+      </div>
+
+      <div class="srv-card">
+        <div class="srv-icon">📋</div>
+        <h4>برنامه‌ریزی سفر</h4>
+        <p>تیم متخصص ما یک برنامه دقیق روز به روز برای سفر شما طراحی می‌کند</p>
+        <a class="srv-link" href="#">شروع طراحی →</a>
+      </div>
+
+      <div class="srv-card">
+        <div class="srv-icon">🛡️</div>
+        <h4>بیمه مسافرتی</h4>
+        <p>پوشش کامل پزشکی، اشیاء قیمتی و لغو سفر با بیمه‌نامه معتبر بین‌المللی</p>
+        <a class="srv-link" href="#">خرید بیمه →</a>
+      </div>
+
+      <div class="srv-card">
+        <div class="srv-icon">🗺️</div>
+        <h4>تور گردشگری</h4>
+        <p>تورهای نیم‌روزه و روزانه با راهنمای فارسی‌زبان در مقصدهای پرطرفدار</p>
+        <a class="srv-link" href="#">انتخاب تور →</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <h3>۱۲,۴۰۰+</h3>
+      <p>مسافر راضی</p>
+    </div>
+    <div class="stat-item">
+      <h3>۸۵+</h3>
+      <p>مقصد در دسترس</p>
+    </div>
+    <div class="stat-item">
+      <h3>۹۸٪</h3>
+      <p>رضایت مشتریان</p>
+    </div>
+    <div class="stat-item">
+      <h3>۷ سال</h3>
+      <p>تجربه در صنعت سفر</p>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="section">
+  <div class="section-header">
+    <h2>چطور کار می‌کند؟
+      <span>در ۴ قدم ساده سفرت را بساز</span>
+    </h2>
+  </div>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">۱</div>
+      <h4>انتخاب مقصد</h4>
+      <p>از میان صدها مقصد دلخواه خود را انتخاب کن و تاریخ سفر را مشخص کن</p>
+    </div>
+    <div class="step">
+      <div class="step-num">۲</div>
+      <h4>طراحی برنامه</h4>
+      <p>کارشناس ما یک برنامه سفر شخصی‌سازی شده برای شما طراحی می‌کند</p>
+    </div>
+    <div class="step">
+      <div class="step-num">۳</div>
+      <h4>تأیید و پرداخت</h4>
+      <p>برنامه را بررسی و در صورت رضایت با خیال راحت پرداخت کنید</p>
+    </div>
+    <div class="step">
+      <div class="step-num">۴</div>
+      <h4>سفر لذت‌بخش</h4>
+      <p>تمام خدمات از قبل آماده است. فقط لازم است چمدان ببندی و بروی!</p>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="section" style="padding-top:0">
+  <div class="section-header">
+    <h2>نظر مسافران ما
+      <span>آنچه مشتریان می‌گویند</span>
+    </h2>
+  </div>
+  <div class="testi-grid">
+
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p>سفر به استانبول با سفرساز تجربه‌ای فوق‌العاده بود. برنامه دقیق، هتل عالی و ترانسفر به موقع. قطعاً دوباره استفاده می‌کنم.</p>
+      <div class="testi-author">
+        <div class="avatar">م</div>
+        <div>
+          <h5>محمد رضایی</h5>
+          <p>سفر به استانبول</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p>برای اولین بار بدون تور آماده سفر کردم. تیم سفرساز همه چیز را آماده کرده بود. احساس می‌کردم برای خودم سفر می‌کنم نه برای بقیه!</p>
+      <div class="testi-author">
+        <div class="avatar">س</div>
+        <div>
+          <h5>سارا احمدی</h5>
+          <p>سفر به بالی</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="stars">★★★★☆</div>
+      <p>سفر خانوادگی ۵ نفره به دبی را سفرساز برنامه‌ریزی کرد. همه چیز روان و بی‌دردسر بود. پشتیبانی ۲۴ ساعته خیلی کمک کرد.</p>
+      <div class="testi-author">
+        <div class="avatar">ع</div>
+        <div>
+          <h5>علی کریمی</h5>
+          <p>سفر خانوادگی به دبی</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CTA BANNER -->
+<div class="section" style="padding-top:0">
+  <div class="cta-banner">
+    <h2>آماده‌ای سفرت را بسازی؟</h2>
+    <p>همین الان با کارشناسان ما مشاوره رایگان بگیر و اولین قدم را بردار</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#">مشاوره رایگان ←</a>
+      <a class="btn-outline" href="#">مشاهده مقصدها</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-mark" style="width:32px;height:32px;font-size:14px;">✈️</div>
+          <div class="logo-text">سفرساز</div>
+        </div>
+        <p>سفرساز پلتفرم تخصصی طراحی سفر شخصی‌سازی‌شده برای ایرانیان است. ما معتقدیم هر سفر باید منحصربه‌فرد باشد.</p>
+      </div>
+
+      <div class="footer-col">
+        <h5>مقصدها</h5>
+        <a href="#">اروپا</a>
+        <a href="#">آسیای جنوب شرقی</a>
+        <a href="#">خاورمیانه</a>
+        <a href="#">آمریکا</a>
+        <a href="#">آفریقا</a>
+      </div>
+
+      <div class="footer-col">
+        <h5>خدمات</h5>
+        <a href="#">بلیط هوایی</a>
+        <a href="#">رزرو هتل</a>
+        <a href="#">ترانسفر</a>
+        <a href="#">بیمه مسافرتی</a>
+        <a href="#">تور گردشگری</a>
+      </div>
+
+      <div class="footer-col">
+        <h5>سفرساز</h5>
+        <a href="#">درباره ما</a>
+        <a href="#">تماس با ما</a>
+        <a href="#">مجله سفر</a>
+        <a href="#">قوانین و مقررات</a>
+        <a href="#">حریم خصوصی</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© ۱۴۰۳ سفرساز — تمامی حقوق محفوظ است</span>
+      <span>طراحی با ❤️ برای مسافران ایرانی</span>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>
