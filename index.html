@@ -1,4 +1,3 @@
-HTMLEOF'
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -58,7 +57,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 /* Animated canvas in header */
 .header-canvas{position:absolute;inset:0;pointer-events:none;opacity:1;}
 
-/* Decorative wave lines behind header */
+/* Decorative shrine lattice lines behind header */
 .header-wave-decor{
   position:absolute;inset:0;pointer-events:none;overflow:hidden;
 }
@@ -102,7 +101,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .hero-site-tagline em{font-style:normal;background:linear-gradient(90deg,#ffe084,var(--gold),#e8c97a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .hero-group-name{font-size:clamp(14px,2vw,16px);font-weight:500;color:rgba(255,255,255,.6);margin-top:4px;letter-spacing:.1em}
 
-/* NEW SLOGAN — no quotes, bold highlight */
 .hero-slogan-wrap{position:relative;display:inline-block;margin-bottom:24px;animation:fadeUp .55s .1s ease both;padding:28px 40px 22px;margin-top:12px}
 .hero-slogan-curve{position:absolute;inset:0;pointer-events:none;overflow:visible;}
 .hero-slogan{font-size:clamp(20px,3.6vw,34px);font-weight:800;color:#fff;line-height:1.6;max-width:680px;margin:0 auto;}
@@ -112,12 +110,8 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
   font-weight:800;
 }
 .hero-slogan .slogan-line2{
-  display:block;
-  font-size:.82em;
-  font-weight:600;
-  color:rgba(255,255,255,.72);
-  margin-top:6px;
-  letter-spacing:.01em;
+  display:block;font-size:.82em;font-weight:600;
+  color:rgba(255,255,255,.72);margin-top:6px;letter-spacing:.01em;
 }
 
 .hero-desc-box{max-width:640px;margin:0 auto 32px;background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(26,94,73,.12));border:1px solid rgba(201,168,76,.3);border-radius:16px;padding:18px 24px;animation:fadeUp .55s .17s ease both;backdrop-filter:blur(4px);position:relative;overflow:hidden}
@@ -136,6 +130,10 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 
 .hero-wave{display:block;line-height:0;background:var(--em)}
 .hero-wave svg{display:block;width:100%}
+
+/* ── BUILDER AREA (shown ABOVE landing content when active) ── */
+.page-body{background:var(--cream);position:relative;z-index:1}
+.page-body-inner{max-width:900px;margin:0 auto;padding:32px 22px 60px;display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
 
 /* ── LANDING CONTENT ── */
 .landing-content{background:var(--cream);padding:48px 22px 60px}
@@ -180,10 +178,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .faq-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
 .faq-item.open .faq-body{max-height:300px}
 .faq-answer{padding:4px 18px 16px;font-size:12.5px;color:var(--tm);line-height:1.9;border-right:3px solid var(--goldB);margin:0 18px 0 0}
-
-/* ── PAGE BODY (builder) ── */
-.page-body{background:var(--cream);position:relative;z-index:1}
-.page-body-inner{max-width:900px;margin:0 auto;padding:32px 22px 60px;display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
 
 /* STEP DRAWER */
 .step-drawer{background:var(--white);border-radius:var(--rL);border:1px solid rgba(201,168,76,.14);box-shadow:0 2px 18px rgba(13,59,46,.06);overflow:hidden;transition:var(--tr)}
@@ -365,7 +359,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .next-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(13,59,46,.3)}
 .next-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
 
-/* ── FINAL SUMMARY — simplified price display ── */
+/* ── FINAL SUMMARY ── */
 .final-compact-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
 .fdc{background:var(--cream);border:1px solid rgba(201,168,76,.17);border-radius:10px;padding:9px 12px}
 .fdc-label{font-size:9.5px;font-weight:700;letter-spacing:.05em;color:var(--ts);text-transform:uppercase;margin-bottom:3px}
@@ -392,7 +386,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .transfer-opt-label{font-size:11.5px;font-weight:600;color:var(--td)}
 .transfer-opt-sub{font-size:10px;color:var(--ts);margin-top:1px}
 
-/* extra services */
+/* extra services — OUTSIDE main price */
 .extra-services{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
 .extra-service-row{background:var(--white);border:1.5px solid rgba(201,168,76,.15);border-radius:11px;padding:10px 13px}
 .extra-service-header{display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -409,31 +403,30 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .extra-val{font-size:13px;font-weight:800;color:var(--em);min-width:26px;text-align:center}
 .extra-price-note{font-size:11px;color:var(--ts);margin-top:5px;padding:6px 10px;background:rgba(201,168,76,.07);border-radius:7px}
 
-/* ── SIMPLIFIED PRICE CARD ── */
+/* ── PRICE CARD ── */
 .price-reveal-card{background:linear-gradient(135deg,var(--em),var(--em3));border-radius:var(--rL);padding:22px;margin-top:0;box-shadow:0 8px 30px rgba(13,59,46,.18);border:1px solid rgba(201,168,76,.2);display:none}
 .price-reveal-card.visible{display:block;animation:fadeUp .4s ease both}
 
-/* Main price row */
+/* Main price — per person / pax / total */
 .price-main-row{display:flex;align-items:center;justify-content:space-between;padding:0 0 16px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:14px;gap:8px;flex-wrap:wrap;}
 .price-main-item{text-align:center;flex:1;min-width:80px}
 .price-main-label{font-size:10px;color:rgba(255,255,255,.45);margin-bottom:4px;letter-spacing:.04em}
 .price-main-value{font-size:clamp(15px,2.5vw,20px);font-weight:800;color:var(--goldL);line-height:1.2}
 .price-main-divider{width:1px;height:40px;background:rgba(255,255,255,.12);flex-shrink:0}
-.price-total-highlight{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:12px;padding:12px 16px;text-align:center;margin-bottom:14px}
-.price-total-label{font-size:10px;color:rgba(255,255,255,.52);margin-bottom:4px}
-.price-total-amount{font-size:clamp(22px,4vw,30px);font-weight:800;color:var(--goldL)}
 
-/* Details toggle */
-.price-details-toggle{display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;color:rgba(255,255,255,.5);font-size:11px;font-weight:600;margin-bottom:0;transition:color .2s;background:none;border:none;font-family:"Vazirmatn",sans-serif;width:100%;padding:4px 0;}
-.price-details-toggle:hover{color:rgba(255,255,255,.75)}
-.price-details-toggle .chevron{transition:transform .3s;display:inline-block}
-.price-details-toggle.open .chevron{transform:rotate(180deg)}
-.price-breakdown{display:none;margin-top:10px;border-top:1px solid rgba(255,255,255,.07);padding-top:10px}
-.price-breakdown.show{display:block}
-.price-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:11px}
-.price-row:last-child{border-bottom:none}
-.price-row .lbl{color:rgba(255,255,255,.45)}
-.price-row .val{color:var(--goldL);font-weight:600}
+/* Extras row — sim card + dinars shown SEPARATELY outside trip total */
+.price-extras-row{background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.18);border-radius:10px;padding:10px 14px;margin-bottom:14px;display:none}
+.price-extras-row.show{display:block}
+.price-extras-title{font-size:10px;color:rgba(255,255,255,.4);font-weight:700;letter-spacing:.05em;margin-bottom:8px}
+.price-extra-line{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.price-extra-line:last-child{border-bottom:none}
+.price-extra-line .lbl{color:rgba(255,255,255,.55)}
+.price-extra-line .val{color:var(--goldL);font-weight:700}
+
+.price-trip-total{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:12px;padding:12px 16px;text-align:center;margin-bottom:14px}
+.price-trip-label{font-size:10px;color:rgba(255,255,255,.52);margin-bottom:4px}
+.price-trip-amount{font-size:clamp(22px,4vw,30px);font-weight:800;color:var(--goldL)}
+.price-trip-note{font-size:9.5px;color:rgba(255,255,255,.35);margin-top:3px}
 
 .edit-trip-btn{margin-top:14px;display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.72);font-family:"Vazirmatn",sans-serif;font-size:11.5px;font-weight:600;padding:7px 18px;border-radius:100px;border:1px solid rgba(255,255,255,.17);cursor:pointer;transition:var(--tr)}
 .edit-trip-btn:hover{background:rgba(255,255,255,.17)}
@@ -485,7 +478,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .success-body{font-size:12.5px;color:var(--tm);line-height:1.9}
 .success-code{display:inline-block;margin-top:12px;padding:6px 16px;background:var(--goldP);border:1px solid var(--goldB);border-radius:100px;font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.08em}
 
-/* ── FOOTER — simplified ── */
+/* ── FOOTER ── */
 .site-footer{
   background:linear-gradient(170deg,var(--em) 0%,#0b3026 100%);
   border-top:1px solid var(--goldB);
@@ -498,46 +491,19 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
   pointer-events:none;
 }
 .footer-inner{max-width:900px;margin:0 auto;position:relative}
-
-/* Offices: two side by side */
-.footer-offices{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:0;
-  border:1px solid rgba(201,168,76,.18);
-  border-radius:14px;
-  overflow:hidden;
-  margin-bottom:20px;
-}
-.footer-office-block{
-  padding:14px 16px;
-  display:flex;
-  flex-direction:column;
-  gap:5px;
-}
-.footer-office-block:first-child{
-  border-left:1px solid rgba(201,168,76,.18);
-}
-.footer-office-title{
-  font-size:11px;font-weight:800;color:var(--goldL);
-  display:flex;align-items:center;gap:5px;
-  margin-bottom:2px;
-}
+.footer-offices{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(201,168,76,.18);border-radius:14px;overflow:hidden;margin-bottom:20px;}
+.footer-office-block{padding:14px 16px;display:flex;flex-direction:column;gap:5px;}
+.footer-office-block:first-child{border-left:1px solid rgba(201,168,76,.18);}
+.footer-office-title{font-size:11px;font-weight:800;color:var(--goldL);display:flex;align-items:center;gap:5px;margin-bottom:2px;}
 .footer-office-title svg{width:13px;height:13px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .footer-office-addr{font-size:11px;color:rgba(255,255,255,.5);line-height:1.7}
-
-/* Big phone */
 .footer-big-phone{text-align:center;padding:16px 0;border-top:1px solid rgba(201,168,76,.14);border-bottom:1px solid rgba(201,168,76,.14);margin-bottom:18px;}
 .footer-big-phone-label{font-size:10px;font-weight:600;color:rgba(255,255,255,.34);letter-spacing:.08em;margin-bottom:5px}
 .footer-big-phone-num{font-size:clamp(22px,4vw,30px);font-weight:800;color:var(--goldL);letter-spacing:.06em;direction:ltr;font-style:italic;text-shadow:0 2px 14px rgba(201,168,76,.3);}
-
-/* Social */
 .footer-social{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:18px;}
 .social-btn{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;transition:var(--tr);border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.06);color:var(--goldL);cursor:pointer;text-decoration:none;}
 .social-btn:hover{transform:translateY(-3px);background:rgba(201,168,76,.15);border-color:var(--gold);}
 .social-btn svg{width:19px;height:19px;fill:currentColor;}
-
-/* Bottom bar */
 .footer-divider{width:100%;height:1px;background:rgba(201,168,76,.14);margin:0 0 14px;}
 .footer-bottom{display:flex;align-items:center;justify-content:space-between;}
 .footer-logo{font-size:13px;font-weight:800;color:var(--goldL)}
@@ -574,22 +540,19 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 </head>
 <body>
 
-<!-- ── FLOATING CTA BUTTON ── -->
+<!-- ── FLOATING CTA ── -->
 <div class="floating-cta" id="floatingCta">
   <div class="floating-cta-pulse"></div>
   <button class="floating-cta-btn" onclick="startBuilder()">
-    <span>✦</span>
-    طراحی سفر زیارتی من
+    <span>✦</span>طراحی سفر زیارتی من
   </button>
 </div>
 
-<!-- ── FLOATING SUPPORT (Bale) ── -->
+<!-- ── FLOATING SUPPORT ── -->
 <div class="floating-support">
-  <a class="support-btn" href="https://bale.ai/avanatabat" target="_blank" rel="noopener" title="پشتیبانی در بله">
+  <a class="support-btn" href="https://bale.ai/avanatabat" target="_blank" rel="noopener">
     <div class="support-pulse"></div>
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.98-1.418A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.95 7.95 0 01-4.073-1.118l-.291-.174-3.018.86.876-2.943-.19-.302A7.95 7.95 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8zm4.406-5.845c-.242-.121-1.43-.705-1.652-.786-.222-.08-.383-.12-.545.121-.161.242-.626.786-.767.947-.14.161-.282.182-.524.06-.242-.12-1.022-.376-1.946-1.199-.719-.641-1.204-1.433-1.346-1.674-.14-.242-.015-.373.107-.493.11-.109.242-.282.363-.424.12-.14.161-.242.242-.403.08-.161.04-.303-.02-.424-.061-.12-.545-1.313-.747-1.797-.197-.472-.397-.407-.545-.415l-.464-.008a.888.888 0 00-.646.303c-.222.242-.847.828-.847 2.02s.868 2.343.988 2.505c.121.161 1.71 2.611 4.14 3.66.58.25 1.032.399 1.385.511.582.185 1.112.159 1.53.097.467-.07 1.43-.585 1.632-1.15.201-.565.201-1.048.14-1.15-.06-.1-.222-.161-.464-.282z"/>
-    </svg>
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.98-1.418A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.95 7.95 0 01-4.073-1.118l-.291-.174-3.018.86.876-2.943-.19-.302A7.95 7.95 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8zm4.406-5.845c-.242-.121-1.43-.705-1.652-.786-.222-.08-.383-.12-.545.121-.161.242-.626.786-.767.947-.14.161-.282.182-.524.06-.242-.12-1.022-.376-1.946-1.199-.719-.641-1.204-1.433-1.346-1.674-.14-.242-.015-.373.107-.493.11-.109.242-.282.363-.424.12-.14.161-.242.242-.403.08-.161.04-.303-.02-.424-.061-.12-.545-1.313-.747-1.797-.197-.472-.397-.407-.545-.415l-.464-.008a.888.888 0 00-.646.303c-.222.242-.847.828-.847 2.02s.868 2.343.988 2.505c.121.161 1.71 2.611 4.14 3.66.58.25 1.032.399 1.385.511.582.185 1.112.159 1.53.097.467-.07 1.43-.585 1.632-1.15.201-.565.201-1.048.14-1.15-.06-.1-.222-.161-.464-.282z"/></svg>
   </a>
   <div class="support-label">پشتیبانی بله</div>
 </div>
@@ -606,8 +569,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
       ۴. شهرهای زیارتی مورد نظر را به ترتیب سفر انتخاب کنید.<br/>
       ۵. برای هر شهر تعداد شب، درجه هتل و خدمات غذایی را تنظیم کنید.<br/>
       ۶. هزینه تخمینی را مشاهده و در صورت تمایل اصلاح کنید.<br/>
-      ۷. اطلاعات مسافران را ثبت و درخواست خود را نهایی کنید.<br/><br/>
-      <strong>پشتیبانی:</strong> کارشناسان ما در کوتاه‌ترین زمان با شما تماس خواهند گرفت.
+      ۷. اطلاعات مسافران را ثبت و درخواست خود را نهایی کنید.
     </div>
   </div>
 </div>
@@ -626,13 +588,11 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
     <div class="nav-modal-head"><div class="nav-modal-title">🕌 درباره ما</div><button class="nav-modal-close" onclick="closeModalDirect('about')">✕</button></div>
     <div class="nav-modal-body">
       <strong>گروه زیارتی آوان — مرجع تخصصی سفرهای زیارتی انفرادی</strong><br/><br/>
-      ما با بیش از ۱۵ سال تجربه در برگزاری سفرهای زیارتی به عراق، با رویکردی متفاوت خدمت‌رسانی می‌کنیم. برخلاف کاروان‌های عمومی، سفر شما کاملاً شخصی‌سازی‌شده و بر اساس انتخاب‌های شماست.<br/><br/>
+      بیش از ۱۵ سال تجربه در برگزاری سفرهای زیارتی به عراق.<br/><br/>
       <strong>تخصص ما:</strong><br/>
       • سفرهای انفرادی و گروه‌های کوچک (۱ تا ۴ نفر)<br/>
       • مدیریت کامل از درب منزل تا بازگشت<br/>
-      • اقامت در هتل‌های نزدیک حرم با تمام درجات<br/>
-      • پشتیبانی ۲۴ ساعته در مسیر<br/><br/>
-      <strong>مجوزها:</strong> دارای مجوز رسمی از سازمان میراث فرهنگی، صنایع دستی و گردشگری ایران
+      • پشتیبانی ۲۴ ساعته در مسیر
     </div>
   </div>
 </div>
@@ -640,6 +600,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 <!-- HEADER -->
 <header class="site-header">
   <div class="header-wave-decor"></div>
+  <!-- Beautiful shrine lattice SVG canvas -->
   <canvas class="header-canvas" id="headerCanvas"></canvas>
   <div class="header-inner">
     <div class="logo-area">
@@ -664,7 +625,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
       </div>
     </div>
     <nav class="header-nav">
-      <a class="nav-btn" href="#" onclick="goHome(event)" title="خانه">
+      <a class="nav-btn" href="#" onclick="goHome(event)">
         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <span>خانه</span>
       </a>
@@ -688,24 +649,15 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 <section class="hero" id="heroSection">
   <div class="hero-glow"></div>
   <div class="hero-shrine-bg">
-    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M100 10L100 30" stroke="#c9a84c" stroke-width="2"/>
-      <circle cx="100" cy="8" r="4" fill="#c9a84c"/>
-      <path d="M60 60Q100 20 140 60L145 110Q100 130 55 110Z" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
-      <path d="M70 110L70 165L130 165L130 110" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
-      <rect x="85" y="130" width="30" height="35" rx="3" stroke="#c9a84c" stroke-width="1.2" fill="none"/>
-      <line x1="40" y1="165" x2="160" y2="165" stroke="#c9a84c" stroke-width="1.5"/>
-    </svg>
+    <svg viewBox="0 0 200 200" fill="none"><path d="M100 10L100 30" stroke="#c9a84c" stroke-width="2"/><circle cx="100" cy="8" r="4" fill="#c9a84c"/><path d="M60 60Q100 20 140 60L145 110Q100 130 55 110Z" stroke="#c9a84c" stroke-width="1.5" fill="none"/><path d="M70 110L70 165L130 165L130 110" stroke="#c9a84c" stroke-width="1.5" fill="none"/><rect x="85" y="130" width="30" height="35" rx="3" stroke="#c9a84c" stroke-width="1.2" fill="none"/><line x1="40" y1="165" x2="160" y2="165" stroke="#c9a84c" stroke-width="1.5"/></svg>
   </div>
-
   <div class="hero-site-name">
     <div class="hero-badge" style="margin-bottom:16px">✦ زیارت، به انتخاب شما</div>
     <div class="hero-site-tagline">گروه زیارتی <em>آوان</em></div>
     <div class="hero-group-name">مرجع تخصصی سفرهای زیارتی انفرادی</div>
   </div>
-
   <div class="hero-slogan-wrap">
-    <svg class="hero-slogan-curve" viewBox="0 0 520 130" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <svg class="hero-slogan-curve" viewBox="0 0 520 130" fill="none" preserveAspectRatio="none">
       <circle cx="260" cy="6" r="3" fill="#c9a84c" opacity=".3"/>
       <path d="M100 90 Q130 28 260 18 Q390 28 420 90" stroke="#c9a84c" stroke-width="1" fill="none" opacity=".18" stroke-dasharray="4 3"/>
       <line x1="60" y1="120" x2="460" y2="120" stroke="#c9a84c" stroke-width="1" opacity=".12"/>
@@ -715,13 +667,11 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
       <span class="slogan-line2">نه یک کاروان از پیش تعیین‌شده</span>
     </div>
   </div>
-
   <div class="hero-desc-box">
     <div class="hero-desc-text">سفر زیارتی عتبات عالیات را مطابق با زمان، بودجه و ترجیحات خود تجربه کنید. در این شیوه، به برنامه‌های ثابت کاروانی محدود نیستید و زمان سفر، مدت اقامت و محل اسکان بر اساس انتخاب شما تنظیم می‌شود.
 
 ما از برنامه‌ریزی سفر تا پشتیبانی در شهرهای زیارتی عراق، همراه شما هستیم تا با آرامش و اطمینان بیشتری بر زیارت و معنویت سفر خود تمرکز کنید</div>
   </div>
-
   <div class="hero-start-wrap" id="heroStartWrap">
     <button class="hero-start-btn" onclick="startBuilder()">
       <div class="start-btn-icon">✦</div>
@@ -733,52 +683,9 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
   </div>
 </section>
 
-<div class="hero-wave"><svg viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 C360,54 1080,0 1440,36 L1440,54 L0,54 Z" fill="#f9f5ee"/></svg></div>
+<div class="hero-wave"><svg viewBox="0 0 1440 54" preserveAspectRatio="none"><path d="M0,0 C360,54 1080,0 1440,36 L1440,54 L0,54 Z" fill="#f9f5ee"/></svg></div>
 
-<!-- LANDING CONTENT: journey steps + FAQ -->
-<div class="landing-content" id="landingContent">
-  <div class="landing-inner">
-    <div class="journey-chart-section">
-      <div class="section-heading"><h2>مراحل طراحی سفر شما</h2><p>پنج گام ساده — روی هر مرحله کلیک کنید</p></div>
-      <div class="journey-cards-stack">
-        <div class="jcard" id="jcard1" onclick="togJcard('jcard1')">
-          <div class="jcard-head"><div class="jcard-num">۱</div><div class="jcard-meta"><div class="jcard-title">تاریخ، مبدا و مسافران</div><div class="jcard-preview">تاریخ اعزام، شهر مبدا و تعداد نفرات</div></div><div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg></div><div class="jcard-chevron">▼</div></div>
-          <div class="jcard-body"><div class="jcard-desc">تاریخ اعزام دلخواه خود را از تقویم انتخاب کنید. سپس شهر مبدا و تعداد مسافران (۱ تا ۴ نفر) را مشخص کنید. <strong>این گام پایه برنامه‌ریزی کامل سفر شماست.</strong></div></div>
-        </div>
-        <div class="jcard" id="jcard2" onclick="togJcard('jcard2')">
-          <div class="jcard-head"><div class="jcard-num">۲</div><div class="jcard-meta"><div class="jcard-title">نوع سفر</div><div class="jcard-preview">هوایی، زمینی یا ترکیبی</div></div><div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 17l5-3 3 2 5-4 5 3"/></svg></div><div class="jcard-chevron">▼</div></div>
-          <div class="jcard-body"><div class="jcard-desc"><strong>هوایی:</strong> سریع‌ترین روش. <strong>زمینی:</strong> اقتصادی‌تر. <strong>ترکیبی:</strong> رفت با هواپیما، برگشت با اتوبوس.</div></div>
-        </div>
-        <div class="jcard" id="jcard3" onclick="togJcard('jcard3')">
-          <div class="jcard-head"><div class="jcard-num">۳</div><div class="jcard-meta"><div class="jcard-title">انتخاب شهرهای زیارتی</div><div class="jcard-preview">کربلا، نجف، کاظمین و سامرا</div></div><div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div><div class="jcard-chevron">▼</div></div>
-          <div class="jcard-body"><div class="jcard-desc">شهرهای زیارتی را به <strong>ترتیب دلخواه سفر</strong> انتخاب کنید.</div></div>
-        </div>
-        <div class="jcard" id="jcard4" onclick="togJcard('jcard4')">
-          <div class="jcard-head"><div class="jcard-num">۴</div><div class="jcard-meta"><div class="jcard-title">هتل و تنظیمات اقامت</div><div class="jcard-preview">درجه هتل، شب اقامت و وعده‌های غذایی</div></div><div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="jcard-chevron">▼</div></div>
-          <div class="jcard-body"><div class="jcard-desc">برای هر شهر: <strong>تعداد شب</strong>، <strong>درجه هتل</strong> و <strong>وعده غذایی</strong> را تنظیم کنید.</div></div>
-        </div>
-        <div class="jcard" id="jcard5" onclick="togJcard('jcard5')">
-          <div class="jcard-head"><div class="jcard-num">۵</div><div class="jcard-meta"><div class="jcard-title">تأیید، هزینه و ثبت‌نام</div><div class="jcard-preview">هزینه دقیق + ثبت اطلاعات مسافران</div></div><div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="8 12 11 15 16 9"/></svg></div><div class="jcard-chevron">▼</div></div>
-          <div class="jcard-body"><div class="jcard-desc">هزینه تخمینی <strong>از درب منزل تا بازگشت</strong> نمایش داده می‌شود. پس از تأیید، کارشناس ما ظرف ۲ ساعت تماس می‌گیرد.</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- FAQ -->
-    <div class="faq-section" id="faqSection">
-      <div class="section-heading"><h2>سؤالات متداول</h2><p>پاسخ سؤالات رایج زائران</p></div>
-      <div class="faq-list">
-        <div class="faq-item" id="faq1"><div class="faq-head" onclick="togFaq('faq1')"><div class="faq-q-icon">؟</div><div class="faq-q-text">آیا می‌توانم تعداد کمتر از ۴ نفر سفر کنم؟</div><div class="faq-chevron">▼</div></div><div class="faq-body"><div class="faq-answer">بله، این سامانه برای سفرهای انفرادی (۱ نفر) تا گروه‌های ۴ نفره طراحی شده است.</div></div></div>
-        <div class="faq-item" id="faq2"><div class="faq-head" onclick="togFaq('faq2')"><div class="faq-q-icon">؟</div><div class="faq-q-text">هزینه تخمینی چه مواردی را شامل می‌شود؟</div><div class="faq-chevron">▼</div></div><div class="faq-body"><div class="faq-answer">ترانسفر از درب منزل، بلیط رفت و برگشت، اقامت، وعده‌های غذایی و خدمات راهنما و پشتیبانی.</div></div></div>
-        <div class="faq-item" id="faq3"><div class="faq-head" onclick="togFaq('faq3')"><div class="faq-q-icon">؟</div><div class="faq-q-text">مدارک لازم برای سفر به عراق چیست؟</div><div class="faq-chevron">▼</div></div><div class="faq-body"><div class="faq-answer">گذرنامه با حداقل ۶ ماه اعتبار. برای برخی مسیرهای زمینی کارت ملی هوشمند کافی است.</div></div></div>
-        <div class="faq-item" id="faq4"><div class="faq-head" onclick="togFaq('faq4')"><div class="faq-q-icon">؟</div><div class="faq-q-text">آیا امکان تغییر تاریخ پس از ثبت وجود دارد؟</div><div class="faq-chevron">▼</div></div><div class="faq-body"><div class="faq-answer">بله، تا ۷۲ ساعت قبل از اعزام امکان تغییر وجود دارد.</div></div></div>
-        <div class="faq-item" id="faq5"><div class="faq-head" onclick="togFaq('faq5')"><div class="faq-q-icon">؟</div><div class="faq-q-text">پس از ثبت‌نام آنلاین، مراحل بعدی چیست؟</div><div class="faq-chevron">▼</div></div><div class="faq-body"><div class="faq-answer">کارشناس ما ظرف ۲ ساعت تماس می‌گیرد، هزینه تأیید می‌شود و برنامه سفر ایمیل می‌شود.</div></div></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PAGE BODY (builder) — shown after clicking start -->
+<!-- ═══ BUILDER AREA — shown FIRST, above landing content ═══ -->
 <div class="page-body" id="builderArea" style="display:none">
 <div class="page-body-inner">
 
@@ -937,13 +844,25 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
             <div class="transfer-opt" id="topt_self" onclick="selTransferOpt('self')"><div class="transfer-opt-radio"></div><div><div class="transfer-opt-label">خودم حاضر می‌شوم</div><div class="transfer-opt-sub">هزینه ترانسفر داخلی کسر می‌شود</div></div></div>
           </div>
         </div>
+
+        <!-- Extra services — shown OUTSIDE main price total -->
         <div class="extra-services">
           <div class="extra-service-row">
-            <div class="extra-service-header"><div class="extra-service-icon">📱</div><div><div class="extra-service-title">سیم‌کارت عراقی</div><div class="extra-service-sub">۴۵,۰۰۰ تومان / نفر</div></div><label class="toggle-switch"><input type="checkbox" id="simToggle" onchange="toggleSimCard(this.checked)"/><div class="toggle-track"></div></label></div>
-            <div class="extra-service-body" id="simCardBody"><div class="extra-price-note">سیم‌کارت عراقی یک روز قبل از سفر تحویل داده می‌شود.</div></div>
+            <div class="extra-service-header">
+              <div class="extra-service-icon">📱</div>
+              <div><div class="extra-service-title">سیم‌کارت عراقی</div><div class="extra-service-sub">۴۵,۰۰۰ تومان / نفر — <strong style="color:#c9a84c">جداگانه از هزینه سفر</strong></div></div>
+              <label class="toggle-switch"><input type="checkbox" id="simToggle" onchange="toggleSimCard(this.checked)"/><div class="toggle-track"></div></label>
+            </div>
+            <div class="extra-service-body" id="simCardBody">
+              <div class="extra-price-note">سیم‌کارت عراقی یک روز قبل از سفر تحویل داده می‌شود. این هزینه به صورت جداگانه در صورت‌حساب نهایی نمایش می‌یابد.</div>
+            </div>
           </div>
           <div class="extra-service-row">
-            <div class="extra-service-header"><div class="extra-service-icon">💵</div><div><div class="extra-service-title">ارز دینار عراقی</div><div class="extra-service-sub">نرخ رسمی روز</div></div><label class="toggle-switch"><input type="checkbox" id="dinarsToggle" onchange="toggleDinars(this.checked)"/><div class="toggle-track"></div></label></div>
+            <div class="extra-service-header">
+              <div class="extra-service-icon">💵</div>
+              <div><div class="extra-service-title">ارز دینار عراقی</div><div class="extra-service-sub">نرخ رسمی روز — <strong style="color:#c9a84c">جداگانه از هزینه سفر</strong></div></div>
+              <label class="toggle-switch"><input type="checkbox" id="dinarsToggle" onchange="toggleDinars(this.checked)"/><div class="toggle-track"></div></label>
+            </div>
             <div class="extra-service-body" id="dinarsBody">
               <div class="extra-qty-row"><div class="extra-qty-label">مقدار (هزار دینار)</div><div class="extra-stepper"><button class="extra-btn" onclick="changeDinars(-1)">−</button><div class="extra-val" id="dinarsVal">۱</div><button class="extra-btn" onclick="changeDinars(1)">+</button></div></div>
               <div class="extra-price-note" id="dinarsNote">۱ هزار دینار — معادل تقریبی: ۳۷,۰۰۰ تومان</div>
@@ -951,12 +870,11 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
           </div>
         </div>
 
-        <!-- SIMPLIFIED PRICE CARD -->
+        <!-- PRICE CARD — trip total without extras, extras shown separately -->
         <div class="price-reveal-card" id="priceCard">
-          <!-- Three main numbers -->
           <div class="price-main-row">
             <div class="price-main-item">
-              <div class="price-main-label">هزینه هر نفر</div>
+              <div class="price-main-label">هزینه سفر — هر نفر</div>
               <div class="price-main-value" id="pricePerPerson">—</div>
             </div>
             <div class="price-main-divider"></div>
@@ -966,16 +884,22 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
             </div>
             <div class="price-main-divider"></div>
             <div class="price-main-item">
-              <div class="price-main-label">جمع کل</div>
+              <div class="price-main-label">جمع هزینه سفر</div>
               <div class="price-main-value" id="priceTotal">—</div>
             </div>
           </div>
 
-          <!-- Details toggle -->
-          <button class="price-details-toggle" id="priceDetailsToggle" onclick="togglePriceDetails()">
-            جزئیات هزینه <span class="chevron">▼</span>
-          </button>
-          <div class="price-breakdown" id="priceBreakdown"></div>
+          <!-- extras shown separately -->
+          <div class="price-extras-row" id="priceExtrasRow">
+            <div class="price-extras-title">خدمات اضافی — جداگانه از هزینه سفر</div>
+            <div id="priceExtrasLines"></div>
+          </div>
+
+          <div class="price-trip-total">
+            <div class="price-trip-label">جمع کل هزینه سفر (بدون خدمات اضافی)</div>
+            <div class="price-trip-amount" id="priceTripTotal">—</div>
+            <div class="price-trip-note">سیم‌کارت و ارز به‌صورت جداگانه در بالا نمایش داده شده‌اند</div>
+          </div>
 
           <button class="edit-trip-btn" onclick="editTrip()">✏️ ویرایش سفر</button>
         </div>
@@ -1008,54 +932,73 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 </div>
 </div>
 
-<!-- FOOTER — simplified -->
+<!-- LANDING CONTENT: journey steps + FAQ -->
+<div class="landing-content" id="landingContent">
+  <div class="landing-inner">
+    <div class="journey-chart-section">
+      <div class="section-heading"><h2>مراحل طراحی سفر شما</h2><p>پنج گام ساده — روی هر مرحله کلیک کنید</p></div>
+      <div class="journey-cards-stack">
+        <div class="jcard" id="jcard1" onclick="togJcard('jcard1')">
+          <div class="jcard-head"><div class="jcard-num">۱</div><div class="jcard-meta"><div class="jcard-title">تاریخ، مبدا و مسافران</div><div class="jcard-preview">تاریخ اعزام، شهر مبدا و تعداد نفرات</div></div><div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg></div><div class="jcard-chevron">▼</div></div>
+          <div class="jcard-body"><div class="jcard-desc">تاریخ اعزام دلخواه خود را از تقویم انتخاب کنید. سپس شهر مبدا و تعداد مسافران (۱ تا ۴ نفر) را مشخص کنید. <strong>این گام پایه برنامه‌ریزی کامل سفر شماست.</strong></div></div>
+        </div>
+        <div class="jcard" id="jcard2" onclick="togJcard('jcard2')">
+          <div class="jcard-head"><div class="jcard-num">۲</div><div class="jcard-meta"><div class="jcard-title">نوع سفر</div><div class="jcard-preview">هوایی، زمینی یا ترکیبی</div></div><div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 17l5-3 3 2 5-4 5 3"/></svg></div><div class="jcard-chevron">▼</div></div>
+          <div class="jcard-body"><div class="jcard-desc"><strong>هوایی:</strong> سریع‌ترین روش. <strong>زمینی:</strong> اقتصادی‌تر. <strong>ترکیبی:</strong> رفت با هواپیما، برگشت با اتوبوس.</div></div>
+        </div>
+        <div class="jcard" id="jcard3" onclick="togJcard('jcard3')">
+          <div class="jcard-head"><div class="jcard-num">۳</div><div class="jcard-meta"><div class="jcard-title">انتخاب شهرهای زیارتی</div><div class="jcard-preview">کربلا، نجف، کاظمین و سامرا</div></div><div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div><div class="jcard-chevron">▼</div></div>
+          <div class="jcard-body"><div class="jcard-desc">شهرهای زیارتی را به <strong>ترتیب دلخواه سفر</strong> انتخاب کنید.</div></div>
+        </div>
+        <div class="jcard" id="jcard4" onclick="togJcard('jcard4')">
+          <div class="jcard-head"><div class="jcard-num">۴</div><div class="jcard-meta"><div class="jcard-title">هتل و تنظیمات اقامت</div><div class="jcard-preview">درجه هتل، شب اقامت و وعده‌های غذایی</div></div><div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="jcard-chevron">▼</div></div>
+          <div class="jcard-body"><div class="jcard-desc">برای هر شهر: <strong>تعداد شب</strong>، <strong>درجه هتل</strong> و <strong>وعده غذایی</strong> را تنظیم کنید.</div></div>
+        </div>
+        <div class="jcard" id="jcard5" onclick="togJcard('jcard5')">
+          <div class="jcard-head"><div class="jcard-num">۵</div><div class="jcard-meta"><div class="jcard-title">تأیید، هزینه و ثبت‌نام</div><div class="jcard-preview">هزینه دقیق + ثبت اطلاعات مسافران</div></div><div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="8 12 11 15 16 9"/></svg></div><div class="jcard-chevron">▼</div></div>
+          <div class="jcard-body"><div class="jcard-desc">هزینه تخمینی <strong>از درب منزل تا بازگشت</strong> نمایش داده می‌شود. پس از تأیید، کارشناس ما ظرف ۲ ساعت تماس می‌گیرد.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="faq-section" id="faqSection">
+      <div class="section-heading"><h2>سؤالات متداول</h2><p>پاسخ سؤالات رایج زائران</p></div>
+      <div class="faq-list">
+        <div class="faq-item" id="faq1"><div class="faq-head" onclick="togFaq('faq1')"><div class="faq-q-icon">؟</div><div class="faq-q-text">آیا می‌توانم تعداد کمتر از ۴ نفر سفر کنم؟</div><div class="faq-chevron">▼</div></div><div class="faq-body"><div class="faq-answer">بله، این سامانه برای سفرهای انفرادی (۱ نفر) تا گروه‌های ۴ نفره طراحی شده است.</div></div></div>
+        <div class="faq-item" id="faq2"><div class="faq-head" onclick="togFaq('faq2')"><div class="faq-q-icon">؟</div><div class="faq-q-text">هزینه تخمینی چه مواردی را شامل می‌شود؟</div><div class="faq-chevron">▼</div></div><div class="faq-body"><div class="faq-answer">ترانسفر از درب منزل، بلیط رفت و برگشت، اقامت، وعده‌های غذایی و خدمات راهنما و پشتیبانی. سیم‌کارت عراقی و ارز دینار به‌صورت جداگانه محاسبه می‌شوند.</div></div></div>
+        <div class="faq-item" id="faq3"><div class="faq-head" onclick="togFaq('faq3')"><div class="faq-q-icon">؟</div><div class="faq-q-text">مدارک لازم برای سفر به عراق چیست؟</div><div class="faq-chevron">▼</div></div><div class="faq-body"><div class="faq-answer">گذرنامه با حداقل ۶ ماه اعتبار. برای برخی مسیرهای زمینی کارت ملی هوشمند کافی است.</div></div></div>
+        <div class="faq-item" id="faq4"><div class="faq-head" onclick="togFaq('faq4')"><div class="faq-q-icon">؟</div><div class="faq-q-text">آیا امکان تغییر تاریخ پس از ثبت وجود دارد؟</div><div class="faq-chevron">▼</div></div><div class="faq-body"><div class="faq-answer">بله، تا ۷۲ ساعت قبل از اعزام امکان تغییر وجود دارد.</div></div></div>
+        <div class="faq-item" id="faq5"><div class="faq-head" onclick="togFaq('faq5')"><div class="faq-q-icon">؟</div><div class="faq-q-text">پس از ثبت‌نام آنلاین، مراحل بعدی چیست؟</div><div class="faq-chevron">▼</div></div><div class="faq-body"><div class="faq-answer">کارشناس ما ظرف ۲ ساعت تماس می‌گیرد، هزینه تأیید می‌شود و برنامه سفر ایمیل می‌شود.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-inner">
-
-    <!-- Two offices side by side -->
     <div class="footer-offices">
       <div class="footer-office-block">
-        <div class="footer-office-title">
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          دفتر مرکزی تهران
-        </div>
+        <div class="footer-office-title"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>دفتر مرکزی تهران</div>
         <div class="footer-office-addr">تهران، ولیعصر، نرسیده به پارک‌وی، پلاک ۱۲۴</div>
       </div>
       <div class="footer-office-block">
-        <div class="footer-office-title">
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          دفتر نجف اشرف
-        </div>
+        <div class="footer-office-title"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>دفتر نجف اشرف</div>
         <div class="footer-office-addr">نجف اشرف، خ. الرسول، ساختمان الزائر</div>
       </div>
     </div>
-
     <div class="footer-big-phone">
       <div class="footer-big-phone-label">📞 تماس مستقیم</div>
       <div class="footer-big-phone-num" dir="ltr">۰۹۱۰۲۱۹۸۲۶۱</div>
     </div>
-
     <div class="footer-social">
-      <a class="social-btn" href="#" title="اینستاگرام" target="_blank">
-        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-      </a>
-      <a class="social-btn" href="https://wa.me/989102198261" title="واتساپ" target="_blank">
-        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      </a>
-      <a class="social-btn" href="https://t.me/avanatabat" title="تلگرام" target="_blank">
-        <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-      </a>
-      <a class="social-btn" href="https://bale.ai/avanatabat" title="بله" target="_blank">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.98-1.418A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.95 7.95 0 01-4.073-1.118l-.291-.174-3.018.86.876-2.943-.19-.302A7.95 7.95 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z"/></svg>
-      </a>
+      <a class="social-btn" href="#" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a class="social-btn" href="https://wa.me/989102198261" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      <a class="social-btn" href="https://t.me/avanatabat" target="_blank"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+      <a class="social-btn" href="https://bale.ai/avanatabat" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.98-1.418A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.95 7.95 0 01-4.073-1.118l-.291-.174-3.018.86.876-2.943-.19-.302A7.95 7.95 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z"/></svg></a>
     </div>
-
     <div class="footer-divider"></div>
     <div class="footer-bottom">
-      <div>
-        <div class="footer-logo">گروه زیارتی آوان</div>
-        <div class="footer-sub">مرجع تخصصی سفرهای زیارتی انفرادی</div>
-      </div>
+      <div><div class="footer-logo">گروه زیارتی آوان</div><div class="footer-sub">مرجع تخصصی سفرهای زیارتی انفرادی</div></div>
       <div class="footer-copy">© ۱۴۰۵ — تمامی حقوق محفوظ است</div>
     </div>
   </div>
@@ -1071,74 +1014,293 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 </div>
 
 <script>
-// ── HEADER ANIMATED CANVAS ──
+// ══════════════════════════════════════════════
+//  HEADER CANVAS — Beautiful shrine lattice / dome pattern
+// ══════════════════════════════════════════════
 (function(){
   const canvas = document.getElementById('headerCanvas');
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
   let W, H, t = 0;
-  function resize(){W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight;}
+
+  function resize(){
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
   resize();
   window.addEventListener('resize', resize);
 
-  function drawShrineWave(offsetX, phase, alpha, scale){
+  // Draw a single shrine silhouette (dome + minarets + lattice window)
+  function drawShrine(cx, baseY, s, alpha, phase){
     ctx.save();
     ctx.globalAlpha = alpha;
     ctx.strokeStyle = '#c9a84c';
-    ctx.lineWidth = 0.7;
+    ctx.lineWidth = 1.1;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    const breathe = Math.sin(t * 0.4 + phase) * 0.015 * s;
+
+    // ── Main dome (pointed ogee arch) ──
+    const domeBaseY = baseY - 22*s;
+    const domePeakY = baseY - 52*s + breathe;
     ctx.beginPath();
-    const cx = offsetX, baseY = H * 0.85, s = scale;
-    ctx.moveTo(cx - 60*s, baseY); ctx.lineTo(cx + 60*s, baseY);
-    ctx.moveTo(cx - 28*s, baseY); ctx.lineTo(cx - 28*s, baseY - 28*s);
-    ctx.lineTo(cx + 28*s, baseY - 28*s); ctx.lineTo(cx + 28*s, baseY);
-    ctx.moveTo(cx - 22*s, baseY - 28*s);
-    const domeTop = baseY - 28*s - 24*s + Math.sin(t * 0.3 + phase) * 2*s;
-    ctx.bezierCurveTo(cx - 22*s, baseY - 28*s - 18*s, cx + 22*s, baseY - 28*s - 18*s, cx + 22*s, baseY - 28*s);
-    ctx.moveTo(cx, baseY - 28*s - 24*s); ctx.lineTo(cx, domeTop - 8*s);
-    ctx.moveTo(cx - 38*s, baseY); ctx.lineTo(cx - 38*s, baseY - 20*s);
-    ctx.moveTo(cx - 43*s, baseY - 20*s);
-    ctx.bezierCurveTo(cx - 43*s, baseY - 28*s, cx - 33*s, baseY - 28*s, cx - 33*s, baseY - 20*s);
-    ctx.moveTo(cx + 38*s, baseY); ctx.lineTo(cx + 38*s, baseY - 20*s);
-    ctx.moveTo(cx + 43*s, baseY - 20*s);
-    ctx.bezierCurveTo(cx + 43*s, baseY - 28*s, cx + 33*s, baseY - 28*s, cx + 33*s, baseY - 20*s);
-    ctx.stroke(); ctx.restore();
+    ctx.moveTo(cx - 22*s, domeBaseY);
+    ctx.bezierCurveTo(cx - 22*s, domeBaseY - 18*s, cx - 8*s, domePeakY + 4*s, cx, domePeakY);
+    ctx.bezierCurveTo(cx + 8*s, domePeakY + 4*s, cx + 22*s, domeBaseY - 18*s, cx + 22*s, domeBaseY);
+    ctx.stroke();
+
+    // Dome finial (spike)
+    ctx.beginPath();
+    ctx.moveTo(cx, domePeakY);
+    ctx.lineTo(cx, domePeakY - 9*s);
+    ctx.moveTo(cx - 3*s, domePeakY - 6*s);
+    ctx.lineTo(cx + 3*s, domePeakY - 6*s);
+    ctx.stroke();
+
+    // Small crescent at top
+    ctx.beginPath();
+    ctx.arc(cx, domePeakY - 10*s, 2.5*s, 0.3, Math.PI - 0.3);
+    ctx.stroke();
+
+    // ── Drum (cylindrical base of dome) ──
+    ctx.beginPath();
+    ctx.moveTo(cx - 24*s, domeBaseY);
+    ctx.lineTo(cx - 24*s, domeBaseY + 6*s);
+    ctx.lineTo(cx + 24*s, domeBaseY + 6*s);
+    ctx.lineTo(cx + 24*s, domeBaseY);
+    ctx.stroke();
+
+    // Drum lattice arches (3 small pointed arches)
+    for(let i = -1; i <= 1; i++){
+      const ax = cx + i * 15*s;
+      ctx.beginPath();
+      ctx.moveTo(ax - 5*s, domeBaseY + 6*s);
+      ctx.bezierCurveTo(ax - 5*s, domeBaseY + 1*s, ax + 5*s, domeBaseY + 1*s, ax + 5*s, domeBaseY + 6*s);
+      ctx.stroke();
+    }
+
+    // ── Main body ──
+    const bodyTop = domeBaseY + 6*s;
+    const bodyBot = baseY;
+    ctx.beginPath();
+    ctx.moveTo(cx - 30*s, bodyTop);
+    ctx.lineTo(cx - 30*s, bodyBot);
+    ctx.moveTo(cx + 30*s, bodyTop);
+    ctx.lineTo(cx + 30*s, bodyBot);
+    ctx.stroke();
+
+    // Central iwan pointed arch window
+    ctx.beginPath();
+    ctx.moveTo(cx - 12*s, bodyBot);
+    ctx.lineTo(cx - 12*s, bodyTop + 8*s);
+    ctx.bezierCurveTo(cx - 12*s, bodyTop + 2*s, cx + 12*s, bodyTop + 2*s, cx + 12*s, bodyTop + 8*s);
+    ctx.lineTo(cx + 12*s, bodyBot);
+    ctx.stroke();
+
+    // Lattice grid inside arch (muqarnas-inspired)
+    ctx.save();
+    ctx.globalAlpha = alpha * 0.55;
+    const archInnerLeft = cx - 9*s, archInnerRight = cx + 9*s;
+    const archTop2 = bodyTop + 10*s, archBot = bodyBot - 2*s;
+    // Vertical dividers
+    for(let i = 1; i <= 2; i++){
+      const lx = archInnerLeft + (archInnerRight - archInnerLeft) * i/3;
+      ctx.beginPath(); ctx.moveTo(lx, archBot); ctx.lineTo(lx, archTop2 + 4*s); ctx.stroke();
+    }
+    // Horizontal bands
+    const bands = 3;
+    for(let i = 1; i <= bands; i++){
+      const ly = archBot - (archBot - archTop2) * i/(bands+1);
+      ctx.beginPath(); ctx.moveTo(archInnerLeft, ly); ctx.lineTo(archInnerRight, ly); ctx.stroke();
+    }
+    ctx.restore();
+
+    // ── Left minaret ──
+    const mlx = cx - 44*s;
+    const minaretTop = baseY - 46*s + breathe * 0.7;
+    ctx.beginPath();
+    ctx.moveTo(mlx - 4*s, bodyTop);
+    ctx.lineTo(mlx - 4*s, minaretTop + 8*s);
+    ctx.bezierCurveTo(mlx - 4*s, minaretTop, mlx + 4*s, minaretTop, mlx + 4*s, minaretTop + 8*s);
+    ctx.lineTo(mlx + 4*s, bodyTop);
+    ctx.stroke();
+    // Minaret finial
+    ctx.beginPath();
+    ctx.moveTo(mlx, minaretTop);
+    ctx.lineTo(mlx, minaretTop - 7*s);
+    ctx.stroke();
+    // Minaret balcony
+    ctx.beginPath();
+    ctx.moveTo(mlx - 6*s, minaretTop + 10*s);
+    ctx.lineTo(mlx + 6*s, minaretTop + 10*s);
+    ctx.stroke();
+
+    // ── Right minaret (mirror) ──
+    const mrx = cx + 44*s;
+    ctx.beginPath();
+    ctx.moveTo(mrx - 4*s, bodyTop);
+    ctx.lineTo(mrx - 4*s, minaretTop + 8*s);
+    ctx.bezierCurveTo(mrx - 4*s, minaretTop, mrx + 4*s, minaretTop, mrx + 4*s, minaretTop + 8*s);
+    ctx.lineTo(mrx + 4*s, bodyTop);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(mrx, minaretTop);
+    ctx.lineTo(mrx, minaretTop - 7*s);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(mrx - 6*s, minaretTop + 10*s);
+    ctx.lineTo(mrx + 6*s, minaretTop + 10*s);
+    ctx.stroke();
+
+    // ── Ground line with decorative base ──
+    ctx.beginPath();
+    ctx.moveTo(cx - 56*s, baseY);
+    ctx.lineTo(cx + 56*s, baseY);
+    ctx.stroke();
+
+    // Steps
+    ctx.save();
+    ctx.globalAlpha = alpha * 0.4;
+    ctx.beginPath();
+    ctx.moveTo(cx - 50*s, baseY);
+    ctx.lineTo(cx - 54*s, baseY + 3*s);
+    ctx.lineTo(cx + 54*s, baseY + 3*s);
+    ctx.lineTo(cx + 50*s, baseY);
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.restore();
   }
 
-  function drawWaveLine(yPos, amplitude, freq, phaseOffset, alpha){
-    ctx.save(); ctx.globalAlpha = alpha; ctx.strokeStyle = '#c9a84c'; ctx.lineWidth = 0.5;
+  // Flowing muqarnas wave (connected arch chain)
+  function drawMuqarnasWave(yBase, amplitude, numArches, phaseOffset, alpha, scaleX){
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = '#c9a84c';
+    ctx.lineWidth = 0.8;
     ctx.beginPath();
-    for(let x = 0; x <= W; x += 2){
-      const y = yPos + Math.sin((x * freq) + t * 0.6 + phaseOffset) * amplitude + Math.sin((x * freq * 0.5) + t * 0.4 + phaseOffset * 1.3) * amplitude * 0.4;
-      if(x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    const archW = W / numArches;
+    for(let i = 0; i < numArches + 1; i++){
+      const ax = i * archW;
+      const sway = Math.sin(t * 0.35 + phaseOffset + i * 0.5) * amplitude;
+      const peakY = yBase - amplitude * 1.4 + sway * 0.3;
+      const midX = ax - archW/2;
+      if(i === 0){
+        ctx.moveTo(ax, yBase + sway);
+      } else {
+        // Pointed arch between points
+        ctx.bezierCurveTo(
+          midX + archW * 0.25, yBase + sway * 0.5,
+          midX, peakY,
+          midX, peakY
+        );
+        ctx.bezierCurveTo(
+          midX, peakY,
+          midX - archW * 0.25 + archW, yBase + sway * 0.5,
+          ax, yBase + sway
+        );
+      }
     }
-    ctx.stroke(); ctx.restore();
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // Geometric star / rosette pattern (Islamic geometric)
+  function drawRosette(cx, cy, r, alpha){
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = '#c9a84c';
+    ctx.lineWidth = 0.6;
+    const n = 8; // 8-pointed star
+    ctx.beginPath();
+    for(let i = 0; i < n * 2; i++){
+      const ang = (i * Math.PI / n) - Math.PI/2;
+      const rad = (i % 2 === 0) ? r : r * 0.42;
+      const x = cx + Math.cos(ang) * rad;
+      const y = cy + Math.sin(ang) * rad;
+      if(i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.stroke();
+    // Inner hexagon
+    ctx.beginPath();
+    for(let i = 0; i < 6; i++){
+      const ang = (i * Math.PI / 3) - Math.PI/6;
+      const x = cx + Math.cos(ang) * r * 0.32;
+      const y = cy + Math.sin(ang) * r * 0.32;
+      if(i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.stroke();
+    ctx.restore();
   }
 
   function animate(){
-    ctx.clearRect(0, 0, W, H); t += 0.012;
-    drawWaveLine(H * 0.3, 2.5, 0.018, 0, 0.06);
-    drawWaveLine(H * 0.6, 2, 0.022, 1.5, 0.05);
-    const count = Math.max(3, Math.floor(W / 200));
-    for(let i = 0; i < count; i++){
-      const x = (W / count) * (i + 0.5);
-      const ph = i * 1.1;
-      const sc = 0.5 + 0.08 * Math.sin(t * 0.2 + ph);
-      drawShrineWave(x, ph, 0.05, sc);
+    ctx.clearRect(0, 0, W, H);
+    t += 0.008;
+
+    // Background muqarnas wave chains
+    drawMuqarnasWave(H * 0.55, 8, 9, 0, 0.09, 1);
+    drawMuqarnasWave(H * 0.75, 6, 12, 1.8, 0.07, 1);
+    drawMuqarnasWave(H * 0.25, 5, 7, 0.9, 0.05, 1);
+
+    // Shrine silhouettes at different positions and scales
+    const shrines = [
+      {xFrac: 0.12, s: 0.48, a: 0.10, ph: 0},
+      {xFrac: 0.38, s: 0.62, a: 0.14, ph: 1.1},
+      {xFrac: 0.62, s: 0.55, a: 0.12, ph: 2.3},
+      {xFrac: 0.88, s: 0.46, a: 0.09, ph: 3.4},
+    ];
+    shrines.forEach(({xFrac, s, a, ph}) => {
+      const cx = W * xFrac;
+      const baseY = H * 0.94;
+      drawShrine(cx, baseY, s, a, ph);
+    });
+
+    // Islamic geometric rosettes scattered
+    const rosettes = [
+      {xFrac: 0.05, yFrac: 0.45, r: 10, a: 0.07},
+      {xFrac: 0.25, yFrac: 0.2, r: 8,  a: 0.06},
+      {xFrac: 0.5,  yFrac: 0.5, r: 13, a: 0.08},
+      {xFrac: 0.75, yFrac: 0.25, r: 9, a: 0.065},
+      {xFrac: 0.95, yFrac: 0.55, r: 11, a: 0.07},
+    ];
+    rosettes.forEach(({xFrac, yFrac, r, a}) => {
+      const pulse = 1 + Math.sin(t * 0.5 + xFrac * 10) * 0.06;
+      drawRosette(W * xFrac, H * yFrac, r * pulse, a);
+    });
+
+    // Subtle vertical gold lines (pillar effect)
+    ctx.save();
+    ctx.strokeStyle = '#c9a84c';
+    ctx.lineWidth = 0.5;
+    for(let i = 0; i < 5; i++){
+      const x = W * (i + 0.5) / 5;
+      const fade = 0.04 + Math.sin(t * 0.3 + i) * 0.015;
+      ctx.globalAlpha = fade;
+      ctx.beginPath();
+      ctx.moveTo(x, 0); ctx.lineTo(x, H);
+      ctx.stroke();
     }
+    ctx.restore();
+
     requestAnimationFrame(animate);
   }
   animate();
 })();
 
-// ── PERSIAN CALENDAR ──
+// ══════════════════════════════════════════════
+//  APP STATE & LOGIC
+// ══════════════════════════════════════════════
 const PM=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const DIM=[31,31,31,31,31,31,30,30,30,30,30,29];
-function getMonthOffset(m, y){
+function getMonthOffset(m,y){
   const BASE_YEAR=1405,BASE_MONTH=0,BASE_OFFSET=0;
-  let totalDays=0;
-  if(y===BASE_YEAR){for(let i=BASE_MONTH;i<m;i++)totalDays+=DIM[i];}
-  else if(y>BASE_YEAR){for(let i=BASE_MONTH;i<12;i++)totalDays+=DIM[i];for(let yr=BASE_YEAR+1;yr<y;yr++)totalDays+=365;for(let i=0;i<m;i++)totalDays+=DIM[i];}
-  return(BASE_OFFSET+totalDays)%7;
+  let d=0;
+  if(y===BASE_YEAR){for(let i=BASE_MONTH;i<m;i++)d+=DIM[i];}
+  else if(y>BASE_YEAR){for(let i=BASE_MONTH;i<12;i++)d+=DIM[i];for(let yr=BASE_YEAR+1;yr<y;yr++)d+=365;for(let i=0;i<m;i++)d+=DIM[i];}
+  return(BASE_OFFSET+d)%7;
 }
 
 const TODAY={y:1405,m:2,d:16};
@@ -1153,7 +1315,7 @@ const HOTEL_DATA={
   kadh_sam:[{name:'هتل الامین الکاظمیه',stars:5,dist:'۷۰ متر',cat:'alef',price:1.4},{name:'هتل الکاظمیه پالاس',stars:4,dist:'۱۲۰ متر',cat:'alef',price:1.25},{name:'هتل العسکری پالاس',stars:5,dist:'۹۰ متر',cat:'alef',price:1.3},{name:'هتل الرشید',stars:3,dist:'۲۵۰ متر',cat:'be',price:0.9},{name:'هتل دجله سامرا',stars:3,dist:'۳۵۰ متر',cat:'be',price:0.8},{name:'هتل المرجان',stars:3,dist:'۴۰۰ متر',cat:'be',price:0.72},{name:'هتل الفرحان',stars:2,dist:'۶۵۰ متر',cat:'jim',price:0.48},{name:'هتل السلام',stars:2,dist:'۸۵۰ متر',cat:'jim',price:0.40},{name:'هتل الزائر سامرا',stars:1,dist:'۱ کیلومتر',cat:'jim',price:0.30}]
 };
 
-const state={calM:TODAY.m,calY:TODAY.y,selD:null,selM:null,selY:null,dateText:null,passengers:1,origin:null,tripType:null,selectedAirport:null,cities:[],cityData:{},transferOpt:'door',simCard:false,dinars:false,dinarsAmt:1,isAgency:false,totalPrice:0,priceDetailsOpen:false};
+const state={calM:TODAY.m,calY:TODAY.y,selD:null,selM:null,selY:null,dateText:null,passengers:1,origin:null,tripType:null,selectedAirport:null,cities:[],cityData:{},transferOpt:'door',simCard:false,dinars:false,dinarsAmt:1,isAgency:false,totalPrice:0};
 
 function P(n){return String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);}
 function fmt(n){return P(Math.round(n).toLocaleString('en'));}
@@ -1164,19 +1326,38 @@ function scrollToTop(id){setTimeout(()=>{const el=document.getElementById(id);if
   const hero=document.getElementById('heroSection');
   const cta=document.getElementById('floatingCta');
   if(!hero||!cta)return;
-  const obs=new IntersectionObserver(entries=>{cta.classList.toggle('visible',!entries[0].isIntersecting);},{threshold:0.1});
+  const obs=new IntersectionObserver(e=>{cta.classList.toggle('visible',!e[0].isIntersecting);},{threshold:0.1});
   obs.observe(hero);
 })();
 
-function goHome(e){e.preventDefault();document.getElementById('builderArea').style.display='none';document.getElementById('landingContent').style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
-function togJcard(id){const el=document.getElementById(id);const wasOpen=el.classList.contains('open');document.querySelectorAll('.jcard').forEach(c=>c.classList.remove('open'));if(!wasOpen)el.classList.add('open');}
+function goHome(e){
+  e.preventDefault();
+  document.getElementById('builderArea').style.display='none';
+  document.getElementById('landingContent').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function togJcard(id){const el=document.getElementById(id);const was=el.classList.contains('open');document.querySelectorAll('.jcard').forEach(c=>c.classList.remove('open'));if(!was)el.classList.add('open');}
 function openModal(id){document.getElementById('modal-'+id).classList.add('open');}
 function closeModalDirect(id){document.getElementById('modal-'+id).classList.remove('open');}
 function closeModal(id,e){if(e.target===document.getElementById('modal-'+id))closeModalDirect(id);}
-function togFaq(id){const el=document.getElementById(id);const isOpen=el.classList.contains('open');document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open'));if(!isOpen)el.classList.add('open');}
+function togFaq(id){const el=document.getElementById(id);const is=el.classList.contains('open');document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open'));if(!is)el.classList.add('open');}
 
-function isDisabled(d,m,y){if(y<TODAY.y)return true;if(y===TODAY.y&&m<TODAY.m)return true;if(y===TODAY.y&&m===TODAY.m&&d<=TODAY.d+1)return true;return false;}
-function startBuilder(){document.getElementById('builderArea').style.display='block';renderCalendar();setTimeout(()=>document.getElementById('builderArea').scrollIntoView({behavior:'smooth',block:'start'}),80);}
+function isDisabled(d,m,y){
+  if(y<TODAY.y)return true;
+  if(y===TODAY.y&&m<TODAY.m)return true;
+  if(y===TODAY.y&&m===TODAY.m&&d<=TODAY.d+1)return true;
+  return false;
+}
+
+/* ── startBuilder: show builder ABOVE landing content ── */
+function startBuilder(){
+  const builder=document.getElementById('builderArea');
+  builder.style.display='block';
+  renderCalendar();
+  // Scroll to top of cream section (builder is first, above landing)
+  setTimeout(()=>builder.scrollIntoView({behavior:'smooth',block:'start'}),80);
+}
+
 function renderCalendar(){
   const dim=DIM[state.calM];const off=getMonthOffset(state.calM,state.calY);
   document.getElementById('calMonthTitle').textContent=PM[state.calM]+' '+P(state.calY);
@@ -1331,11 +1512,12 @@ function selHotel(key,idx){
   if(ci<state.cities.length-1){const nk=state.cities[ci+1];const nd=document.getElementById('ccd_'+nk);if(nd)setTimeout(()=>{nd.classList.add('open');nd.scrollIntoView({behavior:'smooth',block:'nearest'});},300);}
 }
 function setFood(key,val){state.cityData[key].food=val;document.getElementById('fs_'+key).textContent=val?'شامل وعده‌های غذایی':'بدون وعده';}
-function selTransferOpt(opt){state.transferOpt=opt;['door','self'].forEach(o=>{document.getElementById('topt_'+o).classList.toggle('selected',o===opt);});}
-function toggleSimCard(val){state.simCard=val;document.getElementById('simCardBody').classList.toggle('show',val);}
-function toggleDinars(val){state.dinars=val;document.getElementById('dinarsBody').classList.toggle('show',val);updateDinarsNote();}
-function changeDinars(d){state.dinarsAmt=Math.max(1,Math.min(50,state.dinarsAmt+d));document.getElementById('dinarsVal').textContent=P(state.dinarsAmt);updateDinarsNote();}
+function selTransferOpt(opt){state.transferOpt=opt;['door','self'].forEach(o=>{document.getElementById('topt_'+o).classList.toggle('selected',o===opt);});updatePriceIfVisible();}
+function toggleSimCard(val){state.simCard=val;document.getElementById('simCardBody').classList.toggle('show',val);updatePriceIfVisible();}
+function toggleDinars(val){state.dinars=val;document.getElementById('dinarsBody').classList.toggle('show',val);updateDinarsNote();updatePriceIfVisible();}
+function changeDinars(d){state.dinarsAmt=Math.max(1,Math.min(50,state.dinarsAmt+d));document.getElementById('dinarsVal').textContent=P(state.dinarsAmt);updateDinarsNote();updatePriceIfVisible();}
 function updateDinarsNote(){document.getElementById('dinarsNote').textContent=P(state.dinarsAmt)+' هزار دینار — معادل تقریبی: '+fmt(state.dinarsAmt*37000)+' تومان';}
+function updatePriceIfVisible(){if(document.getElementById('priceCard').classList.contains('visible'))animatePrice();}
 
 function completeStep(n){
   const cur=document.getElementById('step'+n);
@@ -1388,52 +1570,62 @@ function calcPrice(){
   let transport=state.tripType==='air'?4500000:state.tripType==='mixed'?3500000:2200000;
   if(state.transferOpt==='self')transport=Math.max(0,transport-800000);
   let accommodation=0,services=800000;
-  state.cities.forEach(key=>{const d=state.cityData[key];if(d.transit)return;const mult=(HOTEL_DATA[key][d.hotel??0]?.price)||1.0;accommodation+=CITY_META[key].hotelBase*mult*d.nights;if(d.food)services+=500000*d.nights;});
-  let extras=0;
-  if(state.simCard)extras+=45000*state.passengers;
-  if(state.dinars)extras+=state.dinarsAmt*37000;
-  const perPerson=transport+accommodation+services+Math.round(extras/state.passengers);
-  return{transport,accommodation,services,extras,perPerson,total:Math.round((transport+accommodation+services)*state.passengers+extras)};
+  state.cities.forEach(key=>{
+    const d=state.cityData[key];if(d.transit)return;
+    const mult=(HOTEL_DATA[key][d.hotel??0]?.price)||1.0;
+    accommodation+=CITY_META[key].hotelBase*mult*d.nights;
+    if(d.food)services+=500000*d.nights;
+  });
+  // Extras are calculated SEPARATELY from trip total
+  const simTotal = state.simCard ? 45000*state.passengers : 0;
+  const dinarsTotal = state.dinars ? state.dinarsAmt*37000 : 0;
+  const tripPerPerson = transport + accommodation + services;
+  const tripTotal = Math.round(tripPerPerson * state.passengers);
+  return {transport, accommodation, services, simTotal, dinarsTotal, tripPerPerson: Math.round(tripPerPerson), tripTotal};
 }
 
 function animatePrice(){
-  const p=calcPrice();state.totalPrice=p.total;
+  const p = calcPrice();
+  state.totalPrice = p.tripTotal;
 
-  // Build breakdown (hidden by default)
-  let breakdownHTML=`
-    <div class="price-row"><span class="lbl">حمل‌ونقل (هر نفر)</span><span class="val">${fmt(p.transport)} تومان</span></div>
-    <div class="price-row"><span class="lbl">اقامت (هر نفر)</span><span class="val">${fmt(p.accommodation)} تومان</span></div>
-    <div class="price-row"><span class="lbl">خدمات و غذا (هر نفر)</span><span class="val">${fmt(p.services)} تومان</span></div>`;
-  if(state.simCard)breakdownHTML+=`<div class="price-row"><span class="lbl">سیم‌کارت عراقی</span><span class="val">${fmt(45000*state.passengers)} تومان</span></div>`;
-  if(state.dinars)breakdownHTML+=`<div class="price-row"><span class="lbl">ارز دینار (${P(state.dinarsAmt)} هزار)</span><span class="val">${fmt(state.dinarsAmt*37000)} تومان</span></div>`;
-  document.getElementById('priceBreakdown').innerHTML=breakdownHTML;
+  // Extras panel
+  const extrasRow = document.getElementById('priceExtrasRow');
+  const extrasLines = document.getElementById('priceExtrasLines');
+  if(p.simTotal > 0 || p.dinarsTotal > 0){
+    extrasRow.classList.add('show');
+    let html = '';
+    if(p.simTotal > 0) html += `<div class="price-extra-line"><span class="lbl">📱 سیم‌کارت عراقی (${P(state.passengers)} نفر)</span><span class="val">${fmt(p.simTotal)} تومان</span></div>`;
+    if(p.dinarsTotal > 0) html += `<div class="price-extra-line"><span class="lbl">💵 ارز دینار عراقی (${P(state.dinarsAmt)} هزار دینار)</span><span class="val">${fmt(p.dinarsTotal)} تومان</span></div>`;
+    extrasLines.innerHTML = html;
+  } else {
+    extrasRow.classList.remove('show');
+  }
 
-  // Animate main numbers
-  const paxEl=document.getElementById('pricePax');
-  const perEl=document.getElementById('pricePerPerson');
-  const totEl=document.getElementById('priceTotal');
-  paxEl.textContent=P(state.passengers)+' نفر';
+  const paxEl = document.getElementById('pricePax');
+  const perEl = document.getElementById('pricePerPerson');
+  const totEl = document.getElementById('priceTotal');
+  const tripTotEl = document.getElementById('priceTripTotal');
+  paxEl.textContent = P(state.passengers)+' نفر';
 
-  const start=Date.now(),dur=1200;
+  const start = Date.now(), dur = 1100;
   (function tick(){
-    const prog=Math.min((Date.now()-start)/dur,1);const ease=1-Math.pow(1-prog,3);
-    perEl.textContent=fmt(Math.round(p.perPerson*ease))+' ت';
-    totEl.textContent=fmt(Math.round(p.total*ease))+' ت';
-    if(prog<1)requestAnimationFrame(tick);
-    else{
-      perEl.textContent=fmt(p.perPerson)+' تومان';
-      totEl.textContent=fmt(p.total)+' تومان';
-      setTimeout(()=>{buildPassengerForms();document.getElementById('passengerFormBox').classList.add('show');document.getElementById('passengerFormBox').scrollIntoView({behavior:'smooth',block:'nearest'});},400);
+    const prog = Math.min((Date.now()-start)/dur, 1);
+    const ease = 1 - Math.pow(1-prog, 3);
+    perEl.textContent = fmt(Math.round(p.tripPerPerson*ease))+' ت';
+    totEl.textContent = fmt(Math.round(p.tripTotal*ease))+' ت';
+    tripTotEl.textContent = fmt(Math.round(p.tripTotal*ease))+' ت';
+    if(prog < 1) requestAnimationFrame(tick);
+    else {
+      perEl.textContent = fmt(p.tripPerPerson)+' تومان';
+      totEl.textContent = fmt(p.tripTotal)+' تومان';
+      tripTotEl.textContent = fmt(p.tripTotal)+' تومان';
+      setTimeout(()=>{
+        buildPassengerForms();
+        document.getElementById('passengerFormBox').classList.add('show');
+        document.getElementById('passengerFormBox').scrollIntoView({behavior:'smooth',block:'nearest'});
+      }, 400);
     }
   })();
-}
-
-function togglePriceDetails(){
-  state.priceDetailsOpen=!state.priceDetailsOpen;
-  const toggle=document.getElementById('priceDetailsToggle');
-  const breakdown=document.getElementById('priceBreakdown');
-  toggle.classList.toggle('open',state.priceDetailsOpen);
-  breakdown.classList.toggle('show',state.priceDetailsOpen);
 }
 
 function buildPassengerForms(){
@@ -1451,10 +1643,42 @@ function buildPassengerForms(){
   }
 }
 function togPassenger(i){const el=document.getElementById('ep_'+i);if(el)el.classList.toggle('open');}
-function onLeaderInput(){const f=document.getElementById('pfbFirstName').value.trim();const l=document.getElementById('pfbLastName').value.trim();const ph=document.getElementById('pfbPhone').value.trim();const b=document.getElementById('pfbBirth').value.trim();if(f&&l&&ph&&b&&state.passengers>=2){const ep2=document.getElementById('ep_2');if(ep2&&!ep2.classList.contains('open')){ep2.classList.add('open');ep2.scrollIntoView({behavior:'smooth',block:'nearest'});}}}
-function onPassengerInput(i){const f=document.getElementById('p'+i+'_first')?.value.trim();const l=document.getElementById('p'+i+'_last')?.value.trim();if(f&&l){const st=document.getElementById('epStatus_'+i);if(st)st.textContent='✓';if(i<state.passengers){const next=document.getElementById('ep_'+(i+1));if(next&&!next.classList.contains('open'))setTimeout(()=>{next.classList.add('open');next.scrollIntoView({behavior:'smooth',block:'nearest'});},400);}}}
-function toggleAgency(){state.isAgency=!state.isAgency;document.getElementById('agencyCheckBox').classList.toggle('checked',state.isAgency);document.getElementById('agencyFields').classList.toggle('show',state.isAgency);document.getElementById('agencyCommissionBox').classList.toggle('show',state.isAgency);}
-function finalRegister(){const first=document.getElementById('pfbFirstName').value.trim();const last=document.getElementById('pfbLastName').value.trim();const phone=document.getElementById('pfbPhone').value.trim();if(!first||!last||!phone){alert('لطفاً نام، نام خانوادگی و شماره تماس سرپرست را وارد کنید.');return;}const code='AVN-'+Math.random().toString(36).toUpperCase().slice(2,8);document.getElementById('successCode').textContent=code;document.getElementById('successOverlay').classList.add('show');}
+function onLeaderInput(){
+  const f=document.getElementById('pfbFirstName').value.trim();
+  const l=document.getElementById('pfbLastName').value.trim();
+  const ph=document.getElementById('pfbPhone').value.trim();
+  const b=document.getElementById('pfbBirth').value.trim();
+  if(f&&l&&ph&&b&&state.passengers>=2){
+    const ep2=document.getElementById('ep_2');
+    if(ep2&&!ep2.classList.contains('open')){ep2.classList.add('open');ep2.scrollIntoView({behavior:'smooth',block:'nearest'});}
+  }
+}
+function onPassengerInput(i){
+  const f=document.getElementById('p'+i+'_first')?.value.trim();
+  const l=document.getElementById('p'+i+'_last')?.value.trim();
+  if(f&&l){
+    const st=document.getElementById('epStatus_'+i);if(st)st.textContent='✓';
+    if(i<state.passengers){
+      const next=document.getElementById('ep_'+(i+1));
+      if(next&&!next.classList.contains('open'))setTimeout(()=>{next.classList.add('open');next.scrollIntoView({behavior:'smooth',block:'nearest'});},400);
+    }
+  }
+}
+function toggleAgency(){
+  state.isAgency=!state.isAgency;
+  document.getElementById('agencyCheckBox').classList.toggle('checked',state.isAgency);
+  document.getElementById('agencyFields').classList.toggle('show',state.isAgency);
+  document.getElementById('agencyCommissionBox').classList.toggle('show',state.isAgency);
+}
+function finalRegister(){
+  const first=document.getElementById('pfbFirstName').value.trim();
+  const last=document.getElementById('pfbLastName').value.trim();
+  const phone=document.getElementById('pfbPhone').value.trim();
+  if(!first||!last||!phone){alert('لطفاً نام، نام خانوادگی و شماره تماس سرپرست را وارد کنید.');return;}
+  const code='AVN-'+Math.random().toString(36).toUpperCase().slice(2,8);
+  document.getElementById('successCode').textContent=code;
+  document.getElementById('successOverlay').classList.add('show');
+}
 function closeSuccess(e){if(e.target.id==='successOverlay')document.getElementById('successOverlay').classList.remove('show');}
 </script>
 </body>
