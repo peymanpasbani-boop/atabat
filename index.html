@@ -1,65 +1,98 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>سفرساز شخصی</title>
 
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
   body {
     margin: 0;
-    font-family: sans-serif;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
+    font-family: "Vazirmatn", sans-serif;
+    background: #f5f7fa;
+    color: #1e1e1e;
+  }
+
+  header {
+    background: #0f3a52;
     color: white;
+    padding: 70px 20px;
     text-align: center;
   }
 
-  .container {
-    padding: 60px 20px;
+  header h1 {
+    font-size: 26px;
+    margin-bottom: 15px;
   }
 
-  h1 {
-    font-size: 28px;
-    margin-bottom: 20px;
-  }
-
-  p {
-    font-size: 16px;
-    line-height: 1.8;
-    opacity: 0.9;
+  header p {
+    font-size: 15px;
+    opacity: 0.85;
     max-width: 500px;
     margin: auto;
+    line-height: 1.8;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: -40px auto 0;
+    padding: 20px;
   }
 
   .card {
-    margin-top: 30px;
-    background: rgba(255,255,255,0.08);
-    padding: 20px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
   }
 
-  button {
-    margin-top: 30px;
-    padding: 15px 25px;
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .feature {
+    background: #f5f7fa;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+
+  .btn {
+    margin-top: 25px;
+    width: 100%;
+    padding: 14px;
     border: none;
     border-radius: 12px;
-    font-size: 16px;
+    background: #2ecc71;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
-    background: #38bdf8;
-    color: black;
-    font-weight: bold;
+    transition: 0.2s;
   }
 
-  button:hover {
-    background: #0ea5e9;
+  .btn:hover {
+    background: #27ae60;
   }
 
   .small {
-    margin-top: 20px;
+    text-align: center;
+    margin-top: 15px;
     font-size: 12px;
     opacity: 0.6;
+  }
+
+  @media(max-width:600px){
+    .features {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 
@@ -67,29 +100,37 @@
 
 <body>
 
+<header>
+  <h1>✈️ سفر را خودت طراحی کن</h1>
+  <p>
+    ما تور آماده نمی‌فروشیم.  
+    اینجا شما تصمیم می‌گیری کِی، کجا و چگونه سفر کنی.
+  </p>
+</header>
+
 <div class="container">
 
-  <h1>✈️ سفر را شما طراحی می‌کنید</h1>
-
-  <p>
-    ما دیگر تور آماده نمی‌فروشیم.  
-    اینجا شما تصمیم می‌گیرید کِی بروید، کجا بروید و چگونه سفر کنید.
-  </p>
-
   <div class="card">
-    <p>
-      🎯 انتخاب تاریخ سفر<br>
-      📍 انتخاب مقصد<br>
-      🚐 نوع رفت (هوایی / زمینی)<br>
-      🏨 انتخاب اقامت<br>
-      🚖 نوع ترانسفر
-    </p>
-  </div>
 
-  <button onclick="startTrip()">شروع طراحی سفر</button>
+    <h3>✨ امکانات سفرساز</h3>
 
-  <div class="small">
-    تجربه جدید سفرسازی شخصی ✨
+    <div class="features">
+      <div class="feature">📅 انتخاب تاریخ سفر</div>
+      <div class="feature">📍 انتخاب مقصد دلخواه</div>
+      <div class="feature">✈️ هوایی یا زمینی</div>
+      <div class="feature">🏨 انتخاب اقامت</div>
+      <div class="feature">🚖 نوع ترانسفر</div>
+      <div class="feature">👤 سفر شخصی‌سازی شده</div>
+    </div>
+
+    <button class="btn" onclick="startTrip()">
+      شروع طراحی سفر
+    </button>
+
+    <div class="small">
+      تجربه جدید سفرسازی مدرن ✨
+    </div>
+
   </div>
 
 </div>
