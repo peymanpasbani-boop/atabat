@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -44,7 +43,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .hero-start-btn{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--em);font-family:"Vazirmatn",sans-serif;font-size:14.5px;font-weight:800;padding:14px 40px;border-radius:100px;border:none;cursor:pointer;box-shadow:0 6px 26px rgba(201,168,76,.34);transition:var(--tr);animation:fadeUp .6s .22s ease both;margin-top:30px}
 .hero-start-btn:hover{transform:translateY(-2px);box-shadow:0 10px 34px rgba(201,168,76,.48)}
 
-/* wave */
 .hero-wave{display:block;line-height:0;background:var(--em)}
 .hero-wave svg{display:block;width:100%}
 
@@ -70,7 +68,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .drawer-chevron{color:var(--ts);font-size:10px;transition:transform .3s;flex-shrink:0}
 .step-drawer.active .drawer-chevron{transform:rotate(180deg)}
 .drawer-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1)}
-.step-drawer.active .drawer-body{max-height:4000px}
+.step-drawer.active .drawer-body{max-height:6000px}
 .drawer-content{padding:4px 20px 24px}
 .step-connector{width:1px;height:14px;background:linear-gradient(to bottom,var(--goldB),transparent);margin:0 auto}
 
@@ -90,7 +88,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .cal-day.empty{pointer-events:none}
 .cal-day.disabled{color:#ccc;pointer-events:none;opacity:.4}
 
-/* ROW LAYOUT for passengers + origin */
+/* ROW LAYOUT */
 .step1-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;padding-top:18px;border-top:1px solid rgba(201,168,76,.13)}
 .step1-col-title{font-size:12.5px;font-weight:700;color:var(--tm);margin-bottom:10px;display:flex;align-items:center;gap:5px}
 
@@ -108,19 +106,19 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .origin-select{width:100%;padding:10px 14px;font-family:"Vazirmatn",sans-serif;font-size:12.5px;color:var(--td);border:1.5px solid rgba(201,168,76,.25);border-radius:var(--r);background:var(--white);cursor:pointer;outline:none;transition:border-color .2s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 12px center}
 .origin-select:focus{border-color:var(--gold)}
 
-/* TRIP TYPE */
-.type-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.type-card{border:1.5px solid rgba(201,168,76,.18);border-radius:var(--r);padding:24px 18px;cursor:pointer;transition:var(--tr);background:var(--cream);text-align:center;position:relative;overflow:hidden}
+/* TRIP TYPE — 3 options, compact */
+.type-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.type-card{border:1.5px solid rgba(201,168,76,.18);border-radius:var(--r);padding:16px 12px;cursor:pointer;transition:var(--tr);background:var(--cream);text-align:center;position:relative;overflow:hidden}
 .type-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,var(--goldP),transparent 70%);opacity:0;transition:opacity .3s}
 .type-card:hover::before,.type-card.selected::before{opacity:1}
-.type-card:hover,.type-card.selected{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.15)}
+.type-card:hover,.type-card.selected{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 6px 18px rgba(201,168,76,.15)}
 .type-card.selected{background:linear-gradient(135deg,rgba(201,168,76,.07),rgba(26,94,73,.05))}
-.selected-check{position:absolute;top:10px;left:10px;width:19px;height:19px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:none;align-items:center;justify-content:center;color:white;font-size:9px}
+.selected-check{position:absolute;top:8px;left:8px;width:17px;height:17px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:none;align-items:center;justify-content:center;color:white;font-size:8px}
 .type-card.selected .selected-check{display:flex}
-.type-icon{margin-bottom:12px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
-.type-icon svg{width:44px;height:44px}
-.type-name{font-size:14.5px;font-weight:700;color:var(--td);margin-bottom:4px;position:relative;z-index:1}
-.type-desc{font-size:11.5px;color:var(--ts);line-height:1.7;position:relative;z-index:1}
+.type-icon{margin-bottom:8px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+.type-icon svg{width:34px;height:34px}
+.type-name{font-size:13px;font-weight:700;color:var(--td);margin-bottom:3px;position:relative;z-index:1}
+.type-desc{font-size:10.5px;color:var(--ts);line-height:1.6;position:relative;z-index:1}
 .type-card.selected .type-name{color:var(--em)}
 
 /* AIRPORT WARNING */
@@ -137,18 +135,17 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .awb-yes-btn{background:var(--em);color:var(--goldL)}
 .awb-no-btn{background:rgba(192,57,43,.09);color:#c0392b;border:1px solid rgba(192,57,43,.18)}
 
-/* CITY GRID */
+/* CITY GRID — modern icons */
 .city-hint{font-size:11.5px;color:var(--ts);margin-bottom:13px;line-height:1.8;padding:9px 13px;background:rgba(201,168,76,.07);border-radius:9px;border-right:3px solid var(--goldB)}
 .city-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .city-card{border:1.5px solid rgba(201,168,76,.16);border-radius:var(--r);padding:14px 13px;cursor:pointer;transition:var(--tr);background:var(--cream);display:flex;align-items:center;gap:11px;position:relative}
 .city-card:hover,.city-card.selected{border-color:var(--gold);background:linear-gradient(135deg,rgba(201,168,76,.07),rgba(26,94,73,.04));transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,168,76,.11)}
-/* modern city icon — single color */
-.city-icon-wrap{width:40px;height:40px;background:linear-gradient(135deg,var(--em),var(--em3));border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(13,59,46,.2)}
-.city-icon-wrap svg{width:22px;height:22px;fill:var(--goldL)}
+.city-icon-wrap{width:44px;height:44px;background:linear-gradient(135deg,var(--em),var(--em3));border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 10px rgba(13,59,46,.22)}
+.city-icon-wrap svg{width:24px;height:24px;fill:none;stroke:var(--goldL);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .city-info{flex:1}
 .city-name{font-size:13.5px;font-weight:700;color:var(--td)}
 .city-shrine{font-size:10.5px;color:var(--ts);margin-top:2px}
-.city-tick{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--goldB);display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent;transition:var(--tr);flex-shrink:0}
+.city-tick{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--goldB);display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent;transition:var(--tr);flex-shrink:0}
 .city-card.selected .city-tick{background:linear-gradient(135deg,var(--gold),#a8722a);border-color:var(--gold);color:white}
 .city-order-badge{position:absolute;top:-6px;right:-6px;width:20px;height:20px;background:var(--em);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--goldL);border:1.5px solid var(--cream)}
 .city-card.selected .city-order-badge{display:flex}
@@ -161,8 +158,8 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .city-config-drawer.open{border-color:var(--goldB);box-shadow:0 4px 18px rgba(13,59,46,.07)}
 .city-config-head{display:flex;align-items:center;gap:11px;padding:13px 15px;cursor:pointer;user-select:none;transition:background .2s}
 .city-config-head:hover{background:rgba(201,168,76,.04)}
-.city-config-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--em),var(--em3));border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.city-config-icon svg{width:18px;height:18px;fill:var(--goldL)}
+.city-config-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--em),var(--em3));border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.city-config-icon svg{width:20px;height:20px;fill:none;stroke:var(--goldL);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .city-config-name{font-size:13.5px;font-weight:700;color:var(--em)}
 .city-config-shrine{font-size:10.5px;color:var(--ts);margin-top:1px}
 .city-config-meta{flex:1}
@@ -171,7 +168,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .city-config-chevron{color:var(--ts);font-size:9px;transition:transform .3s;flex-shrink:0}
 .city-config-drawer.open .city-config-chevron{transform:rotate(180deg)}
 .city-config-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
-.city-config-drawer.open .city-config-body{max-height:1400px}
+.city-config-drawer.open .city-config-body{max-height:1600px}
 .city-config-inner{padding:4px 14px 18px;display:flex;flex-direction:column;gap:14px}
 
 /* nights */
@@ -183,6 +180,9 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .nights-val{font-size:16px;font-weight:800;color:var(--em);min-width:28px;text-align:center}
 .nights-unit{font-size:10.5px;color:var(--ts)}
 
+/* friday badge */
+.friday-badge{display:inline-flex;align-items:center;gap:5px;margin-top:6px;padding:5px 11px;background:linear-gradient(90deg,rgba(201,168,76,.15),rgba(26,94,73,.1));border:1px solid var(--goldB);border-radius:100px;font-size:11px;font-weight:700;color:var(--em3)}
+
 /* transit */
 .transit-row{display:flex;align-items:center;gap:9px;padding:9px 13px;background:var(--white);border:1px solid rgba(201,168,76,.17);border-radius:9px;cursor:pointer;transition:border-color .2s}
 .transit-row:hover{border-color:var(--goldB)}
@@ -193,17 +193,19 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .transit-desc{font-size:11px;color:var(--ts);margin-top:1px}
 .section-label{font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--ts);text-transform:uppercase;margin-bottom:8px}
 
-/* HOTEL GRADE + sub-list */
+/* HOTEL GRADE */
 .hotel-grade-section{display:none}
 .hotel-grade-section.visible{display:block}
 .hotel-grade-list{display:flex;flex-direction:column;gap:7px}
 .hotel-grade-item{border:1.5px solid rgba(201,168,76,.16);border-radius:10px;overflow:hidden;background:var(--white)}
-.hotel-grade-head{display:flex;align-items:center;gap:10px;padding:10px 13px;cursor:pointer;transition:background .2s}
+.hotel-grade-head{display:flex;align-items:center;gap:8px;padding:10px 13px;cursor:pointer;transition:background .2s}
 .hotel-grade-head:hover{background:rgba(201,168,76,.04)}
 .hotel-grade-item.open .hotel-grade-head{border-bottom:1px solid rgba(201,168,76,.13);background:rgba(201,168,76,.04)}
-.grade-stars{display:flex;gap:2px;align-items:center}
-.grade-star{width:11px;height:11px;fill:var(--gold)}
-.grade-star.empty{fill:#ddd}
+/* Modern star icons */
+.grade-stars{display:flex;gap:3px;align-items:center}
+.grade-star-icon{width:10px;height:10px;border-radius:50%}
+.grade-star-icon.on{background:var(--gold)}
+.grade-star-icon.off{background:#e0d9c8}
 .grade-label{flex:1;font-size:12.5px;font-weight:700;color:var(--td)}
 .grade-badge{font-size:10px;padding:2px 8px;border-radius:100px;font-weight:700}
 .grade-badge-alef{background:rgba(201,168,76,.14);color:#8a6820;border:1px solid rgba(201,168,76,.28)}
@@ -214,15 +216,16 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .hotel-grade-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
 .hotel-grade-item.open .hotel-grade-body{max-height:600px}
 .hotel-cards-inner{padding:8px 10px;display:flex;flex-direction:column;gap:6px}
-.hotel-card{border:1.5px solid rgba(201,168,76,.14);border-radius:9px;padding:10px 12px;display:flex;align-items:center;gap:9px;cursor:pointer;transition:var(--tr);background:var(--cream)}
+.hotel-card{border:1.5px solid rgba(201,168,76,.14);border-radius:9px;padding:9px 11px;display:flex;align-items:center;gap:9px;cursor:pointer;transition:var(--tr);background:var(--cream)}
 .hotel-card:hover,.hotel-card.selected{border-color:var(--gold);background:linear-gradient(90deg,rgba(201,168,76,.07),var(--cream));box-shadow:0 2px 10px rgba(201,168,76,.1)}
-.hotel-mini-stars{display:flex;gap:1.5px;align-items:center;margin-bottom:2px}
-.hotel-mini-star{width:9px;height:9px}
-.hotel-mini-star.on{fill:var(--gold)}
-.hotel-mini-star.off{fill:#ddd}
+/* Hotel star dots (smaller, modern) */
+.hotel-mini-stars{display:flex;gap:2px;align-items:center;margin-bottom:3px}
+.hotel-mini-dot{width:6px;height:6px;border-radius:50%}
+.hotel-mini-dot.on{background:var(--gold)}
+.hotel-mini-dot.off{background:#ddd}
 .hotel-info{flex:1}
-.hotel-name{font-size:12.5px;font-weight:700;color:var(--td)}
-.hotel-dist{font-size:10.5px;color:var(--ts);margin-top:1px}
+.hotel-name{font-size:12px;font-weight:700;color:var(--td)}
+.hotel-dist{font-size:10px;color:var(--ts);margin-top:1px}
 .hotel-select-btn{font-size:10.5px;font-weight:700;color:var(--em);border:1.5px solid rgba(13,59,46,.2);padding:4px 10px;border-radius:100px;background:transparent;font-family:"Vazirmatn",sans-serif;cursor:pointer;transition:var(--tr);white-space:nowrap;flex-shrink:0}
 .hotel-card.selected .hotel-select-btn{background:var(--em);border-color:var(--em);color:var(--goldL)}
 
@@ -242,35 +245,48 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .next-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(13,59,46,.3)}
 .next-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
 
-/* FINAL SUMMARY */
-.final-compact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
-.fdc{background:var(--cream);border:1px solid rgba(201,168,76,.17);border-radius:11px;padding:12px 14px}
-.fdc-label{font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--ts);text-transform:uppercase;margin-bottom:4px}
-.fdc-val{font-size:13px;font-weight:700;color:var(--td);line-height:1.45}
+/* FINAL SUMMARY — compact */
+.final-compact-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+.fdc{background:var(--cream);border:1px solid rgba(201,168,76,.17);border-radius:10px;padding:10px 12px}
+.fdc-label{font-size:9.5px;font-weight:700;letter-spacing:.05em;color:var(--ts);text-transform:uppercase;margin-bottom:3px}
+.fdc-val{font-size:12.5px;font-weight:700;color:var(--td);line-height:1.4}
 .fdc-val.green{color:var(--em3)}
-.fdc.full{grid-column:span 2}
+.fdc.full{grid-column:span 3}
+.fdc.half{grid-column:span 1}
 
-.route-strip{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:18px;padding:12px 16px;background:var(--cream);border:1px solid rgba(201,168,76,.17);border-radius:11px}
-.route-city-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;background:var(--white);border:1px solid rgba(201,168,76,.22);border-radius:100px;font-size:11.5px;font-weight:600;color:var(--em)}
-.route-city-chip svg{width:12px;height:12px;fill:var(--gold)}
+.route-strip{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:12px;padding:10px 14px;background:var(--cream);border:1px solid rgba(201,168,76,.17);border-radius:10px}
+.route-city-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;background:var(--white);border:1px solid rgba(201,168,76,.22);border-radius:100px;font-size:11px;font-weight:600;color:var(--em)}
+.route-city-chip svg{width:10px;height:10px;fill:var(--gold)}
 .route-arrow{font-size:12px;color:var(--gold)}
 .route-city-chip.transit-chip{border-color:rgba(100,100,100,.18);color:#666}
 .route-city-chip.transit-chip svg{fill:#999}
 
-/* companion message */
-.companion-msg{background:linear-gradient(135deg,rgba(13,59,46,.05),rgba(201,168,76,.06));border:1.5px solid var(--goldB);border-radius:var(--r);padding:16px 18px;margin-bottom:18px}
-.companion-msg-icon{font-size:22px;margin-bottom:8px}
-.companion-msg-title{font-size:13px;font-weight:800;color:var(--em);margin-bottom:6px}
-.companion-msg-body{font-size:12px;color:var(--tm);line-height:1.95}
+/* companion block */
+.companion-block{background:linear-gradient(135deg,rgba(13,59,46,.05),rgba(201,168,76,.05));border:1.5px solid var(--goldB);border-radius:var(--r);padding:14px 16px;margin-bottom:12px}
+.companion-row{display:flex;align-items:flex-start;gap:10px}
+.companion-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.companion-text{flex:1}
+.companion-title{font-size:12.5px;font-weight:800;color:var(--em);margin-bottom:4px}
+.companion-body{font-size:11.5px;color:var(--tm);line-height:1.85}
+
+/* transfer option */
+.transfer-opts{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.transfer-opt{display:flex;align-items:center;gap:10px;padding:9px 13px;background:var(--white);border:1.5px solid rgba(201,168,76,.18);border-radius:9px;cursor:pointer;transition:var(--tr);font-family:"Vazirmatn",sans-serif}
+.transfer-opt:hover,.transfer-opt.selected{border-color:var(--gold);background:linear-gradient(90deg,rgba(201,168,76,.07),var(--white))}
+.transfer-opt-radio{width:16px;height:16px;border:1.5px solid var(--goldB);border-radius:50%;flex-shrink:0;transition:var(--tr);display:flex;align-items:center;justify-content:center}
+.transfer-opt.selected .transfer-opt-radio{border-color:var(--gold);background:var(--gold)}
+.transfer-opt.selected .transfer-opt-radio::after{content:'';width:6px;height:6px;background:var(--em);border-radius:50%}
+.transfer-opt-label{font-size:12px;font-weight:600;color:var(--td)}
+.transfer-opt-sub{font-size:10.5px;color:var(--ts);margin-top:1px}
 
 /* extra services */
-.extra-services{display:flex;flex-direction:column;gap:9px;margin-bottom:18px}
-.extra-service-row{background:var(--white);border:1.5px solid rgba(201,168,76,.15);border-radius:11px;padding:12px 14px}
-.extra-service-header{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}
-.extra-service-icon{font-size:18px;flex-shrink:0}
-.extra-service-title{font-size:12.5px;font-weight:700;color:var(--td);flex:1}
-.extra-service-sub{font-size:11px;color:var(--ts);margin-top:1px}
-.extra-service-body{margin-top:11px;display:none}
+.extra-services{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.extra-service-row{background:var(--white);border:1.5px solid rgba(201,168,76,.15);border-radius:11px;padding:11px 14px}
+.extra-service-header{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.extra-service-icon{font-size:17px;flex-shrink:0}
+.extra-service-title{font-size:12px;font-weight:700;color:var(--td);flex:1}
+.extra-service-sub{font-size:10.5px;color:var(--ts);margin-top:1px}
+.extra-service-body{margin-top:10px;display:none}
 .extra-service-body.show{display:block;animation:fadeUp .25s ease}
 .extra-qty-row{display:flex;align-items:center;gap:10px;margin-top:8px}
 .extra-qty-label{font-size:12px;color:var(--tm);flex:1}
@@ -281,36 +297,62 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .extra-price-note{font-size:11px;color:var(--ts);margin-top:6px;padding:6px 10px;background:rgba(201,168,76,.07);border-radius:7px}
 
 /* price reveal */
-.price-reveal-card{background:linear-gradient(135deg,var(--em),var(--em3));border-radius:var(--rL);padding:24px 20px;text-align:center;margin-top:0;box-shadow:0 8px 30px rgba(13,59,46,.18);border:1px solid rgba(201,168,76,.2);display:none}
+.price-reveal-card{background:linear-gradient(135deg,var(--em),var(--em3));border-radius:var(--rL);padding:22px 20px;text-align:center;margin-top:0;box-shadow:0 8px 30px rgba(13,59,46,.18);border:1px solid rgba(201,168,76,.2);display:none}
 .price-reveal-card.visible{display:block;animation:fadeUp .4s ease both}
 .price-reveal-label{font-size:11.5px;color:rgba(255,255,255,.52);margin-bottom:8px}
-.price-counter{font-size:32px;font-weight:800;color:var(--goldL)}
-.price-breakdown{display:flex;flex-direction:column;margin-top:16px}
-.price-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:12px}
+.price-counter{font-size:30px;font-weight:800;color:var(--goldL)}
+.price-breakdown{display:flex;flex-direction:column;margin-top:14px}
+.price-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:12px}
 .price-row .lbl{color:rgba(255,255,255,.52)}
 .price-row .val{color:var(--goldL);font-weight:700}
 .price-total-row{display:flex;justify-content:space-between;padding:10px 0 0;font-size:13.5px;margin-top:2px}
 .price-total-row .lbl{color:rgba(255,255,255,.7);font-weight:700}
 .price-total-row .val{color:var(--goldL);font-weight:800;font-size:15px}
 
+/* edit trip btn */
+.edit-trip-btn{margin-top:12px;display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);font-family:"Vazirmatn",sans-serif;font-size:12px;font-weight:600;padding:8px 20px;border-radius:100px;border:1px solid rgba(255,255,255,.18);cursor:pointer;transition:var(--tr)}
+.edit-trip-btn:hover{background:rgba(255,255,255,.17)}
+
 /* passenger form */
-.passenger-form-box{background:linear-gradient(135deg,rgba(13,59,46,.04),rgba(201,168,76,.04));border:1.5px solid var(--goldB);border-radius:var(--rL);padding:20px;margin-top:18px;display:none}
+.passenger-form-box{background:linear-gradient(135deg,rgba(13,59,46,.04),rgba(201,168,76,.04));border:1.5px solid var(--goldB);border-radius:var(--rL);padding:20px;margin-top:14px;display:none}
 .passenger-form-box.show{display:block;animation:fadeUp .35s ease}
-.pfb-title{font-size:13.5px;font-weight:800;color:var(--em);margin-bottom:14px;display:flex;align-items:center;gap:6px}
-.pfb-field{margin-bottom:12px}
-.pfb-label{font-size:11.5px;font-weight:600;color:var(--tm);margin-bottom:6px;display:block}
-.pfb-input{width:100%;padding:10px 13px;font-family:"Vazirmatn",sans-serif;font-size:12.5px;color:var(--td);border:1.5px solid rgba(201,168,76,.23);border-radius:9px;background:var(--white);outline:none;transition:border-color .2s}
-.pfb-input:focus{border-color:var(--gold)}
-.agency-toggle-row{display:flex;align-items:center;gap:9px;padding:10px 13px;background:var(--white);border:1px solid rgba(201,168,76,.17);border-radius:9px;cursor:pointer;margin-bottom:12px}
+.pfb-title{font-size:13px;font-weight:800;color:var(--em);margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.pfb-section{background:var(--white);border:1px solid rgba(201,168,76,.17);border-radius:var(--r);padding:14px;margin-bottom:12px}
+.pfb-section-title{font-size:11.5px;font-weight:700;color:var(--em);margin-bottom:10px;display:flex;align-items:center;gap:5px;padding-bottom:8px;border-bottom:1px solid rgba(201,168,76,.13)}
+.pfb-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pfb-field{margin-bottom:0}
+.pfb-field.full{grid-column:span 2}
+.pfb-label{font-size:11px;font-weight:600;color:var(--tm);margin-bottom:5px;display:block}
+.pfb-input{width:100%;padding:9px 12px;font-family:"Vazirmatn",sans-serif;font-size:12px;color:var(--td);border:1.5px solid rgba(201,168,76,.23);border-radius:9px;background:var(--cream);outline:none;transition:border-color .2s}
+.pfb-input:focus{border-color:var(--gold);background:var(--white)}
+.pfb-note{font-size:11px;color:var(--ts);padding:8px 12px;background:rgba(201,168,76,.07);border-radius:8px;border-right:3px solid var(--goldB);line-height:1.75;margin-top:10px}
+
+/* extra passengers accordion */
+.extra-passengers{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.extra-passenger-item{border:1px solid rgba(201,168,76,.18);border-radius:var(--r);overflow:hidden;background:var(--cream)}
+.extra-passenger-head{display:flex;align-items:center;gap:9px;padding:11px 14px;cursor:pointer;transition:background .2s}
+.extra-passenger-head:hover{background:rgba(201,168,76,.04)}
+.extra-passenger-num{width:26px;height:26px;background:var(--em);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--goldL);flex-shrink:0}
+.extra-passenger-label{flex:1;font-size:12.5px;font-weight:600;color:var(--td)}
+.extra-passenger-chevron{font-size:9px;color:var(--ts);transition:transform .3s}
+.extra-passenger-item.open .extra-passenger-chevron{transform:rotate(180deg)}
+.extra-passenger-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.extra-passenger-item.open .extra-passenger-body{max-height:600px}
+.extra-passenger-inner{padding:4px 14px 14px}
+
+/* agency */
+.agency-toggle-row{display:flex;align-items:center;gap:9px;padding:10px 13px;background:var(--white);border:1px solid rgba(201,168,76,.17);border-radius:9px;cursor:pointer;margin-bottom:10px}
 .agency-check-box{width:19px;height:19px;border:1.5px solid var(--goldB);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--tr)}
 .agency-check-box.checked{background:var(--em);border-color:var(--em)}
 .agency-check-box.checked::after{content:'✓';color:var(--goldL);font-size:10px;font-weight:700}
-.agency-commission-box{background:rgba(201,168,76,.09);border:1px solid var(--goldB);border-radius:9px;padding:10px 14px;display:none;margin-top:7px;text-align:center}
+.agency-fields{display:none;background:var(--cream);border:1px solid rgba(201,168,76,.17);border-radius:9px;padding:12px;margin-bottom:10px}
+.agency-fields.show{display:block}
+.agency-commission-box{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(13,59,46,.06));border:1px solid var(--goldB);border-radius:9px;padding:12px 14px;display:none;margin-top:0;text-align:center}
 .agency-commission-box.show{display:block}
-.acb-label{font-size:11px;color:var(--ts);margin-bottom:3px}
-.acb-val{font-size:17px;font-weight:800;color:var(--gold)}
+.acb-label{font-size:11.5px;color:var(--tm);margin-bottom:3px;font-weight:600}
+.acb-val{font-size:14px;font-weight:800;color:var(--em);line-height:1.5}
 
-.confirm-btn{margin-top:16px;width:100%;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--em);font-family:"Vazirmatn",sans-serif;font-size:13.5px;font-weight:800;padding:13px;border-radius:100px;border:none;cursor:pointer;box-shadow:0 5px 18px rgba(201,168,76,.3);transition:var(--tr)}
+.confirm-btn{margin-top:14px;width:100%;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--em);font-family:"Vazirmatn",sans-serif;font-size:13.5px;font-weight:800;padding:13px;border-radius:100px;border:none;cursor:pointer;box-shadow:0 5px 18px rgba(201,168,76,.3);transition:var(--tr)}
 .confirm-btn:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(201,168,76,.46)}
 
 /* SUCCESS MODAL */
@@ -330,22 +372,21 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .footer-divider{width:36px;height:1px;background:var(--goldB);margin:8px auto;position:relative}
 .footer-copy{font-size:10px;color:rgba(255,255,255,.22);position:relative}
 
-/* hero-wave */
-.hero-wave{display:block;line-height:0;background:var(--em)}
-.hero-wave svg{display:block;width:100%}
-
-/* ANIM */
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .step-drawer.active .drawer-content{animation:fadeUp .3s ease both}
 .city-config-drawer.open .city-config-inner{animation:fadeUp .28s ease both}
 
-@media(max-width:600px){
+@media(max-width:640px){
   .header-inner{padding:0 16px}
   .hero{padding:46px 16px 76px}
   .hero-tagline-main{font-size:15.5px}
-  .type-cards,.city-grid,.final-compact-grid{grid-template-columns:1fr}
+  .type-cards{grid-template-columns:1fr}
+  .city-grid{grid-template-columns:1fr}
+  .final-compact-grid{grid-template-columns:1fr 1fr}
+  .fdc.full{grid-column:span 2}
   .step1-row{grid-template-columns:1fr}
-  .fdc.full{grid-column:span 1}
+  .pfb-grid{grid-template-columns:1fr}
+  .pfb-field.full{grid-column:span 1}
 }
 </style>
 </head>
@@ -386,9 +427,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
       <rect x="85" y="130" width="30" height="35" rx="3" stroke="#c9a84c" stroke-width="1.2" fill="none"/>
       <line x1="40" y1="165" x2="160" y2="165" stroke="#c9a84c" stroke-width="1.5"/>
       <line x1="30" y1="170" x2="170" y2="170" stroke="#c9a84c" stroke-width="1"/>
-      <path d="M75 110L75 95Q100 85 125 95L125 110" stroke="#c9a84c" stroke-width="1.2" fill="none"/>
-      <rect x="45" y="130" width="15" height="35" rx="2" stroke="#c9a84c" stroke-width="1" fill="none"/>
-      <rect x="140" y="130" width="15" height="35" rx="2" stroke="#c9a84c" stroke-width="1" fill="none"/>
     </svg>
   </div>
   <div class="hero-badge">✦ سفر زیارتی شخصی‌سازی‌شده</div>
@@ -433,7 +471,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
         </div>
 
         <div class="step1-row">
-          <!-- Passengers -->
           <div>
             <div class="step1-col-title">👤 تعداد مسافران</div>
             <div class="passengers-stepper">
@@ -445,7 +482,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
             <div class="pass-note">حداکثر ۴ نفر (سفر انفرادی یا گروه کوچک)</div>
             <div class="pass-warning" id="passWarning">⚠️ حداکثر ظرفیت ۴ نفر است.</div>
           </div>
-          <!-- Origin -->
           <div>
             <div class="step1-col-title">📍 شهر مبدا</div>
             <select class="origin-select" id="originSelect" onchange="selectOrigin(this.value)">
@@ -496,8 +532,8 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
                 <path d="M5 26L17 18L15 8L20 10L24 21L34 17C36.5 16 39 17.5 39 20C39 22 37.5 23.5 35 24L25 27L22 37L17 35L20 25L7 31L5 26Z" fill="#134a3a" opacity=".9"/>
               </svg>
             </div>
-            <div class="type-name">سفر هوایی</div>
-            <div class="type-desc">سریع، راحت، مدرن<br/>مناسب سفرهای کوتاه</div>
+            <div class="type-name">رفت‌وبرگشت هوایی</div>
+            <div class="type-desc">سریع و راحت</div>
           </div>
           <div class="type-card" id="typeLand" onclick="selectType('land')">
             <div class="selected-check">✓</div>
@@ -507,13 +543,28 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
                 <rect x="7" y="17" width="7" height="6" rx="1.5" fill="#e8c97a"/>
                 <rect x="16" y="17" width="7" height="6" rx="1.5" fill="#e8c97a"/>
                 <rect x="25" y="17" width="7" height="6" rx="1.5" fill="#e8c97a"/>
-                <rect x="3" y="28" width="38" height="4" rx="1.5" fill="#0d3b2e"/>
                 <circle cx="11" cy="35" r="3.5" fill="#0d3b2e"/><circle cx="11" cy="35" r="1.8" fill="#c9a84c"/>
                 <circle cx="33" cy="35" r="3.5" fill="#0d3b2e"/><circle cx="33" cy="35" r="1.8" fill="#c9a84c"/>
               </svg>
             </div>
-            <div class="type-name">سفر زمینی</div>
-            <div class="type-desc">اقتصادی، گروهی، معنوی<br/>تجربه‌ای متفاوت</div>
+            <div class="type-name">رفت‌وبرگشت زمینی</div>
+            <div class="type-desc">اقتصادی و گروهی</div>
+          </div>
+          <div class="type-card" id="typeMixed" onclick="selectType('mixed')">
+            <div class="selected-check">✓</div>
+            <div class="type-icon">
+              <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 20L13 15L12 8L16 9.5L18.5 17L25 14C27 13 29 14.2 29 16C29 17.5 27.5 18.5 26 19L19 21L17 28L13 27L15 20L6 24L5 20Z" fill="#134a3a" opacity=".85"/>
+                <rect x="22" y="24" width="19" height="10" rx="2.5" fill="#134a3a" opacity=".85"/>
+                <rect x="24" y="26" width="3.5" height="3" rx=".8" fill="#e8c97a"/>
+                <rect x="29" y="26" width="3.5" height="3" rx=".8" fill="#e8c97a"/>
+                <rect x="34" y="26" width="3.5" height="3" rx=".8" fill="#e8c97a"/>
+                <circle cx="25.5" cy="36" r="2" fill="#0d3b2e"/><circle cx="25.5" cy="36" r="1" fill="#c9a84c"/>
+                <circle cx="37.5" cy="36" r="2" fill="#0d3b2e"/><circle cx="37.5" cy="36" r="1" fill="#c9a84c"/>
+              </svg>
+            </div>
+            <div class="type-name">رفت هوایی، برگشت زمینی</div>
+            <div class="type-desc">ترکیبی و انعطاف‌پذیر</div>
           </div>
         </div>
 
@@ -544,22 +595,54 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
     </div>
     <div class="drawer-body">
       <div class="drawer-content">
-        <div class="city-hint">می‌توانید چند شهر انتخاب کنید. <strong>ترتیب انتخاب = ترتیب سفر.</strong><br/>سامرا و کاظمین در یک مسیر هستند و با هم انتخاب می‌شوند.</div>
+        <div class="city-hint">می‌توانید چند شهر انتخاب کنید. <strong>ترتیب انتخاب = ترتیب سفر.</strong><br/>کاظمین و سامرا در یک مسیر هستند و به عنوان یک مقصد محسوب می‌شوند.</div>
         <div class="city-grid">
+          <!-- Karbala -->
           <div class="city-card" id="cityKarbala" onclick="toggleCity('karbala')">
-            <div class="city-icon-wrap"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l1 3h2l-1.5 2 .5 3L12 8.5 9.5 10l.5-3L8.5 5h2L12 2zm-4 9h8v1H8v-1zm-1 2h10v9H7V13zm3 2v5h4v-5h-4z"/></svg></div>
+            <div class="city-icon-wrap">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <line x1="12" y1="2" x2="12" y2="5"/>
+                <path d="M8 9 Q12 4 16 9"/>
+                <path d="M7 9 L7 16 L17 16 L17 9"/>
+                <rect x="10" y="12" width="4" height="4"/>
+                <line x1="5" y1="16" x2="19" y2="16"/>
+                <line x1="4" y1="17.5" x2="20" y2="17.5"/>
+              </svg>
+            </div>
             <div class="city-info"><div class="city-name">کربلای معلی</div><div class="city-shrine">حرم امام حسین (ع)</div></div>
             <div class="city-tick">✓</div>
             <div class="city-order-badge" id="orderKarbala"></div>
           </div>
+          <!-- Najaf -->
           <div class="city-card" id="cityNajaf" onclick="toggleCity('najaf')">
-            <div class="city-icon-wrap"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1.5C9.5 1.5 7.5 3.5 7.5 6c0 1.8.9 3.4 2.3 4.4V12h4.4v-1.6C15.6 9.4 16.5 7.8 16.5 6c0-2.5-2-4.5-4.5-4.5zM9 14v8h6v-8H9zm2 1h2v1h-2v-1zm0 2h2v1h-2v-1zm0 2h2v1h-2v-1z"/></svg></div>
+            <div class="city-icon-wrap">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="6" r="3.5"/>
+                <line x1="12" y1="3" x2="12" y2="1"/>
+                <path d="M8.5 9.5 Q12 7 15.5 9.5"/>
+                <rect x="9" y="10" width="6" height="8"/>
+                <rect x="11" y="13" width="2" height="5"/>
+                <line x1="6" y1="18" x2="18" y2="18"/>
+              </svg>
+            </div>
             <div class="city-info"><div class="city-name">نجف اشرف</div><div class="city-shrine">حرم امام علی (ع)</div></div>
             <div class="city-tick">✓</div>
             <div class="city-order-badge" id="orderNajaf"></div>
           </div>
+          <!-- Kadh+Sam -->
           <div class="city-card" id="cityKadhSam" onclick="toggleCity('kadh_sam')">
-            <div class="city-icon-wrap"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C9 2 7 4 7 6.5c0 1.6.8 3 2 4V12h6v-1.5c1.2-1 2-2.4 2-4C17 4 15 2 12 2zM9 13v9h6v-9H9zm1 1h4v1h-4v-1zm0 2h4v1h-4v-1zm0 2h4v1h-4v-1zM4 10h2v3H4v-3zm14 0h2v3h-2v-3z"/></svg></div>
+            <div class="city-icon-wrap">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 10 Q10 5 13 10"/>
+                <rect x="6" y="10" width="7" height="7"/>
+                <rect x="8.5" y="13" width="2" height="4"/>
+                <path d="M14 11 Q16.5 7 19 11"/>
+                <rect x="13.5" y="11" width="6" height="6"/>
+                <rect x="15.5" y="14" width="2" height="3"/>
+                <line x1="4" y1="17" x2="21" y2="17"/>
+                <line x1="3" y1="18.5" x2="22" y2="18.5"/>
+              </svg>
+            </div>
             <div class="city-info"><div class="city-name">کاظمین و سامرا</div><div class="city-shrine">حرم امام کاظم و عسکریین (ع)</div></div>
             <div class="city-tick">✓</div>
             <div class="city-order-badge" id="orderKadhSam"></div>
@@ -607,45 +690,61 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
     </div>
     <div class="drawer-body">
       <div class="drawer-content">
+
+        <!-- compact summary grid -->
         <div class="final-compact-grid" id="finalGrid"></div>
         <div class="route-strip" id="routeStrip"></div>
 
-        <!-- companion message -->
-        <div class="companion-msg">
-          <div class="companion-msg-icon">🤝</div>
-          <div class="companion-msg-title">همراهی از درب منزل تا بازگشت</div>
-          <div class="companion-msg-body">زائر گرامی، ما از مبدا سفر — یعنی <strong>درب منزل شما</strong> — همراهتان خواهیم بود. تمام هزینه‌های تخمینی از درب منزل محاسبه شده‌اند. ترانسفر رفت و برگشت، اسکورت و پشتیبانی کامل در تمام شهرهای زیارتی با ماست.</div>
+        <!-- companion + transfer option -->
+        <div class="companion-block">
+          <div class="companion-row">
+            <div class="companion-icon">🤝</div>
+            <div class="companion-text">
+              <div class="companion-title">همراهی کامل از مبدا تا بازگشت</div>
+              <div class="companion-body">زائر گرامی، ما از مبدا سفر — یعنی <strong>درب منزل شما</strong> — همراهتان خواهیم بود. تمام هزینه‌های تخمینی از درب منزل محاسبه شده‌اند. ترانسفر رفت و برگشت، اسکورت و پشتیبانی کامل در تمام مسیر با ماست.</div>
+            </div>
+          </div>
+          <div class="transfer-opts" id="transferOpts">
+            <div class="transfer-opt selected" id="topt_door" onclick="selTransferOpt('door')">
+              <div class="transfer-opt-radio"></div>
+              <div><div class="transfer-opt-label">🏠 ترانسفر از درب منزل تا مرز</div><div class="transfer-opt-sub">هزینه حمل‌ونقل داخلی شامل می‌شود</div></div>
+            </div>
+            <div class="transfer-opt" id="topt_self" onclick="selTransferOpt('self')">
+              <div class="transfer-opt-radio"></div>
+              <div><div class="transfer-opt-label">✈️ حضور خودم در ترمینال / مرز</div><div class="transfer-opt-sub">هزینه ترانسفر داخل ایران کسر می‌شود</div></div>
+            </div>
+          </div>
         </div>
 
         <!-- extra services -->
         <div class="extra-services">
           <div class="extra-service-row" id="simCardRow">
-            <div class="extra-service-header" onclick="toggleExtra('simCard')">
+            <div class="extra-service-header">
               <div class="extra-service-icon">📱</div>
-              <div><div class="extra-service-title">سیم‌کارت عراقی</div><div class="extra-service-sub">دریافت قبل از اعزام — ۴۵,۰۰۰ تومان</div></div>
-              <div class="toggle-switch" onclick="event.stopPropagation()"><input type="checkbox" id="simToggle" onchange="toggleSimCard(this.checked)"/><div class="toggle-track"></div></div>
+              <div><div class="extra-service-title">سیم‌کارت عراقی</div><div class="extra-service-sub">تحویل قبل از اعزام — ۴۵,۰۰۰ تومان / نفر</div></div>
+              <label class="toggle-switch" onclick="event.stopPropagation()"><input type="checkbox" id="simToggle" onchange="toggleSimCard(this.checked)"/><div class="toggle-track"></div></label>
             </div>
             <div class="extra-service-body" id="simCardBody">
-              <div class="extra-price-note">سیم‌کارت عراقی همراه با اینترنت فعال، یک روز قبل از سفر تحویل داده می‌شود. به ازای هر نفر ۴۵,۰۰۰ تومان محاسبه می‌شود.</div>
+              <div class="extra-price-note">سیم‌کارت عراقی همراه با اینترنت فعال، یک روز قبل از سفر تحویل داده می‌شود.</div>
             </div>
           </div>
 
           <div class="extra-service-row" id="dinarsRow">
-            <div class="extra-service-header" onclick="toggleExtra('dinars')">
+            <div class="extra-service-header">
               <div class="extra-service-icon">💵</div>
-              <div><div class="extra-service-title">ارز دینار عراقی</div><div class="extra-service-sub">تحویل قبل از سفر — نرخ رسمی</div></div>
-              <div class="toggle-switch" onclick="event.stopPropagation()"><input type="checkbox" id="dinarsToggle" onchange="toggleDinars(this.checked)"/><div class="toggle-track"></div></div>
+              <div><div class="extra-service-title">ارز دینار عراقی</div><div class="extra-service-sub">تحویل قبل از سفر — نرخ رسمی روز</div></div>
+              <label class="toggle-switch" onclick="event.stopPropagation()"><input type="checkbox" id="dinarsToggle" onchange="toggleDinars(this.checked)"/><div class="toggle-track"></div></label>
             </div>
             <div class="extra-service-body" id="dinarsBody">
               <div class="extra-qty-row">
-                <div class="extra-qty-label">مقدار دینار (هزار دینار)</div>
+                <div class="extra-qty-label">مقدار (هزار دینار)</div>
                 <div class="extra-stepper">
                   <button class="extra-btn" onclick="changeDinars(-1)">−</button>
                   <div class="extra-val" id="dinarsVal">۵۰۰</div>
                   <button class="extra-btn" onclick="changeDinars(1)">+</button>
                 </div>
               </div>
-              <div class="extra-price-note" id="dinarsNote">۵۰۰ هزار دینار عراقی — معادل تقریبی: ۱۸,۵۰۰,۰۰۰ تومان</div>
+              <div class="extra-price-note" id="dinarsNote">۵۰۰ هزار دینار — معادل تقریبی: ۱۸,۵۰۰,۰۰۰ تومان</div>
             </div>
           </div>
         </div>
@@ -654,18 +753,47 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
           <div class="price-reveal-label">هزینه تخمینی سفر شما (به ازای هر نفر)</div>
           <div class="price-counter" id="priceCounter">در حال محاسبه…</div>
           <div class="price-breakdown" id="priceBreakdown"></div>
+          <button class="edit-trip-btn" onclick="editTrip()">✏️ ویرایش سفر (تغییر مدت / هتل)</button>
         </div>
 
         <div class="passenger-form-box" id="passengerFormBox">
-          <div class="pfb-title">📋 اطلاعات سرپرست مسافر</div>
-          <div class="pfb-field"><label class="pfb-label">نام و نام خانوادگی *</label><input class="pfb-input" id="pfbName" type="text" placeholder="نام کامل سرپرست گروه"/></div>
-          <div class="pfb-field"><label class="pfb-label">شماره تماس *</label><input class="pfb-input" id="pfbPhone" type="tel" placeholder="۰۹۱۲XXXXXXX" dir="ltr"/></div>
-          <div class="agency-toggle-row" onclick="toggleAgency()">
-            <div class="agency-check-box" id="agencyCheckBox"></div>
-            <div><div class="transit-label">آژانس همکار هستم</div><div class="transit-desc">کمیسیون ۵٪ برای آژانس‌های همکار</div></div>
+          <div class="pfb-title">📋 اطلاعات مسافران</div>
+
+          <!-- Leader info -->
+          <div class="pfb-section" id="leaderSection">
+            <div class="pfb-section-title">👤 سرپرست گروه — مسافر اول</div>
+            <div class="pfb-grid">
+              <div class="pfb-field"><label class="pfb-label">نام *</label><input class="pfb-input" id="pfbFirstName" type="text" placeholder="نام"/></div>
+              <div class="pfb-field"><label class="pfb-label">نام خانوادگی *</label><input class="pfb-input" id="pfbLastName" type="text" placeholder="نام خانوادگی"/></div>
+              <div class="pfb-field"><label class="pfb-label">شماره تماس *</label><input class="pfb-input" id="pfbPhone" type="tel" placeholder="۰۹۱۲XXXXXXX" dir="ltr"/></div>
+              <div class="pfb-field"><label class="pfb-label">تاریخ تولد *</label><input class="pfb-input" id="pfbBirth" type="text" placeholder="مثال: ۱۳۶۰/۰۳/۱۵"/></div>
+            </div>
           </div>
-          <div id="agencyNameField" style="display:none" class="pfb-field"><label class="pfb-label">نام آژانس</label><input class="pfb-input" id="pfbAgency" type="text" placeholder="نام آژانس مسافرتی"/></div>
-          <div class="agency-commission-box" id="agencyCommissionBox"><div class="acb-label">کمیسیون آژانس همکار (۵٪)</div><div class="acb-val" id="acbVal">—</div></div>
+
+          <!-- Extra passengers -->
+          <div class="extra-passengers" id="extraPassengers"></div>
+
+          <!-- passport note -->
+          <div class="pfb-note">📌 دریافت تصویر گذرنامه ضروری می‌باشد. همکاران ما پس از ثبت‌نام با شما هماهنگی خواهند نمود.</div>
+
+          <!-- agency -->
+          <div style="margin-top:14px">
+            <div class="agency-toggle-row" onclick="toggleAgency()">
+              <div class="agency-check-box" id="agencyCheckBox"></div>
+              <div><div class="transit-label">آژانس همکار هستم</div><div class="transit-desc">کمیسیون ۵٪ برای آژانس‌های همکار</div></div>
+            </div>
+            <div class="agency-fields" id="agencyFields">
+              <div class="pfb-grid">
+                <div class="pfb-field"><label class="pfb-label">نام آژانس *</label><input class="pfb-input" id="pfbAgency" type="text" placeholder="نام آژانس مسافرتی"/></div>
+                <div class="pfb-field"><label class="pfb-label">شماره تماس آژانس *</label><input class="pfb-input" id="pfbAgencyPhone" type="tel" placeholder="شماره آژانس" dir="ltr"/></div>
+              </div>
+            </div>
+            <div class="agency-commission-box" id="agencyCommissionBox">
+              <div class="acb-label">کمیسیون آژانس همکار (۵٪)</div>
+              <div class="acb-val">کمیسیون شما پس از تأیید نهایی سفر به حساب آژانس واریز خواهد شد.</div>
+            </div>
+          </div>
+
           <button class="confirm-btn" style="margin-top:14px" onclick="finalRegister()">✦ ثبت‌نام و پرداخت</button>
         </div>
 
@@ -675,7 +803,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
   </div>
 
 </div>
-</div><!-- /page-body -->
+</div>
 
 <footer class="site-footer">
   <div class="footer-logo">عتبات عالیات</div>
@@ -695,8 +823,11 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 
 <script>
 const PM=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
-const TODAY={y:1405,m:2,d:16};// ~June 6 2026
+// Shamsi weekday offset per month (approximate, for Farvardin=index 0)
+const MONTH_OFFSET=[6,2,4,6,1,3,5,0,2,4,6,1];
+const TODAY={y:1405,m:2,d:16};
 
+// Only Imam Khomeini airport for Tehran
 const airports={
   tehran:[{code:'IKA',name:'فرودگاه بین‌المللی امام خمینی (ره)',city:'تهران'}],
   isfahan:[{code:'IFN',name:'فرودگاه بین‌المللی اصفهان',city:'اصفهان'}],
@@ -706,9 +837,9 @@ const airCities=['tehran','isfahan','mashhad'];
 const cityLabel={tehran:'تهران',isfahan:'اصفهان',mashhad:'مشهد',shiraz:'شیراز',tabriz:'تبریز',qom:'قم',karaj:'کرج',ahvaz:'اهواز',rasht:'رشت',other:'سایر'};
 
 const cityMeta={
-  karbala:{name:'کربلای معلی',shrine:'حرم امام حسین (ع)',hotelBase:3200000,svgKey:'karbala'},
-  najaf:{name:'نجف اشرف',shrine:'حرم امام علی (ع)',hotelBase:2800000,svgKey:'najaf'},
-  kadh_sam:{name:'کاظمین و سامرا',shrine:'حرم امام کاظم و عسکریین (ع)',hotelBase:2500000,svgKey:'kadh_sam'}
+  karbala:{name:'کربلای معلی',shrine:'حرم امام حسین (ع)',hotelBase:3200000},
+  najaf:{name:'نجف اشرف',shrine:'حرم امام علی (ع)',hotelBase:2800000},
+  kadh_sam:{name:'کاظمین و سامرا',shrine:'حرم امام کاظم و عسکریین (ع)',hotelBase:2500000}
 };
 
 const hotelData={
@@ -750,34 +881,68 @@ const hotelData={
 const state={
   calM:TODAY.m,calY:TODAY.y,
   selD:null,selM:null,selY:null,dateText:null,
-  passengers:1,
-  origin:null,
-  tripType:null,
-  airportOk:false,
-  selectedAirport:null,
-  cities:[],
-  cityData:{},
-  simCard:false,
-  dinars:false,
-  dinarsAmt:500,
-  isAgency:false,
-  totalPrice:0
+  passengers:1,origin:null,
+  tripType:null,airportOk:false,selectedAirport:null,
+  cities:[],cityData:{},
+  transferOpt:'door',
+  simCard:false,dinars:false,dinarsAmt:500,
+  isAgency:false,totalPrice:0
 };
 
 function P(n){return String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);}
 function fmt(n){return P(Math.round(n).toLocaleString('en'));}
-function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
-function scrollToEl(id,block='start'){
+
+function scrollToTop(id){
   setTimeout(()=>{
     const el=document.getElementById(id);
-    if(el) el.scrollIntoView({behavior:'smooth',block});
-  },320);
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  },340);
 }
 
 function isDisabled(d,m,y){
-  if(y<TODAY.y) return true;
-  if(y===TODAY.y&&m<TODAY.m) return true;
-  if(y===TODAY.y&&m===TODAY.m&&d<=TODAY.d+1) return true;
+  if(y<TODAY.y)return true;
+  if(y===TODAY.y&&m<TODAY.m)return true;
+  if(y===TODAY.y&&m===TODAY.m&&d<=TODAY.d+1)return true;
+  return false;
+}
+
+// Shamsi day-of-week: 0=Shanbe,…,6=Jomeh
+function shamsiDow(d,m,y){
+  // approximate: start of 1405/1/1 was Shanbe (0)
+  // days from 1405/1/1
+  const daysInMonth=[31,31,31,31,31,31,30,30,30,30,30,29];
+  let total=0;
+  for(let i=0;i<m;i++) total+=daysInMonth[i];
+  total+=d-1;
+  const year1405Start=0;// shanbe
+  return (year1405Start+total)%7;
+}
+
+function hasFridayNight(depD,depM,depY,cityKey){
+  // find arrival day in karbala: assume karbala is visited first if selected
+  // simplified: check if any day of stay in city falls on Thursday (night -> friday)
+  const d=state.cityData[cityKey];
+  if(!d||d.transit)return false;
+  const daysInMonth=[31,31,31,31,31,31,30,30,30,30,30,29];
+  // total shamsi days from ref
+  function toAbsolute(dd,mm,yy){
+    let t=0;
+    for(let i=0;i<mm;i++) t+=daysInMonth[i];
+    return t+dd-1+(yy-1405)*365;
+  }
+  // find when this city starts: sum nights of previous cities
+  let offset=0;
+  for(let c of state.cities){
+    if(c===cityKey) break;
+    if(!state.cityData[c].transit) offset+=state.cityData[c].nights;
+    else offset+=1;
+  }
+  const arrivalAbs=toAbsolute(depD,depM,depY)+offset+1;
+  for(let n=0;n<(d.nights||3);n++){
+    const abs=arrivalAbs+n;
+    const dow=(abs)%7;// 0=sat,4=thu (sat=0,sun=1,mon=2,tue=3,wed=4,thu=5,fri=6)
+    if(dow===5) return true;// thursday night = eve of friday
+  }
   return false;
 }
 
@@ -788,8 +953,9 @@ function startBuilder(){
   setTimeout(()=>document.getElementById('step1').scrollIntoView({behavior:'smooth',block:'start'}),80);
 }
 function renderCalendar(){
-  const dim=state.calM<6?31:state.calM<11?30:29;
-  const off=[2,4,6,1,3,5,0,2,4,6,1,3][state.calM]||0;
+  const daysInMonth=[31,31,31,31,31,31,30,30,30,30,30,29];
+  const dim=daysInMonth[state.calM];
+  const off=MONTH_OFFSET[state.calM]||0;
   document.getElementById('calMonthTitle').textContent=PM[state.calM]+' '+P(state.calY);
   const c=document.getElementById('calDays');c.innerHTML='';
   for(let i=0;i<off;i++){const e=document.createElement('div');e.className='cal-day empty';c.appendChild(e);}
@@ -819,7 +985,7 @@ function selDate(d,m,y){
 function changePassengers(delta){
   const nx=state.passengers+delta;
   if(nx>4){document.getElementById('passWarning').classList.add('show');return;}
-  if(nx<1) return;
+  if(nx<1)return;
   document.getElementById('passWarning').classList.remove('show');
   state.passengers=nx;
   document.getElementById('passVal').textContent=P(nx);
@@ -831,11 +997,13 @@ function chk1(){document.getElementById('nextBtn1').disabled=!(state.selD&&state
 /* ── STEP 2 ── */
 function selectType(t){
   state.tripType=t;
-  document.getElementById('typeAir').classList.toggle('selected',t==='air');
-  document.getElementById('typeLand').classList.toggle('selected',t==='land');
+  ['typeAir','typeLand','typeMixed'].forEach(id=>document.getElementById(id).classList.remove('selected'));
+  const map={air:'typeAir',land:'typeLand',mixed:'typeMixed'};
+  document.getElementById(map[t]).classList.add('selected');
   document.getElementById('nextBtn2').disabled=true;
   const awb=document.getElementById('airportWarningBox');
-  if(t==='air'){
+  const needsAir=t==='air'||t==='mixed';
+  if(needsAir){
     awb.classList.add('show');
     if(airCities.includes(state.origin)){
       document.getElementById('awbBody').textContent='لطفاً فرودگاه مبدا خود را انتخاب کنید:';
@@ -843,7 +1011,7 @@ function selectType(t){
       document.getElementById('awbStep2').style.display='block';
       renderAirports(airports[state.origin]||[]);
     } else {
-      document.getElementById('awbBody').textContent='در حال حاضر پروازها تنها از فرودگاه‌های تهران، مشهد و اصفهان ارائه می‌شود. آیا امکان حضور در یکی از این فرودگاه‌ها را دارید؟';
+      document.getElementById('awbBody').textContent='پروازها تنها از فرودگاه‌های تهران، مشهد و اصفهان ارائه می‌شود. آیا امکان حضور در یکی از این فرودگاه‌ها را دارید؟';
       document.getElementById('awbStep1').style.display='block';
       document.getElementById('awbStep2').style.display='none';
     }
@@ -863,8 +1031,7 @@ function airportYes(){
 function airportNo(){
   document.getElementById('airportWarningBox').classList.remove('show');
   state.tripType=null;
-  document.getElementById('typeAir').classList.remove('selected');
-  document.getElementById('typeLand').classList.remove('selected');
+  ['typeAir','typeLand','typeMixed'].forEach(id=>document.getElementById(id).classList.remove('selected'));
   document.getElementById('nextBtn2').disabled=true;
   alert('سفر هوایی تنها از تهران، مشهد و اصفهان امکان‌پذیر است.\nلطفاً سفر زمینی را انتخاب کنید یا با دفتر ما تماس بگیرید.');
 }
@@ -890,7 +1057,6 @@ function toggleCity(key){
   const idx=state.cities.indexOf(key);
   if(idx>-1){
     state.cities.splice(idx,1);delete state.cityData[key];
-    document.getElementById('city'+key.replace('_','').replace(/\b\w/g,c=>c.toUpperCase()).replace(/[A-Z]/,(m,o)=>o===0?m:m)).classList.remove('selected');
     getCityEl(key).classList.remove('selected');
   } else {
     state.cities.push(key);
@@ -921,18 +1087,26 @@ function updateRoutePreview(){
 
 /* ── STEP 4 CITY CONFIGS ── */
 const gradeInfo={
-  alef:{label:'درجه الف — لوکس',badgeCls:'grade-badge-alef',stars:5},
-  be:{label:'درجه ب — متوسط',badgeCls:'grade-badge-be',stars:3},
-  jim:{label:'درجه ج — اقتصادی',badgeCls:'grade-badge-jim',stars:2}
+  alef:{label:'درجه الف — لوکس',badgeCls:'grade-badge-alef',dots:5},
+  be:{label:'درجه ب — متوسط',badgeCls:'grade-badge-be',dots:3},
+  jim:{label:'درجه ج — اقتصادی',badgeCls:'grade-badge-jim',dots:2}
 };
-function starSVG(n,total){
-  let s='';for(let i=1;i<=total;i++){s+=`<svg class="hotel-mini-star ${i<=n?'on':'off'}" viewBox="0 0 12 12"><path d="M6 1l1.3 3.9H11L8.1 7.1l1 3.9L6 9 2.9 11l1-3.9L1 4.9h3.7z"/></svg>`;}return s;
-}
-function gradeStarSVG(n){
+function dotSVG(n,total){
   let s='<div class="grade-stars">';
-  for(let i=1;i<=5;i++) s+=`<svg class="grade-star ${i<=n?'':'empty'}" viewBox="0 0 12 12"><path d="M6 1l1.3 3.9H11L8.1 7.1l1 3.9L6 9 2.9 11l1-3.9L1 4.9h3.7z"/></svg>`;
+  for(let i=1;i<=total;i++) s+=`<div class="grade-star-icon ${i<=n?'on':'off'}"></div>`;
   return s+'</div>';
 }
+function miniDots(n){
+  let s='<div class="hotel-mini-stars">';
+  for(let i=1;i<=5;i++) s+=`<div class="hotel-mini-dot ${i<=n?'on':'off'}"></div>`;
+  return s+'</div>';
+}
+
+const cityIconSVG={
+  karbala:`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><line x1="12" y1="2" x2="12" y2="5"/><path d="M8 9 Q12 4 16 9"/><path d="M7 9 L7 16 L17 16 L17 9"/><rect x="10" y="12" width="4" height="4"/><line x1="5" y1="16" x2="19" y2="16"/><line x1="4" y1="17.5" x2="20" y2="17.5"/></svg>`,
+  najaf:`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="6" r="3.5"/><line x1="12" y1="3" x2="12" y2="1"/><path d="M8.5 9.5 Q12 7 15.5 9.5"/><rect x="9" y="10" width="6" height="8"/><rect x="11" y="13" width="2" height="5"/><line x1="6" y1="18" x2="18" y2="18"/></svg>`,
+  kadh_sam:`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10 Q10 5 13 10"/><rect x="6" y="10" width="7" height="7"/><rect x="8.5" y="13" width="2" height="4"/><path d="M14 11 Q16.5 7 19 11"/><rect x="13.5" y="11" width="6" height="6"/><rect x="15.5" y="14" width="2" height="3"/><line x1="4" y1="17" x2="21" y2="17"/><line x1="3" y1="18.5" x2="22" y2="18.5"/></svg>`
+};
 
 function buildCityConfigs(){
   const container=document.getElementById('cityConfigs');container.innerHTML='';
@@ -941,14 +1115,9 @@ function buildCityConfigs(){
     const el=document.createElement('div');
     el.className='city-config-drawer'+(idx===0?' open':'');
     el.id='ccd_'+key;
-    const svgMap={
-      karbala:`<svg viewBox="0 0 24 24"><path d="M12 2l1 3h2l-1.5 2 .5 3L12 8.5 9.5 10l.5-3L8.5 5h2L12 2zm-4 9h8v1H8v-1zm-1 2h10v9H7V13zm3 2v5h4v-5h-4z"/></svg>`,
-      najaf:`<svg viewBox="0 0 24 24"><path d="M12 1.5C9.5 1.5 7.5 3.5 7.5 6c0 1.8.9 3.4 2.3 4.4V12h4.4v-1.6C15.6 9.4 16.5 7.8 16.5 6c0-2.5-2-4.5-4.5-4.5zM9 14v8h6v-8H9zm2 1h2v1h-2v-1zm0 2h2v1h-2v-1zm0 2h2v1h-2v-1z"/></svg>`,
-      kadh_sam:`<svg viewBox="0 0 24 24"><path d="M12 2C9 2 7 4 7 6.5c0 1.6.8 3 2 4V12h6v-1.5c1.2-1 2-2.4 2-4C17 4 15 2 12 2zM9 13v9h6v-9H9zm1 1h4v1h-4v-1zm0 2h4v1h-4v-1zm0 2h4v1h-4v-1zM4 10h2v3H4v-3zm14 0h2v3h-2v-3z"/></svg>`
-    };
     el.innerHTML=`
       <div class="city-config-head" onclick="toggleCityDrawer('${key}')">
-        <div class="city-config-icon">${svgMap[key]}</div>
+        <div class="city-config-icon">${cityIconSVG[key]}</div>
         <div class="city-config-meta">
           <div class="city-config-name">${meta.name}</div>
           <div class="city-config-shrine">${meta.shrine}</div>
@@ -959,7 +1128,10 @@ function buildCityConfigs(){
       <div class="city-config-body">
         <div class="city-config-inner">
           <div class="nights-row" id="nightsRow_${key}">
-            <div class="nights-label-txt">تعداد شب اقامت</div>
+            <div>
+              <div class="nights-label-txt">تعداد شب اقامت</div>
+              <div id="fridayBadge_${key}" style="display:none" class="friday-badge">🌙 شب جمعه در ${meta.name} خواهید بود</div>
+            </div>
             <div class="nights-stepper">
               <button class="nights-btn" onclick="chgNights('${key}',-1)">−</button>
               <div class="nights-val" id="nv_${key}">${P(data.nights)}</div>
@@ -977,7 +1149,7 @@ function buildCityConfigs(){
               ${['alef','be','jim'].map(g=>`
               <div class="hotel-grade-item" id="gi_${key}_${g}">
                 <div class="hotel-grade-head" onclick="togGradeItem('${key}','${g}')">
-                  ${gradeStarSVG(gradeInfo[g].stars)}
+                  ${dotSVG(gradeInfo[g].dots,5)}
                   <div class="grade-label">${gradeInfo[g].label}</div>
                   <span class="grade-badge ${gradeInfo[g].badgeCls}">${g==='alef'?'الف':g==='be'?'ب':'ج'}</span>
                   <span class="grade-chevron">▼</span>
@@ -995,20 +1167,24 @@ function buildCityConfigs(){
         </div>
       </div>`;
     container.appendChild(el);
+    checkFridayBadge(key);
   });
+}
+
+function checkFridayBadge(key){
+  if(!state.selD)return;
+  const badge=document.getElementById('fridayBadge_'+key);
+  if(!badge)return;
+  const hasFri=hasFridayNight(state.selD,state.selM,state.selY,key);
+  badge.style.display=hasFri?'inline-flex':'none';
 }
 
 function togGradeItem(key,grade){
   const gi=document.getElementById('gi_'+key+'_'+grade);
   const wasOpen=gi.classList.contains('open');
-  // close all grade items for this city
-  ['alef','be','jim'].forEach(g=>{
-    const x=document.getElementById('gi_'+key+'_'+g);
-    if(x){x.classList.remove('open');}
-  });
+  ['alef','be','jim'].forEach(g=>{const x=document.getElementById('gi_'+key+'_'+g);if(x)x.classList.remove('open');});
   if(!wasOpen){
     gi.classList.add('open');
-    // populate hotels for this grade if not yet done
     const inner=document.getElementById('hci_'+key+'_'+grade);
     if(!inner.hasChildNodes()){
       const hotels=hotelData[key].filter(h=>h.cat===grade);
@@ -1016,7 +1192,7 @@ function togGradeItem(key,grade){
         const gIdx=hotelData[key].indexOf(h);
         const card=document.createElement('div');
         card.className='hotel-card';card.id='hc_'+key+'_'+gIdx;
-        card.innerHTML=`<div class="hotel-mini-stars">${starSVG(h.stars,5)}</div>
+        card.innerHTML=`${miniDots(h.stars)}
           <div class="hotel-info"><div class="hotel-name">${h.name}</div><div class="hotel-dist">📍 ${h.dist}</div></div>
           <button class="hotel-select-btn">انتخاب</button>`;
         card.onclick=()=>selHotel(key,gIdx);
@@ -1027,7 +1203,12 @@ function togGradeItem(key,grade){
 }
 
 function toggleCityDrawer(key){document.getElementById('ccd_'+key).classList.toggle('open');}
-function chgNights(key,d){const data=state.cityData[key];data.nights=Math.max(1,Math.min(14,data.nights+d));document.getElementById('nv_'+key).textContent=P(data.nights);}
+function chgNights(key,d){
+  const data=state.cityData[key];
+  data.nights=Math.max(1,Math.min(14,data.nights+d));
+  document.getElementById('nv_'+key).textContent=P(data.nights);
+  checkFridayBadge(key);
+}
 function togTransit(key){
   const d=state.cityData[key];d.transit=!d.transit;
   document.getElementById('tb_'+key).classList.toggle('checked',d.transit);
@@ -1056,8 +1237,16 @@ function selHotel(key,idx){
 }
 function setFood(key,val){state.cityData[key].food=val;document.getElementById('fs_'+key).textContent=val?'شامل وعده‌های غذایی':'بدون وعده';}
 
+/* ── TRANSFER OPTION ── */
+function selTransferOpt(opt){
+  state.transferOpt=opt;
+  ['door','self'].forEach(o=>{
+    document.getElementById('topt_'+o).classList.toggle('selected',o===opt);
+    document.getElementById('topt_'+o).querySelector('.transfer-opt-radio').classList.toggle('selected',o===opt);
+  });
+}
+
 /* ── EXTRA SERVICES ── */
-function toggleExtra(id){}// header click handled via toggles
 function toggleSimCard(val){
   state.simCard=val;
   document.getElementById('simCardBody').classList.toggle('show',val);
@@ -1073,8 +1262,8 @@ function changeDinars(d){
   updateDinarsNote();
 }
 function updateDinarsNote(){
-  const toman=Math.round(state.dinarsAmt*37000);// approx rate
-  document.getElementById('dinarsNote').textContent=P(state.dinarsAmt)+' هزار دینار عراقی — معادل تقریبی: '+fmt(toman)+' تومان';
+  const toman=Math.round(state.dinarsAmt*37000);
+  document.getElementById('dinarsNote').textContent=P(state.dinarsAmt)+' هزار دینار — معادل تقریبی: '+fmt(toman)+' تومان';
 }
 
 /* ── STEP FLOW ── */
@@ -1086,11 +1275,10 @@ function completeStep(n){
   document.getElementById('step'+n+'Badge').className='step-status done-badge';
 
   if(n===1){
-    let sub=state.dateText+' — '+P(state.passengers)+' نفر — '+cityLabel[state.origin];
-    document.getElementById('step1Sub').textContent=sub;
+    document.getElementById('step1Sub').textContent=state.dateText+' — '+P(state.passengers)+' نفر — '+cityLabel[state.origin];
   }
   if(n===2){
-    let sub=state.tripType==='air'?'✈️ سفر هوایی':'🚌 سفر زمینی';
+    let sub=state.tripType==='air'?'✈️ هوایی':state.tripType==='land'?'🚌 زمینی':'✈️+🚌 رفت هوایی، برگشت زمینی';
     if(state.selectedAirport) sub+=' — '+state.selectedAirport.code;
     document.getElementById('step2Sub').textContent=sub;
   }
@@ -1104,7 +1292,7 @@ function completeStep(n){
     nxt.classList.remove('locked');nxt.classList.add('active');
     document.getElementById('step'+(n+1)+'Badge').textContent='در حال انجام';
     document.getElementById('step'+(n+1)+'Badge').className='step-status';
-    setTimeout(()=>nxt.scrollIntoView({behavior:'smooth',block:'start'}),320);
+    scrollToTop('step'+(n+1));
   }
 }
 function toggleDrawer(id){
@@ -1115,27 +1303,26 @@ function toggleDrawer(id){
 
 /* ── FINAL SUMMARY ── */
 function buildFinalSummary(){
-  // grid
   let totalNights=0;
   state.cities.forEach(k=>{if(!state.cityData[k].transit)totalNights+=state.cityData[k].nights;});
-  const typeLabel=state.tripType==='air'?'✈️ هوایی':'🚌 زمینی';
+  const typeLabel=state.tripType==='air'?'✈️ هوایی':state.tripType==='land'?'🚌 زمینی':'✈️+🚌 ترکیبی';
   const apText=state.selectedAirport?state.selectedAirport.code:'—';
 
   document.getElementById('finalGrid').innerHTML=`
     <div class="fdc"><div class="fdc-label">تاریخ اعزام</div><div class="fdc-val green">${state.dateText}</div></div>
-    <div class="fdc"><div class="fdc-label">تعداد مسافران</div><div class="fdc-val">${P(state.passengers)} نفر</div></div>
+    <div class="fdc"><div class="fdc-label">مسافران</div><div class="fdc-val">${P(state.passengers)} نفر</div></div>
     <div class="fdc"><div class="fdc-label">شهر مبدا</div><div class="fdc-val">${cityLabel[state.origin]}</div></div>
-    <div class="fdc"><div class="fdc-label">نوع سفر</div><div class="fdc-val">${typeLabel}${state.tripType==='air'?' — '+apText:''}</div></div>
-    <div class="fdc full"><div class="fdc-label">جمع شب‌های اقامت</div><div class="fdc-val">${P(totalNights)} شب در ${P(state.cities.filter(k=>!state.cityData[k].transit).length)} شهر</div></div>
+    <div class="fdc"><div class="fdc-label">نوع سفر</div><div class="fdc-val">${typeLabel}${state.tripType!=='land'?' — '+apText:''}</div></div>
+    <div class="fdc"><div class="fdc-label">مجموع اقامت</div><div class="fdc-val">${P(totalNights)} شب</div></div>
+    <div class="fdc"><div class="fdc-label">شهرهای زیارتی</div><div class="fdc-val">${P(state.cities.length)} شهر</div></div>
   `;
 
-  // route strip
   const strip=document.getElementById('routeStrip');strip.innerHTML='';
   state.cities.forEach((k,i)=>{
     if(i>0){const arr=document.createElement('span');arr.className='route-arrow';arr.textContent='←';strip.appendChild(arr);}
     const chip=document.createElement('div');
     chip.className='route-city-chip'+(state.cityData[k].transit?' transit-chip':'');
-    chip.innerHTML=`<svg viewBox="0 0 12 12"><path d="M6 1l1 3h3l-2.2 1.6.8 3L6 7 3.4 8.6l.8-3L2 4h3z"/></svg>${cityMeta[k].name}`;
+    chip.innerHTML=`<svg viewBox="0 0 12 12" fill="${state.cityData[k].transit?'#999':'#c9a84c'}"><path d="M6 1l1 3h3l-2.2 1.6.8 3L6 7 3.4 8.6l.8-3L2 4h3z"/></svg>${cityMeta[k].name}${state.cityData[k].transit?' (عبوری)':''}`;
     strip.appendChild(chip);
   });
 
@@ -1150,8 +1337,20 @@ function confirmAndReveal(){
   animatePrice();
 }
 
+function editTrip(){
+  // reopen step 4
+  const s4=document.getElementById('step4');
+  s4.classList.remove('done');s4.classList.add('active');
+  document.getElementById('step4Badge').textContent='در حال انجام';
+  document.getElementById('step4Badge').className='step-status';
+  const s5=document.getElementById('step5');
+  s5.classList.remove('active');s5.classList.add('locked');
+  scrollToTop('step4');
+}
+
 function calcPrice(){
-  let transport=state.tripType==='air'?4500000:2200000;
+  let transport=state.tripType==='air'?4500000:state.tripType==='mixed'?3500000:2200000;
+  if(state.transferOpt==='self') transport=Math.max(0,transport-800000);
   let accommodation=0;let services=800000;
   state.cities.forEach(key=>{
     const d=state.cityData[key];if(d.transit)return;
@@ -1163,8 +1362,8 @@ function calcPrice(){
   let extras=0;
   if(state.simCard) extras+=45000*state.passengers;
   if(state.dinars) extras+=state.dinarsAmt*37000;
-  return {transport,accommodation,services,extras,
-    perPerson:transport+accommodation+services+Math.round(extras/state.passengers),
+  const perPerson=transport+accommodation+services+Math.round(extras/state.passengers);
+  return {transport,accommodation,services,extras,perPerson,
     total:Math.round((transport+accommodation+services)*state.passengers+extras)};
 }
 
@@ -1175,7 +1374,7 @@ function animatePrice(){
     <div class="price-row"><span class="lbl">اقامت (هر نفر)</span><span class="val">${fmt(p.accommodation)} تومان</span></div>
     <div class="price-row"><span class="lbl">خدمات و غذا (هر نفر)</span><span class="val">${fmt(p.services)} تومان</span></div>
     ${state.simCard?`<div class="price-row"><span class="lbl">سیم‌کارت عراقی</span><span class="val">${fmt(45000*state.passengers)} تومان</span></div>`:''}
-    ${state.dinars?`<div class="price-row"><span class="lbl">ارز دینار</span><span class="val">${fmt(state.dinarsAmt*37000)} تومان</span></div>`:''}
+    ${state.dinars?`<div class="price-row"><span class="lbl">ارز دینار (${P(state.dinarsAmt)} هزار)</span><span class="val">${fmt(state.dinarsAmt*37000)} تومان</span></div>`:''}
     <div class="price-total-row"><span class="lbl">جمع کل (${P(state.passengers)} نفر)</span><span class="val">${fmt(p.total)} تومان</span></div>
   `;
   const counter=document.getElementById('priceCounter');
@@ -1186,29 +1385,61 @@ function animatePrice(){
     counter.textContent=fmt(Math.round(p.perPerson*ease))+' تومان / نفر';
     if(prog<1) requestAnimationFrame(tick);
     else setTimeout(()=>{
+      buildPassengerForms();
       document.getElementById('passengerFormBox').classList.add('show');
       document.getElementById('passengerFormBox').scrollIntoView({behavior:'smooth',block:'nearest'});
     },400);
   })();
 }
 
+/* ── PASSENGER FORMS ── */
+function buildPassengerForms(){
+  const ep=document.getElementById('extraPassengers');ep.innerHTML='';
+  for(let i=2;i<=state.passengers;i++){
+    const item=document.createElement('div');
+    item.className='extra-passenger-item';item.id='ep_'+i;
+    item.innerHTML=`
+      <div class="extra-passenger-head" onclick="togPassenger(${i})">
+        <div class="extra-passenger-num">${P(i)}</div>
+        <div class="extra-passenger-label">مسافر ${P(i)}</div>
+        <div class="extra-passenger-chevron">▼</div>
+      </div>
+      <div class="extra-passenger-body">
+        <div class="extra-passenger-inner">
+          <div class="pfb-grid">
+            <div class="pfb-field"><label class="pfb-label">نام</label><input class="pfb-input" id="p${i}_first" type="text" placeholder="نام"/></div>
+            <div class="pfb-field"><label class="pfb-label">نام خانوادگی</label><input class="pfb-input" id="p${i}_last" type="text" placeholder="نام خانوادگی"/></div>
+            <div class="pfb-field"><label class="pfb-label">شماره تماس</label><input class="pfb-input" id="p${i}_phone" type="tel" placeholder="۰۹XXXXXXXXX" dir="ltr"/></div>
+            <div class="pfb-field"><label class="pfb-label">تاریخ تولد</label><input class="pfb-input" id="p${i}_birth" type="text" placeholder="مثال: ۱۳۶۵/۰۵/۲۰"/></div>
+          </div>
+        </div>
+      </div>`;
+    ep.appendChild(item);
+    // auto-open first extra
+    if(i===2) item.classList.add('open');
+  }
+}
+function togPassenger(i){
+  const el=document.getElementById('ep_'+i);
+  if(el) el.classList.toggle('open');
+}
+
 /* ── AGENCY ── */
 function toggleAgency(){
   state.isAgency=!state.isAgency;
   document.getElementById('agencyCheckBox').classList.toggle('checked',state.isAgency);
-  document.getElementById('agencyNameField').style.display=state.isAgency?'block':'none';
+  document.getElementById('agencyFields').classList.toggle('show',state.isAgency);
   const cb=document.getElementById('agencyCommissionBox');
-  if(state.isAgency){
-    cb.classList.add('show');
-    document.getElementById('acbVal').textContent=fmt(Math.round(state.totalPrice*.05))+' تومان';
-  } else cb.classList.remove('show');
+  if(state.isAgency) cb.classList.add('show');
+  else cb.classList.remove('show');
 }
 
 /* ── REGISTER ── */
 function finalRegister(){
-  const name=document.getElementById('pfbName').value.trim();
+  const first=document.getElementById('pfbFirstName').value.trim();
+  const last=document.getElementById('pfbLastName').value.trim();
   const phone=document.getElementById('pfbPhone').value.trim();
-  if(!name||!phone){alert('لطفاً نام سرپرست و شماره تماس را وارد کنید.');return;}
+  if(!first||!last||!phone){alert('لطفاً نام، نام خانوادگی و شماره تماس سرپرست را وارد کنید.');return;}
   const code='ATB-'+Math.random().toString(36).toUpperCase().slice(2,8);
   document.getElementById('successCode').textContent=code;
   document.getElementById('successOverlay').classList.add('show');
