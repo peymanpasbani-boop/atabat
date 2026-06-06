@@ -1,10 +1,10 @@
-
+HTMLEOF'
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>گروه زیارتی نیکان — طراحی سفر زیارتی</title>
+<title>گروه زیارتی آوان — طراحی سفر زیارتی</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 :root{
@@ -21,99 +21,21 @@ html{scroll-behavior:smooth}
 body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min-height:100vh;overflow-x:hidden}
 
 /* ── FLOATING CTA BUTTON ── */
-.floating-cta{
-  position:fixed;
-  bottom:24px;
-  left:50%;
-  transform:translateX(-50%) translateY(120px);
-  z-index:500;
-  transition:transform .5s cubic-bezier(.34,1.56,.64,1),opacity .4s ease;
-  opacity:0;
-  pointer-events:none;
-  width:max-content;
-}
-.floating-cta.visible{
-  transform:translateX(-50%) translateY(0);
-  opacity:1;
-  pointer-events:all;
-}
-.floating-cta-btn{
-  display:inline-flex;align-items:center;gap:10px;
-  background:linear-gradient(135deg,var(--gold) 0%,#e8b84b 40%,#a8722a 100%);
-  color:var(--em);
-  font-family:"Vazirmatn",sans-serif;
-  font-size:14px;font-weight:800;
-  padding:13px 28px;
-  border-radius:100px;
-  border:none;cursor:pointer;
-  box-shadow:0 8px 32px rgba(201,168,76,.55),0 0 0 3px rgba(201,168,76,.2),0 0 0 6px rgba(201,168,76,.08);
-  transition:var(--tr);
-  white-space:nowrap;
-  position:relative;
-  overflow:hidden;
-}
-.floating-cta-btn::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(255,255,255,.2) 0%,transparent 60%);
-  border-radius:100px;pointer-events:none;
-}
-.floating-cta-btn:hover{
-  transform:translateY(-3px) scale(1.04);
-  box-shadow:0 14px 44px rgba(201,168,76,.65),0 0 0 4px rgba(201,168,76,.28);
-}
-.floating-cta-icon{font-size:15px;}
-.floating-cta-pulse{
-  position:absolute;inset:-4px;
-  border-radius:100px;
-  border:2px solid rgba(201,168,76,.4);
-  animation:pulse-ring 2.2s ease-out infinite;
-  pointer-events:none;
-}
-@keyframes pulse-ring{
-  0%{transform:scale(1);opacity:.7}
-  70%{transform:scale(1.08);opacity:0}
-  100%{transform:scale(1.08);opacity:0}
-}
+.floating-cta{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);z-index:500;transition:transform .5s cubic-bezier(.34,1.56,.64,1),opacity .4s ease;opacity:0;pointer-events:none;width:max-content;}
+.floating-cta.visible{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:all;}
+.floating-cta-btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--gold) 0%,#e8b84b 40%,#a8722a 100%);color:var(--em);font-family:"Vazirmatn",sans-serif;font-size:14px;font-weight:800;padding:13px 28px;border-radius:100px;border:none;cursor:pointer;box-shadow:0 8px 32px rgba(201,168,76,.55),0 0 0 3px rgba(201,168,76,.2),0 0 0 6px rgba(201,168,76,.08);transition:var(--tr);white-space:nowrap;position:relative;overflow:hidden;}
+.floating-cta-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.2) 0%,transparent 60%);border-radius:100px;pointer-events:none;}
+.floating-cta-btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 14px 44px rgba(201,168,76,.65),0 0 0 4px rgba(201,168,76,.28);}
+.floating-cta-pulse{position:absolute;inset:-4px;border-radius:100px;border:2px solid rgba(201,168,76,.4);animation:pulse-ring 2.2s ease-out infinite;pointer-events:none;}
+@keyframes pulse-ring{0%{transform:scale(1);opacity:.7}70%{transform:scale(1.08);opacity:0}100%{transform:scale(1.08);opacity:0}}
 
-/* ── FLOATING SUPPORT BUTTON ── */
-.floating-support{
-  position:fixed;
-  bottom:88px;
-  right:20px;
-  z-index:500;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-}
-.support-btn{
-  width:52px;height:52px;
-  background:linear-gradient(135deg,#25d366,#128c7e);
-  border-radius:50%;
-  border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(37,211,102,.45),0 0 0 3px rgba(37,211,102,.15);
-  transition:var(--tr);
-  position:relative;
-  overflow:visible;
-  text-decoration:none;
-}
+/* ── FLOATING SUPPORT (Bale) ── */
+.floating-support{position:fixed;bottom:88px;right:20px;z-index:500;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.support-btn{width:52px;height:52px;background:linear-gradient(135deg,#25d366,#128c7e);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.45),0 0 0 3px rgba(37,211,102,.15);transition:var(--tr);position:relative;overflow:visible;text-decoration:none;}
 .support-btn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.6);}
 .support-btn svg{width:28px;height:28px;fill:white;}
-.support-pulse{
-  position:absolute;inset:-5px;
-  border-radius:50%;
-  border:2px solid rgba(37,211,102,.4);
-  animation:pulse-ring 2.4s ease-out infinite;
-  pointer-events:none;
-}
-.support-label{
-  font-size:9px;font-weight:700;
-  color:rgba(255,255,255,.7);
-  background:rgba(0,0,0,.4);
-  padding:2px 7px;border-radius:100px;
-  white-space:nowrap;
-}
+.support-pulse{position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(37,211,102,.4);animation:pulse-ring 2.4s ease-out infinite;pointer-events:none;}
+.support-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.7);background:rgba(0,0,0,.4);padding:2px 7px;border-radius:100px;white-space:nowrap;}
 
 /* ── NAV MODAL ── */
 .nav-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:999;display:none;align-items:center;justify-content:center;padding:20px}
@@ -126,53 +48,77 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .nav-modal-body{padding:20px 22px 24px;font-size:13px;color:var(--tm);line-height:2}
 
 /* ── HEADER ── */
-.site-header{background:var(--em);position:sticky;top:0;z-index:200;border-bottom:1px solid var(--goldB);overflow:hidden}
+.site-header{
+  background:linear-gradient(160deg,var(--em) 0%,#0f4535 45%,#1a5e49 100%);
+  position:sticky;top:0;z-index:200;
+  border-bottom:1px solid var(--goldB);
+  overflow:hidden;
+}
 
-/* Animated shrine wave canvas in header */
-.header-canvas{
+/* Animated canvas in header */
+.header-canvas{position:absolute;inset:0;pointer-events:none;opacity:1;}
+
+/* Decorative wave lines behind header */
+.header-wave-decor{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;
+}
+.header-wave-decor::before{
+  content:'';
   position:absolute;
-  inset:0;
+  width:200%;height:200%;
+  top:-50%;left:-50%;
+  background:
+    radial-gradient(ellipse 60% 40% at 80% 50%, rgba(201,168,76,.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 20% 50%, rgba(26,94,73,.15) 0%, transparent 70%);
   pointer-events:none;
-  opacity:1;
+}
+.header-wave-decor::after{
+  content:'';
+  position:absolute;
+  bottom:-1px;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,rgba(201,168,76,.4),var(--gold),rgba(201,168,76,.4),transparent);
 }
 
-.header-inner{max-width:1200px;margin:0 auto;padding:0 22px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative;z-index:1}
+.header-inner{max-width:1200px;margin:0 auto;padding:0 22px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative;z-index:1}
 .logo-area{display:flex;align-items:center;gap:12px;flex-shrink:0}
-.logo-dome svg{width:44px;height:44px;filter:drop-shadow(0 2px 8px rgba(201,168,76,.3))}
+.logo-dome svg{width:46px;height:46px;filter:drop-shadow(0 2px 12px rgba(201,168,76,.4))}
 .logo-main{font-size:17px;font-weight:800;color:var(--goldL);line-height:1.2;letter-spacing:.01em}
-.logo-sub{
-  font-size:10px;
-  color:rgba(232,201,122,.65);
-  margin-top:3px;
-  letter-spacing:.06em;
-  font-weight:600;
-  font-style:italic;
-  background:linear-gradient(90deg,rgba(232,201,122,.8),rgba(201,168,76,.6));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.header-nav{display:flex;align-items:center;gap:6px}
-.nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 12px;border:none;background:transparent;cursor:pointer;border-radius:10px;transition:background .2s;color:rgba(255,255,255,.55);text-decoration:none;}
-.nav-btn:hover{background:rgba(255,255,255,.06);color:var(--goldL)}
-.nav-btn svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.nav-btn span{font-size:9.5px;font-family:"Vazirmatn",sans-serif;font-weight:600}
+.logo-sub{font-size:10px;color:rgba(232,201,122,.6);margin-top:3px;letter-spacing:.06em;font-weight:500;font-style:italic;}
+.header-nav{display:flex;align-items:center;gap:4px}
+.nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 11px;border:none;background:transparent;cursor:pointer;border-radius:10px;transition:background .2s;color:rgba(255,255,255,.5);text-decoration:none;}
+.nav-btn:hover{background:rgba(255,255,255,.07);color:var(--goldL)}
+.nav-btn svg{width:19px;height:19px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.nav-btn span{font-size:9px;font-family:"Vazirmatn",sans-serif;font-weight:600}
 
 /* ── HERO ── */
-.hero{background:linear-gradient(158deg,var(--em) 0%,var(--em2) 50%,#1c6650 100%);padding:56px 28px 80px;text-align:center;position:relative;overflow:hidden;z-index:1}
-.hero-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,.09) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
-.hero-shrine-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:.035}
+.hero{background:linear-gradient(158deg,var(--em) 0%,var(--em2) 50%,#1c6650 100%);padding:52px 28px 72px;text-align:center;position:relative;overflow:hidden;z-index:1}
+.hero-glow{position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.hero-shrine-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:.03}
 .hero-shrine-bg svg{width:340px;height:340px}
 .hero-badge{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--goldB);background:rgba(201,168,76,.09);color:var(--goldL);font-size:11px;font-weight:600;padding:5px 16px;border-radius:100px;margin-bottom:18px;animation:fadeUp .5s ease both}
 
 .hero-site-name{animation:fadeUp .45s .02s ease both;margin-bottom:6px;}
 .hero-site-tagline{font-size:clamp(30px,5vw,52px);font-weight:800;color:var(--goldL);line-height:1.25;letter-spacing:.01em;text-shadow:0 2px 20px rgba(201,168,76,.3);}
 .hero-site-tagline em{font-style:normal;background:linear-gradient(90deg,#ffe084,var(--gold),#e8c97a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.hero-group-name{font-size:clamp(14px,2vw,17px);font-weight:600;color:rgba(255,255,255,.7);margin-top:4px;letter-spacing:.08em}
-.hero-group-sub{font-size:11px;color:rgba(255,255,255,.38);margin-top:3px;letter-spacing:.1em;font-weight:500}
+.hero-group-name{font-size:clamp(14px,2vw,16px);font-weight:500;color:rgba(255,255,255,.6);margin-top:4px;letter-spacing:.1em}
 
-.hero-slogan-wrap{position:relative;display:inline-block;margin-bottom:24px;animation:fadeUp .55s .1s ease both;padding:28px 40px 22px;margin-top:8px}
+/* NEW SLOGAN — no quotes, bold highlight */
+.hero-slogan-wrap{position:relative;display:inline-block;margin-bottom:24px;animation:fadeUp .55s .1s ease both;padding:28px 40px 22px;margin-top:12px}
 .hero-slogan-curve{position:absolute;inset:0;pointer-events:none;overflow:visible;}
-.hero-slogan{font-size:clamp(22px,3.8vw,36px);font-weight:800;color:#fff;line-height:1.55;max-width:700px;margin:0 auto;}
-.hero-slogan em{font-style:normal;background:linear-gradient(90deg,var(--goldL),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-slogan{font-size:clamp(20px,3.6vw,34px);font-weight:800;color:#fff;line-height:1.6;max-width:680px;margin:0 auto;}
+.hero-slogan .slogan-highlight{
+  background:linear-gradient(90deg,var(--goldL),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  font-weight:800;
+}
+.hero-slogan .slogan-line2{
+  display:block;
+  font-size:.82em;
+  font-weight:600;
+  color:rgba(255,255,255,.72);
+  margin-top:6px;
+  letter-spacing:.01em;
+}
 
 .hero-desc-box{max-width:640px;margin:0 auto 32px;background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(26,94,73,.12));border:1px solid rgba(201,168,76,.3);border-radius:16px;padding:18px 24px;animation:fadeUp .55s .17s ease both;backdrop-filter:blur(4px);position:relative;overflow:hidden}
 .hero-desc-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top right,rgba(201,168,76,.07),transparent 60%);pointer-events:none}
@@ -196,7 +142,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .landing-inner{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:48px}
 
 /* ── JOURNEY CARDS STACK ── */
-.journey-chart-section{}
 .section-heading{text-align:center;margin-bottom:32px}
 .section-heading h2{font-size:18px;font-weight:800;color:var(--em);margin-bottom:6px}
 .section-heading p{font-size:12.5px;color:var(--ts)}
@@ -206,8 +151,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .jcard.open{border-color:var(--gold);box-shadow:0 8px 32px rgba(13,59,46,.13),0 0 0 2px rgba(201,168,76,.12);}
 .jcard-head{display:flex;align-items:center;gap:14px;padding:15px 16px;user-select:none;transition:background .2s;}
 .jcard.open .jcard-head{background:linear-gradient(90deg,rgba(201,168,76,.06),rgba(26,94,73,.03));border-bottom:1px solid rgba(201,168,76,.15);}
-.jcard-num{width:34px;height:34px;background:linear-gradient(135deg,var(--em),var(--em3));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--goldL);flex-shrink:0;box-shadow:0 3px 10px rgba(13,59,46,.22);transition:transform .3s,box-shadow .3s;}
-.jcard.open .jcard-num{transform:scale(1.05);box-shadow:0 4px 14px rgba(13,59,46,.3);}
+.jcard-num{width:34px;height:34px;background:linear-gradient(135deg,var(--em),var(--em3));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--goldL);flex-shrink:0;box-shadow:0 3px 10px rgba(13,59,46,.22);}
 .jcard-meta{flex:1;min-width:0;}
 .jcard-title{font-size:13px;font-weight:800;color:var(--em);line-height:1.3;}
 .jcard-preview{font-size:11px;color:var(--ts);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -224,7 +168,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .jcard-desc strong{color:var(--em);font-weight:700;}
 
 /* ── FAQ ── */
-.faq-section{}
 .faq-list{display:flex;flex-direction:column;gap:8px}
 .faq-item{background:var(--white);border:1.5px solid rgba(201,168,76,.14);border-radius:14px;overflow:hidden;transition:var(--tr)}
 .faq-item.open{border-color:var(--goldB);box-shadow:0 4px 16px rgba(13,59,46,.06)}
@@ -422,7 +365,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .next-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(13,59,46,.3)}
 .next-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
 
-/* FINAL SUMMARY */
+/* ── FINAL SUMMARY — simplified price display ── */
 .final-compact-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
 .fdc{background:var(--cream);border:1px solid rgba(201,168,76,.17);border-radius:10px;padding:9px 12px}
 .fdc-label{font-size:9.5px;font-weight:700;letter-spacing:.05em;color:var(--ts);text-transform:uppercase;margin-bottom:3px}
@@ -466,19 +409,33 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .extra-val{font-size:13px;font-weight:800;color:var(--em);min-width:26px;text-align:center}
 .extra-price-note{font-size:11px;color:var(--ts);margin-top:5px;padding:6px 10px;background:rgba(201,168,76,.07);border-radius:7px}
 
-/* price */
-.price-reveal-card{background:linear-gradient(135deg,var(--em),var(--em3));border-radius:var(--rL);padding:20px;text-align:center;margin-top:0;box-shadow:0 8px 30px rgba(13,59,46,.18);border:1px solid rgba(201,168,76,.2);display:none}
+/* ── SIMPLIFIED PRICE CARD ── */
+.price-reveal-card{background:linear-gradient(135deg,var(--em),var(--em3));border-radius:var(--rL);padding:22px;margin-top:0;box-shadow:0 8px 30px rgba(13,59,46,.18);border:1px solid rgba(201,168,76,.2);display:none}
 .price-reveal-card.visible{display:block;animation:fadeUp .4s ease both}
-.price-reveal-label{font-size:11px;color:rgba(255,255,255,.52);margin-bottom:7px}
-.price-counter{font-size:28px;font-weight:800;color:var(--goldL)}
-.price-breakdown{display:flex;flex-direction:column;margin-top:12px}
-.price-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:11.5px}
-.price-row .lbl{color:rgba(255,255,255,.52)}
-.price-row .val{color:var(--goldL);font-weight:700}
-.price-total-row{display:flex;justify-content:space-between;padding:9px 0 0;font-size:13px;margin-top:2px}
-.price-total-row .lbl{color:rgba(255,255,255,.7);font-weight:700}
-.price-total-row .val{color:var(--goldL);font-weight:800;font-size:14px}
-.edit-trip-btn{margin-top:11px;display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.72);font-family:"Vazirmatn",sans-serif;font-size:11.5px;font-weight:600;padding:7px 18px;border-radius:100px;border:1px solid rgba(255,255,255,.17);cursor:pointer;transition:var(--tr)}
+
+/* Main price row */
+.price-main-row{display:flex;align-items:center;justify-content:space-between;padding:0 0 16px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:14px;gap:8px;flex-wrap:wrap;}
+.price-main-item{text-align:center;flex:1;min-width:80px}
+.price-main-label{font-size:10px;color:rgba(255,255,255,.45);margin-bottom:4px;letter-spacing:.04em}
+.price-main-value{font-size:clamp(15px,2.5vw,20px);font-weight:800;color:var(--goldL);line-height:1.2}
+.price-main-divider{width:1px;height:40px;background:rgba(255,255,255,.12);flex-shrink:0}
+.price-total-highlight{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:12px;padding:12px 16px;text-align:center;margin-bottom:14px}
+.price-total-label{font-size:10px;color:rgba(255,255,255,.52);margin-bottom:4px}
+.price-total-amount{font-size:clamp(22px,4vw,30px);font-weight:800;color:var(--goldL)}
+
+/* Details toggle */
+.price-details-toggle{display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;color:rgba(255,255,255,.5);font-size:11px;font-weight:600;margin-bottom:0;transition:color .2s;background:none;border:none;font-family:"Vazirmatn",sans-serif;width:100%;padding:4px 0;}
+.price-details-toggle:hover{color:rgba(255,255,255,.75)}
+.price-details-toggle .chevron{transition:transform .3s;display:inline-block}
+.price-details-toggle.open .chevron{transform:rotate(180deg)}
+.price-breakdown{display:none;margin-top:10px;border-top:1px solid rgba(255,255,255,.07);padding-top:10px}
+.price-breakdown.show{display:block}
+.price-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:11px}
+.price-row:last-child{border-bottom:none}
+.price-row .lbl{color:rgba(255,255,255,.45)}
+.price-row .val{color:var(--goldL);font-weight:600}
+
+.edit-trip-btn{margin-top:14px;display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.72);font-family:"Vazirmatn",sans-serif;font-size:11.5px;font-weight:600;padding:7px 18px;border-radius:100px;border:1px solid rgba(255,255,255,.17);cursor:pointer;transition:var(--tr)}
 .edit-trip-btn:hover{background:rgba(255,255,255,.17)}
 
 /* passenger form */
@@ -528,60 +485,64 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 .success-body{font-size:12.5px;color:var(--tm);line-height:1.9}
 .success-code{display:inline-block;margin-top:12px;padding:6px 16px;background:var(--goldP);border:1px solid var(--goldB);border-radius:100px;font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.08em}
 
-/* ── FOOTER ── */
-.site-footer{background:var(--em);border-top:1px solid var(--goldB);padding:36px 28px 24px;position:relative;overflow:hidden}
-.site-footer::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c9a84c' fill-opacity='0.04'%3E%3Cpath d='M30 0l8.66 5v10L30 20l-8.66-5V5L30 0zm0 40l8.66 5v10L30 60l-8.66-5V45L30 40zM0 20l8.66 5v10L0 40l-8.66-5V25L0 20zm60 0l8.66 5v10L60 40l-8.66-5V25L60 20z'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+/* ── FOOTER — simplified ── */
+.site-footer{
+  background:linear-gradient(170deg,var(--em) 0%,#0b3026 100%);
+  border-top:1px solid var(--goldB);
+  padding:32px 24px 20px;
+  position:relative;overflow:hidden;
+}
+.site-footer::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c9a84c' fill-opacity='0.03'%3E%3Cpath d='M30 0l8.66 5v10L30 20l-8.66-5V5L30 0zm0 40l8.66 5v10L30 60l-8.66-5V45L30 40zM0 20l8.66 5v10L0 40l-8.66-5V25L0 20zm60 0l8.66 5v10L60 40l-8.66-5V25L60 20z'/%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none;
+}
 .footer-inner{max-width:900px;margin:0 auto;position:relative}
-.footer-offices{display:flex;flex-wrap:wrap;gap:24px;justify-content:center;margin-bottom:20px;}
-.footer-col{flex:1;min-width:180px;max-width:260px;}
-.footer-col-title{font-size:11.5px;font-weight:800;color:var(--goldL);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.footer-col-title svg{width:14px;height:14px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.footer-info-line{font-size:11px;color:rgba(255,255,255,.45);line-height:1.9;display:flex;align-items:flex-start;gap:5px}
-.footer-info-line span{color:rgba(255,255,255,.62)}
 
-/* BIG PHONE */
-.footer-big-phone{
-  text-align:center;
-  padding:20px 0;
-  border-top:1px solid rgba(201,168,76,.18);
-  border-bottom:1px solid rgba(201,168,76,.18);
+/* Offices: two side by side */
+.footer-offices{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  border:1px solid rgba(201,168,76,.18);
+  border-radius:14px;
+  overflow:hidden;
   margin-bottom:20px;
 }
-.footer-big-phone-label{font-size:10px;font-weight:600;color:rgba(255,255,255,.38);letter-spacing:.08em;margin-bottom:6px}
-.footer-big-phone-num{
-  font-size:clamp(22px,4vw,32px);
-  font-weight:800;
-  color:var(--goldL);
-  letter-spacing:.06em;
-  direction:ltr;
-  font-style:italic;
-  text-shadow:0 2px 14px rgba(201,168,76,.3);
+.footer-office-block{
+  padding:14px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
 }
-.footer-social{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:20px;}
-.social-btn{
-  width:42px;height:42px;
-  border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  transition:var(--tr);
-  border:1px solid rgba(201,168,76,.22);
-  background:rgba(201,168,76,.06);
-  color:var(--goldL);
-  cursor:pointer;
-  text-decoration:none;
+.footer-office-block:first-child{
+  border-left:1px solid rgba(201,168,76,.18);
 }
-.social-btn:hover{transform:translateY(-3px);background:rgba(201,168,76,.16);border-color:var(--gold);}
-.social-btn svg{width:20px;height:20px;fill:currentColor;}
-.footer-contacts-row{display:flex;justify-content:center;gap:24px;margin-bottom:20px;flex-wrap:wrap;}
-.footer-contact-item{display:flex;align-items:center;gap:8px;font-size:11.5px;color:rgba(255,255,255,.55);}
-.footer-contact-item a{color:var(--goldL);text-decoration:none;font-weight:600;}
-.footer-divider{width:100%;height:1px;background:var(--goldB);margin:0 0 16px;opacity:.4}
-.footer-bottom{display:flex;align-items:center;justify-content:space-between}
-.footer-logo{font-size:14px;font-weight:800;color:var(--goldL)}
-.footer-sub{font-size:9px;color:rgba(255,255,255,.3);letter-spacing:.04em;margin-top:1px}
-.footer-copy{font-size:10px;color:rgba(255,255,255,.22)}
+.footer-office-title{
+  font-size:11px;font-weight:800;color:var(--goldL);
+  display:flex;align-items:center;gap:5px;
+  margin-bottom:2px;
+}
+.footer-office-title svg{width:13px;height:13px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.footer-office-addr{font-size:11px;color:rgba(255,255,255,.5);line-height:1.7}
 
-/* Builder content below FAQ */
-.builder-inner-section{background:var(--cream);padding:0 22px}
+/* Big phone */
+.footer-big-phone{text-align:center;padding:16px 0;border-top:1px solid rgba(201,168,76,.14);border-bottom:1px solid rgba(201,168,76,.14);margin-bottom:18px;}
+.footer-big-phone-label{font-size:10px;font-weight:600;color:rgba(255,255,255,.34);letter-spacing:.08em;margin-bottom:5px}
+.footer-big-phone-num{font-size:clamp(22px,4vw,30px);font-weight:800;color:var(--goldL);letter-spacing:.06em;direction:ltr;font-style:italic;text-shadow:0 2px 14px rgba(201,168,76,.3);}
+
+/* Social */
+.footer-social{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:18px;}
+.social-btn{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;transition:var(--tr);border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.06);color:var(--goldL);cursor:pointer;text-decoration:none;}
+.social-btn:hover{transform:translateY(-3px);background:rgba(201,168,76,.15);border-color:var(--gold);}
+.social-btn svg{width:19px;height:19px;fill:currentColor;}
+
+/* Bottom bar */
+.footer-divider{width:100%;height:1px;background:rgba(201,168,76,.14);margin:0 0 14px;}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;}
+.footer-logo{font-size:13px;font-weight:800;color:var(--goldL)}
+.footer-sub{font-size:9px;color:rgba(255,255,255,.3);letter-spacing:.04em;margin-top:1px}
+.footer-copy{font-size:10px;color:rgba(255,255,255,.2)}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 .step-drawer.active .drawer-content{animation:fadeUp .3s ease both}
@@ -593,19 +554,21 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
   .nav-btn span{display:none}
   .hero{padding:40px 16px 70px}
   .hero-site-tagline{font-size:26px}
-  .hero-slogan{font-size:19px}
+  .hero-slogan{font-size:18px}
   .hero-slogan-wrap{padding:20px 16px;}
   .type-cards{grid-template-columns:1fr}
   .city-grid{grid-template-columns:1fr}
   .final-compact-grid{grid-template-columns:1fr 1fr}
   .step1-row{grid-template-columns:1fr}
   .pfb-grid{grid-template-columns:1fr}
-  .footer-offices{flex-direction:column;align-items:center;}
-  .footer-contacts-row{flex-direction:column;align-items:flex-start;gap:10px;padding:12px 0;}
+  .footer-offices{grid-template-columns:1fr}
+  .footer-office-block:first-child{border-left:none;border-bottom:1px solid rgba(201,168,76,.18);}
   .transfer-opts{flex-direction:column}
   .footer-bottom{flex-direction:column;gap:6px;text-align:center}
   .hero-start-btn{padding:15px 36px;font-size:15px;}
   .floating-cta-btn{font-size:12px;padding:11px 22px;}
+  .price-main-row{gap:4px;}
+  .price-main-divider{height:30px;}
 }
 </style>
 </head>
@@ -615,14 +578,14 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 <div class="floating-cta" id="floatingCta">
   <div class="floating-cta-pulse"></div>
   <button class="floating-cta-btn" onclick="startBuilder()">
-    <span class="floating-cta-icon">✦</span>
+    <span>✦</span>
     طراحی سفر زیارتی من
   </button>
 </div>
 
 <!-- ── FLOATING SUPPORT (Bale) ── -->
 <div class="floating-support">
-  <a class="support-btn" href="https://ble.ir/nikanziarat" target="_blank" rel="noopener" title="پشتیبانی در بله">
+  <a class="support-btn" href="https://bale.ai/avanatabat" target="_blank" rel="noopener" title="پشتیبانی در بله">
     <div class="support-pulse"></div>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.98-1.418A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.95 7.95 0 01-4.073-1.118l-.291-.174-3.018.86.876-2.943-.19-.302A7.95 7.95 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8zm4.406-5.845c-.242-.121-1.43-.705-1.652-.786-.222-.08-.383-.12-.545.121-.161.242-.626.786-.767.947-.14.161-.282.182-.524.06-.242-.12-1.022-.376-1.946-1.199-.719-.641-1.204-1.433-1.346-1.674-.14-.242-.015-.373.107-.493.11-.109.242-.282.363-.424.12-.14.161-.242.242-.403.08-.161.04-.303-.02-.424-.061-.12-.545-1.313-.747-1.797-.197-.472-.397-.407-.545-.415l-.464-.008a.888.888 0 00-.646.303c-.222.242-.847.828-.847 2.02s.868 2.343.988 2.505c.121.161 1.71 2.611 4.14 3.66.58.25 1.032.399 1.385.511.582.185 1.112.159 1.53.097.467-.07 1.43-.585 1.632-1.15.201-.565.201-1.048.14-1.15-.06-.1-.222-.161-.464-.282z"/>
@@ -634,10 +597,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 <!-- NAV MODALS -->
 <div class="nav-modal-overlay" id="modal-guide" onclick="closeModal('guide',event)">
   <div class="nav-modal">
-    <div class="nav-modal-head">
-      <div class="nav-modal-title">📖 راهنمای استفاده</div>
-      <button class="nav-modal-close" onclick="closeModalDirect('guide')">✕</button>
-    </div>
+    <div class="nav-modal-head"><div class="nav-modal-title">📖 راهنمای استفاده</div><button class="nav-modal-close" onclick="closeModalDirect('guide')">✕</button></div>
     <div class="nav-modal-body">
       <strong>چگونه سفر خود را طراحی کنید؟</strong><br/>
       ۱. روی «شروع طراحی سفر» کلیک کنید.<br/>
@@ -653,27 +613,19 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 </div>
 <div class="nav-modal-overlay" id="modal-contact" onclick="closeModal('contact',event)">
   <div class="nav-modal">
-    <div class="nav-modal-head">
-      <div class="nav-modal-title">📞 تماس با ما</div>
-      <button class="nav-modal-close" onclick="closeModalDirect('contact')">✕</button>
-    </div>
+    <div class="nav-modal-head"><div class="nav-modal-title">📞 تماس با ما</div><button class="nav-modal-close" onclick="closeModalDirect('contact')">✕</button></div>
     <div class="nav-modal-body">
       <strong>شماره تماس:</strong> ۰۹۱۰۲۱۹۸۲۶۱<br/><br/>
-      <strong>دفتر مرکزی تهران:</strong> تهران، خیابان ولیعصر، نرسیده به پارک وی، پلاک ۱۲۴<br/><br/>
-      <strong>دفتر نمایندگی نجف اشرف:</strong> نجف اشرف، خیابان الرسول، کوچه ۱۲، ساختمان الزائر<br/><br/>
-      <strong>ایمیل:</strong> info@nikan-ziarat.ir<br/>
-      <strong>ساعت پاسخگویی:</strong> شنبه تا پنجشنبه ۸ صبح تا ۸ شب
+      <strong>دفتر مرکزی تهران:</strong> تهران، خیابان ولیعصر، نرسیده به پارک‌وی، پلاک ۱۲۴<br/><br/>
+      <strong>دفتر نمایندگی نجف اشرف:</strong> نجف اشرف، خیابان الرسول، کوچه ۱۲، ساختمان الزائر
     </div>
   </div>
 </div>
 <div class="nav-modal-overlay" id="modal-about" onclick="closeModal('about',event)">
   <div class="nav-modal">
-    <div class="nav-modal-head">
-      <div class="nav-modal-title">🕌 درباره ما</div>
-      <button class="nav-modal-close" onclick="closeModalDirect('about')">✕</button>
-    </div>
+    <div class="nav-modal-head"><div class="nav-modal-title">🕌 درباره ما</div><button class="nav-modal-close" onclick="closeModalDirect('about')">✕</button></div>
     <div class="nav-modal-body">
-      <strong>گروه زیارتی نیکان — مرجع تخصصی سفرهای زیارتی انفرادی</strong><br/><br/>
+      <strong>گروه زیارتی آوان — مرجع تخصصی سفرهای زیارتی انفرادی</strong><br/><br/>
       ما با بیش از ۱۵ سال تجربه در برگزاری سفرهای زیارتی به عراق، با رویکردی متفاوت خدمت‌رسانی می‌کنیم. برخلاف کاروان‌های عمومی، سفر شما کاملاً شخصی‌سازی‌شده و بر اساس انتخاب‌های شماست.<br/><br/>
       <strong>تخصص ما:</strong><br/>
       • سفرهای انفرادی و گروه‌های کوچک (۱ تا ۴ نفر)<br/>
@@ -687,6 +639,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 
 <!-- HEADER -->
 <header class="site-header">
+  <div class="header-wave-decor"></div>
   <canvas class="header-canvas" id="headerCanvas"></canvas>
   <div class="header-inner">
     <div class="logo-area">
@@ -706,7 +659,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
         </svg>
       </div>
       <div>
-        <div class="logo-main">گروه زیارتی نیکان</div>
+        <div class="logo-main">گروه زیارتی آوان</div>
         <div class="logo-sub">مرجع تخصصی سفرهای زیارتی انفرادی</div>
       </div>
     </div>
@@ -747,25 +700,20 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 
   <div class="hero-site-name">
     <div class="hero-badge" style="margin-bottom:16px">✦ زیارت، به انتخاب شما</div>
-    <div class="hero-site-tagline">گروه زیارتی <em>نیکان</em></div>
+    <div class="hero-site-tagline">گروه زیارتی <em>آوان</em></div>
     <div class="hero-group-name">مرجع تخصصی سفرهای زیارتی انفرادی</div>
   </div>
 
   <div class="hero-slogan-wrap">
     <svg class="hero-slogan-curve" viewBox="0 0 520 130" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <path d="M260 8 L260 18" stroke="#c9a84c" stroke-width="1.5" opacity=".4"/>
-      <circle cx="260" cy="6" r="3" fill="#c9a84c" opacity=".35"/>
-      <path d="M100 90 Q130 28 260 18 Q390 28 420 90" stroke="#c9a84c" stroke-width="1" fill="none" opacity=".22" stroke-dasharray="4 3"/>
-      <line x1="80" y1="90" x2="80" y2="120" stroke="#c9a84c" stroke-width="1" opacity=".18"/>
-      <path d="M74 90 Q80 78 86 90" stroke="#c9a84c" stroke-width="1" fill="none" opacity=".18"/>
-      <line x1="440" y1="90" x2="440" y2="120" stroke="#c9a84c" stroke-width="1" opacity=".18"/>
-      <path d="M434 90 Q440 78 446 90" stroke="#c9a84c" stroke-width="1" fill="none" opacity=".18"/>
-      <line x1="60" y1="120" x2="460" y2="120" stroke="#c9a84c" stroke-width="1" opacity=".15"/>
-      <circle cx="160" cy="46" r="2.5" fill="#c9a84c" opacity=".3"/>
-      <circle cx="260" cy="20" r="3" fill="#c9a84c" opacity=".35"/>
-      <circle cx="360" cy="46" r="2.5" fill="#c9a84c" opacity=".3"/>
+      <circle cx="260" cy="6" r="3" fill="#c9a84c" opacity=".3"/>
+      <path d="M100 90 Q130 28 260 18 Q390 28 420 90" stroke="#c9a84c" stroke-width="1" fill="none" opacity=".18" stroke-dasharray="4 3"/>
+      <line x1="60" y1="120" x2="460" y2="120" stroke="#c9a84c" stroke-width="1" opacity=".12"/>
     </svg>
-    <div class="hero-slogan">«این بار انتخاب با <em>شماست</em>،<br/>نه یک کاروان از پیش تعیین‌شده.»</div>
+    <div class="hero-slogan">
+      این بار انتخاب با <span class="slogan-highlight">شماست</span>،
+      <span class="slogan-line2">نه یک کاروان از پیش تعیین‌شده</span>
+    </div>
   </div>
 
   <div class="hero-desc-box">
@@ -787,58 +735,30 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 
 <div class="hero-wave"><svg viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 C360,54 1080,0 1440,36 L1440,54 L0,54 Z" fill="#f9f5ee"/></svg></div>
 
-<!-- LANDING CONTENT -->
+<!-- LANDING CONTENT: journey steps + FAQ -->
 <div class="landing-content" id="landingContent">
   <div class="landing-inner">
     <div class="journey-chart-section">
-      <div class="section-heading">
-        <h2>مراحل طراحی سفر شما</h2>
-        <p>پنج گام ساده — روی هر مرحله کلیک کنید</p>
-      </div>
+      <div class="section-heading"><h2>مراحل طراحی سفر شما</h2><p>پنج گام ساده — روی هر مرحله کلیک کنید</p></div>
       <div class="journey-cards-stack">
         <div class="jcard" id="jcard1" onclick="togJcard('jcard1')">
-          <div class="jcard-head">
-            <div class="jcard-num">۱</div>
-            <div class="jcard-meta"><div class="jcard-title">تاریخ، مبدا و مسافران</div><div class="jcard-preview">تاریخ اعزام، شهر مبدا و تعداد نفرات</div></div>
-            <div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg></div>
-            <div class="jcard-chevron">▼</div>
-          </div>
+          <div class="jcard-head"><div class="jcard-num">۱</div><div class="jcard-meta"><div class="jcard-title">تاریخ، مبدا و مسافران</div><div class="jcard-preview">تاریخ اعزام، شهر مبدا و تعداد نفرات</div></div><div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg></div><div class="jcard-chevron">▼</div></div>
           <div class="jcard-body"><div class="jcard-desc">تاریخ اعزام دلخواه خود را از تقویم انتخاب کنید. سپس شهر مبدا و تعداد مسافران (۱ تا ۴ نفر) را مشخص کنید. <strong>این گام پایه برنامه‌ریزی کامل سفر شماست.</strong></div></div>
         </div>
         <div class="jcard" id="jcard2" onclick="togJcard('jcard2')">
-          <div class="jcard-head">
-            <div class="jcard-num">۲</div>
-            <div class="jcard-meta"><div class="jcard-title">نوع سفر</div><div class="jcard-preview">هوایی، زمینی یا ترکیبی</div></div>
-            <div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 17l5-3 3 2 5-4 5 3"/></svg></div>
-            <div class="jcard-chevron">▼</div>
-          </div>
+          <div class="jcard-head"><div class="jcard-num">۲</div><div class="jcard-meta"><div class="jcard-title">نوع سفر</div><div class="jcard-preview">هوایی، زمینی یا ترکیبی</div></div><div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 17l5-3 3 2 5-4 5 3"/></svg></div><div class="jcard-chevron">▼</div></div>
           <div class="jcard-body"><div class="jcard-desc"><strong>هوایی:</strong> سریع‌ترین روش. <strong>زمینی:</strong> اقتصادی‌تر. <strong>ترکیبی:</strong> رفت با هواپیما، برگشت با اتوبوس.</div></div>
         </div>
         <div class="jcard" id="jcard3" onclick="togJcard('jcard3')">
-          <div class="jcard-head">
-            <div class="jcard-num">۳</div>
-            <div class="jcard-meta"><div class="jcard-title">انتخاب شهرهای زیارتی</div><div class="jcard-preview">کربلا، نجف، کاظمین و سامرا</div></div>
-            <div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
-            <div class="jcard-chevron">▼</div>
-          </div>
+          <div class="jcard-head"><div class="jcard-num">۳</div><div class="jcard-meta"><div class="jcard-title">انتخاب شهرهای زیارتی</div><div class="jcard-preview">کربلا، نجف، کاظمین و سامرا</div></div><div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div><div class="jcard-chevron">▼</div></div>
           <div class="jcard-body"><div class="jcard-desc">شهرهای زیارتی را به <strong>ترتیب دلخواه سفر</strong> انتخاب کنید.</div></div>
         </div>
         <div class="jcard" id="jcard4" onclick="togJcard('jcard4')">
-          <div class="jcard-head">
-            <div class="jcard-num">۴</div>
-            <div class="jcard-meta"><div class="jcard-title">هتل و تنظیمات اقامت</div><div class="jcard-preview">درجه هتل، شب اقامت و وعده‌های غذایی</div></div>
-            <div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-            <div class="jcard-chevron">▼</div>
-          </div>
+          <div class="jcard-head"><div class="jcard-num">۴</div><div class="jcard-meta"><div class="jcard-title">هتل و تنظیمات اقامت</div><div class="jcard-preview">درجه هتل، شب اقامت و وعده‌های غذایی</div></div><div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="jcard-chevron">▼</div></div>
           <div class="jcard-body"><div class="jcard-desc">برای هر شهر: <strong>تعداد شب</strong>، <strong>درجه هتل</strong> و <strong>وعده غذایی</strong> را تنظیم کنید.</div></div>
         </div>
         <div class="jcard" id="jcard5" onclick="togJcard('jcard5')">
-          <div class="jcard-head">
-            <div class="jcard-num">۵</div>
-            <div class="jcard-meta"><div class="jcard-title">تأیید، هزینه و ثبت‌نام</div><div class="jcard-preview">هزینه دقیق + ثبت اطلاعات مسافران</div></div>
-            <div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="8 12 11 15 16 9"/></svg></div>
-            <div class="jcard-chevron">▼</div>
-          </div>
+          <div class="jcard-head"><div class="jcard-num">۵</div><div class="jcard-meta"><div class="jcard-title">تأیید، هزینه و ثبت‌نام</div><div class="jcard-preview">هزینه دقیق + ثبت اطلاعات مسافران</div></div><div class="jcard-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="8 12 11 15 16 9"/></svg></div><div class="jcard-chevron">▼</div></div>
           <div class="jcard-body"><div class="jcard-desc">هزینه تخمینی <strong>از درب منزل تا بازگشت</strong> نمایش داده می‌شود. پس از تأیید، کارشناس ما ظرف ۲ ساعت تماس می‌گیرد.</div></div>
         </div>
       </div>
@@ -858,7 +778,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
   </div>
 </div>
 
-<!-- PAGE BODY (builder) -->
+<!-- PAGE BODY (builder) — shown after clicking start -->
 <div class="page-body" id="builderArea" style="display:none">
 <div class="page-body-inner">
 
@@ -933,24 +853,9 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
     <div class="drawer-body">
       <div class="drawer-content">
         <div class="type-cards">
-          <div class="type-card" id="typeAir" onclick="selectType('air')">
-            <div class="selected-check">✓</div>
-            <div class="type-icon"><svg viewBox="0 0 44 44" fill="none"><path d="M5 26L17 18L15 8L20 10L24 21L34 17C36.5 16 39 17.5 39 20C39 22 37.5 23.5 35 24L25 27L22 37L17 35L20 25L7 31L5 26Z" fill="#134a3a" opacity=".9"/></svg></div>
-            <div class="type-name">رفت‌وبرگشت هوایی</div>
-            <div class="type-desc">سریع و راحت</div>
-          </div>
-          <div class="type-card" id="typeLand" onclick="selectType('land')">
-            <div class="selected-check">✓</div>
-            <div class="type-icon"><svg viewBox="0 0 44 44" fill="none"><rect x="3" y="13" width="38" height="20" rx="4" fill="#134a3a" opacity=".9"/><rect x="7" y="17" width="7" height="6" rx="1.5" fill="#e8c97a"/><rect x="16" y="17" width="7" height="6" rx="1.5" fill="#e8c97a"/><rect x="25" y="17" width="7" height="6" rx="1.5" fill="#e8c97a"/><circle cx="11" cy="35" r="3.5" fill="#0d3b2e"/><circle cx="11" cy="35" r="1.8" fill="#c9a84c"/><circle cx="33" cy="35" r="3.5" fill="#0d3b2e"/><circle cx="33" cy="35" r="1.8" fill="#c9a84c"/></svg></div>
-            <div class="type-name">رفت‌وبرگشت زمینی</div>
-            <div class="type-desc">اقتصادی و گروهی</div>
-          </div>
-          <div class="type-card" id="typeMixed" onclick="selectType('mixed')">
-            <div class="selected-check">✓</div>
-            <div class="type-icon"><svg viewBox="0 0 44 44" fill="none"><path d="M5 20L13 15L12 8L16 9.5L18.5 17L25 14C27 13 29 14.2 29 16C29 17.5 27.5 18.5 26 19L19 21L17 28L13 27L15 20L6 24L5 20Z" fill="#134a3a" opacity=".85"/><rect x="22" y="24" width="19" height="10" rx="2.5" fill="#134a3a" opacity=".85"/><rect x="24" y="26" width="3.5" height="3" rx=".8" fill="#e8c97a"/><rect x="29" y="26" width="3.5" height="3" rx=".8" fill="#e8c97a"/><rect x="34" y="26" width="3.5" height="3" rx=".8" fill="#e8c97a"/><circle cx="25.5" cy="36" r="2" fill="#0d3b2e"/><circle cx="25.5" cy="36" r="1" fill="#c9a84c"/><circle cx="37.5" cy="36" r="2" fill="#0d3b2e"/><circle cx="37.5" cy="36" r="1" fill="#c9a84c"/></svg></div>
-            <div class="type-name">رفت هوایی، برگشت زمینی</div>
-            <div class="type-desc">ترکیبی</div>
-          </div>
+          <div class="type-card" id="typeAir" onclick="selectType('air')"><div class="selected-check">✓</div><div class="type-icon"><svg viewBox="0 0 44 44" fill="none"><path d="M5 26L17 18L15 8L20 10L24 21L34 17C36.5 16 39 17.5 39 20C39 22 37.5 23.5 35 24L25 27L22 37L17 35L20 25L7 31L5 26Z" fill="#134a3a" opacity=".9"/></svg></div><div class="type-name">رفت‌وبرگشت هوایی</div><div class="type-desc">سریع و راحت</div></div>
+          <div class="type-card" id="typeLand" onclick="selectType('land')"><div class="selected-check">✓</div><div class="type-icon"><svg viewBox="0 0 44 44" fill="none"><rect x="3" y="13" width="38" height="20" rx="4" fill="#134a3a" opacity=".9"/><rect x="7" y="17" width="7" height="6" rx="1.5" fill="#e8c97a"/><rect x="16" y="17" width="7" height="6" rx="1.5" fill="#e8c97a"/><rect x="25" y="17" width="7" height="6" rx="1.5" fill="#e8c97a"/><circle cx="11" cy="35" r="3.5" fill="#0d3b2e"/><circle cx="11" cy="35" r="1.8" fill="#c9a84c"/><circle cx="33" cy="35" r="3.5" fill="#0d3b2e"/><circle cx="33" cy="35" r="1.8" fill="#c9a84c"/></svg></div><div class="type-name">رفت‌وبرگشت زمینی</div><div class="type-desc">اقتصادی و گروهی</div></div>
+          <div class="type-card" id="typeMixed" onclick="selectType('mixed')"><div class="selected-check">✓</div><div class="type-icon"><svg viewBox="0 0 44 44" fill="none"><path d="M5 20L13 15L12 8L16 9.5L18.5 17L25 14C27 13 29 14.2 29 16C29 17.5 27.5 18.5 26 19L19 21L17 28L13 27L15 20L6 24L5 20Z" fill="#134a3a" opacity=".85"/><rect x="22" y="24" width="19" height="10" rx="2.5" fill="#134a3a" opacity=".85"/><rect x="24" y="26" width="3.5" height="3" rx=".8" fill="#e8c97a"/><rect x="29" y="26" width="3.5" height="3" rx=".8" fill="#e8c97a"/><rect x="34" y="26" width="3.5" height="3" rx=".8" fill="#e8c97a"/><circle cx="25.5" cy="36" r="2" fill="#0d3b2e"/><circle cx="25.5" cy="36" r="1" fill="#c9a84c"/><circle cx="37.5" cy="36" r="2" fill="#0d3b2e"/><circle cx="37.5" cy="36" r="1" fill="#c9a84c"/></svg></div><div class="type-name">رفت هوایی، برگشت زمینی</div><div class="type-desc">ترکیبی</div></div>
         </div>
         <div class="airport-warning-box" id="airportWarningBox">
           <div class="awb-title">✈️ انتخاب فرودگاه مبدا</div>
@@ -977,24 +882,9 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
       <div class="drawer-content">
         <div class="city-hint">می‌توانید چند شهر انتخاب کنید. <strong>ترتیب انتخاب = ترتیب سفر.</strong><br/>کاظمین و سامرا یک مقصد محسوب می‌شوند.</div>
         <div class="city-grid">
-          <div class="city-card" id="cityKarbala" onclick="toggleCity('karbala')">
-            <div class="city-icon-wrap"><svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="5"/><path d="M8 9 Q12 4 16 9"/><path d="M7 9 L7 16 L17 16 L17 9"/><rect x="10" y="12" width="4" height="4"/><line x1="5" y1="16" x2="19" y2="16"/><line x1="4" y1="17.5" x2="20" y2="17.5"/></svg></div>
-            <div class="city-info"><div class="city-name">کربلای معلی</div><div class="city-shrine">حرم امام حسین (ع)</div></div>
-            <div class="city-tick">✓</div>
-            <div class="city-order-badge" id="orderKarbala"></div>
-          </div>
-          <div class="city-card" id="cityNajaf" onclick="toggleCity('najaf')">
-            <div class="city-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="3.5"/><line x1="12" y1="3" x2="12" y2="1"/><path d="M8.5 9.5 Q12 7 15.5 9.5"/><rect x="9" y="10" width="6" height="8"/><rect x="11" y="13" width="2" height="5"/><line x1="6" y1="18" x2="18" y2="18"/></svg></div>
-            <div class="city-info"><div class="city-name">نجف اشرف</div><div class="city-shrine">حرم امام علی (ع)</div></div>
-            <div class="city-tick">✓</div>
-            <div class="city-order-badge" id="orderNajaf"></div>
-          </div>
-          <div class="city-card" id="cityKadhSam" onclick="toggleCity('kadh_sam')">
-            <div class="city-icon-wrap"><svg viewBox="0 0 24 24"><path d="M7 10 Q10 5 13 10"/><rect x="6" y="10" width="7" height="7"/><rect x="8.5" y="13" width="2" height="4"/><path d="M14 11 Q16.5 7 19 11"/><rect x="13.5" y="11" width="6" height="6"/><rect x="15.5" y="14" width="2" height="3"/><line x1="4" y1="17" x2="21" y2="17"/><line x1="3" y1="18.5" x2="22" y2="18.5"/></svg></div>
-            <div class="city-info"><div class="city-name">کاظمین و سامرا</div><div class="city-shrine">حرم امام کاظم و عسکریین (ع)</div></div>
-            <div class="city-tick">✓</div>
-            <div class="city-order-badge" id="orderKadhSam"></div>
-          </div>
+          <div class="city-card" id="cityKarbala" onclick="toggleCity('karbala')"><div class="city-icon-wrap"><svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="5"/><path d="M8 9 Q12 4 16 9"/><path d="M7 9 L7 16 L17 16 L17 9"/><rect x="10" y="12" width="4" height="4"/><line x1="5" y1="16" x2="19" y2="16"/><line x1="4" y1="17.5" x2="20" y2="17.5"/></svg></div><div class="city-info"><div class="city-name">کربلای معلی</div><div class="city-shrine">حرم امام حسین (ع)</div></div><div class="city-tick">✓</div><div class="city-order-badge" id="orderKarbala"></div></div>
+          <div class="city-card" id="cityNajaf" onclick="toggleCity('najaf')"><div class="city-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="3.5"/><line x1="12" y1="3" x2="12" y2="1"/><path d="M8.5 9.5 Q12 7 15.5 9.5"/><rect x="9" y="10" width="6" height="8"/><rect x="11" y="13" width="2" height="5"/><line x1="6" y1="18" x2="18" y2="18"/></svg></div><div class="city-info"><div class="city-name">نجف اشرف</div><div class="city-shrine">حرم امام علی (ع)</div></div><div class="city-tick">✓</div><div class="city-order-badge" id="orderNajaf"></div></div>
+          <div class="city-card" id="cityKadhSam" onclick="toggleCity('kadh_sam')"><div class="city-icon-wrap"><svg viewBox="0 0 24 24"><path d="M7 10 Q10 5 13 10"/><rect x="6" y="10" width="7" height="7"/><rect x="8.5" y="13" width="2" height="4"/><path d="M14 11 Q16.5 7 19 11"/><rect x="13.5" y="11" width="6" height="6"/><rect x="15.5" y="14" width="2" height="3"/><line x1="4" y1="17" x2="21" y2="17"/><line x1="3" y1="18.5" x2="22" y2="18.5"/></svg></div><div class="city-info"><div class="city-name">کاظمین و سامرا</div><div class="city-shrine">حرم امام کاظم و عسکریین (ع)</div></div><div class="city-tick">✓</div><div class="city-order-badge" id="orderKadhSam"></div></div>
         </div>
         <div class="city-route-preview" id="cityRoutePreview"></div>
         <button class="next-btn" id="nextBtn3" disabled onclick="completeStep(3)">ادامه ←</button>
@@ -1043,50 +933,53 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
             </div>
           </div>
           <div class="transfer-opts">
-            <div class="transfer-opt selected" id="topt_door" onclick="selTransferOpt('door')">
-              <div class="transfer-opt-radio"></div>
-              <div><div class="transfer-opt-label">ترانسفر داخل ایران می‌خواهم</div><div class="transfer-opt-sub">از درب منزل تا مرز / فرودگاه</div></div>
-            </div>
-            <div class="transfer-opt" id="topt_self" onclick="selTransferOpt('self')">
-              <div class="transfer-opt-radio"></div>
-              <div><div class="transfer-opt-label">خودم حاضر می‌شوم</div><div class="transfer-opt-sub">هزینه ترانسفر داخلی کسر می‌شود</div></div>
-            </div>
+            <div class="transfer-opt selected" id="topt_door" onclick="selTransferOpt('door')"><div class="transfer-opt-radio"></div><div><div class="transfer-opt-label">ترانسفر داخل ایران می‌خواهم</div><div class="transfer-opt-sub">از درب منزل تا مرز / فرودگاه</div></div></div>
+            <div class="transfer-opt" id="topt_self" onclick="selTransferOpt('self')"><div class="transfer-opt-radio"></div><div><div class="transfer-opt-label">خودم حاضر می‌شوم</div><div class="transfer-opt-sub">هزینه ترانسفر داخلی کسر می‌شود</div></div></div>
           </div>
         </div>
         <div class="extra-services">
           <div class="extra-service-row">
-            <div class="extra-service-header">
-              <div class="extra-service-icon">📱</div>
-              <div><div class="extra-service-title">سیم‌کارت عراقی</div><div class="extra-service-sub">۴۵,۰۰۰ تومان / نفر</div></div>
-              <label class="toggle-switch"><input type="checkbox" id="simToggle" onchange="toggleSimCard(this.checked)"/><div class="toggle-track"></div></label>
-            </div>
+            <div class="extra-service-header"><div class="extra-service-icon">📱</div><div><div class="extra-service-title">سیم‌کارت عراقی</div><div class="extra-service-sub">۴۵,۰۰۰ تومان / نفر</div></div><label class="toggle-switch"><input type="checkbox" id="simToggle" onchange="toggleSimCard(this.checked)"/><div class="toggle-track"></div></label></div>
             <div class="extra-service-body" id="simCardBody"><div class="extra-price-note">سیم‌کارت عراقی یک روز قبل از سفر تحویل داده می‌شود.</div></div>
           </div>
           <div class="extra-service-row">
-            <div class="extra-service-header">
-              <div class="extra-service-icon">💵</div>
-              <div><div class="extra-service-title">ارز دینار عراقی</div><div class="extra-service-sub">نرخ رسمی روز</div></div>
-              <label class="toggle-switch"><input type="checkbox" id="dinarsToggle" onchange="toggleDinars(this.checked)"/><div class="toggle-track"></div></label>
-            </div>
+            <div class="extra-service-header"><div class="extra-service-icon">💵</div><div><div class="extra-service-title">ارز دینار عراقی</div><div class="extra-service-sub">نرخ رسمی روز</div></div><label class="toggle-switch"><input type="checkbox" id="dinarsToggle" onchange="toggleDinars(this.checked)"/><div class="toggle-track"></div></label></div>
             <div class="extra-service-body" id="dinarsBody">
-              <div class="extra-qty-row">
-                <div class="extra-qty-label">مقدار (هزار دینار)</div>
-                <div class="extra-stepper">
-                  <button class="extra-btn" onclick="changeDinars(-1)">−</button>
-                  <div class="extra-val" id="dinarsVal">۱</div>
-                  <button class="extra-btn" onclick="changeDinars(1)">+</button>
-                </div>
-              </div>
+              <div class="extra-qty-row"><div class="extra-qty-label">مقدار (هزار دینار)</div><div class="extra-stepper"><button class="extra-btn" onclick="changeDinars(-1)">−</button><div class="extra-val" id="dinarsVal">۱</div><button class="extra-btn" onclick="changeDinars(1)">+</button></div></div>
               <div class="extra-price-note" id="dinarsNote">۱ هزار دینار — معادل تقریبی: ۳۷,۰۰۰ تومان</div>
             </div>
           </div>
         </div>
+
+        <!-- SIMPLIFIED PRICE CARD -->
         <div class="price-reveal-card" id="priceCard">
-          <div class="price-reveal-label">هزینه تخمینی سفر شما (به ازای هر نفر)</div>
-          <div class="price-counter" id="priceCounter">در حال محاسبه…</div>
+          <!-- Three main numbers -->
+          <div class="price-main-row">
+            <div class="price-main-item">
+              <div class="price-main-label">هزینه هر نفر</div>
+              <div class="price-main-value" id="pricePerPerson">—</div>
+            </div>
+            <div class="price-main-divider"></div>
+            <div class="price-main-item">
+              <div class="price-main-label">تعداد نفرات</div>
+              <div class="price-main-value" id="pricePax">—</div>
+            </div>
+            <div class="price-main-divider"></div>
+            <div class="price-main-item">
+              <div class="price-main-label">جمع کل</div>
+              <div class="price-main-value" id="priceTotal">—</div>
+            </div>
+          </div>
+
+          <!-- Details toggle -->
+          <button class="price-details-toggle" id="priceDetailsToggle" onclick="togglePriceDetails()">
+            جزئیات هزینه <span class="chevron">▼</span>
+          </button>
           <div class="price-breakdown" id="priceBreakdown"></div>
+
           <button class="edit-trip-btn" onclick="editTrip()">✏️ ویرایش سفر</button>
         </div>
+
         <div class="passenger-form-box" id="passengerFormBox">
           <div class="pfb-title">📋 اطلاعات مسافران</div>
           <div class="pfb-section">
@@ -1101,20 +994,9 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
           <div class="extra-passengers" id="extraPassengers"></div>
           <div class="pfb-note">📌 دریافت تصویر گذرنامه ضروری است. همکاران ما پس از ثبت‌نام هماهنگی خواهند نمود.</div>
           <div style="margin-top:12px">
-            <div class="agency-toggle-row" onclick="toggleAgency()">
-              <div class="agency-check-box" id="agencyCheckBox"></div>
-              <div><div class="transit-label">آژانس همکار هستم</div><div class="transit-desc">کمیسیون برای آژانس‌های همکار</div></div>
-            </div>
-            <div class="agency-fields" id="agencyFields">
-              <div class="pfb-grid">
-                <div class="pfb-field"><label class="pfb-label">نام آژانس *</label><input class="pfb-input" id="pfbAgency" type="text" placeholder="نام آژانس مسافرتی"/></div>
-                <div class="pfb-field"><label class="pfb-label">شماره تماس آژانس *</label><input class="pfb-input" id="pfbAgencyPhone" type="tel" placeholder="شماره آژانس" dir="ltr"/></div>
-              </div>
-            </div>
-            <div class="agency-commission-box" id="agencyCommissionBox">
-              <div class="acb-label">آژانس همکار</div>
-              <div class="acb-val">کمیسیون شما پس از تأیید نهایی سفر واریز خواهد شد.</div>
-            </div>
+            <div class="agency-toggle-row" onclick="toggleAgency()"><div class="agency-check-box" id="agencyCheckBox"></div><div><div class="transit-label">آژانس همکار هستم</div><div class="transit-desc">کمیسیون برای آژانس‌های همکار</div></div></div>
+            <div class="agency-fields" id="agencyFields"><div class="pfb-grid"><div class="pfb-field"><label class="pfb-label">نام آژانس *</label><input class="pfb-input" id="pfbAgency" type="text" placeholder="نام آژانس مسافرتی"/></div><div class="pfb-field"><label class="pfb-label">شماره تماس آژانس *</label><input class="pfb-input" id="pfbAgencyPhone" type="tel" placeholder="شماره آژانس" dir="ltr"/></div></div></div>
+            <div class="agency-commission-box" id="agencyCommissionBox"><div class="acb-label">آژانس همکار</div><div class="acb-val">کمیسیون شما پس از تأیید نهایی سفر واریز خواهد شد.</div></div>
           </div>
           <button class="confirm-btn" style="margin-top:12px" onclick="finalRegister()">✦ ثبت‌نام و پرداخت</button>
         </div>
@@ -1126,35 +1008,33 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
 </div>
 </div>
 
-<!-- FAQ stays visible always (below builder too if needed) -->
-
-<!-- FOOTER -->
+<!-- FOOTER — simplified -->
 <footer class="site-footer">
   <div class="footer-inner">
+
+    <!-- Two offices side by side -->
     <div class="footer-offices">
-      <div class="footer-col">
-        <div class="footer-col-title">
+      <div class="footer-office-block">
+        <div class="footer-office-title">
           <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
           دفتر مرکزی تهران
         </div>
-        <div class="footer-info-line">📍 <span>تهران، ولیعصر، نرسیده به پارک‌وی، پلاک ۱۲۴</span></div>
+        <div class="footer-office-addr">تهران، ولیعصر، نرسیده به پارک‌وی، پلاک ۱۲۴</div>
       </div>
-      <div class="footer-col">
-        <div class="footer-col-title">
+      <div class="footer-office-block">
+        <div class="footer-office-title">
           <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
           دفتر نجف اشرف
         </div>
-        <div class="footer-info-line">📍 <span>نجف اشرف، خ. الرسول، ساختمان الزائر</span></div>
+        <div class="footer-office-addr">نجف اشرف، خ. الرسول، ساختمان الزائر</div>
       </div>
     </div>
 
-    <!-- BIG PHONE NUMBER -->
     <div class="footer-big-phone">
       <div class="footer-big-phone-label">📞 تماس مستقیم</div>
       <div class="footer-big-phone-num" dir="ltr">۰۹۱۰۲۱۹۸۲۶۱</div>
     </div>
 
-    <!-- SOCIAL ICONS -->
     <div class="footer-social">
       <a class="social-btn" href="#" title="اینستاگرام" target="_blank">
         <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
@@ -1162,24 +1042,18 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
       <a class="social-btn" href="https://wa.me/989102198261" title="واتساپ" target="_blank">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       </a>
-      <a class="social-btn" href="https://t.me/nikanziarat" title="تلگرام" target="_blank">
+      <a class="social-btn" href="https://t.me/avanatabat" title="تلگرام" target="_blank">
         <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
       </a>
-      <a class="social-btn" href="https://ble.ir/nikanziarat" title="بله" target="_blank">
+      <a class="social-btn" href="https://bale.ai/avanatabat" title="بله" target="_blank">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.98-1.418A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.95 7.95 0 01-4.073-1.118l-.291-.174-3.018.86.876-2.943-.19-.302A7.95 7.95 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z"/></svg>
       </a>
-    </div>
-
-    <div class="footer-contacts-row">
-      <div class="footer-contact-item"><span>✉️</span> <a href="mailto:info@nikan-ziarat.ir">info@nikan-ziarat.ir</a></div>
-      <div class="footer-contact-item"><span>🌐</span> <a href="#">www.nikan-ziarat.ir</a></div>
-      <div class="footer-contact-item"><span>🕐</span> شنبه تا پنجشنبه ۸ صبح تا ۸ شب</div>
     </div>
 
     <div class="footer-divider"></div>
     <div class="footer-bottom">
       <div>
-        <div class="footer-logo">گروه زیارتی نیکان</div>
+        <div class="footer-logo">گروه زیارتی آوان</div>
         <div class="footer-sub">مرجع تخصصی سفرهای زیارتی انفرادی</div>
       </div>
       <div class="footer-copy">© ۱۴۰۵ — تمامی حقوق محفوظ است</div>
@@ -1203,283 +1077,108 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--em);color:var(--td);min
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
   let W, H, t = 0;
-  function resize(){
-    W = canvas.width = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
-  }
+  function resize(){W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight;}
   resize();
   window.addEventListener('resize', resize);
 
-  // Dome silhouette path generator
   function drawShrineWave(offsetX, phase, alpha, scale){
     ctx.save();
     ctx.globalAlpha = alpha;
     ctx.strokeStyle = '#c9a84c';
-    ctx.lineWidth = 0.8;
+    ctx.lineWidth = 0.7;
     ctx.beginPath();
-
-    const cx = offsetX;
-    const baseY = H * 0.85;
-    const s = scale;
-
-    // Ground line
-    ctx.moveTo(cx - 60*s, baseY);
-    ctx.lineTo(cx + 60*s, baseY);
-
-    // Main body
-    ctx.moveTo(cx - 28*s, baseY);
-    ctx.lineTo(cx - 28*s, baseY - 28*s);
-    ctx.lineTo(cx + 28*s, baseY - 28*s);
-    ctx.lineTo(cx + 28*s, baseY);
-
-    // Dome curve
+    const cx = offsetX, baseY = H * 0.85, s = scale;
+    ctx.moveTo(cx - 60*s, baseY); ctx.lineTo(cx + 60*s, baseY);
+    ctx.moveTo(cx - 28*s, baseY); ctx.lineTo(cx - 28*s, baseY - 28*s);
+    ctx.lineTo(cx + 28*s, baseY - 28*s); ctx.lineTo(cx + 28*s, baseY);
     ctx.moveTo(cx - 22*s, baseY - 28*s);
     const domeTop = baseY - 28*s - 24*s + Math.sin(t * 0.3 + phase) * 2*s;
-    ctx.bezierCurveTo(
-      cx - 22*s, baseY - 28*s - 18*s,
-      cx + 22*s, baseY - 28*s - 18*s,
-      cx + 22*s, baseY - 28*s
-    );
-
-    // Finial
-    ctx.moveTo(cx, baseY - 28*s - 24*s);
-    ctx.lineTo(cx, domeTop - 8*s);
-
-    // Left minaret
-    ctx.moveTo(cx - 38*s, baseY);
-    ctx.lineTo(cx - 38*s, baseY - 20*s);
+    ctx.bezierCurveTo(cx - 22*s, baseY - 28*s - 18*s, cx + 22*s, baseY - 28*s - 18*s, cx + 22*s, baseY - 28*s);
+    ctx.moveTo(cx, baseY - 28*s - 24*s); ctx.lineTo(cx, domeTop - 8*s);
+    ctx.moveTo(cx - 38*s, baseY); ctx.lineTo(cx - 38*s, baseY - 20*s);
     ctx.moveTo(cx - 43*s, baseY - 20*s);
     ctx.bezierCurveTo(cx - 43*s, baseY - 28*s, cx - 33*s, baseY - 28*s, cx - 33*s, baseY - 20*s);
-
-    // Right minaret
-    ctx.moveTo(cx + 38*s, baseY);
-    ctx.lineTo(cx + 38*s, baseY - 20*s);
+    ctx.moveTo(cx + 38*s, baseY); ctx.lineTo(cx + 38*s, baseY - 20*s);
     ctx.moveTo(cx + 43*s, baseY - 20*s);
     ctx.bezierCurveTo(cx + 43*s, baseY - 28*s, cx + 33*s, baseY - 28*s, cx + 33*s, baseY - 20*s);
-
-    ctx.stroke();
-    ctx.restore();
+    ctx.stroke(); ctx.restore();
   }
 
-  // Flowing wave lines
   function drawWaveLine(yPos, amplitude, freq, phaseOffset, alpha){
-    ctx.save();
-    ctx.globalAlpha = alpha;
-    ctx.strokeStyle = '#c9a84c';
-    ctx.lineWidth = 0.6;
+    ctx.save(); ctx.globalAlpha = alpha; ctx.strokeStyle = '#c9a84c'; ctx.lineWidth = 0.5;
     ctx.beginPath();
     for(let x = 0; x <= W; x += 2){
-      const y = yPos + Math.sin((x * freq) + t * 0.6 + phaseOffset) * amplitude
-                     + Math.sin((x * freq * 0.5) + t * 0.4 + phaseOffset * 1.3) * amplitude * 0.4;
-      if(x === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+      const y = yPos + Math.sin((x * freq) + t * 0.6 + phaseOffset) * amplitude + Math.sin((x * freq * 0.5) + t * 0.4 + phaseOffset * 1.3) * amplitude * 0.4;
+      if(x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
     }
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  // Decorative dots that pulse
-  function drawDots(){
-    const positions = [0.15, 0.35, 0.5, 0.65, 0.85];
-    positions.forEach((frac, i) => {
-      const x = W * frac;
-      const pulse = 0.03 + 0.02 * Math.sin(t * 0.8 + i * 1.2);
-      ctx.save();
-      ctx.globalAlpha = pulse * 4;
-      ctx.fillStyle = '#c9a84c';
-      ctx.beginPath();
-      ctx.arc(x, H * 0.5, 1.5, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-    });
+    ctx.stroke(); ctx.restore();
   }
 
   function animate(){
-    ctx.clearRect(0, 0, W, H);
-    t += 0.012;
-
-    // Wave lines
-    drawWaveLine(H * 0.25, 3, 0.018, 0, 0.06);
-    drawWaveLine(H * 0.5,  2, 0.022, 1.5, 0.05);
-    drawWaveLine(H * 0.75, 3, 0.015, 3.0, 0.06);
-
-    // Shrine silhouettes spread across header
-    const count = Math.max(3, Math.floor(W / 180));
+    ctx.clearRect(0, 0, W, H); t += 0.012;
+    drawWaveLine(H * 0.3, 2.5, 0.018, 0, 0.06);
+    drawWaveLine(H * 0.6, 2, 0.022, 1.5, 0.05);
+    const count = Math.max(3, Math.floor(W / 200));
     for(let i = 0; i < count; i++){
       const x = (W / count) * (i + 0.5);
       const ph = i * 1.1;
-      const sc = 0.55 + 0.1 * Math.sin(t * 0.2 + ph);
-      drawShrineWave(x, ph, 0.055, sc);
+      const sc = 0.5 + 0.08 * Math.sin(t * 0.2 + ph);
+      drawShrineWave(x, ph, 0.05, sc);
     }
-
-    drawDots();
     requestAnimationFrame(animate);
   }
   animate();
 })();
 
-// ── PERSIAN CALENDAR DATA ──
-// Correct Shamsi month start weekdays for 1405
-// Month 1 (Farvardin 1405) starts on Saturday (index 0 in ش,ی,د,س,چ,پ,ج)
-// Today: 16 Khordad 1405 = Saturday (Shanbe)
+// ── PERSIAN CALENDAR ──
 const PM=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
-// Days in each month for 1405 (non-leap)
 const DIM=[31,31,31,31,31,31,30,30,30,30,30,29];
-// Farvardin 1405 starts on Saturday. 
-// Farvardin 1: Sat (0), Ordibehesht 1: Mon (2+31=33 mod7=5->Fri? let's compute properly)
-// Each month offset = (prev_offset + prev_month_days) % 7
-// Farvardin starts Sat=0 (in ش=0,ی=1,د=2,س=3,چ=4,پ=5,ج=6)
-// We'll compute dynamically:
 function getMonthOffset(m, y){
-  // Farvardin 1405 starts on Saturday (weekday index 0 in ش,ی,د,س,چ,پ,ج)
-  // We anchor to this known fact
-  const BASE_YEAR = 1405;
-  const BASE_MONTH = 0; // Farvardin
-  const BASE_OFFSET = 0; // Saturday
-  
-  let totalDays = 0;
-  if(y === BASE_YEAR){
-    for(let i = BASE_MONTH; i < m; i++) totalDays += DIM[i];
-  } else if(y > BASE_YEAR){
-    // Add remaining months of base year
-    for(let i = BASE_MONTH; i < 12; i++) totalDays += DIM[i];
-    for(let yr = BASE_YEAR + 1; yr < y; yr++){
-      // Simple: 365 days per non-leap year
-      totalDays += isLeapShamsi(yr) ? 366 : 365;
-    }
-    for(let i = 0; i < m; i++) totalDays += DIM[i];
-  }
-  return (BASE_OFFSET + totalDays) % 7;
+  const BASE_YEAR=1405,BASE_MONTH=0,BASE_OFFSET=0;
+  let totalDays=0;
+  if(y===BASE_YEAR){for(let i=BASE_MONTH;i<m;i++)totalDays+=DIM[i];}
+  else if(y>BASE_YEAR){for(let i=BASE_MONTH;i<12;i++)totalDays+=DIM[i];for(let yr=BASE_YEAR+1;yr<y;yr++)totalDays+=365;for(let i=0;i<m;i++)totalDays+=DIM[i];}
+  return(BASE_OFFSET+totalDays)%7;
 }
-function isLeapShamsi(y){ return [1,5,9,13,17,22,26,30].includes(((y-474)%2820+474+38)%2820%128 < 0 ? ((y-474)%2820+474+38)%2820%128+128 : ((y-474)%2820+474+38)%2820%128); }
 
-const TODAY={y:1405,m:2,d:16}; // 16 Khordad 1405 (month index 2 = Khordad)
-
-const DIRECT_AIRPORTS={
-  tehran:{code:'IKA',name:'فرودگاه بین‌المللی امام خمینی (ره)'},
-  isfahan:{code:'IFN',name:'فرودگاه بین‌المللی اصفهان'},
-  mashhad:{code:'MHD',name:'فرودگاه بین‌المللی مشهد'}
-};
-const ALL_AIRPORTS=[
-  {code:'IKA',name:'فرودگاه امام خمینی — تهران',city:'تهران'},
-  {code:'IFN',name:'فرودگاه اصفهان',city:'اصفهان'},
-  {code:'MHD',name:'فرودگاه مشهد',city:'مشهد'}
-];
+const TODAY={y:1405,m:2,d:16};
+const DIRECT_AIRPORTS={tehran:{code:'IKA',name:'فرودگاه بین‌المللی امام خمینی (ره)'},isfahan:{code:'IFN',name:'فرودگاه بین‌المللی اصفهان'},mashhad:{code:'MHD',name:'فرودگاه بین‌المللی مشهد'}};
+const ALL_AIRPORTS=[{code:'IKA',name:'فرودگاه امام خمینی — تهران',city:'تهران'},{code:'IFN',name:'فرودگاه اصفهان',city:'اصفهان'},{code:'MHD',name:'فرودگاه مشهد',city:'مشهد'}];
 const DIRECT_CITIES=['tehran','isfahan','mashhad'];
 const CITY_LABEL={tehran:'تهران',isfahan:'اصفهان',mashhad:'مشهد',shiraz:'شیراز',tabriz:'تبریز',qom:'قم',karaj:'کرج',ahvaz:'اهواز',rasht:'رشت',other:'سایر'};
-const CITY_META={
-  karbala:{name:'کربلای معلی',shrine:'حرم امام حسین (ع)',hotelBase:3200000},
-  najaf:{name:'نجف اشرف',shrine:'حرم امام علی (ع)',hotelBase:2800000},
-  kadh_sam:{name:'کاظمین و سامرا',shrine:'حرم امام کاظم و عسکریین (ع)',hotelBase:2500000}
-};
+const CITY_META={karbala:{name:'کربلای معلی',shrine:'حرم امام حسین (ع)',hotelBase:3200000},najaf:{name:'نجف اشرف',shrine:'حرم امام علی (ع)',hotelBase:2800000},kadh_sam:{name:'کاظمین و سامرا',shrine:'حرم امام کاظم و عسکریین (ع)',hotelBase:2500000}};
 const HOTEL_DATA={
-  karbala:[
-    {name:'هتل عباسیه گرند',stars:5,dist:'۸۰ متر',cat:'alef',price:1.5},
-    {name:'هتل الحسین انترنشنال',stars:5,dist:'۱۰۰ متر',cat:'alef',price:1.4},
-    {name:'هتل کربلا رویال',stars:4,dist:'۱۵۰ متر',cat:'alef',price:1.3},
-    {name:'هتل کربلا اینترنشنال',stars:4,dist:'۲۰۰ متر',cat:'be',price:1.0},
-    {name:'هتل فرات',stars:3,dist:'۳۵۰ متر',cat:'be',price:0.82},
-    {name:'هتل الروضه',stars:3,dist:'۴۵۰ متر',cat:'be',price:0.72},
-    {name:'هتل الکوثر',stars:2,dist:'۶۰۰ متر',cat:'jim',price:0.52},
-    {name:'هتل پیلگریم',stars:2,dist:'۸۰۰ متر',cat:'jim',price:0.42},
-    {name:'هتل الزائرین',stars:1,dist:'۱.۲ کیلومتر',cat:'jim',price:0.32},
-  ],
-  najaf:[
-    {name:'هتل امیرالمؤمنین',stars:5,dist:'۵۰ متر',cat:'alef',price:1.5},
-    {name:'هتل نجف گرند',stars:5,dist:'۸۰ متر',cat:'alef',price:1.4},
-    {name:'هتل النجف رویال',stars:4,dist:'۱۲۰ متر',cat:'alef',price:1.3},
-    {name:'هتل نجف پالاس',stars:4,dist:'۱۵۰ متر',cat:'be',price:1.0},
-    {name:'هتل المشرق',stars:3,dist:'۳۰۰ متر',cat:'be',price:0.85},
-    {name:'هتل الوادی',stars:3,dist:'۴۰۰ متر',cat:'be',price:0.75},
-    {name:'هتل النخیل',stars:2,dist:'۵۵۰ متر',cat:'jim',price:0.55},
-    {name:'هتل الاقتصادی',stars:2,dist:'۷۰۰ متر',cat:'jim',price:0.45},
-    {name:'هتل الزائر',stars:1,dist:'۱ کیلومتر',cat:'jim',price:0.35},
-  ],
-  kadh_sam:[
-    {name:'هتل الامین الکاظمیه',stars:5,dist:'۷۰ متر',cat:'alef',price:1.4},
-    {name:'هتل الکاظمیه پالاس',stars:4,dist:'۱۲۰ متر',cat:'alef',price:1.25},
-    {name:'هتل العسکری پالاس',stars:5,dist:'۹۰ متر',cat:'alef',price:1.3},
-    {name:'هتل الرشید',stars:3,dist:'۲۵۰ متر',cat:'be',price:0.9},
-    {name:'هتل دجله سامرا',stars:3,dist:'۳۵۰ متر',cat:'be',price:0.8},
-    {name:'هتل المرجان',stars:3,dist:'۴۰۰ متر',cat:'be',price:0.72},
-    {name:'هتل الفرحان',stars:2,dist:'۶۵۰ متر',cat:'jim',price:0.48},
-    {name:'هتل السلام',stars:2,dist:'۸۵۰ متر',cat:'jim',price:0.40},
-    {name:'هتل الزائر سامرا',stars:1,dist:'۱ کیلومتر',cat:'jim',price:0.30},
-  ]
+  karbala:[{name:'هتل عباسیه گرند',stars:5,dist:'۸۰ متر',cat:'alef',price:1.5},{name:'هتل الحسین انترنشنال',stars:5,dist:'۱۰۰ متر',cat:'alef',price:1.4},{name:'هتل کربلا رویال',stars:4,dist:'۱۵۰ متر',cat:'alef',price:1.3},{name:'هتل کربلا اینترنشنال',stars:4,dist:'۲۰۰ متر',cat:'be',price:1.0},{name:'هتل فرات',stars:3,dist:'۳۵۰ متر',cat:'be',price:0.82},{name:'هتل الروضه',stars:3,dist:'۴۵۰ متر',cat:'be',price:0.72},{name:'هتل الکوثر',stars:2,dist:'۶۰۰ متر',cat:'jim',price:0.52},{name:'هتل پیلگریم',stars:2,dist:'۸۰۰ متر',cat:'jim',price:0.42},{name:'هتل الزائرین',stars:1,dist:'۱.۲ کیلومتر',cat:'jim',price:0.32}],
+  najaf:[{name:'هتل امیرالمؤمنین',stars:5,dist:'۵۰ متر',cat:'alef',price:1.5},{name:'هتل نجف گرند',stars:5,dist:'۸۰ متر',cat:'alef',price:1.4},{name:'هتل النجف رویال',stars:4,dist:'۱۲۰ متر',cat:'alef',price:1.3},{name:'هتل نجف پالاس',stars:4,dist:'۱۵۰ متر',cat:'be',price:1.0},{name:'هتل المشرق',stars:3,dist:'۳۰۰ متر',cat:'be',price:0.85},{name:'هتل الوادی',stars:3,dist:'۴۰۰ متر',cat:'be',price:0.75},{name:'هتل النخیل',stars:2,dist:'۵۵۰ متر',cat:'jim',price:0.55},{name:'هتل الاقتصادی',stars:2,dist:'۷۰۰ متر',cat:'jim',price:0.45},{name:'هتل الزائر',stars:1,dist:'۱ کیلومتر',cat:'jim',price:0.35}],
+  kadh_sam:[{name:'هتل الامین الکاظمیه',stars:5,dist:'۷۰ متر',cat:'alef',price:1.4},{name:'هتل الکاظمیه پالاس',stars:4,dist:'۱۲۰ متر',cat:'alef',price:1.25},{name:'هتل العسکری پالاس',stars:5,dist:'۹۰ متر',cat:'alef',price:1.3},{name:'هتل الرشید',stars:3,dist:'۲۵۰ متر',cat:'be',price:0.9},{name:'هتل دجله سامرا',stars:3,dist:'۳۵۰ متر',cat:'be',price:0.8},{name:'هتل المرجان',stars:3,dist:'۴۰۰ متر',cat:'be',price:0.72},{name:'هتل الفرحان',stars:2,dist:'۶۵۰ متر',cat:'jim',price:0.48},{name:'هتل السلام',stars:2,dist:'۸۵۰ متر',cat:'jim',price:0.40},{name:'هتل الزائر سامرا',stars:1,dist:'۱ کیلومتر',cat:'jim',price:0.30}]
 };
 
-const state={
-  calM:TODAY.m,calY:TODAY.y,
-  selD:null,selM:null,selY:null,dateText:null,
-  passengers:1,origin:null,
-  tripType:null,selectedAirport:null,
-  cities:[],cityData:{},
-  transferOpt:'door',
-  simCard:false,dinars:false,dinarsAmt:1,
-  isAgency:false,totalPrice:0
-};
+const state={calM:TODAY.m,calY:TODAY.y,selD:null,selM:null,selY:null,dateText:null,passengers:1,origin:null,tripType:null,selectedAirport:null,cities:[],cityData:{},transferOpt:'door',simCard:false,dinars:false,dinarsAmt:1,isAgency:false,totalPrice:0,priceDetailsOpen:false};
 
 function P(n){return String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);}
 function fmt(n){return P(Math.round(n).toLocaleString('en'));}
 function scrollToTop(id){setTimeout(()=>{const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},340);}
 
-/* ── FLOATING CTA VISIBILITY ── */
+/* FLOATING CTA */
 (function(){
   const hero=document.getElementById('heroSection');
   const cta=document.getElementById('floatingCta');
   if(!hero||!cta)return;
-  const obs=new IntersectionObserver(entries=>{
-    const heroVisible=entries[0].isIntersecting;
-    cta.classList.toggle('visible',!heroVisible);
-  },{threshold:0.1});
+  const obs=new IntersectionObserver(entries=>{cta.classList.toggle('visible',!entries[0].isIntersecting);},{threshold:0.1});
   obs.observe(hero);
 })();
 
-/* HOME BUTTON */
-function goHome(e){
-  e.preventDefault();
-  document.getElementById('builderArea').style.display='none';
-  document.getElementById('landingContent').style.display='block';
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-/* JOURNEY CARDS */
-function togJcard(id){
-  const el=document.getElementById(id);
-  const wasOpen=el.classList.contains('open');
-  document.querySelectorAll('.jcard').forEach(c=>c.classList.remove('open'));
-  if(!wasOpen)el.classList.add('open');
-}
-
-/* NAV MODALS */
+function goHome(e){e.preventDefault();document.getElementById('builderArea').style.display='none';document.getElementById('landingContent').style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
+function togJcard(id){const el=document.getElementById(id);const wasOpen=el.classList.contains('open');document.querySelectorAll('.jcard').forEach(c=>c.classList.remove('open'));if(!wasOpen)el.classList.add('open');}
 function openModal(id){document.getElementById('modal-'+id).classList.add('open');}
 function closeModalDirect(id){document.getElementById('modal-'+id).classList.remove('open');}
 function closeModal(id,e){if(e.target===document.getElementById('modal-'+id))closeModalDirect(id);}
+function togFaq(id){const el=document.getElementById(id);const isOpen=el.classList.contains('open');document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open'));if(!isOpen)el.classList.add('open');}
 
-/* FAQ */
-function togFaq(id){
-  const el=document.getElementById(id);
-  const isOpen=el.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open'));
-  if(!isOpen)el.classList.add('open');
-}
-
-/* CALENDAR */
-function isDisabled(d,m,y){
-  if(y<TODAY.y)return true;
-  if(y===TODAY.y&&m<TODAY.m)return true;
-  if(y===TODAY.y&&m===TODAY.m&&d<=TODAY.d+1)return true;
-  return false;
-}
-function startBuilder(){
-  document.getElementById('builderArea').style.display='block';
-  // Keep landing content visible (FAQ stays)
-  renderCalendar();
-  setTimeout(()=>document.getElementById('builderArea').scrollIntoView({behavior:'smooth',block:'start'}),80);
-}
+function isDisabled(d,m,y){if(y<TODAY.y)return true;if(y===TODAY.y&&m<TODAY.m)return true;if(y===TODAY.y&&m===TODAY.m&&d<=TODAY.d+1)return true;return false;}
+function startBuilder(){document.getElementById('builderArea').style.display='block';renderCalendar();setTimeout(()=>document.getElementById('builderArea').scrollIntoView({behavior:'smooth',block:'start'}),80);}
 function renderCalendar(){
-  const dim=DIM[state.calM];
-  const off=getMonthOffset(state.calM, state.calY);
+  const dim=DIM[state.calM];const off=getMonthOffset(state.calM,state.calY);
   document.getElementById('calMonthTitle').textContent=PM[state.calM]+' '+P(state.calY);
   const c=document.getElementById('calDays');c.innerHTML='';
   for(let i=0;i<off;i++){const e=document.createElement('div');e.className='cal-day empty';c.appendChild(e);}
@@ -1489,36 +1188,15 @@ function renderCalendar(){
     const sel=state.selD===d&&state.selM===state.calM&&state.selY===state.calY;
     const isToday=(d===TODAY.d&&state.calM===TODAY.m&&state.calY===TODAY.y);
     let cls='cal-day';
-    if(dis)cls+=' disabled';
-    if(sel)cls+=' selected';
-    if(isToday&&!sel)cls+=' today-mark';
-    cell.className=cls;
-    cell.textContent=P(d);
+    if(dis)cls+=' disabled';if(sel)cls+=' selected';if(isToday&&!sel)cls+=' today-mark';
+    cell.className=cls;cell.textContent=P(d);
     if(!dis)cell.onclick=()=>selDate(d,state.calM,state.calY);
     c.appendChild(cell);
   }
 }
-function changeMonth(dir){
-  state.calM=(state.calM+dir+12)%12;
-  if(dir===1&&state.calM===0)state.calY++;
-  if(dir===-1&&state.calM===11)state.calY--;
-  renderCalendar();
-}
-function selDate(d,m,y){
-  state.selD=d;state.selM=m;state.selY=y;
-  state.dateText=P(d)+' '+PM[m]+' '+P(y);
-  renderCalendar();chk1();
-}
-
-function changePassengers(delta){
-  const nx=state.passengers+delta;
-  if(nx>4){document.getElementById('passWarning').classList.add('show');return;}
-  if(nx<1)return;
-  document.getElementById('passWarning').classList.remove('show');
-  state.passengers=nx;
-  document.getElementById('passVal').textContent=P(nx);
-  chk1();
-}
+function changeMonth(dir){state.calM=(state.calM+dir+12)%12;if(dir===1&&state.calM===0)state.calY++;if(dir===-1&&state.calM===11)state.calY--;renderCalendar();}
+function selDate(d,m,y){state.selD=d;state.selM=m;state.selY=y;state.dateText=P(d)+' '+PM[m]+' '+P(y);renderCalendar();chk1();}
+function changePassengers(delta){const nx=state.passengers+delta;if(nx>4){document.getElementById('passWarning').classList.add('show');return;}if(nx<1)return;document.getElementById('passWarning').classList.remove('show');state.passengers=nx;document.getElementById('passVal').textContent=P(nx);chk1();}
 function selectOrigin(v){state.origin=v||null;chk1();}
 function chk1(){document.getElementById('nextBtn1').disabled=!(state.selD&&state.origin);}
 
@@ -1531,74 +1209,24 @@ function selectType(t){
   const awb=document.getElementById('airportWarningBox');
   const needsAir=t==='air'||t==='mixed';
   if(needsAir){
-    if(DIRECT_CITIES.includes(state.origin)){
-      state.selectedAirport=DIRECT_AIRPORTS[state.origin];
-      awb.classList.remove('show');
-      document.getElementById('nextBtn2').disabled=false;
-    } else {
-      awb.classList.add('show');
-      document.getElementById('awbBody').textContent='پروازها از فرودگاه‌های تهران، مشهد و اصفهان ارائه می‌شود. آیا امکان حضور در یکی از این فرودگاه‌ها را دارید؟';
-      document.getElementById('awbStep1').style.display='block';
-      document.getElementById('awbStep2').style.display='none';
-    }
-  } else {
-    awb.classList.remove('show');
-    state.selectedAirport=null;
-    document.getElementById('nextBtn2').disabled=false;
-  }
+    if(DIRECT_CITIES.includes(state.origin)){state.selectedAirport=DIRECT_AIRPORTS[state.origin];awb.classList.remove('show');document.getElementById('nextBtn2').disabled=false;}
+    else{awb.classList.add('show');document.getElementById('awbBody').textContent='پروازها از فرودگاه‌های تهران، مشهد و اصفهان ارائه می‌شود. آیا امکان حضور در یکی از این فرودگاه‌ها را دارید؟';document.getElementById('awbStep1').style.display='block';document.getElementById('awbStep2').style.display='none';}
+  } else {awb.classList.remove('show');state.selectedAirport=null;document.getElementById('nextBtn2').disabled=false;}
 }
-function airportYes(){
-  document.getElementById('awbStep1').style.display='none';
-  document.getElementById('awbStep2').style.display='block';
-  document.getElementById('awbBody').textContent='کدام فرودگاه را انتخاب می‌کنید؟';
-  renderAirports(ALL_AIRPORTS);
-}
-function airportNo(){
-  document.getElementById('airportWarningBox').classList.remove('show');
-  state.tripType=null;
-  ['typeAir','typeLand','typeMixed'].forEach(id=>document.getElementById(id).classList.remove('selected'));
-  document.getElementById('nextBtn2').disabled=true;
-  alert('سفر هوایی تنها از تهران، مشهد و اصفهان امکان‌پذیر است.\nلطفاً سفر زمینی را انتخاب کنید یا با دفتر ما تماس بگیرید.');
-}
-function renderAirports(list){
-  const c=document.getElementById('awbAirportList');c.innerHTML='';
-  list.forEach(ap=>{
-    const b=document.createElement('div');
-    b.className='awb-airport-btn';b.id='apbtn_'+ap.code;
-    b.innerHTML=`<div class="airport-icon-box">✈</div><div><div style="font-weight:700">${ap.name}</div><div style="font-size:10px;opacity:.5;margin-top:1px">${ap.city||''} — ${ap.code}</div></div>`;
-    b.onclick=()=>selAirport(ap);
-    c.appendChild(b);
-  });
-}
-function selAirport(ap){
-  state.selectedAirport=ap;
-  document.querySelectorAll('.awb-airport-btn').forEach(b=>b.classList.remove('selected'));
-  const el=document.getElementById('apbtn_'+ap.code);if(el)el.classList.add('selected');
-  document.getElementById('nextBtn2').disabled=false;
-}
+function airportYes(){document.getElementById('awbStep1').style.display='none';document.getElementById('awbStep2').style.display='block';document.getElementById('awbBody').textContent='کدام فرودگاه را انتخاب می‌کنید؟';renderAirports(ALL_AIRPORTS);}
+function airportNo(){document.getElementById('airportWarningBox').classList.remove('show');state.tripType=null;['typeAir','typeLand','typeMixed'].forEach(id=>document.getElementById(id).classList.remove('selected'));document.getElementById('nextBtn2').disabled=true;alert('سفر هوایی تنها از تهران، مشهد و اصفهان امکان‌پذیر است.\nلطفاً سفر زمینی را انتخاب کنید یا با دفتر ما تماس بگیرید.');}
+function renderAirports(list){const c=document.getElementById('awbAirportList');c.innerHTML='';list.forEach(ap=>{const b=document.createElement('div');b.className='awb-airport-btn';b.id='apbtn_'+ap.code;b.innerHTML=`<div class="airport-icon-box">✈</div><div><div style="font-weight:700">${ap.name}</div><div style="font-size:10px;opacity:.5;margin-top:1px">${ap.city||''} — ${ap.code}</div></div>`;b.onclick=()=>selAirport(ap);c.appendChild(b);});}
+function selAirport(ap){state.selectedAirport=ap;document.querySelectorAll('.awb-airport-btn').forEach(b=>b.classList.remove('selected'));const el=document.getElementById('apbtn_'+ap.code);if(el)el.classList.add('selected');document.getElementById('nextBtn2').disabled=false;}
 
 function toggleCity(key){
   const idx=state.cities.indexOf(key);
   if(idx>-1){state.cities.splice(idx,1);delete state.cityData[key];getCityEl(key).classList.remove('selected');}
   else{state.cities.push(key);state.cityData[key]={nights:3,transit:false,hotel:null,food:true};getCityEl(key).classList.add('selected');}
-  refreshOrders();
-  document.getElementById('nextBtn3').disabled=state.cities.length===0;
-  updateRoutePreview();
+  refreshOrders();document.getElementById('nextBtn3').disabled=state.cities.length===0;updateRoutePreview();
 }
 function getCityEl(key){const map={karbala:'cityKarbala',najaf:'cityNajaf',kadh_sam:'cityKadhSam'};return document.getElementById(map[key]);}
-function refreshOrders(){
-  [{key:'karbala',id:'orderKarbala'},{key:'najaf',id:'orderNajaf'},{key:'kadh_sam',id:'orderKadhSam'}].forEach(({key,id})=>{
-    const badge=document.getElementById(id);
-    const pos=state.cities.indexOf(key);
-    badge.textContent=pos>-1?P(pos+1):'';
-  });
-}
-function updateRoutePreview(){
-  const el=document.getElementById('cityRoutePreview');
-  if(!state.cities.length){el.classList.remove('show');return;}
-  el.classList.add('show');
-  el.innerHTML='<strong>مسیر:</strong> '+state.cities.map(k=>CITY_META[k].name).join(' ← ');
-}
+function refreshOrders(){[{key:'karbala',id:'orderKarbala'},{key:'najaf',id:'orderNajaf'},{key:'kadh_sam',id:'orderKadhSam'}].forEach(({key,id})=>{const badge=document.getElementById(id);const pos=state.cities.indexOf(key);badge.textContent=pos>-1?P(pos+1):'';});}
+function updateRoutePreview(){const el=document.getElementById('cityRoutePreview');if(!state.cities.length){el.classList.remove('show');return;}el.classList.add('show');el.innerHTML='<strong>مسیر:</strong> '+state.cities.map(k=>CITY_META[k].name).join(' ← ');}
 
 const GRADE_INFO={alef:{label:'درجه الف — لوکس',badgeCls:'grade-badge-alef',dots:5},be:{label:'درجه ب — متوسط',badgeCls:'grade-badge-be',dots:3},jim:{label:'درجه ج — اقتصادی',badgeCls:'grade-badge-jim',dots:2}};
 function dotSVG(n,total){let s='<div class="grade-stars">';for(let i=1;i<=total;i++)s+=`<div class="grade-star-icon ${i<=n?'on':'off'}"></div>`;return s+'</div>';}
@@ -1608,23 +1236,6 @@ const CITY_SVG={
   najaf:`<svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="3.5"/><line x1="12" y1="3" x2="12" y2="1"/><path d="M8.5 9.5 Q12 7 15.5 9.5"/><rect x="9" y="10" width="6" height="8"/><rect x="11" y="13" width="2" height="5"/><line x1="6" y1="18" x2="18" y2="18"/></svg>`,
   kadh_sam:`<svg viewBox="0 0 24 24"><path d="M7 10 Q10 5 13 10"/><rect x="6" y="10" width="7" height="7"/><rect x="8.5" y="13" width="2" height="4"/><path d="M14 11 Q16.5 7 19 11"/><rect x="13.5" y="11" width="6" height="6"/><rect x="15.5" y="14" width="2" height="3"/><line x1="4" y1="17" x2="21" y2="17"/><line x1="3" y1="18.5" x2="22" y2="18.5"/></svg>`
 };
-
-function hasFridayNight(key){
-  if(!state.selD)return false;
-  const d=state.cityData[key];if(!d||d.transit)return false;
-  let offset=1;
-  for(let c of state.cities){if(c===key)break;offset+=state.cityData[c]?state.cityData[c].nights:0;}
-  function absDay(dd,mm){let t=0;for(let i=0;i<mm;i++)t+=DIM[i];return t+dd-1;}
-  // Today (16 Khordad 1405) is Saturday = weekday 0 in our grid (ش=0)
-  // Absolute day count from start of year
-  const base=absDay(state.selD,state.selM)+offset;
-  // Saturday of 16 Khordad: absDay(16,2) + offset from start of year
-  // We need day of week: (base + startOfYear_weekday) % 7
-  // Farvardin 1 1405 = Saturday = 0
-  // So weekday = (base) % 7 = 0 means Saturday, 6 means Friday
-  for(let n=0;n<(d.nights||3);n++){if((base+n)%7===6)return true;}
-  return false;
-}
 
 function buildCityConfigs(){
   const container=document.getElementById('cityConfigs');container.innerHTML='';
@@ -1644,7 +1255,7 @@ function buildCityConfigs(){
           <div class="nights-row" id="nightsRow_${key}">
             <div>
               <div class="nights-label-txt">تعداد شب اقامت</div>
-              <div id="fridayBadge_${key}" style="display:none" class="friday-badge">🌙 شب جمعه در ${meta.name} خواهید بود</div>
+              <div id="fridayBadge_${key}" style="display:none" class="friday-badge">🌙 شب جمعه در ${meta.name}</div>
             </div>
             <div class="nights-stepper">
               <button class="nights-btn" onclick="chgNights('${key}',-1)">−</button>
@@ -1679,11 +1290,9 @@ function buildCityConfigs(){
         </div>
       </div>`;
     container.appendChild(el);
-    checkFridayBadge(key);
   });
 }
 
-function checkFridayBadge(key){const badge=document.getElementById('fridayBadge_'+key);if(badge)badge.style.display=hasFridayNight(key)?'inline-flex':'none';}
 function togGradeItem(key,grade){
   const gi=document.getElementById('gi_'+key+'_'+grade);
   const wasOpen=gi.classList.contains('open');
@@ -1705,7 +1314,7 @@ function togGradeItem(key,grade){
   }
 }
 function toggleCityDrawer(key){document.getElementById('ccd_'+key).classList.toggle('open');}
-function chgNights(key,d){const data=state.cityData[key];data.nights=Math.max(1,Math.min(14,data.nights+d));document.getElementById('nv_'+key).textContent=P(data.nights);checkFridayBadge(key);}
+function chgNights(key,d){const data=state.cityData[key];data.nights=Math.max(1,Math.min(14,data.nights+d));document.getElementById('nv_'+key).textContent=P(data.nights);}
 function togTransit(key){
   const d=state.cityData[key];d.transit=!d.transit;
   document.getElementById('tb_'+key).classList.toggle('checked',d.transit);
@@ -1733,7 +1342,7 @@ function completeStep(n){
   cur.classList.remove('active');cur.classList.add('done');
   document.getElementById('step'+n+'Badge').textContent='✓ تکمیل';
   document.getElementById('step'+n+'Badge').className='step-status done-badge';
-  if(n===1){document.getElementById('step1Sub').textContent=state.dateText+' — '+P(state.passengers)+' نفر — '+CITY_LABEL[state.origin];}
+  if(n===1)document.getElementById('step1Sub').textContent=state.dateText+' — '+P(state.passengers)+' نفر — '+CITY_LABEL[state.origin];
   if(n===2){let sub=state.tripType==='air'?'✈️ هوایی':state.tripType==='land'?'🚌 زمینی':'✈️+🚌 ترکیبی';if(state.selectedAirport)sub+=' — '+(state.selectedAirport.code||'');document.getElementById('step2Sub').textContent=sub;}
   if(n===3){document.getElementById('step3Sub').textContent=state.cities.map(k=>CITY_META[k].name).join(' → ');buildCityConfigs();}
   if(n===4)buildFinalSummary();
@@ -1761,13 +1370,20 @@ function buildFinalSummary(){
   document.getElementById('passengerFormBox').classList.remove('show');
   document.getElementById('confirmBtn').style.display='';
 }
-function confirmAndReveal(){document.getElementById('confirmBtn').style.display='none';document.getElementById('priceCard').classList.add('visible');animatePrice();}
+
+function confirmAndReveal(){
+  document.getElementById('confirmBtn').style.display='none';
+  document.getElementById('priceCard').classList.add('visible');
+  animatePrice();
+}
+
 function editTrip(){
   const s4=document.getElementById('step4');s4.classList.remove('done');s4.classList.add('active');
   document.getElementById('step4Badge').textContent='در حال انجام';document.getElementById('step4Badge').className='step-status';
   const s5=document.getElementById('step5');s5.classList.remove('active');s5.classList.add('locked');
   scrollToTop('step4');
 }
+
 function calcPrice(){
   let transport=state.tripType==='air'?4500000:state.tripType==='mixed'?3500000:2200000;
   if(state.transferOpt==='self')transport=Math.max(0,transport-800000);
@@ -1779,23 +1395,45 @@ function calcPrice(){
   const perPerson=transport+accommodation+services+Math.round(extras/state.passengers);
   return{transport,accommodation,services,extras,perPerson,total:Math.round((transport+accommodation+services)*state.passengers+extras)};
 }
+
 function animatePrice(){
   const p=calcPrice();state.totalPrice=p.total;
-  document.getElementById('priceBreakdown').innerHTML=`
+
+  // Build breakdown (hidden by default)
+  let breakdownHTML=`
     <div class="price-row"><span class="lbl">حمل‌ونقل (هر نفر)</span><span class="val">${fmt(p.transport)} تومان</span></div>
     <div class="price-row"><span class="lbl">اقامت (هر نفر)</span><span class="val">${fmt(p.accommodation)} تومان</span></div>
-    <div class="price-row"><span class="lbl">خدمات و غذا (هر نفر)</span><span class="val">${fmt(p.services)} تومان</span></div>
-    ${state.simCard?`<div class="price-row"><span class="lbl">سیم‌کارت عراقی</span><span class="val">${fmt(45000*state.passengers)} تومان</span></div>`:''}
-    ${state.dinars?`<div class="price-row"><span class="lbl">ارز دینار (${P(state.dinarsAmt)} هزار)</span><span class="val">${fmt(state.dinarsAmt*37000)} تومان</span></div>`:''}
-    <div class="price-total-row"><span class="lbl">جمع کل (${P(state.passengers)} نفر)</span><span class="val">${fmt(p.total)} تومان</span></div>`;
-  const counter=document.getElementById('priceCounter');
-  const start=Date.now(),dur=1400;
+    <div class="price-row"><span class="lbl">خدمات و غذا (هر نفر)</span><span class="val">${fmt(p.services)} تومان</span></div>`;
+  if(state.simCard)breakdownHTML+=`<div class="price-row"><span class="lbl">سیم‌کارت عراقی</span><span class="val">${fmt(45000*state.passengers)} تومان</span></div>`;
+  if(state.dinars)breakdownHTML+=`<div class="price-row"><span class="lbl">ارز دینار (${P(state.dinarsAmt)} هزار)</span><span class="val">${fmt(state.dinarsAmt*37000)} تومان</span></div>`;
+  document.getElementById('priceBreakdown').innerHTML=breakdownHTML;
+
+  // Animate main numbers
+  const paxEl=document.getElementById('pricePax');
+  const perEl=document.getElementById('pricePerPerson');
+  const totEl=document.getElementById('priceTotal');
+  paxEl.textContent=P(state.passengers)+' نفر';
+
+  const start=Date.now(),dur=1200;
   (function tick(){
     const prog=Math.min((Date.now()-start)/dur,1);const ease=1-Math.pow(1-prog,3);
-    counter.textContent=fmt(Math.round(p.perPerson*ease))+' تومان / نفر';
+    perEl.textContent=fmt(Math.round(p.perPerson*ease))+' ت';
+    totEl.textContent=fmt(Math.round(p.total*ease))+' ت';
     if(prog<1)requestAnimationFrame(tick);
-    else setTimeout(()=>{buildPassengerForms();document.getElementById('passengerFormBox').classList.add('show');document.getElementById('passengerFormBox').scrollIntoView({behavior:'smooth',block:'nearest'});},400);
+    else{
+      perEl.textContent=fmt(p.perPerson)+' تومان';
+      totEl.textContent=fmt(p.total)+' تومان';
+      setTimeout(()=>{buildPassengerForms();document.getElementById('passengerFormBox').classList.add('show');document.getElementById('passengerFormBox').scrollIntoView({behavior:'smooth',block:'nearest'});},400);
+    }
   })();
+}
+
+function togglePriceDetails(){
+  state.priceDetailsOpen=!state.priceDetailsOpen;
+  const toggle=document.getElementById('priceDetailsToggle');
+  const breakdown=document.getElementById('priceBreakdown');
+  toggle.classList.toggle('open',state.priceDetailsOpen);
+  breakdown.classList.toggle('show',state.priceDetailsOpen);
 }
 
 function buildPassengerForms(){
@@ -1813,27 +1451,10 @@ function buildPassengerForms(){
   }
 }
 function togPassenger(i){const el=document.getElementById('ep_'+i);if(el)el.classList.toggle('open');}
-function onLeaderInput(){
-  const f=document.getElementById('pfbFirstName').value.trim();const l=document.getElementById('pfbLastName').value.trim();const ph=document.getElementById('pfbPhone').value.trim();const b=document.getElementById('pfbBirth').value.trim();
-  if(f&&l&&ph&&b&&state.passengers>=2){const ep2=document.getElementById('ep_2');if(ep2&&!ep2.classList.contains('open')){ep2.classList.add('open');ep2.scrollIntoView({behavior:'smooth',block:'nearest'});}}
-}
-function onPassengerInput(i){
-  const f=document.getElementById('p'+i+'_first')?.value.trim();const l=document.getElementById('p'+i+'_last')?.value.trim();
-  if(f&&l){const st=document.getElementById('epStatus_'+i);if(st)st.textContent='✓';if(i<state.passengers){const next=document.getElementById('ep_'+(i+1));if(next&&!next.classList.contains('open'))setTimeout(()=>{next.classList.add('open');next.scrollIntoView({behavior:'smooth',block:'nearest'});},400);}}
-}
-function toggleAgency(){
-  state.isAgency=!state.isAgency;
-  document.getElementById('agencyCheckBox').classList.toggle('checked',state.isAgency);
-  document.getElementById('agencyFields').classList.toggle('show',state.isAgency);
-  document.getElementById('agencyCommissionBox').classList.toggle('show',state.isAgency);
-}
-function finalRegister(){
-  const first=document.getElementById('pfbFirstName').value.trim();const last=document.getElementById('pfbLastName').value.trim();const phone=document.getElementById('pfbPhone').value.trim();
-  if(!first||!last||!phone){alert('لطفاً نام، نام خانوادگی و شماره تماس سرپرست را وارد کنید.');return;}
-  const code='NKN-'+Math.random().toString(36).toUpperCase().slice(2,8);
-  document.getElementById('successCode').textContent=code;
-  document.getElementById('successOverlay').classList.add('show');
-}
+function onLeaderInput(){const f=document.getElementById('pfbFirstName').value.trim();const l=document.getElementById('pfbLastName').value.trim();const ph=document.getElementById('pfbPhone').value.trim();const b=document.getElementById('pfbBirth').value.trim();if(f&&l&&ph&&b&&state.passengers>=2){const ep2=document.getElementById('ep_2');if(ep2&&!ep2.classList.contains('open')){ep2.classList.add('open');ep2.scrollIntoView({behavior:'smooth',block:'nearest'});}}}
+function onPassengerInput(i){const f=document.getElementById('p'+i+'_first')?.value.trim();const l=document.getElementById('p'+i+'_last')?.value.trim();if(f&&l){const st=document.getElementById('epStatus_'+i);if(st)st.textContent='✓';if(i<state.passengers){const next=document.getElementById('ep_'+(i+1));if(next&&!next.classList.contains('open'))setTimeout(()=>{next.classList.add('open');next.scrollIntoView({behavior:'smooth',block:'nearest'});},400);}}}
+function toggleAgency(){state.isAgency=!state.isAgency;document.getElementById('agencyCheckBox').classList.toggle('checked',state.isAgency);document.getElementById('agencyFields').classList.toggle('show',state.isAgency);document.getElementById('agencyCommissionBox').classList.toggle('show',state.isAgency);}
+function finalRegister(){const first=document.getElementById('pfbFirstName').value.trim();const last=document.getElementById('pfbLastName').value.trim();const phone=document.getElementById('pfbPhone').value.trim();if(!first||!last||!phone){alert('لطفاً نام، نام خانوادگی و شماره تماس سرپرست را وارد کنید.');return;}const code='AVN-'+Math.random().toString(36).toUpperCase().slice(2,8);document.getElementById('successCode').textContent=code;document.getElementById('successOverlay').classList.add('show');}
 function closeSuccess(e){if(e.target.id==='successOverlay')document.getElementById('successOverlay').classList.remove('show');}
 </script>
 </body>
