@@ -1004,7 +1004,44 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
         </div>
         <div class="gf-body"><div class="gf-content">
           <div class="city-configs" id="cityConfigs"></div>
-          <button class="next-btn" id="nextBtn5" onclick="completeStep(5)" style="margin-top:16px;">مشاهده جزئیات سفر ←</button>
+          <button class="next-btn" id="nextBtn5" onclick="function canGoStep6(state){
+  return state.cities.every(city => {
+    if(city.transit) return true;
+    return city.hotel != null;
+  });
+}
+
+function updateNextBtn5(){
+  const btn = document.getElementById("nextBtn5");
+  if(!btn) return;
+  btn.disabled = !canGoStep6(state);
+}
+
+function completeStep5(){
+
+  if(!canGoStep6(state)){
+    alert("لطفاً برای شهرهای غیر عبوری هتل انتخاب کنید");
+    return;
+  }
+
+  doneStep(5, "اقامت تنظیم شد");
+
+  buildStep6();
+
+  const s6 = document.getElementById("gfStep6");
+
+  if(s6){
+    s6.classList.remove("locked");
+    s6.classList.remove("done");
+    void s6.offsetHeight;
+
+    requestAnimationFrame(() => {
+      s6.classList.add("active");
+    });
+
+    scrollToStep(s6, 400);
+  }
+}" style="margin-top:16px;">مشاهده جزئیات سفر ←</button>
         </div></div>
       </div>
 
