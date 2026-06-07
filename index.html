@@ -1236,7 +1236,36 @@ function completeStep(n){
   if(n===2){doneStep(2,state.dateText+' — '+P(state.passengers)+' نفر — '+(CITY_LABEL[state.origin]||state.origin));document.getElementById('hspd2').textContent='✓';document.getElementById('hspd2').className='hsp-dot done';document.getElementById('hspline2').className='hsp-line done-line';document.getElementById('hspd3').className='hsp-dot active';activateStep(3);}
   if(n===3){let sub=state.tripType==='air'?'✈️ هوایی':state.tripType==='land'?'🚌 زمینی':'✈️+🚌 ترکیبی';doneStep(3,sub);document.getElementById('hspd3').textContent='✓';document.getElementById('hspd3').className='hsp-dot done';document.getElementById('hspline3').className='hsp-line done-line';document.getElementById('hspd4').className='hsp-dot active';activateStep(4);}
   if(n===4){doneStep(4,state.cities.map(k=>CITY_META[k].name).join(' → '));document.getElementById('hspd4').textContent='✓';document.getElementById('hspd4').className='hsp-dot done';document.getElementById('hspline4').className='hsp-line done-line';document.getElementById('hspd5').className='hsp-dot active';buildCityConfigs();activateStep(5);}
-  if(n===5){doneStep(5,'اقامت تنظیم شد');buildStep6();const s6=document.getElementById('gfStep6');s6.classList.remove('locked');s6.classList.add('active');document.getElementById('gfStatus6').textContent='در حال انجام';document.getElementById('gfStatus6').className='gf-status pending';scrollToStep(s6,380);}
+ """if(n===5){
+    const missing=state.cities.filter(k=>!state.cityData[k].transit&&state.cityData[k].hotel===null);
+    if(missing.length>0){
+      const names=missing.map(k=>CITY_META[k].name).join('، ');
+      alert('لطفاً برای شهرهای زیر هتل انتخاب کنید:\\n'+names);
+      const firstMissing=missing[0];
+      document.querySelectorAll('.city-config-drawer').forEach(d=>d.classList.remove('open'));
+      const drawer=document.getElementById('ccd_'+firstMissing);
+      if(drawer){drawer.classList.add('open');setTimeout(()=>{drawer.scrollIntoView({behavior:'smooth',block:'center'});},100);}
+      return;
+    }
+    doneStep(5,'اقامت تنظیم شد');
+    try{buildStep6();}catch(e){console.error('buildStep6 error:',e);}
+    const s6=document.getElementById('gfStep6');
+    s6.classList.remove('locked');
+    document.getElementById('gfStatus6').textContent='در حال انجام';
+    document.getElementById('gfStatus6').className='gf-status pending';
+    requestAnimationFrame(function(){
+      s6.classList.add('active');
+      requestAnimationFrame(function(){
+        const h=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h'))||68;
+        const top=s6.getBoundingClientRect().top+window.pageYOffset-h-12;
+        window.scrollTo({top:Math.max(0,top),behavior:'smooth'});
+      });
+    });
+  }"""
+
+print("OLD string length:", len(OLD))
+print("NEW string length:", len(NEW))
+print("Search string found would be confirmed when applied to actual HTML")
 }
 
 // ══ TRIP TYPE ══
