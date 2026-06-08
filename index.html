@@ -1182,6 +1182,104 @@ body.sheet-open{overflow:hidden;}
   </div>
 </footer>
 
+// ══ TRIP SUGGESTIONS SLIDER ══
+const TRIP_SUGGESTIONS=[{id:'ts1',type:'air',tag:'محرم ۱۴۰۵',title:'نجف + کربلا — محرم',date:'۲۶ خرداد ۱۴۰۵',origin:'تهران',duration:'۵ شب',totalNights:5,paxText:'هر نفر',pricePerPerson:23000000,priceLabel:'۲۳,۰۰۰,۰۰۰',routeItems:[{city:'تهران',icon:'🏙',nights:null,type:'dep'},{city:'نجف اشرف',icon:'🕌',nights:2,hotel:'هتل امیرالمؤمنین ★★★★★',type:'city'},{city:'کربلای معلی',icon:'🕌',nights:3,hotel:'هتل عباسیه گرند ★★★★★',type:'city'},{city:'تهران',icon:'🏙',nights:null,type:'ret'}],timeline:[{icon:'✈️',cls:'dep',name:'پرواز از تهران',desc:'فرودگاه امام خمینی — پرواز مستقیم به نجف'},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۲ شب اقامت',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'🏨 امیرالمؤمنین ★★★★★'}]},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) و حضرت عباس (ع) — ۳ شب اقامت',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 عباسیه گرند ★★★★★'}]},{icon:'✈️',cls:'ret',name:'پرواز بازگشت به تهران',desc:'پرواز مستقیم از نجف — بازگشت به تهران'}],hotels:[{city:'نجف اشرف',cityIcon:'🕌',name:'هتل امیرالمؤمنین',stars:5,nights:2},{city:'کربلای معلی',cityIcon:'🕌',name:'هتل عباسیه گرند',stars:5,nights:3}],includes:['✈️ بلیط پرواز رفت و برگشت','🚗 ترانسفر از درب منزل','🏨 اقامت ۵ شب','🍽️ صبحانه + شام','👤 راهنمای مجرب'],priceBreakdown:[{label:'بلیط هوایی رفت و برگشت',val:'۸,۵۰۰,۰۰۰ ت'},{label:'اقامت ۵ شب (هتل ۵ ستاره)',val:'۱۱,۵۰۰,۰۰۰ ت'},{label:'ترانسفر و خدمات',val:'۳,۰۰۰,۰۰۰ ت'}]},{id:'ts2',type:'land',tag:'اقتصادی',title:'کربلا + نجف — زمینی',date:'۵ تیر ۱۴۰۵',origin:'قم',duration:'۶ شب',totalNights:6,paxText:'هر نفر',pricePerPerson:11500000,priceLabel:'۱۱,۵۰۰,۰۰۰',routeItems:[{city:'قم',icon:'🕌',nights:null,type:'dep'},{city:'کربلای معلی',icon:'🕌',nights:3,hotel:'هتل کربلا اینترنشنال ★★★★',type:'city'},{city:'نجف اشرف',icon:'🕌',nights:3,hotel:'هتل نجف پالاس ★★★★',type:'city'},{city:'قم',icon:'🕌',nights:null,type:'ret'}],timeline:[{icon:'🚌',cls:'dep',name:'حرکت از قم',desc:'اتوبوس VIP — مستقیم به مرز خسروی'},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) — ۳ شب اقامت',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 کربلا اینترنشنال ★★★★'}]},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۳ شب اقامت',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 نجف پالاس ★★★★'}]},{icon:'🚌',cls:'ret',name:'بازگشت به قم',desc:'اتوبوس VIP — مرز خسروی به قم'}],hotels:[{city:'کربلای معلی',cityIcon:'🕌',name:'هتل کربلا اینترنشنال',stars:4,nights:3},{city:'نجف اشرف',cityIcon:'🕌',name:'هتل نجف پالاس',stars:4,nights:3}],includes:['🚌 اتوبوس VIP رفت و برگشت','🚗 ترانسفر از درب منزل','🏨 اقامت ۶ شب','🍽️ صبحانه + شام','👤 راهنمای مجرب'],priceBreakdown:[{label:'اتوبوس VIP رفت و برگشت',val:'۲,۸۰۰,۰۰۰ ت'},{label:'اقامت ۶ شب (هتل ۴ ستاره)',val:'۶,۲۰۰,۰۰۰ ت'},{label:'ترانسفر و خدمات',val:'۲,۵۰۰,۰۰۰ ت'}]},{id:'ts3',type:'air',tag:'مشهد — هوایی',title:'نجف + کربلا + کاظمین',date:'۱۵ تیر ۱۴۰۵',origin:'مشهد',duration:'۷ شب',totalNights:7,paxText:'هر نفر',pricePerPerson:27500000,priceLabel:'۲۷,۵۰۰,۰۰۰',routeItems:[{city:'مشهد',icon:'🕌',nights:null,type:'dep'},{city:'نجف اشرف',icon:'🕌',nights:2,hotel:'هتل نجف گرند ★★★★★',type:'city'},{city:'کربلای معلی',icon:'🕌',nights:3,hotel:'هتل الحسین انترنشنال ★★★★★',type:'city'},{city:'کاظمین',icon:'🕌',nights:2,hotel:'هتل الامین الکاظمیه ★★★★★',type:'city'},{city:'مشهد',icon:'🕌',nights:null,type:'ret'}],timeline:[{icon:'✈️',cls:'dep',name:'پرواز از مشهد',desc:'فرودگاه مشهد — پرواز به نجف'},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۲ شب',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'🏨 نجف گرند ★★★★★'}]},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) — ۳ شب',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 الحسین انترنشنال ★★★★★'}]},{icon:'🕌',cls:'city',name:'کاظمین',desc:'حرم امام کاظم (ع) — ۲ شب',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'🏨 الامین الکاظمیه ★★★★★'}]},{icon:'✈️',cls:'ret',name:'پرواز بازگشت به مشهد',desc:'پرواز از بغداد — بازگشت به مشهد'}],hotels:[{city:'نجف اشرف',cityIcon:'🕌',name:'هتل نجف گرند',stars:5,nights:2},{city:'کربلای معلی',cityIcon:'🕌',name:'هتل الحسین انترنشنال',stars:5,nights:3},{city:'کاظمین',cityIcon:'🕌',name:'هتل الامین الکاظمیه',stars:5,nights:2}],includes:['✈️ بلیط پرواز رفت و برگشت','🚗 ترانسفر از درب منزل','🏨 اقامت ۷ شب','🍽️ صبحانه + شام','👤 راهنمای مجرب','📱 سیم‌کارت عراقی'],priceBreakdown:[{label:'بلیط هوایی رفت و برگشت',val:'۱۰,۵۰۰,۰۰۰ ت'},{label:'اقامت ۷ شب (هتل ۵ ستاره)',val:'۱۳,۵۰۰,۰۰۰ ت'},{label:'ترانسفر و خدمات',val:'۳,۵۰۰,۰۰۰ ت'}]},{id:'ts4',type:'vip',tag:'VIP خانوادگی',title:'کربلا + نجف — VIP',date:'۸ مرداد ۱۴۰۵',origin:'تهران',duration:'۴ شب',totalNights:4,paxText:'هر نفر',pricePerPerson:38000000,priceLabel:'۳۸,۰۰۰,۰۰۰',routeItems:[{city:'تهران',icon:'🏙',nights:null,type:'dep'},{city:'کربلای معلی',icon:'🕌',nights:2,hotel:'هتل عباسیه گرند ★★★★★ (سوئیت)',type:'city'},{city:'نجف اشرف',icon:'🕌',nights:2,hotel:'هتل امیرالمؤمنین ★★★★★ (سوئیت)',type:'city'},{city:'تهران',icon:'🏙',nights:null,type:'ret'}],timeline:[{icon:'✈️',cls:'dep',name:'پرواز چارتر از تهران',desc:'پرواز اختصاصی — فرودگاه امام خمینی'},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) — ۲ شب در سوئیت',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'👑 سوئیت عباسیه گرند'}]},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۲ شب در سوئیت',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'👑 سوئیت امیرالمؤمنین'}]},{icon:'✈️',cls:'ret',name:'پرواز بازگشت — تهران',desc:'پرواز چارتر — بازگشت به تهران'}],hotels:[{city:'کربلای معلی',cityIcon:'🕌',name:'عباسیه گرند — سوئیت',stars:5,nights:2},{city:'نجف اشرف',cityIcon:'🕌',name:'امیرالمؤمنین — سوئیت',stars:5,nights:2}],includes:['✈️ پرواز چارتر اختصاصی','🚗 ماشین اختصاصی در عراق','👑 اقامت سوئیت ۵ ستاره','🍽️ تمام وعده‌ها','🎖️ راهنمای VIP اختصاصی','💐 استقبال ویژه'],priceBreakdown:[{label:'پرواز چارتر رفت و برگشت',val:'۱۴,۰۰۰,۰۰۰ ت'},{label:'اقامت ۴ شب سوئیت',val:'۱۸,۰۰۰,۰۰۰ ت'},{label:'ماشین اختصاصی و راهنمای VIP',val:'۶,۰۰۰,۰۰۰ ت'}]}];
+
+let tsCurrent=0,tsDragStartX=0,tsDragging=false,tsDragDelta=0,tsSelectedTrip=null;
+
+function buildTripsSlider(){
+  const track=document.getElementById('tripsTrack');
+  const dotsRow=document.getElementById('tripDotsRow');
+  if(!track||!dotsRow)return;
+  track.innerHTML='';dotsRow.innerHTML='';
+  TRIP_SUGGESTIONS.forEach((trip,i)=>{
+    const routeHtml=trip.routeItems.filter(r=>r.type!=='dep'&&r.type!=='ret').map(r=>{
+      const nb=r.nights?`<span class="tcard-route-nights">🌙 ${P(r.nights)} شب</span>`:'';
+      return `${nb}<div class="tcard-route-city"><span class="rc-icon">${r.icon}</span>${r.city}</div>`;
+    }).join(`<span class="tcard-route-arrow">←</span>`);
+    const card=document.createElement('div');
+    card.className='trip-card';
+    card.innerHTML=`<div class="tcard-accent ${trip.type}"></div><div class="tcard-head"><div class="tcard-type-badge ${trip.type}">${trip.type==='air'?'✈️ هوایی':trip.type==='land'?'🚌 زمینی':trip.type==='vip'?'👑 VIP':'🌟 ویژه'}</div><div class="tcard-tag">${trip.tag}</div></div><div class="tcard-title-row"><div class="tcard-title">${trip.title}</div><div class="tcard-route">${routeHtml}</div></div><div class="tcard-stats"><div class="tcard-stat"><div class="tcard-stat-label">تاریخ</div><div class="tcard-stat-val">${trip.date.split(' ').slice(0,2).join(' ')}</div><div class="tcard-stat-sub">${trip.date.split(' ').slice(2).join(' ')}</div></div><div class="tcard-stat"><div class="tcard-stat-label">مبدا</div><div class="tcard-stat-val">${trip.origin}</div><div class="tcard-stat-sub">${trip.type==='air'||trip.type==='vip'?'✈️ هوایی':'🚌 زمینی'}</div></div><div class="tcard-stat"><div class="tcard-stat-label">مدت</div><div class="tcard-stat-val">${trip.duration}</div><div class="tcard-stat-sub">${P(trip.routeItems.filter(r=>r.type==='city').length)} شهر</div></div></div><div class="tcard-price-row"><div><div class="tcard-price-label">${trip.paxText}</div><div class="tcard-price-val">${trip.priceLabel}<span class="tcard-price-unit">ت</span></div></div><button class="tcard-cta-btn" onclick="openTripDetail('${trip.id}')">جزئیات و ثبت‌نام ←</button></div>`;
+    track.appendChild(card);
+    const dot=document.createElement('div');
+    dot.className='trip-dot'+(i===0?' active':'');
+    dot.dataset.idx=i;
+    dot.onclick=()=>tsGoTo(i);
+    dotsRow.appendChild(dot);
+  });
+  const wrap=document.getElementById('tripsTrackWrap');
+  wrap.addEventListener('touchstart',tsTouchStart,{passive:true});
+  wrap.addEventListener('touchmove',tsTouchMove,{passive:true});
+  wrap.addEventListener('touchend',tsTouchEnd);
+  wrap.addEventListener('mousedown',tsMouseDown);
+  document.addEventListener('mousemove',tsMouseMove);
+  document.addEventListener('mouseup',tsMouseUp);
+  tsUpdateSlider();
+}
+function tsGetCardWidth(){const t=document.getElementById('tripsTrack');if(!t||!t.firstChild)return 300;return t.firstChild.offsetWidth+14;}
+function tsUpdateSlider(){const t=document.getElementById('tripsTrack');if(!t)return;t.style.transform=`translateX(${tsCurrent*tsGetCardWidth()}px)`;document.querySelectorAll('.trip-dot').forEach((d,i)=>d.classList.toggle('active',i===-tsCurrent));}
+function tsGoTo(idx){tsCurrent=-Math.max(0,Math.min(TRIP_SUGGESTIONS.length-1,idx));tsUpdateSlider();}
+function tsTouchStart(e){tsDragStartX=e.touches[0].clientX;tsDragging=true;tsDragDelta=0;}
+function tsTouchMove(e){if(!tsDragging)return;tsDragDelta=e.touches[0].clientX-tsDragStartX;}
+function tsTouchEnd(){tsDragging=false;if(Math.abs(tsDragDelta)>50){const dir=tsDragDelta<0?1:-1;tsGoTo(Math.max(0,Math.min(TRIP_SUGGESTIONS.length-1,-tsCurrent+dir)));}else tsUpdateSlider();tsDragDelta=0;}
+function tsMouseDown(e){tsDragStartX=e.clientX;tsDragging=true;tsDragDelta=0;e.preventDefault();}
+function tsMouseMove(e){if(!tsDragging)return;tsDragDelta=e.clientX-tsDragStartX;}
+function tsMouseUp(){if(!tsDragging)return;tsDragging=false;if(Math.abs(tsDragDelta)>50){const dir=tsDragDelta<0?1:-1;tsGoTo(Math.max(0,Math.min(TRIP_SUGGESTIONS.length-1,-tsCurrent+dir)));}else tsUpdateSlider();tsDragDelta=0;}
+
+function openTripDetail(id){
+  tsSelectedTrip=TRIP_SUGGESTIONS.find(t=>t.id===id);
+  if(!tsSelectedTrip)return;
+  const trip=tsSelectedTrip;
+  document.getElementById('tdsHeaderTitle').textContent=trip.title;
+  document.getElementById('tdsHeaderSub').textContent=trip.date+' — '+trip.origin+' — '+trip.duration;
+  document.getElementById('tdsFooterPrice').textContent=trip.priceLabel;
+  const timelineHtml=trip.timeline.map((t,i)=>{
+    const bh=(t.badges||[]).map(b=>`<span class="tds-tl-badge ${b.t}">${b.txt}</span>`).join('');
+    const hl=i<trip.timeline.length-1;
+    return `<div class="tds-tl-item"><div class="tds-tl-left"><div class="tds-tl-icon ${t.cls}">${t.icon}</div>${hl?'<div class="tds-tl-line"></div>':''}</div><div class="tds-tl-content"><div class="tds-tl-name">${t.name}</div><div class="tds-tl-desc">${t.desc}</div>${bh?`<div class="tds-tl-badges">${bh}</div>`:''}</div></div>`;
+  }).join('');
+  const hotelsHtml=trip.hotels.map(h=>{
+    const sh=Array.from({length:5},(_,i)=>`<div class="tds-hotel-star ${i<h.stars?'on':'off'}"></div>`).join('');
+    return `<div class="tds-hotel-row"><div class="tds-hotel-city-tag">${h.cityIcon}</div><div class="tds-hotel-info"><div class="tds-hotel-name">${h.name}</div><div class="tds-hotel-city">${h.city}</div><div class="tds-hotel-stars">${sh}</div></div><div class="tds-hotel-nights">🌙 ${P(h.nights)} شب</div></div>`;
+  }).join('');
+  const incHtml=trip.includes.map(i=>`<div style="font-size:12px;color:var(--tm);padding:5px 0;border-bottom:1px solid rgba(201,168,76,.07);display:flex;gap:8px;align-items:center;">${i}</div>`).join('');
+  const pbHtml=trip.priceBreakdown.map(r=>`<div class="tds-pb-row"><span class="tds-pb-label">${r.label}</span><span class="tds-pb-val">${r.val}</span></div>`).join('');
+  document.getElementById('tdsBody').innerHTML=`<div class="tds-key-strip"><div class="tds-key-item"><div class="tds-key-icon">${trip.type==='air'||trip.type==='vip'?'✈️':'🚌'}</div><div class="tds-key-label">نوع</div><div class="tds-key-val">${trip.type==='air'?'هوایی':trip.type==='land'?'زمینی':trip.type==='vip'?'VIP':'ویژه'}</div></div><div class="tds-key-item"><div class="tds-key-icon">🌙</div><div class="tds-key-label">مدت</div><div class="tds-key-val">${trip.duration}</div></div><div class="tds-key-item"><div class="tds-key-icon">📅</div><div class="tds-key-label">تاریخ</div><div class="tds-key-val">${trip.date.split(' ').slice(0,2).join(' ')}</div></div></div><div class="tds-section"><div class="tds-sec-title">🗺️ مسیر سفر</div><div class="tds-timeline">${timelineHtml}</div></div><div class="tds-section"><div class="tds-sec-title">🏨 هتل‌های اقامتی</div><div class="tds-hotels-grid">${hotelsHtml}</div></div><div class="tds-section"><div class="tds-sec-title">✅ شامل سفر</div><div style="background:var(--white);border:1.5px solid rgba(201,168,76,.1);border-radius:12px;padding:8px 14px;">${incHtml}</div></div><div class="tds-section"><div class="tds-sec-title">💰 تفکیک هزینه (هر نفر)</div><div class="tds-price-breakdown">${pbHtml}<div class="tds-pb-total-row"><div class="tds-pb-total-label">جمع کل — هر نفر</div><div class="tds-pb-total-val">${trip.priceLabel} ت</div></div></div></div>`;
+  document.body.classList.add('sheet-open');
+  document.getElementById('tripDetailOverlay').classList.add('open');
+  document.getElementById('tripDetailSheet').classList.add('open');
+}
+function closeTripDetail(e){if(e&&e.target!==document.getElementById('tripDetailOverlay'))return;closeTripDetailDirect();}
+function closeTripDetailDirect(){document.body.classList.remove('sheet-open');document.getElementById('tripDetailOverlay').classList.remove('open');document.getElementById('tripDetailSheet').classList.remove('open');}
+function bookSuggestedTrip(){
+  if(!tsSelectedTrip)return;
+  const trip=tsSelectedTrip;
+  closeTripDetailDirect();
+  state.origin=trip.origin==='تهران'?'tehran':trip.origin==='مشهد'?'mashhad':trip.origin==='قم'?'qom':'tehran';
+  state.tripType=(trip.type==='air'||trip.type==='vip')?'air':'land';
+  state.dateText=trip.date;
+  const dp=trip.date.split(' ');
+  const toEn=s=>s.replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d).toString());
+  state.selD=parseInt(toEn(dp[0]));
+  state.selM=PM.indexOf(dp[1])+1;
+  state.selY=parseInt(toEn(dp[2]));
+  state.cities=[];state.cityData={};
+  trip.routeItems.filter(r=>r.type==='city').forEach(r=>{
+    const key=r.city==='کربلای معلی'?'karbala':r.city==='نجف اشرف'?'najaf':'kadh_sam';
+    state.cities.push(key);
+    state.cityData[key]={nights:r.nights||3,transit:false,hotel:null,food:true};
+  });
+  setTimeout(()=>{
+    document.getElementById('pccCityVal').textContent=trip.origin;
+    document.getElementById('pccPaxVal').textContent=P(state.passengers);
+    document.body.classList.add('sheet-open');
+    document.getElementById('bsOverlay').classList.add('open');
+    document.getElementById('bsSheet').classList.add('open');
+    _goToStep(4);
+  },350);
+}
+document.addEventListener('DOMContentLoaded',function(){buildTripsSlider();});
+
 <script>
 // ══ HELPERS ══
 function P(n){return String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);}
