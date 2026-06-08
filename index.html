@@ -406,6 +406,52 @@ body.sheet-open{overflow:hidden;}
 .hero-wave{display:block;line-height:0;margin-top:-1px;}
 .hero-wave svg{display:block;width:100%}
 
+<!-- ══ TRIP SUGGESTIONS SLIDER ══ -->
+<section class="trips-section" id="tripSuggestionsSection">
+  <div class="trips-section-inner">
+    <div class="trips-section-label">
+      <div class="trips-section-title">
+        <div class="trips-section-title-icon">✦</div>
+        <div>
+          <div class="trips-section-title-text">پیشنهادهای ویژه آوان</div>
+          <div class="trips-section-title-sub">سفرهای آماده — فقط انتخاب کنید</div>
+        </div>
+      </div>
+      <div class="trips-dots-row" id="tripDotsRow"></div>
+    </div>
+    <div class="trips-track-wrap" id="tripsTrackWrap">
+      <div class="trips-track" id="tripsTrack"></div>
+    </div>
+    <div class="trips-swipe-hint">
+      <span class="trips-swipe-hint-arrow">←</span>
+      <span>برای دیدن بیشتر بکشید</span>
+      <span class="trips-swipe-hint-arrow">→</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TRIP DETAIL SHEET ══ -->
+<div class="trip-detail-overlay" id="tripDetailOverlay" onclick="closeTripDetail(event)"></div>
+<div class="trip-detail-sheet" id="tripDetailSheet">
+  <div class="tds-handle"><div class="tds-handle-bar"></div></div>
+  <div class="tds-header">
+    <div>
+      <div class="tds-header-title" id="tdsHeaderTitle">جزئیات سفر</div>
+      <div class="tds-header-sub" id="tdsHeaderSub"></div>
+    </div>
+    <button class="tds-close" onclick="closeTripDetailDirect()">✕</button>
+  </div>
+  <div class="tds-body" id="tdsBody"></div>
+  <div class="tds-footer">
+    <div class="tds-footer-price">
+      <div class="tds-footer-price-label">هر نفر از</div>
+      <div class="tds-footer-price-val" id="tdsFooterPrice">—</div>
+      <div class="tds-footer-price-sub">تومان</div>
+    </div>
+    <button class="tds-book-btn" id="tdsBookBtn" onclick="bookSuggestedTrip()">ثبت‌نام این سفر ✦</button>
+  </div>
+</div>
+
 /* ══ PAGE BODY ══ */
 .page-body{background:var(--cream);padding:0 0 60px;}
 .page-body-inner{max-width:680px;margin:0 auto;padding:0 18px;}
