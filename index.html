@@ -19,7 +19,211 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);min-height:100vh;overflow-x:hidden}
+body.sheet-open{overflow:hidden;}
 
+/* ══ BOTTOM SHEET MODAL ══ */
+.bs-overlay{
+  position:fixed;inset:0;z-index:900;
+  background:rgba(0,0,0,0);
+  backdrop-filter:blur(0px);
+  -webkit-backdrop-filter:blur(0px);
+  pointer-events:none;
+  transition:background .38s ease, backdrop-filter .38s ease;
+}
+.bs-overlay.open{
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  pointer-events:all;
+}
+.bs-sheet{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  z-index:901;
+  height:95vh;
+  background:var(--cream);
+  border-radius:24px 24px 0 0;
+  box-shadow:0 -12px 60px rgba(0,0,0,.28);
+  transform:translateY(100%);
+  transition:transform .46s cubic-bezier(.32,0,.15,1);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.bs-sheet.open{transform:translateY(0);}
+
+/* Sheet handle */
+.bs-handle{
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:10px 0 4px;
+  cursor:grab;
+}
+.bs-handle-bar{
+  width:40px;height:4px;
+  background:rgba(0,0,0,.15);
+  border-radius:2px;
+}
+
+/* Sheet header */
+.bs-header{
+  flex-shrink:0;
+  background:linear-gradient(135deg,var(--em),var(--em3));
+  padding:0 20px 14px;
+  border-bottom:1px solid var(--goldB);
+}
+.bs-header-top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 0 12px;
+}
+.bs-header-title{font-size:15px;font-weight:800;color:var(--goldL);}
+.bs-header-sub{font-size:10px;color:rgba(232,201,122,.6);margin-top:1px;}
+.bs-close{
+  width:32px;height:32px;
+  background:rgba(255,255,255,.12);
+  border:none;border-radius:50%;
+  cursor:pointer;
+  color:rgba(255,255,255,.75);
+  font-size:17px;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;
+  flex-shrink:0;
+}
+.bs-close:hover{background:rgba(255,255,255,.24);}
+
+/* Stepper inside sheet */
+.bs-stepper{
+  display:flex;align-items:center;justify-content:center;
+  gap:0;
+  padding:2px 0 0;
+}
+.bss-dot{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;
+  transition:all .3s;flex-shrink:0;
+}
+.bss-dot.active{background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--em);box-shadow:0 2px 10px rgba(201,168,76,.4);}
+.bss-dot.done{background:rgba(26,94,73,.5);color:var(--goldL);border:1.5px solid rgba(201,168,76,.3);}
+.bss-dot.pending{background:rgba(255,255,255,.12);color:rgba(255,255,255,.4);border:1.5px solid rgba(255,255,255,.15);}
+.bss-line{width:28px;height:2px;background:rgba(255,255,255,.1);}
+.bss-line.done{background:rgba(201,168,76,.4);}
+
+/* Step labels row */
+.bs-step-labels{
+  display:flex;align-items:center;justify-content:center;
+  gap:0;margin-top:6px;
+}
+.bsl-item{
+  width:28px;text-align:center;
+  font-size:8px;font-weight:600;
+  color:rgba(255,255,255,.35);
+  transition:color .3s;
+  white-space:nowrap;
+  overflow:visible;
+}
+.bsl-item.active{color:var(--goldL);}
+.bsl-item.done{color:rgba(201,168,76,.6);}
+.bsl-sep{width:28px;}
+
+/* Sheet scrollable body */
+.bs-body{
+  flex:1;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  padding:20px 18px 30px;
+}
+.bs-body::-webkit-scrollbar{width:4px;}
+.bs-body::-webkit-scrollbar-thumb{background:rgba(201,168,76,.3);border-radius:2px;}
+
+/* Sheet footer / nav */
+.bs-footer{
+  flex-shrink:0;
+  padding:12px 18px calc(12px + env(safe-area-inset-bottom));
+  background:var(--white);
+  border-top:1px solid rgba(201,168,76,.18);
+  display:flex;gap:10px;
+  box-shadow:0 -4px 20px rgba(0,0,0,.06);
+}
+.bs-back-btn{
+  padding:11px 20px;
+  border-radius:100px;
+  border:1.5px solid rgba(201,168,76,.28);
+  background:transparent;
+  color:var(--tm);
+  font-family:"Vazirmatn",sans-serif;
+  font-size:13px;font-weight:600;
+  cursor:pointer;
+  transition:var(--tr);
+}
+.bs-back-btn:hover{background:rgba(201,168,76,.06);}
+.bs-next-btn{
+  flex:1;
+  padding:12px;
+  border-radius:100px;
+  border:none;
+  background:linear-gradient(135deg,var(--em),var(--em3));
+  color:var(--goldL);
+  font-family:"Vazirmatn",sans-serif;
+  font-size:13px;font-weight:700;
+  cursor:pointer;
+  box-shadow:0 4px 14px rgba(13,59,46,.2);
+  transition:var(--tr);
+}
+.bs-next-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(13,59,46,.3);}
+.bs-next-btn:disabled{opacity:.35;cursor:not-allowed;}
+.bs-confirm-btn{
+  flex:1;
+  padding:12px;
+  border-radius:100px;
+  border:none;
+  background:linear-gradient(135deg,var(--gold),#a8722a);
+  color:var(--em);
+  font-family:"Vazirmatn",sans-serif;
+  font-size:13px;font-weight:800;
+  cursor:pointer;
+  box-shadow:0 4px 14px rgba(201,168,76,.3);
+  transition:var(--tr);
+}
+.bs-confirm-btn:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(201,168,76,.45);}
+
+/* Step content panels */
+.bs-step-panel{display:none;}
+.bs-step-panel.active{display:block;animation:bsFadeUp .3s ease both;}
+@keyframes bsFadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Step title inside body */
+.bs-step-heading{
+  margin-bottom:16px;
+  padding-bottom:12px;
+  border-bottom:1px solid rgba(201,168,76,.15);
+}
+.bs-step-heading h3{
+  font-size:14px;font-weight:800;color:var(--em);
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:3px;
+}
+.bs-step-heading p{font-size:11.5px;color:var(--ts);line-height:1.7;}
+.bs-step-badge{
+  font-size:10px;background:var(--goldP);
+  border:1px solid var(--goldB);color:var(--gold);
+  padding:2px 9px;border-radius:100px;font-weight:700;
+}
+
+/* Alert inside sheet */
+.bs-alert{
+  display:none;
+  margin:10px 0;
+  padding:10px 14px;
+  background:rgba(192,57,43,.08);
+  border:1.5px solid rgba(192,57,43,.25);
+  border-radius:10px;
+  font-size:12px;color:#c0392b;line-height:1.8;
+}
+.bs-alert.show{display:block;animation:bsFadeUp .25s ease;}
+
+/* ═══ HERO ═══ */
 .floating-support{position:fixed;bottom:24px;right:20px;z-index:500;display:flex;flex-direction:column;align-items:center;gap:6px;}
 .support-btn{width:52px;height:52px;background:linear-gradient(135deg,#25d366,#128c7e);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.45),0 0 0 3px rgba(37,211,102,.15);transition:var(--tr);position:relative;text-decoration:none;}
 .support-btn:hover{transform:scale(1.1);}
@@ -36,18 +240,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .nav-modal-close{width:28px;height:28px;background:rgba(255,255,255,.12);border:none;border-radius:50%;cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:background .2s}
 .nav-modal-close:hover{background:rgba(255,255,255,.22)}
 .nav-modal-body{padding:20px 22px 24px;font-size:13px;color:var(--tm);line-height:2}
-
-.locked-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1100;display:none;align-items:center;justify-content:center;padding:20px;}
-.locked-modal-overlay.show{display:flex;}
-.locked-modal{background:var(--white);border-radius:22px;max-width:360px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.22);animation:lockedPop .35s cubic-bezier(.34,1.56,.64,1) both;overflow:hidden;}
-@keyframes lockedPop{from{opacity:0;transform:scale(.88) translateY(18px)}to{opacity:1;transform:scale(1) translateY(0)}}
-.locked-modal-head{background:linear-gradient(135deg,#2d1b00,#5a3a00);padding:18px 20px;text-align:center;}
-.locked-modal-icon{font-size:38px;margin-bottom:8px;}
-.locked-modal-title{font-size:14px;font-weight:800;color:#f5c842;}
-.locked-modal-body{padding:18px 22px 22px;text-align:center;}
-.locked-modal-text{font-size:13px;color:var(--tm);line-height:1.9;margin-bottom:16px;}
-.locked-modal-btn{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--em),var(--em3));color:var(--goldL);font-family:"Vazirmatn",sans-serif;font-size:12.5px;font-weight:700;padding:10px 22px;border-radius:100px;border:none;cursor:pointer;}
-.locked-modal-dismiss{display:block;margin:10px auto 0;font-size:11.5px;color:var(--ts);background:none;border:none;cursor:pointer;font-family:"Vazirmatn",sans-serif;}
 
 .site-header{background:linear-gradient(160deg,var(--em) 0%,#0f4535 45%,#1a5e49 100%);position:sticky;top:0;z-index:200;border-bottom:1px solid var(--goldB);}
 .header-inner{max-width:1100px;margin:0 auto;padding:0 22px;height:var(--header-h);display:flex;align-items:center;justify-content:space-between;gap:16px;}
@@ -72,18 +264,10 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .hero-slogan .hl{background:linear-gradient(90deg,var(--goldL),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .hero-desc{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.9;max-width:560px;margin:0 auto 28px;animation:fadeUp .55s .16s ease both;}
 
+/* Hero city selector box */
 .hero-step-wrap{max-width:640px;margin:0 auto;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.25);border-radius:24px 24px 0 0;padding:24px 28px 32px;animation:fadeUp .6s .22s ease both;backdrop-filter:blur(8px);position:relative;z-index:1;}
-.hero-step-progress{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:22px;}
-.hsp-item{display:flex;align-items:center;gap:0;}
-.hsp-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;transition:all .3s;flex-shrink:0;}
-.hsp-dot.active{background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--em);box-shadow:0 2px 10px rgba(201,168,76,.4);}
-.hsp-dot.pending{background:rgba(255,255,255,.12);color:rgba(255,255,255,.4);border:1.5px solid rgba(255,255,255,.15);}
-.hsp-dot.done{background:rgba(26,94,73,.5);color:var(--goldL);border:1.5px solid rgba(201,168,76,.3);}
-.hsp-line{width:32px;height:2px;background:rgba(255,255,255,.1);flex-shrink:0;}
-.hsp-line.done-line{background:rgba(201,168,76,.35);}
 .hero-step-label{font-size:13px;font-weight:700;color:var(--goldL);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
 .hero-step-label .step-badge{background:rgba(201,168,76,.15);border:1px solid var(--goldB);color:var(--gold);font-size:10px;padding:2px 9px;border-radius:100px;font-weight:700;}
-
 .origin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
 .origin-card{border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:14px 8px 12px;cursor:pointer;transition:all .28s cubic-bezier(.4,0,.2,1);background:rgba(255,255,255,.05);text-align:center;position:relative;overflow:hidden;}
 .origin-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.0),rgba(201,168,76,.08));opacity:0;transition:opacity .28s;}
@@ -108,33 +292,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .hero-wave{display:block;line-height:0;margin-top:-1px;}
 .hero-wave svg{display:block;width:100%}
 
-.page-body{background:var(--cream);padding:0 0 60px;}
-.page-body-inner{max-width:680px;margin:0 auto;padding:0 18px;}
-
-.guided-flow{display:flex;flex-direction:column;gap:0;}
-.gf-step{background:var(--white);border:1.5px solid rgba(201,168,76,.15);border-radius:20px;overflow:hidden;transition:var(--tr);margin-bottom:10px;box-shadow:0 2px 16px rgba(13,59,46,.05);}
-.gf-step.active{border-color:rgba(201,168,76,.35);box-shadow:0 6px 28px rgba(13,59,46,.1);}
-.gf-step.done{border-color:rgba(26,94,73,.25);background:var(--cream);}
-.gf-step.locked{opacity:.6;pointer-events:none;}
-.gf-head{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;}
-.gf-step.done .gf-head:hover{background:rgba(201,168,76,.03);}
-.gf-num{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:800;flex-shrink:0;transition:all .3s;}
-.gf-step.active .gf-num{background:linear-gradient(135deg,var(--em),var(--em3));color:var(--goldL);box-shadow:0 3px 12px rgba(13,59,46,.25);}
-.gf-step.done .gf-num{background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--em);}
-.gf-step.locked .gf-num{background:#e0d9c8;color:#aaa;}
-.gf-meta{flex:1;}
-.gf-title{font-size:13.5px;font-weight:800;color:var(--td);}
-.gf-sub{font-size:11px;color:var(--ts);margin-top:2px;}
-.gf-status{font-size:10.5px;font-weight:700;padding:3px 11px;border-radius:100px;flex-shrink:0;}
-.gf-status.pending{color:var(--gold);background:var(--goldP);border:1px solid var(--goldB);}
-.gf-status.done-st{color:var(--em3);background:rgba(26,94,73,.09);border:1px solid rgba(26,94,73,.2);}
-.gf-status.locked-st{color:#aaa;background:#f0f0ec;border:1px solid #e0e0d8;}
-.gf-chevron{font-size:9px;color:var(--ts);transition:transform .3s;flex-shrink:0;}
-.gf-step.active .gf-chevron{transform:rotate(180deg);}
-.gf-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1);}
-.gf-step.active .gf-body{max-height:9000px;}
-.gf-content{padding:4px 20px 24px;animation:fadeUp .3s ease both;}
-
+/* ═══ CALENDAR ═══ */
 .cal-label{font-size:12.5px;color:var(--tm);margin-bottom:12px;line-height:1.8;}
 .month-slider-wrap{position:relative;overflow:hidden;margin-bottom:14px;}
 .month-track{display:flex;transition:transform .38s cubic-bezier(.4,0,.2,1);}
@@ -147,7 +305,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .month-card-name{font-size:13px;font-weight:800;color:var(--td);}
 .month-card.selected .month-card-name{color:var(--em);}
 .month-card-year{font-size:9px;color:var(--ts);margin-top:1px;}
-.days-slide-inner{padding:0;}
 .days-slide-back{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--gold);cursor:pointer;margin-bottom:10px;padding:4px 0;}
 .days-slide-back:hover{opacity:.75;}
 .days-selected-month{font-size:13px;font-weight:700;color:var(--em);margin-bottom:11px;}
@@ -161,7 +318,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .cal-day.empty{pointer-events:none;}
 .cal-day.disabled{color:#ccc;pointer-events:none;opacity:.35;}
 .cal-day.today-mark{border:1.5px solid var(--gold);color:var(--gold);font-weight:700;}
-
 .pax-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(201,168,76,.13);}
 .pax-section-title{font-size:12.5px;font-weight:700;color:var(--tm);margin-bottom:12px;}
 .pax-cards-row{display:flex;gap:8px;flex-wrap:wrap;}
@@ -176,14 +332,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .pax-city-val{font-size:14px;font-weight:800;color:var(--em);padding:7px 14px;background:var(--cream);border:1px solid var(--goldB);border-radius:10px;}
 .pass-note{margin-top:10px;font-size:11px;color:var(--ts);line-height:1.7;padding:6px 10px;background:rgba(201,168,76,.07);border-radius:8px;border-right:3px solid var(--goldB);}
 
-.next-btn{margin-top:16px;display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--em),var(--em3));color:var(--goldL);font-family:"Vazirmatn",sans-serif;font-size:13px;font-weight:700;padding:10px 24px;border-radius:100px;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(13,59,46,.2);transition:var(--tr);}
-.next-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(13,59,46,.3);}
-.next-btn:disabled{opacity:.35;cursor:not-allowed;transform:none;}
-
-/* step5 validation alert */
-.step5-alert{display:none;margin-top:10px;padding:10px 14px;background:rgba(192,57,43,.08);border:1.5px solid rgba(192,57,43,.25);border-radius:10px;font-size:12px;color:#c0392b;line-height:1.8;}
-.step5-alert.show{display:block;animation:fadeUp .25s ease;}
-
+/* ═══ TRIP TYPE ═══ */
 .type-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
 .type-card{border:1.5px solid rgba(201,168,76,.18);border-radius:var(--r);padding:14px 10px;cursor:pointer;transition:var(--tr);background:var(--cream);text-align:center;position:relative;overflow:hidden;}
 .type-card:hover,.type-card.selected{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 6px 18px rgba(201,168,76,.15);}
@@ -195,7 +344,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .type-name{font-size:12px;font-weight:700;color:var(--td);margin-bottom:2px;}
 .type-desc{font-size:10px;color:var(--ts);line-height:1.5;}
 .type-card.selected .type-name{color:var(--em);}
-
 .airport-warning-box{margin-top:12px;background:linear-gradient(135deg,rgba(13,59,46,.05),rgba(201,168,76,.05));border:1.5px solid var(--goldB);border-radius:var(--r);padding:14px 16px;display:none;}
 .airport-warning-box.show{display:block;animation:fadeUp .3s ease;}
 .awb-title{font-size:12.5px;font-weight:700;color:var(--em);margin-bottom:7px;}
@@ -209,6 +357,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .awb-yes-btn{background:var(--em);color:var(--goldL);}
 .awb-no-btn{background:rgba(192,57,43,.09);color:#c0392b;border:1px solid rgba(192,57,43,.18);}
 
+/* ═══ CITIES ═══ */
 .city-hint{font-size:11.5px;color:var(--ts);margin-bottom:12px;line-height:1.8;padding:8px 12px;background:rgba(201,168,76,.07);border-radius:9px;border-right:3px solid var(--goldB);}
 .city-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
 .city-card{border:1.5px solid rgba(201,168,76,.16);border-radius:var(--r);padding:13px 12px;cursor:pointer;transition:var(--tr);background:var(--cream);display:flex;align-items:center;gap:10px;position:relative;}
@@ -225,6 +374,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .city-route-preview{margin-top:12px;padding:9px 13px;background:var(--cream);border:1px solid rgba(201,168,76,.17);border-radius:9px;font-size:11.5px;color:var(--tm);line-height:1.9;display:none;}
 .city-route-preview.show{display:block;animation:fadeUp .25s ease;}
 
+/* ═══ CITY CONFIGS ═══ */
 .city-configs{display:flex;flex-direction:column;gap:10px;}
 .city-config-drawer{border:1px solid rgba(201,168,76,.17);border-radius:var(--r);overflow:hidden;background:var(--cream);transition:var(--tr);}
 .city-config-drawer.open{border-color:var(--goldB);box-shadow:0 4px 18px rgba(13,59,46,.07);}
@@ -300,6 +450,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .toggle-switch input:checked+.toggle-track{background:var(--em3);}
 .toggle-switch input:checked+.toggle-track::before{transform:translateX(-19px);}
 
+/* ═══ SUMMARY / STEP 6 ═══ */
 .summary-master-card{background:var(--white);border:1.5px solid rgba(201,168,76,.2);border-radius:20px;overflow:hidden;margin-bottom:14px;box-shadow:0 4px 20px rgba(13,59,46,.08);}
 .smc-header{background:linear-gradient(135deg,var(--em),var(--em3));padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
 .smc-header-title{font-size:13px;font-weight:800;color:var(--goldL);display:flex;align-items:center;gap:8px;}
@@ -325,7 +476,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .smc-transfer-opt.sel .smc-transfer-radio::after{content:'';width:5px;height:5px;background:var(--em);border-radius:50%;}
 .smc-transfer-name{font-size:11.5px;font-weight:600;color:var(--td);}
 .smc-transfer-sub{font-size:10px;color:var(--ts);}
-
 .smc-opt-services{margin-bottom:14px;}
 .smc-opt-title{font-size:11px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
 .smc-opt-row{background:var(--cream);border:1.5px solid rgba(201,168,76,.15);border-radius:12px;overflow:hidden;margin-bottom:7px;}
@@ -343,7 +493,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .smc-opt-btn:hover{background:rgba(201,168,76,.25);}
 .smc-opt-val{font-size:13px;font-weight:800;color:var(--em);min-width:28px;text-align:center;}
 .smc-opt-note{margin-top:7px;font-size:11px;color:var(--ts);padding:6px 10px;background:rgba(201,168,76,.07);border-radius:7px;line-height:1.6;}
-
 .price-card{background:linear-gradient(135deg,var(--em),var(--em3));border-radius:20px;padding:20px;box-shadow:0 8px 30px rgba(13,59,46,.2);border:1px solid rgba(201,168,76,.2);margin-bottom:14px;display:none;}
 .price-card.visible{display:block;animation:fadeUp .4s ease both;}
 .price-breakdown{background:rgba(255,255,255,.07);border:1px solid rgba(201,168,76,.18);border-radius:14px;padding:14px;margin-bottom:14px;}
@@ -359,14 +508,8 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .pgt-label{font-size:10px;color:rgba(255,255,255,.5);margin-bottom:5px;letter-spacing:.04em;}
 .pgt-amount{font-size:clamp(22px,4vw,30px);font-weight:800;color:var(--goldL);line-height:1;}
 .pgt-sub{font-size:10px;color:rgba(255,255,255,.35);margin-top:4px;}
-.price-actions{display:flex;gap:9px;}
-.price-confirm-btn{flex:1;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--em);font-family:"Vazirmatn",sans-serif;font-size:13px;font-weight:800;padding:12px;border-radius:100px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(201,168,76,.3);transition:var(--tr);}
-.price-confirm-btn:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(201,168,76,.45);}
-.price-edit-btn{padding:10px 18px;border-radius:100px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);font-family:"Vazirmatn",sans-serif;font-size:11.5px;font-weight:600;cursor:pointer;transition:var(--tr);}
-.price-edit-btn:hover{background:rgba(255,255,255,.18);}
 .reveal-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--em);font-family:"Vazirmatn",sans-serif;font-size:13px;font-weight:800;padding:12px 28px;border-radius:100px;border:none;cursor:pointer;box-shadow:0 5px 18px rgba(201,168,76,.3);transition:var(--tr);margin-bottom:14px;}
 .reveal-btn:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(201,168,76,.46);}
-
 .passenger-form-box{background:linear-gradient(135deg,rgba(13,59,46,.04),rgba(201,168,76,.04));border:1.5px solid var(--goldB);border-radius:20px;padding:18px;margin-top:12px;display:none;}
 .passenger-form-box.show{display:block;animation:fadeUp .35s ease;}
 .pfb-title{font-size:13px;font-weight:800;color:var(--em);margin-bottom:14px;display:flex;align-items:center;gap:6px;}
@@ -400,14 +543,14 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .agency-check-box.checked::after{content:'✓';color:var(--goldL);font-size:10px;font-weight:700;}
 .agency-fields{display:none;background:var(--cream);border:1px solid rgba(201,168,76,.17);border-radius:9px;padding:11px;margin-bottom:9px;}
 .agency-fields.show{display:block;}
-.confirm-final-btn{margin-top:12px;width:100%;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--em);font-family:"Vazirmatn",sans-serif;font-size:13px;font-weight:800;padding:13px;border-radius:100px;border:none;cursor:pointer;box-shadow:0 5px 18px rgba(201,168,76,.3);transition:var(--tr);}
-.confirm-final-btn:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(201,168,76,.46);}
 
-.below-content{padding:48px 18px 0;max-width:680px;margin:0 auto;}
+/* ═══ PAGE BODY (below hero) ═══ */
+.page-body{background:var(--cream);padding:0 0 60px;}
+.page-body-inner{max-width:680px;margin:0 auto;padding:0 18px;}
+.below-content{padding:32px 18px 0;max-width:680px;margin:0 auto;}
 .section-heading{text-align:center;margin-bottom:22px;}
 .section-heading h2{font-size:17px;font-weight:800;color:var(--em);margin-bottom:5px;}
 .section-heading p{font-size:12px;color:var(--ts);}
-
 .steps-collapsible{background:var(--white);border:1.5px solid rgba(201,168,76,.18);border-radius:18px;overflow:hidden;box-shadow:0 2px 14px rgba(13,59,46,.05);margin-bottom:36px;}
 .steps-coll-toggle{display:flex;align-items:center;gap:14px;padding:18px 22px;cursor:pointer;transition:background .2s;}
 .steps-coll-toggle:hover{background:rgba(201,168,76,.03);}
@@ -439,7 +582,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .jcard.open .jcard-body{max-height:200px;}
 .jcard-desc{padding:13px 16px 15px;font-size:12.5px;color:var(--tm);line-height:1.9;border-right:3px solid var(--goldB);margin-right:16px;}
 .jcard-desc strong{color:var(--em);font-weight:700;}
-
 .caravan-accordion-wrap{margin-top:0;}
 .caravan-acc-toggle{background:var(--white);border:1.5px solid rgba(201,168,76,.2);border-radius:18px;padding:18px 22px;cursor:pointer;display:flex;align-items:center;gap:14px;transition:var(--tr);box-shadow:0 2px 14px rgba(13,59,46,.05);}
 .caravan-acc-toggle:hover{border-color:var(--goldB);}
@@ -545,7 +687,6 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .cv-pill.land-f{background:rgba(201,168,76,.09);color:#8a6820;border-color:rgba(201,168,76,.28);}
 .cv-pill.inactive{background:transparent;color:var(--ts);border-color:rgba(0,0,0,.1);}
 .cv-empty{padding:28px;text-align:center;color:var(--ts);font-size:12px;}
-
 .cv-reserve-overlay{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px;}
 .cv-reserve-overlay.show{display:flex;}
 .cv-reserve-modal{background:var(--white);border-radius:24px;max-width:460px;width:100%;box-shadow:0 24px 70px rgba(0,0,0,.28);overflow:hidden;animation:slideUp .38s cubic-bezier(.4,0,.2,1);}
@@ -595,6 +736,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .crm-next-btn:hover{transform:translateY(-1px);}
 .crm-next-btn:disabled{opacity:.35;cursor:not-allowed;transform:none;}
 
+/* FAQ */
 .faq-section{margin-top:40px;padding-bottom:40px;}
 .faq-list{display:flex;flex-direction:column;gap:7px;}
 .faq-item{background:var(--white);border:1.5px solid rgba(201,168,76,.13);border-radius:13px;overflow:hidden;transition:var(--tr);}
@@ -608,6 +750,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .faq-item.open .faq-body{max-height:200px;}
 .faq-answer{padding:4px 16px 14px;font-size:12.5px;color:var(--tm);line-height:1.9;border-right:3px solid var(--goldB);margin:0 16px 0 0;}
 
+/* FOOTER */
 .site-footer{background:linear-gradient(170deg,var(--em) 0%,#0b3026 100%);border-top:1px solid var(--goldB);padding:32px 24px 18px;}
 .footer-inner{max-width:680px;margin:0 auto;}
 .footer-offices{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(201,168,76,.18);border-radius:14px;overflow:hidden;margin-bottom:20px;}
@@ -631,6 +774,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 .footer-credit-text{font-size:10px;color:rgba(255,255,255,.22);letter-spacing:.08em;}
 .footer-credit-name{font-size:11px;font-weight:700;color:rgba(201,168,76,.45);letter-spacing:.1em;margin-top:2px;}
 
+/* SUCCESS OVERLAY */
 .success-overlay{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:999;display:none;align-items:center;justify-content:center;padding:20px;}
 .success-overlay.show{display:flex;}
 .success-modal{background:var(--white);border-radius:var(--rL);padding:30px 24px;text-align:center;max-width:340px;width:100%;box-shadow:0 18px 54px rgba(0,0,0,.22);animation:fadeUp .4s ease;}
@@ -657,12 +801,16 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
   .cbc-item:nth-child(odd){border-left:none;}
   .crm-pax-form-body{grid-template-columns:1fr;}
   .pfb-grid{grid-template-columns:1fr;}
-  .price-actions{flex-direction:column;}
+  .bs-stepper{gap:0;}
+  .bss-line{width:20px;}
+  .bsl-sep{width:20px;}
+  .bsl-item{width:20px;font-size:7px;}
 }
 </style>
 </head>
 <body>
 
+<!-- ══ FLOATING SUPPORT ══ -->
 <div class="floating-support">
   <a class="support-btn" href="https://bale.ai/avanatabat" target="_blank" rel="noopener">
     <div class="support-pulse"></div>
@@ -671,6 +819,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
   <div class="support-label">پشتیبانی بله</div>
 </div>
 
+<!-- ══ NAV MODALS ══ -->
 <div class="nav-modal-overlay" id="modal-guide" onclick="closeModal('guide',event)">
   <div class="nav-modal">
     <div class="nav-modal-head"><div class="nav-modal-title">📖 راهنمای استفاده</div><button class="nav-modal-close" onclick="closeModalDirect('guide')">✕</button></div>
@@ -690,17 +839,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
   </div>
 </div>
 
-<div class="locked-modal-overlay" id="lockedModal" onclick="closeLockedModal(event)">
-  <div class="locked-modal">
-    <div class="locked-modal-head"><div class="locked-modal-icon">🔒</div><div class="locked-modal-title">این مرحله هنوز فعال نشده است</div></div>
-    <div class="locked-modal-body">
-      <div class="locked-modal-text">لطفاً ابتدا مرحله قبلی را کامل کنید تا این بخش فعال شود.</div>
-      <button class="locked-modal-btn" onclick="goToPrevStep()">← رفتن به مرحله قبل</button>
-      <button class="locked-modal-dismiss" onclick="document.getElementById('lockedModal').classList.remove('show')">بستن</button>
-    </div>
-  </div>
-</div>
-
+<!-- ══ CARAVAN RESERVE MODAL ══ -->
 <div class="cv-reserve-overlay" id="cvReserveOverlay" onclick="cvReserveOverlayClick(event)">
   <div class="cv-reserve-modal" id="cvReserveModal">
     <div class="crm-head">
@@ -719,6 +858,219 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
   </div>
 </div>
 
+<!-- ══ SUCCESS OVERLAY ══ -->
+<div class="success-overlay" id="successOverlay" onclick="closeSuccess(event)">
+  <div class="success-modal">
+    <div class="success-icon">🕌</div>
+    <div class="success-title">سفر شما ثبت شد!</div>
+    <div class="success-body">کارشناسان ما ظرف ۲ ساعت با شما تماس می‌گیرند.<br/>کد پیگیری:</div>
+    <div class="success-code" id="successCode"></div>
+    <button class="success-close-btn" onclick="document.getElementById('successOverlay').classList.remove('show')">بستن</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- ══  BOTTOM SHEET MODAL — WIZARD FLOW ══ -->
+<!-- ══════════════════════════════════════ -->
+<div class="bs-overlay" id="bsOverlay" onclick="bsOverlayClick(event)"></div>
+<div class="bs-sheet" id="bsSheet">
+
+  <!-- Handle -->
+  <div class="bs-handle"><div class="bs-handle-bar"></div></div>
+
+  <!-- Header -->
+  <div class="bs-header">
+    <div class="bs-header-top">
+      <div>
+        <div class="bs-header-title">🕌 طراحی سفر زیارتی</div>
+        <div class="bs-header-sub" id="bsHeaderSub">مرحله ۱ از ۵ — تاریخ اعزام</div>
+      </div>
+      <button class="bs-close" onclick="closeBottomSheet()">✕</button>
+    </div>
+    <!-- Stepper -->
+    <div class="bs-stepper">
+      <div class="bss-dot active" id="bsDot1">۱</div>
+      <div class="bss-line" id="bsLine1"></div>
+      <div class="bss-dot pending" id="bsDot2">۲</div>
+      <div class="bss-line" id="bsLine2"></div>
+      <div class="bss-dot pending" id="bsDot3">۳</div>
+      <div class="bss-line" id="bsLine3"></div>
+      <div class="bss-dot pending" id="bsDot4">۴</div>
+      <div class="bss-line" id="bsLine4"></div>
+      <div class="bss-dot pending" id="bsDot5">۵</div>
+    </div>
+    <div class="bs-step-labels">
+      <div class="bsl-item active" id="bsLbl1">تاریخ</div>
+      <div class="bsl-sep"></div>
+      <div class="bsl-item pending" id="bsLbl2">نوع</div>
+      <div class="bsl-sep"></div>
+      <div class="bsl-item pending" id="bsLbl3">مقاصد</div>
+      <div class="bsl-sep"></div>
+      <div class="bsl-item pending" id="bsLbl4">اقامت</div>
+      <div class="bsl-sep"></div>
+      <div class="bsl-item pending" id="bsLbl5">تأیید</div>
+    </div>
+  </div>
+
+  <!-- Scrollable body -->
+  <div class="bs-body" id="bsBody">
+
+    <!-- ── STEP 1: Date & Passengers ── -->
+    <div class="bs-step-panel active" id="bsPanel1">
+      <div class="bs-step-heading">
+        <h3><span class="bs-step-badge">مرحله ۱</span>📅 تاریخ اعزام</h3>
+        <p>تاریخ سفر و تعداد مسافران را انتخاب کنید</p>
+      </div>
+      <p class="cal-label">ماه اعزام را انتخاب کنید</p>
+      <div class="month-slider-wrap" id="calSliderWrap">
+        <div class="month-track" id="monthTrack">
+          <div class="month-slide" id="slideMonths">
+            <div class="month-slide-label">ماه اعزام</div>
+            <div class="months-grid" id="monthsGrid"></div>
+          </div>
+          <div class="month-slide" id="slideDays">
+            <div>
+              <div class="days-slide-back" onclick="backToMonths()">› بازگشت به انتخاب ماه</div>
+              <div class="days-selected-month" id="daysMonthLabel"></div>
+              <div class="days-grid-wrap">
+                <div class="cal-weekdays"><div class="cal-wd">ش</div><div class="cal-wd">ی</div><div class="cal-wd">د</div><div class="cal-wd">س</div><div class="cal-wd">چ</div><div class="cal-wd">پ</div><div class="cal-wd">ج</div></div>
+                <div class="cal-days" id="calDays"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pax-section">
+        <div class="pax-section-title">👤 تعداد مسافران</div>
+        <div class="pax-cards-row" id="paxCardsRow"></div>
+        <div class="pass-note">حداکثر ۴ نفر — برای گروه‌های بزرگ‌تر با ما تماس بگیرید</div>
+      </div>
+      <div class="pax-city-row" style="margin-top:12px;">
+        <div class="pax-city-label">شهر انتخابی:</div>
+        <div class="pax-city-val" id="selectedCityDisplay">—</div>
+      </div>
+      <div class="bs-alert" id="bsAlert1">لطفاً تاریخ اعزام را انتخاب کنید.</div>
+    </div>
+
+    <!-- ── STEP 2: Trip Type ── -->
+    <div class="bs-step-panel" id="bsPanel2">
+      <div class="bs-step-heading">
+        <h3><span class="bs-step-badge">مرحله ۲</span>🚌 نوع سفر</h3>
+        <p>روش حمل‌ونقل رفت و برگشت خود را انتخاب کنید</p>
+      </div>
+      <div class="type-cards">
+        <div class="type-card" id="typeAir" onclick="selectType('air')">
+          <div class="selected-check">✓</div>
+          <div class="type-icon">
+            <svg viewBox="0 0 44 44" fill="none" stroke="#134a3a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 26 L17 18 L15 8 L20 10 L24 21 L34 17 C37 16 40 18 40 21 C40 23 38 25 35 25 L25 27 L22 37 L17 35 L20 25 L6 31 Z" fill="#134a3a" stroke="none" opacity=".85"/>
+            </svg>
+          </div>
+          <div class="type-name">رفت‌وبرگشت هوایی</div>
+          <div class="type-desc">سریع و راحت</div>
+        </div>
+        <div class="type-card" id="typeLand" onclick="selectType('land')">
+          <div class="selected-check">✓</div>
+          <div class="type-icon">
+            <svg viewBox="0 0 44 44" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="14" width="38" height="18" rx="4" stroke="#134a3a" stroke-width="1.8" fill="none"/>
+              <rect x="8" y="18" width="6" height="5" rx="1" stroke="#134a3a" stroke-width="1.5" fill="none"/>
+              <rect x="17" y="18" width="6" height="5" rx="1" stroke="#134a3a" stroke-width="1.5" fill="none"/>
+              <rect x="26" y="18" width="6" height="5" rx="1" stroke="#134a3a" stroke-width="1.5" fill="none"/>
+              <circle cx="12" cy="34" r="3" stroke="#134a3a" stroke-width="1.8" fill="none"/>
+              <circle cx="32" cy="34" r="3" stroke="#134a3a" stroke-width="1.8" fill="none"/>
+              <line x1="15" y1="34" x2="29" y2="34" stroke="#134a3a" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="type-name">رفت‌وبرگشت زمینی</div>
+          <div class="type-desc">اقتصادی</div>
+        </div>
+        <div class="type-card" id="typeMixed" onclick="selectType('mixed')">
+          <div class="selected-check">✓</div>
+          <div class="type-icon">
+            <svg viewBox="0 0 44 44" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 19 L10 14 L9 7 L13 9 L15 17 L21 14 C23 13 26 14.5 26 17 C26 19 24 20.5 22 21 L17 23 L15 30 L11 29 L13 21 L4 25 Z" fill="#134a3a" stroke="none" opacity=".85"/>
+              <rect x="24" y="24" width="18" height="11" rx="3" stroke="#134a3a" stroke-width="1.6" fill="none"/>
+              <rect x="26" y="26" width="4" height="4" rx=".8" stroke="#134a3a" stroke-width="1.3" fill="none"/>
+              <rect x="32" y="26" width="4" height="4" rx=".8" stroke="#134a3a" stroke-width="1.3" fill="none"/>
+              <circle cx="28" cy="37" r="2" stroke="#134a3a" stroke-width="1.5" fill="none"/>
+              <circle cx="38" cy="37" r="2" stroke="#134a3a" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
+          <div class="type-name">رفت هوایی، برگشت زمینی</div>
+          <div class="type-desc">ترکیبی</div>
+        </div>
+      </div>
+      <div class="airport-warning-box" id="airportWarningBox">
+        <div class="awb-title">✈️ انتخاب فرودگاه مبدا</div>
+        <div class="awb-body" id="awbBody"></div>
+        <div id="awbStep1"><div class="awb-btns"><button class="awb-yes-btn" onclick="airportYes()">بله، می‌توانم حضور داشته باشم</button><button class="awb-no-btn" onclick="airportNo()">خیر</button></div></div>
+        <div id="awbStep2" style="display:none"><div class="awb-airports" id="awbAirportList"></div></div>
+      </div>
+      <div class="bs-alert" id="bsAlert2">لطفاً نوع سفر را انتخاب کنید.</div>
+    </div>
+
+    <!-- ── STEP 3: Cities ── -->
+    <div class="bs-step-panel" id="bsPanel3">
+      <div class="bs-step-heading">
+        <h3><span class="bs-step-badge">مرحله ۳</span>🕌 شهرهای زیارتی</h3>
+        <p>مقصدهای سفر را به ترتیب بازدید انتخاب کنید</p>
+      </div>
+      <div class="city-hint">می‌توانید چند شهر انتخاب کنید. <strong>ترتیب انتخاب = ترتیب سفر.</strong></div>
+      <div class="city-grid">
+        <div class="city-card" id="cityKarbala" onclick="toggleCity('karbala')">
+          <div class="city-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--goldL)" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="5"/><path d="M8 9 Q12 4 16 9"/><path d="M7 9 L7 16 L17 16 L17 9"/><rect x="10" y="12" width="4" height="4"/><line x1="5" y1="16" x2="19" y2="16"/></svg></div>
+          <div class="city-info"><div class="city-name">کربلای معلی</div><div class="city-shrine">حرم امام حسین (ع)</div></div>
+          <div class="city-tick">✓</div>
+          <div class="city-order-badge" id="orderKarbala"></div>
+        </div>
+        <div class="city-card" id="cityNajaf" onclick="toggleCity('najaf')">
+          <div class="city-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--goldL)" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="6" r="3.5"/><line x1="12" y1="3" x2="12" y2="1"/><path d="M8.5 9.5 Q12 7 15.5 9.5"/><rect x="9" y="10" width="6" height="8"/><rect x="11" y="13" width="2" height="5"/></svg></div>
+          <div class="city-info"><div class="city-name">نجف اشرف</div><div class="city-shrine">حرم امام علی (ع)</div></div>
+          <div class="city-tick">✓</div>
+          <div class="city-order-badge" id="orderNajaf"></div>
+        </div>
+        <div class="city-card" id="cityKadhSam" onclick="toggleCity('kadh_sam')">
+          <div class="city-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--goldL)" stroke-width="1.5" stroke-linecap="round"><path d="M7 10 Q10 5 13 10"/><rect x="6" y="10" width="7" height="7"/><path d="M14 11 Q16.5 7 19 11"/><rect x="13.5" y="11" width="6" height="6"/></svg></div>
+          <div class="city-info"><div class="city-name">کاظمین و سامرا</div><div class="city-shrine">حرم امام کاظم و عسکریین (ع)</div></div>
+          <div class="city-tick">✓</div>
+          <div class="city-order-badge" id="orderKadhSam"></div>
+        </div>
+      </div>
+      <div class="city-route-preview" id="cityRoutePreview"></div>
+      <div class="bs-alert" id="bsAlert3">لطفاً حداقل یک شهر زیارتی انتخاب کنید.</div>
+    </div>
+
+    <!-- ── STEP 4: City Configs ── -->
+    <div class="bs-step-panel" id="bsPanel4">
+      <div class="bs-step-heading">
+        <h3><span class="bs-step-badge">مرحله ۴</span>🏨 تنظیمات اقامت</h3>
+        <p>برای هر شهر تعداد شب، هتل و وعده غذایی را مشخص کنید</p>
+      </div>
+      <div class="city-configs" id="cityConfigs"></div>
+      <div class="bs-alert" id="bsAlert4"></div>
+    </div>
+
+    <!-- ── STEP 5: Summary & Confirm ── -->
+    <div class="bs-step-panel" id="bsPanel5">
+      <div class="bs-step-heading">
+        <h3><span class="bs-step-badge">مرحله ۵</span>✦ مرور و تأیید</h3>
+        <p>خلاصه سفر، هزینه تخمینی و ثبت اطلاعات زائرین</p>
+      </div>
+      <div id="step5Content"></div>
+    </div>
+
+  </div><!-- /bs-body -->
+
+  <!-- Sheet footer nav -->
+  <div class="bs-footer" id="bsFooter">
+    <button class="bs-back-btn" id="bsBackBtn" onclick="bsGoBack()" style="display:none;">← بازگشت</button>
+    <button class="bs-next-btn" id="bsNextBtn" onclick="bsGoNext()">ادامه ←</button>
+  </div>
+
+</div><!-- /bs-sheet -->
+
+<!-- ══ HEADER ══ -->
 <header class="site-header">
   <div class="header-inner">
     <div class="logo-area">
@@ -758,6 +1110,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
   </div>
 </header>
 
+<!-- ══ HERO ══ -->
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-inner">
@@ -767,18 +1120,7 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
     <div class="hero-slogan">این بار انتخاب با <span class="hl">شماست</span>، نه یک کاروان از پیش تعیین‌شده</div>
     <div class="hero-desc">زمان سفر، مدت اقامت، درجه هتل و مسیر را خودتان انتخاب کنید. کاملاً متناسب با بودجه، زمان و سلیقه شما.</div>
     <div class="hero-step-wrap">
-      <div class="hero-step-progress">
-        <div class="hsp-item"><div class="hsp-dot active" id="hspd1">۱</div></div>
-        <div class="hsp-line" id="hspline1"></div>
-        <div class="hsp-item"><div class="hsp-dot pending" id="hspd2">۲</div></div>
-        <div class="hsp-line" id="hspline2"></div>
-        <div class="hsp-item"><div class="hsp-dot pending" id="hspd3">۳</div></div>
-        <div class="hsp-line" id="hspline3"></div>
-        <div class="hsp-item"><div class="hsp-dot pending" id="hspd4">۴</div></div>
-        <div class="hsp-line" id="hspline4"></div>
-        <div class="hsp-item"><div class="hsp-dot pending" id="hspd5">۵</div></div>
-      </div>
-      <div class="hero-step-label"><span class="step-badge">مرحله ۱ از ۵</span>📍 شهر محل اعزام خود را انتخاب کنید</div>
+      <div class="hero-step-label"><span class="step-badge">گام اول</span>📍 شهر محل اعزام خود را انتخاب کنید</div>
       <div class="origin-grid" id="heroOriginGrid">
         <div class="origin-card" data-city="tehran" data-transport="air" onclick="heroSelectCity(this)">
           <div class="origin-card-tick">✓</div>
@@ -860,173 +1202,11 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
 </section>
 <div class="hero-wave"><svg viewBox="0 0 1440 54" preserveAspectRatio="none"><path d="M0,0 C360,54 1080,0 1440,36 L1440,54 L0,54 Z" fill="#f9f5ee"/></svg></div>
 
+<!-- ══ BELOW CONTENT ══ -->
 <div class="page-body">
   <div class="page-body-inner">
-    <div class="guided-flow" id="guidedFlow" style="padding-top:24px;">
-
-      <div class="gf-step locked" id="gfStep2">
-        <div class="gf-head" onclick="gfToggle(2)">
-          <div class="gf-num">۲</div>
-          <div class="gf-meta"><div class="gf-title">تاریخ اعزام و تعداد مسافران</div><div class="gf-sub" id="gfSub2">تاریخ سفر و تعداد نفرات را انتخاب کنید</div></div>
-          <div class="gf-status locked-st" id="gfStatus2">قفل</div>
-          <div class="gf-chevron">▼</div>
-        </div>
-        <div class="gf-body"><div class="gf-content">
-          <p class="cal-label">تاریخ اعزام را انتخاب کنید</p>
-          <div class="month-slider-wrap" id="calSliderWrap">
-            <div class="month-track" id="monthTrack">
-              <div class="month-slide" id="slideMonths">
-                <div class="month-slide-label">ماه اعزام</div>
-                <div class="months-grid" id="monthsGrid"></div>
-              </div>
-              <div class="month-slide" id="slideDays">
-                <div class="days-slide-inner">
-                  <div class="days-slide-back" onclick="backToMonths()">› بازگشت به انتخاب ماه</div>
-                  <div class="days-selected-month" id="daysMonthLabel"></div>
-                  <div class="days-grid-wrap">
-                    <div class="cal-weekdays"><div class="cal-wd">ش</div><div class="cal-wd">ی</div><div class="cal-wd">د</div><div class="cal-wd">س</div><div class="cal-wd">چ</div><div class="cal-wd">پ</div><div class="cal-wd">ج</div></div>
-                    <div class="cal-days" id="calDays"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="pax-section">
-            <div class="pax-section-title">👤 تعداد مسافران</div>
-            <div class="pax-cards-row" id="paxCardsRow"></div>
-            <div class="pass-note">حداکثر ۴ نفر — برای گروه‌های بزرگ‌تر با ما تماس بگیرید</div>
-          </div>
-          <div class="pax-city-row" style="margin-top:12px;">
-            <div class="pax-city-label">شهر انتخابی:</div>
-            <div class="pax-city-val" id="selectedCityDisplay">—</div>
-          </div>
-          <button class="next-btn" id="nextBtn2" disabled onclick="completeStep(2)">ادامه — نوع سفر ←</button>
-        </div></div>
-      </div>
-
-      <div class="gf-step locked" id="gfStep3">
-        <div class="gf-head" onclick="gfToggle(3)">
-          <div class="gf-num">۳</div>
-          <div class="gf-meta"><div class="gf-title">نوع سفر</div><div class="gf-sub" id="gfSub3">روش سفر خود را انتخاب کنید</div></div>
-          <div class="gf-status locked-st" id="gfStatus3">قفل</div>
-          <div class="gf-chevron">▼</div>
-        </div>
-        <div class="gf-body"><div class="gf-content">
-          <div class="type-cards">
-            <div class="type-card" id="typeAir" onclick="selectType('air')">
-              <div class="selected-check">✓</div>
-              <div class="type-icon">
-                <svg viewBox="0 0 44 44" fill="none" stroke="#134a3a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M5 26 L17 18 L15 8 L20 10 L24 21 L34 17 C37 16 40 18 40 21 C40 23 38 25 35 25 L25 27 L22 37 L17 35 L20 25 L6 31 Z" fill="#134a3a" stroke="none" opacity=".85"/>
-                </svg>
-              </div>
-              <div class="type-name">رفت‌وبرگشت هوایی</div>
-              <div class="type-desc">سریع و راحت</div>
-            </div>
-            <div class="type-card" id="typeLand" onclick="selectType('land')">
-              <div class="selected-check">✓</div>
-              <div class="type-icon">
-                <svg viewBox="0 0 44 44" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="14" width="38" height="18" rx="4" stroke="#134a3a" stroke-width="1.8" fill="none"/>
-                  <rect x="8" y="18" width="6" height="5" rx="1" stroke="#134a3a" stroke-width="1.5" fill="none"/>
-                  <rect x="17" y="18" width="6" height="5" rx="1" stroke="#134a3a" stroke-width="1.5" fill="none"/>
-                  <rect x="26" y="18" width="6" height="5" rx="1" stroke="#134a3a" stroke-width="1.5" fill="none"/>
-                  <circle cx="12" cy="34" r="3" stroke="#134a3a" stroke-width="1.8" fill="none"/>
-                  <circle cx="32" cy="34" r="3" stroke="#134a3a" stroke-width="1.8" fill="none"/>
-                  <line x1="15" y1="34" x2="29" y2="34" stroke="#134a3a" stroke-width="1.5"/>
-                </svg>
-              </div>
-              <div class="type-name">رفت‌وبرگشت زمینی</div>
-              <div class="type-desc">اقتصادی</div>
-            </div>
-            <div class="type-card" id="typeMixed" onclick="selectType('mixed')">
-              <div class="selected-check">✓</div>
-              <div class="type-icon">
-                <svg viewBox="0 0 44 44" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 19 L10 14 L9 7 L13 9 L15 17 L21 14 C23 13 26 14.5 26 17 C26 19 24 20.5 22 21 L17 23 L15 30 L11 29 L13 21 L4 25 Z" fill="#134a3a" stroke="none" opacity=".85"/>
-                  <rect x="24" y="24" width="18" height="11" rx="3" stroke="#134a3a" stroke-width="1.6" fill="none"/>
-                  <rect x="26" y="26" width="4" height="4" rx=".8" stroke="#134a3a" stroke-width="1.3" fill="none"/>
-                  <rect x="32" y="26" width="4" height="4" rx=".8" stroke="#134a3a" stroke-width="1.3" fill="none"/>
-                  <circle cx="28" cy="37" r="2" stroke="#134a3a" stroke-width="1.5" fill="none"/>
-                  <circle cx="38" cy="37" r="2" stroke="#134a3a" stroke-width="1.5" fill="none"/>
-                </svg>
-              </div>
-              <div class="type-name">رفت هوایی، برگشت زمینی</div>
-              <div class="type-desc">ترکیبی</div>
-            </div>
-          </div>
-          <div class="airport-warning-box" id="airportWarningBox">
-            <div class="awb-title">✈️ انتخاب فرودگاه مبدا</div>
-            <div class="awb-body" id="awbBody"></div>
-            <div id="awbStep1"><div class="awb-btns"><button class="awb-yes-btn" onclick="airportYes()">بله، می‌توانم حضور داشته باشم</button><button class="awb-no-btn" onclick="airportNo()">خیر</button></div></div>
-            <div id="awbStep2" style="display:none"><div class="awb-airports" id="awbAirportList"></div></div>
-          </div>
-          <button class="next-btn" id="nextBtn3" disabled onclick="completeStep(3)">ادامه — انتخاب مقاصد ←</button>
-        </div></div>
-      </div>
-
-      <div class="gf-step locked" id="gfStep4">
-        <div class="gf-head" onclick="gfToggle(4)">
-          <div class="gf-num">۴</div>
-          <div class="gf-meta"><div class="gf-title">انتخاب شهرهای زیارتی</div><div class="gf-sub" id="gfSub4">مقصدهای سفر را به ترتیب انتخاب کنید</div></div>
-          <div class="gf-status locked-st" id="gfStatus4">قفل</div>
-          <div class="gf-chevron">▼</div>
-        </div>
-        <div class="gf-body"><div class="gf-content">
-          <div class="city-hint">می‌توانید چند شهر انتخاب کنید. <strong>ترتیب انتخاب = ترتیب سفر.</strong></div>
-          <div class="city-grid">
-            <div class="city-card" id="cityKarbala" onclick="toggleCity('karbala')">
-              <div class="city-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--goldL)" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="5"/><path d="M8 9 Q12 4 16 9"/><path d="M7 9 L7 16 L17 16 L17 9"/><rect x="10" y="12" width="4" height="4"/><line x1="5" y1="16" x2="19" y2="16"/></svg></div>
-              <div class="city-info"><div class="city-name">کربلای معلی</div><div class="city-shrine">حرم امام حسین (ع)</div></div>
-              <div class="city-tick">✓</div>
-              <div class="city-order-badge" id="orderKarbala"></div>
-            </div>
-            <div class="city-card" id="cityNajaf" onclick="toggleCity('najaf')">
-              <div class="city-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--goldL)" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="6" r="3.5"/><line x1="12" y1="3" x2="12" y2="1"/><path d="M8.5 9.5 Q12 7 15.5 9.5"/><rect x="9" y="10" width="6" height="8"/><rect x="11" y="13" width="2" height="5"/></svg></div>
-              <div class="city-info"><div class="city-name">نجف اشرف</div><div class="city-shrine">حرم امام علی (ع)</div></div>
-              <div class="city-tick">✓</div>
-              <div class="city-order-badge" id="orderNajaf"></div>
-            </div>
-            <div class="city-card" id="cityKadhSam" onclick="toggleCity('kadh_sam')">
-              <div class="city-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="var(--goldL)" stroke-width="1.5" stroke-linecap="round"><path d="M7 10 Q10 5 13 10"/><rect x="6" y="10" width="7" height="7"/><path d="M14 11 Q16.5 7 19 11"/><rect x="13.5" y="11" width="6" height="6"/></svg></div>
-              <div class="city-info"><div class="city-name">کاظمین و سامرا</div><div class="city-shrine">حرم امام کاظم و عسکریین (ع)</div></div>
-              <div class="city-tick">✓</div>
-              <div class="city-order-badge" id="orderKadhSam"></div>
-            </div>
-          </div>
-          <div class="city-route-preview" id="cityRoutePreview"></div>
-          <button class="next-btn" id="nextBtn4" disabled onclick="completeStep(4)">ادامه — تنظیمات اقامت ←</button>
-        </div></div>
-      </div>
-
-      <div class="gf-step locked" id="gfStep5">
-        <div class="gf-head" onclick="gfToggle(5)">
-          <div class="gf-num">۵</div>
-          <div class="gf-meta"><div class="gf-title">تنظیمات هر شهر</div><div class="gf-sub">اقامت، هتل و خدمات غذایی</div></div>
-          <div class="gf-status locked-st" id="gfStatus5">قفل</div>
-          <div class="gf-chevron">▼</div>
-        </div>
-        <div class="gf-body"><div class="gf-content">
-          <div class="city-configs" id="cityConfigs"></div>
-          <div class="step5-alert" id="step5Alert"></div>
-          <button class="next-btn" id="nextBtn5" onclick="completeStep(5)" style="margin-top:16px;">مشاهده جزئیات سفر ←</button>
-        </div></div>
-      </div>
-
-      <div class="gf-step locked" id="gfStep6">
-        <div class="gf-head" onclick="gfToggle(6)">
-          <div class="gf-num">✓</div>
-          <div class="gf-meta"><div class="gf-title">مرور جزئیات و تأیید ثبت‌نام</div><div class="gf-sub">خلاصه سفر، هزینه و اطلاعات زائرین</div></div>
-          <div class="gf-status locked-st" id="gfStatus6">قفل</div>
-          <div class="gf-chevron">▼</div>
-        </div>
-        <div class="gf-body"><div class="gf-content" id="step6Content">
-        </div></div>
-      </div>
-
-    </div>
-
     <div class="below-content">
+
       <div class="steps-collapsible">
         <div class="steps-coll-toggle" id="stepsToggle" onclick="toggleStepsSection()">
           <div class="steps-coll-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
@@ -1119,28 +1299,17 @@ body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);
   </div>
 </footer>
 
-<div class="success-overlay" id="successOverlay" onclick="closeSuccess(event)">
-  <div class="success-modal">
-    <div class="success-icon">🕌</div>
-    <div class="success-title">سفر شما ثبت شد!</div>
-    <div class="success-body">کارشناسان ما ظرف ۲ ساعت با شما تماس می‌گیرند.<br/>کد پیگیری:</div>
-    <div class="success-code" id="successCode"></div>
-    <button class="success-close-btn" onclick="document.getElementById('successOverlay').classList.remove('show')">بستن</button>
-  </div>
-</div>
-
 <script>
 // ══ HELPERS ══
-function scrollToStep(el,delay){if(!el)return;setTimeout(()=>{const h=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h'))||68;const top=el.getBoundingClientRect().top+window.pageYOffset-h-12;window.scrollTo({top:Math.max(0,top),behavior:'smooth'});},delay||320);}
+function P(n){return String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);}
+function fmt(n){return P(Math.round(n).toLocaleString('en'));}
 const PM=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const DIM=[31,31,31,31,31,31,30,30,30,30,30,29];
 const TODAY={y:1405,m:3,d:16};
-function P(n){return String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);}
-function fmt(n){return P(Math.round(n).toLocaleString('en'));}
 function getShamsiOffset(m,y){const BASE_Y=1405,BASE_M=3,BASE_OFF=0;if(y===BASE_Y&&m===BASE_M)return BASE_OFF;let days=0,cy=BASE_Y,cm=BASE_M;if(y>BASE_Y||(y===BASE_Y&&m>BASE_M)){while(cy!==y||cm!==m){days+=DIM[cm-1];cm++;if(cm>12){cm=1;cy++;}}return(BASE_OFF+days)%7;}else{while(cy!==y||cm!==m){cm--;if(cm<1){cm=12;cy--;}days+=DIM[cm-1];}return((BASE_OFF-days)%7+7)%7;}}
 
 // ══ STATE ══
-const state={selM:null,selY:null,selD:null,dateText:null,passengers:1,origin:null,tripType:null,selectedAirport:null,cities:[],cityData:{},transferOpt:'door',simCard:false,dinars:false,dinarsAmt:1,isAgency:false,totalPrice:0,extraPaxCount:0,lockedPrevStep:null,priceVisible:false};
+const state={selM:null,selY:null,selD:null,dateText:null,passengers:1,origin:null,tripType:null,selectedAirport:null,cities:[],cityData:{},transferOpt:'door',simCard:false,dinars:false,dinarsAmt:1,isAgency:false,totalPrice:0,extraPaxCount:0,priceVisible:false};
 const DIRECT_AIRPORTS={tehran:{code:'IKA',name:'فرودگاه بین‌المللی امام خمینی'},isfahan:{code:'IFN',name:'فرودگاه اصفهان'},mashhad:{code:'MHD',name:'فرودگاه مشهد'}};
 const ALL_AIRPORTS=[{code:'IKA',name:'فرودگاه امام خمینی — تهران',city:'تهران'},{code:'IFN',name:'فرودگاه اصفهان',city:'اصفهان'},{code:'MHD',name:'فرودگاه مشهد',city:'مشهد'}];
 const AIR_CITIES=['tehran','isfahan','mashhad'];
@@ -1152,114 +1321,308 @@ const HOTEL_DATA={
   kadh_sam:[{name:'هتل الامین الکاظمیه',stars:5,dist:'۷۰ متر',cat:'alef',price:1.4},{name:'هتل الکاظمیه پالاس',stars:4,dist:'۱۲۰ متر',cat:'alef',price:1.25},{name:'هتل العسکری پالاس',stars:5,dist:'۹۰ متر',cat:'alef',price:1.3},{name:'هتل الرشید',stars:3,dist:'۲۵۰ متر',cat:'be',price:0.9},{name:'هتل دجله سامرا',stars:3,dist:'۳۵۰ متر',cat:'be',price:0.8},{name:'هتل المرجان',stars:3,dist:'۴۰۰ متر',cat:'be',price:0.72},{name:'هتل الفرحان',stars:2,dist:'۶۵۰ متر',cat:'jim',price:0.48},{name:'هتل السلام',stars:2,dist:'۸۵۰ متر',cat:'jim',price:0.40},{name:'هتل الزائر سامرا',stars:1,dist:'۱ کیلومتر',cat:'jim',price:0.30}]
 };
 
-// ══ MODALS ══
-function openModal(id){document.getElementById('modal-'+id).classList.add('open');}
-function closeModalDirect(id){document.getElementById('modal-'+id).classList.remove('open');}
-function closeModal(id,e){if(e.target===document.getElementById('modal-'+id))closeModalDirect(id);}
-function showLockedModal(prev){state.lockedPrevStep=prev;document.getElementById('lockedModal').classList.add('show');}
-function closeLockedModal(e){if(!e||e.target===document.getElementById('lockedModal'))document.getElementById('lockedModal').classList.remove('show');}
-function goToPrevStep(){document.getElementById('lockedModal').classList.remove('show');if(state.lockedPrevStep){const el=document.getElementById('gfStep'+state.lockedPrevStep);if(el&&!el.classList.contains('locked')){el.classList.add('active');scrollToStep(el,100);}}}
+// ══ BOTTOM SHEET STATE ══
+let bsCurrentStep=1;
+const BS_TOTAL=5;
 
-// ══ HERO CITY ══
-function heroSelectCity(el){document.querySelectorAll('.origin-card').forEach(c=>c.classList.remove('selected'));document.querySelectorAll('.city-pill-sm').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');state.origin=el.dataset.city;afterCitySelected();}
-function heroSelectCityPill(el){document.querySelectorAll('.origin-card').forEach(c=>c.classList.remove('selected'));document.querySelectorAll('.city-pill-sm').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');state.origin=el.dataset.city;afterCitySelected();}
-function afterCitySelected(){const s2=document.getElementById('gfStep2');s2.classList.remove('locked');s2.classList.add('active');document.getElementById('gfStatus2').textContent='در حال انجام';document.getElementById('gfStatus2').className='gf-status pending';document.getElementById('hspd1').textContent='✓';document.getElementById('hspd1').className='hsp-dot done';document.getElementById('hspline1').className='hsp-line done-line';document.getElementById('hspd2').className='hsp-dot active';document.getElementById('selectedCityDisplay').textContent=CITY_LABEL[state.origin]||state.origin;buildMonthGrid();buildPaxCards();scrollToStep(s2,350);}
-
-// ══ CALENDAR ══
-function buildMonthGrid(){const grid=document.getElementById('monthsGrid');grid.innerHTML='';let cy=TODAY.y,cm=TODAY.m;for(let i=0;i<6;i++){const m=cm,y=cy;const card=document.createElement('div');card.className='month-card';card.innerHTML=`<div class="month-card-name">${PM[m-1]}</div><div class="month-card-year">${P(y)}</div>`;card.onclick=()=>selectMonth(m,y);grid.appendChild(card);cm++;if(cm>12){cm=1;cy++;}}}
-function selectMonth(m,y){state.selM=m;state.selY=y;document.getElementById('daysMonthLabel').textContent=PM[m-1]+' '+P(y);renderDays(m,y);document.getElementById('monthTrack').style.transform='translateX(100%)';}
-function backToMonths(){document.getElementById('monthTrack').style.transform='translateX(0)';}
-function isDisabled(d,m,y){if(y<TODAY.y)return true;if(y===TODAY.y&&m<TODAY.m)return true;if(y===TODAY.y&&m===TODAY.m&&d<=TODAY.d+1)return true;return false;}
-function renderDays(m,y){const dim=DIM[m-1];const off=getShamsiOffset(m,y);const c=document.getElementById('calDays');c.innerHTML='';for(let i=0;i<off;i++){const e=document.createElement('div');e.className='cal-day empty';c.appendChild(e);}for(let d=1;d<=dim;d++){const cell=document.createElement('div');const dis=isDisabled(d,m,y);const sel=state.selD===d&&state.selM===m&&state.selY===y;const isT=(d===TODAY.d&&m===TODAY.m&&y===TODAY.y);let cls='cal-day';if(dis)cls+=' disabled';if(sel)cls+=' selected';if(isT&&!sel)cls+=' today-mark';cell.className=cls;cell.textContent=P(d);if(!dis)cell.onclick=()=>selDate(d,m,y);c.appendChild(cell);}}
-function selDate(d,m,y){state.selD=d;state.dateText=P(d)+' '+PM[m-1]+' '+P(y);renderDays(m,y);chk2();}
-function buildPaxCards(){const row=document.getElementById('paxCardsRow');row.innerHTML='';for(let i=1;i<=4;i++){const card=document.createElement('div');card.className='pax-num-card'+(i===state.passengers?' selected':'');card.innerHTML=`<div class="pax-num-card-n">${P(i)}</div><div class="pax-num-card-lbl">نفر</div>`;card.onclick=()=>selectPax(i);row.appendChild(card);}}
-function selectPax(n){state.passengers=n;document.querySelectorAll('.pax-num-card').forEach((c,i)=>c.classList.toggle('selected',i+1===n));chk2();}
-function chk2(){document.getElementById('nextBtn2').disabled=!state.selD;}
-
-// ══ FLOW ══
-function gfToggle(n){const el=document.getElementById('gfStep'+n);if(el.classList.contains('locked')){state.lockedPrevStep=n-1>=2?n-1:null;showLockedModal(state.lockedPrevStep);return;}el.classList.toggle('active');}
-function activateStep(n){const el=document.getElementById('gfStep'+n);el.classList.remove('locked');el.classList.add('active');document.getElementById('gfStatus'+n).textContent='در حال انجام';document.getElementById('gfStatus'+n).className='gf-status pending';scrollToStep(el,350);}
-function doneStep(n,sub){const el=document.getElementById('gfStep'+n);el.classList.remove('active');el.classList.add('done');document.getElementById('gfStatus'+n).textContent='✓ تکمیل';document.getElementById('gfStatus'+n).className='gf-status done-st';if(sub&&document.getElementById('gfSub'+n))document.getElementById('gfSub'+n).textContent=sub;}
-
-// ══ STEP 5 VALIDATION ══
-// Returns list of non-transit cities missing a hotel selection
-function getMissingHotels(){
-  return state.cities.filter(key=>{
-    const d=state.cityData[key];
-    if(!d)return true;
-    if(d.transit)return false; // عبوری نیازی به هتل ندارد
-    return d.hotel===null||d.hotel===undefined;
-  });
+function openBottomSheet(){
+  // Build step 1 UI first
+  buildMonthGrid();
+  buildPaxCards();
+  document.getElementById('selectedCityDisplay').textContent=CITY_LABEL[state.origin]||state.origin||'—';
+  // Open
+  document.body.classList.add('sheet-open');
+  document.getElementById('bsOverlay').classList.add('open');
+  document.getElementById('bsSheet').classList.add('open');
+  bsGoToStep(1);
+}
+function closeBottomSheet(){
+  document.body.classList.remove('sheet-open');
+  document.getElementById('bsOverlay').classList.remove('open');
+  document.getElementById('bsSheet').classList.remove('open');
+}
+function bsOverlayClick(e){
+  if(e.target===document.getElementById('bsOverlay'))closeBottomSheet();
 }
 
-function completeStep(n){
-  if(n===2){
-    doneStep(2,state.dateText+' — '+P(state.passengers)+' نفر — '+(CITY_LABEL[state.origin]||state.origin));
-    document.getElementById('hspd2').textContent='✓';
-    document.getElementById('hspd2').className='hsp-dot done';
-    document.getElementById('hspline2').className='hsp-line done-line';
-    document.getElementById('hspd3').className='hsp-dot active';
-    activateStep(3);
+function bsGoToStep(n){
+  bsCurrentStep=n;
+  // panels
+  for(let i=1;i<=BS_TOTAL;i++){
+    const p=document.getElementById('bsPanel'+i);
+    if(p)p.classList.toggle('active',i===n);
   }
-  if(n===3){
-    let sub=state.tripType==='air'?'✈️ هوایی':state.tripType==='land'?'🚌 زمینی':'✈️+🚌 ترکیبی';
-    doneStep(3,sub);
-    document.getElementById('hspd3').textContent='✓';
-    document.getElementById('hspd3').className='hsp-dot done';
-    document.getElementById('hspline3').className='hsp-line done-line';
-    document.getElementById('hspd4').className='hsp-dot active';
-    activateStep(4);
+  // dots & lines
+  const labels=['','تاریخ','نوع','مقاصد','اقامت','تأیید'];
+  for(let i=1;i<=BS_TOTAL;i++){
+    const dot=document.getElementById('bsDot'+i);
+    const lbl=document.getElementById('bsLbl'+i);
+    if(dot){
+      if(i<n){dot.className='bss-dot done';dot.textContent='✓';}
+      else if(i===n){dot.className='bss-dot active';dot.textContent=String(i);}
+      else{dot.className='bss-dot pending';dot.textContent=String(i);}
+    }
+    if(lbl){
+      lbl.className='bsl-item'+(i<n?' done':i===n?' active':' pending');
+    }
   }
-  if(n===4){
-    doneStep(4,state.cities.map(k=>CITY_META[k].name).join(' → '));
-    document.getElementById('hspd4').textContent='✓';
-    document.getElementById('hspd4').className='hsp-dot done';
-    document.getElementById('hspline4').className='hsp-line done-line';
-    document.getElementById('hspd5').className='hsp-dot active';
-    buildCityConfigs();
-    activateStep(5);
+  for(let i=1;i<BS_TOTAL;i++){
+    const line=document.getElementById('bsLine'+i);
+    if(line)line.className='bss-line'+(i<n?' done':'');
   }
-  if(n===5){
-    // اعتبارسنجی: فقط شهرهای اقامتی باید هتل داشته باشند
+  // header sub
+  document.getElementById('bsHeaderSub').textContent='مرحله '+P(n)+' از ۵ — '+labels[n];
+  // footer
+  document.getElementById('bsBackBtn').style.display=n>1?'':'none';
+  // Scroll top
+  const body=document.getElementById('bsBody');
+  if(body)body.scrollTop=0;
+  // Special setup
+  if(n===4)buildCityConfigs();
+  if(n===5)buildStep5Content();
+}
+
+function bsGoNext(){
+  if(bsCurrentStep===1){
+    if(!state.selD){
+      const a=document.getElementById('bsAlert1');
+      a.classList.add('show');
+      return;
+    }
+    document.getElementById('bsAlert1').classList.remove('show');
+    bsGoToStep(2);
+  } else if(bsCurrentStep===2){
+    if(!state.tripType){
+      document.getElementById('bsAlert2').classList.add('show');
+      return;
+    }
+    document.getElementById('bsAlert2').classList.remove('show');
+    bsGoToStep(3);
+  } else if(bsCurrentStep===3){
+    if(state.cities.length===0){
+      document.getElementById('bsAlert3').classList.add('show');
+      return;
+    }
+    document.getElementById('bsAlert3').classList.remove('show');
+    bsGoToStep(4);
+  } else if(bsCurrentStep===4){
     const missing=getMissingHotels();
-    const alertEl=document.getElementById('step5Alert');
+    const alertEl=document.getElementById('bsAlert4');
     if(missing.length>0){
       const missingNames=missing.map(k=>CITY_META[k].name).join('، ');
       alertEl.textContent='لطفاً برای شهر(های) اقامتی زیر هتل انتخاب کنید: '+missingNames;
       alertEl.classList.add('show');
-      // اسکرول به اولین شهر ناقص
       const firstEl=document.getElementById('ccd_'+missing[0]);
-      if(firstEl){
-        firstEl.classList.add('open');
-        setTimeout(()=>firstEl.scrollIntoView({behavior:'smooth',block:'center'}),100);
-      }
-      return; // بدون فعال‌سازی مرحله ۶ خارج می‌شویم
+      if(firstEl){firstEl.classList.add('open');setTimeout(()=>firstEl.scrollIntoView({behavior:'smooth',block:'center'}),100);}
+      return;
     }
-    // همه چیز درست است
     alertEl.classList.remove('show');
-    doneStep(5,'اقامت تنظیم شد');
-    buildStep6();
-    // فعال‌سازی و نمایش مرحله ۶
-    const s6=document.getElementById('gfStep6');
-    s6.classList.remove('locked');
-    s6.classList.add('active');
-    document.getElementById('gfStatus6').textContent='در حال انجام';
-    document.getElementById('gfStatus6').className='gf-status pending';
-    scrollToStep(s6,380);
+    bsGoToStep(5);
+  } else if(bsCurrentStep===5){
+    finalRegister();
   }
 }
 
+function bsGoBack(){
+  if(bsCurrentStep>1)bsGoToStep(bsCurrentStep-1);
+}
+
+// Update next btn for step 5 to say "ثبت‌نام"
+function updateStep5Footer(){
+  const btn=document.getElementById('bsNextBtn');
+  if(bsCurrentStep===5){
+    btn.textContent='✦ ثبت‌نام نهایی';
+    btn.className='bs-confirm-btn';
+  } else {
+    btn.textContent='ادامه ←';
+    btn.className='bs-next-btn';
+  }
+}
+// Patch bsGoToStep to also update footer
+const _origGoToStep=bsGoToStep;
+function bsGoToStep(n){
+  _origGoToStep(n);
+  updateStep5Footer();
+}
+
+// ══ NAV MODALS ══
+function openModal(id){document.getElementById('modal-'+id).classList.add('open');}
+function closeModalDirect(id){document.getElementById('modal-'+id).classList.remove('open');}
+function closeModal(id,e){if(e.target===document.getElementById('modal-'+id))closeModalDirect(id);}
+
+// ══ HERO CITY ══
+function heroSelectCity(el){
+  document.querySelectorAll('.origin-card').forEach(c=>c.classList.remove('selected'));
+  document.querySelectorAll('.city-pill-sm').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.origin=el.dataset.city;
+  // Reset flow state when city changes
+  state.selM=null;state.selY=null;state.selD=null;state.dateText=null;
+  state.tripType=null;state.selectedAirport=null;
+  state.cities=[];state.cityData={};
+  state.priceVisible=false;
+  setTimeout(()=>openBottomSheet(),120);
+}
+function heroSelectCityPill(el){
+  document.querySelectorAll('.origin-card').forEach(c=>c.classList.remove('selected'));
+  document.querySelectorAll('.city-pill-sm').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.origin=el.dataset.city;
+  state.selM=null;state.selY=null;state.selD=null;state.dateText=null;
+  state.tripType=null;state.selectedAirport=null;
+  state.cities=[];state.cityData={};
+  state.priceVisible=false;
+  setTimeout(()=>openBottomSheet(),120);
+}
+
+// ══ CALENDAR ══
+function buildMonthGrid(){
+  const grid=document.getElementById('monthsGrid');
+  grid.innerHTML='';
+  let cy=TODAY.y,cm=TODAY.m;
+  for(let i=0;i<6;i++){
+    const m=cm,y=cy;
+    const card=document.createElement('div');
+    card.className='month-card'+(state.selM===m&&state.selY===y?' selected':'');
+    card.innerHTML=`<div class="month-card-name">${PM[m-1]}</div><div class="month-card-year">${P(y)}</div>`;
+    card.onclick=()=>selectMonth(m,y);
+    grid.appendChild(card);
+    cm++;if(cm>12){cm=1;cy++;}
+  }
+}
+function selectMonth(m,y){
+  state.selM=m;state.selY=y;
+  document.getElementById('daysMonthLabel').textContent=PM[m-1]+' '+P(y);
+  renderDays(m,y);
+  document.getElementById('monthTrack').style.transform='translateX(100%)';
+}
+function backToMonths(){document.getElementById('monthTrack').style.transform='translateX(0)';}
+function isDisabled(d,m,y){
+  if(y<TODAY.y)return true;
+  if(y===TODAY.y&&m<TODAY.m)return true;
+  if(y===TODAY.y&&m===TODAY.m&&d<=TODAY.d+1)return true;
+  return false;
+}
+function renderDays(m,y){
+  const dim=DIM[m-1];const off=getShamsiOffset(m,y);
+  const c=document.getElementById('calDays');c.innerHTML='';
+  for(let i=0;i<off;i++){const e=document.createElement('div');e.className='cal-day empty';c.appendChild(e);}
+  for(let d=1;d<=dim;d++){
+    const cell=document.createElement('div');
+    const dis=isDisabled(d,m,y);
+    const sel=state.selD===d&&state.selM===m&&state.selY===y;
+    const isT=(d===TODAY.d&&m===TODAY.m&&y===TODAY.y);
+    let cls='cal-day';
+    if(dis)cls+=' disabled';
+    if(sel)cls+=' selected';
+    if(isT&&!sel)cls+=' today-mark';
+    cell.className=cls;cell.textContent=P(d);
+    if(!dis)cell.onclick=()=>selDate(d,m,y);
+    c.appendChild(cell);
+  }
+}
+function selDate(d,m,y){
+  state.selD=d;state.dateText=P(d)+' '+PM[m-1]+' '+P(y);
+  renderDays(m,y);
+  document.getElementById('bsAlert1').classList.remove('show');
+}
+function buildPaxCards(){
+  const row=document.getElementById('paxCardsRow');
+  row.innerHTML='';
+  for(let i=1;i<=4;i++){
+    const card=document.createElement('div');
+    card.className='pax-num-card'+(i===state.passengers?' selected':'');
+    card.innerHTML=`<div class="pax-num-card-n">${P(i)}</div><div class="pax-num-card-lbl">نفر</div>`;
+    card.onclick=()=>selectPax(i);
+    row.appendChild(card);
+  }
+}
+function selectPax(n){
+  state.passengers=n;
+  document.querySelectorAll('.pax-num-card').forEach((c,i)=>c.classList.toggle('selected',i+1===n));
+}
+
 // ══ TRIP TYPE ══
-function selectType(t){state.tripType=t;['typeAir','typeLand','typeMixed'].forEach(id=>document.getElementById(id).classList.remove('selected'));const map={air:'typeAir',land:'typeLand',mixed:'typeMixed'};document.getElementById(map[t]).classList.add('selected');document.getElementById('nextBtn3').disabled=true;const awb=document.getElementById('airportWarningBox');if(t==='air'||t==='mixed'){if(AIR_CITIES.includes(state.origin)){state.selectedAirport=DIRECT_AIRPORTS[state.origin];awb.classList.remove('show');document.getElementById('nextBtn3').disabled=false;}else{awb.classList.add('show');document.getElementById('awbBody').textContent='پروازها از فرودگاه‌های تهران، مشهد و اصفهان. آیا امکان حضور دارید؟';document.getElementById('awbStep1').style.display='block';document.getElementById('awbStep2').style.display='none';}}else{awb.classList.remove('show');state.selectedAirport=null;document.getElementById('nextBtn3').disabled=false;}}
-function airportYes(){document.getElementById('awbStep1').style.display='none';document.getElementById('awbStep2').style.display='block';document.getElementById('awbBody').textContent='کدام فرودگاه را انتخاب می‌کنید؟';renderAirports(ALL_AIRPORTS);}
-function airportNo(){document.getElementById('airportWarningBox').classList.remove('show');state.tripType=null;['typeAir','typeLand','typeMixed'].forEach(id=>document.getElementById(id).classList.remove('selected'));document.getElementById('nextBtn3').disabled=true;}
-function renderAirports(list){const c=document.getElementById('awbAirportList');c.innerHTML='';list.forEach(ap=>{const b=document.createElement('div');b.className='awb-airport-btn';b.id='apbtn_'+ap.code;b.innerHTML=`<div class="airport-icon-box">✈</div><div><div style="font-weight:700">${ap.name}</div><div style="font-size:10px;opacity:.5;margin-top:1px">${ap.city} — ${ap.code}</div></div>`;b.onclick=()=>{state.selectedAirport=ap;document.querySelectorAll('.awb-airport-btn').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');document.getElementById('nextBtn3').disabled=false;};c.appendChild(b);});}
+function selectType(t){
+  state.tripType=t;
+  ['typeAir','typeLand','typeMixed'].forEach(id=>document.getElementById(id).classList.remove('selected'));
+  const map={air:'typeAir',land:'typeLand',mixed:'typeMixed'};
+  document.getElementById(map[t]).classList.add('selected');
+  document.getElementById('bsAlert2').classList.remove('show');
+  const awb=document.getElementById('airportWarningBox');
+  if(t==='air'||t==='mixed'){
+    if(AIR_CITIES.includes(state.origin)){
+      state.selectedAirport=DIRECT_AIRPORTS[state.origin];
+      awb.classList.remove('show');
+    } else {
+      awb.classList.add('show');
+      document.getElementById('awbBody').textContent='پروازها از فرودگاه‌های تهران، مشهد و اصفهان. آیا امکان حضور دارید؟';
+      document.getElementById('awbStep1').style.display='block';
+      document.getElementById('awbStep2').style.display='none';
+    }
+  } else {
+    awb.classList.remove('show');
+    state.selectedAirport=null;
+  }
+}
+function airportYes(){
+  document.getElementById('awbStep1').style.display='none';
+  document.getElementById('awbStep2').style.display='block';
+  document.getElementById('awbBody').textContent='کدام فرودگاه را انتخاب می‌کنید؟';
+  renderAirports(ALL_AIRPORTS);
+}
+function airportNo(){
+  document.getElementById('airportWarningBox').classList.remove('show');
+  state.tripType=null;
+  ['typeAir','typeLand','typeMixed'].forEach(id=>document.getElementById(id).classList.remove('selected'));
+}
+function renderAirports(list){
+  const c=document.getElementById('awbAirportList');c.innerHTML='';
+  list.forEach(ap=>{
+    const b=document.createElement('div');
+    b.className='awb-airport-btn';b.id='apbtn_'+ap.code;
+    b.innerHTML=`<div class="airport-icon-box">✈</div><div><div style="font-weight:700">${ap.name}</div><div style="font-size:10px;opacity:.5;margin-top:1px">${ap.city} — ${ap.code}</div></div>`;
+    b.onclick=()=>{
+      state.selectedAirport=ap;
+      document.querySelectorAll('.awb-airport-btn').forEach(x=>x.classList.remove('selected'));
+      b.classList.add('selected');
+    };
+    c.appendChild(b);
+  });
+}
 
 // ══ CITIES ══
-function toggleCity(key){const idx=state.cities.indexOf(key);if(idx>-1){state.cities.splice(idx,1);delete state.cityData[key];getCityEl(key).classList.remove('selected');}else{state.cities.push(key);state.cityData[key]={nights:3,transit:false,hotel:null,food:true};getCityEl(key).classList.add('selected');}refreshOrders();document.getElementById('nextBtn4').disabled=state.cities.length===0;updateRoutePreview();}
+function toggleCity(key){
+  const idx=state.cities.indexOf(key);
+  if(idx>-1){state.cities.splice(idx,1);delete state.cityData[key];getCityEl(key).classList.remove('selected');}
+  else{state.cities.push(key);state.cityData[key]={nights:3,transit:false,hotel:null,food:true};getCityEl(key).classList.add('selected');}
+  refreshOrders();
+  updateRoutePreview();
+  if(state.cities.length>0)document.getElementById('bsAlert3').classList.remove('show');
+}
 function getCityEl(key){return document.getElementById({karbala:'cityKarbala',najaf:'cityNajaf',kadh_sam:'cityKadhSam'}[key]);}
-function refreshOrders(){[{key:'karbala',id:'orderKarbala'},{key:'najaf',id:'orderNajaf'},{key:'kadh_sam',id:'orderKadhSam'}].forEach(({key,id})=>{const pos=state.cities.indexOf(key);document.getElementById(id).textContent=pos>-1?P(pos+1):'';});}
-function updateRoutePreview(){const el=document.getElementById('cityRoutePreview');if(!state.cities.length){el.classList.remove('show');return;}el.classList.add('show');el.innerHTML='<strong>مسیر:</strong> '+state.cities.map(k=>CITY_META[k].name).join(' ← ');}
+function refreshOrders(){
+  [{key:'karbala',id:'orderKarbala'},{key:'najaf',id:'orderNajaf'},{key:'kadh_sam',id:'orderKadhSam'}].forEach(({key,id})=>{
+    const pos=state.cities.indexOf(key);
+    document.getElementById(id).textContent=pos>-1?P(pos+1):'';
+  });
+}
+function updateRoutePreview(){
+  const el=document.getElementById('cityRoutePreview');
+  if(!state.cities.length){el.classList.remove('show');return;}
+  el.classList.add('show');
+  el.innerHTML='<strong>مسیر:</strong> '+state.cities.map(k=>CITY_META[k].name).join(' ← ');
+}
+
+// ══ MISSING HOTELS ══
+function getMissingHotels(){
+  return state.cities.filter(key=>{
+    const d=state.cityData[key];
+    if(!d)return true;
+    if(d.transit)return false;
+    return d.hotel===null||d.hotel===undefined;
+  });
+}
 
 // ══ CITY CONFIGS ══
 const GRADE_INFO={alef:{label:'درجه الف — لوکس',dots:5},be:{label:'درجه ب — متوسط',dots:3},jim:{label:'درجه ج — اقتصادی',dots:2}};
@@ -1270,10 +1633,8 @@ const CITY_SVG={karbala:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--gold
 function buildCityConfigs(){
   const container=document.getElementById('cityConfigs');
   container.innerHTML='';
-  // پاک کردن alert قبلی
-  const alertEl=document.getElementById('step5Alert');
+  const alertEl=document.getElementById('bsAlert4');
   if(alertEl)alertEl.classList.remove('show');
-  
   state.cities.forEach((key,idx)=>{
     const meta=CITY_META[key];
     const data=state.cityData[key];
@@ -1303,10 +1664,7 @@ function buildCityConfigs(){
           </div>
           <div class="transit-row" onclick="togTransit('${key}')">
             <div class="transit-check-box" id="tb_${key}"></div>
-            <div>
-              <div class="transit-label">عبوری (بدون هتل)</div>
-              <div class="transit-desc">فقط عبور — نیازی به انتخاب هتل نیست</div>
-            </div>
+            <div><div class="transit-label">عبوری (بدون هتل)</div><div class="transit-desc">فقط عبور — نیازی به انتخاب هتل نیست</div></div>
           </div>
           <div id="hotelSec_${key}" class="hotel-grade-section visible">
             <div class="section-label">درجه و هتل</div>
@@ -1327,56 +1685,34 @@ function buildCityConfigs(){
             </div>
           </div>
           <div class="food-toggle-wrap" id="fw_${key}">
-            <div>
-              <div class="food-toggle-label">وعده غذایی</div>
-              <div class="food-toggle-sub" id="fs_${key}">شامل وعده‌های غذایی</div>
-            </div>
-            <label class="toggle-switch">
-              <input type="checkbox" checked onchange="setFood('${key}',this.checked)"/>
-              <div class="toggle-track"></div>
-            </label>
+            <div><div class="food-toggle-label">وعده غذایی</div><div class="food-toggle-sub" id="fs_${key}">شامل وعده‌های غذایی</div></div>
+            <label class="toggle-switch"><input type="checkbox" checked onchange="setFood('${key}',this.checked)"/><div class="toggle-track"></div></label>
           </div>
         </div>
       </div>`;
     container.appendChild(el);
   });
 }
-
 function toggleCityDrawer(key){document.getElementById('ccd_'+key).classList.toggle('open');}
-function chgNights(key,d){const data=state.cityData[key];data.nights=Math.max(1,Math.min(14,data.nights+d));document.getElementById('nv_'+key).textContent=P(data.nights);if(state.priceVisible)refreshPriceDisplay();}
-
+function chgNights(key,d){const data=state.cityData[key];data.nights=Math.max(1,Math.min(14,data.nights+d));document.getElementById('nv_'+key).textContent=P(data.nights);}
 function togTransit(key){
-  const d=state.cityData[key];
-  d.transit=!d.transit;
+  const d=state.cityData[key];d.transit=!d.transit;
   document.getElementById('tb_'+key).classList.toggle('checked',d.transit);
   const hs=document.getElementById('hotelSec_'+key);
   const fw=document.getElementById('fw_'+key);
   const nr=document.getElementById('nightsRow_'+key);
   const st=document.getElementById('ccs_'+key);
   if(d.transit){
-    hs.classList.remove('visible');
-    fw.style.display='none';
-    nr.style.opacity='.35';
-    nr.style.pointerEvents='none';
-    // شهر عبوری نیازی به هتل ندارد — وضعیت را به عنوان تکمیل نشان بده
-    st.textContent='✓ عبوری';
-    st.className='city-config-status transit';
-    // پاک کردن هتل قبلی اگر انتخاب شده بود
+    hs.classList.remove('visible');fw.style.display='none';
+    nr.style.opacity='.35';nr.style.pointerEvents='none';
+    st.textContent='✓ عبوری';st.className='city-config-status transit';
     d.hotel=null;
   } else {
-    hs.classList.add('visible');
-    fw.style.display='';
-    nr.style.opacity='';
-    nr.style.pointerEvents='';
-    // برگشت به حالت نیاز به هتل
-    if(d.hotel===null||d.hotel===undefined){
-      st.textContent='در حال تنظیم';
-      st.className='city-config-status';
-    }
+    hs.classList.add('visible');fw.style.display='';
+    nr.style.opacity='';nr.style.pointerEvents='';
+    if(d.hotel===null||d.hotel===undefined){st.textContent='در حال تنظیم';st.className='city-config-status';}
   }
-  if(state.priceVisible)refreshPriceDisplay();
 }
-
 function togGradeItem(key,grade){
   const gi=document.getElementById('gi_'+key+'_'+grade);
   const was=gi.classList.contains('open');
@@ -1388,8 +1724,7 @@ function togGradeItem(key,grade){
       HOTEL_DATA[key].filter(h=>h.cat===grade).forEach(h=>{
         const gIdx=HOTEL_DATA[key].indexOf(h);
         const card=document.createElement('div');
-        card.className='hotel-card';
-        card.id='hc_'+key+'_'+gIdx;
+        card.className='hotel-card';card.id='hc_'+key+'_'+gIdx;
         card.innerHTML=`${miniDots(h.stars)}<div class="hotel-info"><div class="hotel-name">${h.name}</div><div class="hotel-dist">📍 ${h.dist}</div></div><button class="hotel-select-btn">انتخاب</button>`;
         card.onclick=()=>selHotel(key,gIdx);
         inner.appendChild(card);
@@ -1397,7 +1732,6 @@ function togGradeItem(key,grade){
     }
   }
 }
-
 function selHotel(key,idx){
   state.cityData[key].hotel=idx;
   document.querySelectorAll('[id^="hc_'+key+'_"]').forEach(c=>{
@@ -1406,14 +1740,9 @@ function selHotel(key,idx){
     c.querySelector('.hotel-select-btn').textContent=ci===idx?'انتخاب شد ✓':'انتخاب';
   });
   const st=document.getElementById('ccs_'+key);
-  st.textContent='✓ تنظیم شد';
-  st.className='city-config-status done';
-  // پاک کردن alert اگر این شهر آخرین مورد ناقص بود
+  st.textContent='✓ تنظیم شد';st.className='city-config-status done';
   const missing=getMissingHotels();
-  if(missing.length===0){
-    const alertEl=document.getElementById('step5Alert');
-    if(alertEl)alertEl.classList.remove('show');
-  }
+  if(missing.length===0){const alertEl=document.getElementById('bsAlert4');if(alertEl)alertEl.classList.remove('show');}
   document.getElementById('ccd_'+key).classList.remove('open');
   const ci=state.cities.indexOf(key);
   if(ci<state.cities.length-1){
@@ -1421,10 +1750,8 @@ function selHotel(key,idx){
     const nd=document.getElementById('ccd_'+nk);
     if(nd)setTimeout(()=>{nd.classList.add('open');nd.scrollIntoView({behavior:'smooth',block:'nearest'});},300);
   }
-  if(state.priceVisible)refreshPriceDisplay();
 }
-
-function setFood(key,val){state.cityData[key].food=val;if(state.priceVisible)refreshPriceDisplay();}
+function setFood(key,val){state.cityData[key].food=val;}
 
 // ══ PRICE ENGINE ══
 function calcPrice(){
@@ -1444,10 +1771,10 @@ function calcPrice(){
   return{transport,accommodation,services,simTotal,dinarsTotal,perPerson:Math.round(perPerson),tripTotal:Math.round(perPerson*state.passengers)};
 }
 
-// ══ STEP 6 BUILD ══
-function buildStep6(){
+// ══ STEP 5 CONTENT ══
+function buildStep5Content(){
   state.priceVisible=false;
-  const cnt=document.getElementById('step6Content');
+  const cnt=document.getElementById('step5Content');
   let totalNights=0;
   state.cities.forEach(k=>{if(!state.cityData[k].transit)totalNights+=state.cityData[k].nights;});
   const typeLabel=state.tripType==='air'?'✈️ هوایی':state.tripType==='land'?'🚌 زمینی':'✈️+🚌 ترکیبی';
@@ -1456,13 +1783,9 @@ function buildStep6(){
     if(i<state.cities.length-1)c+=`<div class="smc-route-arrow">←</div>`;
     return c;
   }).join('');
-
   cnt.innerHTML=`
   <div class="summary-master-card">
-    <div class="smc-header">
-      <div class="smc-header-title">🕌 خلاصه سفر شما</div>
-      <div class="smc-header-badge">مرور نهایی</div>
-    </div>
+    <div class="smc-header"><div class="smc-header-title">🕌 خلاصه سفر</div><div class="smc-header-badge">مرور نهایی</div></div>
     <div class="smc-body">
       <div class="smc-info-grid">
         <div class="smc-info-cell"><div class="smc-info-label">تاریخ اعزام</div><div class="smc-info-val em">${state.dateText}</div></div>
@@ -1489,27 +1812,23 @@ function buildStep6(){
       </div>
     </div>
   </div>
-
   <div class="summary-master-card">
-    <div class="smc-header">
-      <div class="smc-header-title">⚙️ خدمات اختیاری</div>
-      <div class="smc-header-badge">انتخابی</div>
-    </div>
+    <div class="smc-header"><div class="smc-header-title">⚙️ خدمات اختیاری</div><div class="smc-header-badge">انتخابی</div></div>
     <div class="smc-body" style="padding-bottom:8px;">
       <div class="smc-opt-row">
         <div class="smc-opt-head">
           <div class="smc-opt-icon">📱</div>
-          <div class="smc-opt-info"><div class="smc-opt-name">سیم‌کارت عراقی</div><div class="smc-opt-sub">۴۵,۰۰۰ تومان / نفر — تحویل قبل از سفر</div></div>
+          <div class="smc-opt-info"><div class="smc-opt-name">سیم‌کارت عراقی</div><div class="smc-opt-sub">۴۵,۰۰۰ تومان / نفر</div></div>
           <label class="toggle-switch"><input type="checkbox" id="simToggle" onchange="toggleSimCard(this.checked)"/><div class="toggle-track"></div></label>
         </div>
         <div class="smc-opt-body" id="simCardBody">
-          <div class="smc-opt-note">سیم‌کارت عراقی یک روز قبل از سفر تحویل داده می‌شود. مجموع: ${P(state.passengers)} نفر = ${fmt(45000*state.passengers)} تومان</div>
+          <div class="smc-opt-note">مجموع: ${P(state.passengers)} نفر = ${fmt(45000*state.passengers)} تومان</div>
         </div>
       </div>
       <div class="smc-opt-row">
         <div class="smc-opt-head">
           <div class="smc-opt-icon">💵</div>
-          <div class="smc-opt-info"><div class="smc-opt-name">ارز دینار عراقی</div><div class="smc-opt-sub">نرخ رسمی روز — هر هزار دینار: ۳۷,۰۰۰ تومان</div></div>
+          <div class="smc-opt-info"><div class="smc-opt-name">ارز دینار عراقی</div><div class="smc-opt-sub">نرخ رسمی — هر ۱۰۰۰ دینار: ۳۷,۰۰۰ تومان</div></div>
           <label class="toggle-switch"><input type="checkbox" id="dinarsToggle" onchange="toggleDinars(this.checked)"/><div class="toggle-track"></div></label>
         </div>
         <div class="smc-opt-body" id="dinarsBody">
@@ -1526,9 +1845,7 @@ function buildStep6(){
       </div>
     </div>
   </div>
-
   <button class="reveal-btn" id="revealBtn" onclick="revealPrice()">✦ مشاهده هزینه تخمینی سفر</button>
-
   <div class="price-card" id="priceCard">
     <div class="price-breakdown" id="priceBreakdown">
       <div class="price-breakdown-title">جزئیات هزینه — هر نفر</div>
@@ -1537,14 +1854,9 @@ function buildStep6(){
     <div class="price-grand-total">
       <div class="pgt-label">جمع کل — <span id="pgtPax"></span> نفر</div>
       <div class="pgt-amount" id="pgtAmount">—</div>
-      <div class="pgt-sub">تمام هزینه‌ها از درب منزل تا بازگشت</div>
-    </div>
-    <div class="price-actions">
-      <button class="price-confirm-btn" onclick="showPassengerForms()">✦ تأیید و ثبت اطلاعات زائرین</button>
-      <button class="price-edit-btn" onclick="editTrip()">✏️ ویرایش</button>
+      <div class="pgt-sub">از درب منزل تا بازگشت</div>
     </div>
   </div>
-
   <div class="passenger-form-box" id="passengerFormBox">
     <div class="pfb-title">📋 اطلاعات زائرین</div>
     <div class="pfb-section">
@@ -1554,13 +1866,13 @@ function buildStep6(){
         <div class="pfb-field"><label class="pfb-label">نام خانوادگی *</label><input class="pfb-input" id="pfbLastName" type="text" placeholder="نام خانوادگی"/></div>
         <div class="pfb-field"><label class="pfb-label">کد ملی *</label><input class="pfb-input" id="pfbNational" type="text" placeholder="کد ملی" dir="ltr"/></div>
         <div class="pfb-field"><label class="pfb-label">شماره تماس *</label><input class="pfb-input" id="pfbPhone" type="tel" placeholder="۰۹XXXXXXXXX" dir="ltr"/></div>
-        <div class="pfb-field"><label class="pfb-label">تاریخ تولد *</label><input class="pfb-input" id="pfbBirth" type="text" placeholder="مثال: ۱۳۶۰/۰۳/۱۵"/></div>
-        <div class="pfb-field"><label class="pfb-label">جنسیت *</label><select class="pfb-input pfb-select" id="pfbGender"><option value="">انتخاب کنید</option><option value="m">آقا</option><option value="f">خانم</option></select></div>
+        <div class="pfb-field"><label class="pfb-label">تاریخ تولد</label><input class="pfb-input" id="pfbBirth" type="text" placeholder="مثال: ۱۳۶۰/۰۳/۱۵"/></div>
+        <div class="pfb-field"><label class="pfb-label">جنسیت</label><select class="pfb-input pfb-select" id="pfbGender"><option value="">انتخاب کنید</option><option value="m">آقا</option><option value="f">خانم</option></select></div>
       </div>
     </div>
     <div class="passengers-accordion" id="passengersAccordion"></div>
-    <button class="add-pax-btn" id="addPaxBtn" onclick="addPassenger()">+ افزودن زائر جدید</button>
-    <div class="pfb-note">📌 دریافت تصویر گذرنامه یا کارت ملی ضروری است. پس از ثبت‌نام، لینک آپلود مدارک ارسال می‌شود.</div>
+    <button class="add-pax-btn" onclick="addPassenger()">+ افزودن زائر جدید</button>
+    <div class="pfb-note">📌 دریافت تصویر گذرنامه یا کارت ملی ضروری است.</div>
     <div style="margin-top:12px;">
       <div class="agency-toggle-row" onclick="toggleAgency()">
         <div class="agency-check-box" id="agencyCheckBox"></div>
@@ -1573,22 +1885,46 @@ function buildStep6(){
         </div>
       </div>
     </div>
-    <button class="confirm-final-btn" onclick="finalRegister()">✦ ارسال درخواست و ثبت‌نام نهایی</button>
   </div>
   `;
+  // Build passenger forms for extra passengers
+  buildPassengerForms();
 }
 
-function selTransferOpt(opt){state.transferOpt=opt;['door','self'].forEach(o=>{const el=document.getElementById('stopt_'+o);if(el)el.classList.toggle('sel',o===opt);});if(state.priceVisible)refreshPriceDisplay();}
-function toggleSimCard(val){state.simCard=val;const b=document.getElementById('simCardBody');if(b)b.classList.toggle('show',val);if(state.priceVisible)refreshPriceDisplay();}
-function toggleDinars(val){state.dinars=val;const b=document.getElementById('dinarsBody');if(b)b.classList.toggle('show',val);updateDinarsNote();if(state.priceVisible)refreshPriceDisplay();}
-function changeDinars(d){state.dinarsAmt=Math.max(1,Math.min(50,state.dinarsAmt+d));document.getElementById('dinarsVal').textContent=P(state.dinarsAmt);updateDinarsNote();if(state.priceVisible)refreshPriceDisplay();}
-function updateDinarsNote(){const el=document.getElementById('dinarsNote');if(el)el.textContent=P(state.dinarsAmt)+' هزار دینار — معادل تقریبی: '+fmt(state.dinarsAmt*37000)+' تومان';}
-
+function selTransferOpt(opt){
+  state.transferOpt=opt;
+  ['door','self'].forEach(o=>{const el=document.getElementById('stopt_'+o);if(el)el.classList.toggle('sel',o===opt);});
+}
+function toggleSimCard(val){
+  state.simCard=val;
+  const b=document.getElementById('simCardBody');
+  if(b)b.classList.toggle('show',val);
+}
+function toggleDinars(val){
+  state.dinars=val;
+  const b=document.getElementById('dinarsBody');
+  if(b)b.classList.toggle('show',val);
+  updateDinarsNote();
+}
+function changeDinars(d){
+  state.dinarsAmt=Math.max(1,Math.min(50,state.dinarsAmt+d));
+  document.getElementById('dinarsVal').textContent=P(state.dinarsAmt);
+  updateDinarsNote();
+}
+function updateDinarsNote(){
+  const el=document.getElementById('dinarsNote');
+  if(el)el.textContent=P(state.dinarsAmt)+' هزار دینار — معادل تقریبی: '+fmt(state.dinarsAmt*37000)+' تومان';
+}
 function revealPrice(){
   document.getElementById('revealBtn').style.display='none';
   document.getElementById('priceCard').classList.add('visible');
   state.priceVisible=true;
   animatePrice();
+  // Show passenger forms
+  setTimeout(()=>{
+    const pfb=document.getElementById('passengerFormBox');
+    if(pfb){pfb.classList.add('show');pfb.scrollIntoView({behavior:'smooth',block:'start'});}
+  },800);
 }
 function animatePrice(){
   const p=calcPrice();state.totalPrice=p.tripTotal;
@@ -1598,81 +1934,217 @@ function animatePrice(){
     {label:'🏨 اقامت',val:p.accommodation},
     {label:'🍽 خدمات و راهنما',val:p.services},
   ];
-  if(p.simTotal>0)lines.push({label:`📱 سیم‌کارت (${P(state.passengers)} نفر)`,val:p.simTotal/state.passengers,note:'جداگانه'});
-  if(p.dinarsTotal>0)lines.push({label:`💵 دینار (${P(state.dinarsAmt)} هزار)`,val:p.dinarsTotal,note:'جداگانه'});
-  const totalLine={label:`جمع کل هر نفر`,val:p.perPerson};
-  const linesHTML=lines.map(l=>`<div class="price-line"><span class="pl-label">${l.label}${l.note?` <span style="font-size:9px;opacity:.6">(${l.note})</span>`:''}</span><span class="pl-val">${fmt(l.val)} تومان</span></div>`).join('');
+  if(p.simTotal>0)lines.push({label:`📱 سیم‌کارت`,val:p.simTotal/state.passengers});
+  if(p.dinarsTotal>0)lines.push({label:`💵 دینار`,val:p.dinarsTotal});
+  const totalLine={label:'جمع کل هر نفر',val:p.perPerson};
+  const linesHTML=lines.map(l=>`<div class="price-line"><span class="pl-label">${l.label}</span><span class="pl-val">${fmt(l.val)} تومان</span></div>`).join('');
   const totalHTML=`<div class="price-line total-line"><span class="pl-label">${totalLine.label}</span><span class="pl-val">${fmt(totalLine.val)} تومان</span></div>`;
   document.getElementById('priceLines').innerHTML=linesHTML+totalHTML;
-  const el=document.getElementById('pgtAmount');const start=Date.now(),dur=1000;
-  (function tick(){const prog=Math.min((Date.now()-start)/dur,1);const ease=1-Math.pow(1-prog,3);el.textContent=fmt(Math.round(p.tripTotal*ease))+' تومان';if(prog<1)requestAnimationFrame(tick);else el.textContent=fmt(p.tripTotal)+' تومان';})();
-}
-function refreshPriceDisplay(){if(!state.priceVisible)return;animatePrice();}
-
-function showPassengerForms(){
-  document.getElementById('passengerFormBox').classList.add('show');
-  buildPassengerForms();
-  setTimeout(()=>document.getElementById('passengerFormBox').scrollIntoView({behavior:'smooth',block:'start'}),200);
-}
-function editTrip(){
-  const s5=document.getElementById('gfStep5');
-  s5.classList.remove('done');
-  s5.classList.add('active');
-  document.getElementById('gfStatus5').textContent='در حال انجام';
-  document.getElementById('gfStatus5').className='gf-status pending';
-  const s6=document.getElementById('gfStep6');
-  s6.classList.remove('active');
-  s6.classList.add('locked');
-  state.priceVisible=false;
-  scrollToStep(s5,100);
+  const el=document.getElementById('pgtAmount');
+  const start=Date.now(),dur=1000;
+  (function tick(){
+    const prog=Math.min((Date.now()-start)/dur,1);
+    const ease=1-Math.pow(1-prog,3);
+    el.textContent=fmt(Math.round(p.tripTotal*ease))+' تومان';
+    if(prog<1)requestAnimationFrame(tick);
+    else el.textContent=fmt(p.tripTotal)+' تومان';
+  })();
 }
 
 // ══ PASSENGER FORMS ══
-function buildPassengerForms(){const acc=document.getElementById('passengersAccordion');acc.innerHTML='';state.extraPaxCount=0;for(let i=2;i<=state.passengers;i++)addPassengerItem(i);}
+function buildPassengerForms(){
+  const acc=document.getElementById('passengersAccordion');
+  if(!acc)return;
+  acc.innerHTML='';
+  state.extraPaxCount=0;
+  for(let i=2;i<=state.passengers;i++)addPassengerItem(i);
+}
 function addPassenger(){state.extraPaxCount++;addPassengerItem(state.passengers+state.extraPaxCount);}
-function addPassengerItem(num){const acc=document.getElementById('passengersAccordion');const item=document.createElement('div');item.className='pax-item';item.id='pax_'+num;item.innerHTML=`<div class="pax-head" onclick="togPax(${num})"><div class="pax-num">${P(num)}</div><div class="pax-label">زائر ${P(num)}</div><div class="pax-status" id="paxStatus_${num}">در انتظار</div><div class="pax-chevron">▼</div></div><div class="pax-body"><div class="pax-inner"><div class="pfb-grid" style="margin-top:6px"><div class="pfb-field"><label class="pfb-label">نام</label><input class="pfb-input" id="p${num}_first" type="text" placeholder="نام" oninput="onPaxInput(${num})"/></div><div class="pfb-field"><label class="pfb-label">نام خانوادگی</label><input class="pfb-input" id="p${num}_last" type="text" placeholder="نام خانوادگی" oninput="onPaxInput(${num})"/></div><div class="pfb-field"><label class="pfb-label">کد ملی</label><input class="pfb-input" type="text" placeholder="کد ملی" dir="ltr"/></div><div class="pfb-field"><label class="pfb-label">تاریخ تولد</label><input class="pfb-input" type="text" placeholder="۱۳۶۵/۰۵/۲۰"/></div><div class="pfb-field"><label class="pfb-label">جنسیت</label><select class="pfb-input pfb-select"><option value="">انتخاب کنید</option><option value="m">آقا</option><option value="f">خانم</option></select></div></div></div></div>`;acc.appendChild(item);setTimeout(()=>{item.classList.add('open');item.scrollIntoView({behavior:'smooth',block:'nearest'});},80);}
+function addPassengerItem(num){
+  const acc=document.getElementById('passengersAccordion');
+  if(!acc)return;
+  const item=document.createElement('div');
+  item.className='pax-item';item.id='pax_'+num;
+  item.innerHTML=`<div class="pax-head" onclick="togPax(${num})"><div class="pax-num">${P(num)}</div><div class="pax-label">زائر ${P(num)}</div><div class="pax-status" id="paxStatus_${num}">در انتظار</div><div class="pax-chevron">▼</div></div><div class="pax-body"><div class="pax-inner"><div class="pfb-grid" style="margin-top:6px"><div class="pfb-field"><label class="pfb-label">نام</label><input class="pfb-input" id="p${num}_first" type="text" placeholder="نام" oninput="onPaxInput(${num})"/></div><div class="pfb-field"><label class="pfb-label">نام خانوادگی</label><input class="pfb-input" id="p${num}_last" type="text" placeholder="نام خانوادگی" oninput="onPaxInput(${num})"/></div><div class="pfb-field"><label class="pfb-label">کد ملی</label><input class="pfb-input" type="text" placeholder="کد ملی" dir="ltr"/></div><div class="pfb-field"><label class="pfb-label">تاریخ تولد</label><input class="pfb-input" type="text" placeholder="۱۳۶۵/۰۵/۲۰"/></div></div></div></div>`;
+  acc.appendChild(item);
+  setTimeout(()=>{item.classList.add('open');},80);
+}
 function togPax(num){const el=document.getElementById('pax_'+num);if(el)el.classList.toggle('open');}
-function onPaxInput(num){const f=document.getElementById('p'+num+'_first')?.value.trim();const l=document.getElementById('p'+num+'_last')?.value.trim();if(f&&l){const st=document.getElementById('paxStatus_'+num);if(st){st.textContent='✓ ثبت شد';st.style.color='var(--em3)';}}}
-function toggleAgency(){state.isAgency=!state.isAgency;document.getElementById('agencyCheckBox').classList.toggle('checked',state.isAgency);document.getElementById('agencyFields').classList.toggle('show',state.isAgency);}
-function finalRegister(){const first=document.getElementById('pfbFirstName')?.value.trim();const last=document.getElementById('pfbLastName')?.value.trim();const phone=document.getElementById('pfbPhone')?.value.trim();const national=document.getElementById('pfbNational')?.value.trim();if(!first||!last||!phone||!national){alert('لطفاً نام، نام خانوادگی، کد ملی و شماره تماس سرپرست را وارد کنید.');return;}const code='AVN-'+Math.random().toString(36).toUpperCase().slice(2,8);document.getElementById('successCode').textContent=code;document.getElementById('successOverlay').classList.add('show');}
+function onPaxInput(num){
+  const f=document.getElementById('p'+num+'_first')?.value.trim();
+  const l=document.getElementById('p'+num+'_last')?.value.trim();
+  if(f&&l){const st=document.getElementById('paxStatus_'+num);if(st){st.textContent='✓ ثبت شد';st.style.color='var(--em3)';}}
+}
+function toggleAgency(){
+  state.isAgency=!state.isAgency;
+  document.getElementById('agencyCheckBox').classList.toggle('checked',state.isAgency);
+  document.getElementById('agencyFields').classList.toggle('show',state.isAgency);
+}
+function finalRegister(){
+  const first=document.getElementById('pfbFirstName')?.value.trim();
+  const last=document.getElementById('pfbLastName')?.value.trim();
+  const phone=document.getElementById('pfbPhone')?.value.trim();
+  const national=document.getElementById('pfbNational')?.value.trim();
+  if(!first||!last||!phone||!national){alert('لطفاً نام، نام خانوادگی، کد ملی و شماره تماس سرپرست را وارد کنید.');return;}
+  const code='AVN-'+Math.random().toString(36).toUpperCase().slice(2,8);
+  document.getElementById('successCode').textContent=code;
+  closeBottomSheet();
+  setTimeout(()=>document.getElementById('successOverlay').classList.add('show'),400);
+}
 function closeSuccess(e){if(e.target.id==='successOverlay')document.getElementById('successOverlay').classList.remove('show');}
 
-// ══ STEPS COLLAPSIBLE ══
-function toggleStepsSection(){const toggle=document.getElementById('stepsToggle');const body=document.getElementById('stepsCollBody');toggle.classList.toggle('open');body.classList.toggle('open');}
-
-// ══ ACCORDION ══
-function togJcard(id){const el=document.getElementById(id);const was=el.classList.contains('open');document.querySelectorAll('.jcard').forEach(c=>c.classList.remove('open'));if(!was)el.classList.add('open');}
-function togFaq(id){const el=document.getElementById(id);const is=el.classList.contains('open');document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open'));if(!is)el.classList.add('open');}
-function toggleCaravanAcc(){const toggle=document.getElementById('caravanToggle');const body=document.getElementById('caravanAccBody');toggle.classList.toggle('open-toggle');body.classList.toggle('open');if(body.classList.contains('open')){buildCvDropdown();cvRenderList();}}
+// ══ COLLAPSIBLE ══
+function toggleStepsSection(){
+  const toggle=document.getElementById('stepsToggle');
+  const body=document.getElementById('stepsCollBody');
+  toggle.classList.toggle('open');
+  body.classList.toggle('open');
+}
+function togJcard(id){
+  const el=document.getElementById(id);
+  const was=el.classList.contains('open');
+  document.querySelectorAll('.jcard').forEach(c=>c.classList.remove('open'));
+  if(!was)el.classList.add('open');
+}
+function togFaq(id){
+  const el=document.getElementById(id);
+  const is=el.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open'));
+  if(!is)el.classList.add('open');
+}
+function toggleCaravanAcc(){
+  const toggle=document.getElementById('caravanToggle');
+  const body=document.getElementById('caravanAccBody');
+  toggle.classList.toggle('open-toggle');
+  body.classList.toggle('open');
+  if(body.classList.contains('open')){buildCvDropdown();cvRenderList();}
+}
 
 // ══ CARAVAN ══
 const CV_CITIES=[{city:'تهران',icon:'🏙',transport:'air'},{city:'مشهد',icon:'🕌',transport:'air'},{city:'اصفهان',icon:'🌉',transport:'air'},{city:'شیراز',icon:'🌸',transport:'land'},{city:'تبریز',icon:'🏔',transport:'land'},{city:'کرج',icon:'🌳',transport:'land'}];
 let cvDropOpen=false;
-function buildCvDropdown(){const scroll=document.getElementById('cvCityDdScroll');scroll.innerHTML='';CV_CITIES.forEach(({city,icon,transport})=>{const item=document.createElement('div');item.className='cv-city-dd-item'+(cvState.city===city?' active':'');item.innerHTML=`<div class="cv-city-dd-item-icon">${icon}</div><div class="cv-city-dd-item-name">${city}</div><div class="cv-city-dd-item-type ${transport}">${transport==='air'?'✈️ هوایی':'🚌 زمینی'}</div><div class="cv-city-dd-item-check">✓</div>`;item.onclick=()=>cvSelectCityFromDd(city,icon,transport);scroll.appendChild(item);});}
-function toggleCvDropdown(){cvDropOpen=!cvDropOpen;const btn=document.getElementById('cvCityDropBtn');const panel=document.getElementById('cvCityDropPanel');btn.classList.toggle('open',cvDropOpen);panel.classList.toggle('open',cvDropOpen);if(cvDropOpen)buildCvDropdown();}
-function cvSelectCityFromDd(city,icon,transport){cvDropOpen=false;document.getElementById('cvCityDropBtn').classList.remove('open');document.getElementById('cvCityDropPanel').classList.remove('open');document.getElementById('cvDdIcon').textContent=icon;document.getElementById('cvDdLabel').textContent=city;const badge=document.getElementById('cvDdBadge');badge.className='cv-city-dd-badge '+(transport==='air'?'air':'land');badge.textContent=transport==='air'?'✈️ هوایی':'🚌 زمینی';cvState.city=city;cvState.openItem=null;cvRenderList();}
-document.addEventListener('click',e=>{if(cvDropOpen&&!e.target.closest('.cv-city-dropdown-wrap')){cvDropOpen=false;document.getElementById('cvCityDropBtn')?.classList.remove('open');document.getElementById('cvCityDropPanel')?.classList.remove('open');}});
+function buildCvDropdown(){
+  const scroll=document.getElementById('cvCityDdScroll');
+  scroll.innerHTML='';
+  CV_CITIES.forEach(({city,icon,transport})=>{
+    const item=document.createElement('div');
+    item.className='cv-city-dd-item'+(cvState.city===city?' active':'');
+    item.innerHTML=`<div class="cv-city-dd-item-icon">${icon}</div><div class="cv-city-dd-item-name">${city}</div><div class="cv-city-dd-item-type ${transport}">${transport==='air'?'✈️ هوایی':'🚌 زمینی'}</div><div class="cv-city-dd-item-check">✓</div>`;
+    item.onclick=()=>cvSelectCityFromDd(city,icon,transport);
+    scroll.appendChild(item);
+  });
+}
+function toggleCvDropdown(){
+  cvDropOpen=!cvDropOpen;
+  const btn=document.getElementById('cvCityDropBtn');
+  const panel=document.getElementById('cvCityDropPanel');
+  btn.classList.toggle('open',cvDropOpen);
+  panel.classList.toggle('open',cvDropOpen);
+  if(cvDropOpen)buildCvDropdown();
+}
+function cvSelectCityFromDd(city,icon,transport){
+  cvDropOpen=false;
+  document.getElementById('cvCityDropBtn').classList.remove('open');
+  document.getElementById('cvCityDropPanel').classList.remove('open');
+  document.getElementById('cvDdIcon').textContent=icon;
+  document.getElementById('cvDdLabel').textContent=city;
+  const badge=document.getElementById('cvDdBadge');
+  badge.className='cv-city-dd-badge '+(transport==='air'?'air':'land');
+  badge.textContent=transport==='air'?'✈️ هوایی':'🚌 زمینی';
+  cvState.city=city;cvState.openItem=null;cvRenderList();
+}
+document.addEventListener('click',e=>{
+  if(cvDropOpen&&!e.target.closest('.cv-city-dropdown-wrap')){
+    cvDropOpen=false;
+    document.getElementById('cvCityDropBtn')?.classList.remove('open');
+    document.getElementById('cvCityDropPanel')?.classList.remove('open');
+  }
+});
 const CV_DATA={'تهران':{3:[{id:1,day:17,type:'land',cap:14,total:40,dur:'۸ روز',route:'کربلا + نجف',price:'۸,۲۰۰,۰۰۰'},{id:2,day:19,type:'land',cap:12,total:40,dur:'۸ روز',route:'کربلا + نجف',price:'۸,۲۰۰,۰۰۰'},{id:3,day:20,type:'air',cap:8,total:30,dur:'۷ روز',route:'کربلا + نجف + کاظمین',price:'۱۴,۵۰۰,۰۰۰'},{id:4,day:22,type:'land',cap:5,total:40,dur:'۱۰ روز',route:'کربلا + نجف + سامرا',price:'۹,۸۰۰,۰۰۰'},{id:5,day:25,type:'air',cap:15,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۳,۸۰۰,۰۰۰'}],4:[{id:8,day:3,type:'air',cap:18,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۳,۸۰۰,۰۰۰'},{id:9,day:8,type:'land',cap:22,total:40,dur:'۸ روز',route:'کربلا + نجف + کاظمین',price:'۸,۹۰۰,۰۰۰'}]},'مشهد':{3:[{id:20,day:18,type:'air',cap:20,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۶,۲۰۰,۰۰۰'},{id:21,day:24,type:'air',cap:11,total:30,dur:'۷ روز',route:'کربلا + نجف + کاظمین',price:'۱۷,۵۰۰,۰۰۰'}],4:[{id:23,day:5,type:'air',cap:24,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۶,۲۰۰,۰۰۰'}]},'اصفهان':{3:[{id:30,day:20,type:'air',cap:22,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۵,۸۰۰,۰۰۰'}],4:[{id:32,day:10,type:'air',cap:19,total:30,dur:'۷ روز',route:'کربلا + نجف + کاظمین',price:'۱۶,۵۰۰,۰۰۰'}]},'شیراز':{3:[{id:40,day:21,type:'land',cap:16,total:36,dur:'۱۰ روز',route:'کربلا + نجف',price:'۹,۶۰۰,۰۰۰'}],4:[{id:42,day:15,type:'land',cap:21,total:36,dur:'۱۰ روز',route:'کربلا + نجف',price:'۹,۶۰۰,۰۰۰'}]},'تبریز':{3:[{id:50,day:23,type:'land',cap:13,total:38,dur:'۹ روز',route:'کربلا + نجف',price:'۸,۸۰۰,۰۰۰'}],4:[{id:51,day:7,type:'land',cap:25,total:38,dur:'۹ روز',route:'کربلا + نجف',price:'۸,۸۰۰,۰۰۰'}]},'کرج':{3:[{id:60,day:19,type:'land',cap:18,total:40,dur:'۸ روز',route:'کربلا + نجف',price:'۸,۰۰۰,۰۰۰'}],4:[{id:62,day:12,type:'land',cap:20,total:40,dur:'۸ روز',route:'کربلا + نجف + کاظمین',price:'۸,۹۰۰,۰۰۰'}]}};
 let cvState={city:'تهران',filterType:'all',openItem:null};
 const cvMonthNums=[3,4,5];
-function cvGetEvents(){const all=[];cvMonthNums.forEach(m=>{const evs=(CV_DATA[cvState.city]||{})[m]||[];evs.forEach(e=>all.push({...e,month:m}));});return all;}
+function cvGetEvents(){
+  const all=[];
+  cvMonthNums.forEach(m=>{const evs=(CV_DATA[cvState.city]||{})[m]||[];evs.forEach(e=>all.push({...e,month:m}));});
+  return all;
+}
 function cvCapCls(cap,total){const p=cap/total;return p>=.38?'hi':p>=.13?'mi':'lo';}
 function cvCapLabel(cap,total){if(cap<=0)return'تکمیل ظرفیت';const p=cap/total;if(p<.13)return P(cap)+' نفر — آخرین فرصت';if(p<.38)return P(cap)+' نفر — محدود';return P(cap)+' صندلی خالی';}
-function cvFilter(type){cvState.filterType=type;document.getElementById('cpAll').className='cv-pill all'+(type!=='all'?' inactive':'');document.getElementById('cpAir').className='cv-pill air-f'+(type!=='air'?' inactive':'');document.getElementById('cpLand').className='cv-pill land-f'+(type!=='land'?' inactive':'');cvRenderList();}
-function cvRenderList(){const events=cvGetEvents();const filtered=cvState.filterType==='all'?events:events.filter(e=>e.type===cvState.filterType);const sorted=[...filtered].sort((a,b)=>a.month!==b.month?a.month-b.month:a.day-b.day);const listEl=document.getElementById('cvList');const emptyEl=document.getElementById('cvEmpty');listEl.innerHTML='';if(!sorted.length){listEl.style.display='none';emptyEl.style.display='block';return;}listEl.style.display='';emptyEl.style.display='none';sorted.forEach(ev=>{const capCls=cvCapCls(ev.cap,ev.total);const capPct=Math.round((ev.cap/ev.total)*100);const isOpen=cvState.openItem===ev.id;const typeIcon=ev.type==='air'?`<svg viewBox="0 0 24 24"><path d="M5 19l5-3 3 2 5-4 4 2" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round"/></svg>`:`<svg viewBox="0 0 24 24"><rect x="2" y="8" width="20" height="10" rx="3" stroke="currentColor" fill="none" stroke-width="1.8"/><rect x="6" y="10" width="3" height="4" rx="1" stroke="currentColor" fill="none" stroke-width="1.3"/><circle cx="7" cy="20" r="2" stroke="currentColor" fill="none" stroke-width="1.5"/><circle cx="17" cy="20" r="2" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>`;const typeLabel=ev.type==='air'?'هوایی':'زمینی';const dateStr=P(ev.day)+' '+PM[ev.month-1];const item=document.createElement('div');item.className='cv-item'+(isOpen?' open':'');item.dataset.id=ev.id;item.innerHTML=`<div class="cv-item-head" onclick="cvToggleItem(${ev.id})"><div class="cv-type ${ev.type}">${typeIcon}${typeLabel}</div><div class="cv-date">${dateStr}</div><div style="display:flex;align-items:center;gap:6px;flex-shrink:0;"><div class="cap-bar-sm"><div class="cap-fill-sm ${capCls}" style="width:${capPct}%"></div></div><span class="cap-txt-sm ${capCls}">${ev.cap<=0?'تکمیل':P(ev.cap)+' نفر'}</span></div><div class="cv-chevron">▼</div></div><div class="cv-body"><div class="cv-booking-card"><div class="cbc-header"><div class="cbc-title">جزئیات کاروان ${dateStr}</div><div class="cbc-type">${typeLabel}</div></div><div class="cbc-grid"><div class="cbc-item"><div class="cbc-label">تاریخ</div><div class="cbc-val">${dateStr}</div></div><div class="cbc-item"><div class="cbc-label">مبدا</div><div class="cbc-val">${cvState.city}</div></div><div class="cbc-item"><div class="cbc-label">مدت</div><div class="cbc-val">${ev.dur}</div></div><div class="cbc-item"><div class="cbc-label">مسیر</div><div class="cbc-val">${ev.route}</div></div><div class="cbc-item"><div class="cbc-label">وسیله</div><div class="cbc-val">${ev.type==='air'?'✈️ پرواز':'🚌 اتوبوس'}</div></div><div class="cbc-item"><div class="cbc-label">قیمت / نفر</div><div class="cbc-val price-val">${ev.price} ت</div></div></div><div class="cbc-cap-wrap"><div class="cbc-cap-label">وضعیت ظرفیت</div><div class="cbc-cap-bar"><div class="cbc-cap-fill ${capCls}" style="width:${capPct}%"></div></div><div class="cbc-cap-txt ${capCls}">${cvCapLabel(ev.cap,ev.total)}</div></div><button class="cbc-book-btn" onclick="cvBook(${ev.id},'${dateStr}','${ev.route}','${ev.price}','${typeLabel}','${ev.dur}')">✦ رزرو این کاروان</button></div></div>`;listEl.appendChild(item);});}
+function cvFilter(type){
+  cvState.filterType=type;
+  document.getElementById('cpAll').className='cv-pill all'+(type!=='all'?' inactive':'');
+  document.getElementById('cpAir').className='cv-pill air-f'+(type!=='air'?' inactive':'');
+  document.getElementById('cpLand').className='cv-pill land-f'+(type!=='land'?' inactive':'');
+  cvRenderList();
+}
+function cvRenderList(){
+  const events=cvGetEvents();
+  const filtered=cvState.filterType==='all'?events:events.filter(e=>e.type===cvState.filterType);
+  const sorted=[...filtered].sort((a,b)=>a.month!==b.month?a.month-b.month:a.day-b.day);
+  const listEl=document.getElementById('cvList');
+  const emptyEl=document.getElementById('cvEmpty');
+  listEl.innerHTML='';
+  if(!sorted.length){listEl.style.display='none';emptyEl.style.display='block';return;}
+  listEl.style.display='';emptyEl.style.display='none';
+  sorted.forEach(ev=>{
+    const capCls=cvCapCls(ev.cap,ev.total);
+    const capPct=Math.round((ev.cap/ev.total)*100);
+    const isOpen=cvState.openItem===ev.id;
+    const typeIcon=ev.type==='air'?`<svg viewBox="0 0 24 24"><path d="M5 19l5-3 3 2 5-4 4 2" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round"/></svg>`:`<svg viewBox="0 0 24 24"><rect x="2" y="8" width="20" height="10" rx="3" stroke="currentColor" fill="none" stroke-width="1.8"/><rect x="6" y="10" width="3" height="4" rx="1" stroke="currentColor" fill="none" stroke-width="1.3"/><circle cx="7" cy="20" r="2" stroke="currentColor" fill="none" stroke-width="1.5"/><circle cx="17" cy="20" r="2" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>`;
+    const typeLabel=ev.type==='air'?'هوایی':'زمینی';
+    const dateStr=P(ev.day)+' '+PM[ev.month-1];
+    const item=document.createElement('div');
+    item.className='cv-item'+(isOpen?' open':'');
+    item.dataset.id=ev.id;
+    item.innerHTML=`<div class="cv-item-head" onclick="cvToggleItem(${ev.id})"><div class="cv-type ${ev.type}">${typeIcon}${typeLabel}</div><div class="cv-date">${dateStr}</div><div style="display:flex;align-items:center;gap:6px;flex-shrink:0;"><div class="cap-bar-sm"><div class="cap-fill-sm ${capCls}" style="width:${capPct}%"></div></div><span class="cap-txt-sm ${capCls}">${ev.cap<=0?'تکمیل':P(ev.cap)+' نفر'}</span></div><div class="cv-chevron">▼</div></div><div class="cv-body"><div class="cv-booking-card"><div class="cbc-header"><div class="cbc-title">کاروان ${dateStr}</div><div class="cbc-type">${typeLabel}</div></div><div class="cbc-grid"><div class="cbc-item"><div class="cbc-label">تاریخ</div><div class="cbc-val">${dateStr}</div></div><div class="cbc-item"><div class="cbc-label">مبدا</div><div class="cbc-val">${cvState.city}</div></div><div class="cbc-item"><div class="cbc-label">مدت</div><div class="cbc-val">${ev.dur}</div></div><div class="cbc-item"><div class="cbc-label">مسیر</div><div class="cbc-val">${ev.route}</div></div><div class="cbc-item"><div class="cbc-label">وسیله</div><div class="cbc-val">${ev.type==='air'?'✈️ پرواز':'🚌 اتوبوس'}</div></div><div class="cbc-item"><div class="cbc-label">قیمت / نفر</div><div class="cbc-val price-val">${ev.price} ت</div></div></div><div class="cbc-cap-wrap"><div class="cbc-cap-label">وضعیت ظرفیت</div><div class="cbc-cap-bar"><div class="cbc-cap-fill ${capCls}" style="width:${capPct}%"></div></div><div class="cbc-cap-txt ${capCls}">${cvCapLabel(ev.cap,ev.total)}</div></div><button class="cbc-book-btn" onclick="cvBook(${ev.id},'${dateStr}','${ev.route}','${ev.price}','${typeLabel}','${ev.dur}')">✦ رزرو این کاروان</button></div></div>`;
+    listEl.appendChild(item);
+  });
+}
 function cvToggleItem(id){cvState.openItem=(cvState.openItem===id?null:id);cvRenderList();}
 
 // ══ CARAVAN RESERVE MODAL ══
 let crmState={ev:null,step:1,paxCount:1,paxData:[]};
-function cvBook(id,dateStr,route,price,typeLabel,dur){const allEvs=cvGetEvents();const ev=allEvs.find(e=>e.id===id)||{id,dateStr,route,price,typeLabel,dur};crmState={ev,step:1,paxCount:1,paxData:[]};document.getElementById('crmTripStrip').innerHTML=`<div class="crm-trip-pill">✈ <span>مسیر:</span>${route}</div><div class="crm-trip-pill">📅 <span>تاریخ:</span>${dateStr}</div><div class="crm-trip-pill">💰 <span>قیمت:</span>${price} ت</div>`;document.getElementById('cvReserveOverlay').classList.add('show');crmRender();}
+function cvBook(id,dateStr,route,price,typeLabel,dur){
+  const allEvs=cvGetEvents();
+  const ev=allEvs.find(e=>e.id===id)||{id,dateStr,route,price,typeLabel,dur};
+  crmState={ev,step:1,paxCount:1,paxData:[]};
+  document.getElementById('crmTripStrip').innerHTML=`<div class="crm-trip-pill">✈ <span>مسیر:</span>${route}</div><div class="crm-trip-pill">📅 <span>تاریخ:</span>${dateStr}</div><div class="crm-trip-pill">💰 <span>قیمت:</span>${price} ت</div>`;
+  document.getElementById('cvReserveOverlay').classList.add('show');
+  crmRender();
+}
 function closeCvReserve(){document.getElementById('cvReserveOverlay').classList.remove('show');}
 function cvReserveOverlayClick(e){if(e.target.id==='cvReserveOverlay')closeCvReserve();}
-function crmUpdateProgress(){[1,2,3].forEach(i=>{const dot=document.getElementById('crmDot'+i);if(i<crmState.step){dot.className='crm-step-dot done';dot.textContent='✓';}else if(i===crmState.step){dot.className='crm-step-dot active';dot.textContent=String(i);}else{dot.className='crm-step-dot pending';dot.textContent=String(i);}});[1,2].forEach(i=>{const line=document.getElementById('crmLine'+i);if(line)line.className='crm-step-line'+(i<crmState.step?' done-line':'');});const labels=['','تعداد زائران','اطلاعات زائران','تأیید رزرو'];document.getElementById('crmHeadSub').textContent='مرحله '+P(crmState.step)+' از ۳ — '+labels[crmState.step];}
-function crmRender(){crmUpdateProgress();const body=document.getElementById('crmBody');if(crmState.step===1){body.innerHTML=`<div class="crm-step-title"><span class="crm-step-badge">مرحله ۱</span>تعداد زائران را انتخاب کنید</div><div class="crm-pax-stepper-row"><div class="crm-pax-stepper"><button class="crm-pax-stepper-btn" onclick="crmChgPax(-1)">−</button><div class="crm-pax-stepper-val" id="crmPaxVal">${P(crmState.paxCount)}</div><div class="crm-pax-stepper-unit">نفر</div><button class="crm-pax-stepper-btn" onclick="crmChgPax(1)">+</button></div></div><div style="font-size:11px;color:var(--ts);text-align:center;margin-bottom:4px;">برای هر نفر اطلاعات جداگانه ثبت می‌شود</div><div class="crm-nav"><button class="crm-back-btn" onclick="closeCvReserve()">انصراف</button><button class="crm-next-btn" onclick="crmStep1Next()">ادامه ←</button></div>`;}else if(crmState.step===2){if(crmState.paxData.length!==crmState.paxCount)crmState.paxData=Array.from({length:crmState.paxCount},(_,i)=>crmState.paxData[i]||{first:'',last:'',phone:'',birth:''});let formsHtml='';crmState.paxData.forEach((_,i)=>{formsHtml+=`<div class="crm-pax-form"><div class="crm-pax-form-head"><div class="crm-pax-form-num">${P(i+1)}</div>زائر ${P(i+1)}${i===0?' (سرپرست)':''}</div><div class="crm-pax-form-body"><div class="crm-field"><label>نام *</label><input id="crm_${i}_first" type="text" placeholder="نام" value="${crmState.paxData[i].first}" oninput="crmSave(${i},'first',this.value)"/></div><div class="crm-field"><label>نام خانوادگی *</label><input id="crm_${i}_last" type="text" placeholder="نام خانوادگی" value="${crmState.paxData[i].last}" oninput="crmSave(${i},'last',this.value)"/></div><div class="crm-field"><label>موبایل *</label><input id="crm_${i}_phone" type="tel" placeholder="۰۹XXXXXXXXX" dir="ltr" value="${crmState.paxData[i].phone}" oninput="crmSave(${i},'phone',this.value)"/></div><div class="crm-field"><label>تاریخ تولد</label><input id="crm_${i}_birth" type="text" placeholder="۱۳۶۵/۰۵/۲۰" value="${crmState.paxData[i].birth}" oninput="crmSave(${i},'birth',this.value)"/></div></div></div>`;});body.innerHTML=`<div class="crm-step-title"><span class="crm-step-badge">مرحله ۲</span>اطلاعات ${P(crmState.paxCount)} زائر را وارد کنید</div><div class="crm-pax-forms">${formsHtml}</div><div class="crm-nav"><button class="crm-back-btn" onclick="crmBack()">← بازگشت</button><button class="crm-next-btn" onclick="crmStep2Next()">تأیید ←</button></div>`;}else if(crmState.step===3){const code='KRV-'+Math.random().toString(36).toUpperCase().slice(2,8);const leader=crmState.paxData[0];body.innerHTML=`<div class="crm-success"><div class="crm-success-icon">🕌</div><div class="crm-success-title">رزرو شما ثبت شد!</div><div class="crm-success-body">سرپرست: <strong>${leader.first} ${leader.last}</strong><br/>تعداد زائران: <strong>${P(crmState.paxCount)} نفر</strong><br/>کارشناسان ما ظرف ۲ ساعت با شماره ${leader.phone} تماس می‌گیرند.</div><div class="crm-success-code">${code}</div><div class="crm-success-note">📌 لطفاً کد پیگیری را یادداشت کنید.</div></div><div class="crm-nav" style="margin-top:16px;"><button class="crm-next-btn" onclick="closeCvReserve()">بستن</button></div>`;}}
+function crmUpdateProgress(){
+  [1,2,3].forEach(i=>{
+    const dot=document.getElementById('crmDot'+i);
+    if(i<crmState.step){dot.className='crm-step-dot done';dot.textContent='✓';}
+    else if(i===crmState.step){dot.className='crm-step-dot active';dot.textContent=String(i);}
+    else{dot.className='crm-step-dot pending';dot.textContent=String(i);}
+  });
+  [1,2].forEach(i=>{const line=document.getElementById('crmLine'+i);if(line)line.className='crm-step-line'+(i<crmState.step?' done-line':'');});
+  const labels=['','تعداد زائران','اطلاعات زائران','تأیید رزرو'];
+  document.getElementById('crmHeadSub').textContent='مرحله '+P(crmState.step)+' از ۳ — '+labels[crmState.step];
+}
+function crmRender(){
+  crmUpdateProgress();
+  const body=document.getElementById('crmBody');
+  if(crmState.step===1){
+    body.innerHTML=`<div class="crm-step-title"><span class="crm-step-badge">مرحله ۱</span>تعداد زائران را انتخاب کنید</div><div class="crm-pax-stepper-row"><div class="crm-pax-stepper"><button class="crm-pax-stepper-btn" onclick="crmChgPax(-1)">−</button><div class="crm-pax-stepper-val" id="crmPaxVal">${P(crmState.paxCount)}</div><div class="crm-pax-stepper-unit">نفر</div><button class="crm-pax-stepper-btn" onclick="crmChgPax(1)">+</button></div></div><div style="font-size:11px;color:var(--ts);text-align:center;margin-bottom:4px;">برای هر نفر اطلاعات جداگانه ثبت می‌شود</div><div class="crm-nav"><button class="crm-back-btn" onclick="closeCvReserve()">انصراف</button><button class="crm-next-btn" onclick="crmStep1Next()">ادامه ←</button></div>`;
+  } else if(crmState.step===2){
+    if(crmState.paxData.length!==crmState.paxCount)crmState.paxData=Array.from({length:crmState.paxCount},(_,i)=>crmState.paxData[i]||{first:'',last:'',phone:'',birth:''});
+    let formsHtml='';
+    crmState.paxData.forEach((_,i)=>{formsHtml+=`<div class="crm-pax-form"><div class="crm-pax-form-head"><div class="crm-pax-form-num">${P(i+1)}</div>زائر ${P(i+1)}${i===0?' (سرپرست)':''}</div><div class="crm-pax-form-body"><div class="crm-field"><label>نام *</label><input id="crm_${i}_first" type="text" placeholder="نام" value="${crmState.paxData[i].first}" oninput="crmSave(${i},'first',this.value)"/></div><div class="crm-field"><label>نام خانوادگی *</label><input id="crm_${i}_last" type="text" placeholder="نام خانوادگی" value="${crmState.paxData[i].last}" oninput="crmSave(${i},'last',this.value)"/></div><div class="crm-field"><label>موبایل *</label><input id="crm_${i}_phone" type="tel" placeholder="۰۹XXXXXXXXX" dir="ltr" value="${crmState.paxData[i].phone}" oninput="crmSave(${i},'phone',this.value)"/></div><div class="crm-field"><label>تاریخ تولد</label><input id="crm_${i}_birth" type="text" placeholder="۱۳۶۵/۰۵/۲۰" value="${crmState.paxData[i].birth}" oninput="crmSave(${i},'birth',this.value)"/></div></div></div>`;});
+    body.innerHTML=`<div class="crm-step-title"><span class="crm-step-badge">مرحله ۲</span>اطلاعات ${P(crmState.paxCount)} زائر را وارد کنید</div><div class="crm-pax-forms">${formsHtml}</div><div class="crm-nav"><button class="crm-back-btn" onclick="crmBack()">← بازگشت</button><button class="crm-next-btn" onclick="crmStep2Next()">تأیید ←</button></div>`;
+  } else if(crmState.step===3){
+    const code='KRV-'+Math.random().toString(36).toUpperCase().slice(2,8);
+    const leader=crmState.paxData[0];
+    body.innerHTML=`<div class="crm-success"><div class="crm-success-icon">🕌</div><div class="crm-success-title">رزرو شما ثبت شد!</div><div class="crm-success-body">سرپرست: <strong>${leader.first} ${leader.last}</strong><br/>تعداد: <strong>${P(crmState.paxCount)} نفر</strong><br/>کارشناسان ما ظرف ۲ ساعت تماس می‌گیرند.</div><div class="crm-success-code">${code}</div><div class="crm-success-note">📌 لطفاً کد پیگیری را یادداشت کنید.</div></div><div class="crm-nav" style="margin-top:16px;"><button class="crm-next-btn" onclick="closeCvReserve()">بستن</button></div>`;
+  }
+}
 function crmChgPax(d){crmState.paxCount=Math.max(1,Math.min(20,crmState.paxCount+d));const el=document.getElementById('crmPaxVal');if(el)el.textContent=P(crmState.paxCount);}
 function crmStep1Next(){crmState.step=2;crmState.paxData=Array.from({length:crmState.paxCount},(_,i)=>crmState.paxData[i]||{first:'',last:'',phone:'',birth:''});crmRender();}
 function crmSave(i,field,val){if(crmState.paxData[i])crmState.paxData[i][field]=val;}
-function crmStep2Next(){const leader=crmState.paxData[0];if(!leader||!leader.first.trim()||!leader.last.trim()||!leader.phone.trim()){alert('لطفاً اطلاعات سرپرست (زائر اول) را کامل وارد کنید.');return;}crmState.step=3;crmRender();}
+function crmStep2Next(){const leader=crmState.paxData[0];if(!leader||!leader.first.trim()||!leader.last.trim()||!leader.phone.trim()){alert('لطفاً اطلاعات سرپرست را کامل وارد کنید.');return;}crmState.step=3;crmRender();}
 function crmBack(){crmState.step=Math.max(1,crmState.step-1);crmRender();}
 </script>
 </body>
