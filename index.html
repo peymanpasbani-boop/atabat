@@ -31,16 +31,19 @@ body.sheet-open{overflow:hidden;}
   transition:background .38s ease, backdrop-filter .38s ease;
 }
 .bs-overlay.open{
-  background:rgba(0,0,0,.55);
-  backdrop-filter:blur(6px);
-  -webkit-backdrop-filter:blur(6px);
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
   pointer-events:all;
 }
+
+/* Sheet: starts below header, leaves header visible */
 .bs-sheet{
   position:fixed;
-  bottom:0;left:0;right:0;
+  top:var(--header-h);
+  bottom:0;
+  left:0;right:0;
   z-index:901;
-  height:95vh;
   background:var(--cream);
   border-radius:24px 24px 0 0;
   box-shadow:0 -12px 60px rgba(0,0,0,.28);
@@ -264,7 +267,6 @@ body.sheet-open{overflow:hidden;}
 .hero-slogan .hl{background:linear-gradient(90deg,var(--goldL),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .hero-desc{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.9;max-width:560px;margin:0 auto 28px;animation:fadeUp .55s .16s ease both;}
 
-/* Hero city selector box */
 .hero-step-wrap{max-width:640px;margin:0 auto;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.25);border-radius:24px 24px 0 0;padding:24px 28px 32px;animation:fadeUp .6s .22s ease both;backdrop-filter:blur(8px);position:relative;z-index:1;}
 .hero-step-label{font-size:13px;font-weight:700;color:var(--goldL);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
 .hero-step-label .step-badge{background:rgba(201,168,76,.15);border:1px solid var(--goldB);color:var(--gold);font-size:10px;padding:2px 9px;border-radius:100px;font-weight:700;}
@@ -327,7 +329,7 @@ body.sheet-open{overflow:hidden;}
 .pax-num-card-n{font-size:18px;font-weight:800;color:var(--em);line-height:1;}
 .pax-num-card-lbl{font-size:8px;color:var(--ts);margin-top:1px;}
 .pax-num-card.selected .pax-num-card-n{color:var(--gold);}
-.pax-city-row{margin-top:14px;display:flex;align-items:center;gap:10px;}
+.pax-city-row{margin-top:12px;display:flex;align-items:center;gap:10px;}
 .pax-city-label{font-size:12px;color:var(--ts);}
 .pax-city-val{font-size:14px;font-weight:800;color:var(--em);padding:7px 14px;background:var(--cream);border:1px solid var(--goldB);border-radius:10px;}
 .pass-note{margin-top:10px;font-size:11px;color:var(--ts);line-height:1.7;padding:6px 10px;background:rgba(201,168,76,.07);border-radius:8px;border-right:3px solid var(--goldB);}
@@ -450,7 +452,7 @@ body.sheet-open{overflow:hidden;}
 .toggle-switch input:checked+.toggle-track{background:var(--em3);}
 .toggle-switch input:checked+.toggle-track::before{transform:translateX(-19px);}
 
-/* ═══ SUMMARY / STEP 6 ═══ */
+/* ═══ SUMMARY / STEP 5 ═══ */
 .summary-master-card{background:var(--white);border:1.5px solid rgba(201,168,76,.2);border-radius:20px;overflow:hidden;margin-bottom:14px;box-shadow:0 4px 20px rgba(13,59,46,.08);}
 .smc-header{background:linear-gradient(135deg,var(--em),var(--em3));padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
 .smc-header-title{font-size:13px;font-weight:800;color:var(--goldL);display:flex;align-items:center;gap:8px;}
@@ -544,7 +546,7 @@ body.sheet-open{overflow:hidden;}
 .agency-fields{display:none;background:var(--cream);border:1px solid rgba(201,168,76,.17);border-radius:9px;padding:11px;margin-bottom:9px;}
 .agency-fields.show{display:block;}
 
-/* ═══ PAGE BODY (below hero) ═══ */
+/* ═══ PAGE BODY ═══ */
 .page-body{background:var(--cream);padding:0 0 60px;}
 .page-body-inner{max-width:680px;margin:0 auto;padding:0 18px;}
 .below-content{padding:32px 18px 0;max-width:680px;margin:0 auto;}
@@ -869,16 +871,10 @@ body.sheet-open{overflow:hidden;}
   </div>
 </div>
 
-<!-- ══════════════════════════════════════ -->
-<!-- ══  BOTTOM SHEET MODAL — WIZARD FLOW ══ -->
-<!-- ══════════════════════════════════════ -->
+<!-- ══ BOTTOM SHEET ══ -->
 <div class="bs-overlay" id="bsOverlay" onclick="bsOverlayClick(event)"></div>
 <div class="bs-sheet" id="bsSheet">
-
-  <!-- Handle -->
   <div class="bs-handle"><div class="bs-handle-bar"></div></div>
-
-  <!-- Header -->
   <div class="bs-header">
     <div class="bs-header-top">
       <div>
@@ -887,7 +883,6 @@ body.sheet-open{overflow:hidden;}
       </div>
       <button class="bs-close" onclick="closeBottomSheet()">✕</button>
     </div>
-    <!-- Stepper -->
     <div class="bs-stepper">
       <div class="bss-dot active" id="bsDot1">۱</div>
       <div class="bss-line" id="bsLine1"></div>
@@ -912,10 +907,9 @@ body.sheet-open{overflow:hidden;}
     </div>
   </div>
 
-  <!-- Scrollable body -->
   <div class="bs-body" id="bsBody">
 
-    <!-- ── STEP 1: Date & Passengers ── -->
+    <!-- STEP 1 -->
     <div class="bs-step-panel active" id="bsPanel1">
       <div class="bs-step-heading">
         <h3><span class="bs-step-badge">مرحله ۱</span>📅 تاریخ اعزام</h3>
@@ -952,7 +946,7 @@ body.sheet-open{overflow:hidden;}
       <div class="bs-alert" id="bsAlert1">لطفاً تاریخ اعزام را انتخاب کنید.</div>
     </div>
 
-    <!-- ── STEP 2: Trip Type ── -->
+    <!-- STEP 2 -->
     <div class="bs-step-panel" id="bsPanel2">
       <div class="bs-step-heading">
         <h3><span class="bs-step-badge">مرحله ۲</span>🚌 نوع سفر</h3>
@@ -1010,7 +1004,7 @@ body.sheet-open{overflow:hidden;}
       <div class="bs-alert" id="bsAlert2">لطفاً نوع سفر را انتخاب کنید.</div>
     </div>
 
-    <!-- ── STEP 3: Cities ── -->
+    <!-- STEP 3 -->
     <div class="bs-step-panel" id="bsPanel3">
       <div class="bs-step-heading">
         <h3><span class="bs-step-badge">مرحله ۳</span>🕌 شهرهای زیارتی</h3>
@@ -1041,7 +1035,7 @@ body.sheet-open{overflow:hidden;}
       <div class="bs-alert" id="bsAlert3">لطفاً حداقل یک شهر زیارتی انتخاب کنید.</div>
     </div>
 
-    <!-- ── STEP 4: City Configs ── -->
+    <!-- STEP 4 -->
     <div class="bs-step-panel" id="bsPanel4">
       <div class="bs-step-heading">
         <h3><span class="bs-step-badge">مرحله ۴</span>🏨 تنظیمات اقامت</h3>
@@ -1051,7 +1045,7 @@ body.sheet-open{overflow:hidden;}
       <div class="bs-alert" id="bsAlert4"></div>
     </div>
 
-    <!-- ── STEP 5: Summary & Confirm ── -->
+    <!-- STEP 5 -->
     <div class="bs-step-panel" id="bsPanel5">
       <div class="bs-step-heading">
         <h3><span class="bs-step-badge">مرحله ۵</span>✦ مرور و تأیید</h3>
@@ -1060,15 +1054,13 @@ body.sheet-open{overflow:hidden;}
       <div id="step5Content"></div>
     </div>
 
-  </div><!-- /bs-body -->
+  </div>
 
-  <!-- Sheet footer nav -->
   <div class="bs-footer" id="bsFooter">
     <button class="bs-back-btn" id="bsBackBtn" onclick="bsGoBack()" style="display:none;">← بازگشت</button>
     <button class="bs-next-btn" id="bsNextBtn" onclick="bsGoNext()">ادامه ←</button>
   </div>
-
-</div><!-- /bs-sheet -->
+</div>
 
 <!-- ══ HEADER ══ -->
 <header class="site-header">
@@ -1202,11 +1194,10 @@ body.sheet-open{overflow:hidden;}
 </section>
 <div class="hero-wave"><svg viewBox="0 0 1440 54" preserveAspectRatio="none"><path d="M0,0 C360,54 1080,0 1440,36 L1440,54 L0,54 Z" fill="#f9f5ee"/></svg></div>
 
-<!-- ══ BELOW CONTENT ══ -->
+<!-- ══ PAGE BODY ══ -->
 <div class="page-body">
   <div class="page-body-inner">
     <div class="below-content">
-
       <div class="steps-collapsible">
         <div class="steps-coll-toggle" id="stepsToggle" onclick="toggleStepsSection()">
           <div class="steps-coll-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
@@ -1321,215 +1312,220 @@ const HOTEL_DATA={
   kadh_sam:[{name:'هتل الامین الکاظمیه',stars:5,dist:'۷۰ متر',cat:'alef',price:1.4},{name:'هتل الکاظمیه پالاس',stars:4,dist:'۱۲۰ متر',cat:'alef',price:1.25},{name:'هتل العسکری پالاس',stars:5,dist:'۹۰ متر',cat:'alef',price:1.3},{name:'هتل الرشید',stars:3,dist:'۲۵۰ متر',cat:'be',price:0.9},{name:'هتل دجله سامرا',stars:3,dist:'۳۵۰ متر',cat:'be',price:0.8},{name:'هتل المرجان',stars:3,dist:'۴۰۰ متر',cat:'be',price:0.72},{name:'هتل الفرحان',stars:2,dist:'۶۵۰ متر',cat:'jim',price:0.48},{name:'هتل السلام',stars:2,dist:'۸۵۰ متر',cat:'jim',price:0.40},{name:'هتل الزائر سامرا',stars:1,dist:'۱ کیلومتر',cat:'jim',price:0.30}]
 };
 
-// ══ BOTTOM SHEET STATE ══
-let bsCurrentStep=1;
-const BS_TOTAL=5;
+// ══ BOTTOM SHEET ══
+let bsCurrentStep = 1;
+const BS_TOTAL = 5;
+const BS_LABELS = ['','تاریخ','نوع','مقاصد','اقامت','تأیید'];
 
 function openBottomSheet(){
-  // Build step 1 UI first
   buildMonthGrid();
   buildPaxCards();
-  document.getElementById('selectedCityDisplay').textContent=CITY_LABEL[state.origin]||state.origin||'—';
-  // Open
+  document.getElementById('selectedCityDisplay').textContent = CITY_LABEL[state.origin] || state.origin || '—';
   document.body.classList.add('sheet-open');
   document.getElementById('bsOverlay').classList.add('open');
   document.getElementById('bsSheet').classList.add('open');
-  bsGoToStep(1);
+  _goToStep(1);
 }
+
 function closeBottomSheet(){
   document.body.classList.remove('sheet-open');
   document.getElementById('bsOverlay').classList.remove('open');
   document.getElementById('bsSheet').classList.remove('open');
 }
+
 function bsOverlayClick(e){
-  if(e.target===document.getElementById('bsOverlay'))closeBottomSheet();
+  if(e.target === document.getElementById('bsOverlay')) closeBottomSheet();
 }
 
-function bsGoToStep(n){
-  bsCurrentStep=n;
+// Single authoritative step-navigation function (no override pattern)
+function _goToStep(n){
+  bsCurrentStep = n;
+
   // panels
-  for(let i=1;i<=BS_TOTAL;i++){
-    const p=document.getElementById('bsPanel'+i);
-    if(p)p.classList.toggle('active',i===n);
+  for(let i=1; i<=BS_TOTAL; i++){
+    const p = document.getElementById('bsPanel'+i);
+    if(p) p.classList.toggle('active', i===n);
   }
-  // dots & lines
-  const labels=['','تاریخ','نوع','مقاصد','اقامت','تأیید'];
-  for(let i=1;i<=BS_TOTAL;i++){
-    const dot=document.getElementById('bsDot'+i);
-    const lbl=document.getElementById('bsLbl'+i);
+
+  // stepper dots
+  for(let i=1; i<=BS_TOTAL; i++){
+    const dot = document.getElementById('bsDot'+i);
+    const lbl = document.getElementById('bsLbl'+i);
     if(dot){
-      if(i<n){dot.className='bss-dot done';dot.textContent='✓';}
-      else if(i===n){dot.className='bss-dot active';dot.textContent=String(i);}
-      else{dot.className='bss-dot pending';dot.textContent=String(i);}
+      if(i < n){ dot.className='bss-dot done'; dot.textContent='✓'; }
+      else if(i === n){ dot.className='bss-dot active'; dot.textContent=P(i); }
+      else{ dot.className='bss-dot pending'; dot.textContent=P(i); }
     }
     if(lbl){
-      lbl.className='bsl-item'+(i<n?' done':i===n?' active':' pending');
+      lbl.className = 'bsl-item ' + (i<n?'done': i===n?'active':'pending');
     }
   }
-  for(let i=1;i<BS_TOTAL;i++){
-    const line=document.getElementById('bsLine'+i);
-    if(line)line.className='bss-line'+(i<n?' done':'');
+
+  // stepper lines
+  for(let i=1; i<BS_TOTAL; i++){
+    const line = document.getElementById('bsLine'+i);
+    if(line) line.className = 'bss-line' + (i<n?' done':'');
   }
-  // header sub
-  document.getElementById('bsHeaderSub').textContent='مرحله '+P(n)+' از ۵ — '+labels[n];
-  // footer
-  document.getElementById('bsBackBtn').style.display=n>1?'':'none';
-  // Scroll top
-  const body=document.getElementById('bsBody');
-  if(body)body.scrollTop=0;
-  // Special setup
-  if(n===4)buildCityConfigs();
-  if(n===5)buildStep5Content();
+
+  // header subtitle
+  document.getElementById('bsHeaderSub').textContent = 'مرحله '+P(n)+' از '+P(BS_TOTAL)+' — '+BS_LABELS[n];
+
+  // footer buttons
+  document.getElementById('bsBackBtn').style.display = n>1 ? '' : 'none';
+  const nextBtn = document.getElementById('bsNextBtn');
+  if(n === BS_TOTAL){
+    nextBtn.textContent = '✦ ثبت‌نام نهایی';
+    nextBtn.className = 'bs-confirm-btn';
+  } else {
+    nextBtn.textContent = 'ادامه ←';
+    nextBtn.className = 'bs-next-btn';
+  }
+
+  // scroll top
+  const body = document.getElementById('bsBody');
+  if(body) body.scrollTop = 0;
+
+  // special setup per step
+  if(n === 4) buildCityConfigs();
+  if(n === 5) buildStep5Content();
 }
 
 function bsGoNext(){
-  if(bsCurrentStep===1){
+  if(bsCurrentStep === 1){
     if(!state.selD){
-      const a=document.getElementById('bsAlert1');
-      a.classList.add('show');
+      document.getElementById('bsAlert1').classList.add('show');
       return;
     }
     document.getElementById('bsAlert1').classList.remove('show');
-    bsGoToStep(2);
-  } else if(bsCurrentStep===2){
+    _goToStep(2);
+  }
+  else if(bsCurrentStep === 2){
     if(!state.tripType){
       document.getElementById('bsAlert2').classList.add('show');
       return;
     }
     document.getElementById('bsAlert2').classList.remove('show');
-    bsGoToStep(3);
-  } else if(bsCurrentStep===3){
-    if(state.cities.length===0){
+    _goToStep(3);
+  }
+  else if(bsCurrentStep === 3){
+    if(state.cities.length === 0){
       document.getElementById('bsAlert3').classList.add('show');
       return;
     }
     document.getElementById('bsAlert3').classList.remove('show');
-    bsGoToStep(4);
-  } else if(bsCurrentStep===4){
-    const missing=getMissingHotels();
-    const alertEl=document.getElementById('bsAlert4');
-    if(missing.length>0){
-      const missingNames=missing.map(k=>CITY_META[k].name).join('، ');
-      alertEl.textContent='لطفاً برای شهر(های) اقامتی زیر هتل انتخاب کنید: '+missingNames;
+    _goToStep(4);
+  }
+  else if(bsCurrentStep === 4){
+    const missing = getMissingHotels();
+    const alertEl = document.getElementById('bsAlert4');
+    if(missing.length > 0){
+      alertEl.textContent = 'لطفاً برای شهر(های) اقامتی زیر هتل انتخاب کنید: ' + missing.map(k=>CITY_META[k].name).join('، ');
       alertEl.classList.add('show');
-      const firstEl=document.getElementById('ccd_'+missing[0]);
-      if(firstEl){firstEl.classList.add('open');setTimeout(()=>firstEl.scrollIntoView({behavior:'smooth',block:'center'}),100);}
+      const firstEl = document.getElementById('ccd_'+missing[0]);
+      if(firstEl){ firstEl.classList.add('open'); setTimeout(()=>firstEl.scrollIntoView({behavior:'smooth',block:'center'}),100); }
       return;
     }
     alertEl.classList.remove('show');
-    bsGoToStep(5);
-  } else if(bsCurrentStep===5){
+    _goToStep(5);
+  }
+  else if(bsCurrentStep === 5){
     finalRegister();
   }
 }
 
 function bsGoBack(){
-  if(bsCurrentStep>1)bsGoToStep(bsCurrentStep-1);
-}
-
-// Update next btn for step 5 to say "ثبت‌نام"
-function updateStep5Footer(){
-  const btn=document.getElementById('bsNextBtn');
-  if(bsCurrentStep===5){
-    btn.textContent='✦ ثبت‌نام نهایی';
-    btn.className='bs-confirm-btn';
-  } else {
-    btn.textContent='ادامه ←';
-    btn.className='bs-next-btn';
-  }
-}
-// Patch bsGoToStep to also update footer
-const _origGoToStep=bsGoToStep;
-function bsGoToStep(n){
-  _origGoToStep(n);
-  updateStep5Footer();
+  if(bsCurrentStep > 1) _goToStep(bsCurrentStep - 1);
 }
 
 // ══ NAV MODALS ══
-function openModal(id){document.getElementById('modal-'+id).classList.add('open');}
-function closeModalDirect(id){document.getElementById('modal-'+id).classList.remove('open');}
-function closeModal(id,e){if(e.target===document.getElementById('modal-'+id))closeModalDirect(id);}
+function openModal(id){ document.getElementById('modal-'+id).classList.add('open'); }
+function closeModalDirect(id){ document.getElementById('modal-'+id).classList.remove('open'); }
+function closeModal(id,e){ if(e.target===document.getElementById('modal-'+id)) closeModalDirect(id); }
 
 // ══ HERO CITY ══
 function heroSelectCity(el){
   document.querySelectorAll('.origin-card').forEach(c=>c.classList.remove('selected'));
   document.querySelectorAll('.city-pill-sm').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');
-  state.origin=el.dataset.city;
-  // Reset flow state when city changes
-  state.selM=null;state.selY=null;state.selD=null;state.dateText=null;
-  state.tripType=null;state.selectedAirport=null;
-  state.cities=[];state.cityData={};
+  state.origin = el.dataset.city;
+  state.selM=null; state.selY=null; state.selD=null; state.dateText=null;
+  state.tripType=null; state.selectedAirport=null;
+  state.cities=[]; state.cityData={};
   state.priceVisible=false;
-  setTimeout(()=>openBottomSheet(),120);
+  setTimeout(()=>openBottomSheet(), 120);
 }
 function heroSelectCityPill(el){
   document.querySelectorAll('.origin-card').forEach(c=>c.classList.remove('selected'));
   document.querySelectorAll('.city-pill-sm').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');
-  state.origin=el.dataset.city;
-  state.selM=null;state.selY=null;state.selD=null;state.dateText=null;
-  state.tripType=null;state.selectedAirport=null;
-  state.cities=[];state.cityData={};
+  state.origin = el.dataset.city;
+  state.selM=null; state.selY=null; state.selD=null; state.dateText=null;
+  state.tripType=null; state.selectedAirport=null;
+  state.cities=[]; state.cityData={};
   state.priceVisible=false;
-  setTimeout(()=>openBottomSheet(),120);
+  setTimeout(()=>openBottomSheet(), 120);
 }
 
 // ══ CALENDAR ══
 function buildMonthGrid(){
-  const grid=document.getElementById('monthsGrid');
-  grid.innerHTML='';
-  let cy=TODAY.y,cm=TODAY.m;
-  for(let i=0;i<6;i++){
-    const m=cm,y=cy;
-    const card=document.createElement('div');
-    card.className='month-card'+(state.selM===m&&state.selY===y?' selected':'');
-    card.innerHTML=`<div class="month-card-name">${PM[m-1]}</div><div class="month-card-year">${P(y)}</div>`;
-    card.onclick=()=>selectMonth(m,y);
+  const grid = document.getElementById('monthsGrid');
+  grid.innerHTML = '';
+  let cy=TODAY.y, cm=TODAY.m;
+  for(let i=0; i<6; i++){
+    const m=cm, y=cy;
+    const card = document.createElement('div');
+    card.className = 'month-card' + (state.selM===m&&state.selY===y?' selected':'');
+    card.innerHTML = `<div class="month-card-name">${PM[m-1]}</div><div class="month-card-year">${P(y)}</div>`;
+    card.onclick = ()=>selectMonth(m,y);
     grid.appendChild(card);
-    cm++;if(cm>12){cm=1;cy++;}
+    cm++; if(cm>12){ cm=1; cy++; }
   }
 }
 function selectMonth(m,y){
-  state.selM=m;state.selY=y;
-  document.getElementById('daysMonthLabel').textContent=PM[m-1]+' '+P(y);
+  state.selM=m; state.selY=y;
+  document.getElementById('daysMonthLabel').textContent = PM[m-1]+' '+P(y);
   renderDays(m,y);
-  document.getElementById('monthTrack').style.transform='translateX(100%)';
+  document.getElementById('monthTrack').style.transform = 'translateX(100%)';
 }
-function backToMonths(){document.getElementById('monthTrack').style.transform='translateX(0)';}
+function backToMonths(){
+  document.getElementById('monthTrack').style.transform = 'translateX(0)';
+}
 function isDisabled(d,m,y){
-  if(y<TODAY.y)return true;
-  if(y===TODAY.y&&m<TODAY.m)return true;
-  if(y===TODAY.y&&m===TODAY.m&&d<=TODAY.d+1)return true;
+  if(y<TODAY.y) return true;
+  if(y===TODAY.y&&m<TODAY.m) return true;
+  if(y===TODAY.y&&m===TODAY.m&&d<=TODAY.d+1) return true;
   return false;
 }
 function renderDays(m,y){
-  const dim=DIM[m-1];const off=getShamsiOffset(m,y);
-  const c=document.getElementById('calDays');c.innerHTML='';
-  for(let i=0;i<off;i++){const e=document.createElement('div');e.className='cal-day empty';c.appendChild(e);}
-  for(let d=1;d<=dim;d++){
+  const dim=DIM[m-1], off=getShamsiOffset(m,y);
+  const c = document.getElementById('calDays');
+  c.innerHTML='';
+  for(let i=0; i<off; i++){
+    const e=document.createElement('div'); e.className='cal-day empty'; c.appendChild(e);
+  }
+  for(let d=1; d<=dim; d++){
     const cell=document.createElement('div');
     const dis=isDisabled(d,m,y);
-    const sel=state.selD===d&&state.selM===m&&state.selY===y;
+    const sel=(state.selD===d&&state.selM===m&&state.selY===y);
     const isT=(d===TODAY.d&&m===TODAY.m&&y===TODAY.y);
     let cls='cal-day';
-    if(dis)cls+=' disabled';
-    if(sel)cls+=' selected';
-    if(isT&&!sel)cls+=' today-mark';
-    cell.className=cls;cell.textContent=P(d);
-    if(!dis)cell.onclick=()=>selDate(d,m,y);
+    if(dis) cls+=' disabled';
+    if(sel) cls+=' selected';
+    if(isT&&!sel) cls+=' today-mark';
+    cell.className=cls; cell.textContent=P(d);
+    if(!dis) cell.onclick=()=>selDate(d,m,y);
     c.appendChild(cell);
   }
 }
 function selDate(d,m,y){
-  state.selD=d;state.dateText=P(d)+' '+PM[m-1]+' '+P(y);
+  state.selD=d; state.dateText=P(d)+' '+PM[m-1]+' '+P(y);
   renderDays(m,y);
   document.getElementById('bsAlert1').classList.remove('show');
 }
 function buildPaxCards(){
-  const row=document.getElementById('paxCardsRow');
+  const row = document.getElementById('paxCardsRow');
   row.innerHTML='';
-  for(let i=1;i<=4;i++){
+  for(let i=1; i<=4; i++){
     const card=document.createElement('div');
     card.className='pax-num-card'+(i===state.passengers?' selected':'');
     card.innerHTML=`<div class="pax-num-card-n">${P(i)}</div><div class="pax-num-card-lbl">نفر</div>`;
@@ -1549,7 +1545,7 @@ function selectType(t){
   const map={air:'typeAir',land:'typeLand',mixed:'typeMixed'};
   document.getElementById(map[t]).classList.add('selected');
   document.getElementById('bsAlert2').classList.remove('show');
-  const awb=document.getElementById('airportWarningBox');
+  const awb = document.getElementById('airportWarningBox');
   if(t==='air'||t==='mixed'){
     if(AIR_CITIES.includes(state.origin)){
       state.selectedAirport=DIRECT_AIRPORTS[state.origin];
@@ -1577,10 +1573,10 @@ function airportNo(){
   ['typeAir','typeLand','typeMixed'].forEach(id=>document.getElementById(id).classList.remove('selected'));
 }
 function renderAirports(list){
-  const c=document.getElementById('awbAirportList');c.innerHTML='';
+  const c=document.getElementById('awbAirportList'); c.innerHTML='';
   list.forEach(ap=>{
     const b=document.createElement('div');
-    b.className='awb-airport-btn';b.id='apbtn_'+ap.code;
+    b.className='awb-airport-btn'; b.id='apbtn_'+ap.code;
     b.innerHTML=`<div class="airport-icon-box">✈</div><div><div style="font-weight:700">${ap.name}</div><div style="font-size:10px;opacity:.5;margin-top:1px">${ap.city} — ${ap.code}</div></div>`;
     b.onclick=()=>{
       state.selectedAirport=ap;
@@ -1594,13 +1590,13 @@ function renderAirports(list){
 // ══ CITIES ══
 function toggleCity(key){
   const idx=state.cities.indexOf(key);
-  if(idx>-1){state.cities.splice(idx,1);delete state.cityData[key];getCityEl(key).classList.remove('selected');}
-  else{state.cities.push(key);state.cityData[key]={nights:3,transit:false,hotel:null,food:true};getCityEl(key).classList.add('selected');}
+  if(idx>-1){ state.cities.splice(idx,1); delete state.cityData[key]; getCityEl(key).classList.remove('selected'); }
+  else { state.cities.push(key); state.cityData[key]={nights:3,transit:false,hotel:null,food:true}; getCityEl(key).classList.add('selected'); }
   refreshOrders();
   updateRoutePreview();
-  if(state.cities.length>0)document.getElementById('bsAlert3').classList.remove('show');
+  if(state.cities.length>0) document.getElementById('bsAlert3').classList.remove('show');
 }
-function getCityEl(key){return document.getElementById({karbala:'cityKarbala',najaf:'cityNajaf',kadh_sam:'cityKadhSam'}[key]);}
+function getCityEl(key){ return document.getElementById({karbala:'cityKarbala',najaf:'cityNajaf',kadh_sam:'cityKadhSam'}[key]); }
 function refreshOrders(){
   [{key:'karbala',id:'orderKarbala'},{key:'najaf',id:'orderNajaf'},{key:'kadh_sam',id:'orderKadhSam'}].forEach(({key,id})=>{
     const pos=state.cities.indexOf(key);
@@ -1609,7 +1605,7 @@ function refreshOrders(){
 }
 function updateRoutePreview(){
   const el=document.getElementById('cityRoutePreview');
-  if(!state.cities.length){el.classList.remove('show');return;}
+  if(!state.cities.length){ el.classList.remove('show'); return; }
   el.classList.add('show');
   el.innerHTML='<strong>مسیر:</strong> '+state.cities.map(k=>CITY_META[k].name).join(' ← ');
 }
@@ -1618,9 +1614,9 @@ function updateRoutePreview(){
 function getMissingHotels(){
   return state.cities.filter(key=>{
     const d=state.cityData[key];
-    if(!d)return true;
-    if(d.transit)return false;
-    return d.hotel===null||d.hotel===undefined;
+    if(!d) return true;
+    if(d.transit) return false;
+    return d.hotel===null || d.hotel===undefined;
   });
 }
 
@@ -1628,16 +1624,19 @@ function getMissingHotels(){
 const GRADE_INFO={alef:{label:'درجه الف — لوکس',dots:5},be:{label:'درجه ب — متوسط',dots:3},jim:{label:'درجه ج — اقتصادی',dots:2}};
 function dotSVG(n,t){let s='<div style="display:flex;gap:3px;align-items:center">';for(let i=1;i<=t;i++)s+=`<div style="width:9px;height:9px;border-radius:50%;background:${i<=n?'var(--gold)':'#e0d9c8'}"></div>`;return s+'</div>';}
 function miniDots(n){let s='<div class="hotel-mini-stars">';for(let i=1;i<=5;i++)s+=`<div class="hotel-mini-dot ${i<=n?'on':'off'}"></div>`;return s+'</div>';}
-const CITY_SVG={karbala:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--goldL)" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="5"/><path d="M8 9 Q12 4 16 9"/><path d="M7 9 L7 16 L17 16 L17 9"/><rect x="10" y="12" width="4" height="4"/><line x1="5" y1="16" x2="19" y2="16"/></svg>`,najaf:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--goldL)" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="6" r="3.5"/><line x1="12" y1="3" x2="12" y2="1"/><path d="M8.5 9.5 Q12 7 15.5 9.5"/><rect x="9" y="10" width="6" height="8"/><rect x="11" y="13" width="2" height="5"/></svg>`,kadh_sam:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--goldL)" stroke-width="1.5" stroke-linecap="round"><path d="M7 10 Q10 5 13 10"/><rect x="6" y="10" width="7" height="7"/><path d="M14 11 Q16.5 7 19 11"/><rect x="13.5" y="11" width="6" height="6"/></svg>`};
+const CITY_SVG={
+  karbala:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--goldL)" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="5"/><path d="M8 9 Q12 4 16 9"/><path d="M7 9 L7 16 L17 16 L17 9"/><rect x="10" y="12" width="4" height="4"/><line x1="5" y1="16" x2="19" y2="16"/></svg>`,
+  najaf:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--goldL)" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="6" r="3.5"/><line x1="12" y1="3" x2="12" y2="1"/><path d="M8.5 9.5 Q12 7 15.5 9.5"/><rect x="9" y="10" width="6" height="8"/><rect x="11" y="13" width="2" height="5"/></svg>`,
+  kadh_sam:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--goldL)" stroke-width="1.5" stroke-linecap="round"><path d="M7 10 Q10 5 13 10"/><rect x="6" y="10" width="7" height="7"/><path d="M14 11 Q16.5 7 19 11"/><rect x="13.5" y="11" width="6" height="6"/></svg>`
+};
 
 function buildCityConfigs(){
   const container=document.getElementById('cityConfigs');
   container.innerHTML='';
   const alertEl=document.getElementById('bsAlert4');
-  if(alertEl)alertEl.classList.remove('show');
+  if(alertEl) alertEl.classList.remove('show');
   state.cities.forEach((key,idx)=>{
-    const meta=CITY_META[key];
-    const data=state.cityData[key];
+    const meta=CITY_META[key], data=state.cityData[key];
     const el=document.createElement('div');
     el.className='city-config-drawer'+(idx===0?' open':'');
     el.id='ccd_'+key;
@@ -1693,30 +1692,29 @@ function buildCityConfigs(){
     container.appendChild(el);
   });
 }
-function toggleCityDrawer(key){document.getElementById('ccd_'+key).classList.toggle('open');}
-function chgNights(key,d){const data=state.cityData[key];data.nights=Math.max(1,Math.min(14,data.nights+d));document.getElementById('nv_'+key).textContent=P(data.nights);}
+function toggleCityDrawer(key){ document.getElementById('ccd_'+key).classList.toggle('open'); }
+function chgNights(key,d){ const data=state.cityData[key]; data.nights=Math.max(1,Math.min(14,data.nights+d)); document.getElementById('nv_'+key).textContent=P(data.nights); }
 function togTransit(key){
-  const d=state.cityData[key];d.transit=!d.transit;
+  const d=state.cityData[key]; d.transit=!d.transit;
   document.getElementById('tb_'+key).classList.toggle('checked',d.transit);
   const hs=document.getElementById('hotelSec_'+key);
   const fw=document.getElementById('fw_'+key);
   const nr=document.getElementById('nightsRow_'+key);
   const st=document.getElementById('ccs_'+key);
   if(d.transit){
-    hs.classList.remove('visible');fw.style.display='none';
-    nr.style.opacity='.35';nr.style.pointerEvents='none';
-    st.textContent='✓ عبوری';st.className='city-config-status transit';
-    d.hotel=null;
+    hs.classList.remove('visible'); fw.style.display='none';
+    nr.style.opacity='.35'; nr.style.pointerEvents='none';
+    st.textContent='✓ عبوری'; st.className='city-config-status transit'; d.hotel=null;
   } else {
-    hs.classList.add('visible');fw.style.display='';
-    nr.style.opacity='';nr.style.pointerEvents='';
-    if(d.hotel===null||d.hotel===undefined){st.textContent='در حال تنظیم';st.className='city-config-status';}
+    hs.classList.add('visible'); fw.style.display='';
+    nr.style.opacity=''; nr.style.pointerEvents='';
+    if(d.hotel===null||d.hotel===undefined){ st.textContent='در حال تنظیم'; st.className='city-config-status'; }
   }
 }
 function togGradeItem(key,grade){
   const gi=document.getElementById('gi_'+key+'_'+grade);
   const was=gi.classList.contains('open');
-  ['alef','be','jim'].forEach(g=>{const x=document.getElementById('gi_'+key+'_'+g);if(x)x.classList.remove('open');});
+  ['alef','be','jim'].forEach(g=>{ const x=document.getElementById('gi_'+key+'_'+g); if(x) x.classList.remove('open'); });
   if(!was){
     gi.classList.add('open');
     const inner=document.getElementById('hci_'+key+'_'+grade);
@@ -1724,7 +1722,7 @@ function togGradeItem(key,grade){
       HOTEL_DATA[key].filter(h=>h.cat===grade).forEach(h=>{
         const gIdx=HOTEL_DATA[key].indexOf(h);
         const card=document.createElement('div');
-        card.className='hotel-card';card.id='hc_'+key+'_'+gIdx;
+        card.className='hotel-card'; card.id='hc_'+key+'_'+gIdx;
         card.innerHTML=`${miniDots(h.stars)}<div class="hotel-info"><div class="hotel-name">${h.name}</div><div class="hotel-dist">📍 ${h.dist}</div></div><button class="hotel-select-btn">انتخاب</button>`;
         card.onclick=()=>selHotel(key,gIdx);
         inner.appendChild(card);
@@ -1740,30 +1738,30 @@ function selHotel(key,idx){
     c.querySelector('.hotel-select-btn').textContent=ci===idx?'انتخاب شد ✓':'انتخاب';
   });
   const st=document.getElementById('ccs_'+key);
-  st.textContent='✓ تنظیم شد';st.className='city-config-status done';
+  st.textContent='✓ تنظیم شد'; st.className='city-config-status done';
   const missing=getMissingHotels();
-  if(missing.length===0){const alertEl=document.getElementById('bsAlert4');if(alertEl)alertEl.classList.remove('show');}
+  if(missing.length===0){ const alertEl=document.getElementById('bsAlert4'); if(alertEl) alertEl.classList.remove('show'); }
   document.getElementById('ccd_'+key).classList.remove('open');
   const ci=state.cities.indexOf(key);
   if(ci<state.cities.length-1){
     const nk=state.cities[ci+1];
     const nd=document.getElementById('ccd_'+nk);
-    if(nd)setTimeout(()=>{nd.classList.add('open');nd.scrollIntoView({behavior:'smooth',block:'nearest'});},300);
+    if(nd) setTimeout(()=>{ nd.classList.add('open'); nd.scrollIntoView({behavior:'smooth',block:'nearest'}); },300);
   }
 }
-function setFood(key,val){state.cityData[key].food=val;}
+function setFood(key,val){ state.cityData[key].food=val; }
 
 // ══ PRICE ENGINE ══
 function calcPrice(){
   let transport=state.tripType==='air'?4500000:state.tripType==='mixed'?3500000:2200000;
-  if(state.transferOpt==='self')transport=Math.max(0,transport-800000);
-  let accommodation=0,services=800000;
+  if(state.transferOpt==='self') transport=Math.max(0,transport-800000);
+  let accommodation=0, services=800000;
   state.cities.forEach(key=>{
     const d=state.cityData[key];
-    if(d.transit)return;
+    if(d.transit) return;
     const mult=(HOTEL_DATA[key][d.hotel??0]?.price)||1.0;
     accommodation+=CITY_META[key].hotelBase*mult*d.nights;
-    if(d.food)services+=500000*d.nights;
+    if(d.food) services+=500000*d.nights;
   });
   const simTotal=state.simCard?45000*state.passengers:0;
   const dinarsTotal=state.dinars?state.dinarsAmt*37000:0;
@@ -1771,16 +1769,16 @@ function calcPrice(){
   return{transport,accommodation,services,simTotal,dinarsTotal,perPerson:Math.round(perPerson),tripTotal:Math.round(perPerson*state.passengers)};
 }
 
-// ══ STEP 5 CONTENT ══
+// ══ STEP 5 ══
 function buildStep5Content(){
   state.priceVisible=false;
   const cnt=document.getElementById('step5Content');
   let totalNights=0;
-  state.cities.forEach(k=>{if(!state.cityData[k].transit)totalNights+=state.cityData[k].nights;});
+  state.cities.forEach(k=>{ if(!state.cityData[k].transit) totalNights+=state.cityData[k].nights; });
   const typeLabel=state.tripType==='air'?'✈️ هوایی':state.tripType==='land'?'🚌 زمینی':'✈️+🚌 ترکیبی';
   const routeChips=state.cities.map((k,i)=>{
     let c=`<div class="smc-route-chip${state.cityData[k].transit?' transit':''}">${CITY_META[k].name}${state.cityData[k].transit?' (عبوری)':''}</div>`;
-    if(i<state.cities.length-1)c+=`<div class="smc-route-arrow">←</div>`;
+    if(i<state.cities.length-1) c+=`<div class="smc-route-arrow">←</div>`;
     return c;
   }).join('');
   cnt.innerHTML=`
@@ -1885,25 +1883,23 @@ function buildStep5Content(){
         </div>
       </div>
     </div>
-  </div>
-  `;
-  // Build passenger forms for extra passengers
+  </div>`;
   buildPassengerForms();
 }
 
 function selTransferOpt(opt){
   state.transferOpt=opt;
-  ['door','self'].forEach(o=>{const el=document.getElementById('stopt_'+o);if(el)el.classList.toggle('sel',o===opt);});
+  ['door','self'].forEach(o=>{ const el=document.getElementById('stopt_'+o); if(el) el.classList.toggle('sel',o===opt); });
 }
 function toggleSimCard(val){
   state.simCard=val;
   const b=document.getElementById('simCardBody');
-  if(b)b.classList.toggle('show',val);
+  if(b) b.classList.toggle('show',val);
 }
 function toggleDinars(val){
   state.dinars=val;
   const b=document.getElementById('dinarsBody');
-  if(b)b.classList.toggle('show',val);
+  if(b) b.classList.toggle('show',val);
   updateDinarsNote();
 }
 function changeDinars(d){
@@ -1913,40 +1909,39 @@ function changeDinars(d){
 }
 function updateDinarsNote(){
   const el=document.getElementById('dinarsNote');
-  if(el)el.textContent=P(state.dinarsAmt)+' هزار دینار — معادل تقریبی: '+fmt(state.dinarsAmt*37000)+' تومان';
+  if(el) el.textContent=P(state.dinarsAmt)+' هزار دینار — معادل تقریبی: '+fmt(state.dinarsAmt*37000)+' تومان';
 }
 function revealPrice(){
   document.getElementById('revealBtn').style.display='none';
   document.getElementById('priceCard').classList.add('visible');
   state.priceVisible=true;
   animatePrice();
-  // Show passenger forms
   setTimeout(()=>{
     const pfb=document.getElementById('passengerFormBox');
-    if(pfb){pfb.classList.add('show');pfb.scrollIntoView({behavior:'smooth',block:'start'});}
+    if(pfb){ pfb.classList.add('show'); pfb.scrollIntoView({behavior:'smooth',block:'start'}); }
   },800);
 }
 function animatePrice(){
-  const p=calcPrice();state.totalPrice=p.tripTotal;
+  const p=calcPrice(); state.totalPrice=p.tripTotal;
   document.getElementById('pgtPax').textContent=P(state.passengers);
   const lines=[
     {label:'🚌 حمل‌ونقل و ترانسفر',val:p.transport},
     {label:'🏨 اقامت',val:p.accommodation},
     {label:'🍽 خدمات و راهنما',val:p.services},
   ];
-  if(p.simTotal>0)lines.push({label:`📱 سیم‌کارت`,val:p.simTotal/state.passengers});
-  if(p.dinarsTotal>0)lines.push({label:`💵 دینار`,val:p.dinarsTotal});
+  if(p.simTotal>0) lines.push({label:'📱 سیم‌کارت',val:p.simTotal/state.passengers});
+  if(p.dinarsTotal>0) lines.push({label:'💵 دینار',val:p.dinarsTotal});
   const totalLine={label:'جمع کل هر نفر',val:p.perPerson};
   const linesHTML=lines.map(l=>`<div class="price-line"><span class="pl-label">${l.label}</span><span class="pl-val">${fmt(l.val)} تومان</span></div>`).join('');
   const totalHTML=`<div class="price-line total-line"><span class="pl-label">${totalLine.label}</span><span class="pl-val">${fmt(totalLine.val)} تومان</span></div>`;
   document.getElementById('priceLines').innerHTML=linesHTML+totalHTML;
   const el=document.getElementById('pgtAmount');
-  const start=Date.now(),dur=1000;
+  const start=Date.now(), dur=1000;
   (function tick(){
     const prog=Math.min((Date.now()-start)/dur,1);
     const ease=1-Math.pow(1-prog,3);
     el.textContent=fmt(Math.round(p.tripTotal*ease))+' تومان';
-    if(prog<1)requestAnimationFrame(tick);
+    if(prog<1) requestAnimationFrame(tick);
     else el.textContent=fmt(p.tripTotal)+' تومان';
   })();
 }
@@ -1954,26 +1949,26 @@ function animatePrice(){
 // ══ PASSENGER FORMS ══
 function buildPassengerForms(){
   const acc=document.getElementById('passengersAccordion');
-  if(!acc)return;
+  if(!acc) return;
   acc.innerHTML='';
   state.extraPaxCount=0;
-  for(let i=2;i<=state.passengers;i++)addPassengerItem(i);
+  for(let i=2; i<=state.passengers; i++) addPassengerItem(i);
 }
-function addPassenger(){state.extraPaxCount++;addPassengerItem(state.passengers+state.extraPaxCount);}
+function addPassenger(){ state.extraPaxCount++; addPassengerItem(state.passengers+state.extraPaxCount); }
 function addPassengerItem(num){
   const acc=document.getElementById('passengersAccordion');
-  if(!acc)return;
+  if(!acc) return;
   const item=document.createElement('div');
-  item.className='pax-item';item.id='pax_'+num;
+  item.className='pax-item'; item.id='pax_'+num;
   item.innerHTML=`<div class="pax-head" onclick="togPax(${num})"><div class="pax-num">${P(num)}</div><div class="pax-label">زائر ${P(num)}</div><div class="pax-status" id="paxStatus_${num}">در انتظار</div><div class="pax-chevron">▼</div></div><div class="pax-body"><div class="pax-inner"><div class="pfb-grid" style="margin-top:6px"><div class="pfb-field"><label class="pfb-label">نام</label><input class="pfb-input" id="p${num}_first" type="text" placeholder="نام" oninput="onPaxInput(${num})"/></div><div class="pfb-field"><label class="pfb-label">نام خانوادگی</label><input class="pfb-input" id="p${num}_last" type="text" placeholder="نام خانوادگی" oninput="onPaxInput(${num})"/></div><div class="pfb-field"><label class="pfb-label">کد ملی</label><input class="pfb-input" type="text" placeholder="کد ملی" dir="ltr"/></div><div class="pfb-field"><label class="pfb-label">تاریخ تولد</label><input class="pfb-input" type="text" placeholder="۱۳۶۵/۰۵/۲۰"/></div></div></div></div>`;
   acc.appendChild(item);
-  setTimeout(()=>{item.classList.add('open');},80);
+  setTimeout(()=>{ item.classList.add('open'); },80);
 }
-function togPax(num){const el=document.getElementById('pax_'+num);if(el)el.classList.toggle('open');}
+function togPax(num){ const el=document.getElementById('pax_'+num); if(el) el.classList.toggle('open'); }
 function onPaxInput(num){
   const f=document.getElementById('p'+num+'_first')?.value.trim();
   const l=document.getElementById('p'+num+'_last')?.value.trim();
-  if(f&&l){const st=document.getElementById('paxStatus_'+num);if(st){st.textContent='✓ ثبت شد';st.style.color='var(--em3)';}}
+  if(f&&l){ const st=document.getElementById('paxStatus_'+num); if(st){ st.textContent='✓ ثبت شد'; st.style.color='var(--em3)'; }}
 }
 function toggleAgency(){
   state.isAgency=!state.isAgency;
@@ -1985,39 +1980,35 @@ function finalRegister(){
   const last=document.getElementById('pfbLastName')?.value.trim();
   const phone=document.getElementById('pfbPhone')?.value.trim();
   const national=document.getElementById('pfbNational')?.value.trim();
-  if(!first||!last||!phone||!national){alert('لطفاً نام، نام خانوادگی، کد ملی و شماره تماس سرپرست را وارد کنید.');return;}
+  if(!first||!last||!phone||!national){ alert('لطفاً نام، نام خانوادگی، کد ملی و شماره تماس سرپرست را وارد کنید.'); return; }
   const code='AVN-'+Math.random().toString(36).toUpperCase().slice(2,8);
   document.getElementById('successCode').textContent=code;
   closeBottomSheet();
   setTimeout(()=>document.getElementById('successOverlay').classList.add('show'),400);
 }
-function closeSuccess(e){if(e.target.id==='successOverlay')document.getElementById('successOverlay').classList.remove('show');}
+function closeSuccess(e){ if(e.target.id==='successOverlay') document.getElementById('successOverlay').classList.remove('show'); }
 
 // ══ COLLAPSIBLE ══
 function toggleStepsSection(){
-  const toggle=document.getElementById('stepsToggle');
-  const body=document.getElementById('stepsCollBody');
-  toggle.classList.toggle('open');
-  body.classList.toggle('open');
+  document.getElementById('stepsToggle').classList.toggle('open');
+  document.getElementById('stepsCollBody').classList.toggle('open');
 }
 function togJcard(id){
-  const el=document.getElementById(id);
-  const was=el.classList.contains('open');
+  const el=document.getElementById(id), was=el.classList.contains('open');
   document.querySelectorAll('.jcard').forEach(c=>c.classList.remove('open'));
-  if(!was)el.classList.add('open');
+  if(!was) el.classList.add('open');
 }
 function togFaq(id){
-  const el=document.getElementById(id);
-  const is=el.classList.contains('open');
+  const el=document.getElementById(id), is=el.classList.contains('open');
   document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open'));
-  if(!is)el.classList.add('open');
+  if(!is) el.classList.add('open');
 }
 function toggleCaravanAcc(){
   const toggle=document.getElementById('caravanToggle');
   const body=document.getElementById('caravanAccBody');
   toggle.classList.toggle('open-toggle');
   body.classList.toggle('open');
-  if(body.classList.contains('open')){buildCvDropdown();cvRenderList();}
+  if(body.classList.contains('open')){ buildCvDropdown(); cvRenderList(); }
 }
 
 // ══ CARAVAN ══
@@ -2036,11 +2027,9 @@ function buildCvDropdown(){
 }
 function toggleCvDropdown(){
   cvDropOpen=!cvDropOpen;
-  const btn=document.getElementById('cvCityDropBtn');
-  const panel=document.getElementById('cvCityDropPanel');
-  btn.classList.toggle('open',cvDropOpen);
-  panel.classList.toggle('open',cvDropOpen);
-  if(cvDropOpen)buildCvDropdown();
+  document.getElementById('cvCityDropBtn').classList.toggle('open',cvDropOpen);
+  document.getElementById('cvCityDropPanel').classList.toggle('open',cvDropOpen);
+  if(cvDropOpen) buildCvDropdown();
 }
 function cvSelectCityFromDd(city,icon,transport){
   cvDropOpen=false;
@@ -2051,7 +2040,7 @@ function cvSelectCityFromDd(city,icon,transport){
   const badge=document.getElementById('cvDdBadge');
   badge.className='cv-city-dd-badge '+(transport==='air'?'air':'land');
   badge.textContent=transport==='air'?'✈️ هوایی':'🚌 زمینی';
-  cvState.city=city;cvState.openItem=null;cvRenderList();
+  cvState.city=city; cvState.openItem=null; cvRenderList();
 }
 document.addEventListener('click',e=>{
   if(cvDropOpen&&!e.target.closest('.cv-city-dropdown-wrap')){
@@ -2060,16 +2049,24 @@ document.addEventListener('click',e=>{
     document.getElementById('cvCityDropPanel')?.classList.remove('open');
   }
 });
-const CV_DATA={'تهران':{3:[{id:1,day:17,type:'land',cap:14,total:40,dur:'۸ روز',route:'کربلا + نجف',price:'۸,۲۰۰,۰۰۰'},{id:2,day:19,type:'land',cap:12,total:40,dur:'۸ روز',route:'کربلا + نجف',price:'۸,۲۰۰,۰۰۰'},{id:3,day:20,type:'air',cap:8,total:30,dur:'۷ روز',route:'کربلا + نجف + کاظمین',price:'۱۴,۵۰۰,۰۰۰'},{id:4,day:22,type:'land',cap:5,total:40,dur:'۱۰ روز',route:'کربلا + نجف + سامرا',price:'۹,۸۰۰,۰۰۰'},{id:5,day:25,type:'air',cap:15,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۳,۸۰۰,۰۰۰'}],4:[{id:8,day:3,type:'air',cap:18,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۳,۸۰۰,۰۰۰'},{id:9,day:8,type:'land',cap:22,total:40,dur:'۸ روز',route:'کربلا + نجف + کاظمین',price:'۸,۹۰۰,۰۰۰'}]},'مشهد':{3:[{id:20,day:18,type:'air',cap:20,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۶,۲۰۰,۰۰۰'},{id:21,day:24,type:'air',cap:11,total:30,dur:'۷ روز',route:'کربلا + نجف + کاظمین',price:'۱۷,۵۰۰,۰۰۰'}],4:[{id:23,day:5,type:'air',cap:24,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۶,۲۰۰,۰۰۰'}]},'اصفهان':{3:[{id:30,day:20,type:'air',cap:22,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۵,۸۰۰,۰۰۰'}],4:[{id:32,day:10,type:'air',cap:19,total:30,dur:'۷ روز',route:'کربلا + نجف + کاظمین',price:'۱۶,۵۰۰,۰۰۰'}]},'شیراز':{3:[{id:40,day:21,type:'land',cap:16,total:36,dur:'۱۰ روز',route:'کربلا + نجف',price:'۹,۶۰۰,۰۰۰'}],4:[{id:42,day:15,type:'land',cap:21,total:36,dur:'۱۰ روز',route:'کربلا + نجف',price:'۹,۶۰۰,۰۰۰'}]},'تبریز':{3:[{id:50,day:23,type:'land',cap:13,total:38,dur:'۹ روز',route:'کربلا + نجف',price:'۸,۸۰۰,۰۰۰'}],4:[{id:51,day:7,type:'land',cap:25,total:38,dur:'۹ روز',route:'کربلا + نجف',price:'۸,۸۰۰,۰۰۰'}]},'کرج':{3:[{id:60,day:19,type:'land',cap:18,total:40,dur:'۸ روز',route:'کربلا + نجف',price:'۸,۰۰۰,۰۰۰'}],4:[{id:62,day:12,type:'land',cap:20,total:40,dur:'۸ روز',route:'کربلا + نجف + کاظمین',price:'۸,۹۰۰,۰۰۰'}]}};
+
+const CV_DATA={
+  'تهران':{3:[{id:1,day:17,type:'land',cap:14,total:40,dur:'۸ روز',route:'کربلا + نجف',price:'۸,۲۰۰,۰۰۰'},{id:2,day:19,type:'land',cap:12,total:40,dur:'۸ روز',route:'کربلا + نجف',price:'۸,۲۰۰,۰۰۰'},{id:3,day:20,type:'air',cap:8,total:30,dur:'۷ روز',route:'کربلا + نجف + کاظمین',price:'۱۴,۵۰۰,۰۰۰'},{id:4,day:22,type:'land',cap:5,total:40,dur:'۱۰ روز',route:'کربلا + نجف + سامرا',price:'۹,۸۰۰,۰۰۰'},{id:5,day:25,type:'air',cap:15,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۳,۸۰۰,۰۰۰'}],4:[{id:8,day:3,type:'air',cap:18,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۳,۸۰۰,۰۰۰'},{id:9,day:8,type:'land',cap:22,total:40,dur:'۸ روز',route:'کربلا + نجف + کاظمین',price:'۸,۹۰۰,۰۰۰'}]},
+  'مشهد':{3:[{id:20,day:18,type:'air',cap:20,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۶,۲۰۰,۰۰۰'},{id:21,day:24,type:'air',cap:11,total:30,dur:'۷ روز',route:'کربلا + نجف + کاظمین',price:'۱۷,۵۰۰,۰۰۰'}],4:[{id:23,day:5,type:'air',cap:24,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۶,۲۰۰,۰۰۰'}]},
+  'اصفهان':{3:[{id:30,day:20,type:'air',cap:22,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۵,۸۰۰,۰۰۰'}],4:[{id:32,day:10,type:'air',cap:19,total:30,dur:'۷ روز',route:'کربلا + نجف + کاظمین',price:'۱۶,۵۰۰,۰۰۰'}]},
+  'شیراز':{3:[{id:40,day:21,type:'land',cap:16,total:36,dur:'۱۰ روز',route:'کربلا + نجف',price:'۹,۶۰۰,۰۰۰'}],4:[{id:42,day:15,type:'land',cap:21,total:36,dur:'۱۰ روز',route:'کربلا + نجف',price:'۹,۶۰۰,۰۰۰'}]},
+  'تبریز':{3:[{id:50,day:23,type:'land',cap:13,total:38,dur:'۹ روز',route:'کربلا + نجف',price:'۸,۸۰۰,۰۰۰'}],4:[{id:51,day:7,type:'land',cap:25,total:38,dur:'۹ روز',route:'کربلا + نجف',price:'۸,۸۰۰,۰۰۰'}]},
+  'کرج':{3:[{id:60,day:19,type:'land',cap:18,total:40,dur:'۸ روز',route:'کربلا + نجف',price:'۸,۰۰۰,۰۰۰'}],4:[{id:62,day:12,type:'land',cap:20,total:40,dur:'۸ روز',route:'کربلا + نجف + کاظمین',price:'۸,۹۰۰,۰۰۰'}]}
+};
 let cvState={city:'تهران',filterType:'all',openItem:null};
 const cvMonthNums=[3,4,5];
 function cvGetEvents(){
   const all=[];
-  cvMonthNums.forEach(m=>{const evs=(CV_DATA[cvState.city]||{})[m]||[];evs.forEach(e=>all.push({...e,month:m}));});
+  cvMonthNums.forEach(m=>{ const evs=(CV_DATA[cvState.city]||{})[m]||[]; evs.forEach(e=>all.push({...e,month:m})); });
   return all;
 }
-function cvCapCls(cap,total){const p=cap/total;return p>=.38?'hi':p>=.13?'mi':'lo';}
-function cvCapLabel(cap,total){if(cap<=0)return'تکمیل ظرفیت';const p=cap/total;if(p<.13)return P(cap)+' نفر — آخرین فرصت';if(p<.38)return P(cap)+' نفر — محدود';return P(cap)+' صندلی خالی';}
+function cvCapCls(cap,total){ const p=cap/total; return p>=.38?'hi':p>=.13?'mi':'lo'; }
+function cvCapLabel(cap,total){ if(cap<=0) return'تکمیل ظرفیت'; const p=cap/total; if(p<.13) return P(cap)+' نفر — آخرین فرصت'; if(p<.38) return P(cap)+' نفر — محدود'; return P(cap)+' صندلی خالی'; }
 function cvFilter(type){
   cvState.filterType=type;
   document.getElementById('cpAll').className='cv-pill all'+(type!=='all'?' inactive':'');
@@ -2084,8 +2081,8 @@ function cvRenderList(){
   const listEl=document.getElementById('cvList');
   const emptyEl=document.getElementById('cvEmpty');
   listEl.innerHTML='';
-  if(!sorted.length){listEl.style.display='none';emptyEl.style.display='block';return;}
-  listEl.style.display='';emptyEl.style.display='none';
+  if(!sorted.length){ listEl.style.display='none'; emptyEl.style.display='block'; return; }
+  listEl.style.display=''; emptyEl.style.display='none';
   sorted.forEach(ev=>{
     const capCls=cvCapCls(ev.cap,ev.total);
     const capPct=Math.round((ev.cap/ev.total)*100);
@@ -2100,7 +2097,7 @@ function cvRenderList(){
     listEl.appendChild(item);
   });
 }
-function cvToggleItem(id){cvState.openItem=(cvState.openItem===id?null:id);cvRenderList();}
+function cvToggleItem(id){ cvState.openItem=(cvState.openItem===id?null:id); cvRenderList(); }
 
 // ══ CARAVAN RESERVE MODAL ══
 let crmState={ev:null,step:1,paxCount:1,paxData:[]};
@@ -2112,16 +2109,16 @@ function cvBook(id,dateStr,route,price,typeLabel,dur){
   document.getElementById('cvReserveOverlay').classList.add('show');
   crmRender();
 }
-function closeCvReserve(){document.getElementById('cvReserveOverlay').classList.remove('show');}
-function cvReserveOverlayClick(e){if(e.target.id==='cvReserveOverlay')closeCvReserve();}
+function closeCvReserve(){ document.getElementById('cvReserveOverlay').classList.remove('show'); }
+function cvReserveOverlayClick(e){ if(e.target.id==='cvReserveOverlay') closeCvReserve(); }
 function crmUpdateProgress(){
   [1,2,3].forEach(i=>{
     const dot=document.getElementById('crmDot'+i);
-    if(i<crmState.step){dot.className='crm-step-dot done';dot.textContent='✓';}
-    else if(i===crmState.step){dot.className='crm-step-dot active';dot.textContent=String(i);}
-    else{dot.className='crm-step-dot pending';dot.textContent=String(i);}
+    if(i<crmState.step){ dot.className='crm-step-dot done'; dot.textContent='✓'; }
+    else if(i===crmState.step){ dot.className='crm-step-dot active'; dot.textContent=String(i); }
+    else{ dot.className='crm-step-dot pending'; dot.textContent=String(i); }
   });
-  [1,2].forEach(i=>{const line=document.getElementById('crmLine'+i);if(line)line.className='crm-step-line'+(i<crmState.step?' done-line':'');});
+  [1,2].forEach(i=>{ const line=document.getElementById('crmLine'+i); if(line) line.className='crm-step-line'+(i<crmState.step?' done-line':''); });
   const labels=['','تعداد زائران','اطلاعات زائران','تأیید رزرو'];
   document.getElementById('crmHeadSub').textContent='مرحله '+P(crmState.step)+' از ۳ — '+labels[crmState.step];
 }
@@ -2131,9 +2128,9 @@ function crmRender(){
   if(crmState.step===1){
     body.innerHTML=`<div class="crm-step-title"><span class="crm-step-badge">مرحله ۱</span>تعداد زائران را انتخاب کنید</div><div class="crm-pax-stepper-row"><div class="crm-pax-stepper"><button class="crm-pax-stepper-btn" onclick="crmChgPax(-1)">−</button><div class="crm-pax-stepper-val" id="crmPaxVal">${P(crmState.paxCount)}</div><div class="crm-pax-stepper-unit">نفر</div><button class="crm-pax-stepper-btn" onclick="crmChgPax(1)">+</button></div></div><div style="font-size:11px;color:var(--ts);text-align:center;margin-bottom:4px;">برای هر نفر اطلاعات جداگانه ثبت می‌شود</div><div class="crm-nav"><button class="crm-back-btn" onclick="closeCvReserve()">انصراف</button><button class="crm-next-btn" onclick="crmStep1Next()">ادامه ←</button></div>`;
   } else if(crmState.step===2){
-    if(crmState.paxData.length!==crmState.paxCount)crmState.paxData=Array.from({length:crmState.paxCount},(_,i)=>crmState.paxData[i]||{first:'',last:'',phone:'',birth:''});
+    if(crmState.paxData.length!==crmState.paxCount) crmState.paxData=Array.from({length:crmState.paxCount},(_,i)=>crmState.paxData[i]||{first:'',last:'',phone:'',birth:''});
     let formsHtml='';
-    crmState.paxData.forEach((_,i)=>{formsHtml+=`<div class="crm-pax-form"><div class="crm-pax-form-head"><div class="crm-pax-form-num">${P(i+1)}</div>زائر ${P(i+1)}${i===0?' (سرپرست)':''}</div><div class="crm-pax-form-body"><div class="crm-field"><label>نام *</label><input id="crm_${i}_first" type="text" placeholder="نام" value="${crmState.paxData[i].first}" oninput="crmSave(${i},'first',this.value)"/></div><div class="crm-field"><label>نام خانوادگی *</label><input id="crm_${i}_last" type="text" placeholder="نام خانوادگی" value="${crmState.paxData[i].last}" oninput="crmSave(${i},'last',this.value)"/></div><div class="crm-field"><label>موبایل *</label><input id="crm_${i}_phone" type="tel" placeholder="۰۹XXXXXXXXX" dir="ltr" value="${crmState.paxData[i].phone}" oninput="crmSave(${i},'phone',this.value)"/></div><div class="crm-field"><label>تاریخ تولد</label><input id="crm_${i}_birth" type="text" placeholder="۱۳۶۵/۰۵/۲۰" value="${crmState.paxData[i].birth}" oninput="crmSave(${i},'birth',this.value)"/></div></div></div>`;});
+    crmState.paxData.forEach((_,i)=>{ formsHtml+=`<div class="crm-pax-form"><div class="crm-pax-form-head"><div class="crm-pax-form-num">${P(i+1)}</div>زائر ${P(i+1)}${i===0?' (سرپرست)':''}</div><div class="crm-pax-form-body"><div class="crm-field"><label>نام *</label><input id="crm_${i}_first" type="text" placeholder="نام" value="${crmState.paxData[i].first}" oninput="crmSave(${i},'first',this.value)"/></div><div class="crm-field"><label>نام خانوادگی *</label><input id="crm_${i}_last" type="text" placeholder="نام خانوادگی" value="${crmState.paxData[i].last}" oninput="crmSave(${i},'last',this.value)"/></div><div class="crm-field"><label>موبایل *</label><input id="crm_${i}_phone" type="tel" placeholder="۰۹XXXXXXXXX" dir="ltr" value="${crmState.paxData[i].phone}" oninput="crmSave(${i},'phone',this.value)"/></div><div class="crm-field"><label>تاریخ تولد</label><input id="crm_${i}_birth" type="text" placeholder="۱۳۶۵/۰۵/۲۰" value="${crmState.paxData[i].birth}" oninput="crmSave(${i},'birth',this.value)"/></div></div></div>`; });
     body.innerHTML=`<div class="crm-step-title"><span class="crm-step-badge">مرحله ۲</span>اطلاعات ${P(crmState.paxCount)} زائر را وارد کنید</div><div class="crm-pax-forms">${formsHtml}</div><div class="crm-nav"><button class="crm-back-btn" onclick="crmBack()">← بازگشت</button><button class="crm-next-btn" onclick="crmStep2Next()">تأیید ←</button></div>`;
   } else if(crmState.step===3){
     const code='KRV-'+Math.random().toString(36).toUpperCase().slice(2,8);
@@ -2141,11 +2138,11 @@ function crmRender(){
     body.innerHTML=`<div class="crm-success"><div class="crm-success-icon">🕌</div><div class="crm-success-title">رزرو شما ثبت شد!</div><div class="crm-success-body">سرپرست: <strong>${leader.first} ${leader.last}</strong><br/>تعداد: <strong>${P(crmState.paxCount)} نفر</strong><br/>کارشناسان ما ظرف ۲ ساعت تماس می‌گیرند.</div><div class="crm-success-code">${code}</div><div class="crm-success-note">📌 لطفاً کد پیگیری را یادداشت کنید.</div></div><div class="crm-nav" style="margin-top:16px;"><button class="crm-next-btn" onclick="closeCvReserve()">بستن</button></div>`;
   }
 }
-function crmChgPax(d){crmState.paxCount=Math.max(1,Math.min(20,crmState.paxCount+d));const el=document.getElementById('crmPaxVal');if(el)el.textContent=P(crmState.paxCount);}
-function crmStep1Next(){crmState.step=2;crmState.paxData=Array.from({length:crmState.paxCount},(_,i)=>crmState.paxData[i]||{first:'',last:'',phone:'',birth:''});crmRender();}
-function crmSave(i,field,val){if(crmState.paxData[i])crmState.paxData[i][field]=val;}
-function crmStep2Next(){const leader=crmState.paxData[0];if(!leader||!leader.first.trim()||!leader.last.trim()||!leader.phone.trim()){alert('لطفاً اطلاعات سرپرست را کامل وارد کنید.');return;}crmState.step=3;crmRender();}
-function crmBack(){crmState.step=Math.max(1,crmState.step-1);crmRender();}
+function crmChgPax(d){ crmState.paxCount=Math.max(1,Math.min(20,crmState.paxCount+d)); const el=document.getElementById('crmPaxVal'); if(el) el.textContent=P(crmState.paxCount); }
+function crmStep1Next(){ crmState.step=2; crmState.paxData=Array.from({length:crmState.paxCount},(_,i)=>crmState.paxData[i]||{first:'',last:'',phone:'',birth:''}); crmRender(); }
+function crmSave(i,field,val){ if(crmState.paxData[i]) crmState.paxData[i][field]=val; }
+function crmStep2Next(){ const leader=crmState.paxData[0]; if(!leader||!leader.first.trim()||!leader.last.trim()||!leader.phone.trim()){ alert('لطفاً اطلاعات سرپرست را کامل وارد کنید.'); return; } crmState.step=3; crmRender(); }
+function crmBack(){ crmState.step=Math.max(1,crmState.step-1); crmRender(); }
 </script>
 </body>
 </html>
