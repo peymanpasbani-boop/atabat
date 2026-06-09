@@ -1591,10 +1591,13 @@ var tsSelectedTrip = null;
     track.style.position='relative';
     track.style.width='100%';
     track.style.overflow='visible';
-    /* measure height after paint */
+    /* measure and position after paint */
     requestAnimationFrame(function(){
+      var w = outer.offsetWidth;
       var maxH=0;
-      track.querySelectorAll('.ts-card').forEach(function(c){
+      track.querySelectorAll('.ts-card').forEach(function(c,i){
+        c.style.width = w+'px';
+        c.style.left = (i*(w+GAP))+'px';
         if(c.offsetHeight>maxH) maxH=c.offsetHeight;
       });
       track.style.height=maxH+'px';
