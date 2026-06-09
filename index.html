@@ -397,24 +397,19 @@ body.sheet-open{overflow:hidden;}
 .origin-card-badge.land{background:rgba(80,50,0,.55);color:#ffd580;border:1px solid rgba(255,200,80,.2);}
 .origin-card-tick{position:absolute;top:7px;left:7px;width:16px;height:16px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:8px;color:var(--em);font-weight:800;}
 .origin-card.selected .origin-card-tick{display:flex;}
-.more-cities-label{font-size:10px;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.3);text-transform:uppercase;margin:14px 0 10px;}
-/* ── City Carousel ── */
-.city-carousel-wrap{position:relative;overflow:hidden;padding:4px 0 8px;margin:0 -4px;}
-.city-carousel-track{display:flex;align-items:center;transition:transform .36s cubic-bezier(.32,0,.15,1);padding:4px 0;will-change:transform;cursor:grab;user-select:none;-webkit-user-select:none;}
-.city-carousel-track:active{cursor:grabbing;}
-.city-carousel-item{flex:0 0 72px;width:72px;display:flex;flex-direction:column;align-items:center;gap:5px;padding:9px 6px 8px;border-radius:14px;border:1.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);cursor:pointer;transition:transform .32s cubic-bezier(.4,0,.2,1),opacity .32s,border-color .32s,background .32s,box-shadow .32s;transform:scale(.78);opacity:.45;margin:0 5px;}
-.city-carousel-item.near-center{transform:scale(.89);opacity:.68;}
-.city-carousel-item.active-center{transform:scale(1);opacity:1;border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.1);box-shadow:0 3px 16px rgba(201,168,76,.18);}
-.city-carousel-item.selected .cci-tick{display:flex !important;}
-.city-carousel-item.selected.active-center{border-color:var(--gold);background:rgba(201,168,76,.18);box-shadow:0 4px 20px rgba(201,168,76,.32);}
-.cci-icon{display:flex;align-items:center;justify-content:center;width:28px;height:28px;color:rgba(255,255,255,.65);line-height:1;}
-.city-carousel-item.active-center .cci-icon{color:var(--goldL);}
-.city-carousel-item.selected .cci-icon{color:var(--goldL);}
-.cci-name{font-size:10px;font-weight:700;color:rgba(255,255,255,.75);text-align:center;white-space:nowrap;}
-.city-carousel-item.active-center .cci-name{color:var(--goldL);font-size:11px;}
-.cci-type{font-size:8.5px;font-weight:600;padding:1.5px 6px;border-radius:100px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1);}
-.city-carousel-item.active-center .cci-type{background:rgba(201,168,76,.15);color:rgba(232,201,122,.7);border-color:rgba(201,168,76,.25);}
-.cci-tick{width:16px;height:16px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:8px;color:var(--em);font-weight:800;}
+/* ── سایر شهرها: day-strip style ── */
+.more-cities-label{font-size:10px;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.35);text-transform:uppercase;margin:14px 0 8px;display:flex;align-items:center;gap:6px;}
+.city-strip-box{background:rgba(255,255,255,.06);border:1.5px solid rgba(201,168,76,.22);border-radius:14px;padding:10px 10px 10px;margin-bottom:4px;}
+.city-strip-scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;}
+.city-strip-scroll::-webkit-scrollbar{display:none;}
+.city-strip-row{display:flex;flex-direction:row;gap:6px;width:max-content;}
+.city-chip{width:72px;min-height:68px;border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;font-weight:700;cursor:pointer;transition:all .18s;color:rgba(255,255,255,.75);border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);flex-shrink:0;padding:6px 4px;}
+.city-chip:hover{background:rgba(201,168,76,.15);border-color:rgba(201,168,76,.4);color:var(--goldL);transform:translateY(-2px);}
+.city-chip.selected{background:linear-gradient(135deg,rgba(201,168,76,.25),rgba(26,94,73,.2));border-color:var(--gold);color:var(--goldL);box-shadow:0 3px 12px rgba(201,168,76,.25);}
+.city-chip-icon{font-size:18px;line-height:1;}
+.city-chip-name{font-size:10.5px;font-weight:800;text-align:center;white-space:nowrap;}
+.city-chip-type{font-size:8.5px;color:rgba(255,255,255,.4);font-weight:600;}
+.city-chip.selected .city-chip-type{color:rgba(201,168,76,.7);}
 .carousel-dots{display:flex;justify-content:center;gap:4px;margin-top:6px;}
 .cdot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .25s;cursor:pointer;}
 .cdot.active{width:14px;border-radius:2px;background:var(--gold);}
@@ -687,195 +682,43 @@ body.sheet-open{overflow:hidden;}
   .bsl-item{width:20px;font-size:7px;}
   .tnc-meta-strip{grid-template-columns:1fr 1fr 1fr;}
 }
-/* ══ TRIP SUGGESTIONS SLIDER — POLYGON CARD ══ */
-.trips-section{background:var(--cream);padding:24px 0 8px;position:relative;}
-.trips-section-inner{max-width:700px;margin:0 auto;padding:0 18px;}
-.trips-section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.trips-section-eyebrow{font-size:9px;font-weight:700;letter-spacing:.13em;color:var(--gold);text-transform:uppercase;margin-bottom:3px;}
-.trips-section-title-text{font-size:15px;font-weight:900;color:var(--em);}
-.trips-dots-row{display:flex;align-items:center;gap:5px;}
-.trip-dot{width:6px;height:6px;border-radius:50%;background:rgba(13,59,46,.15);transition:all .3s ease;cursor:pointer;}
-.trip-dot.active{width:18px;border-radius:3px;background:var(--em);}
-/* Track */
-.trips-track-wrap{
-  overflow:hidden;
-  position:relative;
-  cursor:grab;
-  user-select:none;
-  -webkit-user-select:none;
-  padding-bottom:6px;
-}
-.trips-track-wrap:active{cursor:grabbing;}
-.trips-track{
-  display:flex;
-  gap:12px;
-  transition:transform .42s cubic-bezier(.32,0,.15,1);
-  will-change:transform;
-  padding:4px 2px 4px;
-}
-
-/* ── POLYGON / HEXAGON-ISH CARD ── */
-.trip-card{
-  flex:0 0 160px;
-  min-height:200px;
-  background:var(--white);
-  border-radius:20px 4px 20px 4px;
-  overflow:hidden;
-  border:1.5px solid rgba(13,59,46,.08);
-  box-shadow:0 3px 14px rgba(13,59,46,.08);
-  transition:all .26s cubic-bezier(.4,0,.2,1);
-  position:relative;
-  cursor:pointer;
-  display:flex;
-  flex-direction:column;
-}
-.trip-card:hover{
-  box-shadow:0 8px 24px rgba(13,59,46,.15);
-  transform:translateY(-4px) scale(1.02);
-  border-color:var(--gold);
-}
-.trip-card:active{transform:scale(.97);}
-
-/* Top gradient bg — fills top ~55% */
-.tcard-bg{
-  position:relative;
-  padding:14px 14px 18px;
-  background:linear-gradient(155deg,var(--em) 0%,var(--em3) 100%);
-  clip-path:polygon(0 0,100% 0,100% 80%,0 100%);
-  min-height:120px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
-/* type icon circle */
-.tcard-type-icon{
-  width:30px;height:30px;
-  border-radius:50%;
-  background:rgba(255,255,255,.15);
-  border:1.5px solid rgba(255,255,255,.25);
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;
-  margin-bottom:8px;
-  flex-shrink:0;
-}
-/* big day number */
-.tcard-day-num{
-  font-size:44px;
-  font-weight:900;
-  color:var(--goldL);
-  line-height:1;
-  letter-spacing:-.04em;
-  text-shadow:0 2px 12px rgba(0,0,0,.2);
-}
-.tcard-month-str{
-  font-size:13px;
-  font-weight:700;
-  color:rgba(232,201,122,.9);
-  margin-top:4px;
-  letter-spacing:.02em;
-}
-
-/* bottom white area */
-.tcard-foot{
-  flex:1;
-  padding:14px 13px 13px;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-/* origin */
-.tcard-origin{
-  font-size:11px;
-  font-weight:800;
-  color:var(--em);
-  display:flex;align-items:center;gap:4px;
-}
-.tcard-origin-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:var(--gold);
-  flex-shrink:0;
-}
-/* nights badge */
-.tcard-nights{
-  display:inline-flex;align-items:center;gap:4px;
-  font-size:10.5px;font-weight:700;
-  color:#7a5c1a;
-  background:var(--goldP);
-  border:1px solid var(--goldB);
-  padding:3px 9px;border-radius:100px;
-  width:fit-content;
-}
-/* price */
-.tcard-price-row{display:flex;align-items:baseline;gap:3px;margin-top:auto;}
-.tcard-price-amt{font-size:14px;font-weight:900;color:var(--em);letter-spacing:-.02em;}
-.tcard-price-unit{font-size:9px;font-weight:600;color:var(--ts);}
-.trip-detail-overlay{position:fixed;inset:0;z-index:950;background:rgba(0,0,0,0);backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);pointer-events:none;transition:background .38s ease,backdrop-filter .38s ease;}
-.trip-detail-overlay.open{background:rgba(0,0,0,.5);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);pointer-events:all;}
-.trip-detail-sheet{position:fixed;bottom:0;left:0;right:0;z-index:951;background:var(--cream);border-radius:24px 24px 0 0;box-shadow:0 -16px 60px rgba(0,0,0,.3);transform:translateY(100%);transition:transform .46s cubic-bezier(.32,0,.15,1);max-height:90vh;display:flex;flex-direction:column;overflow:hidden;}
-.trip-detail-sheet.open{transform:translateY(0);}
-.tds-handle{flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:10px 0 4px;cursor:grab;}
-.tds-handle-bar{width:40px;height:4px;background:rgba(0,0,0,.12);border-radius:2px;}
-.tds-header{flex-shrink:0;background:linear-gradient(135deg,var(--em),var(--em3));padding:14px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
-.tds-header-title{font-size:14px;font-weight:800;color:var(--goldL);}
-.tds-header-sub{font-size:10px;color:rgba(232,201,122,.55);margin-top:2px;}
-.tds-close{width:30px;height:30px;background:rgba(255,255,255,.12);border:none;border-radius:50%;cursor:pointer;color:rgba(255,255,255,.7);font-size:15px;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0;}
-.tds-close:hover{background:rgba(255,255,255,.22);}
-.tds-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 18px 100px;}
-.tds-body::-webkit-scrollbar{width:3px;}
-.tds-body::-webkit-scrollbar-thumb{background:rgba(201,168,76,.3);border-radius:2px;}
-.tds-section{margin-bottom:16px;}
-.tds-sec-title{font-size:10px;font-weight:800;color:var(--ts);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(201,168,76,.12);display:flex;align-items:center;gap:6px;}
-.tds-key-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
-.tds-key-item{background:var(--white);border:1.5px solid rgba(201,168,76,.12);border-radius:12px;padding:10px;text-align:center;}
-.tds-key-icon{font-size:18px;margin-bottom:4px;}
-.tds-key-label{font-size:9px;font-weight:700;color:var(--ts);text-transform:uppercase;margin-bottom:3px;}
-.tds-key-val{font-size:12.5px;font-weight:800;color:var(--em);}
-.tds-timeline{display:flex;flex-direction:column;gap:0;}
-.tds-tl-item{display:flex;gap:12px;padding:10px 0;}
-.tds-tl-item:not(:last-child){border-bottom:1px dashed rgba(201,168,76,.1);}
-.tds-tl-left{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;width:36px;}
-.tds-tl-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
-.tds-tl-icon.dep{background:rgba(13,59,46,.08);}
-.tds-tl-icon.city{background:var(--goldP);}
-.tds-tl-icon.ret{background:rgba(13,59,46,.06);}
-.tds-tl-line{flex:1;width:2px;background:rgba(201,168,76,.15);margin:3px 0;}
-.tds-tl-content{flex:1;padding-bottom:2px;}
-.tds-tl-name{font-size:13px;font-weight:700;color:var(--em);}
-.tds-tl-desc{font-size:11px;color:var(--ts);margin-top:2px;line-height:1.6;}
-.tds-tl-badges{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;}
-.tds-tl-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;}
-.tds-tl-badge.nights{background:var(--goldP);border:1px solid var(--goldB);color:var(--gold);}
-.tds-tl-badge.hotel{background:rgba(13,59,46,.07);border:1px solid rgba(13,59,46,.15);color:var(--em3);}
-.tds-tl-badge.transit{background:rgba(100,100,100,.07);border:1px solid #ddd;color:#888;}
-.tds-hotels-grid{display:flex;flex-direction:column;gap:7px;}
-.tds-hotel-row{background:var(--white);border:1.5px solid rgba(201,168,76,.12);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;}
-.tds-hotel-city-tag{width:30px;height:30px;background:linear-gradient(135deg,var(--em),var(--em3));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
-.tds-hotel-info{flex:1;}
-.tds-hotel-name{font-size:12px;font-weight:700;color:var(--td);}
-.tds-hotel-city{font-size:10px;color:var(--ts);margin-top:1px;}
-.tds-hotel-stars{display:flex;gap:2px;margin-top:3px;}
-.tds-hotel-star{width:8px;height:8px;border-radius:50%;}
-.tds-hotel-star.on{background:var(--gold);}
-.tds-hotel-star.off{background:#e0d9c8;}
-.tds-hotel-nights{font-size:10.5px;font-weight:700;background:var(--goldP);border:1px solid var(--goldB);color:var(--gold);padding:3px 9px;border-radius:100px;white-space:nowrap;flex-shrink:0;}
-.tds-price-breakdown{background:linear-gradient(135deg,var(--em),var(--em3));border-radius:16px;padding:16px;}
-.tds-pb-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07);}
-.tds-pb-row:last-child{border-bottom:none;}
-.tds-pb-label{font-size:11px;color:rgba(255,255,255,.6);}
-.tds-pb-val{font-size:12px;font-weight:700;color:rgba(255,255,255,.85);}
-.tds-pb-total-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:rgba(201,168,76,.15);border-radius:10px;border:1px solid rgba(201,168,76,.25);margin-top:8px;}
-.tds-pb-total-label{font-size:11px;color:var(--goldL);font-weight:600;}
-.tds-pb-total-val{font-size:22px;font-weight:900;color:var(--goldL);}
-.tds-footer{position:absolute;bottom:0;left:0;right:0;padding:12px 18px calc(12px + env(safe-area-inset-bottom));background:var(--white);border-top:1px solid rgba(201,168,76,.15);box-shadow:0 -4px 20px rgba(0,0,0,.07);display:flex;gap:10px;align-items:center;}
-.tds-footer-price{flex:1;}
-.tds-footer-price-label{font-size:9.5px;color:var(--ts);}
-.tds-footer-price-val{font-size:18px;font-weight:900;color:var(--em);}
-.tds-footer-price-sub{font-size:9px;color:var(--ts);}
-.tds-book-btn{padding:13px 22px;border-radius:100px;border:none;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--em);font-family:"Vazirmatn",sans-serif;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(201,168,76,.35);transition:all .25s;white-space:nowrap;}
-.tds-book-btn:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(201,168,76,.5);}
-.trips-swipe-hint{text-align:center;margin-top:10px;font-size:9.5px;color:var(--ts);display:flex;align-items:center;justify-content:center;gap:5px;opacity:.55;letter-spacing:.03em;}
-@keyframes swipeHintAnim{0%,100%{opacity:.35;transform:translateX(0)}50%{opacity:.6;transform:translateX(4px)}}
-.trips-swipe-hint-arrow{font-size:12px;animation:swipeHintAnim 2.2s ease-in-out infinite;}
+/* ══ TRIP SUGGESTIONS — STACK CARDS ══ */
+.trips-stack-wrap{position:relative;height:260px;margin:0 0 8px;}
+.trip-stack-card{position:absolute;left:0;right:0;background:var(--white);border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(13,59,46,.12);cursor:pointer;transition:transform .4s cubic-bezier(.32,0,.15,1),opacity .4s ease;border:1.5px solid rgba(201,168,76,.15);}
+.trip-stack-card.active{z-index:4;transform:translateY(0) scale(1);}
+.trip-stack-card.behind1{z-index:3;transform:translateY(10px) scale(0.96);opacity:.85;}
+.trip-stack-card.behind2{z-index:2;transform:translateY(18px) scale(0.92);opacity:.6;}
+.trip-stack-card.behind3{z-index:1;transform:translateY(24px) scale(0.88);opacity:.35;}
+.trip-stack-card.exit-left{z-index:5;transform:translateX(-110%) rotate(-8deg);opacity:0;}
+.trip-stack-card.exit-right{z-index:5;transform:translateX(110%) rotate(8deg);opacity:0;}
+/* card interior */
+.tsc-head{background:linear-gradient(135deg,var(--em) 0%,var(--em3) 100%);padding:16px 18px 14px;position:relative;overflow:hidden;}
+.tsc-head::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(201,168,76,.12),transparent 60%);pointer-events:none;}
+.tsc-row1{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;}
+.tsc-type-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.85);}
+.tsc-tag{font-size:10px;font-weight:700;background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.35);color:var(--goldL);padding:3px 10px;border-radius:100px;}
+.tsc-date{display:flex;align-items:baseline;gap:6px;}
+.tsc-day{font-size:42px;font-weight:900;color:var(--goldL);line-height:1;letter-spacing:-.03em;}
+.tsc-month{font-size:14px;font-weight:700;color:rgba(232,201,122,.8);}
+.tsc-title{font-size:13px;font-weight:800;color:rgba(255,255,255,.9);margin-top:6px;}
+/* card body */
+.tsc-body{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.tsc-info{display:flex;flex-direction:column;gap:4px;}
+.tsc-origin{font-size:11px;font-weight:700;color:var(--em);display:flex;align-items:center;gap:5px;}
+.tsc-nights{font-size:11px;font-weight:700;color:#7a5c1a;background:var(--goldP);border:1px solid var(--goldB);padding:3px 9px;border-radius:100px;display:inline-flex;align-items:center;gap:3px;width:fit-content;}
+.tsc-price-area{text-align:left;}
+.tsc-price-from{font-size:9px;color:var(--ts);margin-bottom:1px;}
+.tsc-price-val{font-size:18px;font-weight:900;color:var(--em);letter-spacing:-.02em;}
+.tsc-price-unit{font-size:9px;color:var(--ts);}
+/* swipe hint */
+.tsc-swipe-hint{text-align:center;padding:8px 0 4px;font-size:10px;color:var(--ts);display:flex;align-items:center;justify-content:center;gap:6px;}
+.tsc-hint-arrows{display:flex;gap:3px;}
+.tsc-hint-arrow{width:22px;height:22px;border-radius:50%;border:1px solid rgba(201,168,76,.25);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--ts);cursor:pointer;transition:all .2s;}
+.tsc-hint-arrow:hover{background:rgba(201,168,76,.1);color:var(--em);}
+/* dots */
+.tsc-dots{display:flex;justify-content:center;gap:5px;margin-top:8px;}
+.tsc-dot{width:5px;height:5px;border-radius:50%;background:rgba(13,59,46,.18);transition:all .25s;cursor:pointer;}
+.tsc-dot.active{width:16px;border-radius:3px;background:var(--em);}
 
 /* ══ AI TRIP PLANNER CHAT WIDGET ══ */
 .aichat-fab-wrap{position:fixed;bottom:92px;right:20px;z-index:600;display:flex;flex-direction:column;align-items:center;gap:5px;}
@@ -1324,14 +1167,14 @@ body.sheet-open{overflow:hidden;}
           <div class="origin-card-badge land">🚍 زمینی</div>
         </div>
       </div>
-      <div class="more-cities-label">سایر شهرها — بکشید انتخاب کنید</div>
-      <div class="city-carousel-wrap" id="cityCarouselWrap">
-        <div class="city-carousel-track" id="cityCarouselTrack">
-          <!-- built by JS infinite loop carousel -->
+      <div class="more-cities-label">🏙 سایر شهرها</div>
+      <div class="city-strip-box">
+        <div class="city-strip-scroll">
+          <div class="city-strip-row" id="cityStripRow">
+            <!-- built by JS -->
+          </div>
         </div>
-        <div class="carousel-dots" id="carouselDots"></div>
       </div>
-      <!-- hidden pills kept for JS compat -->
       <div id="moreCitiesRow" style="display:none;"></div>
     </div>
   </div>
@@ -1361,14 +1204,17 @@ body.sheet-open{overflow:hidden;}
       </div>
       <div class="trips-dots-row" id="tripDotsRow"></div>
     </div>
-    <div class="trips-track-wrap" id="tripsTrackWrap">
-      <div class="trips-track" id="tripsTrack"></div>
+    <div class="trips-stack-wrap" id="tripsStackWrap">
+      <!-- built by JS -->
     </div>
-    <div class="trips-swipe-hint">
-      <span class="trips-swipe-hint-arrow">←</span>
-      <span>برای دیدن بیشتر بکشید</span>
-      <span class="trips-swipe-hint-arrow">→</span>
+    <div class="tsc-swipe-hint">
+      <div class="tsc-hint-arrows">
+        <div class="tsc-hint-arrow" onclick="tripPrev()">→</div>
+        <div class="tsc-hint-arrow" onclick="tripNext()">←</div>
+      </div>
+      <span>کشیدن یا کلیک برای جزئیات</span>
     </div>
+    <div class="tsc-dots" id="tscDots"></div>
   </div>
 </section>
 
@@ -1493,152 +1339,166 @@ body.sheet-open{overflow:hidden;}
 // ══ TRIP SUGGESTIONS SLIDER ══
 const TRIP_SUGGESTIONS=[{id:'ts1',type:'air',tag:'محرم ۱۴۰۵',title:'نجف + کربلا — محرم',date:'۲۶ خرداد ۱۴۰۵',origin:'تهران',duration:'۵ شب',totalNights:5,paxText:'هر نفر',pricePerPerson:23000000,priceLabel:'۲۳,۰۰۰,۰۰۰',routeItems:[{city:'تهران',icon:'🏙',nights:null,type:'dep'},{city:'نجف اشرف',icon:'🕌',nights:2,hotel:'هتل امیرالمؤمنین ★★★★★',type:'city'},{city:'کربلای معلی',icon:'🕌',nights:3,hotel:'هتل عباسیه گرند ★★★★★',type:'city'},{city:'تهران',icon:'🏙',nights:null,type:'ret'}],timeline:[{icon:'✈️',cls:'dep',name:'پرواز از تهران',desc:'فرودگاه امام خمینی — پرواز مستقیم به نجف'},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۲ شب اقامت',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'🏨 امیرالمؤمنین ★★★★★'}]},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) و حضرت عباس (ع) — ۳ شب اقامت',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 عباسیه گرند ★★★★★'}]},{icon:'✈️',cls:'ret',name:'پرواز بازگشت به تهران',desc:'پرواز مستقیم از نجف — بازگشت به تهران'}],hotels:[{city:'نجف اشرف',cityIcon:'🕌',name:'هتل امیرالمؤمنین',stars:5,nights:2},{city:'کربلای معلی',cityIcon:'🕌',name:'هتل عباسیه گرند',stars:5,nights:3}],includes:['✈️ بلیط پرواز رفت و برگشت','🚗 ترانسفر از درب منزل','🏨 اقامت ۵ شب','🍽️ صبحانه + شام','👤 راهنمای مجرب'],priceBreakdown:[{label:'بلیط هوایی رفت و برگشت',val:'۸,۵۰۰,۰۰۰ ت'},{label:'اقامت ۵ شب (هتل ۵ ستاره)',val:'۱۱,۵۰۰,۰۰۰ ت'},{label:'ترانسفر و خدمات',val:'۳,۰۰۰,۰۰۰ ت'}]},{id:'ts2',type:'land',tag:'اقتصادی',title:'کربلا + نجف — زمینی',date:'۵ تیر ۱۴۰۵',origin:'قم',duration:'۶ شب',totalNights:6,paxText:'هر نفر',pricePerPerson:11500000,priceLabel:'۱۱,۵۰۰,۰۰۰',routeItems:[{city:'قم',icon:'🕌',nights:null,type:'dep'},{city:'کربلای معلی',icon:'🕌',nights:3,hotel:'هتل کربلا اینترنشنال ★★★★',type:'city'},{city:'نجف اشرف',icon:'🕌',nights:3,hotel:'هتل نجف پالاس ★★★★',type:'city'},{city:'قم',icon:'🕌',nights:null,type:'ret'}],timeline:[{icon:'🚌',cls:'dep',name:'حرکت از قم',desc:'اتوبوس VIP — مستقیم به مرز خسروی'},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) — ۳ شب اقامت',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 کربلا اینترنشنال ★★★★'}]},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۳ شب اقامت',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 نجف پالاس ★★★★'}]},{icon:'🚌',cls:'ret',name:'بازگشت به قم',desc:'اتوبوس VIP — مرز خسروی به قم'}],hotels:[{city:'کربلای معلی',cityIcon:'🕌',name:'هتل کربلا اینترنشنال',stars:4,nights:3},{city:'نجف اشرف',cityIcon:'🕌',name:'هتل نجف پالاس',stars:4,nights:3}],includes:['🚌 اتوبوس VIP رفت و برگشت','🚗 ترانسفر از درب منزل','🏨 اقامت ۶ شب','🍽️ صبحانه + شام','👤 راهنمای مجرب'],priceBreakdown:[{label:'اتوبوس VIP رفت و برگشت',val:'۲,۸۰۰,۰۰۰ ت'},{label:'اقامت ۶ شب (هتل ۴ ستاره)',val:'۶,۲۰۰,۰۰۰ ت'},{label:'ترانسفر و خدمات',val:'۲,۵۰۰,۰۰۰ ت'}]},{id:'ts3',type:'air',tag:'مشهد — هوایی',title:'نجف + کربلا + کاظمین',date:'۱۵ تیر ۱۴۰۵',origin:'مشهد',duration:'۷ شب',totalNights:7,paxText:'هر نفر',pricePerPerson:27500000,priceLabel:'۲۷,۵۰۰,۰۰۰',routeItems:[{city:'مشهد',icon:'🕌',nights:null,type:'dep'},{city:'نجف اشرف',icon:'🕌',nights:2,hotel:'هتل نجف گرند ★★★★★',type:'city'},{city:'کربلای معلی',icon:'🕌',nights:3,hotel:'هتل الحسین انترنشنال ★★★★★',type:'city'},{city:'کاظمین',icon:'🕌',nights:2,hotel:'هتل الامین الکاظمیه ★★★★★',type:'city'},{city:'مشهد',icon:'🕌',nights:null,type:'ret'}],timeline:[{icon:'✈️',cls:'dep',name:'پرواز از مشهد',desc:'فرودگاه مشهد — پرواز به نجف'},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۲ شب',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'🏨 نجف گرند ★★★★★'}]},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) — ۳ شب',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 الحسین انترنشنال ★★★★★'}]},{icon:'🕌',cls:'city',name:'کاظمین',desc:'حرم امام کاظم (ع) — ۲ شب',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'🏨 الامین الکاظمیه ★★★★★'}]},{icon:'✈️',cls:'ret',name:'پرواز بازگشت به مشهد',desc:'پرواز از بغداد — بازگشت به مشهد'}],hotels:[{city:'نجف اشرف',cityIcon:'🕌',name:'هتل نجف گرند',stars:5,nights:2},{city:'کربلای معلی',cityIcon:'🕌',name:'هتل الحسین انترنشنال',stars:5,nights:3},{city:'کاظمین',cityIcon:'🕌',name:'هتل الامین الکاظمیه',stars:5,nights:2}],includes:['✈️ بلیط پرواز رفت و برگشت','🚗 ترانسفر از درب منزل','🏨 اقامت ۷ شب','🍽️ صبحانه + شام','👤 راهنمای مجرب','📱 سیم‌کارت عراقی'],priceBreakdown:[{label:'بلیط هوایی رفت و برگشت',val:'۱۰,۵۰۰,۰۰۰ ت'},{label:'اقامت ۷ شب (هتل ۵ ستاره)',val:'۱۳,۵۰۰,۰۰۰ ت'},{label:'ترانسفر و خدمات',val:'۳,۵۰۰,۰۰۰ ت'}]},{id:'ts4',type:'vip',tag:'VIP خانوادگی',title:'کربلا + نجف — VIP',date:'۸ مرداد ۱۴۰۵',origin:'تهران',duration:'۴ شب',totalNights:4,paxText:'هر نفر',pricePerPerson:38000000,priceLabel:'۳۸,۰۰۰,۰۰۰',routeItems:[{city:'تهران',icon:'🏙',nights:null,type:'dep'},{city:'کربلای معلی',icon:'🕌',nights:2,hotel:'هتل عباسیه گرند ★★★★★ (سوئیت)',type:'city'},{city:'نجف اشرف',icon:'🕌',nights:2,hotel:'هتل امیرالمؤمنین ★★★★★ (سوئیت)',type:'city'},{city:'تهران',icon:'🏙',nights:null,type:'ret'}],timeline:[{icon:'✈️',cls:'dep',name:'پرواز چارتر از تهران',desc:'پرواز اختصاصی — فرودگاه امام خمینی'},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) — ۲ شب در سوئیت',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'👑 سوئیت عباسیه گرند'}]},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۲ شب در سوئیت',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'👑 سوئیت امیرالمؤمنین'}]},{icon:'✈️',cls:'ret',name:'پرواز بازگشت — تهران',desc:'پرواز چارتر — بازگشت به تهران'}],hotels:[{city:'کربلای معلی',cityIcon:'🕌',name:'عباسیه گرند — سوئیت',stars:5,nights:2},{city:'نجف اشرف',cityIcon:'🕌',name:'امیرالمؤمنین — سوئیت',stars:5,nights:2}],includes:['✈️ پرواز چارتر اختصاصی','🚗 ماشین اختصاصی در عراق','👑 اقامت سوئیت ۵ ستاره','🍽️ تمام وعده‌ها','🎖️ راهنمای VIP اختصاصی','💐 استقبال ویژه'],priceBreakdown:[{label:'پرواز چارتر رفت و برگشت',val:'۱۴,۰۰۰,۰۰۰ ت'},{label:'اقامت ۴ شب سوئیت',val:'۱۸,۰۰۰,۰۰۰ ت'},{label:'ماشین اختصاصی و راهنمای VIP',val:'۶,۰۰۰,۰۰۰ ت'}]}];
 
-let tsCurrent=0,tsDragStartX=0,tsDragging=false,tsDragDelta=0,tsSelectedTrip=null;
-// Infinite loop: we clone cards before/after
-let tsClonesBefore=2, tsClonesAfter=2;
+window.TRIP_SUGGESTIONS = TRIP_SUGGESTIONS;
+var tsSelectedTrip = null;
+// ============================
+// ══ TRIP STACK CARDS ══
+(function(){
+  'use strict';
+  var data = window.TRIP_SUGGESTIONS || [];
+  var cur  = 0;
+  var total = data.length;
+  var isAnimating = false;
+  var touchX = 0, touchDelta = 0, isTouching = false;
 
-function buildTripsSlider(){
-  const track=document.getElementById('tripsTrack');
-  const dotsRow=document.getElementById('tripDotsRow');
-  if(!track||!dotsRow)return;
-  track.innerHTML='';dotsRow.innerHTML='';
+  function P(n){return String(n).replace(/\d/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'[d];});}
 
-  const total=TRIP_SUGGESTIONS.length;
-
-  // Build all cards (clones before + real + clones after)
-  const buildCard=(trip,isClone)=>{
-    const dp=trip.date.split(' ');
-    const dayNum=dp[0];
-    const monthStr=dp.slice(1).join(' ');
-    const typeIcon=trip.type==='air'||trip.type==='vip'?'✈️':'🚌';
-    const totalN=trip.routeItems.filter(r=>r.type==='city').reduce((s,r)=>s+(r.nights||0),0);
-    const card=document.createElement('div');
-    card.className='trip-card';
-    if(!isClone) card.dataset.tripId=trip.id;
-    card.onclick=()=>{ if(Math.abs(tsDragDelta)>8) return; openTripDetail(trip.id); };
-    card.innerHTML=`
-      <div class="tcard-bg">
-        <div class="tcard-type-icon">${typeIcon}</div>
-        <div>
-          <div class="tcard-day-num">${dayNum}</div>
-          <div class="tcard-month-str">${monthStr}</div>
-        </div>
-      </div>
-      <div class="tcard-foot">
-        <div class="tcard-origin"><div class="tcard-origin-dot"></div>${trip.origin}</div>
-        <div class="tcard-nights">🌙 ${P(totalN)} شب</div>
-        <div class="tcard-price-row">
-          <div class="tcard-price-amt">${trip.priceLabel}</div>
-          <div class="tcard-price-unit"> ت</div>
-        </div>
-      </div>`;
-    return card;
-  };
-
-  // Clones before (last N trips)
-  for(let i=total-tsClonesBefore;i<total;i++){
-    track.appendChild(buildCard(TRIP_SUGGESTIONS[i],true));
-  }
-  // Real cards
-  TRIP_SUGGESTIONS.forEach(trip=>{ track.appendChild(buildCard(trip,false)); });
-  // Clones after (first N trips)
-  for(let i=0;i<tsClonesAfter;i++){
-    track.appendChild(buildCard(TRIP_SUGGESTIONS[i],true));
+  function init(){
+    var wrap = document.getElementById('tripsStackWrap');
+    if(!wrap || !total) return;
+    // build cards (all, stack shows top 4)
+    wrap.innerHTML = '';
+    data.forEach(function(trip, i){
+      wrap.appendChild(buildCard(trip, i));
+    });
+    buildDots();
+    render(false);
+    bindEvents(wrap);
   }
 
-  // Dots (only for real cards)
-  TRIP_SUGGESTIONS.forEach((_,i)=>{
-    const dot=document.createElement('div');
-    dot.className='trip-dot'+(i===0?' active':'');
-    dot.dataset.idx=i;
-    dot.onclick=(e)=>{e.stopPropagation();tsGoTo(i,true);};
-    dotsRow.appendChild(dot);
-  });
+  function buildCard(trip, idx){
+    var dp = trip.date.split(' ');
+    var day = dp[0];
+    var mon = dp.slice(1).join(' ');
+    var icon = (trip.type==='air'||trip.type==='vip') ? '✈️' : '🚌';
+    var typeLabel = trip.type==='air'?'هوایی':trip.type==='vip'?'VIP':'زمینی';
+    var nights = (trip.routeItems||[]).filter(function(r){return r.type==='city';})
+                  .reduce(function(s,r){return s+(r.nights||0);},0);
 
-  // Start at real index 0 (after clones)
-  tsCurrent=0;
-  tsSetTransform(false);
+    var el = document.createElement('div');
+    el.className = 'trip-stack-card';
+    el.dataset.idx = idx;
+    el.innerHTML =
+      '<div class="tsc-head">'+
+        '<div class="tsc-row1">'+
+          '<div class="tsc-type-badge">'+icon+' '+typeLabel+'</div>'+
+          '<div class="tsc-tag">'+trip.origin+'</div>'+
+        '</div>'+
+        '<div class="tsc-date">'+
+          '<div class="tsc-day">'+day+'</div>'+
+          '<div class="tsc-month">'+mon+'</div>'+
+        '</div>'+
+        '<div class="tsc-title">'+trip.title+'</div>'+
+      '</div>'+
+      '<div class="tsc-body">'+
+        '<div class="tsc-info">'+
+          '<div class="tsc-origin"><span>📍</span>'+trip.origin+'</div>'+
+          '<div class="tsc-nights">🌙 '+P(nights)+' شب</div>'+
+        '</div>'+
+        '<div class="tsc-price-area">'+
+          '<div class="tsc-price-from">هر نفر از</div>'+
+          '<div class="tsc-price-val">'+trip.priceLabel+'</div>'+
+          '<div class="tsc-price-unit">تومان</div>'+
+        '</div>'+
+      '</div>';
+    return el;
+  }
 
-  const wrap=document.getElementById('tripsTrackWrap');
-  wrap.addEventListener('touchstart',tsTouchStart,{passive:true});
-  wrap.addEventListener('touchmove',tsTouchMove,{passive:true});
-  wrap.addEventListener('touchend',tsTouchEnd);
-  wrap.addEventListener('mousedown',tsMouseDown);
-  document.addEventListener('mousemove',tsMouseMove);
-  document.addEventListener('mouseup',tsMouseUp);
-}
+  function buildDots(){
+    var wrap = document.getElementById('tscDots');
+    if(!wrap) return;
+    wrap.innerHTML = '';
+    data.forEach(function(_,i){
+      var d = document.createElement('div');
+      d.className = 'tsc-dot'+(i===0?' active':'');
+      (function(idx){d.onclick=function(){goTo(idx);};})(i);
+      wrap.appendChild(d);
+    });
+  }
 
-function tsGetCardWidth(){
-  const t=document.getElementById('tripsTrack');
-  if(!t||!t.firstChild)return 172;
-  return t.firstChild.offsetWidth+12;
-}
+  function render(animate){
+    var cards = document.querySelectorAll('.trip-stack-card');
+    cards.forEach(function(card){
+      var idx = parseInt(card.dataset.idx);
+      var rel = ((idx - cur) % total + total) % total; // 0=active, 1=behind1, ...
+      card.classList.remove('active','behind1','behind2','behind3','exit-left','exit-right');
+      card.style.transition = animate ? '' : 'none';
+      if(rel === 0) card.classList.add('active');
+      else if(rel === 1) card.classList.add('behind1');
+      else if(rel === 2) card.classList.add('behind2');
+      else card.classList.add('behind3');
+    });
+    // dots
+    var dots = document.querySelectorAll('#tscDots .tsc-dot');
+    dots.forEach(function(d,i){ d.classList.toggle('active', i===cur); });
+  }
 
-// tsCurrent = real index (0-based). Track has clonesBefore + real + clonesAfter
-function tsSetTransform(animate){
-  const t=document.getElementById('tripsTrack');
-  if(!t)return;
-  const realIdx=tsCurrent+tsClonesBefore; // position in full track
-  const offset=-(realIdx*tsGetCardWidth());
-  t.style.transition=animate?'transform .42s cubic-bezier(.32,0,.15,1)':'none';
-  t.style.transform=`translateX(${offset}px)`;
-  const total=TRIP_SUGGESTIONS.length;
-  const norm=((tsCurrent%total)+total)%total;
-  document.querySelectorAll('.trip-dot').forEach((d,i)=>d.classList.toggle('active',i===norm));
-}
+  function goTo(idx){
+    if(isAnimating) return;
+    cur = ((idx % total) + total) % total;
+    render(true);
+  }
 
-function tsGoTo(idx,animate=true){
-  const total=TRIP_SUGGESTIONS.length;
-  tsCurrent=((idx%total)+total)%total;
-  tsSetTransform(animate);
-}
+  function next(){ goTo(cur+1); }
+  function prev(){ goTo(cur-1); }
 
-function tsAfterSlide(){
-  // Jump silently if we're in clone zone
-  const total=TRIP_SUGGESTIONS.length;
-  const t=document.getElementById('tripsTrack');
-  if(!t)return;
-  t.addEventListener('transitionend',function onEnd(){
-    t.removeEventListener('transitionend',onEnd);
-    const norm=((tsCurrent%total)+total)%total;
-    tsCurrent=norm;
-    tsSetTransform(false);
-  },{once:true});
-}
+  // expose globally
+  window.tripNext = next;
+  window.tripPrev = prev;
 
-function tsTouchStart(e){tsDragStartX=e.touches[0].clientX;tsDragging=true;tsDragDelta=0;}
-function tsTouchMove(e){if(!tsDragging)return;tsDragDelta=e.touches[0].clientX-tsDragStartX;}
-function tsTouchEnd(){
-  if(!tsDragging)return;
-  tsDragging=false;
-  if(Math.abs(tsDragDelta)>30){
-    const dir=tsDragDelta<0?1:-1;
-    const next=tsCurrent+dir;
-    tsCurrent=next;
-    tsSetTransform(true);
-    tsAfterSlide();
+  function bindEvents(wrap){
+    // click on active card = open detail
+    wrap.addEventListener('click', function(e){
+      if(Math.abs(touchDelta) > 10) return;
+      var card = e.target.closest('.trip-stack-card');
+      if(!card) return;
+      var idx = parseInt(card.dataset.idx);
+      if(idx === cur){
+        openTripDetail(data[cur].id);
+      } else {
+        goTo(idx);
+      }
+    });
+
+    // touch swipe
+    wrap.addEventListener('touchstart', function(e){
+      isTouching=true; touchX=e.touches[0].clientX; touchDelta=0;
+    },{passive:true});
+    wrap.addEventListener('touchmove', function(e){
+      if(!isTouching) return;
+      touchDelta = e.touches[0].clientX - touchX;
+    },{passive:true});
+    wrap.addEventListener('touchend', function(){
+      if(!isTouching) return;
+      isTouching = false;
+      if(Math.abs(touchDelta) > 40){
+        touchDelta < 0 ? next() : prev();
+      }
+      touchDelta = 0;
+    });
+
+    // mouse drag
+    var mx = 0, md = 0, mdown = false;
+    wrap.addEventListener('mousedown', function(e){
+      mdown=true; mx=e.clientX; md=0;
+    });
+    document.addEventListener('mousemove', function(e){
+      if(!mdown) return; md = e.clientX - mx;
+    });
+    document.addEventListener('mouseup', function(){
+      if(!mdown) return; mdown=false;
+      if(Math.abs(md) > 40){ md < 0 ? next() : prev(); }
+      md = 0;
+    });
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    tsSetTransform(true);
+    setTimeout(init, 60);
   }
-  tsDragDelta=0;
-}
-function tsMouseDown(e){tsDragStartX=e.clientX;tsDragging=true;tsDragDelta=0;e.preventDefault();}
-function tsMouseMove(e){if(!tsDragging)return;tsDragDelta=e.clientX-tsDragStartX;}
-function tsMouseUp(){
-  if(!tsDragging)return;
-  tsDragging=false;
-  if(Math.abs(tsDragDelta)>30){
-    const dir=tsDragDelta<0?1:-1;
-    const next=tsCurrent+dir;
-    tsCurrent=next;
-    tsSetTransform(true);
-    tsAfterSlide();
-  } else {
-    tsSetTransform(true);
-  }
-  tsDragDelta=0;
-}
-
+})();
+})();
 function openTripDetail(id){
   tsSelectedTrip=TRIP_SUGGESTIONS.find(t=>t.id===id);
   if(!tsSelectedTrip)return;
@@ -1691,7 +1551,7 @@ function bookSuggestedTrip(){
     _goToStep(4);
   },350);
 }
-document.addEventListener('DOMContentLoaded',function(){buildTripsSlider();});
+// trips slider initialises itself via IIFE above
 
 // ══ HELPERS ══
 function P(n){return String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);}
@@ -2879,239 +2739,51 @@ function aiInputKeyDown(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();a
 function aiInputResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,80)+'px';}
 function aiFormatNum(n){return P(Math.round(n).toLocaleString('en'));}
 
-// ══ CITY CAROUSEL — INFINITE LOOP ══
+// ============================
+// ══ CITY STRIP (سایر شهرها) ══
 (function(){
-  var ITEMS_DATA = [
-    {city:'tabriz',  transport:'land', name:'تبریز',     type:'🚌 زمینی'},
-    {city:'qom',     transport:'land', name:'قم',        type:'🚌 زمینی'},
-    {city:'karaj',   transport:'land', name:'کرج',       type:'🚌 زمینی'},
-    {city:'ahvaz',   transport:'land', name:'اهواز',     type:'🚌 زمینی'},
-    {city:'rasht',   transport:'land', name:'رشت',       type:'🚌 زمینی'},
-    {city:'kermanshah',transport:'land',name:'کرمانشاه', type:'🚌 زمینی'},
-    {city:'arak',    transport:'land', name:'اراک',      type:'🚌 زمینی'},
-    {city:'yazd',    transport:'land', name:'یزد',       type:'🚌 زمینی'},
-    {city:'other',   transport:'land', name:'سایر',      type:'🚌 زمینی'}
+  'use strict';
+  var CITIES = [
+    {city:'tabriz',     name:'تبریز',      icon:'🏔'},
+    {city:'qom',        name:'قم',         icon:'🕌'},
+    {city:'karaj',      name:'کرج',        icon:'🌳'},
+    {city:'ahvaz',      name:'اهواز',      icon:'🛢'},
+    {city:'rasht',      name:'رشت',        icon:'🌧'},
+    {city:'kermanshah', name:'کرمانشاه',   icon:'🏛'},
+    {city:'arak',       name:'اراک',       icon:'🏭'},
+    {city:'yazd',       name:'یزد',        icon:'🌵'},
+    {city:'other',      name:'سایر',       icon:'📍'}
   ];
 
-  // SVG icons per city
-  var SVGS = {
-    tabriz: '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M14 4L14 6"/><path d="M9 12Q9 7 14 6Q19 7 19 12"/><rect x="7" y="12" width="14" height="3" rx="0.5"/><rect x="5" y="15" width="18" height="2" rx="0.5"/><rect x="11" y="17" width="3" height="7"/><rect x="14" y="17" width="3" height="7"/><line x1="4" y1="24" x2="24" y2="24"/></svg>',
-    qom:    '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><line x1="14" y1="2" x2="14" y2="5"/><circle cx="14" cy="2" r="1" fill="currentColor" stroke="none"/><path d="M8 16Q8 9 14 8Q20 9 20 16"/><rect x="6" y="16" width="16" height="2" rx="0.5"/><rect x="4" y="18" width="20" height="2" rx="0.5"/><rect x="10" y="20" width="3" height="5"/><rect x="15" y="20" width="3" height="5"/><line x1="3" y1="25" x2="25" y2="25"/></svg>',
-    karaj:  '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M3 18L8 10L13 15L18 8L25 18"/><line x1="2" y1="22" x2="26" y2="22"/><line x1="4" y1="22" x2="4" y2="20"/><line x1="8" y1="22" x2="8" y2="18"/><line x1="18" y1="22" x2="18" y2="18"/><line x1="24" y1="22" x2="24" y2="20"/></svg>',
-    ahvaz:  '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M3 14Q5 10 8 14Q11 18 14 14Q17 10 20 14Q23 18 25 14"/><line x1="3" y1="17" x2="25" y2="17"/><line x1="8" y1="17" x2="8" y2="10"/><line x1="20" y1="17" x2="20" y2="10"/><path d="M6 10L22 10"/><path d="M8 10Q14 6 20 10"/></svg>',
-    rasht:  '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M14 5Q20 8 20 14Q20 20 14 22Q8 20 8 14Q8 8 14 5Z"/><path d="M14 5Q14 14 14 22"/><path d="M8 14Q14 12 20 14"/><line x1="9" y1="24" x2="9" y2="26"/><line x1="14" y1="23" x2="14" y2="25"/><line x1="19" y1="24" x2="19" y2="26"/></svg>',
-    kermanshah: '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M6 22L6 12Q6 6 14 6Q22 6 22 12L22 22"/><path d="M10 22L10 14Q10 10 14 10Q18 10 18 14L18 22"/><line x1="3" y1="22" x2="25" y2="22"/><rect x="12" y="16" width="4" height="6"/></svg>',
-    arak:   '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="5" y="14" width="7" height="10" rx="0.5"/><rect x="16" y="10" width="7" height="14" rx="0.5"/><rect x="7" y="16" width="2" height="3" rx="0.3"/><rect x="18" y="12" width="2" height="3" rx="0.3"/><line x1="8" y1="14" x2="8" y2="10"/><line x1="20" y1="10" x2="20" y2="6"/><line x1="3" y1="24" x2="25" y2="24"/></svg>',
-    yazd:   '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="10" y="4" width="8" height="14" rx="0.5"/><path d="M10 4Q10 2 12 2L16 2Q18 2 18 4"/><line x1="14" y1="4" x2="14" y2="18"/><line x1="10" y1="10" x2="18" y2="10"/><rect x="8" y="18" width="12" height="8" rx="0.5"/><rect x="11" y="20" width="3" height="6"/><rect x="14" y="20" width="3" height="6"/><line x1="5" y1="26" x2="23" y2="26"/></svg>',
-    other:  '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="14" cy="11" r="5"/><path d="M14 16L14 22"/><circle cx="14" cy="11" r="1.5" fill="currentColor" stroke="none"/><line x1="8" y1="22" x2="20" y2="22"/></svg>'
-  };
-
-  var ITEM_W = 82;
-  var CLONES = 3;
-  var realCount = ITEMS_DATA.length;
-  var totalCount = realCount + CLONES * 2;
-  // currentIdx: position in virtual track (0 = first real item after clones)
-  var currentIdx = CLONES;
-  var isDragging = false;
-  var pointerStartX = 0;
-  var pointerDelta = 0;
-  var isAnimating = false;
-  var selectedCity = null;
-  var allNodes = []; // all rendered nodes in order
-
-  function buildTrack(){
-    var track = document.getElementById('cityCarouselTrack');
-    if(!track) return;
-    track.innerHTML = '';
-    allNodes = [];
-
-    // clones before = last CLONES items
-    for(var c = realCount - CLONES; c < realCount; c++){
-      allNodes.push(makeNode(ITEMS_DATA[c], true));
-    }
-    // real items
-    for(var r = 0; r < realCount; r++){
-      allNodes.push(makeNode(ITEMS_DATA[r], false));
-    }
-    // clones after = first CLONES items
-    for(var a = 0; a < CLONES; a++){
-      allNodes.push(makeNode(ITEMS_DATA[a], true));
-    }
-
-    allNodes.forEach(function(n){ track.appendChild(n); });
-  }
-
-  function makeNode(data, isClone){
-    var el = document.createElement('div');
-    el.className = 'city-carousel-item';
-    el.dataset.city = data.city;
-    el.dataset.transport = data.transport;
-    if(isClone) el.dataset.clone = '1';
-    el.innerHTML =
-      '<div class="cci-icon">' + (SVGS[data.city]||SVGS.other) + '</div>' +
-      '<div class="cci-name">' + data.name + '</div>' +
-      '<div class="cci-type">' + data.type + '</div>' +
-      '<div class="cci-tick">✓</div>';
-    return el;
-  }
-
-  function buildDots(){
-    var wrap = document.getElementById('carouselDots');
-    if(!wrap) return;
-    wrap.innerHTML = '';
-    for(var i = 0; i < realCount; i++){
-      var d = document.createElement('div');
-      d.className = 'cdot' + (i === 0 ? ' active' : '');
-      (function(idx){ d.onclick = function(){ jumpTo(CLONES + idx); }; })(i);
-      wrap.appendChild(d);
-    }
-  }
-
-  function getOffset(idx){
-    var wrap = document.getElementById('cityCarouselWrap');
-    var containerW = wrap ? wrap.offsetWidth : 280;
-    return -(idx * ITEM_W) + (containerW / 2 - ITEM_W / 2);
-  }
-
-  function setTransform(animate){
-    var track = document.getElementById('cityCarouselTrack');
-    if(!track) return;
-    track.style.transition = animate ? 'transform .38s cubic-bezier(.32,0,.15,1)' : 'none';
-    track.style.transform = 'translateX(' + getOffset(currentIdx) + 'px)';
-    updateClasses();
-    updateDots();
-  }
-
-  function updateClasses(){
-    allNodes.forEach(function(el, i){
-      el.classList.remove('active-center','near-center');
-      var diff = Math.abs(i - currentIdx);
-      if(diff === 0) el.classList.add('active-center');
-      else if(diff === 1) el.classList.add('near-center');
-    });
-  }
-
-  function updateDots(){
-    var dots = document.querySelectorAll('#carouselDots .cdot');
-    var real = ((currentIdx - CLONES) % realCount + realCount) % realCount;
-    dots.forEach(function(d,i){ d.classList.toggle('active', i === real); });
-  }
-
-  function jumpTo(idx, animate){
-    currentIdx = idx;
-    setTransform(animate !== false);
-  }
-
-  // After animated slide, jump silently if in clone zone
-  function afterSlide(){
-    var track = document.getElementById('cityCarouselTrack');
-    if(!track) return;
-    track.addEventListener('transitionend', function onEnd(){
-      track.removeEventListener('transitionend', onEnd);
-      isAnimating = false;
-      if(currentIdx < CLONES){
-        currentIdx = currentIdx + realCount;
-        setTransform(false);
-      } else if(currentIdx >= CLONES + realCount){
-        currentIdx = currentIdx - realCount;
-        setTransform(false);
-      }
-    }, {once: true});
-  }
-
-  function slide(dir){
-    if(isAnimating) return;
-    isAnimating = true;
-    currentIdx += dir;
-    setTransform(true);
-    afterSlide();
-  }
-
-  function handleEnd(){
-    if(!isDragging) return;
-    isDragging = false;
-    var track = document.getElementById('cityCarouselTrack');
-    if(track) track.style.transition = '';
-    if(Math.abs(pointerDelta) > 28){
-      slide(pointerDelta < 0 ? 1 : -1);
-    } else {
-      setTransform(true);
-      afterSlide();
-    }
-    setTimeout(function(){ pointerDelta = 0; }, 60);
-  }
-
-  function selectCarouselCity(city){
-    // Deselect all
-    allNodes.forEach(function(n){ n.classList.remove('selected'); });
-    document.querySelectorAll('.origin-card').forEach(function(x){ x.classList.remove('selected'); });
-    // Select all nodes with this city
-    allNodes.forEach(function(n){ if(n.dataset.city === city) n.classList.add('selected'); });
-    selectedCity = city;
-    state.origin = city;
-    resetFlow();
-    setTimeout(function(){ openBottomSheet(); }, 120);
-  }
-
   function init(){
-    buildTrack();
-    buildDots();
-    currentIdx = CLONES;
-    setTransform(false);
-
-    var track = document.getElementById('cityCarouselTrack');
-    if(!track) return;
-
-    // Click
-    track.addEventListener('click', function(e){
-      if(Math.abs(pointerDelta) > 8) return;
-      var item = e.target.closest('.city-carousel-item');
-      if(!item) return;
-      var nodeIdx = allNodes.indexOf(item);
-      if(nodeIdx === currentIdx){
-        selectCarouselCity(item.dataset.city);
-      } else {
-        // find real center for this city among allNodes nearest to currentIdx
-        var diff = nodeIdx - currentIdx;
-        if(Math.abs(diff) <= Math.floor(totalCount/2)){
-          jumpTo(currentIdx + diff, true);
-          afterSlide();
-        } else {
-          jumpTo(nodeIdx, true);
-          afterSlide();
-        }
-      }
+    var row = document.getElementById('cityStripRow');
+    if(!row) return;
+    row.innerHTML = '';
+    CITIES.forEach(function(c){
+      var el = document.createElement('div');
+      el.className = 'city-chip';
+      el.dataset.city = c.city;
+      el.innerHTML =
+        '<div class="city-chip-icon">'+c.icon+'</div>'+
+        '<div class="city-chip-name">'+c.name+'</div>'+
+        '<div class="city-chip-type">🚌 زمینی</div>';
+      el.addEventListener('click', function(){
+        // deselect all
+        document.querySelectorAll('.city-chip').forEach(function(x){ x.classList.remove('selected'); });
+        document.querySelectorAll('.origin-card').forEach(function(x){ x.classList.remove('selected'); });
+        el.classList.add('selected');
+        state.origin = c.city;
+        resetFlow();
+        openBottomSheet();
+      });
+      row.appendChild(el);
     });
-
-    // Touch
-    track.addEventListener('touchstart', function(e){
-      isDragging = true; pointerStartX = e.touches[0].clientX; pointerDelta = 0;
-      track.style.transition = 'none';
-    }, {passive:true});
-    track.addEventListener('touchmove', function(e){
-      if(!isDragging) return;
-      pointerDelta = e.touches[0].clientX - pointerStartX;
-    }, {passive:true});
-    track.addEventListener('touchend', handleEnd);
-
-    // Mouse
-    track.addEventListener('mousedown', function(e){
-      isDragging = true; pointerStartX = e.clientX; pointerDelta = 0;
-      track.style.transition = 'none'; e.preventDefault();
-    });
-    document.addEventListener('mousemove', function(e){
-      if(!isDragging) return;
-      pointerDelta = e.clientX - pointerStartX;
-    });
-    document.addEventListener('mouseup', handleEnd);
-
-    window.addEventListener('resize', function(){ setTransform(false); });
   }
 
-  if(document.readyState === 'loading'){
+  if(document.readyState==='loading'){
     document.addEventListener('DOMContentLoaded', init);
   } else {
-    setTimeout(init, 80);
+    setTimeout(init, 40);
   }
 })();
 
