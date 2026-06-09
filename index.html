@@ -665,85 +665,128 @@ body.sheet-open{overflow:hidden;}
   .bsl-item{width:20px;font-size:7px;}
   .tnc-meta-strip{grid-template-columns:1fr 1fr 1fr;}
 }
-/* ══ TRIP SUGGESTIONS SLIDER — COMPACT CARD ══ */
-.trips-section{background:var(--cream);padding:28px 0 4px;position:relative;}
+/* ══ TRIP SUGGESTIONS SLIDER — POLYGON CARD ══ */
+.trips-section{background:var(--cream);padding:24px 0 8px;position:relative;}
 .trips-section-inner{max-width:700px;margin:0 auto;padding:0 18px;}
 .trips-section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
 .trips-section-eyebrow{font-size:9px;font-weight:700;letter-spacing:.13em;color:var(--gold);text-transform:uppercase;margin-bottom:3px;}
 .trips-section-title-text{font-size:15px;font-weight:900;color:var(--em);}
-.trips-dots-row{display:flex;align-items:center;gap:4px;}
-.trip-dot{width:5px;height:5px;border-radius:50%;background:rgba(13,59,46,.15);transition:all .3s ease;cursor:pointer;}
-.trip-dot.active{width:16px;border-radius:3px;background:var(--em);}
+.trips-dots-row{display:flex;align-items:center;gap:5px;}
+.trip-dot{width:6px;height:6px;border-radius:50%;background:rgba(13,59,46,.15);transition:all .3s ease;cursor:pointer;}
+.trip-dot.active{width:18px;border-radius:3px;background:var(--em);}
 /* Track */
-.trips-track-wrap{overflow:hidden;position:relative;cursor:grab;user-select:none;-webkit-user-select:none;}
-.trips-track-wrap:active{cursor:grabbing;}
-.trips-track{display:flex;gap:10px;transition:transform .44s cubic-bezier(.32,0,.15,1);will-change:transform;}
-/* ── Compact card ── */
-.trip-card{
-  flex:0 0 220px;
-  background:var(--white);
-  border-radius:14px;
+.trips-track-wrap{
   overflow:hidden;
-  border:1px solid rgba(13,59,46,.09);
-  box-shadow:0 2px 12px rgba(13,59,46,.07);
-  transition:all .28s cubic-bezier(.4,0,.2,1);
+  position:relative;
+  cursor:grab;
+  user-select:none;
+  -webkit-user-select:none;
+  padding-bottom:6px;
+}
+.trips-track-wrap:active{cursor:grabbing;}
+.trips-track{
+  display:flex;
+  gap:12px;
+  transition:transform .42s cubic-bezier(.32,0,.15,1);
+  will-change:transform;
+  padding:4px 2px 4px;
+}
+
+/* ── POLYGON / HEXAGON-ISH CARD ── */
+.trip-card{
+  flex:0 0 160px;
+  min-height:200px;
+  background:var(--white);
+  border-radius:20px 4px 20px 4px;
+  overflow:hidden;
+  border:1.5px solid rgba(13,59,46,.08);
+  box-shadow:0 3px 14px rgba(13,59,46,.08);
+  transition:all .26s cubic-bezier(.4,0,.2,1);
   position:relative;
   cursor:pointer;
+  display:flex;
+  flex-direction:column;
 }
 .trip-card:hover{
-  box-shadow:0 6px 22px rgba(13,59,46,.13);
-  transform:translateY(-3px);
-  border-color:rgba(201,168,76,.35);
+  box-shadow:0 8px 24px rgba(13,59,46,.15);
+  transform:translateY(-4px) scale(1.02);
+  border-color:var(--gold);
 }
-/* Top color bar */
-.tcard-topbar{height:3px;width:100%;}
-.tcard-topbar.air{background:linear-gradient(90deg,var(--em),var(--em3),var(--gold));}
-.tcard-topbar.land{background:linear-gradient(90deg,#a8722a,var(--gold));}
-.tcard-topbar.vip{background:linear-gradient(90deg,#2d0060,#7c3aed,var(--gold));}
-.tcard-topbar.special{background:linear-gradient(90deg,var(--em3),#059669,var(--gold));}
-/* Card body */
-.tcard-body{padding:12px 13px 13px;}
-/* Row 1: type pill + tag */
-.tcard-row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.tcard-typepill{font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;letter-spacing:.03em;}
-.tcard-typepill.air{background:rgba(13,59,46,.07);color:var(--em);border:1px solid rgba(13,59,46,.1);}
-.tcard-typepill.land{background:rgba(201,168,76,.1);color:#7a5c1a;border:1px solid rgba(201,168,76,.2);}
-.tcard-typepill.vip{background:rgba(74,0,128,.07);color:#5b21b6;border:1px solid rgba(74,0,128,.14);}
-.tcard-typepill.special{background:rgba(5,150,105,.07);color:#065f46;border:1px solid rgba(5,150,105,.14);}
-.tcard-origin-chip{font-size:9px;font-weight:600;color:var(--ts);display:flex;align-items:center;gap:3px;}
-/* Row 2: big date */
-.tcard-datewrap{margin-bottom:9px;}
-.tcard-date-big{font-size:28px;font-weight:900;color:var(--em);line-height:1;letter-spacing:-.04em;}
-.tcard-date-monthyr{font-size:10px;font-weight:600;color:var(--ts);margin-top:2px;}
-/* Row 3: title */
-.tcard-name{font-size:11.5px;font-weight:700;color:var(--td);line-height:1.4;margin-bottom:9px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-/* Row 4: stats chips */
-.tcard-stats-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
-.tcard-stat-chip{display:inline-flex;align-items:center;gap:3px;font-size:9.5px;font-weight:700;padding:3px 7px;border-radius:6px;background:var(--cream);border:1px solid rgba(13,59,46,.07);color:var(--tm);}
-.tcard-stat-chip.highlight{background:var(--goldP);border-color:var(--goldB);color:#7a5c1a;}
-/* Divider */
-.tcard-sep{height:1px;background:rgba(13,59,46,.06);margin:0 0 10px;}
-/* Row 5: price + cta */
-.tcard-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;}
-.tcard-price-wrap{}
-.tcard-price-label{font-size:8.5px;font-weight:600;color:var(--ts);text-transform:uppercase;letter-spacing:.06em;}
-.tcard-price-num{font-size:16px;font-weight:900;color:var(--em);line-height:1.1;letter-spacing:-.02em;}
-.tcard-price-unit{font-size:9px;font-weight:600;color:var(--ts);}
-.tcard-cta-btn{
-  padding:7px 11px;
-  border-radius:8px;
-  border:none;
-  background:var(--em);
-  color:var(--goldL);
-  font-family:"Vazirmatn",sans-serif;
-  font-size:10px;font-weight:700;
-  cursor:pointer;
-  transition:all .22s;
-  white-space:nowrap;
+.trip-card:active{transform:scale(.97);}
+
+/* Top gradient bg — fills top ~55% */
+.tcard-bg{
+  position:relative;
+  padding:14px 14px 18px;
+  background:linear-gradient(155deg,var(--em) 0%,var(--em3) 100%);
+  clip-path:polygon(0 0,100% 0,100% 80%,0 100%);
+  min-height:120px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+/* type icon circle */
+.tcard-type-icon{
+  width:30px;height:30px;
+  border-radius:50%;
+  background:rgba(255,255,255,.15);
+  border:1.5px solid rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;
+  margin-bottom:8px;
   flex-shrink:0;
+}
+/* big day number */
+.tcard-day-num{
+  font-size:44px;
+  font-weight:900;
+  color:var(--goldL);
+  line-height:1;
+  letter-spacing:-.04em;
+  text-shadow:0 2px 12px rgba(0,0,0,.2);
+}
+.tcard-month-str{
+  font-size:10px;
+  font-weight:600;
+  color:rgba(232,201,122,.7);
+  margin-top:2px;
+  letter-spacing:.02em;
+}
+
+/* bottom white area */
+.tcard-foot{
+  flex:1;
+  padding:14px 13px 13px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+/* origin */
+.tcard-origin{
+  font-size:11px;
+  font-weight:800;
+  color:var(--em);
   display:flex;align-items:center;gap:4px;
 }
-.tcard-cta-btn:hover{background:var(--em3);}
+.tcard-origin-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--gold);
+  flex-shrink:0;
+}
+/* nights badge */
+.tcard-nights{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:10.5px;font-weight:700;
+  color:#7a5c1a;
+  background:var(--goldP);
+  border:1px solid var(--goldB);
+  padding:3px 9px;border-radius:100px;
+  width:fit-content;
+}
+/* price */
+.tcard-price-row{display:flex;align-items:baseline;gap:3px;margin-top:auto;}
+.tcard-price-amt{font-size:14px;font-weight:900;color:var(--em);letter-spacing:-.02em;}
+.tcard-price-unit{font-size:9px;font-weight:600;color:var(--ts);}
 .trip-detail-overlay{position:fixed;inset:0;z-index:950;background:rgba(0,0,0,0);backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);pointer-events:none;transition:background .38s ease,backdrop-filter .38s ease;}
 .trip-detail-overlay.open{background:rgba(0,0,0,.5);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);pointer-events:all;}
 .trip-detail-sheet{position:fixed;bottom:0;left:0;right:0;z-index:951;background:var(--cream);border-radius:24px 24px 0 0;box-shadow:0 -16px 60px rgba(0,0,0,.3);transform:translateY(100%);transition:transform .46s cubic-bezier(.32,0,.15,1);max-height:90vh;display:flex;flex-direction:column;overflow:hidden;}
@@ -1339,36 +1382,27 @@ function buildTripsSlider(){
   TRIP_SUGGESTIONS.forEach((trip,i)=>{
     const dp=trip.date.split(' ');
     const dayNum=dp[0];
-    const monthYear=dp.slice(1).join(' ');
-    const typeLabel=trip.type==='air'?'✈ هوایی':trip.type==='land'?'🚌 زمینی':trip.type==='vip'?'👑 VIP':'🌟 ویژه';
-    const cities=trip.routeItems.filter(r=>r.type==='city').map(r=>r.city).join(' · ');
+    const monthStr=dp.slice(1).join(' ');
+    const typeIcon=trip.type==='air'||trip.type==='vip'?'✈️':'🚌';
     const totalN=trip.routeItems.filter(r=>r.type==='city').reduce((s,r)=>s+(r.nights||0),0);
+    const originLabel=trip.origin;
     const card=document.createElement('div');
     card.className='trip-card';
     card.onclick=()=>openTripDetail(trip.id);
     card.innerHTML=`
-      <div class="tcard-topbar ${trip.type}"></div>
-      <div class="tcard-body">
-        <div class="tcard-row1">
-          <div class="tcard-typepill ${trip.type}">${typeLabel}</div>
-          <div class="tcard-origin-chip">📍 ${trip.origin}</div>
+      <div class="tcard-bg">
+        <div class="tcard-type-icon">${typeIcon}</div>
+        <div>
+          <div class="tcard-day-num">${dayNum}</div>
+          <div class="tcard-month-str">${monthStr}</div>
         </div>
-        <div class="tcard-datewrap">
-          <div class="tcard-date-big">${dayNum}</div>
-          <div class="tcard-date-monthyr">${monthYear}</div>
-        </div>
-        <div class="tcard-name">${trip.title}</div>
-        <div class="tcard-stats-row">
-          <div class="tcard-stat-chip highlight">🌙 ${P(totalN)} شب</div>
-          <div class="tcard-stat-chip">🕌 ${cities}</div>
-        </div>
-        <div class="tcard-sep"></div>
-        <div class="tcard-footer">
-          <div class="tcard-price-wrap">
-            <div class="tcard-price-label">هر نفر</div>
-            <div class="tcard-price-num">${trip.priceLabel}<span class="tcard-price-unit"> ت</span></div>
-          </div>
-          <button class="tcard-cta-btn">جزئیات ←</button>
+      </div>
+      <div class="tcard-foot">
+        <div class="tcard-origin"><div class="tcard-origin-dot"></div>${originLabel}</div>
+        <div class="tcard-nights">🌙 ${P(totalN)} شب</div>
+        <div class="tcard-price-row">
+          <div class="tcard-price-amt">${trip.priceLabel}</div>
+          <div class="tcard-price-unit"> ت</div>
         </div>
       </div>`;
     track.appendChild(card);
@@ -1387,15 +1421,15 @@ function buildTripsSlider(){
   document.addEventListener('mouseup',tsMouseUp);
   tsUpdateSlider();
 }
-function tsGetCardWidth(){const t=document.getElementById('tripsTrack');if(!t||!t.firstChild)return 230;return t.firstChild.offsetWidth+10;}
+function tsGetCardWidth(){const t=document.getElementById('tripsTrack');if(!t||!t.firstChild)return 172;return t.firstChild.offsetWidth+12;}
 function tsUpdateSlider(){const t=document.getElementById('tripsTrack');if(!t)return;const idx=-tsCurrent;const offset=-(idx*tsGetCardWidth());t.style.transform=`translateX(${offset}px)`;document.querySelectorAll('.trip-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));}
 function tsGoTo(idx){const max=TRIP_SUGGESTIONS.length-1;tsCurrent=-Math.max(0,Math.min(max,idx));tsUpdateSlider();}
 function tsTouchStart(e){tsDragStartX=e.touches[0].clientX;tsDragging=true;tsDragDelta=0;}
 function tsTouchMove(e){if(!tsDragging)return;tsDragDelta=e.touches[0].clientX-tsDragStartX;}
-function tsTouchEnd(){tsDragging=false;if(Math.abs(tsDragDelta)>50){const dir=tsDragDelta<0?1:-1;tsGoTo(Math.max(0,Math.min(TRIP_SUGGESTIONS.length-1,-tsCurrent+dir)));}else tsUpdateSlider();tsDragDelta=0;}
+function tsTouchEnd(){tsDragging=false;if(Math.abs(tsDragDelta)>30){const dir=tsDragDelta<0?1:-1;tsGoTo(Math.max(0,Math.min(TRIP_SUGGESTIONS.length-1,-tsCurrent+dir)));}else tsUpdateSlider();tsDragDelta=0;}
 function tsMouseDown(e){tsDragStartX=e.clientX;tsDragging=true;tsDragDelta=0;e.preventDefault();}
 function tsMouseMove(e){if(!tsDragging)return;tsDragDelta=e.clientX-tsDragStartX;}
-function tsMouseUp(){if(!tsDragging)return;tsDragging=false;if(Math.abs(tsDragDelta)>50){const dir=tsDragDelta<0?1:-1;tsGoTo(Math.max(0,Math.min(TRIP_SUGGESTIONS.length-1,-tsCurrent+dir)));}else tsUpdateSlider();tsDragDelta=0;}
+function tsMouseUp(){if(!tsDragging)return;tsDragging=false;if(Math.abs(tsDragDelta)>30){const dir=tsDragDelta<0?1:-1;tsGoTo(Math.max(0,Math.min(TRIP_SUGGESTIONS.length-1,-tsCurrent+dir)));}else tsUpdateSlider();tsDragDelta=0;}
 
 function openTripDetail(id){
   tsSelectedTrip=TRIP_SUGGESTIONS.find(t=>t.id===id);
