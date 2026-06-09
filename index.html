@@ -2515,31 +2515,34 @@ function onPaxInput(num){
   const l=document.getElementById('p'+num+'_last')?.value.trim();
   if(f&&l){const st=document.getElementById('paxSt_'+num);if(st){st.textContent='✓ ثبت شد';st.style.color='var(--em3)';}}
 }
-function toggleAgency(){
-  state.isAgency=!state.isAgency;
-  document.getElementById('agencyCheckBox').classList.toggle('checked',state.isAgency);
-  document.getElementById('agencyFields').classList.toggle('show',state.isAgency);
-}
-async function finalRegister(){
-const BOT_TOKEN = '8893591516:AAE9RAEbJnZpa23bhUaTBGI9UaESk-M2zuo';
+async function finalRegister() {
+  const BOT_TOKEN = '8893591516:AAE9RAEbJnZpa23bhUaTBGI9UaESk-M2zuo';
   const CHAT_ID   = '8384838572';
 
-  const code = 'AVN-' + Math.random().toString(36).toUpperCase().slice(2,8);
+  const code = 'AVN-' + Math.random().toString(36).toUpperCase().slice(2, 8);
 
-  const cityNames = state.cities.map(k => {
-    const d = state.cityData[k];
-    const meta = CITY_META[k];
-    const hotel = d.hotel !== null && d.hotel !== undefined ? HOTEL_DATA[k][d.hotel]?.name : '—';
-    return `  • ${meta.name}: ${P(d.nights)} شب — ${hotel}${d.transit?' (عبوری)':''}`;
-  }).join('\n');
-
-  const typeLabel = state.tripType==='air'?'✈️ هوایی':state.tripType==='land'?'🚌 زمینی':'✈️+🚌 ترکیبی';
+  // ── جمع‌آوری داده‌ها ──────────────────────────────────────
   const firstName = document.getElementById('pfbFirstName')?.value.trim() || '—';
   const lastName  = document.getElementById('pfbLastName')?.value.trim()  || '—';
   const phone     = document.getElementById('pfbPhone')?.value.trim()     || '—';
   const national  = document.getElementById('pfbNational')?.value.trim()  || '—';
+  const typeLabel = state.tripType === 'air' ? '✈️ هوایی' : state.tripType === 'land' ? '🚌 زمینی' : '✈️+🚌 ترکیبی';
+  const originLbl = CITY_LABEL[state.origin] || state.origin || '—';
 
-  const msg =
+  const cityRows = state.cities.map(k => {
+    const d    = state.cityData[k];
+    const meta = CITY_META[k];
+    const hotel = (d.hotel !== null && d.hotel !== undefined)
+      ? HOTEL_DATA[k][d.hotel]?.name : '—';
+    return { name: meta.name, nights: d.nights, hotel, transit: d.transit };
+  });
+
+  // ── پیام متنی تلگرام ──────────────────────────────────────
+  const cityText = cityRows.map(r =>
+    `  • ${r.name}: ${P(r.nights)} شب — ${r.hotel}${r.transit ? ' (عبوری)' : ''}`
+  ).join('\n');
+
+  const textMsg =
 `🕌 ثبت‌نام جدید — آوان
 ━━━━━━━━━━━━━━
 🔖 کد: ${code}
@@ -2550,36 +2553,328 @@ const BOT_TOKEN = '8893591516:AAE9RAEbJnZpa23bhUaTBGI9UaESk-M2zuo';
 کد ملی: ${national}
 
 ✈️ جزئیات سفر
-مبدا: ${CITY_LABEL[state.origin] || state.origin}
+مبدا: ${originLbl}
 تاریخ: ${state.dateText}
 نوع: ${typeLabel}
 مسافران: ${P(state.passengers)} نفر
 
 🕌 شهرها
-${cityNames}
+${cityText}
 
-🚗 ترانسفر: ${state.transferOpt==='door'?'از درب منزل':'خودم می‌آیم'}
-📱 سیم‌کارت: ${state.simCard?'بله':'خیر'}
-💵 دینار: ${state.dinars?P(state.dinarsAmt)+' هزار':'خیر'}
+🚗 ترانسفر: ${state.transferOpt === 'door' ? 'از درب منزل' : 'خودم می‌آیم'}
+📱 سیم‌کارت: ${state.simCard ? 'بله' : 'خیر'}
+💵 دینار: ${state.dinars ? P(state.dinarsAmt) + ' هزار' : 'خیر'}
 
 💰 هزینه کل: ${fmt(state.totalPrice)} تومان
 ━━━━━━━━━━━━━━`;
 
+  // ── ساخت واچر PNG با Canvas ──────────────────────────────
+  async function buildVoucherBlob() {
+    // بارگذاری فونت فارسی در Canvas
+    await loadVazirFont();
+
+    const W = 900, PADDING = 48;
+    // محاسبه ارتفاع داینامیک
+    const BASE_H = 680;
+    const ROW_H  = 52;
+    const extraH = cityRows.length > 1 ? (cityRows.length - 1) * ROW_H : 0;
+    const H = BASE_H + extraH;
+
+    const canvas = document.createElement('canvas');
+    canvas.width  = W;
+    canvas.height = H;
+    const ctx = canvas.getContext('2d');
+
+    // ── پس‌زمینه گرادیان تیره ────────────────────────────
+    const bg = ctx.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0,   '#0d3b2e');
+    bg.addColorStop(0.5, '#134a3a');
+    bg.addColorStop(1,   '#1a5e49');
+    ctx.fillStyle = bg;
+    roundRect(ctx, 0, 0, W, H, 28);
+    ctx.fill();
+
+    // ── تزئین: دایره‌های نیمه‌شفاف ────────────────────
+    ctx.save();
+    ctx.globalAlpha = 0.07;
+    ctx.fillStyle = '#c9a84c';
+    ctx.beginPath(); ctx.arc(W - 80, 80, 200, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(80, H - 60, 160, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+
+    // ── نوار بالایی طلایی ────────────────────────────
+    const barGrad = ctx.createLinearGradient(0, 0, W, 0);
+    barGrad.addColorStop(0,   '#c9a84c');
+    barGrad.addColorStop(0.5, '#e8c97a');
+    barGrad.addColorStop(1,   '#a8722a');
+    ctx.fillStyle = barGrad;
+    roundRect(ctx, PADDING, 44, W - PADDING * 2, 5, 3);
+    ctx.fill();
+
+    // ── لوگو / عنوان ─────────────────────────────────
+    ctx.textAlign = 'right';
+    ctx.direction = 'rtl';
+
+    ctx.font = 'bold 32px Vazirmatn, Arial';
+    ctx.fillStyle = '#e8c97a';
+    ctx.fillText('گروه زیارتی آوان', W - PADDING, 100);
+
+    ctx.font = '16px Vazirmatn, Arial';
+    ctx.fillStyle = 'rgba(232,201,122,0.55)';
+    ctx.fillText('مرجع تخصصی سفرهای زیارتی انفرادی', W - PADDING, 124);
+
+    // ── تیتر VOUCHER ────────────────────────────────
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 22px Vazirmatn, Arial';
+    ctx.fillStyle = '#c9a84c';
+    ctx.fillText('— واچر درخواست سفر —', W / 2, 164);
+
+    // ── خط جداکننده ─────────────────────────────────
+    drawDivider(ctx, PADDING, 180, W - PADDING * 2, '#c9a84c', 0.3);
+
+    // ── کارت اطلاعات اصلی ────────────────────────────
+    let y = 200;
+
+    // کد پیگیری — برجسته
+    ctx.textAlign = 'center';
+    // کادر کد
+    ctx.fillStyle = 'rgba(201,168,76,0.15)';
+    roundRect(ctx, W / 2 - 140, y - 4, 280, 44, 10);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(201,168,76,0.5)';
+    ctx.lineWidth = 1.5;
+    roundRect(ctx, W / 2 - 140, y - 4, 280, 44, 10);
+    ctx.stroke();
+
+    ctx.font = 'bold 20px Vazirmatn, Arial';
+    ctx.fillStyle = '#e8c97a';
+    ctx.fillText('کد پیگیری: ' + code, W / 2, y + 24);
+
+    y += 70;
+
+    // ── ردیف‌های اطلاعات ─────────────────────────────
+    const info = [
+      { label: 'سرپرست', value: firstName + ' ' + lastName },
+      { label: 'موبایل',  value: phone },
+      { label: 'مبدا',   value: originLbl },
+      { label: 'تاریخ',  value: state.dateText || '—' },
+      { label: 'نوع سفر', value: typeLabel.replace(/[✈️🚌]/g, '').trim() },
+      { label: 'مسافران', value: P(state.passengers) + ' نفر' },
+    ];
+
+    info.forEach((row, i) => {
+      const rowY = y + i * 46;
+      // پس‌زمینه در تک‌در‌میان
+      if (i % 2 === 0) {
+        ctx.fillStyle = 'rgba(255,255,255,0.04)';
+        roundRect(ctx, PADDING, rowY - 18, W - PADDING * 2, 42, 8);
+        ctx.fill();
+      }
+      // برچسب
+      ctx.textAlign = 'right';
+      ctx.font = '14px Vazirmatn, Arial';
+      ctx.fillStyle = 'rgba(232,201,122,0.55)';
+      ctx.fillText(row.label, W - PADDING - 12, rowY + 6);
+      // مقدار
+      ctx.textAlign = 'left';
+      ctx.font = 'bold 16px Vazirmatn, Arial';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(row.value, PADDING + 12, rowY + 6);
+    });
+
+    y += info.length * 46 + 20;
+
+    // ── خط جداکننده ─────────────────────────────────
+    drawDivider(ctx, PADDING, y, W - PADDING * 2, '#c9a84c', 0.2);
+    y += 24;
+
+    // ── عنوان مقاصد ──────────────────────────────────
+    ctx.textAlign = 'right';
+    ctx.font = 'bold 15px Vazirmatn, Arial';
+    ctx.fillStyle = '#c9a84c';
+    ctx.fillText('🕌 مقاصد زیارتی', W - PADDING, y + 4);
+    y += 28;
+
+    // ── ردیف‌های شهر ─────────────────────────────────
+    cityRows.forEach((r, i) => {
+      ctx.fillStyle = 'rgba(201,168,76,0.1)';
+      roundRect(ctx, PADDING, y, W - PADDING * 2, 44, 8);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(201,168,76,0.2)';
+      ctx.lineWidth = 1;
+      roundRect(ctx, PADDING, y, W - PADDING * 2, 44, 8);
+      ctx.stroke();
+
+      // شماره
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 13px Vazirmatn, Arial';
+      ctx.fillStyle = '#e8c97a';
+      ctx.fillText(P(i + 1), PADDING + 22, y + 26);
+
+      // نام شهر
+      ctx.textAlign = 'right';
+      ctx.font = 'bold 15px Vazirmatn, Arial';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(r.name, W - PADDING - 12, y + 16);
+
+      // هتل
+      ctx.font = '12px Vazirmatn, Arial';
+      ctx.fillStyle = 'rgba(232,201,122,0.6)';
+      const hotelTxt = r.transit ? 'عبوری' : (r.hotel + ' — ' + P(r.nights) + ' شب');
+      ctx.fillText(hotelTxt, W - PADDING - 12, y + 34);
+
+      y += ROW_H + 6;
+    });
+
+    y += 10;
+
+    // ── خط جداکننده ─────────────────────────────────
+    drawDivider(ctx, PADDING, y, W - PADDING * 2, '#c9a84c', 0.2);
+    y += 24;
+
+    // ── ترانسفر + اضافات ─────────────────────────────
+    const extras = [
+      ['🚗 ترانسفر', state.transferOpt === 'door' ? 'از درب منزل' : 'خودم می‌آیم'],
+      ['📱 سیم‌کارت', state.simCard ? 'بله' : 'خیر'],
+    ];
+    if (state.dinars)
+      extras.push(['💵 دینار', P(state.dinarsAmt) + ' هزار دینار']);
+
+    extras.forEach(([lbl, val], i) => {
+      ctx.textAlign = 'right';
+      ctx.font = '14px Vazirmatn, Arial';
+      ctx.fillStyle = 'rgba(255,255,255,0.5)';
+      ctx.fillText(lbl, W - PADDING - 12, y + 6);
+      ctx.textAlign = 'left';
+      ctx.font = 'bold 14px Vazirmatn, Arial';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(val, PADDING + 12, y + 6);
+      y += 30;
+    });
+
+    y += 10;
+
+    // ── نوار هزینه ────────────────────────────────────
+    const priceGrad = ctx.createLinearGradient(PADDING, 0, W - PADDING, 0);
+    priceGrad.addColorStop(0,   '#c9a84c');
+    priceGrad.addColorStop(0.5, '#e8c97a');
+    priceGrad.addColorStop(1,   '#a8722a');
+    ctx.fillStyle = priceGrad;
+    roundRect(ctx, PADDING, y, W - PADDING * 2, 62, 12);
+    ctx.fill();
+
+    ctx.textAlign = 'right';
+    ctx.font = '13px Vazirmatn, Arial';
+    ctx.fillStyle = '#0d3b2e';
+    ctx.fillText('جمع کل — ' + P(state.passengers) + ' نفر', W - PADDING - 16, y + 22);
+
+    ctx.textAlign = 'left';
+    ctx.font = 'bold 26px Vazirmatn, Arial';
+    ctx.fillStyle = '#0d3b2e';
+    ctx.fillText(fmt(state.totalPrice) + ' تومان', PADDING + 16, y + 42);
+
+    y += 80;
+
+    // ── فوتر ──────────────────────────────────────────
+    drawDivider(ctx, PADDING, y, W - PADDING * 2, '#c9a84c', 0.15);
+    y += 20;
+
+    ctx.textAlign = 'center';
+    ctx.font = '13px Vazirmatn, Arial';
+    ctx.fillStyle = 'rgba(232,201,122,0.4)';
+    ctx.fillText('گروه زیارتی آوان  ·  ۰۹۱۰۲۱۹۸۲۶۱  ·  t.me/avanatabat', W / 2, y + 8);
+
+    ctx.font = '11px Vazirmatn, Arial';
+    ctx.fillStyle = 'rgba(255,255,255,0.18)';
+    ctx.fillText('این واچر پس از تأیید کارشناس رسمیت می‌یابد', W / 2, y + 28);
+
+    // تبدیل به Blob
+    return new Promise(resolve => {
+      canvas.toBlob(resolve, 'image/png', 0.95);
+    });
+  }
+
+  // ── بارگذاری فونت Vazirmatn برای Canvas ──────────────────
+  async function loadVazirFont() {
+    try {
+      if (document.fonts) {
+        await document.fonts.ready;
+        // اگر فونت از Google Fonts بارگذاری شده، آماده است
+        const loaded = document.fonts.check('bold 16px Vazirmatn');
+        if (!loaded) {
+          const ff = new FontFace('Vazirmatn', 'url(https://fonts.gstatic.com/s/vazirmatn/v13/Dani32HzWNklpgRBhpFM.woff2)');
+          await ff.load();
+          document.fonts.add(ff);
+        }
+      }
+    } catch (e) {
+      // اگر فونت بارگذاری نشد، با Arial پیش می‌رود
+      console.warn('Font load warning:', e);
+    }
+  }
+
+  // ── ابزارهای ترسیم ────────────────────────────────────────
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  function drawDivider(ctx, x, y, w, color, alpha) {
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    const grad = ctx.createLinearGradient(x, 0, x + w, 0);
+    grad.addColorStop(0,   'transparent');
+    grad.addColorStop(0.5, color);
+    grad.addColorStop(1,   'transparent');
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + w, y);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // ── ارسال به تلگرام ───────────────────────────────────────
   try {
+    // ۱. ارسال پیام متنی
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({chat_id: CHAT_ID, text: msg})
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: CHAT_ID, text: textMsg })
     });
-  } catch(e) {
+
+    // ۲. ساخت و ارسال واچر تصویری
+    const blob = await buildVoucherBlob();
+    if (blob) {
+      const formData = new FormData();
+      formData.append('chat_id', CHAT_ID);
+      formData.append('photo', blob, `voucher-${code}.png`);
+      formData.append('caption', `🎫 واچر سفر — کد: ${code}\n👤 ${firstName} ${lastName}`);
+
+      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+        method: 'POST',
+        body: formData
+      });
+    }
+  } catch (e) {
     console.error('Telegram error:', e);
   }
 
+  // ── نمایش موفقیت ──────────────────────────────────────────
   document.getElementById('successCode').textContent = code;
   closeBottomSheet();
   setTimeout(() => document.getElementById('successOverlay').classList.add('show'), 400);
 }
-
 // ══ COLLAPSIBLE ══
 function toggleStepsSection(){
   document.getElementById('stepsToggle').classList.toggle('open');
