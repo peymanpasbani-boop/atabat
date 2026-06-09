@@ -403,13 +403,14 @@ body.sheet-open{overflow:hidden;}
 .city-strip-scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;}
 .city-strip-scroll::-webkit-scrollbar{display:none;}
 .city-strip-row{display:flex;flex-direction:row;gap:6px;width:max-content;}
-.city-chip{width:72px;min-height:68px;border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;font-weight:700;cursor:pointer;transition:all .18s;color:rgba(255,255,255,.75);border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);flex-shrink:0;padding:6px 4px;}
+.city-chip{width:72px;min-height:72px;border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:11px;font-weight:700;cursor:pointer;transition:all .18s;color:rgba(255,255,255,.75);border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);flex-shrink:0;padding:8px 4px;}
 .city-chip:hover{background:rgba(201,168,76,.15);border-color:rgba(201,168,76,.4);color:var(--goldL);transform:translateY(-2px);}
 .city-chip.selected{background:linear-gradient(135deg,rgba(201,168,76,.25),rgba(26,94,73,.2));border-color:var(--gold);color:var(--goldL);box-shadow:0 3px 12px rgba(201,168,76,.25);}
-.city-chip-icon{font-size:18px;line-height:1;}
+.city-chip-svg{width:24px;height:24px;stroke:rgba(232,201,122,.6);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s;flex-shrink:0;}
+.city-chip:hover .city-chip-svg{stroke:var(--goldL);}
+.city-chip.selected .city-chip-svg{stroke:var(--goldL);}
 .city-chip-name{font-size:10.5px;font-weight:800;text-align:center;white-space:nowrap;}
-.city-chip-type{font-size:8.5px;color:rgba(255,255,255,.4);font-weight:600;}
-.city-chip.selected .city-chip-type{color:rgba(201,168,76,.7);}
+.city-chip-type{display:none;}
 .carousel-dots{display:flex;justify-content:center;gap:4px;margin-top:6px;}
 .cdot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .25s;cursor:pointer;}
 .cdot.active{width:14px;border-radius:2px;background:var(--gold);}
@@ -682,8 +683,54 @@ body.sheet-open{overflow:hidden;}
   .bsl-item{width:20px;font-size:7px;}
   .tnc-meta-strip{grid-template-columns:1fr 1fr 1fr;}
 }
-/* ══ TRIP SUGGESTIONS — STACK CARDS ══ */
-.trips-stack-wrap{position:relative;height:260px;margin:0 0 8px;}
+/* ══ CITY CHIPS — monochrome SVG icons ══ */
+.city-chip-svg{width:28px;height:28px;stroke:#e8c97a;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s;}
+.city-chip.selected .city-chip-svg{stroke:var(--goldL);}
+
+/* ══ TRIPS SLIDER — new clean design ══ */
+.trips-section{background:var(--cream);padding:28px 0 8px;}
+.trips-section-inner{max-width:680px;margin:0 auto;padding:0 18px;}
+.trips-section-header{margin-bottom:16px;}
+.trips-section-eyebrow{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;}
+.trips-section-title-text{font-size:18px;font-weight:900;color:var(--em);}
+/* outer clips the track */
+.ts-slider-outer{overflow:hidden;border-radius:20px;cursor:grab;user-select:none;}
+.ts-slider-outer:active{cursor:grabbing;}
+.ts-slider-track{display:flex;transition:transform .46s cubic-bezier(.4,0,.2,1);}
+/* Each slide card */
+.ts-card{flex:0 0 100%;min-width:0;background:linear-gradient(155deg,var(--em) 0%,#0f4535 50%,#1a5e49 100%);border-radius:20px;overflow:hidden;position:relative;}
+.ts-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 80%,rgba(201,168,76,.12),transparent 60%);pointer-events:none;}
+/* Top area — date prominent */
+.ts-card-top{padding:24px 22px 18px;position:relative;z-index:1;}
+.ts-card-row1{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;}
+.ts-card-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.3);border-radius:100px;padding:4px 12px;font-size:10px;font-weight:700;color:var(--goldL);}
+.ts-card-type-pill{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:4px 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,.8);}
+/* Big date */
+.ts-card-date-block{display:flex;align-items:flex-end;gap:10px;margin-bottom:8px;}
+.ts-card-day{font-size:72px;font-weight:900;color:var(--goldL);line-height:.9;letter-spacing:-.04em;text-shadow:0 4px 20px rgba(0,0,0,.2);}
+.ts-card-date-meta{display:flex;flex-direction:column;gap:4px;padding-bottom:4px;}
+.ts-card-month{font-size:20px;font-weight:800;color:rgba(232,201,122,.85);}
+.ts-card-year{font-size:12px;font-weight:600;color:rgba(255,255,255,.4);}
+.ts-card-title{font-size:15px;font-weight:800;color:rgba(255,255,255,.9);margin-bottom:0;}
+/* Bottom info strip */
+.ts-card-bottom{background:rgba(0,0,0,.18);backdrop-filter:blur(4px);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.07);}
+.ts-card-info{display:flex;flex-direction:column;gap:5px;}
+.ts-card-origin{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:rgba(255,255,255,.75);}
+.ts-card-origin-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.ts-card-nights{display:inline-flex;align-items:center;gap:5px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.25);border-radius:100px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--goldL);width:fit-content;}
+.ts-card-price-area{text-align:left;flex-shrink:0;}
+.ts-card-price-label{font-size:9px;color:rgba(255,255,255,.4);margin-bottom:3px;text-align:left;}
+.ts-card-price-val{font-size:22px;font-weight:900;color:var(--goldL);letter-spacing:-.02em;line-height:1;}
+.ts-card-price-unit{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px;text-align:left;}
+/* Nav dots + arrows */
+.ts-slider-nav{display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 0 6px;}
+.ts-nav-arrow{width:32px;height:32px;border-radius:50%;border:1.5px solid rgba(201,168,76,.25);background:transparent;color:var(--ts);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.ts-nav-arrow:hover{background:rgba(201,168,76,.1);border-color:var(--gold);color:var(--em);}
+.ts-dots-row{display:flex;gap:5px;align-items:center;}
+.ts-dot{width:6px;height:6px;border-radius:50%;background:rgba(13,59,46,.2);cursor:pointer;transition:all .25s;}
+.ts-dot.active{width:20px;border-radius:3px;background:var(--em);}
+/* click hint */
+.ts-card-click-hint{position:absolute;bottom:74px;left:50%;transform:translateX(-50%);font-size:9px;color:rgba(255,255,255,.3);white-space:nowrap;pointer-events:none;}
 .trip-stack-card{position:absolute;left:0;right:0;background:var(--white);border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(13,59,46,.12);cursor:pointer;transition:transform .4s cubic-bezier(.32,0,.15,1),opacity .4s ease;border:1.5px solid rgba(201,168,76,.15);}
 .trip-stack-card.active{z-index:4;transform:translateY(0) scale(1);}
 .trip-stack-card.behind1{z-index:3;transform:translateY(10px) scale(0.96);opacity:.85;}
@@ -1198,23 +1245,17 @@ body.sheet-open{overflow:hidden;}
 <section class="trips-section" id="tripSuggestionsSection">
   <div class="trips-section-inner">
     <div class="trips-section-header">
-      <div>
-        <div class="trips-section-eyebrow">پیشنهادهای ویژه</div>
-        <div class="trips-section-title-text">سفرهای آماده آوان</div>
-      </div>
-      <div class="trips-dots-row" id="tripDotsRow"></div>
+      <div class="trips-section-eyebrow">✦ پیشنهادهای ویژه</div>
+      <div class="trips-section-title-text">سفرهای آماده آوان</div>
     </div>
-    <div class="trips-stack-wrap" id="tripsStackWrap">
-      <!-- built by JS -->
+    <div class="ts-slider-outer" id="tsSliderOuter">
+      <div class="ts-slider-track" id="tsSliderTrack"></div>
     </div>
-    <div class="tsc-swipe-hint">
-      <div class="tsc-hint-arrows">
-        <div class="tsc-hint-arrow" onclick="tripPrev()">→</div>
-        <div class="tsc-hint-arrow" onclick="tripNext()">←</div>
-      </div>
-      <span>کشیدن یا کلیک برای جزئیات</span>
+    <div class="ts-slider-nav">
+      <button class="ts-nav-arrow" onclick="tsSlide(-1)">→</button>
+      <div class="ts-dots-row" id="tsDotsRow"></div>
+      <button class="ts-nav-arrow" onclick="tsSlide(1)">←</button>
     </div>
-    <div class="tsc-dots" id="tscDots"></div>
   </div>
 </section>
 
@@ -1341,163 +1382,172 @@ const TRIP_SUGGESTIONS=[{id:'ts1',type:'air',tag:'محرم ۱۴۰۵',title:'نج
 
 window.TRIP_SUGGESTIONS = TRIP_SUGGESTIONS;
 var tsSelectedTrip = null;
-// ============================
-// ══ TRIP STACK CARDS ══
+
+// ══ NEW TRIPS SLIDER ══
 (function(){
   'use strict';
   var data = window.TRIP_SUGGESTIONS || [];
-  var cur  = 0;
+  var cur = 0;
   var total = data.length;
-  var isAnimating = false;
-  var touchX = 0, touchDelta = 0, isTouching = false;
+  var autoTimer = null;
+  var dragDelta = 0, isDragging = false, dragStartX = 0;
+  var isTouching = false, touchStartX = 0, touchDelta = 0;
 
   function P(n){return String(n).replace(/\d/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'[d];});}
 
-  function init(){
-    var wrap = document.getElementById('tripsStackWrap');
-    if(!wrap || !total) return;
-    // build cards (all, stack shows top 4)
-    wrap.innerHTML = '';
-    data.forEach(function(trip, i){
-      wrap.appendChild(buildCard(trip, i));
-    });
-    buildDots();
-    render(false);
-    bindEvents(wrap);
+  function countNights(trip){
+    return (trip.routeItems||[]).filter(function(r){return r.type==='city';})
+      .reduce(function(s,r){return s+(r.nights||0);},0);
   }
 
-  function buildCard(trip, idx){
-    var dp = trip.date.split(' ');
-    var day = dp[0];
-    var mon = dp.slice(1).join(' ');
-    var icon = (trip.type==='air'||trip.type==='vip') ? '✈️' : '🚌';
-    var typeLabel = trip.type==='air'?'هوایی':trip.type==='vip'?'VIP':'زمینی';
-    var nights = (trip.routeItems||[]).filter(function(r){return r.type==='city';})
-                  .reduce(function(s,r){return s+(r.nights||0);},0);
+  function typeLabel(type){
+    if(type==='air') return '✈️ هوایی';
+    if(type==='vip') return '👑 VIP';
+    return '🚌 زمینی';
+  }
 
-    var el = document.createElement('div');
-    el.className = 'trip-stack-card';
-    el.dataset.idx = idx;
-    el.innerHTML =
-      '<div class="tsc-head">'+
-        '<div class="tsc-row1">'+
-          '<div class="tsc-type-badge">'+icon+' '+typeLabel+'</div>'+
-          '<div class="tsc-tag">'+trip.origin+'</div>'+
+  function buildCard(trip){
+    var parts = trip.date.split(' ');
+    var day = parts[0]; var month = parts[1]||''; var year = parts[2]||'';
+    var nights = countNights(trip);
+    var card = document.createElement('div');
+    card.className = 'ts-card';
+    card.innerHTML =
+      '<div class="ts-card-top">'+
+        '<div class="ts-card-row1">'+
+          '<div class="ts-card-tag">'+trip.tag+'</div>'+
+          '<div class="ts-card-type-pill">'+typeLabel(trip.type)+'</div>'+
         '</div>'+
-        '<div class="tsc-date">'+
-          '<div class="tsc-day">'+day+'</div>'+
-          '<div class="tsc-month">'+mon+'</div>'+
+        '<div class="ts-card-date-block">'+
+          '<div class="ts-card-day">'+day+'</div>'+
+          '<div class="ts-card-date-meta">'+
+            '<div class="ts-card-month">'+month+'</div>'+
+            '<div class="ts-card-year">'+year+'</div>'+
+          '</div>'+
         '</div>'+
-        '<div class="tsc-title">'+trip.title+'</div>'+
+        '<div class="ts-card-title">'+trip.title+'</div>'+
+        '<div class="ts-card-click-hint">لمس کنید برای جزئیات</div>'+
       '</div>'+
-      '<div class="tsc-body">'+
-        '<div class="tsc-info">'+
-          '<div class="tsc-origin"><span>📍</span>'+trip.origin+'</div>'+
-          '<div class="tsc-nights">🌙 '+P(nights)+' شب</div>'+
+      '<div class="ts-card-bottom">'+
+        '<div class="ts-card-info">'+
+          '<div class="ts-card-origin"><div class="ts-card-origin-dot"></div>'+trip.origin+'</div>'+
+          '<div class="ts-card-nights">\uD83C\uDF19 '+P(nights)+' شب</div>'+
         '</div>'+
-        '<div class="tsc-price-area">'+
-          '<div class="tsc-price-from">هر نفر از</div>'+
-          '<div class="tsc-price-val">'+trip.priceLabel+'</div>'+
-          '<div class="tsc-price-unit">تومان</div>'+
+        '<div class="ts-card-price-area">'+
+          '<div class="ts-card-price-label">هر نفر از</div>'+
+          '<div class="ts-card-price-val">'+trip.priceLabel+'</div>'+
+          '<div class="ts-card-price-unit">تومان</div>'+
         '</div>'+
       '</div>';
-    return el;
+    return card;
   }
 
   function buildDots(){
-    var wrap = document.getElementById('tscDots');
-    if(!wrap) return;
-    wrap.innerHTML = '';
+    var row = document.getElementById('tsDotsRow');
+    if(!row) return;
+    row.innerHTML = '';
     data.forEach(function(_,i){
       var d = document.createElement('div');
-      d.className = 'tsc-dot'+(i===0?' active':'');
-      (function(idx){d.onclick=function(){goTo(idx);};})(i);
-      wrap.appendChild(d);
+      d.className = 'ts-dot'+(i===0?' active':'');
+      (function(idx){ d.onclick = function(){ stopAuto(); goTo(idx); startAuto(); }; })(i);
+      row.appendChild(d);
     });
   }
 
-  function render(animate){
-    var cards = document.querySelectorAll('.trip-stack-card');
-    cards.forEach(function(card){
-      var idx = parseInt(card.dataset.idx);
-      var rel = ((idx - cur) % total + total) % total; // 0=active, 1=behind1, ...
-      card.classList.remove('active','behind1','behind2','behind3','exit-left','exit-right');
-      card.style.transition = animate ? '' : 'none';
-      if(rel === 0) card.classList.add('active');
-      else if(rel === 1) card.classList.add('behind1');
-      else if(rel === 2) card.classList.add('behind2');
-      else card.classList.add('behind3');
-    });
-    // dots
-    var dots = document.querySelectorAll('#tscDots .tsc-dot');
+  function updateDots(){
+    var dots = document.querySelectorAll('.ts-dot');
     dots.forEach(function(d,i){ d.classList.toggle('active', i===cur); });
   }
 
   function goTo(idx){
-    if(isAnimating) return;
     cur = ((idx % total) + total) % total;
-    render(true);
+    var track = document.getElementById('tsSliderTrack');
+    if(track) track.style.transform = 'translateX('+(-cur * 100)+'%)';
+    updateDots();
   }
 
-  function next(){ goTo(cur+1); }
-  function prev(){ goTo(cur-1); }
+  window.tsSlide = function(dir){ stopAuto(); goTo(cur+dir); startAuto(); };
 
-  // expose globally
-  window.tripNext = next;
-  window.tripPrev = prev;
+  function startAuto(){
+    stopAuto();
+    autoTimer = setInterval(function(){ goTo(cur+1); }, 3800);
+  }
+  function stopAuto(){
+    if(autoTimer){ clearInterval(autoTimer); autoTimer=null; }
+  }
 
-  function bindEvents(wrap){
-    // click on active card = open detail
-    wrap.addEventListener('click', function(e){
-      if(Math.abs(touchDelta) > 10) return;
-      var card = e.target.closest('.trip-stack-card');
-      if(!card) return;
-      var idx = parseInt(card.dataset.idx);
-      if(idx === cur){
-        openTripDetail(data[cur].id);
-      } else {
-        goTo(idx);
-      }
+  function init(){
+    var track = document.getElementById('tsSliderTrack');
+    if(!track || !total) return;
+    track.innerHTML = '';
+    data.forEach(function(trip){
+      var card = buildCard(trip);
+      track.appendChild(card);
+    });
+    // Set track width so flex works properly
+    track.style.width = (total * 100) + '%';
+    track.querySelectorAll('.ts-card').forEach(function(c){
+      c.style.flex = '0 0 '+(100/total)+'%';
+    });
+    buildDots();
+    goTo(0);
+
+    // Click
+    track.addEventListener('click', function(e){
+      if(Math.abs(dragDelta)>8) return;
+      openTripDetail(data[cur].id);
     });
 
-    // touch swipe
-    wrap.addEventListener('touchstart', function(e){
-      isTouching=true; touchX=e.touches[0].clientX; touchDelta=0;
+    var outer = document.getElementById('tsSliderOuter');
+
+    // Touch
+    outer.addEventListener('touchstart', function(e){
+      isTouching=true; touchStartX=e.touches[0].clientX; touchDelta=0; stopAuto();
     },{passive:true});
-    wrap.addEventListener('touchmove', function(e){
+    outer.addEventListener('touchmove', function(e){
       if(!isTouching) return;
-      touchDelta = e.touches[0].clientX - touchX;
+      touchDelta = e.touches[0].clientX - touchStartX;
+      var pct = -(cur * 100 / total) + (touchDelta / outer.offsetWidth * 100 / total);
+      track.style.transition = 'none';
+      track.style.transform = 'translateX('+pct+'%)';
     },{passive:true});
-    wrap.addEventListener('touchend', function(){
+    outer.addEventListener('touchend', function(){
       if(!isTouching) return;
       isTouching = false;
-      if(Math.abs(touchDelta) > 40){
-        touchDelta < 0 ? next() : prev();
-      }
+      track.style.transition = '';
+      if(Math.abs(touchDelta) > 50){ touchDelta < 0 ? goTo(cur+1) : goTo(cur-1); }
+      else goTo(cur);
       touchDelta = 0;
+      startAuto();
     });
 
-    // mouse drag
-    var mx = 0, md = 0, mdown = false;
-    wrap.addEventListener('mousedown', function(e){
-      mdown=true; mx=e.clientX; md=0;
+    // Mouse drag
+    outer.addEventListener('mousedown', function(e){
+      isDragging=true; dragStartX=e.clientX; dragDelta=0; stopAuto();
+      track.style.transition='none';
     });
     document.addEventListener('mousemove', function(e){
-      if(!mdown) return; md = e.clientX - mx;
+      if(!isDragging) return;
+      dragDelta = e.clientX - dragStartX;
+      var pct = -(cur * 100 / total) + (dragDelta / outer.offsetWidth * 100 / total);
+      track.style.transform = 'translateX('+pct+'%)';
     });
     document.addEventListener('mouseup', function(){
-      if(!mdown) return; mdown=false;
-      if(Math.abs(md) > 40){ md < 0 ? next() : prev(); }
-      md = 0;
+      if(!isDragging) return;
+      isDragging = false;
+      track.style.transition = '';
+      if(Math.abs(dragDelta) > 50){ dragDelta < 0 ? goTo(cur+1) : goTo(cur-1); }
+      else goTo(cur);
+      setTimeout(function(){ dragDelta=0; }, 50);
+      startAuto();
     });
+
+    startAuto();
   }
 
   if(document.readyState==='loading'){
     document.addEventListener('DOMContentLoaded', init);
-  } else {
-    setTimeout(init, 60);
-  }
-})();
+  } else { setTimeout(init, 80); }
 })();
 function openTripDetail(id){
   tsSelectedTrip=TRIP_SUGGESTIONS.find(t=>t.id===id);
@@ -2755,6 +2805,18 @@ function aiFormatNum(n){return P(Math.round(n).toLocaleString('en'));}
     {city:'other',      name:'سایر',       icon:'📍'}
   ];
 
+  var CITY_SVGS = {
+    tabriz:     '<svg class="city-chip-svg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>',
+    qom:        '<svg class="city-chip-svg" viewBox="0 0 24 24"><path d="M12 2a5 5 0 0 1 5 5c0 3-5 9-5 9S7 10 7 7a5 5 0 0 1 5-5z"/><circle cx="12" cy="7" r="2"/></svg>',
+    karaj:      '<svg class="city-chip-svg" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    ahvaz:      '<svg class="city-chip-svg" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>',
+    rasht:      '<svg class="city-chip-svg" viewBox="0 0 24 24"><path d="M12 22s-8-6-8-12a8 8 0 0 1 16 0c0 6-8 12-8 12z"/><circle cx="12" cy="10" r="3"/></svg>',
+    kermanshah: '<svg class="city-chip-svg" viewBox="0 0 24 24"><polygon points="12 2 22 20 2 20"/><line x1="12" y1="10" x2="12" y2="16"/><line x1="12" y1="19" x2="12" y2="19"/></svg>',
+    arak:       '<svg class="city-chip-svg" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>',
+    yazd:       '<svg class="city-chip-svg" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-4h6v4"/></svg>',
+    other:      '<svg class="city-chip-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>'
+  };
+
   function init(){
     var row = document.getElementById('cityStripRow');
     if(!row) return;
@@ -2763,12 +2825,11 @@ function aiFormatNum(n){return P(Math.round(n).toLocaleString('en'));}
       var el = document.createElement('div');
       el.className = 'city-chip';
       el.dataset.city = c.city;
+      var svgIcon = CITY_SVGS[c.city] || CITY_SVGS['other'];
       el.innerHTML =
-        '<div class="city-chip-icon">'+c.icon+'</div>'+
-        '<div class="city-chip-name">'+c.name+'</div>'+
-        '<div class="city-chip-type">🚌 زمینی</div>';
+        svgIcon +
+        '<div class="city-chip-name">'+c.name+'</div>';
       el.addEventListener('click', function(){
-        // deselect all
         document.querySelectorAll('.city-chip').forEach(function(x){ x.classList.remove('selected'); });
         document.querySelectorAll('.origin-card').forEach(function(x){ x.classList.remove('selected'); });
         el.classList.add('selected');
