@@ -406,52 +406,6 @@ body.sheet-open{overflow:hidden;}
 .hero-wave{display:block;line-height:0;margin-top:-1px;}
 .hero-wave svg{display:block;width:100%}
 
-/* ══ TRIP SUGGESTIONS SLIDER ══ */
-<section class="trips-section" id="tripSuggestionsSection">
-  <div class="trips-section-inner">
-    <div class="trips-section-label">
-      <div class="trips-section-title">
-        <div class="trips-section-title-icon">✦</div>
-        <div>
-          <div class="trips-section-title-text">پیشنهادهای ویژه آوان</div>
-          <div class="trips-section-title-sub">سفرهای آماده — فقط انتخاب کنید</div>
-        </div>
-      </div>
-      <div class="trips-dots-row" id="tripDotsRow"></div>
-    </div>
-    <div class="trips-track-wrap" id="tripsTrackWrap">
-      <div class="trips-track" id="tripsTrack"></div>
-    </div>
-    <div class="trips-swipe-hint">
-      <span class="trips-swipe-hint-arrow">←</span>
-      <span>برای دیدن بیشتر بکشید</span>
-      <span class="trips-swipe-hint-arrow">→</span>
-    </div>
-  </div>
-</section>
-
-/* ══ TRIP DETAIL SHEET ══ */
-<div class="trip-detail-overlay" id="tripDetailOverlay" onclick="closeTripDetail(event)"></div>
-<div class="trip-detail-sheet" id="tripDetailSheet">
-  <div class="tds-handle"><div class="tds-handle-bar"></div></div>
-  <div class="tds-header">
-    <div>
-      <div class="tds-header-title" id="tdsHeaderTitle">جزئیات سفر</div>
-      <div class="tds-header-sub" id="tdsHeaderSub"></div>
-    </div>
-    <button class="tds-close" onclick="closeTripDetailDirect()">✕</button>
-  </div>
-  <div class="tds-body" id="tdsBody"></div>
-  <div class="tds-footer">
-    <div class="tds-footer-price">
-      <div class="tds-footer-price-label">هر نفر از</div>
-      <div class="tds-footer-price-val" id="tdsFooterPrice">—</div>
-      <div class="tds-footer-price-sub">تومان</div>
-    </div>
-    <button class="tds-book-btn" id="tdsBookBtn" onclick="bookSuggestedTrip()">ثبت‌نام این سفر ✦</button>
-  </div>
-</div>
-
 /* ══ PAGE BODY ══ */
 .page-body{background:var(--cream);padding:0 0 60px;}
 .page-body-inner{max-width:680px;margin:0 auto;padding:0 18px;}
@@ -1200,6 +1154,52 @@ body.sheet-open{overflow:hidden;}
 </section>
 <div class="hero-wave"><svg viewBox="0 0 1440 54" preserveAspectRatio="none"><path d="M0,0 C360,54 1080,0 1440,36 L1440,54 L0,54 Z" fill="#f9f5ee"/></svg></div>
 
+<!-- ══ TRIP SUGGESTIONS SLIDER ══ -->
+<section class="trips-section" id="tripSuggestionsSection">
+  <div class="trips-section-inner">
+    <div class="trips-section-label">
+      <div class="trips-section-title">
+        <div class="trips-section-title-icon">✦</div>
+        <div>
+          <div class="trips-section-title-text">پیشنهادهای ویژه آوان</div>
+          <div class="trips-section-title-sub">سفرهای آماده — فقط انتخاب کنید</div>
+        </div>
+      </div>
+      <div class="trips-dots-row" id="tripDotsRow"></div>
+    </div>
+    <div class="trips-track-wrap" id="tripsTrackWrap">
+      <div class="trips-track" id="tripsTrack"></div>
+    </div>
+    <div class="trips-swipe-hint">
+      <span class="trips-swipe-hint-arrow">←</span>
+      <span>برای دیدن بیشتر بکشید</span>
+      <span class="trips-swipe-hint-arrow">→</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TRIP DETAIL SHEET ══ -->
+<div class="trip-detail-overlay" id="tripDetailOverlay" onclick="closeTripDetail(event)"></div>
+<div class="trip-detail-sheet" id="tripDetailSheet">
+  <div class="tds-handle"><div class="tds-handle-bar"></div></div>
+  <div class="tds-header">
+    <div>
+      <div class="tds-header-title" id="tdsHeaderTitle">جزئیات سفر</div>
+      <div class="tds-header-sub" id="tdsHeaderSub"></div>
+    </div>
+    <button class="tds-close" onclick="closeTripDetailDirect()">✕</button>
+  </div>
+  <div class="tds-body" id="tdsBody"></div>
+  <div class="tds-footer">
+    <div class="tds-footer-price">
+      <div class="tds-footer-price-label">هر نفر از</div>
+      <div class="tds-footer-price-val" id="tdsFooterPrice">—</div>
+      <div class="tds-footer-price-sub">تومان</div>
+    </div>
+    <button class="tds-book-btn" id="tdsBookBtn" onclick="bookSuggestedTrip()">ثبت‌نام این سفر ✦</button>
+  </div>
+</div>
+
 <!-- ══ PAGE BODY ══ -->
 <div class="page-body">
   <div class="page-body-inner">
@@ -1295,6 +1295,7 @@ body.sheet-open{overflow:hidden;}
   </div>
 </footer>
 
+<script>
 // ══ TRIP SUGGESTIONS SLIDER ══
 const TRIP_SUGGESTIONS=[{id:'ts1',type:'air',tag:'محرم ۱۴۰۵',title:'نجف + کربلا — محرم',date:'۲۶ خرداد ۱۴۰۵',origin:'تهران',duration:'۵ شب',totalNights:5,paxText:'هر نفر',pricePerPerson:23000000,priceLabel:'۲۳,۰۰۰,۰۰۰',routeItems:[{city:'تهران',icon:'🏙',nights:null,type:'dep'},{city:'نجف اشرف',icon:'🕌',nights:2,hotel:'هتل امیرالمؤمنین ★★★★★',type:'city'},{city:'کربلای معلی',icon:'🕌',nights:3,hotel:'هتل عباسیه گرند ★★★★★',type:'city'},{city:'تهران',icon:'🏙',nights:null,type:'ret'}],timeline:[{icon:'✈️',cls:'dep',name:'پرواز از تهران',desc:'فرودگاه امام خمینی — پرواز مستقیم به نجف'},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۲ شب اقامت',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'🏨 امیرالمؤمنین ★★★★★'}]},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) و حضرت عباس (ع) — ۳ شب اقامت',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 عباسیه گرند ★★★★★'}]},{icon:'✈️',cls:'ret',name:'پرواز بازگشت به تهران',desc:'پرواز مستقیم از نجف — بازگشت به تهران'}],hotels:[{city:'نجف اشرف',cityIcon:'🕌',name:'هتل امیرالمؤمنین',stars:5,nights:2},{city:'کربلای معلی',cityIcon:'🕌',name:'هتل عباسیه گرند',stars:5,nights:3}],includes:['✈️ بلیط پرواز رفت و برگشت','🚗 ترانسفر از درب منزل','🏨 اقامت ۵ شب','🍽️ صبحانه + شام','👤 راهنمای مجرب'],priceBreakdown:[{label:'بلیط هوایی رفت و برگشت',val:'۸,۵۰۰,۰۰۰ ت'},{label:'اقامت ۵ شب (هتل ۵ ستاره)',val:'۱۱,۵۰۰,۰۰۰ ت'},{label:'ترانسفر و خدمات',val:'۳,۰۰۰,۰۰۰ ت'}]},{id:'ts2',type:'land',tag:'اقتصادی',title:'کربلا + نجف — زمینی',date:'۵ تیر ۱۴۰۵',origin:'قم',duration:'۶ شب',totalNights:6,paxText:'هر نفر',pricePerPerson:11500000,priceLabel:'۱۱,۵۰۰,۰۰۰',routeItems:[{city:'قم',icon:'🕌',nights:null,type:'dep'},{city:'کربلای معلی',icon:'🕌',nights:3,hotel:'هتل کربلا اینترنشنال ★★★★',type:'city'},{city:'نجف اشرف',icon:'🕌',nights:3,hotel:'هتل نجف پالاس ★★★★',type:'city'},{city:'قم',icon:'🕌',nights:null,type:'ret'}],timeline:[{icon:'🚌',cls:'dep',name:'حرکت از قم',desc:'اتوبوس VIP — مستقیم به مرز خسروی'},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) — ۳ شب اقامت',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 کربلا اینترنشنال ★★★★'}]},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۳ شب اقامت',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 نجف پالاس ★★★★'}]},{icon:'🚌',cls:'ret',name:'بازگشت به قم',desc:'اتوبوس VIP — مرز خسروی به قم'}],hotels:[{city:'کربلای معلی',cityIcon:'🕌',name:'هتل کربلا اینترنشنال',stars:4,nights:3},{city:'نجف اشرف',cityIcon:'🕌',name:'هتل نجف پالاس',stars:4,nights:3}],includes:['🚌 اتوبوس VIP رفت و برگشت','🚗 ترانسفر از درب منزل','🏨 اقامت ۶ شب','🍽️ صبحانه + شام','👤 راهنمای مجرب'],priceBreakdown:[{label:'اتوبوس VIP رفت و برگشت',val:'۲,۸۰۰,۰۰۰ ت'},{label:'اقامت ۶ شب (هتل ۴ ستاره)',val:'۶,۲۰۰,۰۰۰ ت'},{label:'ترانسفر و خدمات',val:'۲,۵۰۰,۰۰۰ ت'}]},{id:'ts3',type:'air',tag:'مشهد — هوایی',title:'نجف + کربلا + کاظمین',date:'۱۵ تیر ۱۴۰۵',origin:'مشهد',duration:'۷ شب',totalNights:7,paxText:'هر نفر',pricePerPerson:27500000,priceLabel:'۲۷,۵۰۰,۰۰۰',routeItems:[{city:'مشهد',icon:'🕌',nights:null,type:'dep'},{city:'نجف اشرف',icon:'🕌',nights:2,hotel:'هتل نجف گرند ★★★★★',type:'city'},{city:'کربلای معلی',icon:'🕌',nights:3,hotel:'هتل الحسین انترنشنال ★★★★★',type:'city'},{city:'کاظمین',icon:'🕌',nights:2,hotel:'هتل الامین الکاظمیه ★★★★★',type:'city'},{city:'مشهد',icon:'🕌',nights:null,type:'ret'}],timeline:[{icon:'✈️',cls:'dep',name:'پرواز از مشهد',desc:'فرودگاه مشهد — پرواز به نجف'},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۲ شب',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'🏨 نجف گرند ★★★★★'}]},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) — ۳ شب',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 الحسین انترنشنال ★★★★★'}]},{icon:'🕌',cls:'city',name:'کاظمین',desc:'حرم امام کاظم (ع) — ۲ شب',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'🏨 الامین الکاظمیه ★★★★★'}]},{icon:'✈️',cls:'ret',name:'پرواز بازگشت به مشهد',desc:'پرواز از بغداد — بازگشت به مشهد'}],hotels:[{city:'نجف اشرف',cityIcon:'🕌',name:'هتل نجف گرند',stars:5,nights:2},{city:'کربلای معلی',cityIcon:'🕌',name:'هتل الحسین انترنشنال',stars:5,nights:3},{city:'کاظمین',cityIcon:'🕌',name:'هتل الامین الکاظمیه',stars:5,nights:2}],includes:['✈️ بلیط پرواز رفت و برگشت','🚗 ترانسفر از درب منزل','🏨 اقامت ۷ شب','🍽️ صبحانه + شام','👤 راهنمای مجرب','📱 سیم‌کارت عراقی'],priceBreakdown:[{label:'بلیط هوایی رفت و برگشت',val:'۱۰,۵۰۰,۰۰۰ ت'},{label:'اقامت ۷ شب (هتل ۵ ستاره)',val:'۱۳,۵۰۰,۰۰۰ ت'},{label:'ترانسفر و خدمات',val:'۳,۵۰۰,۰۰۰ ت'}]},{id:'ts4',type:'vip',tag:'VIP خانوادگی',title:'کربلا + نجف — VIP',date:'۸ مرداد ۱۴۰۵',origin:'تهران',duration:'۴ شب',totalNights:4,paxText:'هر نفر',pricePerPerson:38000000,priceLabel:'۳۸,۰۰۰,۰۰۰',routeItems:[{city:'تهران',icon:'🏙',nights:null,type:'dep'},{city:'کربلای معلی',icon:'🕌',nights:2,hotel:'هتل عباسیه گرند ★★★★★ (سوئیت)',type:'city'},{city:'نجف اشرف',icon:'🕌',nights:2,hotel:'هتل امیرالمؤمنین ★★★★★ (سوئیت)',type:'city'},{city:'تهران',icon:'🏙',nights:null,type:'ret'}],timeline:[{icon:'✈️',cls:'dep',name:'پرواز چارتر از تهران',desc:'پرواز اختصاصی — فرودگاه امام خمینی'},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) — ۲ شب در سوئیت',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'👑 سوئیت عباسیه گرند'}]},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۲ شب در سوئیت',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'👑 سوئیت امیرالمؤمنین'}]},{icon:'✈️',cls:'ret',name:'پرواز بازگشت — تهران',desc:'پرواز چارتر — بازگشت به تهران'}],hotels:[{city:'کربلای معلی',cityIcon:'🕌',name:'عباسیه گرند — سوئیت',stars:5,nights:2},{city:'نجف اشرف',cityIcon:'🕌',name:'امیرالمؤمنین — سوئیت',stars:5,nights:2}],includes:['✈️ پرواز چارتر اختصاصی','🚗 ماشین اختصاصی در عراق','👑 اقامت سوئیت ۵ ستاره','🍽️ تمام وعده‌ها','🎖️ راهنمای VIP اختصاصی','💐 استقبال ویژه'],priceBreakdown:[{label:'پرواز چارتر رفت و برگشت',val:'۱۴,۰۰۰,۰۰۰ ت'},{label:'اقامت ۴ شب سوئیت',val:'۱۸,۰۰۰,۰۰۰ ت'},{label:'ماشین اختصاصی و راهنمای VIP',val:'۶,۰۰۰,۰۰۰ ت'}]}];
 
@@ -1393,7 +1394,6 @@ function bookSuggestedTrip(){
 }
 document.addEventListener('DOMContentLoaded',function(){buildTripsSlider();});
 
-<script>
 // ══ HELPERS ══
 function P(n){return String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);}
 function fmt(n){return P(Math.round(n).toLocaleString('en'));}
