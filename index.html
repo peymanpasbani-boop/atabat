@@ -1545,10 +1545,13 @@ var tsSelectedTrip = null;
     for(var i=0;i<dots.length;i++) dots[i].classList.toggle('active',i===cur);
   }
 
-  function getTrackOffset(){
-    /* Each card = 100% of outer width. Track moves by -cur * outerWidth px */
+  var GAP=14;
+  function getCardWidth(){
     var outer=document.getElementById('tsSliderOuter');
-    return outer ? -(cur * outer.offsetWidth) : 0;
+    return outer ? outer.offsetWidth : 0;
+  }
+  function getTrackOffset(){
+    return -(cur * (getCardWidth() + GAP));
   }
 
   function applyTransform(px){
