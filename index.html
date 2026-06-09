@@ -666,6 +666,10 @@ body.sheet-open{overflow:hidden;}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
+/* ══ TYPEWRITER ══ */
+.tw-cursor{display:inline-block;width:2px;height:1em;background:var(--goldL);margin-right:2px;vertical-align:text-bottom;animation:twBlink .75s step-end infinite;}
+@keyframes twBlink{0%,100%{opacity:1}50%{opacity:0}}
+
 @media(max-width:640px){
   .origin-grid{grid-template-columns:repeat(2,1fr);}
   .type-cards{grid-template-columns:1fr;}
@@ -1238,7 +1242,7 @@ body.sheet-open{overflow:hidden;}
     <div class="hero-badge">✦ سفر زیارتی، به انتخاب شما</div>
     <div class="hero-title">گروه زیارتی <em>آوان</em></div>
     <div class="hero-group-name">مرجع تخصصی سفرهای زیارتی انفرادی</div>
-    <div class="hero-slogan">این بار انتخاب با <span class="hl">شماست</span>، نه یک کاروان از پیش تعیین‌شده</div>
+    <div class="hero-slogan" id="heroTypewriter" aria-live="polite"></div>
     <div class="hero-desc">زمان سفر، مدت اقامت، درجه هتل و مسیر را خودتان انتخاب کنید. کاملاً متناسب با بودجه، زمان و سلیقه شما.</div>
     <div class="hero-step-wrap">
       <div class="hero-step-label"><span class="step-badge">گام اول</span>📍 شهر محل اعزام خود را انتخاب کنید</div>
@@ -1323,152 +1327,7 @@ body.sheet-open{overflow:hidden;}
       <div class="more-cities-label">سایر شهرها — بکشید انتخاب کنید</div>
       <div class="city-carousel-wrap" id="cityCarouselWrap">
         <div class="city-carousel-track" id="cityCarouselTrack">
-          <!-- تبریز — کلیسای کبود -->
-          <div class="city-carousel-item" data-city="tabriz" data-transport="land">
-            <div class="cci-icon">
-              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
-                <path d="M14 4 L14 6"/>
-                <path d="M9 12 Q9 7 14 6 Q19 7 19 12"/>
-                <rect x="7" y="12" width="14" height="3" rx="0.5"/>
-                <rect x="5" y="15" width="18" height="2" rx="0.5"/>
-                <rect x="11" y="17" width="3" height="7"/>
-                <rect x="14" y="17" width="3" height="7"/>
-                <line x1="4" y1="24" x2="24" y2="24"/>
-              </svg>
-            </div>
-            <div class="cci-name">تبریز</div>
-            <div class="cci-type">🚌 زمینی</div>
-            <div class="cci-tick">✓</div>
-          </div>
-          <!-- قم — گنبد حضرت معصومه -->
-          <div class="city-carousel-item" data-city="qom" data-transport="land">
-            <div class="cci-icon">
-              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
-                <line x1="14" y1="2" x2="14" y2="5"/>
-                <circle cx="14" cy="2" r="1" fill="currentColor" stroke="none"/>
-                <path d="M8 16 Q8 9 14 8 Q20 9 20 16"/>
-                <rect x="6" y="16" width="16" height="2" rx="0.5"/>
-                <rect x="4" y="18" width="20" height="2" rx="0.5"/>
-                <rect x="10" y="20" width="3" height="5"/>
-                <rect x="15" y="20" width="3" height="5"/>
-                <line x1="3" y1="25" x2="25" y2="25"/>
-              </svg>
-            </div>
-            <div class="cci-name">قم</div>
-            <div class="cci-type">🚌 زمینی</div>
-            <div class="cci-tick">✓</div>
-          </div>
-          <!-- کرج — کوه البرز و دشت -->
-          <div class="city-carousel-item" data-city="karaj" data-transport="land">
-            <div class="cci-icon">
-              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
-                <path d="M3 18 L8 10 L13 15 L18 8 L25 18"/>
-                <line x1="2" y1="22" x2="26" y2="22"/>
-                <path d="M4 22 L4 20"/>
-                <path d="M8 22 L8 18"/>
-                <path d="M18 22 L18 18"/>
-                <path d="M24 22 L24 20"/>
-              </svg>
-            </div>
-            <div class="cci-name">کرج</div>
-            <div class="cci-type">🚌 زمینی</div>
-            <div class="cci-tick">✓</div>
-          </div>
-          <!-- اهواز — رودخانه کارون و پل -->
-          <div class="city-carousel-item" data-city="ahvaz" data-transport="land">
-            <div class="cci-icon">
-              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
-                <path d="M3 14 Q5 10 8 14 Q11 18 14 14 Q17 10 20 14 Q23 18 25 14"/>
-                <line x1="3" y1="17" x2="25" y2="17"/>
-                <line x1="8" y1="17" x2="8" y2="10"/>
-                <line x1="20" y1="17" x2="20" y2="10"/>
-                <path d="M6 10 L22 10"/>
-                <path d="M8 10 Q14 6 20 10"/>
-              </svg>
-            </div>
-            <div class="cci-name">اهواز</div>
-            <div class="cci-type">🚌 زمینی</div>
-            <div class="cci-tick">✓</div>
-          </div>
-          <!-- رشت — برگ چای و باران -->
-          <div class="city-carousel-item" data-city="rasht" data-transport="land">
-            <div class="cci-icon">
-              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
-                <path d="M14 5 Q20 8 20 14 Q20 20 14 22 Q8 20 8 14 Q8 8 14 5Z"/>
-                <path d="M14 5 Q14 14 14 22"/>
-                <path d="M8 14 Q14 12 20 14"/>
-                <line x1="9" y1="24" x2="9" y2="26"/>
-                <line x1="14" y1="23" x2="14" y2="25"/>
-                <line x1="19" y1="24" x2="19" y2="26"/>
-              </svg>
-            </div>
-            <div class="cci-name">رشت</div>
-            <div class="cci-type">🚌 زمینی</div>
-            <div class="cci-tick">✓</div>
-          </div>
-          <!-- کرمانشاه — طاق بستان -->
-          <div class="city-carousel-item" data-city="kermanshah" data-transport="land">
-            <div class="cci-icon">
-              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
-                <path d="M6 22 L6 12 Q6 6 14 6 Q22 6 22 12 L22 22"/>
-                <path d="M10 22 L10 14 Q10 10 14 10 Q18 10 18 14 L18 22"/>
-                <line x1="3" y1="22" x2="25" y2="22"/>
-                <rect x="12" y="16" width="4" height="6"/>
-              </svg>
-            </div>
-            <div class="cci-name">کرمانشاه</div>
-            <div class="cci-type">🚌 زمینی</div>
-            <div class="cci-tick">✓</div>
-          </div>
-          <!-- اراک — دودکش صنعتی و میدان -->
-          <div class="city-carousel-item" data-city="arak" data-transport="land">
-            <div class="cci-icon">
-              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
-                <rect x="5" y="14" width="7" height="10" rx="0.5"/>
-                <rect x="16" y="10" width="7" height="14" rx="0.5"/>
-                <rect x="7" y="16" width="2" height="3" rx="0.3"/>
-                <rect x="18" y="12" width="2" height="3" rx="0.3"/>
-                <line x1="8" y1="14" x2="8" y2="10"/>
-                <line x1="20" y1="10" x2="20" y2="6"/>
-                <line x1="3" y1="24" x2="25" y2="24"/>
-              </svg>
-            </div>
-            <div class="cci-name">اراک</div>
-            <div class="cci-type">🚌 زمینی</div>
-            <div class="cci-tick">✓</div>
-          </div>
-          <!-- یزد — بادگیر -->
-          <div class="city-carousel-item" data-city="yazd" data-transport="land">
-            <div class="cci-icon">
-              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
-                <rect x="10" y="4" width="8" height="14" rx="0.5"/>
-                <path d="M10 4 Q10 2 12 2 L16 2 Q18 2 18 4"/>
-                <line x1="14" y1="4" x2="14" y2="18"/>
-                <line x1="10" y1="10" x2="18" y2="10"/>
-                <rect x="8" y="18" width="12" height="8" rx="0.5"/>
-                <rect x="11" y="20" width="3" height="6"/>
-                <rect x="14" y="20" width="3" height="6"/>
-                <line x1="5" y1="26" x2="23" y2="26"/>
-              </svg>
-            </div>
-            <div class="cci-name">یزد</div>
-            <div class="cci-type">🚌 زمینی</div>
-            <div class="cci-tick">✓</div>
-          </div>
-          <!-- سایر -->
-          <div class="city-carousel-item" data-city="other" data-transport="land">
-            <div class="cci-icon">
-              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
-                <circle cx="14" cy="11" r="5"/>
-                <path d="M14 16 L14 22"/>
-                <circle cx="14" cy="11" r="1.5" fill="currentColor" stroke="none"/>
-                <line x1="8" y1="22" x2="20" y2="22"/>
-              </svg>
-            </div>
-            <div class="cci-name">سایر</div>
-            <div class="cci-type">🚌 زمینی</div>
-            <div class="cci-tick">✓</div>
-          </div>
+          <!-- built by JS infinite loop carousel -->
         </div>
         <div class="carousel-dots" id="carouselDots"></div>
       </div>
@@ -3020,137 +2879,233 @@ function aiInputKeyDown(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();a
 function aiInputResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,80)+'px';}
 function aiFormatNum(n){return P(Math.round(n).toLocaleString('en'));}
 
-// ══ CITY CAROUSEL ══
+// ══ CITY CAROUSEL — INFINITE LOOP ══
 (function(){
-  var currentIdx = 0;
+  var ITEMS_DATA = [
+    {city:'tabriz',  transport:'land', name:'تبریز',     type:'🚌 زمینی'},
+    {city:'qom',     transport:'land', name:'قم',        type:'🚌 زمینی'},
+    {city:'karaj',   transport:'land', name:'کرج',       type:'🚌 زمینی'},
+    {city:'ahvaz',   transport:'land', name:'اهواز',     type:'🚌 زمینی'},
+    {city:'rasht',   transport:'land', name:'رشت',       type:'🚌 زمینی'},
+    {city:'kermanshah',transport:'land',name:'کرمانشاه', type:'🚌 زمینی'},
+    {city:'arak',    transport:'land', name:'اراک',      type:'🚌 زمینی'},
+    {city:'yazd',    transport:'land', name:'یزد',       type:'🚌 زمینی'},
+    {city:'other',   transport:'land', name:'سایر',      type:'🚌 زمینی'}
+  ];
+
+  // SVG icons per city
+  var SVGS = {
+    tabriz: '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M14 4L14 6"/><path d="M9 12Q9 7 14 6Q19 7 19 12"/><rect x="7" y="12" width="14" height="3" rx="0.5"/><rect x="5" y="15" width="18" height="2" rx="0.5"/><rect x="11" y="17" width="3" height="7"/><rect x="14" y="17" width="3" height="7"/><line x1="4" y1="24" x2="24" y2="24"/></svg>',
+    qom:    '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><line x1="14" y1="2" x2="14" y2="5"/><circle cx="14" cy="2" r="1" fill="currentColor" stroke="none"/><path d="M8 16Q8 9 14 8Q20 9 20 16"/><rect x="6" y="16" width="16" height="2" rx="0.5"/><rect x="4" y="18" width="20" height="2" rx="0.5"/><rect x="10" y="20" width="3" height="5"/><rect x="15" y="20" width="3" height="5"/><line x1="3" y1="25" x2="25" y2="25"/></svg>',
+    karaj:  '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M3 18L8 10L13 15L18 8L25 18"/><line x1="2" y1="22" x2="26" y2="22"/><line x1="4" y1="22" x2="4" y2="20"/><line x1="8" y1="22" x2="8" y2="18"/><line x1="18" y1="22" x2="18" y2="18"/><line x1="24" y1="22" x2="24" y2="20"/></svg>',
+    ahvaz:  '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M3 14Q5 10 8 14Q11 18 14 14Q17 10 20 14Q23 18 25 14"/><line x1="3" y1="17" x2="25" y2="17"/><line x1="8" y1="17" x2="8" y2="10"/><line x1="20" y1="17" x2="20" y2="10"/><path d="M6 10L22 10"/><path d="M8 10Q14 6 20 10"/></svg>',
+    rasht:  '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M14 5Q20 8 20 14Q20 20 14 22Q8 20 8 14Q8 8 14 5Z"/><path d="M14 5Q14 14 14 22"/><path d="M8 14Q14 12 20 14"/><line x1="9" y1="24" x2="9" y2="26"/><line x1="14" y1="23" x2="14" y2="25"/><line x1="19" y1="24" x2="19" y2="26"/></svg>',
+    kermanshah: '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M6 22L6 12Q6 6 14 6Q22 6 22 12L22 22"/><path d="M10 22L10 14Q10 10 14 10Q18 10 18 14L18 22"/><line x1="3" y1="22" x2="25" y2="22"/><rect x="12" y="16" width="4" height="6"/></svg>',
+    arak:   '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="5" y="14" width="7" height="10" rx="0.5"/><rect x="16" y="10" width="7" height="14" rx="0.5"/><rect x="7" y="16" width="2" height="3" rx="0.3"/><rect x="18" y="12" width="2" height="3" rx="0.3"/><line x1="8" y1="14" x2="8" y2="10"/><line x1="20" y1="10" x2="20" y2="6"/><line x1="3" y1="24" x2="25" y2="24"/></svg>',
+    yazd:   '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="10" y="4" width="8" height="14" rx="0.5"/><path d="M10 4Q10 2 12 2L16 2Q18 2 18 4"/><line x1="14" y1="4" x2="14" y2="18"/><line x1="10" y1="10" x2="18" y2="10"/><rect x="8" y="18" width="12" height="8" rx="0.5"/><rect x="11" y="20" width="3" height="6"/><rect x="14" y="20" width="3" height="6"/><line x1="5" y1="26" x2="23" y2="26"/></svg>',
+    other:  '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="14" cy="11" r="5"/><path d="M14 16L14 22"/><circle cx="14" cy="11" r="1.5" fill="currentColor" stroke="none"/><line x1="8" y1="22" x2="20" y2="22"/></svg>'
+  };
+
+  var ITEM_W = 82;
+  var CLONES = 3;
+  var realCount = ITEMS_DATA.length;
+  var totalCount = realCount + CLONES * 2;
+  // currentIdx: position in virtual track (0 = first real item after clones)
+  var currentIdx = CLONES;
   var isDragging = false;
   var pointerStartX = 0;
   var pointerDelta = 0;
-  var ITEM_W = 82; // 72px width + 10px margin total
+  var isAnimating = false;
+  var selectedCity = null;
+  var allNodes = []; // all rendered nodes in order
 
-  function getItems(){
-    return document.querySelectorAll('#cityCarouselTrack .city-carousel-item');
+  function buildTrack(){
+    var track = document.getElementById('cityCarouselTrack');
+    if(!track) return;
+    track.innerHTML = '';
+    allNodes = [];
+
+    // clones before = last CLONES items
+    for(var c = realCount - CLONES; c < realCount; c++){
+      allNodes.push(makeNode(ITEMS_DATA[c], true));
+    }
+    // real items
+    for(var r = 0; r < realCount; r++){
+      allNodes.push(makeNode(ITEMS_DATA[r], false));
+    }
+    // clones after = first CLONES items
+    for(var a = 0; a < CLONES; a++){
+      allNodes.push(makeNode(ITEMS_DATA[a], true));
+    }
+
+    allNodes.forEach(function(n){ track.appendChild(n); });
   }
 
-  function render(){
-    var track = document.getElementById('cityCarouselTrack');
-    var dotsWrap = document.getElementById('carouselDots');
-    if(!track) return;
-    var items = getItems();
-    var total = items.length;
+  function makeNode(data, isClone){
+    var el = document.createElement('div');
+    el.className = 'city-carousel-item';
+    el.dataset.city = data.city;
+    el.dataset.transport = data.transport;
+    if(isClone) el.dataset.clone = '1';
+    el.innerHTML =
+      '<div class="cci-icon">' + (SVGS[data.city]||SVGS.other) + '</div>' +
+      '<div class="cci-name">' + data.name + '</div>' +
+      '<div class="cci-type">' + data.type + '</div>' +
+      '<div class="cci-tick">✓</div>';
+    return el;
+  }
 
-    // Center the active item: offset = -(currentIdx * ITEM_W) + (containerWidth/2 - ITEM_W/2)
+  function buildDots(){
+    var wrap = document.getElementById('carouselDots');
+    if(!wrap) return;
+    wrap.innerHTML = '';
+    for(var i = 0; i < realCount; i++){
+      var d = document.createElement('div');
+      d.className = 'cdot' + (i === 0 ? ' active' : '');
+      (function(idx){ d.onclick = function(){ jumpTo(CLONES + idx); }; })(i);
+      wrap.appendChild(d);
+    }
+  }
+
+  function getOffset(idx){
     var wrap = document.getElementById('cityCarouselWrap');
     var containerW = wrap ? wrap.offsetWidth : 280;
-    var offset = -(currentIdx * ITEM_W) + (containerW / 2 - ITEM_W / 2);
-    track.style.transform = 'translateX(' + offset + 'px)';
+    return -(idx * ITEM_W) + (containerW / 2 - ITEM_W / 2);
+  }
 
-    items.forEach(function(el, i){
+  function setTransform(animate){
+    var track = document.getElementById('cityCarouselTrack');
+    if(!track) return;
+    track.style.transition = animate ? 'transform .38s cubic-bezier(.32,0,.15,1)' : 'none';
+    track.style.transform = 'translateX(' + getOffset(currentIdx) + 'px)';
+    updateClasses();
+    updateDots();
+  }
+
+  function updateClasses(){
+    allNodes.forEach(function(el, i){
       el.classList.remove('active-center','near-center');
       var diff = Math.abs(i - currentIdx);
       if(diff === 0) el.classList.add('active-center');
       else if(diff === 1) el.classList.add('near-center');
     });
-
-    if(dotsWrap){
-      var dots = dotsWrap.querySelectorAll('.cdot');
-      dots.forEach(function(d,i){ d.classList.toggle('active', i === currentIdx); });
-    }
   }
 
-  function goTo(idx){
-    var items = getItems();
-    currentIdx = Math.max(0, Math.min(items.length - 1, idx));
-    render();
+  function updateDots(){
+    var dots = document.querySelectorAll('#carouselDots .cdot');
+    var real = ((currentIdx - CLONES) % realCount + realCount) % realCount;
+    dots.forEach(function(d,i){ d.classList.toggle('active', i === real); });
+  }
+
+  function jumpTo(idx, animate){
+    currentIdx = idx;
+    setTransform(animate !== false);
+  }
+
+  // After animated slide, jump silently if in clone zone
+  function afterSlide(){
+    var track = document.getElementById('cityCarouselTrack');
+    if(!track) return;
+    track.addEventListener('transitionend', function onEnd(){
+      track.removeEventListener('transitionend', onEnd);
+      isAnimating = false;
+      if(currentIdx < CLONES){
+        currentIdx = currentIdx + realCount;
+        setTransform(false);
+      } else if(currentIdx >= CLONES + realCount){
+        currentIdx = currentIdx - realCount;
+        setTransform(false);
+      }
+    }, {once: true});
+  }
+
+  function slide(dir){
+    if(isAnimating) return;
+    isAnimating = true;
+    currentIdx += dir;
+    setTransform(true);
+    afterSlide();
+  }
+
+  function handleEnd(){
+    if(!isDragging) return;
+    isDragging = false;
+    var track = document.getElementById('cityCarouselTrack');
+    if(track) track.style.transition = '';
+    if(Math.abs(pointerDelta) > 28){
+      slide(pointerDelta < 0 ? 1 : -1);
+    } else {
+      setTransform(true);
+      afterSlide();
+    }
+    setTimeout(function(){ pointerDelta = 0; }, 60);
+  }
+
+  function selectCarouselCity(city){
+    // Deselect all
+    allNodes.forEach(function(n){ n.classList.remove('selected'); });
+    document.querySelectorAll('.origin-card').forEach(function(x){ x.classList.remove('selected'); });
+    // Select all nodes with this city
+    allNodes.forEach(function(n){ if(n.dataset.city === city) n.classList.add('selected'); });
+    selectedCity = city;
+    state.origin = city;
+    resetFlow();
+    setTimeout(function(){ openBottomSheet(); }, 120);
   }
 
   function init(){
+    buildTrack();
+    buildDots();
+    currentIdx = CLONES;
+    setTransform(false);
+
     var track = document.getElementById('cityCarouselTrack');
-    var dotsWrap = document.getElementById('carouselDots');
-    if(!track || !dotsWrap) return;
+    if(!track) return;
 
-    var items = getItems();
-
-    // Build dots
-    dotsWrap.innerHTML = '';
-    items.forEach(function(_, i){
-      var d = document.createElement('div');
-      d.className = 'cdot' + (i === 0 ? ' active' : '');
-      (function(idx){ d.onclick = function(){ goTo(idx); }; })(i);
-      dotsWrap.appendChild(d);
-    });
-
-    // Click on item
-    items.forEach(function(el, i){
-      el.addEventListener('click', function(){
-        if(Math.abs(pointerDelta) > 6) return;
-        if(i === currentIdx){
-          selectCarouselCity(el);
+    // Click
+    track.addEventListener('click', function(e){
+      if(Math.abs(pointerDelta) > 8) return;
+      var item = e.target.closest('.city-carousel-item');
+      if(!item) return;
+      var nodeIdx = allNodes.indexOf(item);
+      if(nodeIdx === currentIdx){
+        selectCarouselCity(item.dataset.city);
+      } else {
+        // find real center for this city among allNodes nearest to currentIdx
+        var diff = nodeIdx - currentIdx;
+        if(Math.abs(diff) <= Math.floor(totalCount/2)){
+          jumpTo(currentIdx + diff, true);
+          afterSlide();
         } else {
-          goTo(i);
+          jumpTo(nodeIdx, true);
+          afterSlide();
         }
-      });
+      }
     });
 
-    // Touch events
+    // Touch
     track.addEventListener('touchstart', function(e){
-      isDragging = true;
-      pointerStartX = e.touches[0].clientX;
-      pointerDelta = 0;
+      isDragging = true; pointerStartX = e.touches[0].clientX; pointerDelta = 0;
       track.style.transition = 'none';
-    }, {passive: true});
-
+    }, {passive:true});
     track.addEventListener('touchmove', function(e){
       if(!isDragging) return;
       pointerDelta = e.touches[0].clientX - pointerStartX;
-    }, {passive: true});
+    }, {passive:true});
+    track.addEventListener('touchend', handleEnd);
 
-    track.addEventListener('touchend', function(){
-      isDragging = false;
-      track.style.transition = '';
-      if(pointerDelta < -28) goTo(currentIdx + 1);
-      else if(pointerDelta > 28) goTo(currentIdx - 1);
-      else render();
-      setTimeout(function(){ pointerDelta = 0; }, 50);
-    });
-
-    // Mouse events
+    // Mouse
     track.addEventListener('mousedown', function(e){
-      isDragging = true;
-      pointerStartX = e.clientX;
-      pointerDelta = 0;
-      track.style.transition = 'none';
-      e.preventDefault();
+      isDragging = true; pointerStartX = e.clientX; pointerDelta = 0;
+      track.style.transition = 'none'; e.preventDefault();
     });
-
     document.addEventListener('mousemove', function(e){
       if(!isDragging) return;
       pointerDelta = e.clientX - pointerStartX;
     });
+    document.addEventListener('mouseup', handleEnd);
 
-    document.addEventListener('mouseup', function(){
-      if(!isDragging) return;
-      isDragging = false;
-      track.style.transition = '';
-      if(pointerDelta < -28) goTo(currentIdx + 1);
-      else if(pointerDelta > 28) goTo(currentIdx - 1);
-      else render();
-      setTimeout(function(){ pointerDelta = 0; }, 50);
-    });
-
-    // Re-render on resize
-    window.addEventListener('resize', function(){ render(); });
-
-    render();
-  }
-
-  function selectCarouselCity(el){
-    document.querySelectorAll('.city-carousel-item').forEach(function(x){ x.classList.remove('selected'); });
-    document.querySelectorAll('.origin-card').forEach(function(x){ x.classList.remove('selected'); });
-    el.classList.add('selected');
-    state.origin = el.dataset.city;
-    resetFlow();
-    setTimeout(function(){ openBottomSheet(); }, 120);
+    window.addEventListener('resize', function(){ setTransform(false); });
   }
 
   if(document.readyState === 'loading'){
@@ -3158,6 +3113,106 @@ function aiFormatNum(n){return P(Math.round(n).toLocaleString('en'));}
   } else {
     setTimeout(init, 80);
   }
+})();
+
+// ══ TYPEWRITER HERO SLOGAN ══
+(function(){
+  var phrases = [
+    { parts: [
+        {text: 'این بار انتخاب با ', plain: true},
+        {text: 'شماست', hl: true},
+        {text: '، نه یک کاروان از پیش تعیین‌شده', plain: true}
+    ]},
+    { parts: [
+        {text: 'سفر زیارتی ', plain: true},
+        {text: 'نجف اشرف', hl: true},
+        {text: ' و کربلای معلی', plain: true}
+    ]},
+    { parts: [
+        {text: 'زمان، هتل و مسیر را ', plain: true},
+        {text: 'خودتان', hl: true},
+        {text: ' انتخاب کنید', plain: true}
+    ]},
+    { parts: [
+        {text: 'سفری متناسب با ', plain: true},
+        {text: 'بودجه', hl: true},
+        {text: ' و سلیقه شما', plain: true}
+    ]}
+  ];
+
+  var el = document.getElementById('heroTypewriter');
+  if(!el) return;
+
+  var phraseIdx = 0;
+  var charIdx = 0;
+  var isDeleting = false;
+  var isPaused = false;
+  var fullText = '';
+  var renderedParts = [];
+
+  function buildFullText(phrase){
+    var t = '';
+    phrase.parts.forEach(function(p){ t += p.text; });
+    return t;
+  }
+
+  function renderWithHighlight(phrase, visibleLen){
+    var html = '';
+    var consumed = 0;
+    for(var i = 0; i < phrase.parts.length; i++){
+      var part = phrase.parts[i];
+      var partLen = part.text.length;
+      var take = Math.max(0, Math.min(partLen, visibleLen - consumed));
+      var chunk = part.text.slice(0, take);
+      if(chunk){
+        if(part.hl){
+          html += '<span class="hl">' + chunk + '</span>';
+        } else {
+          html += chunk;
+        }
+      }
+      consumed += partLen;
+      if(consumed >= visibleLen) break;
+    }
+    return html;
+  }
+
+  function tick(){
+    var phrase = phrases[phraseIdx];
+    fullText = buildFullText(phrase);
+
+    if(isPaused){ isPaused = false; setTimeout(tick, isDeleting ? 40 : 40); return; }
+
+    if(!isDeleting){
+      charIdx++;
+      if(charIdx > fullText.length){
+        // pause then delete
+        isPaused = true;
+        el.innerHTML = renderWithHighlight(phrase, fullText.length) + '<span class="tw-cursor"></span>';
+        setTimeout(function(){ isDeleting = true; tick(); }, 2400);
+        return;
+      }
+    } else {
+      charIdx--;
+      if(charIdx <= 0){
+        isDeleting = false;
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        el.innerHTML = '<span class="tw-cursor"></span>';
+        setTimeout(tick, 420);
+        return;
+      }
+    }
+
+    el.innerHTML = renderWithHighlight(phrase, charIdx) + '<span class="tw-cursor"></span>';
+    var speed = isDeleting ? 28 : (charIdx < 4 ? 120 : 42);
+    setTimeout(tick, speed);
+  }
+
+  // Start after short delay
+  setTimeout(function(){
+    el.innerHTML = '<span class="tw-cursor"></span>';
+    setTimeout(tick, 600);
+  }, 800);
 })();
 
 </script>
