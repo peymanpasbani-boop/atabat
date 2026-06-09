@@ -407,7 +407,9 @@ body.sheet-open{overflow:hidden;}
 .city-carousel-item.active-center{transform:scale(1);opacity:1;border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.1);box-shadow:0 3px 16px rgba(201,168,76,.18);}
 .city-carousel-item.selected .cci-tick{display:flex !important;}
 .city-carousel-item.selected.active-center{border-color:var(--gold);background:rgba(201,168,76,.18);box-shadow:0 4px 20px rgba(201,168,76,.32);}
-.cci-icon{font-size:18px;line-height:1;}
+.cci-icon{display:flex;align-items:center;justify-content:center;width:28px;height:28px;color:rgba(255,255,255,.65);line-height:1;}
+.city-carousel-item.active-center .cci-icon{color:var(--goldL);}
+.city-carousel-item.selected .cci-icon{color:var(--goldL);}
 .cci-name{font-size:10px;font-weight:700;color:rgba(255,255,255,.75);text-align:center;white-space:nowrap;}
 .city-carousel-item.active-center .cci-name{color:var(--goldL);font-size:11px;}
 .cci-type{font-size:8.5px;font-weight:600;padding:1.5px 6px;border-radius:100px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1);}
@@ -762,10 +764,10 @@ body.sheet-open{overflow:hidden;}
   text-shadow:0 2px 12px rgba(0,0,0,.2);
 }
 .tcard-month-str{
-  font-size:10px;
-  font-weight:600;
-  color:rgba(232,201,122,.7);
-  margin-top:2px;
+  font-size:13px;
+  font-weight:700;
+  color:rgba(232,201,122,.9);
+  margin-top:4px;
   letter-spacing:.02em;
 }
 
@@ -1244,16 +1246,15 @@ body.sheet-open{overflow:hidden;}
         <div class="origin-card" data-city="tehran" data-transport="air" onclick="heroSelectCity(this)">
           <div class="origin-card-tick">✓</div>
           <div class="origin-card-icon">
-            <svg viewBox="0 0 44 44" fill="none">
-              <rect x="4" y="24" width="36" height="14" rx="2" fill="none" stroke="rgba(201,168,76,.5)" stroke-width="1.5"/>
-              <rect x="8" y="16" width="10" height="8" rx="1.5" fill="none" stroke="#e8c97a" stroke-width="1.5"/>
-              <rect x="20" y="12" width="14" height="12" rx="1.5" fill="none" stroke="#e8c97a" stroke-width="1.5"/>
-              <rect x="10" y="20" width="3" height="4" rx=".5" fill="rgba(201,168,76,.4)"/>
-              <rect x="22" y="17" width="4" height="4" rx=".5" fill="rgba(201,168,76,.4)"/>
-              <rect x="28" y="17" width="4" height="4" rx=".5" fill="rgba(201,168,76,.4)"/>
-              <line x1="26" y1="8" x2="26" y2="12" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="26" cy="7" r="1.5" fill="#c9a84c"/>
-              <line x1="4" y1="38" x2="40" y2="38" stroke="rgba(201,168,76,.3)" stroke-width="1.5"/>
+            <!-- Azadi Tower — minimal line icon -->
+            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 6 L22 10"/>
+              <path d="M17 10 Q22 7 27 10"/>
+              <path d="M15 10 L15 17 Q15 21 19 22 L19 38"/>
+              <path d="M29 10 L29 17 Q29 21 25 22 L25 38"/>
+              <path d="M12 38 L32 38"/>
+              <path d="M19 22 L25 22"/>
+              <path d="M17 14 Q22 12 27 14"/>
             </svg>
           </div>
           <div class="origin-card-name">تهران</div>
@@ -1262,13 +1263,18 @@ body.sheet-open{overflow:hidden;}
         <div class="origin-card" data-city="mashhad" data-transport="air" onclick="heroSelectCity(this)">
           <div class="origin-card-tick">✓</div>
           <div class="origin-card-icon">
-            <svg viewBox="0 0 44 44" fill="none">
-              <path d="M22 6C17 6 13 10 13 15c0 3 1.5 5.5 3.8 7V26h10.4v-4c2.3-1.5 3.8-4 3.8-7 0-5-4-9-9-9z" fill="none" stroke="#e8c97a" stroke-width="1.5"/>
-              <rect x="12" y="26" width="20" height="3" rx="1" fill="none" stroke="rgba(201,168,76,.5)" stroke-width="1.3"/>
-              <rect x="9" y="29" width="26" height="2" rx="1" fill="none" stroke="rgba(201,168,76,.3)" stroke-width="1.2"/>
-              <line x1="21" y1="3" x2="21" y2="6" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-              <line x1="23" y1="3" x2="23" y2="6" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-              <rect x="19" y="20" width="6" height="6" rx="1" fill="rgba(13,59,46,.5)" stroke="rgba(201,168,76,.3)" stroke-width="1"/>
+            <!-- Imam Reza Shrine golden dome — minimal -->
+            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 5 L22 8"/>
+              <circle cx="22" cy="4.5" r="1.5" fill="#e8c97a" stroke="none"/>
+              <path d="M13 20 Q13 10 22 9 Q31 10 31 20"/>
+              <rect x="11" y="20" width="22" height="4" rx="1"/>
+              <rect x="8" y="24" width="28" height="2" rx="1"/>
+              <rect x="16" y="26" width="4" height="12"/>
+              <rect x="24" y="26" width="4" height="12"/>
+              <rect x="14" y="30" width="8" height="8" rx="1"/>
+              <rect x="22" y="30" width="8" height="8" rx="1"/>
+              <line x1="6" y1="38" x2="38" y2="38"/>
             </svg>
           </div>
           <div class="origin-card-name">مشهد</div>
@@ -1277,13 +1283,18 @@ body.sheet-open{overflow:hidden;}
         <div class="origin-card" data-city="isfahan" data-transport="air" onclick="heroSelectCity(this)">
           <div class="origin-card-tick">✓</div>
           <div class="origin-card-icon">
-            <svg viewBox="0 0 44 44" fill="none">
-              <path d="M10 32 Q10 20 22 16 Q34 20 34 32" fill="none" stroke="#e8c97a" stroke-width="1.5"/>
-              <path d="M16 32 Q16 24 22 21 Q28 24 28 32" fill="none" stroke="rgba(201,168,76,.5)" stroke-width="1.3"/>
-              <line x1="8" y1="32" x2="36" y2="32" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-              <line x1="21.5" y1="10" x2="21.5" y2="16" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="21.5" cy="9" r="1.5" fill="#c9a84c"/>
-              <rect x="19" y="25" width="6" height="7" rx="1" fill="rgba(13,59,46,.5)" stroke="rgba(201,168,76,.3)" stroke-width="1"/>
+            <!-- Si-o-se-pol bridge arches — minimal -->
+            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" y1="26" x2="40" y2="26"/>
+              <path d="M4 26 Q4 18 10 18 Q16 18 16 26"/>
+              <path d="M14 26 Q14 18 22 18 Q30 18 30 26"/>
+              <path d="M28 26 Q28 18 34 18 Q40 18 40 26"/>
+              <line x1="4" y1="30" x2="40" y2="30"/>
+              <line x1="10" y1="18" x2="10" y2="14"/>
+              <line x1="22" y1="18" x2="22" y2="12"/>
+              <line x1="34" y1="18" x2="34" y2="14"/>
+              <path d="M18 12 Q22 9 26 12"/>
+              <line x1="4" y1="34" x2="40" y2="34"/>
             </svg>
           </div>
           <div class="origin-card-name">اصفهان</div>
@@ -1292,14 +1303,17 @@ body.sheet-open{overflow:hidden;}
         <div class="origin-card" data-city="shiraz" data-transport="land" onclick="heroSelectCity(this)">
           <div class="origin-card-tick">✓</div>
           <div class="origin-card-icon">
-            <svg viewBox="0 0 44 44" fill="none">
-              <rect x="5" y="22" width="34" height="12" rx="3" fill="none" stroke="rgba(201,168,76,.5)" stroke-width="1.5"/>
-              <rect x="10" y="16" width="8" height="6" rx="1" fill="none" stroke="#e8c97a" stroke-width="1.4"/>
-              <rect x="26" y="16" width="8" height="6" rx="1" fill="none" stroke="#e8c97a" stroke-width="1.4"/>
-              <rect x="19" y="17" width="6" height="5" rx="1" fill="none" stroke="#e8c97a" stroke-width="1.2"/>
-              <circle cx="13" cy="36" r="2.5" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
-              <circle cx="31" cy="36" r="2.5" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
-              <line x1="5" y1="28" x2="39" y2="28" stroke="rgba(201,168,76,.2)" stroke-width="1"/>
+            <!-- Persepolis column + Quran Gate arch — minimal -->
+            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="10" y="8" width="6" height="2" rx="1"/>
+              <rect x="12" y="10" width="2" height="22"/>
+              <rect x="9" y="32" width="8" height="2" rx="1"/>
+              <rect x="26" y="8" width="6" height="2" rx="1"/>
+              <rect x="28" y="10" width="2" height="22"/>
+              <rect x="25" y="32" width="8" height="2" rx="1"/>
+              <path d="M13 18 Q22 14 31 18"/>
+              <path d="M13 22 Q22 18 31 22"/>
+              <line x1="6" y1="38" x2="38" y2="38"/>
             </svg>
           </div>
           <div class="origin-card-name">شیراز</div>
@@ -1309,15 +1323,152 @@ body.sheet-open{overflow:hidden;}
       <div class="more-cities-label">سایر شهرها — بکشید انتخاب کنید</div>
       <div class="city-carousel-wrap" id="cityCarouselWrap">
         <div class="city-carousel-track" id="cityCarouselTrack">
-          <div class="city-carousel-item" data-city="tabriz" data-transport="land"><div class="cci-icon">🏔</div><div class="cci-name">تبریز</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
-          <div class="city-carousel-item" data-city="qom" data-transport="land"><div class="cci-icon">🕌</div><div class="cci-name">قم</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
-          <div class="city-carousel-item" data-city="karaj" data-transport="land"><div class="cci-icon">🌳</div><div class="cci-name">کرج</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
-          <div class="city-carousel-item" data-city="ahvaz" data-transport="land"><div class="cci-icon">🌊</div><div class="cci-name">اهواز</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
-          <div class="city-carousel-item" data-city="rasht" data-transport="land"><div class="cci-icon">🌧</div><div class="cci-name">رشت</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
-          <div class="city-carousel-item" data-city="kermanshah" data-transport="land"><div class="cci-icon">🏛</div><div class="cci-name">کرمانشاه</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
-          <div class="city-carousel-item" data-city="arak" data-transport="land"><div class="cci-icon">🏙</div><div class="cci-name">اراک</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
-          <div class="city-carousel-item" data-city="yazd" data-transport="land"><div class="cci-icon">🏺</div><div class="cci-name">یزد</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
-          <div class="city-carousel-item" data-city="other" data-transport="land"><div class="cci-icon">📍</div><div class="cci-name">سایر</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
+          <!-- تبریز — کلیسای کبود -->
+          <div class="city-carousel-item" data-city="tabriz" data-transport="land">
+            <div class="cci-icon">
+              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+                <path d="M14 4 L14 6"/>
+                <path d="M9 12 Q9 7 14 6 Q19 7 19 12"/>
+                <rect x="7" y="12" width="14" height="3" rx="0.5"/>
+                <rect x="5" y="15" width="18" height="2" rx="0.5"/>
+                <rect x="11" y="17" width="3" height="7"/>
+                <rect x="14" y="17" width="3" height="7"/>
+                <line x1="4" y1="24" x2="24" y2="24"/>
+              </svg>
+            </div>
+            <div class="cci-name">تبریز</div>
+            <div class="cci-type">🚌 زمینی</div>
+            <div class="cci-tick">✓</div>
+          </div>
+          <!-- قم — گنبد حضرت معصومه -->
+          <div class="city-carousel-item" data-city="qom" data-transport="land">
+            <div class="cci-icon">
+              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+                <line x1="14" y1="2" x2="14" y2="5"/>
+                <circle cx="14" cy="2" r="1" fill="currentColor" stroke="none"/>
+                <path d="M8 16 Q8 9 14 8 Q20 9 20 16"/>
+                <rect x="6" y="16" width="16" height="2" rx="0.5"/>
+                <rect x="4" y="18" width="20" height="2" rx="0.5"/>
+                <rect x="10" y="20" width="3" height="5"/>
+                <rect x="15" y="20" width="3" height="5"/>
+                <line x1="3" y1="25" x2="25" y2="25"/>
+              </svg>
+            </div>
+            <div class="cci-name">قم</div>
+            <div class="cci-type">🚌 زمینی</div>
+            <div class="cci-tick">✓</div>
+          </div>
+          <!-- کرج — کوه البرز و دشت -->
+          <div class="city-carousel-item" data-city="karaj" data-transport="land">
+            <div class="cci-icon">
+              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+                <path d="M3 18 L8 10 L13 15 L18 8 L25 18"/>
+                <line x1="2" y1="22" x2="26" y2="22"/>
+                <path d="M4 22 L4 20"/>
+                <path d="M8 22 L8 18"/>
+                <path d="M18 22 L18 18"/>
+                <path d="M24 22 L24 20"/>
+              </svg>
+            </div>
+            <div class="cci-name">کرج</div>
+            <div class="cci-type">🚌 زمینی</div>
+            <div class="cci-tick">✓</div>
+          </div>
+          <!-- اهواز — رودخانه کارون و پل -->
+          <div class="city-carousel-item" data-city="ahvaz" data-transport="land">
+            <div class="cci-icon">
+              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+                <path d="M3 14 Q5 10 8 14 Q11 18 14 14 Q17 10 20 14 Q23 18 25 14"/>
+                <line x1="3" y1="17" x2="25" y2="17"/>
+                <line x1="8" y1="17" x2="8" y2="10"/>
+                <line x1="20" y1="17" x2="20" y2="10"/>
+                <path d="M6 10 L22 10"/>
+                <path d="M8 10 Q14 6 20 10"/>
+              </svg>
+            </div>
+            <div class="cci-name">اهواز</div>
+            <div class="cci-type">🚌 زمینی</div>
+            <div class="cci-tick">✓</div>
+          </div>
+          <!-- رشت — برگ چای و باران -->
+          <div class="city-carousel-item" data-city="rasht" data-transport="land">
+            <div class="cci-icon">
+              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+                <path d="M14 5 Q20 8 20 14 Q20 20 14 22 Q8 20 8 14 Q8 8 14 5Z"/>
+                <path d="M14 5 Q14 14 14 22"/>
+                <path d="M8 14 Q14 12 20 14"/>
+                <line x1="9" y1="24" x2="9" y2="26"/>
+                <line x1="14" y1="23" x2="14" y2="25"/>
+                <line x1="19" y1="24" x2="19" y2="26"/>
+              </svg>
+            </div>
+            <div class="cci-name">رشت</div>
+            <div class="cci-type">🚌 زمینی</div>
+            <div class="cci-tick">✓</div>
+          </div>
+          <!-- کرمانشاه — طاق بستان -->
+          <div class="city-carousel-item" data-city="kermanshah" data-transport="land">
+            <div class="cci-icon">
+              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+                <path d="M6 22 L6 12 Q6 6 14 6 Q22 6 22 12 L22 22"/>
+                <path d="M10 22 L10 14 Q10 10 14 10 Q18 10 18 14 L18 22"/>
+                <line x1="3" y1="22" x2="25" y2="22"/>
+                <rect x="12" y="16" width="4" height="6"/>
+              </svg>
+            </div>
+            <div class="cci-name">کرمانشاه</div>
+            <div class="cci-type">🚌 زمینی</div>
+            <div class="cci-tick">✓</div>
+          </div>
+          <!-- اراک — دودکش صنعتی و میدان -->
+          <div class="city-carousel-item" data-city="arak" data-transport="land">
+            <div class="cci-icon">
+              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+                <rect x="5" y="14" width="7" height="10" rx="0.5"/>
+                <rect x="16" y="10" width="7" height="14" rx="0.5"/>
+                <rect x="7" y="16" width="2" height="3" rx="0.3"/>
+                <rect x="18" y="12" width="2" height="3" rx="0.3"/>
+                <line x1="8" y1="14" x2="8" y2="10"/>
+                <line x1="20" y1="10" x2="20" y2="6"/>
+                <line x1="3" y1="24" x2="25" y2="24"/>
+              </svg>
+            </div>
+            <div class="cci-name">اراک</div>
+            <div class="cci-type">🚌 زمینی</div>
+            <div class="cci-tick">✓</div>
+          </div>
+          <!-- یزد — بادگیر -->
+          <div class="city-carousel-item" data-city="yazd" data-transport="land">
+            <div class="cci-icon">
+              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+                <rect x="10" y="4" width="8" height="14" rx="0.5"/>
+                <path d="M10 4 Q10 2 12 2 L16 2 Q18 2 18 4"/>
+                <line x1="14" y1="4" x2="14" y2="18"/>
+                <line x1="10" y1="10" x2="18" y2="10"/>
+                <rect x="8" y="18" width="12" height="8" rx="0.5"/>
+                <rect x="11" y="20" width="3" height="6"/>
+                <rect x="14" y="20" width="3" height="6"/>
+                <line x1="5" y1="26" x2="23" y2="26"/>
+              </svg>
+            </div>
+            <div class="cci-name">یزد</div>
+            <div class="cci-type">🚌 زمینی</div>
+            <div class="cci-tick">✓</div>
+          </div>
+          <!-- سایر -->
+          <div class="city-carousel-item" data-city="other" data-transport="land">
+            <div class="cci-icon">
+              <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+                <circle cx="14" cy="11" r="5"/>
+                <path d="M14 16 L14 22"/>
+                <circle cx="14" cy="11" r="1.5" fill="currentColor" stroke="none"/>
+                <line x1="8" y1="22" x2="20" y2="22"/>
+              </svg>
+            </div>
+            <div class="cci-name">سایر</div>
+            <div class="cci-type">🚌 زمینی</div>
+            <div class="cci-tick">✓</div>
+          </div>
         </div>
         <div class="carousel-dots" id="carouselDots"></div>
       </div>
@@ -1484,22 +1635,28 @@ body.sheet-open{overflow:hidden;}
 const TRIP_SUGGESTIONS=[{id:'ts1',type:'air',tag:'محرم ۱۴۰۵',title:'نجف + کربلا — محرم',date:'۲۶ خرداد ۱۴۰۵',origin:'تهران',duration:'۵ شب',totalNights:5,paxText:'هر نفر',pricePerPerson:23000000,priceLabel:'۲۳,۰۰۰,۰۰۰',routeItems:[{city:'تهران',icon:'🏙',nights:null,type:'dep'},{city:'نجف اشرف',icon:'🕌',nights:2,hotel:'هتل امیرالمؤمنین ★★★★★',type:'city'},{city:'کربلای معلی',icon:'🕌',nights:3,hotel:'هتل عباسیه گرند ★★★★★',type:'city'},{city:'تهران',icon:'🏙',nights:null,type:'ret'}],timeline:[{icon:'✈️',cls:'dep',name:'پرواز از تهران',desc:'فرودگاه امام خمینی — پرواز مستقیم به نجف'},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۲ شب اقامت',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'🏨 امیرالمؤمنین ★★★★★'}]},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) و حضرت عباس (ع) — ۳ شب اقامت',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 عباسیه گرند ★★★★★'}]},{icon:'✈️',cls:'ret',name:'پرواز بازگشت به تهران',desc:'پرواز مستقیم از نجف — بازگشت به تهران'}],hotels:[{city:'نجف اشرف',cityIcon:'🕌',name:'هتل امیرالمؤمنین',stars:5,nights:2},{city:'کربلای معلی',cityIcon:'🕌',name:'هتل عباسیه گرند',stars:5,nights:3}],includes:['✈️ بلیط پرواز رفت و برگشت','🚗 ترانسفر از درب منزل','🏨 اقامت ۵ شب','🍽️ صبحانه + شام','👤 راهنمای مجرب'],priceBreakdown:[{label:'بلیط هوایی رفت و برگشت',val:'۸,۵۰۰,۰۰۰ ت'},{label:'اقامت ۵ شب (هتل ۵ ستاره)',val:'۱۱,۵۰۰,۰۰۰ ت'},{label:'ترانسفر و خدمات',val:'۳,۰۰۰,۰۰۰ ت'}]},{id:'ts2',type:'land',tag:'اقتصادی',title:'کربلا + نجف — زمینی',date:'۵ تیر ۱۴۰۵',origin:'قم',duration:'۶ شب',totalNights:6,paxText:'هر نفر',pricePerPerson:11500000,priceLabel:'۱۱,۵۰۰,۰۰۰',routeItems:[{city:'قم',icon:'🕌',nights:null,type:'dep'},{city:'کربلای معلی',icon:'🕌',nights:3,hotel:'هتل کربلا اینترنشنال ★★★★',type:'city'},{city:'نجف اشرف',icon:'🕌',nights:3,hotel:'هتل نجف پالاس ★★★★',type:'city'},{city:'قم',icon:'🕌',nights:null,type:'ret'}],timeline:[{icon:'🚌',cls:'dep',name:'حرکت از قم',desc:'اتوبوس VIP — مستقیم به مرز خسروی'},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) — ۳ شب اقامت',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 کربلا اینترنشنال ★★★★'}]},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۳ شب اقامت',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 نجف پالاس ★★★★'}]},{icon:'🚌',cls:'ret',name:'بازگشت به قم',desc:'اتوبوس VIP — مرز خسروی به قم'}],hotels:[{city:'کربلای معلی',cityIcon:'🕌',name:'هتل کربلا اینترنشنال',stars:4,nights:3},{city:'نجف اشرف',cityIcon:'🕌',name:'هتل نجف پالاس',stars:4,nights:3}],includes:['🚌 اتوبوس VIP رفت و برگشت','🚗 ترانسفر از درب منزل','🏨 اقامت ۶ شب','🍽️ صبحانه + شام','👤 راهنمای مجرب'],priceBreakdown:[{label:'اتوبوس VIP رفت و برگشت',val:'۲,۸۰۰,۰۰۰ ت'},{label:'اقامت ۶ شب (هتل ۴ ستاره)',val:'۶,۲۰۰,۰۰۰ ت'},{label:'ترانسفر و خدمات',val:'۲,۵۰۰,۰۰۰ ت'}]},{id:'ts3',type:'air',tag:'مشهد — هوایی',title:'نجف + کربلا + کاظمین',date:'۱۵ تیر ۱۴۰۵',origin:'مشهد',duration:'۷ شب',totalNights:7,paxText:'هر نفر',pricePerPerson:27500000,priceLabel:'۲۷,۵۰۰,۰۰۰',routeItems:[{city:'مشهد',icon:'🕌',nights:null,type:'dep'},{city:'نجف اشرف',icon:'🕌',nights:2,hotel:'هتل نجف گرند ★★★★★',type:'city'},{city:'کربلای معلی',icon:'🕌',nights:3,hotel:'هتل الحسین انترنشنال ★★★★★',type:'city'},{city:'کاظمین',icon:'🕌',nights:2,hotel:'هتل الامین الکاظمیه ★★★★★',type:'city'},{city:'مشهد',icon:'🕌',nights:null,type:'ret'}],timeline:[{icon:'✈️',cls:'dep',name:'پرواز از مشهد',desc:'فرودگاه مشهد — پرواز به نجف'},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۲ شب',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'🏨 نجف گرند ★★★★★'}]},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) — ۳ شب',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 الحسین انترنشنال ★★★★★'}]},{icon:'🕌',cls:'city',name:'کاظمین',desc:'حرم امام کاظم (ع) — ۲ شب',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'🏨 الامین الکاظمیه ★★★★★'}]},{icon:'✈️',cls:'ret',name:'پرواز بازگشت به مشهد',desc:'پرواز از بغداد — بازگشت به مشهد'}],hotels:[{city:'نجف اشرف',cityIcon:'🕌',name:'هتل نجف گرند',stars:5,nights:2},{city:'کربلای معلی',cityIcon:'🕌',name:'هتل الحسین انترنشنال',stars:5,nights:3},{city:'کاظمین',cityIcon:'🕌',name:'هتل الامین الکاظمیه',stars:5,nights:2}],includes:['✈️ بلیط پرواز رفت و برگشت','🚗 ترانسفر از درب منزل','🏨 اقامت ۷ شب','🍽️ صبحانه + شام','👤 راهنمای مجرب','📱 سیم‌کارت عراقی'],priceBreakdown:[{label:'بلیط هوایی رفت و برگشت',val:'۱۰,۵۰۰,۰۰۰ ت'},{label:'اقامت ۷ شب (هتل ۵ ستاره)',val:'۱۳,۵۰۰,۰۰۰ ت'},{label:'ترانسفر و خدمات',val:'۳,۵۰۰,۰۰۰ ت'}]},{id:'ts4',type:'vip',tag:'VIP خانوادگی',title:'کربلا + نجف — VIP',date:'۸ مرداد ۱۴۰۵',origin:'تهران',duration:'۴ شب',totalNights:4,paxText:'هر نفر',pricePerPerson:38000000,priceLabel:'۳۸,۰۰۰,۰۰۰',routeItems:[{city:'تهران',icon:'🏙',nights:null,type:'dep'},{city:'کربلای معلی',icon:'🕌',nights:2,hotel:'هتل عباسیه گرند ★★★★★ (سوئیت)',type:'city'},{city:'نجف اشرف',icon:'🕌',nights:2,hotel:'هتل امیرالمؤمنین ★★★★★ (سوئیت)',type:'city'},{city:'تهران',icon:'🏙',nights:null,type:'ret'}],timeline:[{icon:'✈️',cls:'dep',name:'پرواز چارتر از تهران',desc:'پرواز اختصاصی — فرودگاه امام خمینی'},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) — ۲ شب در سوئیت',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'👑 سوئیت عباسیه گرند'}]},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۲ شب در سوئیت',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'👑 سوئیت امیرالمؤمنین'}]},{icon:'✈️',cls:'ret',name:'پرواز بازگشت — تهران',desc:'پرواز چارتر — بازگشت به تهران'}],hotels:[{city:'کربلای معلی',cityIcon:'🕌',name:'عباسیه گرند — سوئیت',stars:5,nights:2},{city:'نجف اشرف',cityIcon:'🕌',name:'امیرالمؤمنین — سوئیت',stars:5,nights:2}],includes:['✈️ پرواز چارتر اختصاصی','🚗 ماشین اختصاصی در عراق','👑 اقامت سوئیت ۵ ستاره','🍽️ تمام وعده‌ها','🎖️ راهنمای VIP اختصاصی','💐 استقبال ویژه'],priceBreakdown:[{label:'پرواز چارتر رفت و برگشت',val:'۱۴,۰۰۰,۰۰۰ ت'},{label:'اقامت ۴ شب سوئیت',val:'۱۸,۰۰۰,۰۰۰ ت'},{label:'ماشین اختصاصی و راهنمای VIP',val:'۶,۰۰۰,۰۰۰ ت'}]}];
 
 let tsCurrent=0,tsDragStartX=0,tsDragging=false,tsDragDelta=0,tsSelectedTrip=null;
+// Infinite loop: we clone cards before/after
+let tsClonesBefore=2, tsClonesAfter=2;
 
 function buildTripsSlider(){
   const track=document.getElementById('tripsTrack');
   const dotsRow=document.getElementById('tripDotsRow');
   if(!track||!dotsRow)return;
   track.innerHTML='';dotsRow.innerHTML='';
-  TRIP_SUGGESTIONS.forEach((trip,i)=>{
+
+  const total=TRIP_SUGGESTIONS.length;
+
+  // Build all cards (clones before + real + clones after)
+  const buildCard=(trip,isClone)=>{
     const dp=trip.date.split(' ');
     const dayNum=dp[0];
     const monthStr=dp.slice(1).join(' ');
     const typeIcon=trip.type==='air'||trip.type==='vip'?'✈️':'🚌';
     const totalN=trip.routeItems.filter(r=>r.type==='city').reduce((s,r)=>s+(r.nights||0),0);
-    const originLabel=trip.origin;
     const card=document.createElement('div');
     card.className='trip-card';
-    card.onclick=()=>openTripDetail(trip.id);
+    if(!isClone) card.dataset.tripId=trip.id;
+    card.onclick=()=>{ if(Math.abs(tsDragDelta)>8) return; openTripDetail(trip.id); };
     card.innerHTML=`
       <div class="tcard-bg">
         <div class="tcard-type-icon">${typeIcon}</div>
@@ -1509,20 +1666,40 @@ function buildTripsSlider(){
         </div>
       </div>
       <div class="tcard-foot">
-        <div class="tcard-origin"><div class="tcard-origin-dot"></div>${originLabel}</div>
+        <div class="tcard-origin"><div class="tcard-origin-dot"></div>${trip.origin}</div>
         <div class="tcard-nights">🌙 ${P(totalN)} شب</div>
         <div class="tcard-price-row">
           <div class="tcard-price-amt">${trip.priceLabel}</div>
           <div class="tcard-price-unit"> ت</div>
         </div>
       </div>`;
-    track.appendChild(card);
+    return card;
+  };
+
+  // Clones before (last N trips)
+  for(let i=total-tsClonesBefore;i<total;i++){
+    track.appendChild(buildCard(TRIP_SUGGESTIONS[i],true));
+  }
+  // Real cards
+  TRIP_SUGGESTIONS.forEach(trip=>{ track.appendChild(buildCard(trip,false)); });
+  // Clones after (first N trips)
+  for(let i=0;i<tsClonesAfter;i++){
+    track.appendChild(buildCard(TRIP_SUGGESTIONS[i],true));
+  }
+
+  // Dots (only for real cards)
+  TRIP_SUGGESTIONS.forEach((_,i)=>{
     const dot=document.createElement('div');
     dot.className='trip-dot'+(i===0?' active':'');
     dot.dataset.idx=i;
-    dot.onclick=(e)=>{e.stopPropagation();tsGoTo(i);};
+    dot.onclick=(e)=>{e.stopPropagation();tsGoTo(i,true);};
     dotsRow.appendChild(dot);
   });
+
+  // Start at real index 0 (after clones)
+  tsCurrent=0;
+  tsSetTransform(false);
+
   const wrap=document.getElementById('tripsTrackWrap');
   wrap.addEventListener('touchstart',tsTouchStart,{passive:true});
   wrap.addEventListener('touchmove',tsTouchMove,{passive:true});
@@ -1530,17 +1707,78 @@ function buildTripsSlider(){
   wrap.addEventListener('mousedown',tsMouseDown);
   document.addEventListener('mousemove',tsMouseMove);
   document.addEventListener('mouseup',tsMouseUp);
-  tsUpdateSlider();
 }
-function tsGetCardWidth(){const t=document.getElementById('tripsTrack');if(!t||!t.firstChild)return 172;return t.firstChild.offsetWidth+12;}
-function tsUpdateSlider(){const t=document.getElementById('tripsTrack');if(!t)return;const idx=-tsCurrent;const offset=-(idx*tsGetCardWidth());t.style.transform=`translateX(${offset}px)`;document.querySelectorAll('.trip-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));}
-function tsGoTo(idx){const max=TRIP_SUGGESTIONS.length-1;tsCurrent=-Math.max(0,Math.min(max,idx));tsUpdateSlider();}
+
+function tsGetCardWidth(){
+  const t=document.getElementById('tripsTrack');
+  if(!t||!t.firstChild)return 172;
+  return t.firstChild.offsetWidth+12;
+}
+
+// tsCurrent = real index (0-based). Track has clonesBefore + real + clonesAfter
+function tsSetTransform(animate){
+  const t=document.getElementById('tripsTrack');
+  if(!t)return;
+  const realIdx=tsCurrent+tsClonesBefore; // position in full track
+  const offset=-(realIdx*tsGetCardWidth());
+  t.style.transition=animate?'transform .42s cubic-bezier(.32,0,.15,1)':'none';
+  t.style.transform=`translateX(${offset}px)`;
+  const total=TRIP_SUGGESTIONS.length;
+  const norm=((tsCurrent%total)+total)%total;
+  document.querySelectorAll('.trip-dot').forEach((d,i)=>d.classList.toggle('active',i===norm));
+}
+
+function tsGoTo(idx,animate=true){
+  const total=TRIP_SUGGESTIONS.length;
+  tsCurrent=((idx%total)+total)%total;
+  tsSetTransform(animate);
+}
+
+function tsAfterSlide(){
+  // Jump silently if we're in clone zone
+  const total=TRIP_SUGGESTIONS.length;
+  const t=document.getElementById('tripsTrack');
+  if(!t)return;
+  t.addEventListener('transitionend',function onEnd(){
+    t.removeEventListener('transitionend',onEnd);
+    const norm=((tsCurrent%total)+total)%total;
+    tsCurrent=norm;
+    tsSetTransform(false);
+  },{once:true});
+}
+
 function tsTouchStart(e){tsDragStartX=e.touches[0].clientX;tsDragging=true;tsDragDelta=0;}
 function tsTouchMove(e){if(!tsDragging)return;tsDragDelta=e.touches[0].clientX-tsDragStartX;}
-function tsTouchEnd(){tsDragging=false;if(Math.abs(tsDragDelta)>30){const dir=tsDragDelta<0?1:-1;tsGoTo(Math.max(0,Math.min(TRIP_SUGGESTIONS.length-1,-tsCurrent+dir)));}else tsUpdateSlider();tsDragDelta=0;}
+function tsTouchEnd(){
+  if(!tsDragging)return;
+  tsDragging=false;
+  if(Math.abs(tsDragDelta)>30){
+    const dir=tsDragDelta<0?1:-1;
+    const next=tsCurrent+dir;
+    tsCurrent=next;
+    tsSetTransform(true);
+    tsAfterSlide();
+  } else {
+    tsSetTransform(true);
+  }
+  tsDragDelta=0;
+}
 function tsMouseDown(e){tsDragStartX=e.clientX;tsDragging=true;tsDragDelta=0;e.preventDefault();}
 function tsMouseMove(e){if(!tsDragging)return;tsDragDelta=e.clientX-tsDragStartX;}
-function tsMouseUp(){if(!tsDragging)return;tsDragging=false;if(Math.abs(tsDragDelta)>30){const dir=tsDragDelta<0?1:-1;tsGoTo(Math.max(0,Math.min(TRIP_SUGGESTIONS.length-1,-tsCurrent+dir)));}else tsUpdateSlider();tsDragDelta=0;}
+function tsMouseUp(){
+  if(!tsDragging)return;
+  tsDragging=false;
+  if(Math.abs(tsDragDelta)>30){
+    const dir=tsDragDelta<0?1:-1;
+    const next=tsCurrent+dir;
+    tsCurrent=next;
+    tsSetTransform(true);
+    tsAfterSlide();
+  } else {
+    tsSetTransform(true);
+  }
+  tsDragDelta=0;
+}
 
 function openTripDetail(id){
   tsSelectedTrip=TRIP_SUGGESTIONS.find(t=>t.id===id);
