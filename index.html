@@ -2520,13 +2520,65 @@ function toggleAgency(){
   document.getElementById('agencyCheckBox').classList.toggle('checked',state.isAgency);
   document.getElementById('agencyFields').classList.toggle('show',state.isAgency);
 }
-function finalRegister(){
-  const code='AVN-'+Math.random().toString(36).toUpperCase().slice(2,8);
-  document.getElementById('successCode').textContent=code;
+async function finalRegister(){
+  const BOT_TOKEN = 'YOUR_TOKEN_HERE'; // توکن جدید رو اینجا بذار
+  const CHAT_ID   = '8384838572';
+
+  const code = 'AVN-' + Math.random().toString(36).toUpperCase().slice(2,8);
+
+  const cityNames = state.cities.map(k => {
+    const d = state.cityData[k];
+    const meta = CITY_META[k];
+    const hotel = d.hotel !== null && d.hotel !== undefined ? HOTEL_DATA[k][d.hotel]?.name : '—';
+    return `  • ${meta.name}: ${P(d.nights)} شب — ${hotel}${d.transit?' (عبوری)':''}`;
+  }).join('\n');
+
+  const typeLabel = state.tripType==='air'?'✈️ هوایی':state.tripType==='land'?'🚌 زمینی':'✈️+🚌 ترکیبی';
+  const firstName = document.getElementById('pfbFirstName')?.value.trim() || '—';
+  const lastName  = document.getElementById('pfbLastName')?.value.trim()  || '—';
+  const phone     = document.getElementById('pfbPhone')?.value.trim()     || '—';
+  const national  = document.getElementById('pfbNational')?.value.trim()  || '—';
+
+  const msg =
+`🕌 ثبت‌نام جدید — آوان
+━━━━━━━━━━━━━━
+🔖 کد: ${code}
+
+👤 سرپرست
+نام: ${firstName} ${lastName}
+موبایل: ${phone}
+کد ملی: ${national}
+
+✈️ جزئیات سفر
+مبدا: ${CITY_LABEL[state.origin] || state.origin}
+تاریخ: ${state.dateText}
+نوع: ${typeLabel}
+مسافران: ${P(state.passengers)} نفر
+
+🕌 شهرها
+${cityNames}
+
+🚗 ترانسفر: ${state.transferOpt==='door'?'از درب منزل':'خودم می‌آیم'}
+📱 سیم‌کارت: ${state.simCard?'بله':'خیر'}
+💵 دینار: ${state.dinars?P(state.dinarsAmt)+' هزار':'خیر'}
+
+💰 هزینه کل: ${fmt(state.totalPrice)} تومان
+━━━━━━━━━━━━━━`;
+
+  try {
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({chat_id: CHAT_ID, text: msg})
+    });
+  } catch(e) {
+    console.error('Telegram error:', e);
+  }
+
+  document.getElementById('successCode').textContent = code;
   closeBottomSheet();
-  setTimeout(()=>document.getElementById('successOverlay').classList.add('show'),400);
+  setTimeout(() => document.getElementById('successOverlay').classList.add('show'), 400);
 }
-function closeSuccess(e){if(e.target.id==='successOverlay')document.getElementById('successOverlay').classList.remove('show');}
 
 // ══ COLLAPSIBLE ══
 function toggleStepsSection(){
