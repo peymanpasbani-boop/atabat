@@ -397,12 +397,27 @@ body.sheet-open{overflow:hidden;}
 .origin-card-badge.land{background:rgba(80,50,0,.55);color:#ffd580;border:1px solid rgba(255,200,80,.2);}
 .origin-card-tick{position:absolute;top:7px;left:7px;width:16px;height:16px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:8px;color:var(--em);font-weight:800;}
 .origin-card.selected .origin-card-tick{display:flex;}
-.more-cities-label{font-size:10px;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.3);text-transform:uppercase;margin:12px 0 8px;}
-.more-cities-row{display:flex;flex-wrap:wrap;gap:6px;}
-.city-pill-sm{padding:6px 14px;border-radius:100px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);font-size:11px;font-weight:600;color:rgba(255,255,255,.55);cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:5px;}
-.city-pill-sm:hover{border-color:rgba(201,168,76,.4);color:var(--goldL);background:rgba(201,168,76,.08);}
-.city-pill-sm.selected{border-color:var(--gold);background:rgba(201,168,76,.14);color:var(--goldL);}
-.city-pill-sm-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.5;flex-shrink:0;}
+.more-cities-label{font-size:10px;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.3);text-transform:uppercase;margin:14px 0 10px;}
+/* ── City Carousel ── */
+.city-carousel-wrap{position:relative;overflow:hidden;padding:6px 0 10px;margin:0 -8px;}
+.city-carousel-track{display:flex;gap:10px;transition:transform .38s cubic-bezier(.32,0,.15,1);padding:4px 50% 4px;will-change:transform;cursor:grab;}
+.city-carousel-track:active{cursor:grabbing;}
+.city-carousel-item{flex:0 0 90px;display:flex;flex-direction:column;align-items:center;gap:7px;padding:12px 8px 10px;border-radius:16px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);cursor:pointer;transition:all .32s cubic-bezier(.4,0,.2,1);transform:scale(.82);opacity:.55;user-select:none;}
+.city-carousel-item.active-center{transform:scale(1);opacity:1;border-color:rgba(201,168,76,.55);background:rgba(201,168,76,.1);box-shadow:0 4px 20px rgba(201,168,76,.2);}
+.city-carousel-item.near-center{transform:scale(.91);opacity:.75;}
+.city-carousel-item.selected{border-color:var(--gold) !important;background:rgba(201,168,76,.18) !important;box-shadow:0 4px 20px rgba(201,168,76,.35) !important;}
+.cci-icon{font-size:22px;line-height:1;}
+.cci-name{font-size:11px;font-weight:700;color:rgba(255,255,255,.8);text-align:center;white-space:nowrap;}
+.city-carousel-item.active-center .cci-name{color:var(--goldL);}
+.cci-type{font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(255,165,0,.15);color:rgba(255,200,80,.7);border:1px solid rgba(255,165,0,.2);}
+.cci-tick{width:18px;height:18px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:9px;color:var(--em);font-weight:800;margin-top:2px;}
+.city-carousel-item.selected .cci-tick{display:flex;}
+.carousel-dots{display:flex;justify-content:center;gap:5px;margin-top:8px;}
+.cdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .25s;cursor:pointer;}
+.cdot.active{width:16px;border-radius:3px;background:var(--gold);}
+/* hide old pill classes (kept for JS compat) */
+.city-pill-sm{display:none;}
+.city-pill-sm-dot{display:none;}
 .hero-wave{display:block;line-height:0;margin-top:-1px;}
 .hero-wave svg{display:block;width:100%}
 
@@ -1290,16 +1305,23 @@ body.sheet-open{overflow:hidden;}
           <div class="origin-card-badge land">🚍 زمینی</div>
         </div>
       </div>
-      <div class="more-cities-label">سایر شهرها</div>
-      <div class="more-cities-row" id="moreCitiesRow">
-        <div class="city-pill-sm" data-city="tabriz" data-transport="land" onclick="heroSelectCityPill(this)"><div class="city-pill-sm-dot"></div>تبریز 🚍</div>
-        <div class="city-pill-sm" data-city="qom" data-transport="land" onclick="heroSelectCityPill(this)"><div class="city-pill-sm-dot"></div>قم 🚍</div>
-        <div class="city-pill-sm" data-city="karaj" data-transport="land" onclick="heroSelectCityPill(this)"><div class="city-pill-sm-dot"></div>کرج 🚍</div>
-        <div class="city-pill-sm" data-city="ahvaz" data-transport="land" onclick="heroSelectCityPill(this)"><div class="city-pill-sm-dot"></div>اهواز 🚍</div>
-        <div class="city-pill-sm" data-city="rasht" data-transport="land" onclick="heroSelectCityPill(this)"><div class="city-pill-sm-dot"></div>رشت 🚍</div>
-        <div class="city-pill-sm" data-city="kermanshah" data-transport="land" onclick="heroSelectCityPill(this)"><div class="city-pill-sm-dot"></div>کرمانشاه 🚍</div>
-        <div class="city-pill-sm" data-city="other" data-transport="land" onclick="heroSelectCityPill(this)"><div class="city-pill-sm-dot"></div>سایر 🚍</div>
+      <div class="more-cities-label">سایر شهرها — بکشید انتخاب کنید</div>
+      <div class="city-carousel-wrap" id="cityCarouselWrap">
+        <div class="city-carousel-track" id="cityCarouselTrack">
+          <div class="city-carousel-item" data-city="tabriz" data-transport="land"><div class="cci-icon">🏔</div><div class="cci-name">تبریز</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
+          <div class="city-carousel-item" data-city="qom" data-transport="land"><div class="cci-icon">🕌</div><div class="cci-name">قم</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
+          <div class="city-carousel-item" data-city="karaj" data-transport="land"><div class="cci-icon">🌳</div><div class="cci-name">کرج</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
+          <div class="city-carousel-item" data-city="ahvaz" data-transport="land"><div class="cci-icon">🌊</div><div class="cci-name">اهواز</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
+          <div class="city-carousel-item" data-city="rasht" data-transport="land"><div class="cci-icon">🌧</div><div class="cci-name">رشت</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
+          <div class="city-carousel-item" data-city="kermanshah" data-transport="land"><div class="cci-icon">🏛</div><div class="cci-name">کرمانشاه</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
+          <div class="city-carousel-item" data-city="arak" data-transport="land"><div class="cci-icon">🏙</div><div class="cci-name">اراک</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
+          <div class="city-carousel-item" data-city="yazd" data-transport="land"><div class="cci-icon">🏺</div><div class="cci-name">یزد</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
+          <div class="city-carousel-item" data-city="other" data-transport="land"><div class="cci-icon">📍</div><div class="cci-name">سایر</div><div class="cci-type">🚌 زمینی</div><div class="cci-tick">✓</div></div>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
       </div>
+      <!-- hidden pills kept for JS compat -->
+      <div id="moreCitiesRow" style="display:none;"></div>
     </div>
   </div>
 </section>
@@ -2758,6 +2780,134 @@ function aiGetResponse(){
 function aiInputKeyDown(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();aiSendMessage();}}
 function aiInputResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,80)+'px';}
 function aiFormatNum(n){return P(Math.round(n).toLocaleString('en'));}
+
+// ══ CITY CAROUSEL ══
+(function(){
+  var ITEMS_DATA=[
+    {city:'tabriz',transport:'land'},
+    {city:'qom',transport:'land'},
+    {city:'karaj',transport:'land'},
+    {city:'ahvaz',transport:'land'},
+    {city:'rasht',transport:'land'},
+    {city:'kermanshah',transport:'land'},
+    {city:'arak',transport:'land'},
+    {city:'yazd',transport:'land'},
+    {city:'other',transport:'land'}
+  ];
+  var currentIdx=0;
+  var isDragging=false;
+  var dragStartX=0;
+  var dragDelta=0;
+  var ITEM_W=100; // item width + gap
+
+  function init(){
+    var track=document.getElementById('cityCarouselTrack');
+    var dotsWrap=document.getElementById('carouselDots');
+    if(!track||!dotsWrap) return;
+
+    // Build dots
+    dotsWrap.innerHTML='';
+    ITEMS_DATA.forEach(function(_,i){
+      var d=document.createElement('div');
+      d.className='cdot'+(i===0?' active':'');
+      d.onclick=function(){goTo(i);};
+      dotsWrap.appendChild(d);
+    });
+
+    // Click on item
+    var items=track.querySelectorAll('.city-carousel-item');
+    items.forEach(function(el,i){
+      el.addEventListener('click',function(){
+        if(Math.abs(dragDelta)>5) return; // ignore drag-end clicks
+        if(i===currentIdx){
+          // select this city
+          selectCarouselCity(el);
+        } else {
+          goTo(i);
+        }
+      });
+    });
+
+    // Touch
+    track.addEventListener('touchstart',function(e){
+      isDragging=true; dragStartX=e.touches[0].clientX; dragDelta=0;
+    },{passive:true});
+    track.addEventListener('touchmove',function(e){
+      if(!isDragging) return;
+      dragDelta=e.touches[0].clientX - dragStartX;
+    },{passive:true});
+    track.addEventListener('touchend',function(){
+      isDragging=false;
+      if(dragDelta < -30) goTo(Math.min(ITEMS_DATA.length-1, currentIdx+1));
+      else if(dragDelta > 30) goTo(Math.max(0, currentIdx-1));
+      else render();
+      dragDelta=0;
+    });
+
+    // Mouse drag
+    track.addEventListener('mousedown',function(e){
+      isDragging=true; dragStartX=e.clientX; dragDelta=0; e.preventDefault();
+    });
+    document.addEventListener('mousemove',function(e){
+      if(!isDragging) return; dragDelta=e.clientX - dragStartX;
+    });
+    document.addEventListener('mouseup',function(){
+      if(!isDragging) return;
+      isDragging=false;
+      if(dragDelta < -30) goTo(Math.min(ITEMS_DATA.length-1, currentIdx+1));
+      else if(dragDelta > 30) goTo(Math.max(0, currentIdx-1));
+      else render();
+      dragDelta=0;
+    });
+
+    render();
+  }
+
+  function goTo(idx){
+    currentIdx=idx;
+    render();
+  }
+
+  function render(){
+    var track=document.getElementById('cityCarouselTrack');
+    var dotsWrap=document.getElementById('carouselDots');
+    if(!track) return;
+    var items=track.querySelectorAll('.city-carousel-item');
+    var offset = -(currentIdx * ITEM_W);
+    track.style.transform='translateX('+offset+'px)';
+    items.forEach(function(el,i){
+      el.classList.remove('active-center','near-center');
+      var diff=Math.abs(i - currentIdx);
+      if(diff===0) el.classList.add('active-center');
+      else if(diff===1) el.classList.add('near-center');
+    });
+    // dots
+    if(dotsWrap){
+      var dots=dotsWrap.querySelectorAll('.cdot');
+      dots.forEach(function(d,i){ d.classList.toggle('active', i===currentIdx); });
+    }
+  }
+
+  function selectCarouselCity(el){
+    var city=el.dataset.city;
+    var transport=el.dataset.transport;
+    // deselect all
+    document.querySelectorAll('.city-carousel-item').forEach(function(x){ x.classList.remove('selected'); });
+    document.querySelectorAll('.origin-card').forEach(function(x){ x.classList.remove('selected'); });
+    el.classList.add('selected');
+    state.origin=city;
+    resetFlow();
+    setTimeout(function(){ openBottomSheet(); }, 120);
+  }
+
+  // Init after DOM ready
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    setTimeout(init, 100);
+  }
+})();
+
 </script>
 </body>
 </html>
