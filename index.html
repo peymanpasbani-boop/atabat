@@ -865,8 +865,8 @@ body.sheet-open{overflow:hidden;}
 .aichat-fab-lbl{font-size:9px;font-weight:700;color:rgba(0,0,0,.4);background:rgba(255,255,255,.88);padding:2px 7px;border-radius:100px;white-space:nowrap;}
 .aichat-badge{position:absolute;top:-3px;left:-3px;width:16px;height:16px;background:#ef4444;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:white;border:2px solid white;animation:badgePop .4s cubic-bezier(.34,1.56,.64,1);}
 @keyframes badgePop{from{transform:scale(0)}to{transform:scale(1)}}
-.aichat-panel{position:fixed;bottom:165px;right:16px;width:min(370px,calc(100vw - 32px));background:var(--cream);border-radius:22px;box-shadow:0 16px 60px rgba(0,0,0,.22),0 0 0 1px rgba(201,168,76,.2);z-index:601;display:flex;flex-direction:column;overflow:hidden;transform:scale(.92) translateY(20px);opacity:0;pointer-events:none;transition:all .38s cubic-bezier(.32,0,.15,1);transform-origin:bottom right;max-height:min(580px,calc(100vh - 220px));}
-.aichat-panel.visible{transform:scale(1) translateY(0);opacity:1;pointer-events:all;}
+.aichat-panel{position:fixed;bottom:0;left:0;right:0;width:100%;max-width:100%;background:var(--cream);border-radius:22px 22px 0 0;box-shadow:0 -8px 40px rgba(0,0,0,.18),0 0 0 1px rgba(201,168,76,.15);z-index:601;display:flex;flex-direction:column;overflow:hidden;transform:translateY(100%);opacity:0;pointer-events:none;transition:transform .42s cubic-bezier(.32,0,.15,1),opacity .3s ease;max-height:72vh;}
+.aichat-panel.visible{transform:translateY(0);opacity:1;pointer-events:all;}
 .aichat-head{background:linear-gradient(135deg,var(--em),var(--em3));padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .aichat-head-avatar{width:36px;height:36px;background:rgba(201,168,76,.25);border-radius:50%;border:2px solid rgba(201,168,76,.4);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
 .aichat-head-info{flex:1;}
