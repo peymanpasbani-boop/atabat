@@ -665,49 +665,85 @@ body.sheet-open{overflow:hidden;}
   .bsl-item{width:20px;font-size:7px;}
   .tnc-meta-strip{grid-template-columns:1fr 1fr 1fr;}
 }
-/* ══ TRIP SUGGESTIONS SLIDER — MINIMAL REDESIGN ══ */
-.trips-section{background:var(--cream);padding:32px 0 8px;position:relative;}
+/* ══ TRIP SUGGESTIONS SLIDER — COMPACT CARD ══ */
+.trips-section{background:var(--cream);padding:28px 0 4px;position:relative;}
 .trips-section-inner{max-width:700px;margin:0 auto;padding:0 18px;}
-.trips-section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:18px;}
-.trips-section-eyebrow{font-size:9.5px;font-weight:700;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
-.trips-section-title-text{font-size:17px;font-weight:900;color:var(--em);letter-spacing:-.02em;}
-.trips-dots-row{display:flex;align-items:center;gap:4px;padding-bottom:3px;}
-.trip-dot{width:6px;height:6px;border-radius:50%;background:rgba(13,59,46,.15);transition:all .35s cubic-bezier(.4,0,.2,1);cursor:pointer;}
-.trip-dot.active{width:18px;border-radius:3px;background:var(--em);}
+.trips-section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.trips-section-eyebrow{font-size:9px;font-weight:700;letter-spacing:.13em;color:var(--gold);text-transform:uppercase;margin-bottom:3px;}
+.trips-section-title-text{font-size:15px;font-weight:900;color:var(--em);}
+.trips-dots-row{display:flex;align-items:center;gap:4px;}
+.trip-dot{width:5px;height:5px;border-radius:50%;background:rgba(13,59,46,.15);transition:all .3s ease;cursor:pointer;}
+.trip-dot.active{width:16px;border-radius:3px;background:var(--em);}
+/* Track */
 .trips-track-wrap{overflow:hidden;position:relative;cursor:grab;user-select:none;-webkit-user-select:none;}
 .trips-track-wrap:active{cursor:grabbing;}
-.trips-track{display:flex;gap:12px;transition:transform .46s cubic-bezier(.32,0,.15,1);will-change:transform;}
-.trip-card{flex:0 0 calc(100% - 32px);background:var(--white);border-radius:16px;overflow:hidden;border:1px solid rgba(13,59,46,.08);box-shadow:0 2px 16px rgba(13,59,46,.06);transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;display:flex;flex-direction:column;}
-.trip-card:hover{box-shadow:0 8px 28px rgba(13,59,46,.11);transform:translateY(-2px);}
-.tcard-bar{position:absolute;top:0;right:0;width:3px;height:100%;border-radius:0 16px 16px 0;}
-.tcard-bar.air{background:linear-gradient(180deg,var(--em),var(--em3));}
-.tcard-bar.land{background:linear-gradient(180deg,#a8722a,var(--gold));}
-.tcard-bar.vip{background:linear-gradient(180deg,#2d0060,#7c3aed);}
-.tcard-bar.special{background:linear-gradient(180deg,var(--em3),#059669);}
-.tcard-top{padding:16px 18px 0;display:flex;align-items:center;justify-content:space-between;}
-.tcard-date-block{}
-.tcard-date-day{font-size:26px;font-weight:900;color:var(--em);line-height:1;letter-spacing:-.03em;}
-.tcard-date-month{font-size:11px;font-weight:600;color:var(--ts);margin-top:2px;letter-spacing:.01em;}
-.tcard-type-pill{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.02em;}
-.tcard-type-pill.air{background:rgba(13,59,46,.06);color:var(--em);border:1px solid rgba(13,59,46,.1);}
-.tcard-type-pill.land{background:rgba(201,168,76,.1);color:#7a5c1a;border:1px solid rgba(201,168,76,.2);}
-.tcard-type-pill.vip{background:rgba(74,0,128,.06);color:#5b21b6;border:1px solid rgba(74,0,128,.14);}
-.tcard-type-pill.special{background:rgba(5,150,105,.07);color:#065f46;border:1px solid rgba(5,150,105,.15);}
-.tcard-title-wrap{padding:10px 18px 0;}
-.tcard-title{font-size:14px;font-weight:800;color:var(--td);line-height:1.35;letter-spacing:-.01em;}
-.tcard-info-row{display:flex;align-items:center;gap:6px;padding:10px 18px 0;flex-wrap:wrap;}
-.tcard-info-chip{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;color:var(--tm);background:var(--cream);border:1px solid rgba(13,59,46,.07);padding:3px 9px;border-radius:6px;}
-.tcard-info-chip-icon{font-size:11px;opacity:.7;}
-.tcard-divider{height:1px;background:rgba(13,59,46,.05);margin:12px 18px 0;}
-.tcard-bottom{padding:12px 18px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
-.tcard-price-block{}
-.tcard-price-from{font-size:9px;font-weight:600;color:var(--ts);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;}
-.tcard-price-amount{font-size:18px;font-weight:900;color:var(--em);letter-spacing:-.02em;line-height:1;}
-.tcard-price-unit{font-size:10px;font-weight:600;color:var(--ts);margin-right:2px;}
-.tcard-cta-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:10px;border:none;background:var(--em);color:var(--goldL);font-family:"Vazirmatn",sans-serif;font-size:11.5px;font-weight:700;cursor:pointer;transition:all .25s;white-space:nowrap;flex-shrink:0;letter-spacing:.01em;}
-.tcard-cta-btn:hover{background:var(--em3);transform:translateY(-1px);}
-.tcard-cta-arrow{font-size:13px;transition:transform .2s;}
-.tcard-cta-btn:hover .tcard-cta-arrow{transform:translateX(-3px);}
+.trips-track{display:flex;gap:10px;transition:transform .44s cubic-bezier(.32,0,.15,1);will-change:transform;}
+/* ── Compact card ── */
+.trip-card{
+  flex:0 0 220px;
+  background:var(--white);
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid rgba(13,59,46,.09);
+  box-shadow:0 2px 12px rgba(13,59,46,.07);
+  transition:all .28s cubic-bezier(.4,0,.2,1);
+  position:relative;
+  cursor:pointer;
+}
+.trip-card:hover{
+  box-shadow:0 6px 22px rgba(13,59,46,.13);
+  transform:translateY(-3px);
+  border-color:rgba(201,168,76,.35);
+}
+/* Top color bar */
+.tcard-topbar{height:3px;width:100%;}
+.tcard-topbar.air{background:linear-gradient(90deg,var(--em),var(--em3),var(--gold));}
+.tcard-topbar.land{background:linear-gradient(90deg,#a8722a,var(--gold));}
+.tcard-topbar.vip{background:linear-gradient(90deg,#2d0060,#7c3aed,var(--gold));}
+.tcard-topbar.special{background:linear-gradient(90deg,var(--em3),#059669,var(--gold));}
+/* Card body */
+.tcard-body{padding:12px 13px 13px;}
+/* Row 1: type pill + tag */
+.tcard-row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.tcard-typepill{font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;letter-spacing:.03em;}
+.tcard-typepill.air{background:rgba(13,59,46,.07);color:var(--em);border:1px solid rgba(13,59,46,.1);}
+.tcard-typepill.land{background:rgba(201,168,76,.1);color:#7a5c1a;border:1px solid rgba(201,168,76,.2);}
+.tcard-typepill.vip{background:rgba(74,0,128,.07);color:#5b21b6;border:1px solid rgba(74,0,128,.14);}
+.tcard-typepill.special{background:rgba(5,150,105,.07);color:#065f46;border:1px solid rgba(5,150,105,.14);}
+.tcard-origin-chip{font-size:9px;font-weight:600;color:var(--ts);display:flex;align-items:center;gap:3px;}
+/* Row 2: big date */
+.tcard-datewrap{margin-bottom:9px;}
+.tcard-date-big{font-size:28px;font-weight:900;color:var(--em);line-height:1;letter-spacing:-.04em;}
+.tcard-date-monthyr{font-size:10px;font-weight:600;color:var(--ts);margin-top:2px;}
+/* Row 3: title */
+.tcard-name{font-size:11.5px;font-weight:700;color:var(--td);line-height:1.4;margin-bottom:9px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+/* Row 4: stats chips */
+.tcard-stats-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+.tcard-stat-chip{display:inline-flex;align-items:center;gap:3px;font-size:9.5px;font-weight:700;padding:3px 7px;border-radius:6px;background:var(--cream);border:1px solid rgba(13,59,46,.07);color:var(--tm);}
+.tcard-stat-chip.highlight{background:var(--goldP);border-color:var(--goldB);color:#7a5c1a;}
+/* Divider */
+.tcard-sep{height:1px;background:rgba(13,59,46,.06);margin:0 0 10px;}
+/* Row 5: price + cta */
+.tcard-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.tcard-price-wrap{}
+.tcard-price-label{font-size:8.5px;font-weight:600;color:var(--ts);text-transform:uppercase;letter-spacing:.06em;}
+.tcard-price-num{font-size:16px;font-weight:900;color:var(--em);line-height:1.1;letter-spacing:-.02em;}
+.tcard-price-unit{font-size:9px;font-weight:600;color:var(--ts);}
+.tcard-cta-btn{
+  padding:7px 11px;
+  border-radius:8px;
+  border:none;
+  background:var(--em);
+  color:var(--goldL);
+  font-family:"Vazirmatn",sans-serif;
+  font-size:10px;font-weight:700;
+  cursor:pointer;
+  transition:all .22s;
+  white-space:nowrap;
+  flex-shrink:0;
+  display:flex;align-items:center;gap:4px;
+}
+.tcard-cta-btn:hover{background:var(--em3);}
 .trip-detail-overlay{position:fixed;inset:0;z-index:950;background:rgba(0,0,0,0);backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);pointer-events:none;transition:background .38s ease,backdrop-filter .38s ease;}
 .trip-detail-overlay.open{background:rgba(0,0,0,.5);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);pointer-events:all;}
 .trip-detail-sheet{position:fixed;bottom:0;left:0;right:0;z-index:951;background:var(--cream);border-radius:24px 24px 0 0;box-shadow:0 -16px 60px rgba(0,0,0,.3);transform:translateY(100%);transition:transform .46s cubic-bezier(.32,0,.15,1);max-height:90vh;display:flex;flex-direction:column;overflow:hidden;}
@@ -1303,42 +1339,43 @@ function buildTripsSlider(){
   TRIP_SUGGESTIONS.forEach((trip,i)=>{
     const dp=trip.date.split(' ');
     const dayNum=dp[0];
-    const monthYear=dp[1]+(dp[2]?' '+dp[2]:'');
-    const typeLabel=trip.type==='air'?'\u2708 \u0647\u0648\u0627\u06cc\u06cc':trip.type==='land'?'\U0001f68c \u0632\u0645\u06cc\u0646\u06cc':trip.type==='vip'?'\U0001f451 VIP':'\U0001f31f \u0648\u06cc\u0698\u0647';
-    const cities=trip.routeItems.filter(r=>r.type==='city').map(r=>r.city).join(' \u00b7 ');
+    const monthYear=dp.slice(1).join(' ');
+    const typeLabel=trip.type==='air'?'✈ هوایی':trip.type==='land'?'🚌 زمینی':trip.type==='vip'?'👑 VIP':'🌟 ویژه';
+    const cities=trip.routeItems.filter(r=>r.type==='city').map(r=>r.city).join(' · ');
     const totalN=trip.routeItems.filter(r=>r.type==='city').reduce((s,r)=>s+(r.nights||0),0);
     const card=document.createElement('div');
     card.className='trip-card';
+    card.onclick=()=>openTripDetail(trip.id);
     card.innerHTML=`
-      <div class="tcard-bar ${trip.type}"></div>
-      <div class="tcard-top">
-        <div class="tcard-date-block">
-          <div class="tcard-date-day">${dayNum}</div>
-          <div class="tcard-date-month">${monthYear}</div>
+      <div class="tcard-topbar ${trip.type}"></div>
+      <div class="tcard-body">
+        <div class="tcard-row1">
+          <div class="tcard-typepill ${trip.type}">${typeLabel}</div>
+          <div class="tcard-origin-chip">📍 ${trip.origin}</div>
         </div>
-        <div class="tcard-type-pill ${trip.type}">${typeLabel}</div>
-      </div>
-      <div class="tcard-title-wrap">
-        <div class="tcard-title">${trip.title}</div>
-      </div>
-      <div class="tcard-info-row">
-        <div class="tcard-info-chip"><span class="tcard-info-chip-icon">\U0001f319</span>${P(totalN)} \u0634\u0628</div>
-        <div class="tcard-info-chip"><span class="tcard-info-chip-icon">\U0001f4cd</span>${trip.origin}</div>
-        <div class="tcard-info-chip"><span class="tcard-info-chip-icon">\U0001f54c</span>${cities}</div>
-      </div>
-      <div class="tcard-divider"></div>
-      <div class="tcard-bottom">
-        <div class="tcard-price-block">
-          <div class="tcard-price-from">\u0647\u0631 \u0646\u0641\u0631 \u0627\u0632</div>
-          <div class="tcard-price-amount">${trip.priceLabel}<span class="tcard-price-unit"> \u062a</span></div>
+        <div class="tcard-datewrap">
+          <div class="tcard-date-big">${dayNum}</div>
+          <div class="tcard-date-monthyr">${monthYear}</div>
         </div>
-        <button class="tcard-cta-btn" onclick="openTripDetail('${trip.id}')">\u062c\u0632\u0626\u06cc\u0627\u062a<span class="tcard-cta-arrow">\u2190</span></button>
+        <div class="tcard-name">${trip.title}</div>
+        <div class="tcard-stats-row">
+          <div class="tcard-stat-chip highlight">🌙 ${P(totalN)} شب</div>
+          <div class="tcard-stat-chip">🕌 ${cities}</div>
+        </div>
+        <div class="tcard-sep"></div>
+        <div class="tcard-footer">
+          <div class="tcard-price-wrap">
+            <div class="tcard-price-label">هر نفر</div>
+            <div class="tcard-price-num">${trip.priceLabel}<span class="tcard-price-unit"> ت</span></div>
+          </div>
+          <button class="tcard-cta-btn">جزئیات ←</button>
+        </div>
       </div>`;
     track.appendChild(card);
     const dot=document.createElement('div');
     dot.className='trip-dot'+(i===0?' active':'');
     dot.dataset.idx=i;
-    dot.onclick=()=>tsGoTo(i);
+    dot.onclick=(e)=>{e.stopPropagation();tsGoTo(i);};
     dotsRow.appendChild(dot);
   });
   const wrap=document.getElementById('tripsTrackWrap');
@@ -1350,9 +1387,9 @@ function buildTripsSlider(){
   document.addEventListener('mouseup',tsMouseUp);
   tsUpdateSlider();
 }
-function tsGetCardWidth(){const t=document.getElementById('tripsTrack');if(!t||!t.firstChild)return 300;return t.firstChild.offsetWidth+14;}
+function tsGetCardWidth(){const t=document.getElementById('tripsTrack');if(!t||!t.firstChild)return 230;return t.firstChild.offsetWidth+10;}
 function tsUpdateSlider(){const t=document.getElementById('tripsTrack');if(!t)return;const idx=-tsCurrent;const offset=-(idx*tsGetCardWidth());t.style.transform=`translateX(${offset}px)`;document.querySelectorAll('.trip-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));}
-function tsGoTo(idx){tsCurrent=-Math.max(0,Math.min(TRIP_SUGGESTIONS.length-1,idx));tsUpdateSlider();}
+function tsGoTo(idx){const max=TRIP_SUGGESTIONS.length-1;tsCurrent=-Math.max(0,Math.min(max,idx));tsUpdateSlider();}
 function tsTouchStart(e){tsDragStartX=e.touches[0].clientX;tsDragging=true;tsDragDelta=0;}
 function tsTouchMove(e){if(!tsDragging)return;tsDragDelta=e.touches[0].clientX-tsDragStartX;}
 function tsTouchEnd(){tsDragging=false;if(Math.abs(tsDragDelta)>50){const dir=tsDragDelta<0?1:-1;tsGoTo(Math.max(0,Math.min(TRIP_SUGGESTIONS.length-1,-tsCurrent+dir)));}else tsUpdateSlider();tsDragDelta=0;}
