@@ -399,7 +399,8 @@ body.sheet-open{overflow:hidden;}
 .origin-card.selected .origin-card-tick{display:flex;}
 .more-cities-label{font-size:10px;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.3);text-transform:uppercase;margin:14px 0 10px;}
 /* ── City Carousel ── */
-.city-carousel-wrap{position:relative;overflow:hidden;padding:4px 0 8px;margin:0 -4px;}
+.city-carousel-wrap{position:relative;overflow:visible;padding:4px 0 8px;margin:0 -4px;}
+.hero-step-wrap{overflow:hidden;}
 .city-carousel-track{display:flex;align-items:center;transition:transform .36s cubic-bezier(.32,0,.15,1);padding:4px 0;will-change:transform;cursor:grab;user-select:none;-webkit-user-select:none;}
 .city-carousel-track:active{cursor:grabbing;}
 .city-carousel-item{flex:0 0 72px;width:72px;display:flex;flex-direction:column;align-items:center;gap:5px;padding:9px 6px 8px;border-radius:14px;border:1.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);cursor:pointer;transition:transform .32s cubic-bezier(.4,0,.2,1),opacity .32s,border-color .32s,background .32s,box-shadow .32s;transform:scale(.78);opacity:.45;margin:0 5px;}
@@ -698,12 +699,15 @@ body.sheet-open{overflow:hidden;}
 .trip-dot.active{width:18px;border-radius:3px;background:var(--em);}
 /* Track */
 .trips-track-wrap{
-  overflow:hidden;
+  overflow:visible;
   position:relative;
   cursor:grab;
   user-select:none;
   -webkit-user-select:none;
   padding-bottom:6px;
+}
+.trips-section-inner{
+  overflow:hidden;
 }
 .trips-track-wrap:active{cursor:grabbing;}
 .trips-track{
@@ -1493,151 +1497,124 @@ body.sheet-open{overflow:hidden;}
 // ══ TRIP SUGGESTIONS SLIDER ══
 const TRIP_SUGGESTIONS=[{id:'ts1',type:'air',tag:'محرم ۱۴۰۵',title:'نجف + کربلا — محرم',date:'۲۶ خرداد ۱۴۰۵',origin:'تهران',duration:'۵ شب',totalNights:5,paxText:'هر نفر',pricePerPerson:23000000,priceLabel:'۲۳,۰۰۰,۰۰۰',routeItems:[{city:'تهران',icon:'🏙',nights:null,type:'dep'},{city:'نجف اشرف',icon:'🕌',nights:2,hotel:'هتل امیرالمؤمنین ★★★★★',type:'city'},{city:'کربلای معلی',icon:'🕌',nights:3,hotel:'هتل عباسیه گرند ★★★★★',type:'city'},{city:'تهران',icon:'🏙',nights:null,type:'ret'}],timeline:[{icon:'✈️',cls:'dep',name:'پرواز از تهران',desc:'فرودگاه امام خمینی — پرواز مستقیم به نجف'},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۲ شب اقامت',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'🏨 امیرالمؤمنین ★★★★★'}]},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) و حضرت عباس (ع) — ۳ شب اقامت',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 عباسیه گرند ★★★★★'}]},{icon:'✈️',cls:'ret',name:'پرواز بازگشت به تهران',desc:'پرواز مستقیم از نجف — بازگشت به تهران'}],hotels:[{city:'نجف اشرف',cityIcon:'🕌',name:'هتل امیرالمؤمنین',stars:5,nights:2},{city:'کربلای معلی',cityIcon:'🕌',name:'هتل عباسیه گرند',stars:5,nights:3}],includes:['✈️ بلیط پرواز رفت و برگشت','🚗 ترانسفر از درب منزل','🏨 اقامت ۵ شب','🍽️ صبحانه + شام','👤 راهنمای مجرب'],priceBreakdown:[{label:'بلیط هوایی رفت و برگشت',val:'۸,۵۰۰,۰۰۰ ت'},{label:'اقامت ۵ شب (هتل ۵ ستاره)',val:'۱۱,۵۰۰,۰۰۰ ت'},{label:'ترانسفر و خدمات',val:'۳,۰۰۰,۰۰۰ ت'}]},{id:'ts2',type:'land',tag:'اقتصادی',title:'کربلا + نجف — زمینی',date:'۵ تیر ۱۴۰۵',origin:'قم',duration:'۶ شب',totalNights:6,paxText:'هر نفر',pricePerPerson:11500000,priceLabel:'۱۱,۵۰۰,۰۰۰',routeItems:[{city:'قم',icon:'🕌',nights:null,type:'dep'},{city:'کربلای معلی',icon:'🕌',nights:3,hotel:'هتل کربلا اینترنشنال ★★★★',type:'city'},{city:'نجف اشرف',icon:'🕌',nights:3,hotel:'هتل نجف پالاس ★★★★',type:'city'},{city:'قم',icon:'🕌',nights:null,type:'ret'}],timeline:[{icon:'🚌',cls:'dep',name:'حرکت از قم',desc:'اتوبوس VIP — مستقیم به مرز خسروی'},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) — ۳ شب اقامت',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 کربلا اینترنشنال ★★★★'}]},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۳ شب اقامت',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 نجف پالاس ★★★★'}]},{icon:'🚌',cls:'ret',name:'بازگشت به قم',desc:'اتوبوس VIP — مرز خسروی به قم'}],hotels:[{city:'کربلای معلی',cityIcon:'🕌',name:'هتل کربلا اینترنشنال',stars:4,nights:3},{city:'نجف اشرف',cityIcon:'🕌',name:'هتل نجف پالاس',stars:4,nights:3}],includes:['🚌 اتوبوس VIP رفت و برگشت','🚗 ترانسفر از درب منزل','🏨 اقامت ۶ شب','🍽️ صبحانه + شام','👤 راهنمای مجرب'],priceBreakdown:[{label:'اتوبوس VIP رفت و برگشت',val:'۲,۸۰۰,۰۰۰ ت'},{label:'اقامت ۶ شب (هتل ۴ ستاره)',val:'۶,۲۰۰,۰۰۰ ت'},{label:'ترانسفر و خدمات',val:'۲,۵۰۰,۰۰۰ ت'}]},{id:'ts3',type:'air',tag:'مشهد — هوایی',title:'نجف + کربلا + کاظمین',date:'۱۵ تیر ۱۴۰۵',origin:'مشهد',duration:'۷ شب',totalNights:7,paxText:'هر نفر',pricePerPerson:27500000,priceLabel:'۲۷,۵۰۰,۰۰۰',routeItems:[{city:'مشهد',icon:'🕌',nights:null,type:'dep'},{city:'نجف اشرف',icon:'🕌',nights:2,hotel:'هتل نجف گرند ★★★★★',type:'city'},{city:'کربلای معلی',icon:'🕌',nights:3,hotel:'هتل الحسین انترنشنال ★★★★★',type:'city'},{city:'کاظمین',icon:'🕌',nights:2,hotel:'هتل الامین الکاظمیه ★★★★★',type:'city'},{city:'مشهد',icon:'🕌',nights:null,type:'ret'}],timeline:[{icon:'✈️',cls:'dep',name:'پرواز از مشهد',desc:'فرودگاه مشهد — پرواز به نجف'},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۲ شب',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'🏨 نجف گرند ★★★★★'}]},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) — ۳ شب',badges:[{t:'nights',txt:'🌙 ۳ شب'},{t:'hotel',txt:'🏨 الحسین انترنشنال ★★★★★'}]},{icon:'🕌',cls:'city',name:'کاظمین',desc:'حرم امام کاظم (ع) — ۲ شب',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'🏨 الامین الکاظمیه ★★★★★'}]},{icon:'✈️',cls:'ret',name:'پرواز بازگشت به مشهد',desc:'پرواز از بغداد — بازگشت به مشهد'}],hotels:[{city:'نجف اشرف',cityIcon:'🕌',name:'هتل نجف گرند',stars:5,nights:2},{city:'کربلای معلی',cityIcon:'🕌',name:'هتل الحسین انترنشنال',stars:5,nights:3},{city:'کاظمین',cityIcon:'🕌',name:'هتل الامین الکاظمیه',stars:5,nights:2}],includes:['✈️ بلیط پرواز رفت و برگشت','🚗 ترانسفر از درب منزل','🏨 اقامت ۷ شب','🍽️ صبحانه + شام','👤 راهنمای مجرب','📱 سیم‌کارت عراقی'],priceBreakdown:[{label:'بلیط هوایی رفت و برگشت',val:'۱۰,۵۰۰,۰۰۰ ت'},{label:'اقامت ۷ شب (هتل ۵ ستاره)',val:'۱۳,۵۰۰,۰۰۰ ت'},{label:'ترانسفر و خدمات',val:'۳,۵۰۰,۰۰۰ ت'}]},{id:'ts4',type:'vip',tag:'VIP خانوادگی',title:'کربلا + نجف — VIP',date:'۸ مرداد ۱۴۰۵',origin:'تهران',duration:'۴ شب',totalNights:4,paxText:'هر نفر',pricePerPerson:38000000,priceLabel:'۳۸,۰۰۰,۰۰۰',routeItems:[{city:'تهران',icon:'🏙',nights:null,type:'dep'},{city:'کربلای معلی',icon:'🕌',nights:2,hotel:'هتل عباسیه گرند ★★★★★ (سوئیت)',type:'city'},{city:'نجف اشرف',icon:'🕌',nights:2,hotel:'هتل امیرالمؤمنین ★★★★★ (سوئیت)',type:'city'},{city:'تهران',icon:'🏙',nights:null,type:'ret'}],timeline:[{icon:'✈️',cls:'dep',name:'پرواز چارتر از تهران',desc:'پرواز اختصاصی — فرودگاه امام خمینی'},{icon:'🕌',cls:'city',name:'کربلای معلی',desc:'حرم امام حسین (ع) — ۲ شب در سوئیت',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'👑 سوئیت عباسیه گرند'}]},{icon:'🕌',cls:'city',name:'نجف اشرف',desc:'حرم امام علی (ع) — ۲ شب در سوئیت',badges:[{t:'nights',txt:'🌙 ۲ شب'},{t:'hotel',txt:'👑 سوئیت امیرالمؤمنین'}]},{icon:'✈️',cls:'ret',name:'پرواز بازگشت — تهران',desc:'پرواز چارتر — بازگشت به تهران'}],hotels:[{city:'کربلای معلی',cityIcon:'🕌',name:'عباسیه گرند — سوئیت',stars:5,nights:2},{city:'نجف اشرف',cityIcon:'🕌',name:'امیرالمؤمنین — سوئیت',stars:5,nights:2}],includes:['✈️ پرواز چارتر اختصاصی','🚗 ماشین اختصاصی در عراق','👑 اقامت سوئیت ۵ ستاره','🍽️ تمام وعده‌ها','🎖️ راهنمای VIP اختصاصی','💐 استقبال ویژه'],priceBreakdown:[{label:'پرواز چارتر رفت و برگشت',val:'۱۴,۰۰۰,۰۰۰ ت'},{label:'اقامت ۴ شب سوئیت',val:'۱۸,۰۰۰,۰۰۰ ت'},{label:'ماشین اختصاصی و راهنمای VIP',val:'۶,۰۰۰,۰۰۰ ت'}]}];
 
-// ══ TRIPS SLIDER — ROBUST INFINITE LOOP ══
-(function(){
-  var TS = TRIP_SUGGESTIONS;
-  var total = TS.length;
-  var CLONES = total; // clone full set on each side for seamless wrapping
-  var virtualLen = total + CLONES * 2;
-  var curIdx = CLONES; // start at first real card
-  var startX = 0, delta = 0, dragging = false, animating = false;
-  var jumpTimer = null;
-  var selectedTrip = null;
+// ══ UNIVERSAL INFINITE SLIDER FACTORY ══
+function makeInfSlider(cfg){
+  var items=cfg.items, N=items.length, CLONES=N;
+  var cardW=cfg.cardW, gapW=cfg.gapW||0, stepW=cardW+gapW;
+  var cur=CLONES, all=[], drag=false, sx=0, lx=0, jt=null;
 
-  function buildCard(trip){
-    var dp=trip.date.split(' ');
-    var dayNum=dp[0];
-    var monthStr=dp.slice(1).join(' ');
-    var typeIcon=(trip.type==='air'||trip.type==='vip')?'✈️':'🚌';
-    var totalN=trip.routeItems.filter(function(r){return r.type==='city';}).reduce(function(s,r){return s+(r.nights||0);},0);
-    var card=document.createElement('div');
-    card.className='trip-card';
-    card.dataset.tripId=trip.id;
-    card.innerHTML='<div class="tcard-bg"><div class="tcard-type-icon">'+typeIcon+'</div><div><div class="tcard-day-num">'+dayNum+'</div><div class="tcard-month-str">'+monthStr+'</div></div></div><div class="tcard-foot"><div class="tcard-origin"><div class="tcard-origin-dot"></div>'+trip.origin+'</div><div class="tcard-nights">🌙 '+P(totalN)+' شب</div><div class="tcard-price-row"><div class="tcard-price-amt">'+trip.priceLabel+'</div><div class="tcard-price-unit"> ت</div></div></div>';
-    card.addEventListener('click', function(){
-      if(Math.abs(delta)>8) return;
-      openTripDetail(trip.id);
+  function ri(){ return ((cur-CLONES)%N+N)%N; }
+
+  function off(idx){
+    var wW=cfg.wrapEl.offsetWidth||320;
+    return cfg.centered ? -(idx*stepW)+(wW/2-cardW/2) : -(idx*stepW);
+  }
+
+  function applyT(anim,ex){
+    var x=off(cur)+(ex||0);
+    cfg.trackEl.style.transition=anim?'transform .38s cubic-bezier(.32,0,.15,1)':'none';
+    cfg.trackEl.style.transform='translateX('+x+'px)';
+    updateClasses(); updateDots();
+  }
+
+  function sched(){
+    clearTimeout(jt);
+    jt=setTimeout(function(){
+      if(cur<CLONES){cur+=N;applyT(false);}
+      else if(cur>=CLONES+N){cur-=N;applyT(false);}
+    },420);
+  }
+
+  function go(idx,anim){ cur=idx; applyT(anim); if(anim) sched(); }
+
+  function updateClasses(){
+    if(!cfg.classMap) return;
+    all.forEach(function(el,i){
+      var d=Math.abs(i-cur);
+      el.classList.remove('active-center','near-center');
+      if(d===0) el.classList.add('active-center');
+      else if(d===1) el.classList.add('near-center');
     });
-    return card;
-  }
-
-  function getCardW(){
-    var t=document.getElementById('tripsTrack');
-    if(!t) return 172;
-    var cards = t.querySelectorAll('.trip-card');
-    if(!cards.length) return 172;
-    return cards[0].offsetWidth + 12; // 12px = CSS gap
-  }
-
-  function getOffset(idx){
-    var wrap=document.getElementById('tripsTrackWrap');
-    var wW=wrap ? wrap.offsetWidth : 320;
-    var cW=getCardW();
-    return -(idx * cW) + (wW/2 - cW/2);
-  }
-
-  function setTransform(animate, extraDx){
-    var t=document.getElementById('tripsTrack');
-    if(!t) return;
-    var off = getOffset(curIdx) + (extraDx||0);
-    t.style.transition = animate ? 'transform .42s cubic-bezier(.32,0,.15,1)' : 'none';
-    t.style.transform = 'translateX('+off+'px)';
-    updateDots();
   }
 
   function updateDots(){
-    var norm = ((curIdx - CLONES) % total + total) % total;
-    document.querySelectorAll('.trip-dot').forEach(function(d,i){ d.classList.toggle('active',i===norm); });
+    if(!cfg.dotsEl) return;
+    var r=ri();
+    cfg.dotsEl.querySelectorAll('div').forEach(function(d,i){ d.classList.toggle('active',i===r); });
   }
 
-  function scheduleJump(){
-    // After animation, silently jump to real zone if in clone zone
-    clearTimeout(jumpTimer);
-    jumpTimer = setTimeout(function(){
-      if(curIdx < CLONES){
-        curIdx += total;
-        setTransform(false);
-      } else if(curIdx >= CLONES + total){
-        curIdx -= total;
-        setTransform(false);
-      }
-      animating = false;
-    }, 450);
+  function onDn(x){ drag=true; sx=x; lx=0; clearTimeout(jt); cfg.trackEl.style.transition='none'; }
+  function onMv(x){ if(!drag)return; lx=x-sx; cfg.trackEl.style.transform='translateX('+(off(cur)+lx)+'px)'; }
+  function onUp(){
+    if(!drag)return; drag=false;
+    if(Math.abs(lx)>30) go(cur+(lx<0?1:-1),true);
+    else go(cur,true);
+    setTimeout(function(){lx=0;},60);
   }
 
-  function goTo(idx, animate){
-    curIdx = idx;
-    setTransform(animate);
-    if(animate) scheduleJump();
-  }
+  cfg.wrapEl.addEventListener('touchstart',function(e){onDn(e.touches[0].clientX);},{passive:true});
+  cfg.wrapEl.addEventListener('touchmove',function(e){onMv(e.touches[0].clientX);},{passive:true});
+  cfg.wrapEl.addEventListener('touchend',onUp);
+  cfg.wrapEl.addEventListener('mousedown',function(e){onDn(e.clientX);e.preventDefault();});
+  document.addEventListener('mousemove',function(e){onMv(e.clientX);});
+  document.addEventListener('mouseup',onUp);
+  window.addEventListener('resize',function(){applyT(false);});
 
-  function slide(dir){
-    if(animating) return;
-    animating = true;
-    curIdx += dir;
-    setTransform(true);
-    scheduleJump();
-  }
+  cfg.wrapEl.addEventListener('click',function(e){
+    if(Math.abs(lx)>8)return;
+    var el=e.target.closest('[data-vi]');
+    if(!el)return;
+    var vi=parseInt(el.dataset.vi);
+    if(vi===cur){ if(cfg.onSelect) cfg.onSelect(items[ri()],ri()); }
+    else go(cur+(vi>cur?1:-1),true);
+  });
 
-  function onStart(x){ startX=x; delta=0; dragging=true; var t=document.getElementById('tripsTrack'); if(t) t.style.transition='none'; clearTimeout(jumpTimer); }
-  function onMove(x){ if(!dragging) return; delta=x-startX; var t=document.getElementById('tripsTrack'); if(t) t.style.transform='translateX('+(getOffset(curIdx)+delta)+'px)'; }
-  function onEnd(){
-    if(!dragging) return;
-    dragging=false;
-    if(Math.abs(delta)>30){ animating=true; curIdx+=(delta<0?1:-1); setTransform(true); scheduleJump(); }
-    else { setTransform(true); }
-    setTimeout(function(){ delta=0; },60);
-  }
-
-  function build(){
-    var track=document.getElementById('tripsTrack');
-    var dotsRow=document.getElementById('tripDotsRow');
-    if(!track||!dotsRow) return;
-    track.innerHTML=''; dotsRow.innerHTML='';
-
-    // Clones before (last CLONES = full set reversed)
-    for(var i=0;i<CLONES;i++){
-      track.appendChild(buildCard(TS[i % total]));
+  function buildDots(){
+    if(!cfg.dotsEl)return;
+    cfg.dotsEl.innerHTML='';
+    for(var i=0;i<N;i++){
+      var d=document.createElement('div');
+      d.className=(cfg.dotsEl&&cfg.dotsEl.id==='carouselDots'?'cdot':'trip-dot')+(i===0?' active':'');
+      (function(k){ d.addEventListener('click',function(e){e.stopPropagation();go(CLONES+k,true);}); })(i);
+      cfg.dotsEl.appendChild(d);
     }
-    // Real cards
-    for(var r=0;r<total;r++){
-      track.appendChild(buildCard(TS[r]));
-    }
-    // Clones after
-    for(var a=0;a<CLONES;a++){
-      track.appendChild(buildCard(TS[a % total]));
-    }
-
-    // Dots
-    for(var d=0;d<total;d++){
-      var dot=document.createElement('div');
-      dot.className='trip-dot'+(d===0?' active':'');
-      (function(idx){ dot.addEventListener('click',function(e){ e.stopPropagation(); if(animating) return; animating=true; curIdx=CLONES+idx; setTransform(true); scheduleJump(); }); })(d);
-      dotsRow.appendChild(dot);
-    }
-
-    curIdx=CLONES;
-    setTransform(false);
-
-    var wrap=document.getElementById('tripsTrackWrap');
-    wrap.addEventListener('touchstart',function(e){ onStart(e.touches[0].clientX); },{passive:true});
-    wrap.addEventListener('touchmove',function(e){ if(dragging){ e.preventDefault(); } onMove(e.touches[0].clientX); },{passive:false});
-    wrap.addEventListener('touchend',onEnd);
-    wrap.addEventListener('mousedown',function(e){ onStart(e.clientX); e.preventDefault(); });
-    document.addEventListener('mousemove',function(e){ onMove(e.clientX); });
-    document.addEventListener('mouseup',onEnd);
-    window.addEventListener('resize',function(){ setTransform(false); });
   }
 
-  window.tsSelectedTrip=null;
-  window.buildTripsSlider=build;
-  window._tsSlide=slide;
-  window._tsGoTo=function(i){ animating=true; curIdx=CLONES+((i%total+total)%total); setTransform(true); scheduleJump(); };
-})();
+  cfg.trackEl.innerHTML=''; all=[];
+  var vi=0;
+  for(var b=0;b<CLONES;b++){var n=cfg.render(items[(N-CLONES+b)%N]);n.dataset.vi=vi++;all.push(n);cfg.trackEl.appendChild(n);}
+  for(var r2=0;r2<N;r2++){var n2=cfg.render(items[r2]);n2.dataset.vi=vi++;all.push(n2);cfg.trackEl.appendChild(n2);}
+  for(var a=0;a<CLONES;a++){var n3=cfg.render(items[a%N]);n3.dataset.vi=vi++;all.push(n3);cfg.trackEl.appendChild(n3);}
+  buildDots();
+  go(CLONES,false);
+  return { goTo: function(i){ go(CLONES+((i%N+N)%N),true); } };
+}
 
-// shim for legacy calls
-var tsDragDelta=0, tsSelectedTrip=null;
-
+// ══ TRIPS SLIDER ══
+var tsSelectedTrip=null;
+var tsDragDelta=0;
+function buildTripsSlider(){
+  var track=document.getElementById('tripsTrack');
+  var wrap=document.getElementById('tripsTrackWrap');
+  var dots=document.getElementById('tripDotsRow');
+  if(!track||!wrap) return;
+  makeInfSlider({
+    trackEl:track, wrapEl:wrap, dotsEl:dots,
+    items:TRIP_SUGGESTIONS,
+    cardW:160, gapW:12, centered:false,
+    render:function(trip){
+      var dp=trip.date.split(' ');
+      var typeIcon=(trip.type==='air'||trip.type==='vip')?'✈️':'🚌';
+      var totalN=trip.routeItems.filter(function(r){return r.type==='city';}).reduce(function(s,r){return s+(r.nights||0);},0);
+      var card=document.createElement('div');
+      card.className='trip-card';
+      card.innerHTML='<div class="tcard-bg"><div class="tcard-type-icon">'+typeIcon+'</div><div><div class="tcard-day-num">'+dp[0]+'</div><div class="tcard-month-str">'+dp.slice(1).join(' ')+'</div></div></div><div class="tcard-foot"><div class="tcard-origin"><div class="tcard-origin-dot"></div>'+trip.origin+'</div><div class="tcard-nights">🌙 '+P(totalN)+' شب</div><div class="tcard-price-row"><div class="tcard-price-amt">'+trip.priceLabel+'</div><div class="tcard-price-unit"> ت</div></div></div>';
+      return card;
+    },
+    onSelect:function(trip){ openTripDetail(trip.id); }
+  });
+}
+document.addEventListener('DOMContentLoaded',function(){buildTripsSlider();});
 function openTripDetail(id){
   tsSelectedTrip=TRIP_SUGGESTIONS.find(t=>t.id===id);
   if(!tsSelectedTrip)return;
@@ -1690,7 +1667,7 @@ function bookSuggestedTrip(){
     _goToStep(4);
   },350);
 }
-document.addEventListener('DOMContentLoaded',function(){buildTripsSlider();});
+
 
 // ══ HELPERS ══
 function P(n){return String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);}
@@ -2886,257 +2863,66 @@ function aiFormatNum(n){return P(Math.round(n).toLocaleString('en'));}
 
 // ══ CITY CAROUSEL — INFINITE LOOP ══
 (function(){
-  var ITEMS_DATA = [
-    {city:'tabriz',  transport:'land', name:'تبریز',     type:'🚌 زمینی'},
-    {city:'qom',     transport:'land', name:'قم',        type:'🚌 زمینی'},
-    {city:'karaj',   transport:'land', name:'کرج',       type:'🚌 زمینی'},
-    {city:'ahvaz',   transport:'land', name:'اهواز',     type:'🚌 زمینی'},
-    {city:'rasht',   transport:'land', name:'رشت',       type:'🚌 زمینی'},
-    {city:'kermanshah',transport:'land',name:'کرمانشاه', type:'🚌 زمینی'},
-    {city:'arak',    transport:'land', name:'اراک',      type:'🚌 زمینی'},
-    {city:'yazd',    transport:'land', name:'یزد',       type:'🚌 زمینی'},
-    {city:'other',   transport:'land', name:'سایر',      type:'🚌 زمینی'}
+  var ITEMS_DATA=[
+    {city:'tabriz',name:'تبریز',type:'🚌 زمینی'},
+    {city:'qom',name:'قم',type:'🚌 زمینی'},
+    {city:'karaj',name:'کرج',type:'🚌 زمینی'},
+    {city:'ahvaz',name:'اهواز',type:'🚌 زمینی'},
+    {city:'rasht',name:'رشت',type:'🚌 زمینی'},
+    {city:'kermanshah',name:'کرمانشاه',type:'🚌 زمینی'},
+    {city:'arak',name:'اراک',type:'🚌 زمینی'},
+    {city:'yazd',name:'یزد',type:'🚌 زمینی'},
+    {city:'other',name:'سایر',type:'🚌 زمینی'}
   ];
-
-  // SVG icons per city
-  var SVGS = {
-    tabriz: '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M14 4L14 6"/><path d="M9 12Q9 7 14 6Q19 7 19 12"/><rect x="7" y="12" width="14" height="3" rx="0.5"/><rect x="5" y="15" width="18" height="2" rx="0.5"/><rect x="11" y="17" width="3" height="7"/><rect x="14" y="17" width="3" height="7"/><line x1="4" y1="24" x2="24" y2="24"/></svg>',
-    qom:    '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><line x1="14" y1="2" x2="14" y2="5"/><circle cx="14" cy="2" r="1" fill="currentColor" stroke="none"/><path d="M8 16Q8 9 14 8Q20 9 20 16"/><rect x="6" y="16" width="16" height="2" rx="0.5"/><rect x="4" y="18" width="20" height="2" rx="0.5"/><rect x="10" y="20" width="3" height="5"/><rect x="15" y="20" width="3" height="5"/><line x1="3" y1="25" x2="25" y2="25"/></svg>',
-    karaj:  '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M3 18L8 10L13 15L18 8L25 18"/><line x1="2" y1="22" x2="26" y2="22"/><line x1="4" y1="22" x2="4" y2="20"/><line x1="8" y1="22" x2="8" y2="18"/><line x1="18" y1="22" x2="18" y2="18"/><line x1="24" y1="22" x2="24" y2="20"/></svg>',
-    ahvaz:  '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M3 14Q5 10 8 14Q11 18 14 14Q17 10 20 14Q23 18 25 14"/><line x1="3" y1="17" x2="25" y2="17"/><line x1="8" y1="17" x2="8" y2="10"/><line x1="20" y1="17" x2="20" y2="10"/><path d="M6 10L22 10"/><path d="M8 10Q14 6 20 10"/></svg>',
-    rasht:  '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M14 5Q20 8 20 14Q20 20 14 22Q8 20 8 14Q8 8 14 5Z"/><path d="M14 5Q14 14 14 22"/><path d="M8 14Q14 12 20 14"/><line x1="9" y1="24" x2="9" y2="26"/><line x1="14" y1="23" x2="14" y2="25"/><line x1="19" y1="24" x2="19" y2="26"/></svg>',
-    kermanshah: '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M6 22L6 12Q6 6 14 6Q22 6 22 12L22 22"/><path d="M10 22L10 14Q10 10 14 10Q18 10 18 14L18 22"/><line x1="3" y1="22" x2="25" y2="22"/><rect x="12" y="16" width="4" height="6"/></svg>',
-    arak:   '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="5" y="14" width="7" height="10" rx="0.5"/><rect x="16" y="10" width="7" height="14" rx="0.5"/><rect x="7" y="16" width="2" height="3" rx="0.3"/><rect x="18" y="12" width="2" height="3" rx="0.3"/><line x1="8" y1="14" x2="8" y2="10"/><line x1="20" y1="10" x2="20" y2="6"/><line x1="3" y1="24" x2="25" y2="24"/></svg>',
-    yazd:   '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="10" y="4" width="8" height="14" rx="0.5"/><path d="M10 4Q10 2 12 2L16 2Q18 2 18 4"/><line x1="14" y1="4" x2="14" y2="18"/><line x1="10" y1="10" x2="18" y2="10"/><rect x="8" y="18" width="12" height="8" rx="0.5"/><rect x="11" y="20" width="3" height="6"/><rect x="14" y="20" width="3" height="6"/><line x1="5" y1="26" x2="23" y2="26"/></svg>',
-    other:  '<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="14" cy="11" r="5"/><path d="M14 16L14 22"/><circle cx="14" cy="11" r="1.5" fill="currentColor" stroke="none"/><line x1="8" y1="22" x2="20" y2="22"/></svg>'
+  var SVGS={
+    tabriz:'<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M14 4L14 6"/><path d="M9 12Q9 7 14 6Q19 7 19 12"/><rect x="7" y="12" width="14" height="3" rx="0.5"/><rect x="5" y="15" width="18" height="2" rx="0.5"/><rect x="11" y="17" width="3" height="7"/><rect x="14" y="17" width="3" height="7"/><line x1="4" y1="24" x2="24" y2="24"/></svg>',
+    qom:'<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><line x1="14" y1="2" x2="14" y2="5"/><circle cx="14" cy="2" r="1" fill="currentColor" stroke="none"/><path d="M8 16Q8 9 14 8Q20 9 20 16"/><rect x="6" y="16" width="16" height="2" rx="0.5"/><rect x="4" y="18" width="20" height="2" rx="0.5"/><rect x="10" y="20" width="3" height="5"/><rect x="15" y="20" width="3" height="5"/><line x1="3" y1="25" x2="25" y2="25"/></svg>',
+    karaj:'<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M3 18L8 10L13 15L18 8L25 18"/><line x1="2" y1="22" x2="26" y2="22"/><line x1="4" y1="22" x2="4" y2="20"/><line x1="8" y1="22" x2="8" y2="18"/><line x1="18" y1="22" x2="18" y2="18"/><line x1="24" y1="22" x2="24" y2="20"/></svg>',
+    ahvaz:'<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M3 14Q5 10 8 14Q11 18 14 14Q17 10 20 14Q23 18 25 14"/><line x1="3" y1="17" x2="25" y2="17"/><line x1="8" y1="17" x2="8" y2="10"/><line x1="20" y1="17" x2="20" y2="10"/><path d="M6 10L22 10"/><path d="M8 10Q14 6 20 10"/></svg>',
+    rasht:'<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M14 5Q20 8 20 14Q20 20 14 22Q8 20 8 14Q8 8 14 5Z"/><path d="M14 5Q14 14 14 22"/><path d="M8 14Q14 12 20 14"/><line x1="9" y1="24" x2="9" y2="26"/><line x1="14" y1="23" x2="14" y2="25"/><line x1="19" y1="24" x2="19" y2="26"/></svg>',
+    kermanshah:'<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M6 22L6 12Q6 6 14 6Q22 6 22 12L22 22"/><path d="M10 22L10 14Q10 10 14 10Q18 10 18 14L18 22"/><line x1="3" y1="22" x2="25" y2="22"/><rect x="12" y="16" width="4" height="6"/></svg>',
+    arak:'<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="5" y="14" width="7" height="10" rx="0.5"/><rect x="16" y="10" width="7" height="14" rx="0.5"/><rect x="7" y="16" width="2" height="3" rx="0.3"/><rect x="18" y="12" width="2" height="3" rx="0.3"/><line x1="8" y1="14" x2="8" y2="10"/><line x1="20" y1="10" x2="20" y2="6"/><line x1="3" y1="24" x2="25" y2="24"/></svg>',
+    yazd:'<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="10" y="4" width="8" height="14" rx="0.5"/><path d="M10 4Q10 2 12 2L16 2Q18 2 18 4"/><line x1="14" y1="4" x2="14" y2="18"/><line x1="10" y1="10" x2="18" y2="10"/><rect x="8" y="18" width="12" height="8" rx="0.5"/><rect x="11" y="20" width="3" height="6"/><rect x="14" y="20" width="3" height="6"/><line x1="5" y1="26" x2="23" y2="26"/></svg>',
+    other:'<svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="14" cy="11" r="5"/><path d="M14 16L14 22"/><circle cx="14" cy="11" r="1.5" fill="currentColor" stroke="none"/><line x1="8" y1="22" x2="20" y2="22"/></svg>'
   };
-
-  var ITEM_W = 82;
-  var CLONES = 3;
-  var realCount = ITEMS_DATA.length;
-  var totalCount = realCount + CLONES * 2;
-  // currentIdx: position in virtual track (0 = first real item after clones)
-  var currentIdx = CLONES;
-  var isDragging = false;
-  var pointerStartX = 0;
-  var pointerDelta = 0;
-  var isAnimating = false;
-  var selectedCity = null;
-  var allNodes = []; // all rendered nodes in order
-
-  function buildTrack(){
-    var track = document.getElementById('cityCarouselTrack');
-    if(!track) return;
-    track.innerHTML = '';
-    allNodes = [];
-
-    // clones before = last CLONES items
-    for(var c = realCount - CLONES; c < realCount; c++){
-      allNodes.push(makeNode(ITEMS_DATA[c], true));
-    }
-    // real items
-    for(var r = 0; r < realCount; r++){
-      allNodes.push(makeNode(ITEMS_DATA[r], false));
-    }
-    // clones after = first CLONES items
-    for(var a = 0; a < CLONES; a++){
-      allNodes.push(makeNode(ITEMS_DATA[a], true));
-    }
-
-    allNodes.forEach(function(n){ track.appendChild(n); });
-  }
-
-  function makeNode(data, isClone){
-    var el = document.createElement('div');
-    el.className = 'city-carousel-item';
-    el.dataset.city = data.city;
-    el.dataset.transport = data.transport;
-    if(isClone) el.dataset.clone = '1';
-    el.innerHTML =
-      '<div class="cci-icon">' + (SVGS[data.city]||SVGS.other) + '</div>' +
-      '<div class="cci-name">' + data.name + '</div>' +
-      '<div class="cci-type">' + data.type + '</div>' +
-      '<div class="cci-tick">✓</div>';
-    return el;
-  }
-
-  function buildDots(){
-    var wrap = document.getElementById('carouselDots');
-    if(!wrap) return;
-    wrap.innerHTML = '';
-    for(var i = 0; i < realCount; i++){
-      var d = document.createElement('div');
-      d.className = 'cdot' + (i === 0 ? ' active' : '');
-      (function(idx){ d.onclick = function(){ jumpTo(CLONES + idx); }; })(i);
-      wrap.appendChild(d);
-    }
-  }
-
-  function getOffset(idx){
-    var wrap = document.getElementById('cityCarouselWrap');
-    var containerW = wrap ? wrap.offsetWidth : 280;
-    return -(idx * ITEM_W) + (containerW / 2 - ITEM_W / 2);
-  }
-
-  function setTransform(animate){
-    var track = document.getElementById('cityCarouselTrack');
-    if(!track) return;
-    track.style.transition = animate ? 'transform .38s cubic-bezier(.32,0,.15,1)' : 'none';
-    track.style.transform = 'translateX(' + getOffset(currentIdx) + 'px)';
-    updateClasses();
-    updateDots();
-  }
-
-  function updateClasses(){
-    allNodes.forEach(function(el, i){
-      el.classList.remove('active-center','near-center');
-      var diff = Math.abs(i - currentIdx);
-      if(diff === 0) el.classList.add('active-center');
-      else if(diff === 1) el.classList.add('near-center');
-    });
-  }
-
-  function updateDots(){
-    var dots = document.querySelectorAll('#carouselDots .cdot');
-    var real = ((currentIdx - CLONES) % realCount + realCount) % realCount;
-    dots.forEach(function(d,i){ d.classList.toggle('active', i === real); });
-  }
-
-  function jumpTo(idx, animate){
-    currentIdx = idx;
-    isAnimating = !!animate;
-    setTransform(animate !== false);
-    if(animate) afterSlide();
-  }
-
-  // After animated slide, jump silently if in clone zone
-  var jumpT = null;
-  function afterSlide(){
-    clearTimeout(jumpT);
-    jumpT = setTimeout(function(){
-      if(currentIdx < CLONES){
-        currentIdx = currentIdx + realCount;
-        setTransform(false);
-      } else if(currentIdx >= CLONES + realCount){
-        currentIdx = currentIdx - realCount;
-        setTransform(false);
-      }
-      isAnimating = false;
-    }, 420);
-  }
-
-  function slide(dir){
-    if(isAnimating) return;
-    isAnimating = true;
-    currentIdx += dir;
-    setTransform(true);
-    afterSlide();
-  }
-
-  function handleEnd(){
-    if(!isDragging) return;
-    isDragging = false;
-    var track = document.getElementById('cityCarouselTrack');
-    if(track) track.style.transition = '';
-    clearTimeout(jumpT);
-    if(Math.abs(pointerDelta) > 28){
-      isAnimating = true;
-      currentIdx += (pointerDelta < 0 ? 1 : -1);
-      setTransform(true);
-      afterSlide();
-    } else {
-      setTransform(true);
-      afterSlide();
-    }
-    setTimeout(function(){ pointerDelta = 0; }, 60);
-  }
-
-  function selectCarouselCity(city){
-    // Deselect all
-    allNodes.forEach(function(n){ n.classList.remove('selected'); });
-    document.querySelectorAll('.origin-card').forEach(function(x){ x.classList.remove('selected'); });
-    // Select all nodes with this city
-    allNodes.forEach(function(n){ if(n.dataset.city === city) n.classList.add('selected'); });
-    selectedCity = city;
-    state.origin = city;
-    resetFlow();
-    // Show city name in bottom sheet
-    document.getElementById('pccCityVal').textContent = (typeof CITY_LABEL !== 'undefined' ? (CITY_LABEL[city]||city) : city);
-    document.getElementById('pccPaxVal').textContent = P(state.passengers);
-    // Open bottom sheet immediately
-    buildMonthPills();
-    document.body.classList.add('sheet-open');
-    document.getElementById('bsOverlay').classList.add('open');
-    document.getElementById('bsSheet').classList.add('open');
-    _goToStep(1);
-  }
-
   function init(){
-    buildTrack();
-    buildDots();
-    currentIdx = CLONES;
-    setTransform(false);
-
-    var track = document.getElementById('cityCarouselTrack');
-    if(!track) return;
-
-    // Click
-    track.addEventListener('click', function(e){
-      if(Math.abs(pointerDelta) > 8) return;
-      var item = e.target.closest('.city-carousel-item');
-      if(!item) return;
-      var nodeIdx = allNodes.indexOf(item);
-      if(nodeIdx === currentIdx){
-        selectCarouselCity(item.dataset.city);
-      } else {
-        // find real center for this city among allNodes nearest to currentIdx
-        var diff = nodeIdx - currentIdx;
-        if(Math.abs(diff) <= Math.floor(totalCount/2)){
-          jumpTo(currentIdx + diff, true);
-          afterSlide();
-        } else {
-          jumpTo(nodeIdx, true);
-          afterSlide();
-        }
+    var track=document.getElementById('cityCarouselTrack');
+    var wrap=document.getElementById('cityCarouselWrap');
+    var dots=document.getElementById('carouselDots');
+    if(!track||!wrap) return;
+    // rebuild dots with cdot class
+    makeInfSlider({
+      trackEl:track, wrapEl:wrap, dotsEl:dots,
+      items:ITEMS_DATA,
+      cardW:72, gapW:10, centered:true, classMap:true,
+      render:function(data){
+        var el=document.createElement('div');
+        el.className='city-carousel-item';
+        el.innerHTML='<div class="cci-icon">'+(SVGS[data.city]||SVGS.other)+'</div><div class="cci-name">'+data.name+'</div><div class="cci-type">'+data.type+'</div><div class="cci-tick">✓</div>';
+        return el;
+      },
+      onSelect:function(data){
+        // deselect all
+        track.querySelectorAll('.city-carousel-item').forEach(function(n){n.classList.remove('selected');});
+        document.querySelectorAll('.origin-card').forEach(function(x){x.classList.remove('selected');});
+        // select matching items
+        track.querySelectorAll('.city-carousel-item').forEach(function(n){
+          if(n.querySelector('.cci-name')&&n.querySelector('.cci-name').textContent===data.name) n.classList.add('selected');
+        });
+        state.origin=data.city;
+        resetFlow();
+        document.getElementById('pccCityVal').textContent=(typeof CITY_LABEL!=='undefined'?(CITY_LABEL[data.city]||data.name):data.name);
+        document.getElementById('pccPaxVal').textContent=P(state.passengers);
+        buildMonthPills();
+        document.body.classList.add('sheet-open');
+        document.getElementById('bsOverlay').classList.add('open');
+        document.getElementById('bsSheet').classList.add('open');
+        _goToStep(1);
       }
     });
-
-    // Touch
-    track.addEventListener('touchstart', function(e){
-      if(isAnimating) return;
-      isDragging = true; pointerStartX = e.touches[0].clientX; pointerDelta = 0;
-      clearTimeout(jumpT);
-      track.style.transition = 'none';
-    }, {passive:true});
-    track.addEventListener('touchmove', function(e){
-      if(!isDragging) return;
-      pointerDelta = e.touches[0].clientX - pointerStartX;
-      track.style.transform = 'translateX(' + (getOffset(currentIdx) + pointerDelta) + 'px)';
-    }, {passive:true});
-    track.addEventListener('touchend', handleEnd);
-
-    // Mouse
-    track.addEventListener('mousedown', function(e){
-      if(isAnimating) return;
-      isDragging = true; pointerStartX = e.clientX; pointerDelta = 0;
-      clearTimeout(jumpT);
-      track.style.transition = 'none'; e.preventDefault();
-    });
-    document.addEventListener('mousemove', function(e){
-      if(!isDragging) return;
-      pointerDelta = e.clientX - pointerStartX;
-      track.style.transform = 'translateX(' + (getOffset(currentIdx) + pointerDelta) + 'px)';
-    });
-    document.addEventListener('mouseup', handleEnd);
-
-    window.addEventListener('resize', function(){ setTransform(false); });
   }
-
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    setTimeout(init, 80);
-  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);;
+  else setTimeout(init,80);
 })();
 
 // ══ TYPEWRITER HERO SLOGAN ══
