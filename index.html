@@ -399,23 +399,24 @@ body.sheet-open{overflow:hidden;}
 .origin-card.selected .origin-card-tick{display:flex;}
 .more-cities-label{font-size:10px;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.3);text-transform:uppercase;margin:14px 0 10px;}
 /* ── City Carousel ── */
-.city-carousel-wrap{position:relative;overflow:hidden;padding:6px 0 10px;margin:0 -8px;}
-.city-carousel-track{display:flex;gap:10px;transition:transform .38s cubic-bezier(.32,0,.15,1);padding:4px 50% 4px;will-change:transform;cursor:grab;}
+.city-carousel-wrap{position:relative;overflow:hidden;padding:4px 0 8px;margin:0 -4px;}
+.city-carousel-track{display:flex;align-items:center;transition:transform .36s cubic-bezier(.32,0,.15,1);padding:4px 0;will-change:transform;cursor:grab;user-select:none;-webkit-user-select:none;}
 .city-carousel-track:active{cursor:grabbing;}
-.city-carousel-item{flex:0 0 90px;display:flex;flex-direction:column;align-items:center;gap:7px;padding:12px 8px 10px;border-radius:16px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);cursor:pointer;transition:all .32s cubic-bezier(.4,0,.2,1);transform:scale(.82);opacity:.55;user-select:none;}
-.city-carousel-item.active-center{transform:scale(1);opacity:1;border-color:rgba(201,168,76,.55);background:rgba(201,168,76,.1);box-shadow:0 4px 20px rgba(201,168,76,.2);}
-.city-carousel-item.near-center{transform:scale(.91);opacity:.75;}
-.city-carousel-item.selected{border-color:var(--gold) !important;background:rgba(201,168,76,.18) !important;box-shadow:0 4px 20px rgba(201,168,76,.35) !important;}
-.cci-icon{font-size:22px;line-height:1;}
-.cci-name{font-size:11px;font-weight:700;color:rgba(255,255,255,.8);text-align:center;white-space:nowrap;}
-.city-carousel-item.active-center .cci-name{color:var(--goldL);}
-.cci-type{font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(255,165,0,.15);color:rgba(255,200,80,.7);border:1px solid rgba(255,165,0,.2);}
-.cci-tick{width:18px;height:18px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:9px;color:var(--em);font-weight:800;margin-top:2px;}
-.city-carousel-item.selected .cci-tick{display:flex;}
-.carousel-dots{display:flex;justify-content:center;gap:5px;margin-top:8px;}
-.cdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .25s;cursor:pointer;}
-.cdot.active{width:16px;border-radius:3px;background:var(--gold);}
-/* hide old pill classes (kept for JS compat) */
+.city-carousel-item{flex:0 0 72px;width:72px;display:flex;flex-direction:column;align-items:center;gap:5px;padding:9px 6px 8px;border-radius:14px;border:1.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);cursor:pointer;transition:transform .32s cubic-bezier(.4,0,.2,1),opacity .32s,border-color .32s,background .32s,box-shadow .32s;transform:scale(.78);opacity:.45;margin:0 5px;}
+.city-carousel-item.near-center{transform:scale(.89);opacity:.68;}
+.city-carousel-item.active-center{transform:scale(1);opacity:1;border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.1);box-shadow:0 3px 16px rgba(201,168,76,.18);}
+.city-carousel-item.selected .cci-tick{display:flex !important;}
+.city-carousel-item.selected.active-center{border-color:var(--gold);background:rgba(201,168,76,.18);box-shadow:0 4px 20px rgba(201,168,76,.32);}
+.cci-icon{font-size:18px;line-height:1;}
+.cci-name{font-size:10px;font-weight:700;color:rgba(255,255,255,.75);text-align:center;white-space:nowrap;}
+.city-carousel-item.active-center .cci-name{color:var(--goldL);font-size:11px;}
+.cci-type{font-size:8.5px;font-weight:600;padding:1.5px 6px;border-radius:100px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1);}
+.city-carousel-item.active-center .cci-type{background:rgba(201,168,76,.15);color:rgba(232,201,122,.7);border-color:rgba(201,168,76,.25);}
+.cci-tick{width:16px;height:16px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:8px;color:var(--em);font-weight:800;}
+.carousel-dots{display:flex;justify-content:center;gap:4px;margin-top:6px;}
+.cdot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .25s;cursor:pointer;}
+.cdot.active{width:14px;border-radius:2px;background:var(--gold);}
+/* hide old pill classes */
 .city-pill-sm{display:none;}
 .city-pill-sm-dot{display:none;}
 .hero-wave{display:block;line-height:0;margin-top:-1px;}
@@ -2783,44 +2784,69 @@ function aiFormatNum(n){return P(Math.round(n).toLocaleString('en'));}
 
 // ══ CITY CAROUSEL ══
 (function(){
-  var ITEMS_DATA=[
-    {city:'tabriz',transport:'land'},
-    {city:'qom',transport:'land'},
-    {city:'karaj',transport:'land'},
-    {city:'ahvaz',transport:'land'},
-    {city:'rasht',transport:'land'},
-    {city:'kermanshah',transport:'land'},
-    {city:'arak',transport:'land'},
-    {city:'yazd',transport:'land'},
-    {city:'other',transport:'land'}
-  ];
-  var currentIdx=0;
-  var isDragging=false;
-  var dragStartX=0;
-  var dragDelta=0;
-  var ITEM_W=100; // item width + gap
+  var currentIdx = 0;
+  var isDragging = false;
+  var pointerStartX = 0;
+  var pointerDelta = 0;
+  var ITEM_W = 82; // 72px width + 10px margin total
+
+  function getItems(){
+    return document.querySelectorAll('#cityCarouselTrack .city-carousel-item');
+  }
+
+  function render(){
+    var track = document.getElementById('cityCarouselTrack');
+    var dotsWrap = document.getElementById('carouselDots');
+    if(!track) return;
+    var items = getItems();
+    var total = items.length;
+
+    // Center the active item: offset = -(currentIdx * ITEM_W) + (containerWidth/2 - ITEM_W/2)
+    var wrap = document.getElementById('cityCarouselWrap');
+    var containerW = wrap ? wrap.offsetWidth : 280;
+    var offset = -(currentIdx * ITEM_W) + (containerW / 2 - ITEM_W / 2);
+    track.style.transform = 'translateX(' + offset + 'px)';
+
+    items.forEach(function(el, i){
+      el.classList.remove('active-center','near-center');
+      var diff = Math.abs(i - currentIdx);
+      if(diff === 0) el.classList.add('active-center');
+      else if(diff === 1) el.classList.add('near-center');
+    });
+
+    if(dotsWrap){
+      var dots = dotsWrap.querySelectorAll('.cdot');
+      dots.forEach(function(d,i){ d.classList.toggle('active', i === currentIdx); });
+    }
+  }
+
+  function goTo(idx){
+    var items = getItems();
+    currentIdx = Math.max(0, Math.min(items.length - 1, idx));
+    render();
+  }
 
   function init(){
-    var track=document.getElementById('cityCarouselTrack');
-    var dotsWrap=document.getElementById('carouselDots');
-    if(!track||!dotsWrap) return;
+    var track = document.getElementById('cityCarouselTrack');
+    var dotsWrap = document.getElementById('carouselDots');
+    if(!track || !dotsWrap) return;
+
+    var items = getItems();
 
     // Build dots
-    dotsWrap.innerHTML='';
-    ITEMS_DATA.forEach(function(_,i){
-      var d=document.createElement('div');
-      d.className='cdot'+(i===0?' active':'');
-      d.onclick=function(){goTo(i);};
+    dotsWrap.innerHTML = '';
+    items.forEach(function(_, i){
+      var d = document.createElement('div');
+      d.className = 'cdot' + (i === 0 ? ' active' : '');
+      (function(idx){ d.onclick = function(){ goTo(idx); }; })(i);
       dotsWrap.appendChild(d);
     });
 
     // Click on item
-    var items=track.querySelectorAll('.city-carousel-item');
-    items.forEach(function(el,i){
-      el.addEventListener('click',function(){
-        if(Math.abs(dragDelta)>5) return; // ignore drag-end clicks
-        if(i===currentIdx){
-          // select this city
+    items.forEach(function(el, i){
+      el.addEventListener('click', function(){
+        if(Math.abs(pointerDelta) > 6) return;
+        if(i === currentIdx){
           selectCarouselCity(el);
         } else {
           goTo(i);
@@ -2828,83 +2854,71 @@ function aiFormatNum(n){return P(Math.round(n).toLocaleString('en'));}
       });
     });
 
-    // Touch
-    track.addEventListener('touchstart',function(e){
-      isDragging=true; dragStartX=e.touches[0].clientX; dragDelta=0;
-    },{passive:true});
-    track.addEventListener('touchmove',function(e){
+    // Touch events
+    track.addEventListener('touchstart', function(e){
+      isDragging = true;
+      pointerStartX = e.touches[0].clientX;
+      pointerDelta = 0;
+      track.style.transition = 'none';
+    }, {passive: true});
+
+    track.addEventListener('touchmove', function(e){
       if(!isDragging) return;
-      dragDelta=e.touches[0].clientX - dragStartX;
-    },{passive:true});
-    track.addEventListener('touchend',function(){
-      isDragging=false;
-      if(dragDelta < -30) goTo(Math.min(ITEMS_DATA.length-1, currentIdx+1));
-      else if(dragDelta > 30) goTo(Math.max(0, currentIdx-1));
+      pointerDelta = e.touches[0].clientX - pointerStartX;
+    }, {passive: true});
+
+    track.addEventListener('touchend', function(){
+      isDragging = false;
+      track.style.transition = '';
+      if(pointerDelta < -28) goTo(currentIdx + 1);
+      else if(pointerDelta > 28) goTo(currentIdx - 1);
       else render();
-      dragDelta=0;
+      setTimeout(function(){ pointerDelta = 0; }, 50);
     });
 
-    // Mouse drag
-    track.addEventListener('mousedown',function(e){
-      isDragging=true; dragStartX=e.clientX; dragDelta=0; e.preventDefault();
+    // Mouse events
+    track.addEventListener('mousedown', function(e){
+      isDragging = true;
+      pointerStartX = e.clientX;
+      pointerDelta = 0;
+      track.style.transition = 'none';
+      e.preventDefault();
     });
-    document.addEventListener('mousemove',function(e){
-      if(!isDragging) return; dragDelta=e.clientX - dragStartX;
-    });
-    document.addEventListener('mouseup',function(){
+
+    document.addEventListener('mousemove', function(e){
       if(!isDragging) return;
-      isDragging=false;
-      if(dragDelta < -30) goTo(Math.min(ITEMS_DATA.length-1, currentIdx+1));
-      else if(dragDelta > 30) goTo(Math.max(0, currentIdx-1));
-      else render();
-      dragDelta=0;
+      pointerDelta = e.clientX - pointerStartX;
     });
+
+    document.addEventListener('mouseup', function(){
+      if(!isDragging) return;
+      isDragging = false;
+      track.style.transition = '';
+      if(pointerDelta < -28) goTo(currentIdx + 1);
+      else if(pointerDelta > 28) goTo(currentIdx - 1);
+      else render();
+      setTimeout(function(){ pointerDelta = 0; }, 50);
+    });
+
+    // Re-render on resize
+    window.addEventListener('resize', function(){ render(); });
 
     render();
-  }
-
-  function goTo(idx){
-    currentIdx=idx;
-    render();
-  }
-
-  function render(){
-    var track=document.getElementById('cityCarouselTrack');
-    var dotsWrap=document.getElementById('carouselDots');
-    if(!track) return;
-    var items=track.querySelectorAll('.city-carousel-item');
-    var offset = -(currentIdx * ITEM_W);
-    track.style.transform='translateX('+offset+'px)';
-    items.forEach(function(el,i){
-      el.classList.remove('active-center','near-center');
-      var diff=Math.abs(i - currentIdx);
-      if(diff===0) el.classList.add('active-center');
-      else if(diff===1) el.classList.add('near-center');
-    });
-    // dots
-    if(dotsWrap){
-      var dots=dotsWrap.querySelectorAll('.cdot');
-      dots.forEach(function(d,i){ d.classList.toggle('active', i===currentIdx); });
-    }
   }
 
   function selectCarouselCity(el){
-    var city=el.dataset.city;
-    var transport=el.dataset.transport;
-    // deselect all
     document.querySelectorAll('.city-carousel-item').forEach(function(x){ x.classList.remove('selected'); });
     document.querySelectorAll('.origin-card').forEach(function(x){ x.classList.remove('selected'); });
     el.classList.add('selected');
-    state.origin=city;
+    state.origin = el.dataset.city;
     resetFlow();
     setTimeout(function(){ openBottomSheet(); }, 120);
   }
 
-  // Init after DOM ready
-  if(document.readyState==='loading'){
+  if(document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', init);
   } else {
-    setTimeout(init, 100);
+    setTimeout(init, 80);
   }
 })();
 
