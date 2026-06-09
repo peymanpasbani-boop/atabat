@@ -1578,11 +1578,10 @@ var tsSelectedTrip = null;
     /* Each card is exactly outer width — set inline */
     for(var i=0;i<total;i++){
       var card=buildCard(data[i]);
-      /* absolute pixel width set after layout */
       card.style.position='absolute';
       card.style.top='0';
-      card.style.width='100%';
-      card.style.left=(i*100)+'%';
+      /* width = 100% of outer minus gap; left accounts for gap */
+      card.dataset.idx=i;
       track.appendChild(card);
     }
     /* track is position:relative, height = tallest card */
