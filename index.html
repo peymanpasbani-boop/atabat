@@ -897,6 +897,35 @@ body.sheet-open{overflow:hidden;}
   .tnc-meta-strip{grid-template-columns:1fr 1fr 1fr;}
 }
 
+/* ══ PARTNER COMPANIES BOX ══ */
+.partner-box{margin-top:28px;background:var(--white);border:1.5px solid rgba(201,168,76,.18);border-radius:18px;overflow:hidden;}
+/* Modern monochrome header */
+.partner-box-header{background:linear-gradient(135deg,var(--em) 0%,#0f4535 60%,#1a5e49 100%);padding:16px 20px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden;}
+.partner-box-header::after{content:'';position:absolute;top:-30px;left:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;}
+.partner-box-header-icon{width:44px;height:44px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.18);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.partner-box-header-icon svg{width:24px;height:24px;stroke:rgba(255,255,255,.85);stroke-width:1.7;}
+.partner-box-header-text{flex:1;}
+.partner-box-header-title{font-size:14px;font-weight:800;color:#fff;letter-spacing:.01em;}
+.partner-box-header-sub{font-size:10px;color:rgba(255,255,255,.45);margin-top:3px;font-weight:500;}
+/* Body */
+.partner-box-text{font-size:12.5px;color:var(--tm);line-height:1.9;padding:14px 18px 12px;border-bottom:1px dashed rgba(201,168,76,.18);}
+.partner-box-text strong{color:var(--em);font-weight:700;}
+.partner-companies{padding:12px 14px;display:flex;flex-direction:column;gap:0;}
+.partner-company{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1.5px solid rgba(201,168,76,.16);border-radius:11px;cursor:pointer;transition:all .22s;margin-bottom:7px;user-select:none;background:var(--cream);}
+.partner-company:last-of-type{margin-bottom:0;}
+.partner-company:hover{border-color:var(--gold);background:linear-gradient(90deg,rgba(201,168,76,.08),var(--cream));transform:translateY(-1px);box-shadow:0 3px 12px rgba(201,168,76,.12);}
+.partner-company-name{font-size:13px;font-weight:800;color:var(--em);display:flex;align-items:center;gap:9px;}
+.partner-company-name::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--em);opacity:.4;flex-shrink:0;}
+.partner-company:hover .partner-company-name::before{opacity:1;background:var(--gold);}
+.partner-company-chevron{font-size:9px;color:var(--ts);transition:transform .28s ease,color .2s;}
+.partner-company-chevron.open{transform:rotate(180deg);color:var(--gold);}
+.partner-info{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.4,0,.2,1),opacity .28s ease;opacity:0;margin-bottom:0;}
+.partner-info.open{max-height:140px;opacity:1;margin-bottom:9px;margin-top:-3px;}
+.partner-info-inner{background:rgba(13,59,46,.04);border:1.5px solid rgba(13,59,46,.1);border-radius:10px;padding:11px 16px;display:flex;flex-direction:column;gap:8px;}
+.partner-info-row{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--tm);line-height:1.6;}
+.partner-info-row span:first-child{font-size:14px;flex-shrink:0;margin-top:1px;}
+.partner-info-row span:last-child{font-weight:600;}
+
 /* ══ HOTEL PHOTO MODAL ══ */
 .hpm-overlay{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s ease;}
 .hpm-overlay.open{opacity:1;pointer-events:all;}
@@ -1777,6 +1806,44 @@ body.sheet-open{overflow:hidden;}
           <div class="faq-item" id="faq5"><div class="faq-head" onclick="togFaq('faq5')"><div class="faq-q-icon">؟</div><div class="faq-q-text">پس از ثبت‌نام آنلاین، مراحل بعدی چیست؟</div><div class="faq-chevron">▼</div></div><div class="faq-body"><div class="faq-answer">کارشناس ما ظرف ۲ ساعت تماس می‌گیرد، هزینه تأیید می‌شود و برنامه سفر ارسال می‌شود.</div></div></div>
         </div>
       </div>
+
+      <!-- ══ PARTNER COMPANIES BOX ══ -->
+      <div class="partner-box">
+        <div class="partner-box-header">
+          <div class="partner-box-header-icon">
+            <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="5.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              <circle cx="24" cy="12" r="5.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              <path d="M3 32c0-4.97 4.03-9 9-9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              <path d="M33 32c0-4.97-4.03-9-9-9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              <path d="M18 23c3.314 0 6 2.686 6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+              <path d="M18 23c-3.314 0-6 2.686-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="partner-box-header-text">
+            <div class="partner-box-header-title">گزینه‌های دیگر سفر زیارتی</div>
+            <div class="partner-box-header-sub">شرکت‌های معتبر پیشنهادی آوان</div>
+          </div>
+        </div>
+        <div class="partner-box-text">
+          اگر به هر دلیلی ترجیح می‌دهید با <strong>کاروان‌های گروهی حج و زیارت</strong> سفر کنید،
+          این دو شرکت معتبر را به شما پیشنهاد می‌کنیم:
+        </div>
+        <div class="partner-companies">
+          <div class="partner-company" onclick="togglePartnerInfo('sadra')">
+            <div class="partner-company-name">صدراگشت گیتی</div>
+            <div class="partner-company-chevron" id="chevron-sadra">▼</div>
+          </div>
+          <div class="partner-info" id="info-sadra"></div>
+
+          <div class="partner-company" onclick="togglePartnerInfo('mohebban')">
+            <div class="partner-company-name">محبان عباس</div>
+            <div class="partner-company-chevron" id="chevron-mohebban">▼</div>
+          </div>
+          <div class="partner-info" id="info-mohebban"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -3760,6 +3827,45 @@ function togFaq(id){
   document.querySelectorAll('.faq-item').forEach(f=>f.classList.remove('open'));
   if(!is) el.classList.add('open');
 }
+
+// ══ PARTNER COMPANIES TOGGLE ══
+function togglePartnerInfo(id){
+  var info=document.getElementById('info-'+id);
+  var chevron=document.getElementById('chevron-'+id);
+  var isOpen=info.classList.contains('open');
+
+  // Close all
+  ['sadra','mohebban'].forEach(function(k){
+    var i=document.getElementById('info-'+k);
+    var c=document.getElementById('chevron-'+k);
+    if(i){ i.classList.remove('open'); setTimeout(function(){ if(i&&!i.classList.contains('open')) i.innerHTML=''; },350); }
+    if(c) c.classList.remove('open');
+  });
+
+  if(!isOpen){
+    var DATA={
+      sadra:{
+        phone:'۰۲۱۷۴۴۰۵',
+        addr:'تهران، پایین‌تر از چهارراه تلفنخانه، پلاک ۲۰۸'
+      },
+      mohebban:{
+        phone:'۰۲۱۳۳۹۷۵۶۴۰',
+        addr:'تهران، خیابان جمهوری، ابتدای خیابان ملت، کوچه خوشرو، ساختمان ۱۱۰، طبقه اول'
+      }
+    };
+    var d=DATA[id];
+    info.innerHTML=d
+      ? '<div class="partner-info-inner">'
+        +'<div class="partner-info-row"><span>📞</span><span dir="ltr">'+d.phone+'</span></div>'
+        +'<div class="partner-info-row"><span>📍</span><span>'+d.addr+'</span></div>'
+        +'</div>'
+      : '';
+    // trigger reflow for transition
+    info.offsetHeight;
+    info.classList.add('open');
+    chevron.classList.add('open');
+  }
+}
 function toggleCaravanAcc(){
   const toggle=document.getElementById('caravanToggle');
   const body=document.getElementById('caravanAccBody');
@@ -4438,4 +4544,4 @@ function aiFormatNum(n){return P(Math.round(n).toLocaleString('en'));}
 
 </script>
 </body>
-</html>
+</html> 
