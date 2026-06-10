@@ -1157,6 +1157,287 @@ body.sheet-open{overflow:hidden;}
 .aichat-banner-example{font-size:10.5px;color:rgba(201,168,76,.65);font-style:italic;margin-top:4px;}
 .aichat-banner-arrow{width:36px;height:36px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--goldL);font-size:14px;flex-shrink:0;transition:all .25s;}
 .aichat-inline-banner:hover .aichat-banner-arrow{background:rgba(201,168,76,.3);transform:translateX(-3px);}
+
+
+/* ══ CARAVAN REDESIGN ══ */
+
+/* Accordion wrapper */
+.cv2-wrap { margin-top: 0; }
+
+.cv2-toggle {
+  background: var(--white);
+  border: 1.5px solid rgba(201,168,76,.2);
+  border-radius: 18px;
+  padding: 18px 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: var(--tr);
+  box-shadow: 0 2px 14px rgba(13,59,46,.05);
+}
+.cv2-toggle:hover { border-color: var(--goldB); }
+.cv2-toggle.open { border-color: var(--goldB); border-radius: 18px 18px 0 0; box-shadow: none; }
+
+.cv2-toggle-icon {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, var(--em), var(--em3));
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(13,59,46,.2);
+}
+.cv2-toggle-icon svg { width: 22px; height: 22px; stroke: var(--goldL); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.cv2-toggle-meta { flex: 1; }
+.cv2-toggle-title { font-size: 14px; font-weight: 800; color: var(--em); }
+.cv2-toggle-sub { font-size: 11px; color: var(--ts); margin-top: 2px; }
+.cv2-toggle-badge { font-size: 10px; font-weight: 700; color: var(--gold); background: var(--goldP); border: 1px solid var(--goldB); padding: 3px 11px; border-radius: 100px; flex-shrink: 0; }
+.cv2-toggle-chevron { font-size: 10px; color: var(--ts); transition: transform .35s; flex-shrink: 0; }
+.cv2-toggle.open .cv2-toggle-chevron { transform: rotate(180deg); }
+
+/* Body */
+.cv2-body { max-height: 0; overflow: hidden; transition: max-height .55s cubic-bezier(.4,0,.2,1); }
+.cv2-body.open { max-height: 3000px; }
+.cv2-inner {
+  background: var(--white);
+  border: 1.5px solid var(--goldB);
+  border-top: none;
+  border-radius: 0 0 18px 18px;
+  padding: 0 20px 24px;
+}
+
+/* ── Intro message ── */
+.cv2-intro {
+  margin: 18px 0 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: linear-gradient(135deg, rgba(13,59,46,.06), rgba(201,168,76,.05));
+  border: 1.5px solid rgba(201,168,76,.2);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.cv2-intro-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--em), var(--em3));
+  border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.cv2-intro-text { flex: 1; }
+.cv2-intro-title { font-size: 13px; font-weight: 800; color: var(--em); margin-bottom: 5px; }
+.cv2-intro-body { font-size: 12px; color: var(--tm); line-height: 1.85; }
+.cv2-intro-body strong { color: var(--em); font-weight: 700; }
+.cv2-intro-cta {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 10px;
+  padding: 7px 14px;
+  background: var(--em);
+  color: var(--goldL);
+  border-radius: 100px;
+  font-size: 11.5px; font-weight: 700;
+  cursor: pointer;
+  border: none;
+  font-family: "Vazirmatn", sans-serif;
+  transition: var(--tr);
+}
+.cv2-intro-cta:hover { background: var(--em3); transform: translateY(-1px); }
+
+/* ── City selector — minimal pill row ── */
+.cv2-city-section { margin-bottom: 16px; }
+.cv2-city-label { font-size: 10px; font-weight: 700; color: var(--ts); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 9px; }
+.cv2-city-pills { display: flex; gap: 7px; flex-wrap: wrap; }
+.cv2-city-pill {
+  padding: 8px 16px;
+  border-radius: 100px;
+  border: 1.5px solid rgba(201,168,76,.2);
+  background: var(--cream);
+  cursor: pointer;
+  transition: all .2s;
+  font-size: 12.5px; font-weight: 700; color: var(--td);
+  display: flex; align-items: center; gap: 6px;
+}
+.cv2-city-pill:hover { border-color: rgba(201,168,76,.45); transform: translateY(-1px); }
+.cv2-city-pill.active {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, rgba(201,168,76,.12), rgba(26,94,73,.06));
+  color: var(--em);
+  box-shadow: 0 3px 12px rgba(201,168,76,.18);
+}
+.cv2-city-pill-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--ts);
+  transition: background .2s;
+}
+.cv2-city-pill.active .cv2-city-pill-dot { background: var(--gold); }
+
+/* ── Type filter tabs ── */
+.cv2-tabs {
+  display: flex; gap: 0;
+  background: rgba(13,59,46,.06);
+  border-radius: 100px;
+  padding: 3px;
+  margin-bottom: 18px;
+  width: fit-content;
+}
+.cv2-tab {
+  padding: 7px 18px;
+  border-radius: 100px;
+  font-size: 11.5px; font-weight: 700;
+  cursor: pointer;
+  transition: all .22s;
+  color: var(--ts);
+  display: flex; align-items: center; gap: 6px;
+  border: none; background: transparent;
+  font-family: "Vazirmatn", sans-serif;
+}
+.cv2-tab.active {
+  background: var(--white);
+  color: var(--em);
+  box-shadow: 0 2px 8px rgba(13,59,46,.12);
+}
+.cv2-tab-icon { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* ── Caravan cards ── */
+.cv2-list { display: flex; flex-direction: column; gap: 10px; }
+
+.cv2-card {
+  background: var(--cream);
+  border: 1.5px solid rgba(201,168,76,.16);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all .28s;
+  cursor: pointer;
+}
+.cv2-card:hover { border-color: rgba(201,168,76,.38); box-shadow: 0 4px 18px rgba(13,59,46,.08); transform: translateY(-1px); }
+.cv2-card.open { border-color: var(--gold); box-shadow: 0 6px 24px rgba(13,59,46,.1); transform: none; }
+
+/* Card header row */
+.cv2-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+}
+.cv2-card.open .cv2-card-head {
+  border-bottom: 1px solid rgba(201,168,76,.15);
+  background: linear-gradient(135deg, rgba(13,59,46,.04), transparent);
+}
+
+/* Transport icon — clean monochrome box */
+.cv2-transport-box {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.cv2-transport-box.air { background: rgba(13,59,46,.08); }
+.cv2-transport-box.land { background: rgba(201,168,76,.1); }
+.cv2-transport-box svg { width: 24px; height: 24px; }
+
+/* Date — prominent */
+.cv2-date-block { display: flex; flex-direction: column; gap: 1px; flex-shrink: 0; text-align: center; }
+.cv2-date-day { font-size: 28px; font-weight: 900; color: var(--em); line-height: 1; letter-spacing: -.03em; }
+.cv2-date-month { font-size: 10px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: .04em; margin-top: 1px; }
+
+/* Vertical divider */
+.cv2-vdiv { width: 1px; height: 36px; background: rgba(201,168,76,.2); flex-shrink: 0; }
+
+/* Trip info */
+.cv2-info { flex: 1; min-width: 0; }
+.cv2-info-route { font-size: 13px; font-weight: 800; color: var(--em); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cv2-info-meta { display: flex; align-items: center; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
+.cv2-info-tag {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 100px;
+}
+.cv2-info-tag.air { background: rgba(13,59,46,.08); color: var(--em3); }
+.cv2-info-tag.land { background: rgba(201,168,76,.12); color: #7a5c1a; }
+.cv2-info-tag.dur { background: rgba(201,168,76,.1); color: #7a5c1a; border: 1px solid rgba(201,168,76,.22); }
+
+/* Capacity pill */
+.cv2-cap {
+  display: flex; align-items: center; gap: 6px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 10px; font-weight: 700;
+}
+.cv2-cap.hi { background: rgba(34,197,94,.1); color: #15803d; }
+.cv2-cap.mi { background: rgba(245,158,11,.1); color: #b45309; }
+.cv2-cap.lo { background: rgba(239,68,68,.1); color: #dc2626; }
+.cv2-cap-dot { width: 6px; height: 6px; border-radius: 50%; }
+.cv2-cap.hi .cv2-cap-dot { background: #22c55e; }
+.cv2-cap.mi .cv2-cap-dot { background: #f59e0b; }
+.cv2-cap.lo .cv2-cap-dot { background: #ef4444; }
+
+.cv2-chevron { font-size: 9px; color: var(--ts); transition: transform .3s; flex-shrink: 0; }
+.cv2-card.open .cv2-chevron { transform: rotate(180deg); }
+
+/* Expanded body */
+.cv2-card-body { max-height: 0; overflow: hidden; transition: max-height .42s cubic-bezier(.4,0,.2,1); }
+.cv2-card.open .cv2-card-body { max-height: 600px; }
+
+.cv2-card-detail {
+  padding: 14px 16px 16px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+/* Detail grid */
+.cv2-detail-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.cv2-detail-cell {
+  background: var(--white);
+  border: 1px solid rgba(201,168,76,.12);
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+.cv2-detail-label { font-size: 9.5px; font-weight: 700; color: var(--ts); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 3px; }
+.cv2-detail-val { font-size: 13px; font-weight: 700; color: var(--td); }
+.cv2-detail-val.price { color: var(--em); font-size: 14px; }
+
+/* Cap bar */
+.cv2-cap-bar-wrap { background: var(--white); border: 1px solid rgba(201,168,76,.12); border-radius: 10px; padding: 10px 12px; }
+.cv2-cap-bar-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; font-size: 10.5px; color: var(--ts); font-weight: 600; }
+.cv2-cap-bar-track { height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
+.cv2-cap-bar-fill { height: 100%; border-radius: 3px; transition: width .6s ease; }
+.cv2-cap-bar-fill.hi { background: linear-gradient(90deg, var(--em3), #22c55e); }
+.cv2-cap-bar-fill.mi { background: linear-gradient(90deg, #d97706, #f59e0b); }
+.cv2-cap-bar-fill.lo { background: linear-gradient(90deg, #dc2626, #ef4444); }
+
+/* Book button */
+.cv2-book-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 100px;
+  border: none;
+  background: linear-gradient(135deg, var(--gold), #a8722a);
+  color: var(--em);
+  font-family: "Vazirmatn", sans-serif;
+  font-size: 13px; font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(201,168,76,.28);
+  transition: var(--tr);
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+}
+.cv2-book-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201,168,76,.4); }
+
+/* Empty state */
+.cv2-empty {
+  text-align: center; padding: 32px 20px;
+  color: var(--ts); font-size: 12.5px; line-height: 1.8;
+}
+.cv2-empty-icon { font-size: 32px; margin-bottom: 8px; opacity: .5; }
+
+/* Responsive */
+@media (max-width: 480px) {
+  .cv2-detail-grid { grid-template-columns: 1fr; }
+  .cv2-city-pills { gap: 5px; }
+  .cv2-city-pill { padding: 6px 12px; font-size: 12px; }
+}
+
 </style>
 </head>
 <body>
@@ -1759,42 +2040,73 @@ body.sheet-open{overflow:hidden;}
         </div>
       </div>
 
-      <div class="caravan-accordion-wrap">
-        <div class="caravan-acc-toggle" id="caravanToggle" onclick="toggleCaravanAcc()">
-          <div class="caravan-acc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg></div>
-          <div class="caravan-acc-meta"><div class="caravan-acc-title">کاروان‌های گروهی</div><div class="caravan-acc-sub">برنامه اعزام کاروان‌ها از شهرهای مختلف</div></div>
-          <div class="caravan-acc-badge">سرویس مکمل</div>
-          <div class="caravan-acc-chevron">▼</div>
-        </div>
-        <div class="caravan-acc-body" id="caravanAccBody">
-          <div class="caravan-acc-inner">
-            <div class="caravan-msg"><div class="caravan-msg-icon">ℹ️</div><div class="caravan-msg-body">این بخش برای <strong>کاروان‌های گروهی</strong> طراحی شده است. در صورت تمایل می‌توانید <strong>سفر انفرادی</strong> را از بخش بالای صفحه انتخاب و طراحی کنید.</div></div>
-            <div style="font-size:10px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">شهر مبدا را انتخاب کنید</div>
-            <div class="cv-city-dropdown-wrap">
-              <div class="cv-city-dropdown-btn" id="cvCityDropBtn" onclick="toggleCvDropdown()">
-                <div class="cv-city-dd-icon" id="cvDdIcon">🏙</div>
-                <div class="cv-city-dd-label" id="cvDdLabel">تهران</div>
-                <div class="cv-city-dd-badge air" id="cvDdBadge">✈️ هوایی</div>
-                <div class="cv-city-dd-chevron">▼</div>
-              </div>
-              <div class="cv-city-dropdown-panel" id="cvCityDropPanel">
-                <div class="cv-city-dd-scroll" id="cvCityDdScroll"></div>
-              </div>
-            </div>
-            <div class="cv-legend">
-              <div class="cv-legend-pill air"><div class="cv-legend-dot"></div>✈️ کاروان هوایی</div>
-              <div class="cv-legend-pill land"><div class="cv-legend-dot"></div>🚌 کاروان زمینی</div>
-            </div>
-            <div class="cv-filter-row">
-              <div class="cv-pill all" id="cpAll" onclick="cvFilter('all')">همه</div>
-              <div class="cv-pill air-f inactive" id="cpAir" onclick="cvFilter('air')">✈️ هوایی</div>
-              <div class="cv-pill land-f inactive" id="cpLand" onclick="cvFilter('land')">🚌 زمینی</div>
-            </div>
-            <div class="cv-list" id="cvList"></div>
-            <div class="cv-empty" id="cvEmpty" style="display:none;">🔍 کاروانی یافت نشد</div>
+      <div class="cv2-wrap">
+  <div class="cv2-toggle" id="cv2Toggle" onclick="toggleCv2()">
+    <div class="cv2-toggle-icon">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
+    </div>
+    <div class="cv2-toggle-meta">
+      <div class="cv2-toggle-title">کاروان‌های گروهی</div>
+      <div class="cv2-toggle-sub">برنامه اعزام از شهرهای مختلف — هوایی و زمینی</div>
+    </div>
+    <div class="cv2-toggle-badge">سرویس مکمل</div>
+    <div class="cv2-toggle-chevron">▼</div>
+  </div>
+
+  <div class="cv2-body" id="cv2Body">
+    <div class="cv2-inner">
+
+      <!-- Intro -->
+      <div class="cv2-intro">
+        <div class="cv2-intro-icon">✦</div>
+        <div class="cv2-intro-text">
+          <div class="cv2-intro-title">ترجیح ما — طراحی سفر اختصاصی</div>
+          <div class="cv2-intro-body">
+            ما باور داریم بهترین سفر زیارتی، <strong>سفری‌ست که خودتان طراحی کنید</strong> — تاریخ، مسیر، هتل و مدت اقامت دقیقاً مطابق خواسته شما.<br/>
+            اما اگر ترجیح می‌دهید با <strong>کاروان گروهی</strong> سفر کنید، برنامه‌های اعزام پیش رو را ببینید.
           </div>
+          <button class="cv2-intro-cta" onclick="scrollToHeroAndOpen()">← سفر اختصاصی طراحی کنید</button>
         </div>
       </div>
+
+      <!-- City selector -->
+      <div class="cv2-city-section">
+        <div class="cv2-city-label">شهر مبدا</div>
+        <div class="cv2-city-pills" id="cv2CityPills"></div>
+      </div>
+
+      <!-- Type filter tabs -->
+      <div class="cv2-tabs" id="cv2Tabs">
+        <button class="cv2-tab active" id="cv2TabAll" onclick="cv2SetFilter('all')">
+          همه
+        </button>
+        <button class="cv2-tab" id="cv2TabAir" onclick="cv2SetFilter('air')">
+          <svg class="cv2-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16l-6-3 2-7-4 2-4-4-5 3 5 3-2 4 3-1 2 5z"/>
+          </svg>
+          هوایی
+        </button>
+        <button class="cv2-tab" id="cv2TabLand" onclick="cv2SetFilter('land')">
+          <svg class="cv2-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="12" rx="3"/>
+            <path d="M6 7V5a2 2 0 012-2h8a2 2 0 012 2v2"/>
+            <circle cx="7" cy="21" r="1.5"/>
+            <circle cx="17" cy="21" r="1.5"/>
+          </svg>
+          زمینی
+        </button>
+      </div>
+
+      <!-- Caravan list -->
+      <div class="cv2-list" id="cv2List"></div>
+      <div class="cv2-empty" id="cv2Empty" style="display:none;">
+        <div class="cv2-empty-icon">🔍</div>
+        <div>کاروانی برای این شهر و فیلتر یافت نشد.<br/>فیلتر دیگری را امتحان کنید.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
       <div class="faq-section">
         <div class="section-heading"><h2>سؤالات متداول</h2><p>پاسخ سؤالات رایج زائران</p></div>
@@ -4540,6 +4852,260 @@ function aiFormatNum(n){return P(Math.round(n).toLocaleString('en'));}
     el.innerHTML = '<span class="tw-cursor"></span>';
     setTimeout(tick, 600);
   }, 800);
+})();
+
+
+
+// ══ CARAVAN V2 ══
+(function(){
+  'use strict';
+
+  // ── Data ──────────────────────────────────────────────────────────────
+  var CITIES = [
+    { city:'تهران',      icon:'🏙', type:'air'  },
+    { city:'مشهد',       icon:'🕌', type:'air'  },
+    { city:'اصفهان',     icon:'🌉', type:'air'  },
+    { city:'شیراز',      icon:'🌸', type:'land' },
+    { city:'تبریز',      icon:'🏔', type:'land' },
+    { city:'کرج',        icon:'🌳', type:'land' }
+  ];
+
+  var PM_LOCAL = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور',
+                  'مهر','آبان','آذر','دی','بهمن','اسفند'];
+
+  var DATA = {
+    'تهران': {
+      3: [
+        { id:1, day:17, type:'land', cap:14, total:40, dur:'۸ روز', route:'کربلا + نجف',           price:'۸,۲۰۰,۰۰۰' },
+        { id:2, day:19, type:'land', cap:12, total:40, dur:'۸ روز', route:'کربلا + نجف',           price:'۸,۲۰۰,۰۰۰' },
+        { id:3, day:20, type:'air',  cap:8,  total:30, dur:'۷ روز', route:'کربلا + نجف + کاظمین', price:'۱۴,۵۰۰,۰۰۰' },
+        { id:4, day:22, type:'land', cap:5,  total:40, dur:'۱۰ روز',route:'کربلا + نجف + سامرا',  price:'۹,۸۰۰,۰۰۰' },
+        { id:5, day:25, type:'air',  cap:15, total:30, dur:'۷ روز', route:'کربلا + نجف',           price:'۱۳,۸۰۰,۰۰۰' }
+      ],
+      4: [
+        { id:8, day:3,  type:'air',  cap:18, total:30, dur:'۷ روز', route:'کربلا + نجف',           price:'۱۳,۸۰۰,۰۰۰' },
+        { id:9, day:8,  type:'land', cap:22, total:40, dur:'۸ روز', route:'کربلا + نجف + کاظمین', price:'۸,۹۰۰,۰۰۰' }
+      ]
+    },
+    'مشهد': {
+      3: [
+        { id:20, day:18, type:'air', cap:20, total:30, dur:'۷ روز', route:'کربلا + نجف',           price:'۱۶,۲۰۰,۰۰۰' },
+        { id:21, day:24, type:'air', cap:11, total:30, dur:'۷ روز', route:'کربلا + نجف + کاظمین', price:'۱۷,۵۰۰,۰۰۰' }
+      ],
+      4: [
+        { id:23, day:5,  type:'air', cap:24, total:30, dur:'۷ روز', route:'کربلا + نجف',           price:'۱۶,۲۰۰,۰۰۰' }
+      ]
+    },
+    'اصفهان': {
+      3: [ { id:30, day:20, type:'air', cap:22, total:30, dur:'۷ روز', route:'کربلا + نجف',           price:'۱۵,۸۰۰,۰۰۰' } ],
+      4: [ { id:32, day:10, type:'air', cap:19, total:30, dur:'۷ روز', route:'کربلا + نجف + کاظمین', price:'۱۶,۵۰۰,۰۰۰' } ]
+    },
+    'شیراز': {
+      3: [ { id:40, day:21, type:'land', cap:16, total:36, dur:'۱۰ روز', route:'کربلا + نجف', price:'۹,۶۰۰,۰۰۰' } ],
+      4: [ { id:42, day:15, type:'land', cap:21, total:36, dur:'۱۰ روز', route:'کربلا + نجف', price:'۹,۶۰۰,۰۰۰' } ]
+    },
+    'تبریز': {
+      3: [ { id:50, day:23, type:'land', cap:13, total:38, dur:'۹ روز', route:'کربلا + نجف', price:'۸,۸۰۰,۰۰۰' } ],
+      4: [ { id:51, day:7,  type:'land', cap:25, total:38, dur:'۹ روز', route:'کربلا + نجف', price:'۸,۸۰۰,۰۰۰' } ]
+    },
+    'کرج': {
+      3: [ { id:60, day:19, type:'land', cap:18, total:40, dur:'۸ روز', route:'کربلا + نجف',           price:'۸,۰۰۰,۰۰۰' } ],
+      4: [ { id:62, day:12, type:'land', cap:20, total:40, dur:'۸ روز', route:'کربلا + نجف + کاظمین', price:'۸,۹۰۰,۰۰۰' } ]
+    }
+  };
+
+  var MONTHS = [3, 4];
+
+  // ── State ─────────────────────────────────────────────────────────────
+  var st = { city: 'تهران', filter: 'all', openId: null };
+
+  // ── Toggle accordion ──────────────────────────────────────────────────
+  window.toggleCv2 = function(){
+    var toggle = document.getElementById('cv2Toggle');
+    var body   = document.getElementById('cv2Body');
+    var isOpen = toggle.classList.contains('open');
+    toggle.classList.toggle('open', !isOpen);
+    body.classList.toggle('open', !isOpen);
+    if(!isOpen){ cv2Init(); }
+  };
+
+  // ── Scroll to hero ────────────────────────────────────────────────────
+  window.scrollToHeroAndOpen = function(){
+    var hero = document.querySelector('.hero-step-wrap');
+    if(hero) hero.scrollIntoView({ behavior:'smooth', block:'center' });
+  };
+
+  // ── Init ──────────────────────────────────────────────────────────────
+  function cv2Init(){
+    buildCityPills();
+    cv2Render();
+  }
+
+  function buildCityPills(){
+    var wrap = document.getElementById('cv2CityPills');
+    if(!wrap || wrap.children.length > 0) return; // already built
+    CITIES.forEach(function(c){
+      var pill = document.createElement('div');
+      pill.className = 'cv2-city-pill' + (c.city === st.city ? ' active' : '');
+      pill.innerHTML =
+        '<div class="cv2-city-pill-dot"></div>' + c.city;
+      pill.onclick = function(){
+        st.city  = c.city;
+        st.openId = null;
+        document.querySelectorAll('.cv2-city-pill').forEach(function(p){ p.classList.remove('active'); });
+        pill.classList.add('active');
+        cv2Render();
+      };
+      wrap.appendChild(pill);
+    });
+  }
+
+  // ── Filter ────────────────────────────────────────────────────────────
+  window.cv2SetFilter = function(f){
+    st.filter = f;
+    st.openId = null;
+    ['all','air','land'].forEach(function(k){
+      var el = document.getElementById('cv2Tab' + k.charAt(0).toUpperCase() + k.slice(1));
+      if(el) el.classList.toggle('active', k === f);
+    });
+    cv2Render();
+  };
+
+  // ── Helpers ───────────────────────────────────────────────────────────
+  function toFarsi(n){ return String(n).replace(/\d/g, function(d){ return '۰۱۲۳۴۵۶۷۸۹'[d]; }); }
+  function capCls(cap, total){ var r = cap/total; return r>=.38?'hi':r>=.13?'mi':'lo'; }
+  function capLabel(cap, total){
+    if(cap<=0) return 'تکمیل ظرفیت';
+    var r = cap/total;
+    if(r<.13) return toFarsi(cap)+' نفر — آخرین فرصت';
+    if(r<.38) return toFarsi(cap)+' نفر — محدود';
+    return toFarsi(cap)+' صندلی خالی';
+  }
+  function capPct(cap, total){ return Math.round(cap/total*100); }
+
+  // ── SVG icons ─────────────────────────────────────────────────────────
+  var SVG_AIR = '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" stroke="#134a3a">'
+    + '<path d="M21 16l-6-3 2-7-4 2-4-4-5 3 5 3-2 4 3-1 2 5z"/>'
+    + '</svg>';
+
+  var SVG_BUS = '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" stroke="#8a6820">'
+    + '<rect x="2" y="6" width="20" height="13" rx="3"/>'
+    + '<path d="M6 6V4a2 2 0 012-2h8a2 2 0 012 2v2"/>'
+    + '<circle cx="7" cy="21" r="1.8"/>'
+    + '<circle cx="17" cy="21" r="1.8"/>'
+    + '<line x1="7" y1="19" x2="17" y2="19"/>'
+    + '<line x1="2" y1="11" x2="22" y2="11"/>'
+    + '<line x1="8" y1="11" x2="8" y2="19"/>'
+    + '<line x1="16" y1="11" x2="16" y2="19"/>'
+    + '</svg>';
+
+  // ── Render list ───────────────────────────────────────────────────────
+  function cv2Render(){
+    var list  = document.getElementById('cv2List');
+    var empty = document.getElementById('cv2Empty');
+    if(!list) return;
+
+    // Gather + filter
+    var all = [];
+    MONTHS.forEach(function(m){
+      ((DATA[st.city]||{})[m]||[]).forEach(function(ev){
+        all.push(Object.assign({}, ev, { month: m }));
+      });
+    });
+    if(st.filter !== 'all') all = all.filter(function(ev){ return ev.type === st.filter; });
+    all.sort(function(a,b){ return a.month!==b.month ? a.month-b.month : a.day-b.day; });
+
+    list.innerHTML = '';
+
+    if(!all.length){
+      list.style.display = 'none';
+      empty.style.display = 'block';
+      return;
+    }
+    list.style.display = '';
+    empty.style.display = 'none';
+
+    all.forEach(function(ev){
+      var isOpen  = st.openId === ev.id;
+      var cls     = capCls(ev.cap, ev.total);
+      var pct     = capPct(ev.cap, ev.total);
+      var monthName = PM_LOCAL[ev.month - 1];
+      var transportIcon = ev.type==='air' ? SVG_AIR : SVG_BUS;
+      var typeLabel     = ev.type==='air' ? 'هوایی' : 'زمینی';
+      var typeBoxCls    = ev.type==='air' ? 'air' : 'land';
+
+      var card = document.createElement('div');
+      card.className = 'cv2-card' + (isOpen ? ' open' : '');
+      card.id = 'cv2card_' + ev.id;
+
+      card.innerHTML =
+        // ── Head ──
+        '<div class="cv2-card-head" onclick="cv2ToggleCard(' + ev.id + ')">'
+          + '<div class="cv2-transport-box ' + typeBoxCls + '">' + transportIcon + '</div>'
+          + '<div class="cv2-date-block">'
+            + '<div class="cv2-date-day">' + toFarsi(ev.day) + '</div>'
+            + '<div class="cv2-date-month">' + monthName + '</div>'
+          + '</div>'
+          + '<div class="cv2-vdiv"></div>'
+          + '<div class="cv2-info">'
+            + '<div class="cv2-info-route">' + ev.route + '</div>'
+            + '<div class="cv2-info-meta">'
+              + '<span class="cv2-info-tag ' + typeBoxCls + '">' + typeLabel + '</span>'
+              + '<span class="cv2-info-tag dur">🌙 ' + ev.dur + '</span>'
+            + '</div>'
+          + '</div>'
+          + '<div class="cv2-cap ' + cls + '"><div class="cv2-cap-dot"></div>' + (ev.cap<=0 ? 'تکمیل' : toFarsi(ev.cap)+' نفر') + '</div>'
+          + '<div class="cv2-chevron">▼</div>'
+        + '</div>'
+
+        // ── Expanded body ──
+        + '<div class="cv2-card-body">'
+          + '<div class="cv2-card-detail">'
+            + '<div class="cv2-detail-grid">'
+              + '<div class="cv2-detail-cell"><div class="cv2-detail-label">تاریخ</div><div class="cv2-detail-val">' + toFarsi(ev.day) + ' ' + monthName + '</div></div>'
+              + '<div class="cv2-detail-cell"><div class="cv2-detail-label">مبدا</div><div class="cv2-detail-val">' + st.city + '</div></div>'
+              + '<div class="cv2-detail-cell"><div class="cv2-detail-label">مدت سفر</div><div class="cv2-detail-val">' + ev.dur + '</div></div>'
+              + '<div class="cv2-detail-cell"><div class="cv2-detail-label">قیمت / نفر</div><div class="cv2-detail-val price">' + ev.price + ' ت</div></div>'
+            + '</div>'
+            + '<div class="cv2-cap-bar-wrap">'
+              + '<div class="cv2-cap-bar-top"><span>وضعیت ظرفیت</span><span class="cv2-cap ' + cls + '" style="padding:2px 8px;">' + '<div class="cv2-cap-dot" style="display:inline-block;margin-left:4px;vertical-align:middle;"></div>' + capLabel(ev.cap, ev.total) + '</span></div>'
+              + '<div class="cv2-cap-bar-track"><div class="cv2-cap-bar-fill ' + cls + '" style="width:' + pct + '%;"></div></div>'
+            + '</div>'
+            + '<button class="cv2-book-btn" onclick="cv2Book(' + ev.id + ',' + ev.month + ')">'
+              + (ev.type==='air' ? '<svg style="width:16px;height:16px;stroke:var(--em);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;" viewBox="0 0 24 24"><path d="M21 16l-6-3 2-7-4 2-4-4-5 3 5 3-2 4 3-1 2 5z"/></svg>' : '<svg style="width:16px;height:16px;stroke:var(--em);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="13" rx="3"/><line x1="2" y1="11" x2="22" y2="11"/></svg>')
+              + 'رزرو این کاروان'
+            + '</button>'
+          + '</div>'
+        + '</div>';
+
+      list.appendChild(card);
+    });
+  }
+
+  // ── Toggle card ───────────────────────────────────────────────────────
+  window.cv2ToggleCard = function(id){
+    st.openId = (st.openId === id) ? null : id;
+    cv2Render();
+  };
+
+  // ── Book (open existing CRM modal) ────────────────────────────────────
+  window.cv2Book = function(id, month){
+    // Find event
+    var all = [];
+    MONTHS.forEach(function(m){
+      ((DATA[st.city]||{})[m]||[]).forEach(function(ev){
+        all.push(Object.assign({}, ev, {month:m}));
+      });
+    });
+    var ev = all.find(function(e){ return e.id===id; });
+    if(!ev) return;
+    var dateStr = toFarsi(ev.day) + ' ' + PM_LOCAL[ev.month-1];
+    // reuse existing cvBook function
+    if(typeof cvBook === 'function'){
+      cvBook(ev.id, dateStr, ev.route, ev.price, ev.type==='air'?'هوایی':'زمینی', ev.dur);
+    }
+  };
+
 })();
 
 </script>
