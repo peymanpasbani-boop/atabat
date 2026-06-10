@@ -101,7 +101,7 @@ body.sheet-open{overflow:hidden;}
 .date-chip-icon{font-size:14px;}
 
 /* Pax row — inline with city */
-.pax-city-compact{display:flex;align-items:center;gap:10px;background:var(--white);border:1.5px solid rgba(201,168,76,.15);border-radius:14px;padding:12px 16px;}
+.pax-city-compact{display:flex;align-items:center;gap:10px;background:var(--white);border:1.5px solid rgba(201,168,76,.15);border-radius:14px;padding:12px 16px;transition:opacity .3s ease,transform .3s ease;}
 .pcc-city{flex:1;}
 .pcc-city-label{font-size:9.5px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;}
 .pcc-city-val{font-size:14px;font-weight:800;color:var(--em);}
@@ -1669,7 +1669,7 @@ body.sheet-open{overflow:hidden;}
         <div id="dateChipWrap" style="display:none;">
           <div class="date-chip"><span class="date-chip-icon">✅</span><span id="dateChipText"></span></div>
         </div>
-        <div class="pax-city-compact">
+        <div class="pax-city-compact" id="paxCityCompact" style="opacity:.45;pointer-events:none;transition:opacity .3s;">
           <div class="pcc-city">
             <div class="pcc-city-label">شهر مبدا</div>
             <div class="pcc-city-val" id="pccCityVal">—</div>
@@ -1679,7 +1679,7 @@ body.sheet-open{overflow:hidden;}
             <div class="pcc-pax-label">تعداد مسافر</div>
             <div class="pcc-pax-stepper">
               <button class="pcc-btn" onclick="changePax(-1)">−</button>
-              <div class="pcc-val" id="pccPaxVal">۱</div>
+              <div class="pcc-val" id="pccPaxVal">۰</div>
               <button class="pcc-btn" onclick="changePax(1)">+</button>
             </div>
           </div>
@@ -1851,15 +1851,25 @@ body.sheet-open{overflow:hidden;}
         <div class="origin-card" data-city="tehran" data-transport="air" onclick="heroSelectCity(this)">
           <div class="origin-card-tick">✓</div>
           <div class="origin-card-icon">
-            <!-- Azadi Tower — minimal line icon -->
-            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 6 L22 10"/>
-              <path d="M17 10 Q22 7 27 10"/>
-              <path d="M15 10 L15 17 Q15 21 19 22 L19 38"/>
-              <path d="M29 10 L29 17 Q29 21 25 22 L25 38"/>
-              <path d="M12 38 L32 38"/>
-              <path d="M19 22 L25 22"/>
-              <path d="M17 14 Q22 12 27 14"/>
+            <!-- برج آزادی تهران — مدرن و واقعی -->
+            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <!-- پایه‌های ۴ گانه -->
+              <path d="M14 38 L16.5 24"/>
+              <path d="M30 38 L27.5 24"/>
+              <path d="M18 38 L19.5 27"/>
+              <path d="M26 38 L24.5 27"/>
+              <!-- قوس‌های مشخصه برج -->
+              <path d="M16.5 24 Q22 14 27.5 24"/>
+              <path d="M19.5 27 Q22 20 24.5 27"/>
+              <!-- بدنه بالا -->
+              <rect x="19" y="10" width="6" height="4" rx="1"/>
+              <!-- گنبد / سر برج -->
+              <path d="M19 10 Q22 6 25 10"/>
+              <circle cx="22" cy="6" r="1" fill="#e8c97a" stroke="none"/>
+              <!-- خط زمین -->
+              <line x1="9" y1="38" x2="35" y2="38"/>
+              <!-- زیر قوس بزرگ (پل) -->
+              <line x1="14" y1="32" x2="30" y2="32"/>
             </svg>
           </div>
           <div class="origin-card-name">تهران</div>
@@ -1868,18 +1878,33 @@ body.sheet-open{overflow:hidden;}
         <div class="origin-card" data-city="mashhad" data-transport="air" onclick="heroSelectCity(this)">
           <div class="origin-card-tick">✓</div>
           <div class="origin-card-icon">
-            <!-- Imam Reza Shrine golden dome — minimal -->
-            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 5 L22 8"/>
-              <circle cx="22" cy="4.5" r="1.5" fill="#e8c97a" stroke="none"/>
-              <path d="M13 20 Q13 10 22 9 Q31 10 31 20"/>
-              <rect x="11" y="20" width="22" height="4" rx="1"/>
-              <rect x="8" y="24" width="28" height="2" rx="1"/>
-              <rect x="16" y="26" width="4" height="12"/>
-              <rect x="24" y="26" width="4" height="12"/>
-              <rect x="14" y="30" width="8" height="8" rx="1"/>
-              <rect x="22" y="30" width="8" height="8" rx="1"/>
-              <line x1="6" y1="38" x2="38" y2="38"/>
+            <!-- حرم امام رضا مشهد — گنبد طلایی با مناره -->
+            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <!-- مناره چپ -->
+              <rect x="6" y="20" width="4" height="16" rx="1"/>
+              <path d="M5 20 Q8 16 11 20"/>
+              <line x1="8" y1="16" x2="8" y2="13"/>
+              <circle cx="8" cy="13" r="1.2" fill="#e8c97a" stroke="none"/>
+              <!-- مناره راست -->
+              <rect x="34" y="20" width="4" height="16" rx="1"/>
+              <path d="M33 20 Q36 16 39 20"/>
+              <line x1="36" y1="16" x2="36" y2="13"/>
+              <circle cx="36" cy="13" r="1.2" fill="#e8c97a" stroke="none"/>
+              <!-- گنبد اصلی -->
+              <path d="M14 22 Q14 9 22 8 Q30 9 30 22"/>
+              <ellipse cx="22" cy="22" rx="8" ry="2" stroke="#e8c97a" stroke-width="1"/>
+              <!-- پشت‌بام اصلی -->
+              <rect x="11" y="22" width="22" height="3" rx="1"/>
+              <rect x="8" y="25" width="28" height="2" rx="1"/>
+              <!-- کف بنا -->
+              <rect x="10" y="27" width="24" height="9" rx="1"/>
+              <!-- درب وسط -->
+              <path d="M19 36 L19 30 Q22 27 25 30 L25 36"/>
+              <!-- خط زمین -->
+              <line x1="5" y1="36" x2="39" y2="36"/>
+              <!-- نوک گنبد -->
+              <line x1="22" y1="5" x2="22" y2="8"/>
+              <circle cx="22" cy="5" r="1" fill="#e8c97a" stroke="none"/>
             </svg>
           </div>
           <div class="origin-card-name">مشهد</div>
@@ -1888,18 +1913,27 @@ body.sheet-open{overflow:hidden;}
         <div class="origin-card" data-city="isfahan" data-transport="air" onclick="heroSelectCity(this)">
           <div class="origin-card-tick">✓</div>
           <div class="origin-card-icon">
-            <!-- Si-o-se-pol bridge arches — minimal -->
-            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="4" y1="26" x2="40" y2="26"/>
-              <path d="M4 26 Q4 18 10 18 Q16 18 16 26"/>
-              <path d="M14 26 Q14 18 22 18 Q30 18 30 26"/>
-              <path d="M28 26 Q28 18 34 18 Q40 18 40 26"/>
-              <line x1="4" y1="30" x2="40" y2="30"/>
-              <line x1="10" y1="18" x2="10" y2="14"/>
-              <line x1="22" y1="18" x2="22" y2="12"/>
-              <line x1="34" y1="18" x2="34" y2="14"/>
-              <path d="M18 12 Q22 9 26 12"/>
-              <line x1="4" y1="34" x2="40" y2="34"/>
+            <!-- مسجد شیخ لطف‌الله اصفهان — گنبد معروف -->
+            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <!-- گنبد اصلی -->
+              <path d="M10 26 Q10 10 22 8 Q34 10 34 26"/>
+              <!-- حلقه زیر گنبد -->
+              <ellipse cx="22" cy="26" rx="12" ry="2.5" stroke="#e8c97a" stroke-width="1.2"/>
+              <!-- تزئین گنبد — خطوط کاشی‌کاری -->
+              <path d="M14 22 Q22 16 30 22" stroke-width="1"/>
+              <path d="M12 24 Q22 17 32 24" stroke-width="0.8"/>
+              <!-- نوک گنبد با هلال -->
+              <line x1="22" y1="5" x2="22" y2="8"/>
+              <path d="M20 5 Q22 3.5 24 5" stroke-width="1.2"/>
+              <!-- بدنه بنا -->
+              <rect x="10" y="28" width="24" height="8" rx="1"/>
+              <!-- طاق ورودی -->
+              <path d="M17 36 L17 30 Q22 26 27 30 L27 36"/>
+              <!-- ستون‌های طرفین -->
+              <line x1="10" y1="28" x2="10" y2="36"/>
+              <line x1="34" y1="28" x2="34" y2="36"/>
+              <!-- خط زمین -->
+              <line x1="6" y1="36" x2="38" y2="36"/>
             </svg>
           </div>
           <div class="origin-card-name">اصفهان</div>
@@ -1908,17 +1942,32 @@ body.sheet-open{overflow:hidden;}
         <div class="origin-card" data-city="shiraz" data-transport="land" onclick="heroSelectCity(this)">
           <div class="origin-card-tick">✓</div>
           <div class="origin-card-icon">
-            <!-- Persepolis column + Quran Gate arch — minimal -->
-            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="10" y="8" width="6" height="2" rx="1"/>
-              <rect x="12" y="10" width="2" height="22"/>
-              <rect x="9" y="32" width="8" height="2" rx="1"/>
-              <rect x="26" y="8" width="6" height="2" rx="1"/>
-              <rect x="28" y="10" width="2" height="22"/>
-              <rect x="25" y="32" width="8" height="2" rx="1"/>
-              <path d="M13 18 Q22 14 31 18"/>
-              <path d="M13 22 Q22 18 31 22"/>
-              <line x1="6" y1="38" x2="38" y2="38"/>
+            <!-- دروازه قرآن شیراز — نماد شناخته‌شده -->
+            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <!-- برج چپ -->
+              <rect x="5" y="16" width="9" height="22" rx="1"/>
+              <!-- کنگره برج چپ -->
+              <rect x="5" y="13" width="2" height="4" rx="0.5"/>
+              <rect x="8.5" y="13" width="2" height="4" rx="0.5"/>
+              <rect x="12" y="13" width="2" height="4" rx="0.5"/>
+              <!-- برج راست -->
+              <rect x="30" y="16" width="9" height="22" rx="1"/>
+              <!-- کنگره برج راست -->
+              <rect x="30" y="13" width="2" height="4" rx="0.5"/>
+              <rect x="33.5" y="13" width="2" height="4" rx="0.5"/>
+              <rect x="37" y="13" width="2" height="4" rx="0.5"/>
+              <!-- طاق وسط -->
+              <path d="M14 16 L14 24 Q14 10 22 8 Q30 10 30 24 L30 16"/>
+              <!-- قوس جداگانه طاق -->
+              <path d="M14 24 Q22 16 30 24"/>
+              <!-- کتاب قرآن روی طاق -->
+              <rect x="18" y="6" width="8" height="5" rx="1"/>
+              <line x1="22" y1="6" x2="22" y2="11"/>
+              <!-- خط زمین -->
+              <line x1="3" y1="38" x2="41" y2="38"/>
+              <!-- جاده زیر دروازه -->
+              <line x1="18" y1="38" x2="18" y2="24"/>
+              <line x1="26" y1="38" x2="26" y2="24"/>
             </svg>
           </div>
           <div class="origin-card-name">شیراز</div>
@@ -2843,7 +2892,7 @@ function isDisabled(d,m,y){
 // ══ STATE ══
 const state={
   selM:null,selY:null,selD:null,dateText:null,
-  passengers:1,origin:null,
+  passengers:0,origin:null,
   tripType:null,selectedAirport:null,
   cities:[],cityData:{},
   transferOpt:null, // null = not chosen yet
@@ -2883,6 +2932,17 @@ function openBottomSheet(){
   buildMonthPills();
   document.getElementById('pccCityVal').textContent=CITY_LABEL[state.origin]||state.origin||'—';
   document.getElementById('pccPaxVal').textContent=P(state.passengers);
+  // Lock pax section until date is chosen
+  const pcc=document.getElementById('paxCityCompact');
+  if(pcc){
+    if(!state.selD){
+      pcc.style.opacity='.45';
+      pcc.style.pointerEvents='none';
+    } else {
+      pcc.style.opacity='1';
+      pcc.style.pointerEvents='';
+    }
+  }
   document.body.classList.add('sheet-open');
   document.getElementById('bsOverlay').classList.add('open');
   document.getElementById('bsSheet').classList.add('open');
@@ -2936,7 +2996,17 @@ function _goToStep(n){
 
 function bsGoNext(){
   if(bsCurrentStep===1){
-    if(!state.selD){document.getElementById('bsAlert1').classList.add('show');return;}
+    if(!state.selD){
+      document.getElementById('bsAlert1').textContent='لطفاً تاریخ اعزام را انتخاب کنید.';
+      document.getElementById('bsAlert1').classList.add('show');
+      return;
+    }
+    if(!state.passengers||state.passengers<1){
+      document.getElementById('bsAlert1').textContent='لطفاً تعداد مسافران را انتخاب کنید (حداقل ۱ نفر).';
+      document.getElementById('bsAlert1').classList.add('show');
+      enablePaxSection();
+      return;
+    }
     document.getElementById('bsAlert1').classList.remove('show');
     _goToStep(2);
   } else if(bsCurrentStep===2){
@@ -3004,6 +3074,7 @@ function heroSelectCityPill(el){
 }
 function resetFlow(){
   state.selM=null;state.selY=null;state.selD=null;state.dateText=null;
+  state.passengers=0;
   state.tripType=null;state.selectedAirport=null;
   state.cities=[];state.cityData={};
   state.transferOpt=null;state.simCard=false;state.dinars=false;state.dinarsAmt=1;
@@ -3082,13 +3153,28 @@ function selDate(d,m,y){
     const sel=document.querySelector('.day-num.selected');
     if(sel) sel.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
   },50);
-  setTimeout(()=>_goToStep(2),600);
+  // Enable pax section and scroll to it
+  setTimeout(()=>enablePaxSection(), 300);
 }
 
 // ══ PAX ══
 function changePax(d){
-  state.passengers=Math.max(1,Math.min(4,state.passengers+d));
+  state.passengers=Math.max(0,Math.min(4,state.passengers+d));
   document.getElementById('pccPaxVal').textContent=P(state.passengers);
+}
+
+function enablePaxSection(){
+  const pcc=document.getElementById('paxCityCompact');
+  if(pcc){
+    pcc.style.opacity='1';
+    pcc.style.pointerEvents='';
+    // animate attention
+    pcc.style.transform='scale(1.02)';
+    setTimeout(()=>{ pcc.style.transform=''; },300);
+    setTimeout(()=>{
+      pcc.scrollIntoView({behavior:'smooth',block:'nearest'});
+    },150);
+  }
 }
 
 // ══ TRIP TYPE — auto-advance ══
@@ -3260,6 +3346,14 @@ function togTransit(key){
     hs.classList.remove('visible');fw.style.display='none';
     nr.style.opacity='.35';nr.style.pointerEvents='none';
     st.textContent='✓ عبوری';st.className='city-config-status transit';d.hotel=null;
+    // Close current and open next city automatically
+    const ci=state.cities.indexOf(key);
+    document.getElementById('ccd_'+key).classList.remove('open');
+    if(ci<state.cities.length-1){
+      const nk=state.cities[ci+1];
+      const nd=document.getElementById('ccd_'+nk);
+      if(nd) setTimeout(()=>{nd.classList.add('open');nd.scrollIntoView({behavior:'smooth',block:'nearest'});},300);
+    }
     checkAllHotelsChosen();
   } else {
     hs.classList.add('visible');fw.style.display='';
@@ -3511,6 +3605,7 @@ function buildSummarySection(){
         <div><label class="pf-label">نام خانوادگی *</label><input class="pf-input" id="pfbLastName" type="text" placeholder="نام خانوادگی"/></div>
         <div><label class="pf-label">کد ملی *</label><input class="pf-input" id="pfbNational" type="text" placeholder="کد ملی" dir="ltr"/></div>
         <div><label class="pf-label">شماره تماس *</label><input class="pf-input" id="pfbPhone" type="tel" placeholder="۰۹XXXXXXXXX" dir="ltr"/></div>
+        <div style="grid-column:span 2 / span 2;"><label class="pf-label">تاریخ تولد <span style="font-weight:400;color:var(--ts);">(اختیاری)</span></label><input class="pf-input" id="pfbBirth" type="text" placeholder="📅 انتخاب تاریخ تولد..." readonly onclick="openBirthDatePicker('pfbBirth')" style="cursor:pointer;"/></div>
       </div>
       <div class="pax-acc" id="passengersAccordion"></div>
       <div style="margin-top:8px;">
@@ -3520,8 +3615,8 @@ function buildSummarySection(){
         </div>
         <div class="agency-fields" id="agencyFields">
           <div class="pf-grid">
-            <div><label class="pf-label">نام آژانس *</label><input class="pf-input" type="text" placeholder="نام آژانس"/></div>
-            <div><label class="pf-label">شماره تماس *</label><input class="pf-input" type="tel" dir="ltr"/></div>
+            <div><label class="pf-label">نام آژانس *</label><input class="pf-input" id="pfbAgencyName" type="text" placeholder="نام آژانس"/></div>
+            <div><label class="pf-label">شماره تماس *</label><input class="pf-input" id="pfbAgencyPhone" type="tel" dir="ltr"/></div>
           </div>
         </div>
       </div>
@@ -3605,7 +3700,83 @@ function updatePriceDisplay(){
   }
 }
 
-// ══ PASSENGER FORMS ══
+function toggleAgency(){
+  state.isAgency=!state.isAgency;
+  document.getElementById('agencyCheckBox').classList.toggle('checked',state.isAgency);
+  const af=document.getElementById('agencyFields');
+  if(af) af.classList.toggle('show',state.isAgency);
+}
+
+// ══ DATE PICKER DRUM (تاریخ تولد) ══
+function openBirthDatePicker(inputId, displayId){
+  // اگر قبلاً باز است، نبند
+  if(document.getElementById('birthPickerOverlay_'+inputId)) return;
+  const years=[];for(let y=1320;y<=1390;y++) years.push(y);
+  const months=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+  const days=[];for(let d=1;d<=31;d++) days.push(d);
+  let selY=1365,selM=1,selD=1;
+  // Parse existing value
+  const inp=document.getElementById(inputId);
+  if(inp&&inp.value){
+    const parts=inp.value.split('/');
+    if(parts.length===3){selY=parseInt(parts[0])||1365;selM=parseInt(parts[1])||1;selD=parseInt(parts[2])||1;}
+  }
+
+  const overlay=document.createElement('div');
+  overlay.id='birthPickerOverlay_'+inputId;
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2000;display:flex;align-items:flex-end;justify-content:center;';
+
+  overlay.innerHTML=`
+  <div style="background:var(--cream);border-radius:22px 22px 0 0;width:100%;max-width:480px;padding:0 0 env(safe-area-inset-bottom);">
+    <div style="display:flex;align-items:center;justify-content:center;padding:10px 0 4px;">
+      <div style="width:40px;height:4px;background:rgba(0,0,0,.13);border-radius:2px;"></div>
+    </div>
+    <div style="background:linear-gradient(135deg,var(--em),var(--em3));padding:12px 18px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-size:14px;font-weight:800;color:var(--goldL);">📅 تاریخ تولد</div>
+      <button onclick="document.getElementById('birthPickerOverlay_${inputId}').remove()" style="width:28px;height:28px;background:rgba(255,255,255,.12);border:none;border-radius:50%;cursor:pointer;color:rgba(255,255,255,.7);font-size:14px;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:0;padding:12px 16px;">
+      <div style="text-align:center;">
+        <div style="font-size:10px;font-weight:700;color:var(--ts);margin-bottom:6px;">سال</div>
+        <select id="bpy_${inputId}" style="width:100%;padding:10px 8px;font-family:Vazirmatn,sans-serif;font-size:16px;border:1.5px solid rgba(201,168,76,.25);border-radius:10px;background:var(--white);color:var(--em);outline:none;appearance:none;-webkit-appearance:none;text-align:center;cursor:pointer;">
+          ${years.map(y=>`<option value="${y}" ${y===selY?'selected':''}>${P(y)}</option>`).join('')}
+        </select>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:10px;font-weight:700;color:var(--ts);margin-bottom:6px;">ماه</div>
+        <select id="bpm_${inputId}" style="width:100%;padding:10px 4px;font-family:Vazirmatn,sans-serif;font-size:13px;border:1.5px solid rgba(201,168,76,.25);border-radius:10px;background:var(--white);color:var(--em);outline:none;appearance:none;-webkit-appearance:none;text-align:center;cursor:pointer;">
+          ${months.map((m,i)=>`<option value="${i+1}" ${(i+1)===selM?'selected':''}>${m}</option>`).join('')}
+        </select>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:10px;font-weight:700;color:var(--ts);margin-bottom:6px;">روز</div>
+        <select id="bpd_${inputId}" style="width:100%;padding:10px 4px;font-family:Vazirmatn,sans-serif;font-size:16px;border:1.5px solid rgba(201,168,76,.25);border-radius:10px;background:var(--white);color:var(--em);outline:none;appearance:none;-webkit-appearance:none;text-align:center;cursor:pointer;">
+          ${days.map(d=>`<option value="${d}" ${d===selD?'selected':''}>${P(d)}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div style="padding:10px 16px 16px;display:flex;gap:10px;">
+      <button onclick="document.getElementById('birthPickerOverlay_${inputId}').remove()" style="flex:1;padding:10px;border-radius:100px;border:1.5px solid rgba(201,168,76,.28);background:transparent;color:var(--ts);font-family:Vazirmatn,sans-serif;font-size:13px;font-weight:600;cursor:pointer;">انصراف</button>
+      <button onclick="confirmBirthDate('${inputId}')" style="flex:2;padding:12px;border-radius:100px;border:none;background:linear-gradient(135deg,var(--em),var(--em3));color:var(--goldL);font-family:Vazirmatn,sans-serif;font-size:13px;font-weight:700;cursor:pointer;">✓ تأیید تاریخ تولد</button>
+    </div>
+  </div>`;
+
+  overlay.addEventListener('click',function(e){if(e.target===overlay)overlay.remove();});
+  document.body.appendChild(overlay);
+}
+
+function confirmBirthDate(inputId){
+  const y=document.getElementById('bpy_'+inputId)?.value;
+  const m=document.getElementById('bpm_'+inputId)?.value;
+  const d=document.getElementById('bpd_'+inputId)?.value;
+  if(!y||!m||!d) return;
+  const val=P(y)+'/'+P(m).padStart(2,'0')+'/'+P(d).padStart(2,'0');
+  const inp=document.getElementById(inputId);
+  if(inp){ inp.value=val; inp.dispatchEvent(new Event('input')); }
+  document.getElementById('birthPickerOverlay_'+inputId)?.remove();
+}
+
+
 function buildPassengerForms(){
   const acc=document.getElementById('passengersAccordion');
   if(!acc) return;
@@ -3617,7 +3788,7 @@ function addPassengerItem(num){
   if(!acc) return;
   const item=document.createElement('div');
   item.className='pax-item';item.id='paxItem_'+num;
-  item.innerHTML=`<div class="pax-head" onclick="togPax(${num})"><div class="pax-num">${P(num)}</div><div class="pax-lbl">زائر ${P(num)}</div><div class="pax-status" id="paxSt_${num}">در انتظار</div><div class="pax-chevron">▼</div></div><div class="pax-body"><div class="pax-inner"><div class="pf-grid" style="margin-top:6px"><div><label class="pf-label">نام</label><input class="pf-input" id="p${num}_first" type="text" placeholder="نام" oninput="onPaxInput(${num})"/></div><div><label class="pf-label">نام خانوادگی</label><input class="pf-input" id="p${num}_last" type="text" placeholder="نام خانوادگی" oninput="onPaxInput(${num})"/></div><div><label class="pf-label">کد ملی</label><input class="pf-input" type="text" placeholder="کد ملی" dir="ltr"/></div><div><label class="pf-label">تاریخ تولد</label><input class="pf-input" type="text" placeholder="۱۳۶۵/۰۵/۲۰"/></div></div></div></div>`;
+  item.innerHTML=`<div class="pax-head" onclick="togPax(${num})"><div class="pax-num">${P(num)}</div><div class="pax-lbl">زائر ${P(num)}</div><div class="pax-status" id="paxSt_${num}">در انتظار</div><div class="pax-chevron">▼</div></div><div class="pax-body"><div class="pax-inner"><div class="pf-grid" style="margin-top:6px"><div><label class="pf-label">نام</label><input class="pf-input" id="p${num}_first" type="text" placeholder="نام" oninput="onPaxInput(${num})"/></div><div><label class="pf-label">نام خانوادگی</label><input class="pf-input" id="p${num}_last" type="text" placeholder="نام خانوادگی" oninput="onPaxInput(${num})"/></div><div><label class="pf-label">کد ملی</label><input class="pf-input" type="text" placeholder="کد ملی" dir="ltr"/></div><div><label class="pf-label">تاریخ تولد</label><input class="pf-input" id="p${num}_birth" type="text" placeholder="انتخاب تاریخ..." readonly onclick="openBirthDatePicker('p${num}_birth')" style="cursor:pointer;background:var(--cream);" /></div></div></div></div>`;
   acc.appendChild(item);
 }
 function togPax(num){const el=document.getElementById('paxItem_'+num);if(el)el.classList.toggle('open');}
