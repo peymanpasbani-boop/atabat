@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>گروه زیارتی آوان — طراحی سفر زیارتی</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
@@ -314,9 +314,10 @@ body.sheet-open{overflow:hidden;}
 .pf-title{font-size:12px;font-weight:800;color:var(--em);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
 .pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
 .pf-label{font-size:10.5px;font-weight:600;color:var(--tm);display:block;margin-bottom:3px;}
-.pf-input{width:100%;padding:8px 11px;font-family:"Vazirmatn",sans-serif;font-size:12px;color:var(--td);border:1.5px solid rgba(201,168,76,.23);border-radius:8px;background:var(--cream);outline:none;transition:border-color .2s;}
+.pf-input{width:100%;padding:8px 11px;font-family:"Vazirmatn",sans-serif;font-size:16px;color:var(--td);border:1.5px solid rgba(201,168,76,.23);border-radius:8px;background:var(--cream);outline:none;transition:border-color .2s;}
+@media(max-width:640px){.pf-input{font-size:16px;}}
 .pf-input:focus{border-color:var(--gold);background:var(--white);}
-.pf-select{width:100%;padding:8px 11px;font-family:"Vazirmatn",sans-serif;font-size:12px;color:var(--td);border:1.5px solid rgba(201,168,76,.23);border-radius:8px;background:var(--cream);outline:none;appearance:none;-webkit-appearance:none;cursor:pointer;}
+.pf-select{width:100%;padding:8px 11px;font-family:"Vazirmatn",sans-serif;font-size:16px;color:var(--td);border:1.5px solid rgba(201,168,76,.23);border-radius:8px;background:var(--cream);outline:none;appearance:none;-webkit-appearance:none;cursor:pointer;}
 .pf-note{font-size:11px;color:var(--ts);padding:7px 11px;background:rgba(201,168,76,.07);border-radius:8px;border-right:3px solid var(--goldB);line-height:1.75;}
 .pax-acc{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
 .pax-item{border:1px solid rgba(201,168,76,.17);border-radius:var(--r);overflow:hidden;background:var(--cream);}
@@ -656,7 +657,7 @@ body.sheet-open{overflow:hidden;}
 .crm-pax-form-num{width:22px;height:22px;background:var(--em);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--goldL);flex-shrink:0;}
 .crm-pax-form-body{padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .crm-field label{font-size:10.5px;font-weight:600;color:var(--tm);display:block;margin-bottom:4px;}
-.crm-field input{width:100%;padding:7px 10px;font-family:"Vazirmatn",sans-serif;font-size:11.5px;color:var(--td);border:1.5px solid rgba(201,168,76,.22);border-radius:8px;background:var(--white);outline:none;transition:border-color .2s;}
+.crm-field input{width:100%;padding:7px 10px;font-family:"Vazirmatn",sans-serif;font-size:16px;color:var(--td);border:1.5px solid rgba(201,168,76,.22);border-radius:8px;background:var(--white);outline:none;transition:border-color .2s;}
 .crm-field input:focus{border-color:var(--gold);}
 .crm-success{text-align:center;padding:8px 0 4px;}
 .crm-success-icon{font-size:52px;margin-bottom:10px;animation:popIn .5s cubic-bezier(.34,1.56,.64,1) both;}
@@ -859,7 +860,7 @@ body.sheet-open{overflow:hidden;}
 .stb-pax-form-num{width:22px;height:22px;background:var(--em);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--goldL);flex-shrink:0;}
 .stb-pax-form-body{padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .stb-field label{font-size:10.5px;font-weight:600;color:var(--tm);display:block;margin-bottom:4px;}
-.stb-field input{width:100%;padding:8px 10px;font-family:"Vazirmatn",sans-serif;font-size:12px;color:var(--td);border:1.5px solid rgba(201,168,76,.22);border-radius:8px;background:var(--cream);outline:none;transition:border-color .2s;}
+.stb-field input{width:100%;padding:8px 10px;font-family:"Vazirmatn",sans-serif;font-size:16px;color:var(--td);border:1.5px solid rgba(201,168,76,.22);border-radius:8px;background:var(--cream);outline:none;transition:border-color .2s;}
 .stb-field input:focus{border-color:var(--gold);background:var(--white);}
 /* price summary in step 2 */
 .stb-price-summary{background:linear-gradient(135deg,var(--em),var(--em3));border-radius:14px;padding:16px;margin-bottom:16px;}
@@ -1111,7 +1112,7 @@ body.sheet-open{overflow:hidden;}
 .aichat-typing span:nth-child(3){animation-delay:.4s;}
 @keyframes typingDot{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
 .aichat-input-area{flex-shrink:0;padding:10px 12px;background:var(--white);border-top:1px solid rgba(201,168,76,.12);display:flex;gap:7px;align-items:flex-end;}
-.aichat-input{flex:1;padding:9px 12px;font-family:"Vazirmatn",sans-serif;font-size:12px;color:var(--td);background:var(--cream);border:1.5px solid rgba(201,168,76,.2);border-radius:12px;outline:none;resize:none;max-height:80px;min-height:36px;line-height:1.5;transition:border-color .2s;direction:rtl;}
+.aichat-input{flex:1;padding:9px 12px;font-family:"Vazirmatn",sans-serif;font-size:16px;color:var(--td);background:var(--cream);border:1.5px solid rgba(201,168,76,.2);border-radius:12px;outline:none;resize:none;max-height:80px;min-height:36px;line-height:1.5;transition:border-color .2s;direction:rtl;}
 .aichat-input:focus{border-color:var(--gold);}
 .aichat-send{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--em),var(--em3));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
 .aichat-send:hover{transform:scale(1.08);}
