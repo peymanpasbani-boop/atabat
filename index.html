@@ -439,7 +439,7 @@ body.sheet-open{overflow:hidden;}
 .hero-slogan{font-size:clamp(16px,2.8vw,22px);font-weight:700;color:rgba(255,255,255,.9);line-height:1.7;margin-bottom:10px;animation:fadeUp .55s .12s ease both;}
 .hero-slogan .hl{background:linear-gradient(90deg,var(--goldL),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .hero-desc{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.9;max-width:560px;margin:0 auto 28px;animation:fadeUp .55s .16s ease both;}
-.hero-step-wrap{max-width:640px;margin:0 auto;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.25);border-radius:24px 24px 0 0;padding:24px 28px 32px;animation:fadeUp .6s .22s ease both;backdrop-filter:blur(8px);position:relative;z-index:1;}
+.hero-step-wrap{display:none;}/* replaced by iw-wrap */
 .hero-step-label{font-size:13px;font-weight:700;color:var(--goldL);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
 .hero-step-label .step-badge{background:rgba(201,168,76,.15);border:1px solid var(--goldB);color:var(--gold);font-size:10px;padding:2px 9px;border-radius:100px;font-weight:700;}
 .origin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;}
@@ -874,6 +874,298 @@ body.sheet-open{overflow:hidden;}
 .stb-alert{display:none;margin:10px 0;padding:10px 14px;background:rgba(192,57,43,.08);border:1.5px solid rgba(192,57,43,.25);border-radius:10px;font-size:12px;color:#c0392b;line-height:1.8;}
 .stb-alert.show{display:block;}
 @media(max-width:640px){.stb-pax-form-body{grid-template-columns:1fr;}}
+
+/* ══ INLINE WIZARD ══ */
+.iw-wrap{
+  max-width:640px;margin:0 auto;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(201,168,76,.28);
+  border-radius:24px 24px 0 0;
+  padding:0;
+  animation:fadeUp .6s .22s ease both;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  position:relative;z-index:1;overflow:hidden;
+}
+.iw-progress{height:3px;background:rgba(255,255,255,.08);position:relative;}
+.iw-progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),#e8c97a);border-radius:0 3px 3px 0;transition:width .5s cubic-bezier(.4,0,.2,1);}
+.iw-steps-row{display:flex;align-items:center;justify-content:center;gap:0;padding:16px 0 6px;}
+.iw-step-dot{
+  width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;flex-shrink:0;transition:all .35s;
+  background:rgba(255,255,255,.12);color:rgba(255,255,255,.35);border:1.5px solid rgba(255,255,255,.15);
+}
+.iw-step-dot.active{background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--em);border-color:transparent;box-shadow:0 2px 12px rgba(201,168,76,.45);}
+.iw-step-dot.done{background:rgba(26,94,73,.5);color:var(--goldL);border-color:rgba(201,168,76,.3);}
+.iw-step-line{width:36px;height:2px;background:rgba(255,255,255,.1);}
+.iw-step-line.done{background:rgba(201,168,76,.4);}
+.iw-steps-labels{display:flex;align-items:center;justify-content:center;gap:0;padding:0 0 4px;}
+.iw-sl{flex:1;text-align:center;font-size:9px;font-weight:600;color:rgba(255,255,255,.28);transition:color .3s;max-width:120px;}
+.iw-sl.active{color:var(--goldL);}
+.iw-sl.done{color:rgba(201,168,76,.55);}
+
+/* Slides container */
+.iw-slides{position:relative;overflow:hidden;}
+.iw-slide{
+  padding:20px 20px 24px;
+  display:none;
+  animation:iwSlideIn .38s cubic-bezier(.4,0,.2,1) both;
+}
+.iw-slide.active{display:block;}
+.iw-slide.exit{display:block;animation:iwSlideOut .28s cubic-bezier(.4,0,.2,1) both;}
+@keyframes iwSlideIn{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:translateX(0)}}
+@keyframes iwSlideOut{from{opacity:1}to{opacity:0}}
+
+/* Slide header */
+.iw-slide-head{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.iw-slide-icon{
+  width:42px;height:42px;background:rgba(201,168,76,.18);border:1.5px solid rgba(201,168,76,.32);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;
+}
+.iw-slide-title{font-size:15px;font-weight:800;color:var(--goldL);}
+.iw-slide-sub{font-size:10.5px;color:rgba(255,255,255,.45);margin-top:2px;}
+
+/* Month pills */
+.iw-month-scroll{
+  display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;margin-bottom:14px;
+}
+.iw-month-scroll::-webkit-scrollbar{display:none;}
+.iw-month-pill{
+  flex-shrink:0;padding:10px 16px;border-radius:14px;
+  border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);
+  cursor:pointer;transition:all .22s;text-align:center;position:relative;
+}
+.iw-month-pill:hover{border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.1);transform:translateY(-2px);}
+.iw-month-pill.sel{
+  border-color:var(--gold);background:linear-gradient(135deg,rgba(201,168,76,.22),rgba(26,94,73,.12));
+  box-shadow:0 4px 16px rgba(201,168,76,.25);
+}
+.iw-month-pill-name{font-size:13px;font-weight:800;color:rgba(255,255,255,.85);}
+.iw-month-pill.sel .iw-month-pill-name{color:var(--goldL);}
+.iw-month-pill-year{font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;}
+.iw-moharram-badge{
+  position:absolute;top:-8px;left:50%;transform:translateX(50%);
+  background:#111;color:#fff;font-size:8px;font-weight:800;
+  padding:2px 7px;border-radius:100px;white-space:nowrap;
+  border:1.5px solid rgba(255,255,255,.18);box-shadow:0 2px 8px rgba(0,0,0,.3);
+  display:flex;align-items:center;gap:3px;
+}
+
+/* Day strip */
+.iw-day-section{margin-bottom:14px;animation:fadeUp .28s ease both;}
+.iw-day-label{font-size:10px;font-weight:700;color:rgba(201,168,76,.7);text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px;display:flex;align-items:center;gap:6px;}
+.iw-day-label::before{content:'';display:inline-block;width:3px;height:12px;background:var(--gold);border-radius:2px;}
+.iw-day-scroll{
+  overflow-x:auto;overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;
+}
+.iw-day-scroll::-webkit-scrollbar{display:none;}
+.iw-day-strip{display:flex;flex-direction:row;gap:5px;width:max-content;}
+.iw-day-num{
+  width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;cursor:pointer;transition:all .18s;
+  color:rgba(255,255,255,.65);border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);flex-shrink:0;
+}
+.iw-day-num:hover:not(.dis){background:rgba(201,168,76,.18);border-color:rgba(201,168,76,.45);color:var(--goldL);}
+.iw-day-num.sel{background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--em);font-weight:800;box-shadow:0 2px 10px rgba(201,168,76,.35);border-color:transparent;}
+.iw-day-num.dis{opacity:.25;pointer-events:none;}
+
+/* Date chip */
+.iw-date-chip{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:7px 14px;background:rgba(201,168,76,.15);
+  border:1.5px solid rgba(201,168,76,.35);border-radius:100px;
+  font-size:12px;font-weight:700;color:var(--goldL);margin-bottom:14px;
+  animation:fadeUp .25s ease;
+}
+
+/* Pax row */
+.iw-pax-row{
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);
+  border-radius:14px;padding:13px 16px;margin-bottom:16px;
+}
+.iw-pax-label{display:flex;align-items:center;gap:10px;}
+.iw-pax-icon{font-size:20px;}
+.iw-pax-title{font-size:13px;font-weight:700;color:rgba(255,255,255,.85);}
+.iw-pax-sub{font-size:10px;color:rgba(255,255,255,.38);margin-top:1px;}
+.iw-pax-ctrl{display:flex;align-items:center;gap:10px;}
+.iw-pax-btn{
+  width:32px;height:32px;border:none;border-radius:50%;
+  background:rgba(201,168,76,.2);color:var(--goldL);font-size:18px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-family:"Vazirmatn",sans-serif;transition:background .2s;
+}
+.iw-pax-btn:hover{background:rgba(201,168,76,.35);}
+.iw-pax-val{font-size:22px;font-weight:900;color:var(--goldL);min-width:28px;text-align:center;}
+
+/* City cards */
+.iw-city-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.iw-city-card{
+  background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);
+  border-radius:14px;padding:12px 14px;cursor:pointer;transition:all .25s;
+  position:relative;overflow:hidden;
+}
+.iw-city-card:hover{border-color:rgba(201,168,76,.45);background:rgba(201,168,76,.08);transform:translateX(-2px);}
+.iw-city-card.sel{
+  border-color:var(--gold);background:linear-gradient(135deg,rgba(201,168,76,.14),rgba(26,94,73,.1));
+  box-shadow:0 4px 18px rgba(201,168,76,.18);
+}
+.iw-city-order{
+  position:absolute;top:10px;left:12px;
+  width:20px;height:20px;background:var(--em);border-radius:50%;
+  display:none;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;color:var(--goldL);
+  border:1.5px solid var(--goldB);
+}
+.iw-city-card.sel .iw-city-order{display:flex;}
+.iw-city-icon{
+  width:38px;height:38px;background:linear-gradient(135deg,var(--em),var(--em3));
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;float:right;margin-left:12px;box-shadow:0 3px 10px rgba(13,59,46,.3);
+}
+.iw-city-info{overflow:hidden;}
+.iw-city-name{font-size:13px;font-weight:800;color:rgba(255,255,255,.9);}
+.iw-city-shrine{font-size:10.5px;color:rgba(255,255,255,.42);margin-top:2px;}
+.iw-city-check{
+  position:absolute;top:12px;right:14px;
+  width:20px;height:20px;border:1.5px solid rgba(255,255,255,.2);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:10px;
+  color:transparent;transition:all .25s;
+}
+.iw-city-card.sel .iw-city-check{background:linear-gradient(135deg,var(--gold),#a8722a);border-color:transparent;color:var(--em);}
+/* nights stepper inside card */
+.iw-city-nights{
+  display:flex;align-items:center;gap:8px;margin-top:10px;
+  background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);
+  border-radius:100px;padding:5px 12px;width:fit-content;
+  animation:fadeUp .22s ease;
+}
+.iw-n-btn{
+  width:24px;height:24px;border:none;border-radius:50%;
+  background:rgba(201,168,76,.22);color:var(--goldL);font-size:14px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-family:"Vazirmatn",sans-serif;transition:background .2s;
+}
+.iw-n-btn:hover{background:rgba(201,168,76,.38);}
+.iw-n-val{font-size:16px;font-weight:800;color:var(--goldL);min-width:22px;text-align:center;}
+.iw-n-unit{font-size:10px;color:rgba(255,255,255,.45);}
+/* transit row */
+.iw-transit-row{
+  display:flex;align-items:center;gap:8px;margin-top:7px;
+  padding:6px 10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;font-size:11px;color:rgba(255,255,255,.5);cursor:pointer;
+  animation:fadeUp .22s ease;width:fit-content;
+}
+.iw-transit-row:hover{border-color:rgba(201,168,76,.3);color:rgba(255,255,255,.75);}
+.iw-transit-chk{
+  width:15px;height:15px;border:1.5px solid rgba(201,168,76,.4);border-radius:4px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;
+}
+.iw-transit-chk.on{background:var(--gold);border-color:var(--gold);}
+.iw-transit-chk.on::after{content:'✓';font-size:9px;color:var(--em);font-weight:800;}
+
+/* Route preview */
+.iw-route-preview{
+  font-size:12px;color:rgba(255,255,255,.6);background:rgba(201,168,76,.08);
+  border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:9px 13px;
+  margin-bottom:14px;line-height:1.7;display:none;animation:fadeUp .25s ease;
+}
+.iw-route-preview.show{display:block;}
+.iw-route-preview strong{color:var(--goldL);}
+
+/* Trip type */
+.iw-type-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;}
+.iw-type-card{
+  background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);
+  border-radius:14px;padding:14px 8px 12px;cursor:pointer;transition:all .25s;
+  text-align:center;position:relative;
+}
+.iw-type-card:hover{border-color:rgba(201,168,76,.5);transform:translateY(-2px);}
+.iw-type-card.sel{
+  border-color:var(--gold);background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(26,94,73,.08));
+  box-shadow:0 4px 18px rgba(201,168,76,.25);
+}
+.iw-type-sel{
+  position:absolute;top:7px;left:7px;width:17px;height:17px;
+  background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;
+  display:none;align-items:center;justify-content:center;font-size:8px;color:var(--em);font-weight:800;
+}
+.iw-type-card.sel .iw-type-sel{display:flex;}
+.iw-type-ico{font-size:22px;margin-bottom:6px;}
+.iw-type-name{font-size:12px;font-weight:800;color:rgba(255,255,255,.85);}
+.iw-type-card.sel .iw-type-name{color:var(--goldL);}
+.iw-type-desc{font-size:10px;color:rgba(255,255,255,.38);margin-top:2px;}
+
+/* Origin city in slide 3 */
+.iw-origin-section{margin-bottom:14px;}
+.iw-origin-label{font-size:11px;font-weight:700;color:rgba(201,168,76,.65);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px;}
+.iw-origin-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.iw-origin-card{
+  background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);
+  border-radius:14px;padding:12px 10px 10px;cursor:pointer;transition:all .25s;
+  text-align:center;position:relative;overflow:hidden;
+}
+.iw-origin-card:hover{border-color:rgba(201,168,76,.5);transform:translateY(-2px);}
+.iw-origin-card.sel{
+  border-color:var(--gold);background:rgba(201,168,76,.15);
+  box-shadow:0 4px 16px rgba(201,168,76,.25);
+}
+.iw-origin-tick{
+  position:absolute;top:7px;left:7px;width:16px;height:16px;
+  background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;
+  display:none;align-items:center;justify-content:center;font-size:8px;color:var(--em);font-weight:800;
+}
+.iw-origin-card.sel .iw-origin-tick{display:flex;}
+.iw-origin-card svg{width:36px;height:36px;margin:0 auto 6px;display:block;}
+.iw-origin-name{font-size:12px;font-weight:800;color:rgba(255,255,255,.85);}
+.iw-origin-card.sel .iw-origin-name{color:var(--goldL);}
+.iw-origin-badge{
+  display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:100px;margin-top:4px;
+}
+.iw-origin-badge.air{background:rgba(13,59,46,.5);color:#7effd4;border:1px solid rgba(100,255,200,.2);}
+.iw-origin-badge.land{background:rgba(80,50,0,.5);color:#ffd580;border:1px solid rgba(255,200,80,.2);}
+/* More cities strip */
+.iw-more-label{font-size:9px;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.28);text-transform:uppercase;margin:8px 0 6px;}
+.iw-more-scroll{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.iw-more-scroll::-webkit-scrollbar{display:none;}
+.iw-more-row{display:flex;gap:5px;width:max-content;padding-bottom:4px;}
+.iw-more-chip{
+  padding:7px 13px;border-radius:100px;border:1.5px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.05);cursor:pointer;transition:all .2s;
+  font-size:11px;font-weight:700;color:rgba(255,255,255,.65);white-space:nowrap;
+}
+.iw-more-chip:hover{border-color:rgba(201,168,76,.45);color:var(--goldL);transform:translateY(-1px);}
+.iw-more-chip.sel{border-color:var(--gold);background:rgba(201,168,76,.18);color:var(--goldL);}
+
+/* Buttons */
+.iw-next-btn{
+  width:100%;padding:14px;border-radius:100px;border:none;
+  background:linear-gradient(135deg,var(--em),var(--em3));color:var(--goldL);
+  font-family:"Vazirmatn",sans-serif;font-size:13px;font-weight:700;
+  cursor:pointer;box-shadow:0 4px 14px rgba(13,59,46,.25);transition:all .25s;
+}
+.iw-next-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(13,59,46,.38);}
+.iw-next-btn.iw-cta{background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--em);box-shadow:0 4px 16px rgba(201,168,76,.35);}
+.iw-next-btn.iw-cta:hover{box-shadow:0 6px 24px rgba(201,168,76,.5);}
+.iw-back-btn{
+  padding:12px 20px;border-radius:100px;border:1.5px solid rgba(255,255,255,.18);
+  background:transparent;color:rgba(255,255,255,.55);
+  font-family:"Vazirmatn",sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;
+}
+.iw-back-btn:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);}
+.iw-err{
+  font-size:11.5px;color:#f87171;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.25);
+  border-radius:8px;padding:8px 12px;margin-bottom:10px;display:none;
+}
+.iw-err.show{display:block;animation:fadeUp .25s ease;}
+
+@media(max-width:500px){
+  .iw-origin-grid{grid-template-columns:1fr 1fr;}
+  .iw-type-grid{grid-template-columns:1fr 1fr 1fr;}
+  .iw-slide{padding:16px 14px 20px;}
+}
 
 /* ══ TYPEWRITER ══ */
 .tw-cursor{display:inline-block;width:2px;height:1em;background:var(--goldL);margin-right:2px;vertical-align:text-bottom;animation:twBlink .75s step-end infinite;}
@@ -1845,145 +2137,252 @@ body.sheet-open{overflow:hidden;}
     <div class="hero-group-name">مرجع تخصصی سفرهای زیارتی انفرادی</div>
     <div class="hero-slogan" id="heroTypewriter" aria-live="polite"></div>
     <div class="hero-desc">زمان سفر، مدت اقامت، درجه هتل و مسیر را خودتان انتخاب کنید. کاملاً متناسب با بودجه، زمان و سلیقه شما.</div>
-    <div class="hero-step-wrap">
-      <div class="hero-step-label"><span class="step-badge">گام اول</span>📍 شهر محل اعزام خود را انتخاب کنید</div>
-      <div class="origin-grid" id="heroOriginGrid">
-        <div class="origin-card" data-city="tehran" data-transport="air" onclick="heroSelectCity(this)">
-          <div class="origin-card-tick">✓</div>
-          <div class="origin-card-icon">
-            <!-- برج آزادی تهران — مدرن و واقعی -->
-            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <!-- پایه‌های ۴ گانه -->
-              <path d="M14 38 L16.5 24"/>
-              <path d="M30 38 L27.5 24"/>
-              <path d="M18 38 L19.5 27"/>
-              <path d="M26 38 L24.5 27"/>
-              <!-- قوس‌های مشخصه برج -->
-              <path d="M16.5 24 Q22 14 27.5 24"/>
-              <path d="M19.5 27 Q22 20 24.5 27"/>
-              <!-- بدنه بالا -->
-              <rect x="19" y="10" width="6" height="4" rx="1"/>
-              <!-- گنبد / سر برج -->
-              <path d="M19 10 Q22 6 25 10"/>
-              <circle cx="22" cy="6" r="1" fill="#e8c97a" stroke="none"/>
-              <!-- خط زمین -->
-              <line x1="9" y1="38" x2="35" y2="38"/>
-              <!-- زیر قوس بزرگ (پل) -->
-              <line x1="14" y1="32" x2="30" y2="32"/>
-            </svg>
-          </div>
-          <div class="origin-card-name">تهران</div>
-          <div class="origin-card-badge air">✈️ پرواز مستقیم</div>
-        </div>
-        <div class="origin-card" data-city="mashhad" data-transport="air" onclick="heroSelectCity(this)">
-          <div class="origin-card-tick">✓</div>
-          <div class="origin-card-icon">
-            <!-- حرم امام رضا مشهد — گنبد طلایی با مناره -->
-            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <!-- مناره چپ -->
-              <rect x="6" y="20" width="4" height="16" rx="1"/>
-              <path d="M5 20 Q8 16 11 20"/>
-              <line x1="8" y1="16" x2="8" y2="13"/>
-              <circle cx="8" cy="13" r="1.2" fill="#e8c97a" stroke="none"/>
-              <!-- مناره راست -->
-              <rect x="34" y="20" width="4" height="16" rx="1"/>
-              <path d="M33 20 Q36 16 39 20"/>
-              <line x1="36" y1="16" x2="36" y2="13"/>
-              <circle cx="36" cy="13" r="1.2" fill="#e8c97a" stroke="none"/>
-              <!-- گنبد اصلی -->
-              <path d="M14 22 Q14 9 22 8 Q30 9 30 22"/>
-              <ellipse cx="22" cy="22" rx="8" ry="2" stroke="#e8c97a" stroke-width="1"/>
-              <!-- پشت‌بام اصلی -->
-              <rect x="11" y="22" width="22" height="3" rx="1"/>
-              <rect x="8" y="25" width="28" height="2" rx="1"/>
-              <!-- کف بنا -->
-              <rect x="10" y="27" width="24" height="9" rx="1"/>
-              <!-- درب وسط -->
-              <path d="M19 36 L19 30 Q22 27 25 30 L25 36"/>
-              <!-- خط زمین -->
-              <line x1="5" y1="36" x2="39" y2="36"/>
-              <!-- نوک گنبد -->
-              <line x1="22" y1="5" x2="22" y2="8"/>
-              <circle cx="22" cy="5" r="1" fill="#e8c97a" stroke="none"/>
-            </svg>
-          </div>
-          <div class="origin-card-name">مشهد</div>
-          <div class="origin-card-badge air">✈️ پرواز مستقیم</div>
-        </div>
-        <div class="origin-card" data-city="isfahan" data-transport="air" onclick="heroSelectCity(this)">
-          <div class="origin-card-tick">✓</div>
-          <div class="origin-card-icon">
-            <!-- مسجد شیخ لطف‌الله اصفهان — گنبد معروف -->
-            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <!-- گنبد اصلی -->
-              <path d="M10 26 Q10 10 22 8 Q34 10 34 26"/>
-              <!-- حلقه زیر گنبد -->
-              <ellipse cx="22" cy="26" rx="12" ry="2.5" stroke="#e8c97a" stroke-width="1.2"/>
-              <!-- تزئین گنبد — خطوط کاشی‌کاری -->
-              <path d="M14 22 Q22 16 30 22" stroke-width="1"/>
-              <path d="M12 24 Q22 17 32 24" stroke-width="0.8"/>
-              <!-- نوک گنبد با هلال -->
-              <line x1="22" y1="5" x2="22" y2="8"/>
-              <path d="M20 5 Q22 3.5 24 5" stroke-width="1.2"/>
-              <!-- بدنه بنا -->
-              <rect x="10" y="28" width="24" height="8" rx="1"/>
-              <!-- طاق ورودی -->
-              <path d="M17 36 L17 30 Q22 26 27 30 L27 36"/>
-              <!-- ستون‌های طرفین -->
-              <line x1="10" y1="28" x2="10" y2="36"/>
-              <line x1="34" y1="28" x2="34" y2="36"/>
-              <!-- خط زمین -->
-              <line x1="6" y1="36" x2="38" y2="36"/>
-            </svg>
-          </div>
-          <div class="origin-card-name">اصفهان</div>
-          <div class="origin-card-badge air">✈️ پرواز مستقیم</div>
-        </div>
-        <div class="origin-card" data-city="shiraz" data-transport="land" onclick="heroSelectCity(this)">
-          <div class="origin-card-tick">✓</div>
-          <div class="origin-card-icon">
-            <!-- دروازه قرآن شیراز — نماد شناخته‌شده -->
-            <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <!-- برج چپ -->
-              <rect x="5" y="16" width="9" height="22" rx="1"/>
-              <!-- کنگره برج چپ -->
-              <rect x="5" y="13" width="2" height="4" rx="0.5"/>
-              <rect x="8.5" y="13" width="2" height="4" rx="0.5"/>
-              <rect x="12" y="13" width="2" height="4" rx="0.5"/>
-              <!-- برج راست -->
-              <rect x="30" y="16" width="9" height="22" rx="1"/>
-              <!-- کنگره برج راست -->
-              <rect x="30" y="13" width="2" height="4" rx="0.5"/>
-              <rect x="33.5" y="13" width="2" height="4" rx="0.5"/>
-              <rect x="37" y="13" width="2" height="4" rx="0.5"/>
-              <!-- طاق وسط -->
-              <path d="M14 16 L14 24 Q14 10 22 8 Q30 10 30 24 L30 16"/>
-              <!-- قوس جداگانه طاق -->
-              <path d="M14 24 Q22 16 30 24"/>
-              <!-- کتاب قرآن روی طاق -->
-              <rect x="18" y="6" width="8" height="5" rx="1"/>
-              <line x1="22" y1="6" x2="22" y2="11"/>
-              <!-- خط زمین -->
-              <line x1="3" y1="38" x2="41" y2="38"/>
-              <!-- جاده زیر دروازه -->
-              <line x1="18" y1="38" x2="18" y2="24"/>
-              <line x1="26" y1="38" x2="26" y2="24"/>
-            </svg>
-          </div>
-          <div class="origin-card-name">شیراز</div>
-          <div class="origin-card-badge land">🚍 زمینی</div>
-        </div>
+    <!-- ══ INLINE WIZARD ══ -->
+    <div class="iw-wrap" id="iwWrap">
+
+      <!-- Progress bar -->
+      <div class="iw-progress">
+        <div class="iw-progress-bar" id="iwProgressBar" style="width:33%"></div>
       </div>
-      <div class="more-cities-label">🏙 سایر شهرها</div>
-      <div class="city-strip-box">
-        <div class="city-strip-scroll">
-          <div class="city-strip-row" id="cityStripRow">
-            <!-- built by JS -->
+      <!-- Step dots -->
+      <div class="iw-steps-row">
+        <div class="iw-step-dot active" id="iwDotA">۱</div>
+        <div class="iw-step-line" id="iwLineA"></div>
+        <div class="iw-step-dot" id="iwDotB">۲</div>
+        <div class="iw-step-line" id="iwLineB"></div>
+        <div class="iw-step-dot" id="iwDotC">۳</div>
+      </div>
+      <div class="iw-steps-labels">
+        <span class="iw-sl active" id="iwLblA">تاریخ و نفرات</span>
+        <span class="iw-sl" id="iwLblB">شهرهای زیارتی</span>
+        <span class="iw-sl" id="iwLblC">نوع سفر</span>
+      </div>
+
+      <!-- ── SLIDE CONTAINER ── -->
+      <div class="iw-slides" id="iwSlides">
+
+        <!-- SLIDE 1: Date + Passengers -->
+        <div class="iw-slide active" id="iwSlide1">
+          <div class="iw-slide-head">
+            <div class="iw-slide-icon">📅</div>
+            <div>
+              <div class="iw-slide-title">تاریخ و تعداد مسافران</div>
+              <div class="iw-slide-sub">ماه اعزام را انتخاب کنید</div>
+            </div>
+          </div>
+
+          <!-- Month pills -->
+          <div class="iw-month-scroll" id="iwMonthScroll"></div>
+
+          <!-- Day strip (hidden until month chosen) -->
+          <div class="iw-day-section" id="iwDaySection" style="display:none">
+            <div class="iw-day-label" id="iwDayLabel">روز اعزام</div>
+            <div class="iw-day-scroll"><div class="iw-day-strip" id="iwDayStrip"></div></div>
+          </div>
+
+          <!-- Date chip -->
+          <div class="iw-date-chip" id="iwDateChip" style="display:none">
+            <span>✅</span><span id="iwDateChipText"></span>
+          </div>
+
+          <!-- Pax row -->
+          <div class="iw-pax-row" id="iwPaxRow" style="opacity:.4;pointer-events:none;transition:opacity .3s">
+            <div class="iw-pax-label">
+              <span class="iw-pax-icon">👥</span>
+              <div>
+                <div class="iw-pax-title">تعداد مسافران</div>
+                <div class="iw-pax-sub">حداکثر ۴ نفر</div>
+              </div>
+            </div>
+            <div class="iw-pax-ctrl">
+              <button class="iw-pax-btn" onclick="iwChangePax(-1)">−</button>
+              <div class="iw-pax-val" id="iwPaxVal">۱</div>
+              <button class="iw-pax-btn" onclick="iwChangePax(1)">+</button>
+            </div>
+          </div>
+
+          <div class="iw-err" id="iwErr1"></div>
+          <button class="iw-next-btn" onclick="iwNext(1)">ادامه — انتخاب شهرها ←</button>
+        </div>
+
+        <!-- SLIDE 2: Cities -->
+        <div class="iw-slide" id="iwSlide2">
+          <div class="iw-slide-head">
+            <div class="iw-slide-icon">🕌</div>
+            <div>
+              <div class="iw-slide-title">شهرهای زیارتی</div>
+              <div class="iw-slide-sub">به ترتیب بازدید انتخاب کنید</div>
+            </div>
+          </div>
+
+          <!-- City cards -->
+          <div class="iw-city-grid">
+
+            <div class="iw-city-card" id="iwCityKarbala" onclick="iwToggleCity('karbala')">
+              <div class="iw-city-order" id="iwOrdKarbala"></div>
+              <div class="iw-city-icon">
+                <svg viewBox="0 0 32 32" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round">
+                  <line x1="16" y1="3" x2="16" y2="6"/><path d="M11 12 Q16 6 21 12"/><path d="M10 12 L10 21 L22 21 L22 12"/><rect x="13.5" y="15" width="5" height="6"/><line x1="7" y1="21" x2="25" y2="21"/>
+                </svg>
+              </div>
+              <div class="iw-city-info">
+                <div class="iw-city-name">کربلای معلی</div>
+                <div class="iw-city-shrine">حرم امام حسین (ع)</div>
+              </div>
+              <div class="iw-city-check">✓</div>
+              <!-- Nights stepper (shown when selected) -->
+              <div class="iw-city-nights" id="iwNightsKarbala" style="display:none">
+                <button class="iw-n-btn" onclick="iwChgNights(event,'karbala',-1)">−</button>
+                <span class="iw-n-val" id="iwNvKarbala">۳</span>
+                <span class="iw-n-unit">شب</span>
+                <button class="iw-n-btn" onclick="iwChgNights(event,'karbala',1)">+</button>
+              </div>
+              <!-- Transit toggle -->
+              <div class="iw-transit-row" id="iwTransitKarbala" style="display:none" onclick="iwToggleTransit(event,'karbala')">
+                <div class="iw-transit-chk" id="iwTchKarbala"></div>
+                <span>عبوری (بدون هتل)</span>
+              </div>
+            </div>
+
+            <div class="iw-city-card" id="iwCityNajaf" onclick="iwToggleCity('najaf')">
+              <div class="iw-city-order" id="iwOrdNajaf"></div>
+              <div class="iw-city-icon">
+                <svg viewBox="0 0 32 32" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round">
+                  <circle cx="16" cy="7" r="4"/><line x1="16" y1="3" x2="16" y2="1"/><path d="M11 11 Q16 8.5 21 11"/><rect x="12" y="12" width="8" height="10"/><rect x="14.5" y="16" width="3" height="6"/>
+                </svg>
+              </div>
+              <div class="iw-city-info">
+                <div class="iw-city-name">نجف اشرف</div>
+                <div class="iw-city-shrine">حرم امام علی (ع)</div>
+              </div>
+              <div class="iw-city-check">✓</div>
+              <div class="iw-city-nights" id="iwNightsNajaf" style="display:none">
+                <button class="iw-n-btn" onclick="iwChgNights(event,'najaf',-1)">−</button>
+                <span class="iw-n-val" id="iwNvNajaf">۲</span>
+                <span class="iw-n-unit">شب</span>
+                <button class="iw-n-btn" onclick="iwChgNights(event,'najaf',1)">+</button>
+              </div>
+              <div class="iw-transit-row" id="iwTransitNajaf" style="display:none" onclick="iwToggleTransit(event,'najaf')">
+                <div class="iw-transit-chk" id="iwTchNajaf"></div>
+                <span>عبوری (بدون هتل)</span>
+              </div>
+            </div>
+
+            <div class="iw-city-card" id="iwCityKadhSam" onclick="iwToggleCity('kadh_sam')">
+              <div class="iw-city-order" id="iwOrdKadhSam"></div>
+              <div class="iw-city-icon">
+                <svg viewBox="0 0 32 32" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round">
+                  <path d="M5 13 Q8 7 11 13"/><rect x="4.5" y="13" width="7" height="9"/><path d="M15 14 Q18 8 21 14"/><rect x="14.5" y="14" width="7" height="8"/>
+                </svg>
+              </div>
+              <div class="iw-city-info">
+                <div class="iw-city-name">کاظمین و سامرا</div>
+                <div class="iw-city-shrine">حرم امام کاظم و عسکریین (ع)</div>
+              </div>
+              <div class="iw-city-check">✓</div>
+              <div class="iw-city-nights" id="iwNightsKadhSam" style="display:none">
+                <button class="iw-n-btn" onclick="iwChgNights(event,'kadh_sam',-1)">−</button>
+                <span class="iw-n-val" id="iwNvKadhSam">۲</span>
+                <span class="iw-n-unit">شب</span>
+                <button class="iw-n-btn" onclick="iwChgNights(event,'kadh_sam',1)">+</button>
+              </div>
+              <div class="iw-transit-row" id="iwTransitKadhSam" style="display:none" onclick="iwToggleTransit(event,'kadh_sam')">
+                <div class="iw-transit-chk" id="iwTchKadhSam"></div>
+                <span>عبوری (بدون هتل)</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Route preview -->
+          <div class="iw-route-preview" id="iwRoutePreview"></div>
+
+          <div class="iw-err" id="iwErr2"></div>
+          <div style="display:flex;gap:10px;margin-top:4px;">
+            <button class="iw-back-btn" onclick="iwBack(2)">← بازگشت</button>
+            <button class="iw-next-btn" style="flex:1" onclick="iwNext(2)">ادامه — نوع سفر ←</button>
           </div>
         </div>
-      </div>
-      <div id="moreCitiesRow" style="display:none;"></div>
-    </div>
+
+        <!-- SLIDE 3: Trip type + Origin city -->
+        <div class="iw-slide" id="iwSlide3">
+          <div class="iw-slide-head">
+            <div class="iw-slide-icon">🚀</div>
+            <div>
+              <div class="iw-slide-title">نوع سفر و شهر مبدا</div>
+              <div class="iw-slide-sub">روش حمل‌ونقل را انتخاب کنید</div>
+            </div>
+          </div>
+
+          <!-- Trip type cards -->
+          <div class="iw-type-grid">
+            <div class="iw-type-card" id="iwTypeAir" onclick="iwSelType('air')">
+              <div class="iw-type-sel">✓</div>
+              <div class="iw-type-ico">✈️</div>
+              <div class="iw-type-name">هوایی</div>
+              <div class="iw-type-desc">سریع و راحت</div>
+            </div>
+            <div class="iw-type-card" id="iwTypeLand" onclick="iwSelType('land')">
+              <div class="iw-type-sel">✓</div>
+              <div class="iw-type-ico">🚌</div>
+              <div class="iw-type-name">زمینی</div>
+              <div class="iw-type-desc">اقتصادی</div>
+            </div>
+            <div class="iw-type-card" id="iwTypeMixed" onclick="iwSelType('mixed')">
+              <div class="iw-type-sel">✓</div>
+              <div class="iw-type-ico">✈️+🚌</div>
+              <div class="iw-type-name">ترکیبی</div>
+              <div class="iw-type-desc">رفت هوایی</div>
+            </div>
+          </div>
+
+          <!-- Origin city -->
+          <div class="iw-origin-section">
+            <div class="iw-origin-label">📍 شهر مبدا شما</div>
+            <!-- Top 4 -->
+            <div class="iw-origin-grid" id="iwOriginGrid">
+              <div class="iw-origin-card" data-city="tehran" onclick="iwSelOrigin(this)">
+                <div class="iw-origin-tick">✓</div>
+                <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 38 L16.5 24"/><path d="M30 38 L27.5 24"/><path d="M18 38 L19.5 27"/><path d="M26 38 L24.5 27"/><path d="M16.5 24 Q22 14 27.5 24"/><path d="M19.5 27 Q22 20 24.5 27"/><rect x="19" y="10" width="6" height="4" rx="1"/><path d="M19 10 Q22 6 25 10"/><circle cx="22" cy="6" r="1" fill="#e8c97a" stroke="none"/><line x1="9" y1="38" x2="35" y2="38"/></svg>
+                <div class="iw-origin-name">تهران</div>
+                <div class="iw-origin-badge air">✈️ مستقیم</div>
+              </div>
+              <div class="iw-origin-card" data-city="mashhad" onclick="iwSelOrigin(this)">
+                <div class="iw-origin-tick">✓</div>
+                <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="20" width="4" height="16" rx="1"/><path d="M5 20 Q8 16 11 20"/><line x1="8" y1="16" x2="8" y2="13"/><circle cx="8" cy="13" r="1.2" fill="#e8c97a" stroke="none"/><rect x="34" y="20" width="4" height="16" rx="1"/><path d="M33 20 Q36 16 39 20"/><line x1="36" y1="16" x2="36" y2="13"/><circle cx="36" cy="13" r="1.2" fill="#e8c97a" stroke="none"/><path d="M14 22 Q14 9 22 8 Q30 9 30 22"/><rect x="11" y="22" width="22" height="3" rx="1"/><rect x="10" y="27" width="24" height="9" rx="1"/><path d="M19 36 L19 30 Q22 27 25 30 L25 36"/><line x1="5" y1="36" x2="39" y2="36"/></svg>
+                <div class="iw-origin-name">مشهد</div>
+                <div class="iw-origin-badge air">✈️ مستقیم</div>
+              </div>
+              <div class="iw-origin-card" data-city="isfahan" onclick="iwSelOrigin(this)">
+                <div class="iw-origin-tick">✓</div>
+                <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 26 Q10 10 22 8 Q34 10 34 26"/><ellipse cx="22" cy="26" rx="12" ry="2.5" stroke-width="1.2"/><rect x="10" y="28" width="24" height="8" rx="1"/><path d="M17 36 L17 30 Q22 26 27 30 L27 36"/><line x1="6" y1="36" x2="38" y2="36"/></svg>
+                <div class="iw-origin-name">اصفهان</div>
+                <div class="iw-origin-badge air">✈️ مستقیم</div>
+              </div>
+              <div class="iw-origin-card" data-city="shiraz" onclick="iwSelOrigin(this)">
+                <div class="iw-origin-tick">✓</div>
+                <svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="16" width="9" height="22" rx="1"/><rect x="30" y="16" width="9" height="22" rx="1"/><path d="M14 24 Q22 16 30 24"/><rect x="18" y="6" width="8" height="5" rx="1"/><line x1="3" y1="38" x2="41" y2="38"/></svg>
+                <div class="iw-origin-name">شیراز</div>
+                <div class="iw-origin-badge land">🚍 زمینی</div>
+              </div>
+            </div>
+            <!-- More cities strip -->
+            <div class="iw-more-label">سایر شهرها</div>
+            <div class="iw-more-scroll"><div class="iw-more-row" id="iwMoreRow"></div></div>
+          </div>
+
+          <div class="iw-err" id="iwErr3"></div>
+          <div style="display:flex;gap:10px;margin-top:4px;">
+            <button class="iw-back-btn" onclick="iwBack(3)">← بازگشت</button>
+            <button class="iw-next-btn iw-cta" style="flex:1" onclick="iwFinish()">🕌 ادامه — انتخاب هتل ✦</button>
+          </div>
+        </div>
+
+      </div><!-- /iw-slides -->
+    </div><!-- /iw-wrap -->
+
+    <!-- legacy: hidden strip for JS that references cityStripRow -->
+    <div style="display:none"><div id="cityStripRow"></div><div id="moreCitiesRow"></div><div id="heroOriginGrid"></div></div>
   </div>
 </section>
 <div class="hero-wave"><svg viewBox="0 0 1440 54" preserveAspectRatio="none"><path d="M0,0 C360,54 1080,0 1440,36 L1440,54 L0,54 Z" fill="#f9f5ee"/></svg></div>
@@ -3056,6 +3455,341 @@ function closeModalDirect(id){document.getElementById('modal-'+id).classList.rem
 function closeModal(id,e){if(e.target===document.getElementById('modal-'+id))closeModalDirect(id);}
 
 // ══ HERO CITY ══
+// ══════════════════════════════════════════════════════════════
+// ══ INLINE WIZARD (IW) ══
+// ══════════════════════════════════════════════════════════════
+(function(){
+  'use strict';
+
+  var IW = {
+    step: 1,
+    selM: null, selY: null, selD: null,
+    pax: 1,
+    cities: [],       // ordered array of city keys
+    nights: { karbala:3, najaf:2, kadh_sam:2 },
+    transit: { karbala:false, najaf:false, kadh_sam:false },
+    tripType: null,
+    origin: null
+  };
+  window._IW = IW;
+
+  var IW_PM = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور',
+               'مهر','آبان','آذر','دی','بهمن','اسفند'];
+  var IW_DIM = [31,31,31,31,31,31,30,30,30,30,30,29];
+  var IW_TODAY = {y:1405,m:3,d:16};
+  var MOHARRAM_M = 4;
+
+  function P(n){ return String(n).replace(/\d/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'[d];}); }
+
+  function iwDis(d,m,y){
+    if(y<IW_TODAY.y) return true;
+    if(y===IW_TODAY.y&&m<IW_TODAY.m) return true;
+    if(y===IW_TODAY.y&&m===IW_TODAY.m&&d<=IW_TODAY.d+1) return true;
+    return false;
+  }
+
+  // ── Build month pills ──────────────────────────────────────
+  function iwBuildMonths(){
+    var wrap = document.getElementById('iwMonthScroll');
+    if(!wrap||wrap.children.length>0) return;
+    var cy=IW_TODAY.y, cm=IW_TODAY.m;
+    for(var i=0;i<6;i++){
+      (function(m,y){
+        var pill = document.createElement('div');
+        pill.className='iw-month-pill';
+        var isMoh = (m===MOHARRAM_M);
+        pill.innerHTML = (isMoh?'<div class="iw-moharram-badge">🏴 محرم</div>':'')
+          +'<div class="iw-month-pill-name">'+IW_PM[m-1]+'</div>'
+          +'<div class="iw-month-pill-year">'+P(y)+'</div>';
+        pill.onclick = function(){
+          document.querySelectorAll('.iw-month-pill').forEach(function(p){p.classList.remove('sel');});
+          pill.classList.add('sel');
+          IW.selM=m; IW.selY=y; IW.selD=null;
+          document.getElementById('iwDateChip').style.display='none';
+          iwBuildDays(m,y);
+          var ds=document.getElementById('iwDaySection');
+          ds.style.display='block';
+          ds.querySelector('.iw-day-label').textContent='🗓 روز اعزام — '+IW_PM[m-1]+' '+P(y);
+          setTimeout(function(){
+            ds.scrollIntoView({behavior:'smooth',block:'nearest'});
+            var first=ds.querySelector('.iw-day-num:not(.dis)');
+            if(first) first.scrollIntoView({behavior:'smooth',inline:'start',block:'nearest'});
+          },150);
+        };
+        wrap.appendChild(pill);
+      })(cm,cy);
+      cm++; if(cm>12){cm=1;cy++;}
+    }
+  }
+
+  function iwBuildDays(m,y){
+    var strip=document.getElementById('iwDayStrip');
+    strip.innerHTML='';
+    var dim=IW_DIM[m-1];
+    for(var d=1;d<=dim;d++){
+      (function(day){
+        var dis=iwDis(day,m,y);
+        var el=document.createElement('div');
+        el.className='iw-day-num'+(dis?' dis':'');
+        el.textContent=P(day);
+        if(!dis){
+          el.onclick=function(){
+            IW.selD=day;
+            document.querySelectorAll('.iw-day-num').forEach(function(x){x.classList.remove('sel');});
+            el.classList.add('sel');
+            var txt=P(day)+' '+IW_PM[m-1]+' '+P(y);
+            var chip=document.getElementById('iwDateChip');
+            document.getElementById('iwDateChipText').textContent=txt;
+            chip.style.display='inline-flex';
+            // Enable pax
+            var pr=document.getElementById('iwPaxRow');
+            pr.style.opacity='1'; pr.style.pointerEvents='';
+            pr.style.transform='scale(1.02)';
+            setTimeout(function(){pr.style.transform='';},280);
+            setTimeout(function(){pr.scrollIntoView({behavior:'smooth',block:'nearest'});},200);
+            // scroll chip into view
+            setTimeout(function(){
+              chip.scrollIntoView({behavior:'smooth',block:'nearest'});
+            },80);
+          };
+        }
+        strip.appendChild(el);
+      })(d);
+    }
+  }
+
+  // ── Pax ───────────────────────────────────────────────────
+  window.iwChangePax = function(d){
+    IW.pax = Math.max(1,Math.min(4,IW.pax+d));
+    document.getElementById('iwPaxVal').textContent=P(IW.pax);
+  };
+
+  // ── Cities ────────────────────────────────────────────────
+  var IW_CITY_KEYS = ['karbala','najaf','kadh_sam'];
+  var IW_CITY_IDS  = {karbala:'iwCityKarbala',najaf:'iwCityNajaf',kadh_sam:'iwCityKadhSam'};
+  var IW_ORD_IDS   = {karbala:'iwOrdKarbala', najaf:'iwOrdNajaf', kadh_sam:'iwOrdKadhSam'};
+  var IW_NV_IDS    = {karbala:'iwNvKarbala',  najaf:'iwNvNajaf',  kadh_sam:'iwNvKadhSam'};
+  var IW_NIGHTS_IDS= {karbala:'iwNightsKarbala',najaf:'iwNightsNajaf',kadh_sam:'iwNightsKadhSam'};
+  var IW_TRANSIT_IDS={karbala:'iwTransitKarbala',najaf:'iwTransitNajaf',kadh_sam:'iwTransitKadhSam'};
+  var IW_TCH_IDS   = {karbala:'iwTchKarbala', najaf:'iwTchNajaf', kadh_sam:'iwTchKadhSam'};
+
+  window.iwToggleCity = function(key){
+    var idx=IW.cities.indexOf(key);
+    if(idx>-1){
+      IW.cities.splice(idx,1);
+      document.getElementById(IW_CITY_IDS[key]).classList.remove('sel');
+      document.getElementById(IW_NIGHTS_IDS[key]).style.display='none';
+      document.getElementById(IW_TRANSIT_IDS[key]).style.display='none';
+    } else {
+      IW.cities.push(key);
+      document.getElementById(IW_CITY_IDS[key]).classList.add('sel');
+      document.getElementById(IW_NIGHTS_IDS[key]).style.display='flex';
+      document.getElementById(IW_TRANSIT_IDS[key]).style.display='flex';
+    }
+    iwRefreshOrders();
+    iwUpdateRoute();
+  };
+
+  function iwRefreshOrders(){
+    IW_CITY_KEYS.forEach(function(key){
+      var pos=IW.cities.indexOf(key);
+      var el=document.getElementById(IW_ORD_IDS[key]);
+      if(el) el.textContent=(pos>-1?P(pos+1):'');
+    });
+  }
+
+  window.iwChgNights = function(e,key,d){
+    e.stopPropagation();
+    IW.nights[key]=Math.max(1,Math.min(14,IW.nights[key]+d));
+    document.getElementById(IW_NV_IDS[key]).textContent=P(IW.nights[key]);
+  };
+
+  window.iwToggleTransit = function(e,key){
+    e.stopPropagation();
+    IW.transit[key]=!IW.transit[key];
+    var chk=document.getElementById(IW_TCH_IDS[key]);
+    chk.classList.toggle('on',IW.transit[key]);
+    var nightsEl=document.getElementById(IW_NIGHTS_IDS[key]);
+    if(IW.transit[key]){
+      nightsEl.style.opacity='.35'; nightsEl.style.pointerEvents='none';
+    } else {
+      nightsEl.style.opacity='1'; nightsEl.style.pointerEvents='';
+    }
+  };
+
+  var IW_CITY_NAMES={karbala:'کربلای معلی',najaf:'نجف اشرف',kadh_sam:'کاظمین و سامرا'};
+
+  function iwUpdateRoute(){
+    var el=document.getElementById('iwRoutePreview');
+    if(!IW.cities.length){el.classList.remove('show');return;}
+    el.classList.add('show');
+    var parts=IW.cities.map(function(k){
+      return '<strong>'+IW_CITY_NAMES[k]+'</strong>'+(IW.transit[k]?' (عبوری)':' — '+P(IW.nights[k])+' شب');
+    });
+    el.innerHTML='🗺️ مسیر: '+parts.join(' ← ');
+  }
+
+  // ── Trip type ─────────────────────────────────────────────
+  window.iwSelType = function(t){
+    IW.tripType=t;
+    ['air','land','mixed'].forEach(function(k){
+      var el=document.getElementById('iwType'+k.charAt(0).toUpperCase()+k.slice(1));
+      if(el) el.classList.toggle('sel',k===t);
+    });
+  };
+
+  // ── Origin ────────────────────────────────────────────────
+  var IW_MORE_CITIES=[
+    {city:'tabriz',name:'تبریز'},{city:'qom',name:'قم'},{city:'karaj',name:'کرج'},
+    {city:'ahvaz',name:'اهواز'},{city:'rasht',name:'رشت'},{city:'kermanshah',name:'کرمانشاه'},
+    {city:'arak',name:'اراک'},{city:'yazd',name:'یزد'},{city:'other',name:'سایر'}
+  ];
+
+  function iwBuildMoreCities(){
+    var row=document.getElementById('iwMoreRow');
+    if(!row||row.children.length>0) return;
+    IW_MORE_CITIES.forEach(function(c){
+      var chip=document.createElement('div');
+      chip.className='iw-more-chip';
+      chip.textContent=c.city==='other'?'📍 '+c.name:c.name;
+      chip.onclick=function(){
+        // deselect grid cards
+        document.querySelectorAll('.iw-origin-card').forEach(function(x){x.classList.remove('sel');});
+        document.querySelectorAll('.iw-more-chip').forEach(function(x){x.classList.remove('sel');});
+        chip.classList.add('sel');
+        IW.origin=c.city;
+      };
+      row.appendChild(chip);
+    });
+  }
+
+  window.iwSelOrigin = function(el){
+    document.querySelectorAll('.iw-origin-card').forEach(function(x){x.classList.remove('sel');});
+    document.querySelectorAll('.iw-more-chip').forEach(function(x){x.classList.remove('sel');});
+    el.classList.add('sel');
+    IW.origin=el.dataset.city;
+  };
+
+  // ── Step navigation ───────────────────────────────────────
+  function iwSetStep(n){
+    IW.step=n;
+    // Update progress bar
+    document.getElementById('iwProgressBar').style.width=(n===1?'33':n===2?'66':'100')+'%';
+    // Dots
+    ['A','B','C'].forEach(function(l,i){
+      var s=i+1;
+      var dot=document.getElementById('iwDot'+l);
+      var lbl=document.getElementById('iwLbl'+l);
+      var line=document.getElementById('iwLine'+l);
+      if(dot){
+        dot.className='iw-step-dot'+(s<n?' done':s===n?' active':'');
+        dot.textContent=s<n?'✓':P(s);
+      }
+      if(lbl) lbl.className='iw-sl'+(s<n?' done':s===n?' active':'');
+      if(line&&l!=='C') line.className='iw-step-line'+(s<n?' done':'');
+    });
+    // Slides
+    [1,2,3].forEach(function(s){
+      var sl=document.getElementById('iwSlide'+s);
+      if(sl) sl.classList.toggle('active',s===n);
+    });
+    // Scroll wrap to top
+    var wrap=document.getElementById('iwWrap');
+    if(wrap) setTimeout(function(){wrap.scrollIntoView({behavior:'smooth',block:'start'});},80);
+  }
+
+  window.iwNext = function(fromStep){
+    if(fromStep===1){
+      if(!IW.selD){
+        var e=document.getElementById('iwErr1');
+        e.textContent='لطفاً تاریخ اعزام را انتخاب کنید.'; e.classList.add('show');
+        return;
+      }
+      if(IW.pax<1){
+        var e2=document.getElementById('iwErr1');
+        e2.textContent='لطفاً تعداد مسافران را انتخاب کنید.'; e2.classList.add('show');
+        return;
+      }
+      document.getElementById('iwErr1').classList.remove('show');
+      iwBuildMoreCities();
+      iwSetStep(2);
+    } else if(fromStep===2){
+      if(!IW.cities.length){
+        var e3=document.getElementById('iwErr2');
+        e3.textContent='لطفاً حداقل یک شهر زیارتی انتخاب کنید.'; e3.classList.add('show');
+        return;
+      }
+      document.getElementById('iwErr2').classList.remove('show');
+      iwSetStep(3);
+    }
+  };
+
+  window.iwBack = function(fromStep){
+    if(fromStep>1) iwSetStep(fromStep-1);
+  };
+
+  // ── Finish: sync IW data → global state, open bottom sheet at step 4 ──
+  window.iwFinish = function(){
+    if(!IW.tripType){
+      var e=document.getElementById('iwErr3');
+      e.textContent='لطفاً نوع سفر را انتخاب کنید.'; e.classList.add('show');
+      return;
+    }
+    if(!IW.origin){
+      var e2=document.getElementById('iwErr3');
+      e2.textContent='لطفاً شهر مبدا را انتخاب کنید.'; e2.classList.add('show');
+      return;
+    }
+    document.getElementById('iwErr3').classList.remove('show');
+
+    // Sync to global state
+    state.selM=IW.selM; state.selY=IW.selY; state.selD=IW.selD;
+    state.dateText=P(IW.selD)+' '+IW_PM[IW.selM-1]+' '+P(IW.selY);
+    state.passengers=IW.pax;
+    state.origin=IW.origin;
+    state.tripType=IW.tripType;
+    state.cities=IW.cities.slice();
+    state.cityData={};
+    IW.cities.forEach(function(key){
+      state.cityData[key]={
+        nights: IW.nights[key],
+        transit: IW.transit[key],
+        hotel: null,
+        food: true
+      };
+    });
+    if(IW.tripType==='air'||IW.tripType==='mixed'){
+      var airMap={tehran:{code:'IKA',name:'فرودگاه بین‌المللی امام خمینی'},
+                  mashhad:{code:'MHD',name:'فرودگاه مشهد'},
+                  isfahan:{code:'IFN',name:'فرودگاه اصفهان'}};
+      state.selectedAirport=airMap[IW.origin]||null;
+    }
+
+    // Open bottom sheet directly at step 4
+    document.getElementById('pccCityVal').textContent=({tehran:'تهران',mashhad:'مشهد',isfahan:'اصفهان',shiraz:'شیراز',tabriz:'تبریز',qom:'قم',karaj:'کرج',ahvaz:'اهواز',rasht:'رشت',kermanshah:'کرمانشاه',arak:'اراک',yazd:'یزد',other:'سایر'})[IW.origin]||IW.origin;
+    document.getElementById('pccPaxVal').textContent=P(state.passengers);
+    document.getElementById('bsAlert1').classList.remove('show');
+    document.getElementById('bsAlert2').classList.remove('show');
+    document.getElementById('bsAlert3').classList.remove('show');
+    document.body.classList.add('sheet-open');
+    document.getElementById('bsOverlay').classList.add('open');
+    document.getElementById('bsSheet').classList.add('open');
+    _goToStep(4);
+  };
+
+  // ── Init on DOM ready ─────────────────────────────────────
+  function iwInit(){
+    iwBuildMonths();
+    iwSetStep(1);
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',iwInit);
+  } else { setTimeout(iwInit,60); }
+
+})();
+
+// ══════════════════════════════════════════════════════════════
+
 function heroSelectCity(el){
   document.querySelectorAll('.origin-card').forEach(c=>c.classList.remove('selected'));
   document.querySelectorAll('.city-pill-sm').forEach(c=>c.classList.remove('selected'));
