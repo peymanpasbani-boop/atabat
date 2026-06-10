@@ -1203,12 +1203,12 @@ body.sheet-open{overflow:hidden;}
   border: 1.5px solid var(--goldB);
   border-top: none;
   border-radius: 0 0 18px 18px;
-  padding: 0 20px 24px;
+  padding: 14px 16px 20px;
 }
 
 /* ── Intro message ── */
 .cv2-intro {
-  margin: 18px 0 20px;
+  margin: 14px 0 14px;
   display: flex;
   align-items: flex-start;
   gap: 14px;
@@ -1244,18 +1244,27 @@ body.sheet-open{overflow:hidden;}
 .cv2-intro-cta:hover { background: var(--em3); transform: translateY(-1px); }
 
 /* ── City selector — minimal pill row ── */
-.cv2-city-section { margin-bottom: 16px; }
+.cv2-city-section { margin-bottom: 12px; }
 .cv2-city-label { font-size: 10px; font-weight: 700; color: var(--ts); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 9px; }
-.cv2-city-pills { display: flex; gap: 7px; flex-wrap: wrap; }
+.cv2-city-pills {
+  display: flex; gap: 6px; flex-wrap: nowrap;
+  overflow-x: auto; overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.cv2-city-pills::-webkit-scrollbar { display: none; }
 .cv2-city-pill {
-  padding: 8px 16px;
+  padding: 6px 13px;
   border-radius: 100px;
   border: 1.5px solid rgba(201,168,76,.2);
   background: var(--cream);
   cursor: pointer;
   transition: all .2s;
-  font-size: 12.5px; font-weight: 700; color: var(--td);
-  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 700; color: var(--td);
+  display: flex; align-items: center; gap: 5px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 .cv2-city-pill:hover { border-color: rgba(201,168,76,.45); transform: translateY(-1px); }
 .cv2-city-pill.active {
@@ -1277,13 +1286,13 @@ body.sheet-open{overflow:hidden;}
   background: rgba(13,59,46,.06);
   border-radius: 100px;
   padding: 3px;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
   width: fit-content;
 }
 .cv2-tab {
-  padding: 7px 18px;
+  padding: 6px 14px;
   border-radius: 100px;
-  font-size: 11.5px; font-weight: 700;
+  font-size: 11px; font-weight: 700;
   cursor: pointer;
   transition: all .22s;
   color: var(--ts);
@@ -1299,12 +1308,12 @@ body.sheet-open{overflow:hidden;}
 .cv2-tab-icon { width: 16px; height: 16px; flex-shrink: 0; }
 
 /* ── Caravan cards ── */
-.cv2-list { display: flex; flex-direction: column; gap: 10px; }
+.cv2-list { display: flex; flex-direction: column; gap: 8px; }
 
 .cv2-card {
-  background: var(--cream);
+  background: var(--white);
   border: 1.5px solid rgba(201,168,76,.16);
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
   transition: all .28s;
   cursor: pointer;
@@ -1316,8 +1325,8 @@ body.sheet-open{overflow:hidden;}
 .cv2-card-head {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
+  gap: 10px;
+  padding: 10px 14px;
 }
 .cv2-card.open .cv2-card-head {
   border-bottom: 1px solid rgba(201,168,76,.15);
@@ -1326,26 +1335,26 @@ body.sheet-open{overflow:hidden;}
 
 /* Transport icon — clean monochrome box */
 .cv2-transport-box {
-  width: 44px; height: 44px;
-  border-radius: 12px;
+  width: 36px; height: 36px;
+  border-radius: 9px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
 .cv2-transport-box.air { background: rgba(13,59,46,.08); }
 .cv2-transport-box.land { background: rgba(201,168,76,.1); }
-.cv2-transport-box svg { width: 24px; height: 24px; }
+.cv2-transport-box svg { width: 20px; height: 20px; }
 
 /* Date — prominent */
 .cv2-date-block { display: flex; flex-direction: column; gap: 1px; flex-shrink: 0; text-align: center; }
-.cv2-date-day { font-size: 28px; font-weight: 900; color: var(--em); line-height: 1; letter-spacing: -.03em; }
-.cv2-date-month { font-size: 10px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: .04em; margin-top: 1px; }
+.cv2-date-day { font-size: 22px; font-weight: 900; color: var(--em); line-height: 1; letter-spacing: -.03em; }
+.cv2-date-month { font-size: 9.5px; font-weight: 700; color: var(--gold); letter-spacing: .03em; margin-top: 1px; }
 
 /* Vertical divider */
 .cv2-vdiv { width: 1px; height: 36px; background: rgba(201,168,76,.2); flex-shrink: 0; }
 
 /* Trip info */
 .cv2-info { flex: 1; min-width: 0; }
-.cv2-info-route { font-size: 13px; font-weight: 800; color: var(--em); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cv2-info-route { font-size: 12.5px; font-weight: 800; color: var(--em); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cv2-info-meta { display: flex; align-items: center; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
 .cv2-info-tag {
   display: inline-flex; align-items: center; gap: 3px;
@@ -1358,10 +1367,11 @@ body.sheet-open{overflow:hidden;}
 
 /* Capacity pill */
 .cv2-cap {
-  display: flex; align-items: center; gap: 6px;
-  padding: 4px 10px;
+  display: flex; align-items: center; gap: 4px;
+  padding: 3px 8px;
   border-radius: 100px;
-  font-size: 10px; font-weight: 700;
+  font-size: 9.5px; font-weight: 700;
+  white-space: nowrap; flex-shrink: 0;
 }
 .cv2-cap.hi { background: rgba(34,197,94,.1); color: #15803d; }
 .cv2-cap.mi { background: rgba(245,158,11,.1); color: #b45309; }
