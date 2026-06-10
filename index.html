@@ -17,7 +17,7 @@
   --header-h:68px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:auto}
 body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);min-height:100vh;overflow-x:hidden}
 body.sheet-open{overflow:hidden;}
 
@@ -399,7 +399,8 @@ body.sheet-open{overflow:hidden;}
 .tds-pb-total-val{font-size:15px;font-weight:900;color:var(--em);}
 
 /* ══ FLOATING SUPPORT ══ */
-.floating-support{position:fixed;bottom:24px;right:20px;z-index:500;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.floating-support{position:fixed;bottom:24px;right:20px;z-index:500;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;pointer-events:none;transition:opacity .4s ease;}
+.floating-support.fabs-visible{opacity:1;pointer-events:all;}
 .support-btn{width:52px;height:52px;background:linear-gradient(135deg,#25d366,#128c7e);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.45),0 0 0 3px rgba(37,211,102,.15);transition:var(--tr);position:relative;text-decoration:none;}
 .support-btn:hover{transform:scale(1.1);}
 .support-btn svg{width:28px;height:28px;fill:white;}
@@ -1376,7 +1377,8 @@ body.sheet-open{overflow:hidden;}
 .tsc-dot.active{width:16px;border-radius:3px;background:var(--em);}
 
 /* ══ AI TRIP PLANNER CHAT WIDGET ══ */
-.aichat-fab-wrap{position:fixed;bottom:92px;right:20px;z-index:600;display:flex;flex-direction:column;align-items:center;gap:5px;}
+.aichat-fab-wrap{position:fixed;bottom:92px;right:20px;z-index:600;display:flex;flex-direction:column;align-items:center;gap:5px;opacity:0;pointer-events:none;transition:opacity .4s ease;}
+.aichat-fab-wrap.fabs-visible{opacity:1;pointer-events:all;}
 .aichat-fab{width:56px;height:56px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 22px rgba(201,168,76,.55),0 0 0 3px rgba(201,168,76,.18);transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;}
 .aichat-fab:hover{transform:scale(1.1);}
 .aichat-fab-icon{font-size:22px;line-height:1;transition:transform .3s;}
@@ -2215,84 +2217,8 @@ body.sheet-open{overflow:hidden;}
             </div>
           </div>
 
-          <!-- City cards -->
-          <div class="iw-city-grid">
-
-            <div class="iw-city-card" id="iwCityKarbala" onclick="iwToggleCity('karbala')">
-              <div class="iw-city-order" id="iwOrdKarbala"></div>
-              <div class="iw-city-icon">
-                <svg viewBox="0 0 32 32" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round">
-                  <line x1="16" y1="3" x2="16" y2="6"/><path d="M11 12 Q16 6 21 12"/><path d="M10 12 L10 21 L22 21 L22 12"/><rect x="13.5" y="15" width="5" height="6"/><line x1="7" y1="21" x2="25" y2="21"/>
-                </svg>
-              </div>
-              <div class="iw-city-info">
-                <div class="iw-city-name">کربلای معلی</div>
-                <div class="iw-city-shrine">حرم امام حسین (ع)</div>
-              </div>
-              <div class="iw-city-check">✓</div>
-              <!-- Nights stepper (shown when selected) -->
-              <div class="iw-city-nights" id="iwNightsKarbala" style="display:none">
-                <button class="iw-n-btn" onclick="iwChgNights(event,'karbala',-1)">−</button>
-                <span class="iw-n-val" id="iwNvKarbala">۳</span>
-                <span class="iw-n-unit">شب</span>
-                <button class="iw-n-btn" onclick="iwChgNights(event,'karbala',1)">+</button>
-              </div>
-              <!-- Transit toggle -->
-              <div class="iw-transit-row" id="iwTransitKarbala" style="display:none" onclick="iwToggleTransit(event,'karbala')">
-                <div class="iw-transit-chk" id="iwTchKarbala"></div>
-                <span>عبوری (بدون هتل)</span>
-              </div>
-            </div>
-
-            <div class="iw-city-card" id="iwCityNajaf" onclick="iwToggleCity('najaf')">
-              <div class="iw-city-order" id="iwOrdNajaf"></div>
-              <div class="iw-city-icon">
-                <svg viewBox="0 0 32 32" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round">
-                  <circle cx="16" cy="7" r="4"/><line x1="16" y1="3" x2="16" y2="1"/><path d="M11 11 Q16 8.5 21 11"/><rect x="12" y="12" width="8" height="10"/><rect x="14.5" y="16" width="3" height="6"/>
-                </svg>
-              </div>
-              <div class="iw-city-info">
-                <div class="iw-city-name">نجف اشرف</div>
-                <div class="iw-city-shrine">حرم امام علی (ع)</div>
-              </div>
-              <div class="iw-city-check">✓</div>
-              <div class="iw-city-nights" id="iwNightsNajaf" style="display:none">
-                <button class="iw-n-btn" onclick="iwChgNights(event,'najaf',-1)">−</button>
-                <span class="iw-n-val" id="iwNvNajaf">۲</span>
-                <span class="iw-n-unit">شب</span>
-                <button class="iw-n-btn" onclick="iwChgNights(event,'najaf',1)">+</button>
-              </div>
-              <div class="iw-transit-row" id="iwTransitNajaf" style="display:none" onclick="iwToggleTransit(event,'najaf')">
-                <div class="iw-transit-chk" id="iwTchNajaf"></div>
-                <span>عبوری (بدون هتل)</span>
-              </div>
-            </div>
-
-            <div class="iw-city-card" id="iwCityKadhSam" onclick="iwToggleCity('kadh_sam')">
-              <div class="iw-city-order" id="iwOrdKadhSam"></div>
-              <div class="iw-city-icon">
-                <svg viewBox="0 0 32 32" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round">
-                  <path d="M5 13 Q8 7 11 13"/><rect x="4.5" y="13" width="7" height="9"/><path d="M15 14 Q18 8 21 14"/><rect x="14.5" y="14" width="7" height="8"/>
-                </svg>
-              </div>
-              <div class="iw-city-info">
-                <div class="iw-city-name">کاظمین و سامرا</div>
-                <div class="iw-city-shrine">حرم امام کاظم و عسکریین (ع)</div>
-              </div>
-              <div class="iw-city-check">✓</div>
-              <div class="iw-city-nights" id="iwNightsKadhSam" style="display:none">
-                <button class="iw-n-btn" onclick="iwChgNights(event,'kadh_sam',-1)">−</button>
-                <span class="iw-n-val" id="iwNvKadhSam">۲</span>
-                <span class="iw-n-unit">شب</span>
-                <button class="iw-n-btn" onclick="iwChgNights(event,'kadh_sam',1)">+</button>
-              </div>
-              <div class="iw-transit-row" id="iwTransitKadhSam" style="display:none" onclick="iwToggleTransit(event,'kadh_sam')">
-                <div class="iw-transit-chk" id="iwTchKadhSam"></div>
-                <span>عبوری (بدون هتل)</span>
-              </div>
-            </div>
-
-          </div>
+          <!-- City cards — dynamic render by wsRenderGrid() -->
+          <div id="wsCityGrid" style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px;"></div>
 
           <!-- Route preview -->
           <div class="iw-route-preview" id="iwRoutePreview"></div>
@@ -6023,6 +5949,348 @@ function aiFormatNum(n){return P(Math.round(n).toLocaleString('en'));}
 
 })();
 
+</script>
+
+<script>
+/* ═══════════════════════════ AVAN PATCH v3 ═══════════════════════════ */
+
+/* ① پرش صفحه — همیشه از بالا */
+(function(){
+  if(window.location.hash) history.replaceState(null,'',window.location.pathname+window.location.search);
+  window.scrollTo(0,0);
+})();
+
+/* ② فابها بعد از اسکرول از هرو */
+document.addEventListener('DOMContentLoaded',function(){
+  var hero=document.querySelector('.hero');
+  var fabWrap=document.querySelector('.aichat-fab-wrap');
+  var support=document.querySelector('.floating-support');
+  function show(){ if(fabWrap)fabWrap.classList.add('fabs-visible'); if(support)support.classList.add('fabs-visible'); }
+  function hide(){ if(fabWrap)fabWrap.classList.remove('fabs-visible'); if(support)support.classList.remove('fabs-visible'); }
+  hide();
+  if(hero&&window.IntersectionObserver){
+    new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ e.isIntersecting?hide():show(); });
+    },{threshold:0.05}).observe(hero);
+  } else { show(); }
+});
+
+/* ③④⑤⑥⑦ — ویزارد شهرهای زیارتی */
+(function(){
+  'use strict';
+
+  var KEYS=['karbala','najaf','kadh_sam'];
+  var NAMES={karbala:'کربلای معلی',najaf:'نجف اشرف',kadh_sam:'کاظمین و سامرا'};
+  var SHRINES={karbala:'حرم امام حسین (ع)',najaf:'حرم امام علی (ع)',kadh_sam:'حرم امام کاظم و عسکریین (ع)'};
+  var SVGS={
+    karbala:'<svg viewBox="0 0 32 32" fill="none" stroke="#e8c97a" stroke-width="1.6" stroke-linecap="round"><line x1="16" y1="3" x2="16" y2="6"/><path d="M11 12 Q16 5 21 12"/><path d="M10 12 L10 22 L22 22 L22 12"/><rect x="13" y="15" width="6" height="7"/><line x1="6" y1="22" x2="26" y2="22"/></svg>',
+    najaf:'<svg viewBox="0 0 32 32" fill="none" stroke="#e8c97a" stroke-width="1.6" stroke-linecap="round"><circle cx="16" cy="7" r="4.5"/><line x1="16" y1="2.5" x2="16" y2="1"/><path d="M10 12 Q16 8 22 12"/><rect x="11" y="12" width="10" height="11"/><rect x="14" y="16" width="4" height="7"/></svg>',
+    kadh_sam:'<svg viewBox="0 0 32 32" fill="none" stroke="#e8c97a" stroke-width="1.6" stroke-linecap="round"><path d="M5 14 Q8 7 11 14"/><rect x="4" y="14" width="8" height="10"/><path d="M15 15 Q18 8 21 15"/><rect x="14" y="15" width="8" height="9"/></svg>'
+  };
+  var HOTELS={
+    karbala:[
+      {name:'هتل عباسیه گرند',stars:5,dist:'۸۰ متر',cat:'alef'},
+      {name:'هتل الحسین انترنشنال',stars:5,dist:'۱۰۰ متر',cat:'alef'},
+      {name:'هتل کربلا اینترنشنال',stars:4,dist:'۲۰۰ متر',cat:'be'},
+      {name:'هتل فرات',stars:3,dist:'۳۵۰ متر',cat:'be'},
+      {name:'هتل الکوثر',stars:2,dist:'۶۰۰ متر',cat:'jim'}
+    ],
+    najaf:[
+      {name:'هتل امیرالمؤمنین',stars:5,dist:'۵۰ متر',cat:'alef'},
+      {name:'هتل نجف گرند',stars:5,dist:'۸۰ متر',cat:'alef'},
+      {name:'هتل نجف پالاس',stars:4,dist:'۱۵۰ متر',cat:'be'},
+      {name:'هتل المشرق',stars:3,dist:'۳۰۰ متر',cat:'be'},
+      {name:'هتل النخیل',stars:2,dist:'۵۵۰ متر',cat:'jim'}
+    ],
+    kadh_sam:[
+      {name:'هتل الامین الکاظمیه',stars:5,dist:'۷۰ متر',cat:'alef'},
+      {name:'هتل الکاظمیه پالاس',stars:4,dist:'۱۲۰ متر',cat:'be'},
+      {name:'هتل الرشید',stars:3,dist:'۲۵۰ متر',cat:'be'},
+      {name:'هتل الفرحان',stars:2,dist:'۶۵۰ متر',cat:'jim'}
+    ]
+  };
+  var CAT_LABELS={alef:'الف — لوکس',be:'ب — متوسط',jim:'ج — اقتصادی'};
+
+  /* state */
+  var WS={cities:[],nights:{},transit:{},hotel:{},phase:{}}; /* phase: ''|'nights'|'hotel'|'done' */
+
+  function P(n){return String(n).replace(/\d/g,function(d){return'۰۱۲۳۴۵۶۷۸۹'[d];});}
+  function starDots(n){var s='';for(var i=1;i<=5;i++)s+='<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:'+(i<=n?'#c9a84c':'rgba(255,255,255,.2)')+';margin:0 1px"></span>';return s;}
+
+  function getGrid(){return document.getElementById('wsCityGrid');}
+
+  /* ── رندر کامل ── */
+  function wsRender(){
+    var grid=getGrid(); if(!grid)return;
+    grid.innerHTML='';
+
+    /* اول شهرهای انتخاب‌شده به ترتیب */
+    WS.cities.forEach(function(key,i){ grid.appendChild(makeCard(key,i+1)); });
+    /* بعد بقیه */
+    KEYS.forEach(function(key){ if(WS.cities.indexOf(key)===-1) grid.appendChild(makeCard(key,0)); });
+
+    syncIW();
+    updateRoutePreview();
+  }
+
+  function makeCard(key,order){
+    var inSel=WS.cities.indexOf(key)>-1;
+    var phase=WS.phase[key]||'';
+
+    var card=document.createElement('div');
+    card.id='wsCard_'+key;
+
+    /* استایل کارت */
+    var borderColor=inSel?(phase==='done'?'var(--gold)':'rgba(201,168,76,.55)'):'rgba(255,255,255,.12)';
+    var bgCard=inSel?(phase==='done'?'linear-gradient(135deg,rgba(201,168,76,.14),rgba(26,94,73,.1))':'rgba(201,168,76,.09)'):'rgba(255,255,255,.05)';
+    card.style.cssText='background:'+bgCard+';border:1.5px solid '+borderColor+';border-radius:18px;padding:14px 16px;margin-bottom:0;transition:all .3s;overflow:hidden;';
+
+    /* هدر کارت */
+    var orderBadge=order>0?'<div style="position:absolute;top:10px;left:14px;width:22px;height:22px;background:var(--em);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--goldL);border:1.5px solid rgba(201,168,76,.4);">'+P(order)+'</div>':'';
+    var tickColor=inSel?'linear-gradient(135deg,var(--gold),#a8722a)':'rgba(255,255,255,.12)';
+    var tickBorder=inSel?'none':'1.5px solid rgba(255,255,255,.2)';
+    var tick='<div style="position:absolute;top:12px;right:14px;width:22px;height:22px;border-radius:50%;background:'+tickColor+';border:'+tickBorder+';display:flex;align-items:center;justify-content:center;font-size:11px;color:'+(inSel?'var(--em)':'transparent')+';transition:all .25s;">✓</div>';
+
+    var nameColor=inSel?'var(--goldL)':'rgba(255,255,255,.9)';
+    var headerHtml='<div style="display:flex;align-items:center;gap:12px;position:relative;cursor:pointer;" onclick="wsTapCard(\''+key+'\')">'
+      +'<div style="width:40px;height:40px;background:linear-gradient(135deg,var(--em),var(--em3));border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+SVGS[key]+'</div>'
+      +'<div style="flex:1;">'
+      +'<div style="font-size:13px;font-weight:800;color:'+nameColor+';margin-bottom:2px;">'+NAMES[key]+'</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.4);">'+SHRINES[key]+'</div>'
+      +'</div>'
+      +orderBadge+tick
+      +'</div>';
+
+    /* بدنه بر اساس phase */
+    var bodyHtml='';
+
+    if(phase==='nights'){
+      bodyHtml='<div style="margin-top:14px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:14px;padding:14px;animation:bsFadeUp .28s ease both;">'
+        +'<div style="font-size:11px;font-weight:700;color:rgba(201,168,76,.9);margin-bottom:12px;display:flex;align-items:center;gap:6px;"><span>🌙</span> چند شب در '+NAMES[key]+' می‌مانید؟</div>'
+        /* ردیف شب + عبوری در یک خط */
+        +'<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;">'
+        /* عبوری */
+        +'<div id="wsTchWrap_'+key+'" onclick="wsTapTransit(event,\''+key+'\')" style="display:flex;align-items:center;gap:7px;padding:7px 12px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:100px;cursor:pointer;flex-shrink:0;transition:border-color .2s;">'
+        +'<div id="wsTch_'+key+'" style="width:15px;height:15px;border:1.5px solid rgba(201,168,76,.45);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;"></div>'
+        +'<span style="font-size:11px;color:rgba(255,255,255,.55);white-space:nowrap;">عبوری</span>'
+        +'</div>'
+        /* stepper شب */
+        +'<div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1.5px solid rgba(201,168,76,.3);border-radius:100px;padding:5px 10px;" id="wsNightsStepper_'+key+'">'
+        +'<button onclick="wsChgN(event,\''+key+'\',-1)" style="width:28px;height:28px;border:none;border-radius:50%;background:rgba(201,168,76,.25);color:var(--goldL);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:Vazirmatn,sans-serif;line-height:1;transition:background .18s;">−</button>'
+        +'<span id="wsNv_'+key+'" style="font-size:20px;font-weight:900;color:var(--goldL);min-width:36px;text-align:center;">'+P(WS.nights[key]||0)+'</span>'
+        +'<span style="font-size:10px;color:rgba(255,255,255,.4);">شب</span>'
+        +'<button onclick="wsChgN(event,\''+key+'\',1)" style="width:28px;height:28px;border:none;border-radius:50%;background:rgba(201,168,76,.25);color:var(--goldL);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:Vazirmatn,sans-serif;line-height:1;transition:background .18s;">+</button>'
+        +'</div>'
+        +'</div>'
+        +'<button onclick="wsConfirmNights(\''+key+'\')" style="width:100%;padding:11px;border-radius:100px;border:none;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--em);font-family:Vazirmatn,sans-serif;font-size:12.5px;font-weight:800;cursor:pointer;transition:all .2s;">تأیید و انتخاب هتل ←</button>'
+        +'</div>';
+
+    } else if(phase==='hotel'){
+      bodyHtml='<div style="margin-top:14px;animation:bsFadeUp .28s ease both;">'
+        +'<div style="font-size:11px;font-weight:700;color:rgba(201,168,76,.9);margin-bottom:10px;display:flex;align-items:center;gap:6px;"><span>🏨</span> هتل مورد نظر را انتخاب کنید</div>'
+        +buildHotelList(key)
+        +'</div>';
+
+    } else if(phase==='done'){
+      var hn=WS.transit[key]?'عبوری':(WS.hotel[key]!==undefined?HOTELS[key][WS.hotel[key]].name:'—');
+      var nightsStr=WS.transit[key]?'عبوری':(P(WS.nights[key])+' شب');
+      bodyHtml='<div style="margin-top:10px;display:flex;align-items:center;gap:8px;background:rgba(26,94,73,.2);border:1px solid rgba(26,94,73,.45);border-radius:10px;padding:8px 12px;">'
+        +'<span style="font-size:15px;">✅</span>'
+        +'<div style="flex:1;">'
+        +'<div style="font-size:11px;font-weight:700;color:#4ade80;">'+nightsStr+'</div>'
+        +(hn&&hn!=='عبوری'?'<div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:2px;">'+hn+'</div>':'')
+        +'</div>'
+        +'<span onclick="wsEdit(\''+key+'\')" style="font-size:10px;color:rgba(255,255,255,.38);cursor:pointer;border:1px solid rgba(255,255,255,.15);padding:3px 9px;border-radius:100px;white-space:nowrap;transition:all .2s;">ویرایش</span>'
+        +'</div>';
+    }
+
+    card.innerHTML=headerHtml+bodyHtml;
+    return card;
+  }
+
+  function buildHotelList(key){
+    var html='';
+    ['alef','be','jim'].forEach(function(cat){
+      var hs=HOTELS[key].filter(function(h){return h.cat===cat;});
+      if(!hs.length)return;
+      html+='<div style="font-size:9px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.06em;margin:8px 0 5px;">درجه '+CAT_LABELS[cat]+'</div>';
+      hs.forEach(function(h){
+        var idx=HOTELS[key].indexOf(h);
+        var isSel=WS.hotel[key]===idx;
+        html+='<div onclick="wsPickHotel(\''+key+'\','+idx+')" style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:11px;border:1.5px solid '+(isSel?'var(--gold)':'rgba(255,255,255,.1)')+';background:'+(isSel?'rgba(201,168,76,.15)':'rgba(255,255,255,.04)')+';cursor:pointer;margin-bottom:6px;transition:all .18s;">'
+          +'<div style="flex:1;">'
+          +'<div style="font-size:12px;font-weight:700;color:'+(isSel?'var(--goldL)':'rgba(255,255,255,.85)')+';margin-bottom:3px;">'+h.name+'</div>'
+          +'<div style="display:flex;align-items:center;gap:7px;">'+starDots(h.stars)+'<span style="font-size:9.5px;color:rgba(255,255,255,.35);">📍 '+h.dist+'</span></div>'
+          +'</div>'
+          +(isSel?'<span style="font-size:16px;color:var(--gold);">✓</span>':'<span style="font-size:10px;color:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.12);padding:2px 8px;border-radius:100px;">انتخاب</span>')
+          +'</div>';
+      });
+    });
+    return html;
+  }
+
+  /* ── رویدادها ── */
+  window.wsTapCard=function(key){
+    if(WS.cities.indexOf(key)===-1){
+      /* شهر جدید انتخاب شد */
+      WS.cities.push(key);
+      WS.nights[key]=0;
+      WS.transit[key]=false;
+      WS.phase[key]='nights';
+      wsRender();
+      setTimeout(function(){
+        var el=document.getElementById('wsNv_'+key);
+        if(el){el.style.transform='scale(1.3)';setTimeout(function(){el.style.transform='';},300);}
+        var card=document.getElementById('wsCard_'+key);
+        if(card)card.scrollIntoView({behavior:'smooth',block:'nearest'});
+      },200);
+    }
+  };
+
+  window.wsTapTransit=function(e,key){
+    e.stopPropagation();
+    WS.transit[key]=!WS.transit[key];
+    var wrap=document.getElementById('wsTchWrap_'+key);
+    var chk=document.getElementById('wsTch_'+key);
+    var stepper=document.getElementById('wsNightsStepper_'+key);
+    if(WS.transit[key]){
+      if(chk){chk.style.background='var(--gold)';chk.style.borderColor='var(--gold)';chk.innerHTML='<span style="font-size:9px;color:var(--em);font-weight:800;">✓</span>';}
+      if(wrap) wrap.style.borderColor='var(--gold)';
+      if(stepper){stepper.style.opacity='.3';stepper.style.pointerEvents='none';}
+    } else {
+      if(chk){chk.style.background='';chk.style.borderColor='rgba(201,168,76,.45)';chk.innerHTML='';}
+      if(wrap) wrap.style.borderColor='rgba(255,255,255,.12)';
+      if(stepper){stepper.style.opacity='';stepper.style.pointerEvents='';}
+    }
+  };
+
+  window.wsChgN=function(e,key,d){
+    e.stopPropagation();
+    WS.nights[key]=Math.max(0,Math.min(14,(WS.nights[key]||0)+d));
+    var el=document.getElementById('wsNv_'+key);
+    if(el) el.textContent=P(WS.nights[key]);
+  };
+
+  window.wsConfirmNights=function(key){
+    if(!WS.transit[key]&&(!WS.nights[key]||WS.nights[key]<1)){
+      var el=document.getElementById('wsNv_'+key);
+      if(el){el.style.color='#f87171';el.style.transform='scale(1.4)';setTimeout(function(){el.style.color='';el.style.transform='';},700);}
+      return;
+    }
+    if(WS.transit[key]){WS.phase[key]='done';}
+    else{WS.phase[key]='hotel';}
+    wsRender();
+    setTimeout(function(){
+      var card=document.getElementById('wsCard_'+key);
+      if(card)card.scrollIntoView({behavior:'smooth',block:'nearest'});
+    },180);
+  };
+
+  window.wsPickHotel=function(key,idx){
+    WS.hotel[key]=idx;
+    WS.phase[key]='done';
+    wsRender();
+    setTimeout(function(){
+      var card=document.getElementById('wsCard_'+key);
+      if(card)card.scrollIntoView({behavior:'smooth',block:'nearest'});
+      /* اگه همه done شدن، پالس دکمه ادامه */
+      var allDone=WS.cities.length>0&&WS.cities.every(function(k){return WS.phase[k]==='done';});
+      if(allDone){
+        var btn=document.querySelector('#iwSlide2 .iw-next-btn');
+        if(btn){
+          btn.style.background='linear-gradient(135deg,var(--gold),#a8722a)';
+          btn.style.color='var(--em)';
+          btn.textContent='✦ ادامه — نوع سفر';
+        }
+      }
+    },200);
+  };
+
+  window.wsEdit=function(key){
+    WS.phase[key]='nights';
+    wsRender();
+    setTimeout(function(){
+      var card=document.getElementById('wsCard_'+key);
+      if(card)card.scrollIntoView({behavior:'smooth',block:'nearest'});
+    },150);
+  };
+
+  function syncIW(){
+    if(!window._IW)return;
+    window._IW.cities=WS.cities.slice();
+    WS.cities.forEach(function(k){
+      window._IW.nights[k]=WS.nights[k]||0;
+      window._IW.transit[k]=WS.transit[k]||false;
+    });
+  }
+
+  function updateRoutePreview(){
+    var el=document.getElementById('iwRoutePreview');
+    if(!el)return;
+    if(!WS.cities.length){el.classList.remove('show');return;}
+    el.classList.add('show');
+    var parts=WS.cities.map(function(k){
+      var info=WS.transit[k]?'(عبوری)':(WS.nights[k]?P(WS.nights[k])+' شب':'...');
+      return '<strong>'+NAMES[k]+'</strong> — '+info;
+    });
+    el.innerHTML='🗺️ مسیر: '+parts.join(' ← ');
+  }
+
+  /* ── Override توابع اصلی IW ── */
+  /* iwToggleCity */
+  window.iwToggleCity=function(key){
+    if(WS.cities.indexOf(key)>-1){
+      WS.cities.splice(WS.cities.indexOf(key),1);
+      delete WS.phase[key]; delete WS.hotel[key];
+      wsRender();
+    } else {
+      wsTapCard(key);
+    }
+  };
+
+  /* iwNext step 2 — validate */
+  var _origIwNext=window.iwNext;
+  window.iwNext=function(fromStep){
+    if(fromStep===2){
+      if(!WS.cities.length){
+        var e=document.getElementById('iwErr2');
+        if(e){e.textContent='لطفاً حداقل یک شهر زیارتی انتخاب کنید.';e.classList.add('show');}
+        return;
+      }
+      var nd=WS.cities.filter(function(k){return WS.phase[k]!=='done';});
+      if(nd.length){
+        var e2=document.getElementById('iwErr2');
+        if(e2){e2.textContent='لطفاً برای همه شهرها تعداد شب و هتل را انتخاب کنید.';e2.classList.add('show');}
+        /* اسکرول به اولین ناقص */
+        var card=document.getElementById('wsCard_'+nd[0]);
+        if(card)card.scrollIntoView({behavior:'smooth',block:'nearest'});
+        return;
+      }
+      document.getElementById('iwErr2').classList.remove('show');
+      window._wsHotelSel=WS.hotel;
+    }
+    if(_origIwNext)_origIwNext(fromStep);
+  };
+
+  /* iwFinish — sync hotel به state */
+  var _origIwFinish=window.iwFinish;
+  window.iwFinish=function(){
+    if(window._wsHotelSel&&typeof state!=='undefined'&&state.cityData){
+      WS.cities.forEach(function(k){
+        if(state.cityData[k]&&window._wsHotelSel[k]!==undefined){
+          state.cityData[k].hotel=window._wsHotelSel[k];
+        }
+      });
+    }
+    if(_origIwFinish)_origIwFinish();
+  };
+
+  /* ── اولین رندر بعد لود ── */
+  document.addEventListener('DOMContentLoaded',function(){
+    setTimeout(wsRender,400);
+  });
+
+})();
 </script>
 </body>
 </html> 
