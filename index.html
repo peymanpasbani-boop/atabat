@@ -784,6 +784,96 @@ body.sheet-open{overflow:hidden;}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
+/* ══ SUGGESTED TRIP BOOKING SHEET ══ */
+.stb-overlay{position:fixed;inset:0;z-index:910;background:rgba(0,0,0,0);backdrop-filter:blur(0px);pointer-events:none;transition:background .38s ease,backdrop-filter .38s ease;}
+.stb-overlay.open{background:rgba(0,0,0,.5);backdrop-filter:blur(4px);pointer-events:all;}
+.stb-sheet{position:fixed;top:var(--header-h);bottom:0;left:0;right:0;z-index:911;background:var(--cream);border-radius:24px 24px 0 0;box-shadow:0 -12px 60px rgba(0,0,0,.28);transform:translateY(100%);transition:transform .46s cubic-bezier(.32,0,.15,1);display:flex;flex-direction:column;overflow:hidden;}
+.stb-sheet.open{transform:translateY(0);}
+.stb-handle{flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:10px 0 4px;}
+.stb-handle-bar{width:40px;height:4px;background:rgba(0,0,0,.15);border-radius:2px;}
+.stb-header{flex-shrink:0;background:linear-gradient(135deg,var(--em),var(--em3));padding:0 20px 14px;border-bottom:1px solid var(--goldB);}
+.stb-header-top{display:flex;align-items:center;justify-content:space-between;padding:10px 0 12px;}
+.stb-header-title{font-size:15px;font-weight:800;color:var(--goldL);}
+.stb-header-sub{font-size:10px;color:rgba(232,201,122,.6);margin-top:1px;}
+.stb-close{width:32px;height:32px;background:rgba(255,255,255,.12);border:none;border-radius:50%;cursor:pointer;color:rgba(255,255,255,.75);font-size:17px;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0;}
+.stb-close:hover{background:rgba(255,255,255,.24);}
+.stb-stepper{display:flex;align-items:center;justify-content:center;gap:0;padding:2px 0 0;}
+.stb-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;transition:all .3s;flex-shrink:0;}
+.stb-dot.active{background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--em);box-shadow:0 2px 10px rgba(201,168,76,.4);}
+.stb-dot.done{background:rgba(26,94,73,.5);color:var(--goldL);border:1.5px solid rgba(201,168,76,.3);}
+.stb-dot.pending{background:rgba(255,255,255,.12);color:rgba(255,255,255,.4);border:1.5px solid rgba(255,255,255,.15);}
+.stb-line{width:36px;height:2px;background:rgba(255,255,255,.1);}
+.stb-line.done{background:rgba(201,168,76,.4);}
+.stb-step-labels{display:flex;align-items:center;justify-content:center;gap:0;margin-top:6px;}
+.stbl-item{width:28px;text-align:center;font-size:8px;font-weight:600;color:rgba(255,255,255,.35);transition:color .3s;white-space:nowrap;overflow:visible;}
+.stbl-item.active{color:var(--goldL);}
+.stbl-item.done{color:rgba(201,168,76,.6);}
+.stbl-sep{width:36px;}
+.stb-body{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:20px 18px 30px;}
+.stb-body::-webkit-scrollbar{width:4px;}
+.stb-body::-webkit-scrollbar-thumb{background:rgba(201,168,76,.3);border-radius:2px;}
+.stb-footer{flex-shrink:0;padding:12px 18px calc(12px + env(safe-area-inset-bottom));background:var(--white);border-top:1px solid rgba(201,168,76,.18);display:flex;gap:10px;box-shadow:0 -4px 20px rgba(0,0,0,.06);}
+.stb-back-btn{padding:11px 20px;border-radius:100px;border:1.5px solid rgba(201,168,76,.28);background:transparent;color:var(--tm);font-family:"Vazirmatn",sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:var(--tr);}
+.stb-back-btn:hover{background:rgba(201,168,76,.06);}
+.stb-next-btn{flex:1;padding:12px;border-radius:100px;border:none;background:linear-gradient(135deg,var(--em),var(--em3));color:var(--goldL);font-family:"Vazirmatn",sans-serif;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(13,59,46,.2);transition:var(--tr);}
+.stb-next-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(13,59,46,.3);}
+.stb-next-btn:disabled{opacity:.35;cursor:not-allowed;}
+/* step 1 — trip detail cards */
+.stb-trip-card{background:linear-gradient(135deg,var(--em),var(--em3));border-radius:16px;padding:18px;margin-bottom:16px;position:relative;overflow:hidden;}
+.stb-trip-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(201,168,76,.12),transparent 60%);pointer-events:none;}
+.stb-trip-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(201,168,76,.18);border:1px solid rgba(201,168,76,.32);border-radius:100px;padding:4px 12px;font-size:10px;font-weight:700;color:var(--goldL);margin-bottom:10px;}
+.stb-trip-title{font-size:16px;font-weight:900;color:var(--goldL);margin-bottom:4px;}
+.stb-trip-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.stb-trip-meta-pill{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:4px 10px;font-size:10.5px;font-weight:600;color:rgba(255,255,255,.85);}
+/* price strip in trip card */
+.stb-price-strip{display:flex;align-items:center;justify-content:space-between;background:rgba(201,168,76,.18);border-radius:10px;padding:10px 14px;margin-top:12px;}
+.stb-price-label{font-size:10px;color:rgba(255,255,255,.5);}
+.stb-price-val{font-size:20px;font-weight:900;color:var(--goldL);line-height:1;}
+.stb-price-unit{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px;}
+/* transfer notice box */
+.stb-transfer-notice{background:rgba(255,255,255,.06);border:1.5px solid rgba(201,168,76,.25);border-radius:12px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;font-size:12px;color:rgba(255,255,255,.8);line-height:1.75;margin-top:12px;}
+.stb-transfer-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
+/* pax count selector */
+.stb-pax-row{display:flex;align-items:center;justify-content:space-between;background:var(--white);border:1.5px solid rgba(201,168,76,.18);border-radius:12px;padding:12px 16px;margin-bottom:14px;}
+.stb-pax-label{font-size:13px;font-weight:600;color:var(--td);}
+.stb-pax-stepper{display:flex;align-items:center;gap:10px;}
+.stb-pax-btn{width:30px;height:30px;border:none;border-radius:50%;background:var(--goldP);color:var(--gold);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:"Vazirmatn",sans-serif;transition:background .2s;}
+.stb-pax-btn:hover{background:rgba(201,168,76,.26);}
+.stb-pax-val{font-size:20px;font-weight:800;color:var(--em);min-width:28px;text-align:center;}
+/* transfer option (land only) */
+.stb-transfer-opts{background:var(--white);border:1.5px solid rgba(201,168,76,.15);border-radius:14px;overflow:hidden;margin-bottom:14px;}
+.stb-transfer-head{background:linear-gradient(90deg,rgba(13,59,46,.04),transparent);padding:12px 16px;border-bottom:1px solid rgba(201,168,76,.1);}
+.stb-transfer-title{font-size:12px;font-weight:800;color:var(--em);display:flex;align-items:center;gap:6px;}
+.stb-transfer-sub{font-size:10.5px;color:var(--ts);margin-top:3px;line-height:1.6;}
+.stb-trans-opts{padding:12px 14px;display:flex;flex-direction:column;gap:8px;}
+.stb-topt{display:flex;align-items:center;gap:10px;padding:10px 13px;background:var(--cream);border:1.5px solid rgba(201,168,76,.18);border-radius:11px;cursor:pointer;transition:var(--tr);}
+.stb-topt:hover,.stb-topt.sel{border-color:var(--gold);background:linear-gradient(90deg,rgba(201,168,76,.08),var(--cream));}
+.stb-topt-radio{width:16px;height:16px;border:1.5px solid var(--goldB);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:var(--tr);}
+.stb-topt.sel .stb-topt-radio{border-color:var(--gold);background:var(--gold);}
+.stb-topt.sel .stb-topt-radio::after{content:'';width:5px;height:5px;background:var(--em);border-radius:50%;}
+.stb-topt-name{font-size:12px;font-weight:700;color:var(--td);}
+.stb-topt-sub{font-size:10px;color:var(--ts);margin-top:2px;}
+/* pax form sections */
+.stb-pax-form{background:var(--white);border:1.5px solid rgba(201,168,76,.15);border-radius:12px;overflow:hidden;margin-bottom:10px;}
+.stb-pax-form-head{background:linear-gradient(90deg,rgba(13,59,46,.06),transparent);padding:9px 13px;font-size:12px;font-weight:700;color:var(--em);display:flex;align-items:center;gap:7px;border-bottom:1px solid rgba(201,168,76,.12);}
+.stb-pax-form-num{width:22px;height:22px;background:var(--em);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--goldL);flex-shrink:0;}
+.stb-pax-form-body{padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.stb-field label{font-size:10.5px;font-weight:600;color:var(--tm);display:block;margin-bottom:4px;}
+.stb-field input{width:100%;padding:8px 10px;font-family:"Vazirmatn",sans-serif;font-size:12px;color:var(--td);border:1.5px solid rgba(201,168,76,.22);border-radius:8px;background:var(--cream);outline:none;transition:border-color .2s;}
+.stb-field input:focus{border-color:var(--gold);background:var(--white);}
+/* price summary in step 2 */
+.stb-price-summary{background:linear-gradient(135deg,var(--em),var(--em3));border-radius:14px;padding:16px;margin-bottom:16px;}
+.stb-ps-title{font-size:10px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;}
+.stb-ps-row{display:flex;justify-content:space-between;font-size:11px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.07);}
+.stb-ps-row-label{color:rgba(255,255,255,.55);}
+.stb-ps-row-val{font-weight:700;color:rgba(255,255,255,.8);}
+.stb-ps-total{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:rgba(201,168,76,.18);border-radius:10px;margin-top:10px;}
+.stb-ps-total-label{font-size:11px;color:var(--goldL);font-weight:600;}
+.stb-ps-total-val{font-size:22px;font-weight:900;color:var(--goldL);}
+.stb-alert{display:none;margin:10px 0;padding:10px 14px;background:rgba(192,57,43,.08);border:1.5px solid rgba(192,57,43,.25);border-radius:10px;font-size:12px;color:#c0392b;line-height:1.8;}
+.stb-alert.show{display:block;}
+@media(max-width:640px){.stb-pax-form-body{grid-template-columns:1fr;}}
+
 /* ══ TYPEWRITER ══ */
 .tw-cursor{display:inline-block;width:2px;height:1em;background:var(--goldL);margin-right:2px;vertical-align:text-bottom;animation:twBlink .75s step-end infinite;}
 @keyframes twBlink{0%,100%{opacity:1}50%{opacity:0}}
@@ -1508,6 +1598,41 @@ body.sheet-open{overflow:hidden;}
   </div>
 </div>
 
+<!-- ══ SUGGESTED TRIP BOOKING SHEET ══ -->
+<div class="stb-overlay" id="stbOverlay" onclick="stbOverlayClick(event)"></div>
+<div class="stb-sheet" id="stbSheet">
+  <div class="stb-handle"><div class="stb-handle-bar"></div></div>
+  <div class="stb-header" id="stbHeader">
+    <div class="stb-header-top">
+      <div>
+        <div class="stb-header-title" id="stbHeaderTitle">🕌 ثبت‌نام سفر</div>
+        <div class="stb-header-sub" id="stbHeaderSub"></div>
+      </div>
+      <button class="stb-close" onclick="closeStbSheet()">✕</button>
+    </div>
+    <!-- step dots: 1=جزئیات  2=مسافران  3=پرداخت -->
+    <div class="stb-stepper">
+      <div class="stb-dot active" id="stbDot1">۱</div>
+      <div class="stb-line" id="stbLine1"></div>
+      <div class="stb-dot pending" id="stbDot2">۲</div>
+      <div class="stb-line" id="stbLine2"></div>
+      <div class="stb-dot pending" id="stbDot3">۳</div>
+    </div>
+    <div class="stb-step-labels">
+      <div class="stbl-item active" id="stbLbl1">جزئیات</div>
+      <div class="stbl-sep"></div>
+      <div class="stbl-item pending" id="stbLbl2">مسافران</div>
+      <div class="stbl-sep"></div>
+      <div class="stbl-item pending" id="stbLbl3">پرداخت</div>
+    </div>
+  </div>
+  <div class="stb-body" id="stbBody"></div>
+  <div class="stb-footer" id="stbFooter">
+    <button class="stb-back-btn" id="stbBackBtn" onclick="stbGoBack()" style="display:none;">← بازگشت</button>
+    <button class="stb-next-btn" id="stbNextBtn" onclick="stbGoNext()">ادامه ←</button>
+  </div>
+</div>
+
 <!-- ══ PAGE BODY ══ -->
 <div class="page-body">
   <div class="page-body-inner">
@@ -1799,54 +1924,440 @@ var tsSelectedTrip = null;
 function openTripDetail(id){
   tsSelectedTrip=TRIP_SUGGESTIONS.find(t=>t.id===id);
   if(!tsSelectedTrip)return;
-  const trip=tsSelectedTrip;
-  document.getElementById('tdsHeaderTitle').textContent=trip.title;
-  document.getElementById('tdsHeaderSub').textContent=trip.date+' — '+trip.origin+' — '+trip.duration;
-  document.getElementById('tdsFooterPrice').textContent=trip.priceLabel;
-  const timelineHtml=trip.timeline.map((t,i)=>{
-    const bh=(t.badges||[]).map(b=>`<span class="tds-tl-badge ${b.t}">${b.txt}</span>`).join('');
-    const hl=i<trip.timeline.length-1;
-    return `<div class="tds-tl-item"><div class="tds-tl-left"><div class="tds-tl-icon ${t.cls}">${t.icon}</div>${hl?'<div class="tds-tl-line"></div>':''}</div><div class="tds-tl-content"><div class="tds-tl-name">${t.name}</div><div class="tds-tl-desc">${t.desc}</div>${bh?`<div class="tds-tl-badges">${bh}</div>`:''}</div></div>`;
-  }).join('');
-  const hotelsHtml=trip.hotels.map(h=>{
-    const sh=Array.from({length:5},(_,i)=>`<div class="tds-hotel-star ${i<h.stars?'on':'off'}"></div>`).join('');
-    return `<div class="tds-hotel-row"><div class="tds-hotel-city-tag">${h.cityIcon}</div><div class="tds-hotel-info"><div class="tds-hotel-name">${h.name}</div><div class="tds-hotel-city">${h.city}</div><div class="tds-hotel-stars">${sh}</div></div><div class="tds-hotel-nights">🌙 ${P(h.nights)} شب</div></div>`;
-  }).join('');
-  const incHtml=trip.includes.map(i=>`<div style="font-size:12px;color:var(--tm);padding:5px 0;border-bottom:1px solid rgba(201,168,76,.07);display:flex;gap:8px;align-items:center;">${i}</div>`).join('');
-  const pbHtml=trip.priceBreakdown.map(r=>`<div class="tds-pb-row"><span class="tds-pb-label">${r.label}</span><span class="tds-pb-val">${r.val}</span></div>`).join('');
-  document.getElementById('tdsBody').innerHTML=`<div class="tds-key-strip"><div class="tds-key-item"><div class="tds-key-icon">${trip.type==='air'||trip.type==='vip'?'✈️':'🚌'}</div><div class="tds-key-label">نوع</div><div class="tds-key-val">${trip.type==='air'?'هوایی':trip.type==='land'?'زمینی':trip.type==='vip'?'VIP':'ویژه'}</div></div><div class="tds-key-item"><div class="tds-key-icon">🌙</div><div class="tds-key-label">مدت</div><div class="tds-key-val">${trip.duration}</div></div><div class="tds-key-item"><div class="tds-key-icon">📅</div><div class="tds-key-label">تاریخ</div><div class="tds-key-val">${trip.date.split(' ').slice(0,2).join(' ')}</div></div></div><div class="tds-section"><div class="tds-sec-title">🗺️ مسیر سفر</div><div class="tds-timeline">${timelineHtml}</div></div><div class="tds-section"><div class="tds-sec-title">🏨 هتل‌های اقامتی</div><div class="tds-hotels-grid">${hotelsHtml}</div></div><div class="tds-section"><div class="tds-sec-title">✅ شامل سفر</div><div style="background:var(--white);border:1.5px solid rgba(201,168,76,.1);border-radius:12px;padding:8px 14px;">${incHtml}</div></div><div class="tds-section"><div class="tds-sec-title">💰 تفکیک هزینه (هر نفر)</div><div class="tds-price-breakdown">${pbHtml}<div class="tds-pb-total-row"><div class="tds-pb-total-label">جمع کل — هر نفر</div><div class="tds-pb-total-val">${trip.priceLabel} ت</div></div></div></div>`;
-  document.body.classList.add('sheet-open');
-  document.getElementById('tripDetailOverlay').classList.add('open');
-  document.getElementById('tripDetailSheet').classList.add('open');
+  // Open the new direct booking sheet instead of the old detail sheet
+  openStbSheet(tsSelectedTrip);
 }
 function closeTripDetail(e){if(e&&e.target!==document.getElementById('tripDetailOverlay'))return;closeTripDetailDirect();}
 function closeTripDetailDirect(){document.body.classList.remove('sheet-open');document.getElementById('tripDetailOverlay').classList.remove('open');document.getElementById('tripDetailSheet').classList.remove('open');}
 function bookSuggestedTrip(){
-  if(!tsSelectedTrip)return;
-  const trip=tsSelectedTrip;
-  closeTripDetailDirect();
-  state.origin=trip.origin==='تهران'?'tehran':trip.origin==='مشهد'?'mashhad':trip.origin==='قم'?'qom':'tehran';
-  state.tripType=(trip.type==='air'||trip.type==='vip')?'air':'land';
-  state.dateText=trip.date;
-  const dp=trip.date.split(' ');
-  const toEn=s=>s.replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d).toString());
-  state.selD=parseInt(toEn(dp[0]));
-  state.selM=PM.indexOf(dp[1])+1;
-  state.selY=parseInt(toEn(dp[2]));
-  state.cities=[];state.cityData={};
-  trip.routeItems.filter(r=>r.type==='city').forEach(r=>{
-    const key=r.city==='کربلای معلی'?'karbala':r.city==='نجف اشرف'?'najaf':'kadh_sam';
-    state.cities.push(key);
-    state.cityData[key]={nights:r.nights||3,transit:false,hotel:null,food:true};
+  // legacy — now handled by stbSheet
+}
+
+// ══ SUGGESTED TRIP BOOKING SHEET ══
+var stbState={trip:null,step:1,paxCount:1,transferOpt:null,paxData:[]};
+
+function openStbSheet(trip){
+  stbState={trip:trip,step:1,paxCount:1,transferOpt:null,paxData:[]};
+  document.getElementById('stbHeaderTitle').textContent='🕌 '+trip.title;
+  document.getElementById('stbHeaderSub').textContent=trip.date+' — '+trip.origin+' — '+trip.duration;
+  document.body.classList.add('sheet-open');
+  document.getElementById('stbOverlay').classList.add('open');
+  document.getElementById('stbSheet').classList.add('open');
+  stbRender();
+}
+function closeStbSheet(){
+  document.body.classList.remove('sheet-open');
+  document.getElementById('stbOverlay').classList.remove('open');
+  document.getElementById('stbSheet').classList.remove('open');
+}
+function stbOverlayClick(e){if(e.target===document.getElementById('stbOverlay'))closeStbSheet();}
+
+function stbUpdateProgress(){
+  const labels=['','جزئیات','مسافران','پرداخت'];
+  [1,2,3].forEach(i=>{
+    const dot=document.getElementById('stbDot'+i);
+    const lbl=document.getElementById('stbLbl'+i);
+    if(dot){
+      if(i<stbState.step){dot.className='stb-dot done';dot.textContent='✓';}
+      else if(i===stbState.step){dot.className='stb-dot active';dot.textContent=P(i);}
+      else{dot.className='stb-dot pending';dot.textContent=P(i);}
+    }
+    if(lbl) lbl.className='stbl-item '+(i<stbState.step?'done':i===stbState.step?'active':'pending');
   });
-  setTimeout(()=>{
-    document.getElementById('pccCityVal').textContent=trip.origin;
-    document.getElementById('pccPaxVal').textContent=P(state.passengers);
-    document.body.classList.add('sheet-open');
-    document.getElementById('bsOverlay').classList.add('open');
-    document.getElementById('bsSheet').classList.add('open');
-    _goToStep(4);
-  },350);
+  [1,2].forEach(i=>{const l=document.getElementById('stbLine'+i);if(l)l.className='stb-line'+(i<stbState.step?' done':'');});
+  document.getElementById('stbBackBtn').style.display=stbState.step>1?'':'none';
+  const nb=document.getElementById('stbNextBtn');
+  if(stbState.step===3){
+    nb.textContent='💳 پرداخت آنلاین ✦';
+    nb.style.background='linear-gradient(135deg,#1a7c4f,#22a060)';
+    nb.style.color='#fff';
+  } else if(stbState.step===2){
+    nb.textContent='تأیید و ادامه ←';
+    nb.style.background='';nb.style.color='';
+  } else {
+    nb.textContent='ادامه ←';
+    nb.style.background='';nb.style.color='';
+  }
+}
+
+function stbRender(){
+  stbUpdateProgress();
+  const body=document.getElementById('stbBody');
+  body.scrollTop=0;
+  const trip=stbState.trip;
+  const isAir=trip.type==='air'||trip.type==='vip';
+  const isLand=trip.type==='land';
+  const isMixed=trip.type==='mixed';
+  const needsTransferQ=isLand;
+
+  if(stbState.step===1){
+    // Count total nights
+    const totalNights=(trip.routeItems||[]).filter(r=>r.type==='city').reduce((s,r)=>s+(r.nights||0),0);
+    const typeIcon=isAir?'✈️':isMixed?'✈️+🚌':'🚌';
+    const typeLabel=isAir?'هوایی':isMixed?'رفت هوایی — برگشت زمینی':'زمینی';
+
+    // Build timeline HTML
+    const timelineHtml=(trip.timeline||[]).map((t,i)=>{
+      const bh=(t.badges||[]).map(b=>`<span style="display:inline-flex;align-items:center;gap:4px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.25);border-radius:100px;padding:3px 9px;font-size:10px;font-weight:700;color:var(--goldL);margin-top:4px;">${b.txt}</span>`).join('');
+      const hasLine=i<trip.timeline.length-1;
+      return `<div style="display:flex;gap:10px;padding:8px 0;${i<trip.timeline.length-1?'border-bottom:1px dashed rgba(201,168,76,.12);':''}">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+          <div style="width:30px;height:30px;border-radius:9px;background:${t.cls==='dep'||t.cls==='ret'?'rgba(255,255,255,.1)':'rgba(201,168,76,.18)'};display:flex;align-items:center;justify-content:center;font-size:14px;">${t.icon}</div>
+          ${hasLine?'<div style="width:2px;flex:1;min-height:10px;background:rgba(201,168,76,.2);margin:4px 0;"></div>':''}
+        </div>
+        <div style="flex:1;padding-top:3px;">
+          <div style="font-size:12px;font-weight:700;color:var(--goldL);">${t.name}</div>
+          <div style="font-size:10.5px;color:rgba(255,255,255,.55);margin-top:2px;line-height:1.5;">${t.desc}</div>
+          ${bh?`<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;">${bh}</div>`:''}
+        </div>
+      </div>`;
+    }).join('');
+
+    // includes list
+    const incHtml=(trip.includes||[]).map(inc=>`<div style="font-size:11.5px;color:var(--tm);padding:5px 0;border-bottom:1px solid rgba(201,168,76,.07);display:flex;gap:8px;align-items:center;">${inc}</div>`).join('');
+
+    // transfer notice
+    let transferNotice='';
+    if(isAir||isMixed){
+      const airportName=DIRECT_AIRPORTS[trip.origin==='تهران'?'tehran':trip.origin==='مشهد'?'mashhad':'isfahan']?.name||('فرودگاه '+trip.origin);
+      transferNotice=`<div class="stb-transfer-notice"><div class="stb-transfer-icon">✈️</div><div><strong style="color:var(--goldL);">توجه — ترانسفر</strong><br/>در این سفر لطفاً در تاریخ اعزام به <strong style="color:var(--goldL);">${airportName}</strong> حضور داشته باشید. ترانسفر از فرودگاه تا مقصد توسط گروه آوان انجام می‌شود.</div></div>`;
+    }
+    if(isLand){
+      transferNotice=`<div class="stb-transfer-notice"><div class="stb-transfer-icon">🚌</div><div><strong style="color:var(--goldL);">توجه — ترانسفر</strong><br/>در مرحله بعد از شما می‌پرسیم آیا ترانسفر تا مرز نیاز دارید یا خودتان به مرز می‌آیید.</div></div>`;
+    }
+
+    body.innerHTML=`
+      <div class="stb-trip-card">
+        <div class="stb-trip-tag">${trip.tag}</div>
+        <div class="stb-trip-title">${trip.title}</div>
+        <div class="stb-trip-meta">
+          <div class="stb-trip-meta-pill">📅 ${trip.date}</div>
+          <div class="stb-trip-meta-pill">📍 ${trip.origin}</div>
+          <div class="stb-trip-meta-pill">${typeIcon} ${typeLabel}</div>
+          <div class="stb-trip-meta-pill">🌙 ${P(totalNights)} شب</div>
+        </div>
+        <div class="stb-price-strip">
+          <div>
+            <div class="stb-price-label">هر نفر از</div>
+            <div class="stb-price-val">${trip.priceLabel}</div>
+            <div class="stb-price-unit">تومان</div>
+          </div>
+          <div style="font-size:22px;opacity:.5;">${typeIcon}</div>
+        </div>
+        ${transferNotice}
+      </div>
+      <!-- مسیر سفر -->
+      <div style="background:var(--white);border:1.5px solid rgba(201,168,76,.13);border-radius:14px;overflow:hidden;margin-bottom:14px;">
+        <div style="background:linear-gradient(90deg,rgba(13,59,46,.06),transparent);padding:11px 16px;border-bottom:1px solid rgba(201,168,76,.1);">
+          <div style="font-size:12px;font-weight:800;color:var(--em);">🗺️ مسیر و برنامه سفر</div>
+        </div>
+        <div style="padding:12px 16px;background:linear-gradient(135deg,rgba(13,59,46,.95),rgba(26,94,73,.9));border-radius:0 0 12px 12px;">${timelineHtml}</div>
+      </div>
+      <!-- هتل‌ها -->
+      <div style="background:var(--white);border:1.5px solid rgba(201,168,76,.13);border-radius:14px;overflow:hidden;margin-bottom:14px;">
+        <div style="background:linear-gradient(90deg,rgba(13,59,46,.06),transparent);padding:11px 16px;border-bottom:1px solid rgba(201,168,76,.1);">
+          <div style="font-size:12px;font-weight:800;color:var(--em);">🏨 هتل‌های اقامتی</div>
+        </div>
+        <div style="padding:10px 14px;display:flex;flex-direction:column;gap:7px;">
+          ${(trip.hotels||[]).map(h=>{
+            const sh=Array.from({length:5},(_,i)=>`<div style="width:8px;height:8px;border-radius:50%;background:${i<h.stars?'var(--gold)':'#e0d9c8'}"></div>`).join('');
+            return `<div style="display:flex;align-items:center;gap:10px;background:var(--cream);border:1.5px solid rgba(201,168,76,.12);border-radius:11px;padding:9px 12px;">
+              <div style="font-size:18px;flex-shrink:0;">${h.cityIcon}</div>
+              <div style="flex:1;">
+                <div style="font-size:12px;font-weight:700;color:var(--td);">${h.name}</div>
+                <div style="font-size:10px;color:var(--ts);">${h.city}</div>
+                <div style="display:flex;gap:3px;margin-top:4px;">${sh}</div>
+              </div>
+              <div style="font-size:11px;font-weight:700;color:var(--em);white-space:nowrap;">🌙 ${P(h.nights)} شب</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+      <!-- شامل سفر -->
+      <div style="background:var(--white);border:1.5px solid rgba(201,168,76,.1);border-radius:12px;padding:10px 14px;margin-bottom:14px;">
+        <div style="font-size:11px;font-weight:800;color:var(--em);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">✅ شامل سفر</div>
+        ${incHtml}
+      </div>
+      <!-- تعداد مسافران -->
+      <div class="stb-pax-row">
+        <div>
+          <div class="stb-pax-label">تعداد مسافران</div>
+          <div style="font-size:10px;color:var(--ts);margin-top:2px;">حداکثر ۴ نفر</div>
+        </div>
+        <div class="stb-pax-stepper">
+          <button class="stb-pax-btn" onclick="stbChgPax(-1)">−</button>
+          <div class="stb-pax-val" id="stbPaxVal">${P(stbState.paxCount)}</div>
+          <button class="stb-pax-btn" onclick="stbChgPax(1)">+</button>
+        </div>
+      </div>`;
+  }
+
+  else if(stbState.step===2){
+    const trip=stbState.trip;
+    const isLand2=trip.type==='land';
+
+    // Transfer section (land only)
+    let transferSection='';
+    if(isLand2){
+      transferSection=`
+      <div class="stb-transfer-opts">
+        <div class="stb-transfer-head">
+          <div class="stb-transfer-title">🚗 ترانسفر تا مرز</div>
+          <div class="stb-transfer-sub">آیا برای رفتن به مرز نیاز به ترانسفر دارید؟</div>
+        </div>
+        <div class="stb-trans-opts">
+          <div class="stb-topt ${stbState.transferOpt==='door'?'sel':''}" id="stbTopt_door" onclick="stbSelTransfer('door')">
+            <div class="stb-topt-radio"></div>
+            <div>
+              <div class="stb-topt-name">🏠 از درب منزل — ترانسفر آوان</div>
+              <div class="stb-topt-sub">گروه آوان ماشین به درب منزل می‌فرستد — هزینه اضافه دارد</div>
+            </div>
+          </div>
+          <div class="stb-topt ${stbState.transferOpt==='self'?'sel':''}" id="stbTopt_self" onclick="stbSelTransfer('self')">
+            <div class="stb-topt-radio"></div>
+            <div>
+              <div class="stb-topt-name">🚶 خودم به مرز می‌آیم</div>
+              <div class="stb-topt-sub">هزینه ترانسفر از قیمت کسر می‌شود</div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    // Build pax forms
+    if(stbState.paxData.length!==stbState.paxCount){
+      stbState.paxData=Array.from({length:stbState.paxCount},(_,i)=>stbState.paxData[i]||{first:'',last:'',phone:'',national:''});
+    }
+    const formsHtml=stbState.paxData.map((_,i)=>`
+      <div class="stb-pax-form">
+        <div class="stb-pax-form-head"><div class="stb-pax-form-num">${P(i+1)}</div>زائر ${P(i+1)}${i===0?' (سرپرست)':''}</div>
+        <div class="stb-pax-form-body">
+          <div class="stb-field"><label>نام *</label><input id="stbp_${i}_first" type="text" placeholder="نام" value="${stbState.paxData[i].first}" oninput="stbSavePax(${i},'first',this.value)"/></div>
+          <div class="stb-field"><label>نام خانوادگی *</label><input id="stbp_${i}_last" type="text" placeholder="نام خانوادگی" value="${stbState.paxData[i].last}" oninput="stbSavePax(${i},'last',this.value)"/></div>
+          ${i===0?`<div class="stb-field"><label>شماره تماس *</label><input id="stbp_${i}_phone" type="tel" placeholder="۰۹XXXXXXXXX" dir="ltr" value="${stbState.paxData[i].phone}" oninput="stbSavePax(${i},'phone',this.value)"/></div>`:''}
+          <div class="stb-field"><label>کد ملی *</label><input id="stbp_${i}_national" type="text" placeholder="کد ملی" dir="ltr" value="${stbState.paxData[i].national}" oninput="stbSavePax(${i},'national',this.value)"/></div>
+        </div>
+      </div>`).join('');
+
+    // Price summary
+    const basePrice=trip.pricePerPerson||0;
+    const transferDiscount=(isLand2&&stbState.transferOpt==='self')?800000:0;
+    const transferAdd=(isLand2&&stbState.transferOpt==='door')?800000:0;
+    const ppFinal=basePrice-transferDiscount+transferAdd;
+    const totalFinal=ppFinal*stbState.paxCount;
+    window._stbPpFinal=ppFinal;
+    window._stbTotal=totalFinal;
+
+    let priceRows=`<div class="stb-ps-row"><span class="stb-ps-row-label">قیمت هر نفر</span><span class="stb-ps-row-val">${fmt(basePrice)} ت</span></div>`;
+    if(transferDiscount>0) priceRows+=`<div class="stb-ps-row"><span class="stb-ps-row-label">🚶 کسر ترانسفر</span><span class="stb-ps-row-val" style="color:#4ade80;">− ${fmt(transferDiscount)} ت</span></div>`;
+    if(transferAdd>0) priceRows+=`<div class="stb-ps-row"><span class="stb-ps-row-label">🚗 افزودن ترانسفر</span><span class="stb-ps-row-val" style="color:var(--goldL);">+ ${fmt(transferAdd)} ت</span></div>`;
+    if(stbState.paxCount>1) priceRows+=`<div class="stb-ps-row"><span class="stb-ps-row-label">× ${P(stbState.paxCount)} نفر</span><span class="stb-ps-row-val">${fmt(ppFinal)} × ${P(stbState.paxCount)}</span></div>`;
+
+    body.innerHTML=`
+      ${transferSection}
+      <div style="font-size:11px;font-weight:700;color:var(--em);margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid rgba(201,168,76,.13);">📋 اطلاعات زائرین — ${P(stbState.paxCount)} نفر</div>
+      ${formsHtml}
+      <div class="stb-price-summary">
+        <div class="stb-ps-title">هزینه سفر</div>
+        ${priceRows}
+        <div class="stb-ps-total">
+          <div class="stb-ps-total-label">جمع کل — ${P(stbState.paxCount)} نفر</div>
+          <div class="stb-ps-total-val">${fmt(totalFinal)} ت</div>
+        </div>
+      </div>
+      <div class="stb-alert" id="stbAlert2"></div>
+      <div style="font-size:11px;color:var(--ts);line-height:1.8;background:rgba(201,168,76,.07);border-radius:9px;padding:9px 12px;border-right:3px solid var(--goldB);">📌 پس از پرداخت، کارشناسان آوان ظرف ۲ ساعت با شما تماس می‌گیرند.</div>`;
+  }
+
+  else if(stbState.step===3){
+    // Final confirm step — just show code + pay button
+    const code=window._stbCode||('AVN-'+Math.random().toString(36).toUpperCase().slice(2,8));
+    window._stbCode=code;
+    const leader=stbState.paxData[0]||{};
+    const total=window._stbTotal||0;
+    body.innerHTML=`
+      <div style="text-align:center;padding:8px 0 16px;">
+        <div style="font-size:46px;margin-bottom:8px;animation:popIn .5s cubic-bezier(.34,1.56,.64,1) both;">🕌</div>
+        <div style="font-size:16px;font-weight:800;color:var(--em);margin-bottom:4px;">سفر شما ثبت شد!</div>
+        <div style="font-size:12px;color:var(--ts);">اطلاعات برای کارشناسان آوان ارسال گردید</div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(201,168,76,.09);border:1.5px dashed var(--goldB);border-radius:12px;padding:9px 14px;margin-bottom:14px;">
+        <span style="font-size:10px;color:var(--ts);">کد پیگیری</span>
+        <span style="font-size:16px;font-weight:900;color:var(--gold);letter-spacing:.1em;direction:ltr;">${code}</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
+        <div style="display:inline-flex;align-items:center;gap:4px;padding:5px 11px;background:var(--white);border:1px solid rgba(201,168,76,.2);border-radius:100px;font-size:11px;font-weight:600;color:var(--em);">👤 ${leader.first||''} ${leader.last||''}</div>
+        <div style="display:inline-flex;align-items:center;gap:4px;padding:5px 11px;background:var(--white);border:1px solid rgba(201,168,76,.2);border-radius:100px;font-size:11px;font-weight:600;color:var(--em);">🕌 ${stbState.trip.title}</div>
+        <div style="display:inline-flex;align-items:center;gap:4px;padding:5px 11px;background:var(--white);border:1px solid rgba(201,168,76,.2);border-radius:100px;font-size:11px;font-weight:600;color:var(--em);">📅 ${stbState.trip.date}</div>
+        <div style="display:inline-flex;align-items:center;gap:4px;padding:5px 11px;background:var(--white);border:1px solid rgba(201,168,76,.2);border-radius:100px;font-size:11px;font-weight:600;color:var(--em);">👥 ${P(stbState.paxCount)} نفر</div>
+      </div>
+      <div style="font-size:11.5px;color:var(--tm);background:rgba(13,59,46,.05);border-right:3px solid rgba(13,59,46,.2);border-radius:8px;padding:9px 12px;margin-bottom:14px;line-height:1.85;">
+        📌 برای <strong>قطعی‌شدن رزرو</strong> لطفاً مبلغ سفر را پرداخت کنید.<br/>
+        کارشناسان ما ظرف <strong>۲ ساعت</strong> با شما تماس می‌گیرند.
+      </div>
+      <div style="background:linear-gradient(135deg,var(--em),var(--em3));border-radius:14px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+        <div>
+          <div style="font-size:10px;color:rgba(255,255,255,.5);margin-bottom:4px;">مبلغ کل سفر</div>
+          <div style="font-size:24px;font-weight:900;color:var(--goldL);line-height:1;">${fmt(total)}</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:3px;">تومان</div>
+        </div>
+        <div style="font-size:30px;opacity:.5;">💰</div>
+      </div>
+      <div id="stbPayErr" style="display:none;background:rgba(192,57,43,.07);border:1.5px solid rgba(192,57,43,.2);border-radius:10px;padding:9px 12px;font-size:11.5px;color:#c0392b;margin-bottom:10px;"></div>`;
+  }
+}
+
+function stbChgPax(d){
+  stbState.paxCount=Math.max(1,Math.min(4,stbState.paxCount+d));
+  const el=document.getElementById('stbPaxVal');
+  if(el) el.textContent=P(stbState.paxCount);
+}
+function stbSavePax(i,field,val){
+  if(stbState.paxData[i]) stbState.paxData[i][field]=val;
+}
+function stbSelTransfer(opt){
+  stbState.transferOpt=opt;
+  ['door','self'].forEach(o=>{
+    const el=document.getElementById('stbTopt_'+o);
+    if(el) el.classList.toggle('sel',o===opt);
+  });
+  // Refresh price summary
+  stbRender();
+}
+
+function stbGoNext(){
+  const trip=stbState.trip;
+  const isLand=trip.type==='land';
+
+  if(stbState.step===1){
+    stbState.step=2;
+    stbState.paxData=Array.from({length:stbState.paxCount},(_,i)=>stbState.paxData[i]||{first:'',last:'',phone:'',national:''});
+    stbRender();
+    return;
+  }
+
+  if(stbState.step===2){
+    // Validate transfer for land
+    if(isLand&&!stbState.transferOpt){
+      const a=document.getElementById('stbAlert2');
+      if(a){a.textContent='لطفاً گزینه ترانسفر را انتخاب کنید.';a.classList.add('show');}
+      return;
+    }
+    // Validate lead pax
+    const p=stbState.paxData[0];
+    if(!p||!p.first.trim()||!p.last.trim()||!p.phone.trim()||!p.national.trim()){
+      const a=document.getElementById('stbAlert2');
+      if(a){a.textContent='لطفاً اطلاعات سرپرست گروه را کامل وارد کنید.';a.classList.add('show');}
+      return;
+    }
+    // Send to Telegram and move to step 3
+    stbSendToTelegram().then(()=>{
+      stbState.step=3;
+      stbRender();
+    });
+    return;
+  }
+
+  if(stbState.step===3){
+    stbDoPayment();
+    return;
+  }
+}
+function stbGoBack(){
+  if(stbState.step>1){stbState.step--;stbRender();}
+  else closeStbSheet();
+}
+
+async function stbSendToTelegram(){
+  const BOT_TOKEN='8893591516:AAE9RAEbJnZpa23bhUaTBGI9UaESk-M2zuo';
+  const CHAT_ID='8384838572';
+  const trip=stbState.trip;
+  const code=window._stbCode||('AVN-'+Math.random().toString(36).toUpperCase().slice(2,8));
+  window._stbCode=code;
+  const leader=stbState.paxData[0]||{};
+  const isLand=trip.type==='land';
+  const transferLabel=isLand?(stbState.transferOpt==='door'?'ترانسفر آوان از درب منزل':'خودم به مرز می‌آیم'):'پرواز — فرودگاه';
+  const paxRows=stbState.paxData.map((p,i)=>`  ${P(i+1)}. ${p.first} ${p.last}${p.national?' — '+p.national:''}`).join('\n');
+  const totalPrice=window._stbTotal||trip.pricePerPerson*stbState.paxCount;
+
+  const msg=`🕌 رزرو سفر آماده — آوان
+━━━━━━━━━━━━━━
+🔖 کد: ${code}
+
+🗓 سفر: ${trip.title}
+📅 تاریخ: ${trip.date}
+📍 مبدا: ${trip.origin}
+🌙 مدت: ${trip.duration}
+👥 مسافران: ${P(stbState.paxCount)} نفر
+
+👤 سرپرست
+نام: ${leader.first} ${leader.last}
+موبایل: ${leader.phone}
+کد ملی: ${leader.national}
+
+🚗 ترانسفر: ${transferLabel}
+
+👥 همه زائران
+${paxRows}
+
+💰 مبلغ کل: ${fmt(totalPrice)} تومان
+━━━━━━━━━━━━━━`;
+
+  try{
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:CHAT_ID,text:msg})
+    });
+  }catch(e){console.error('Telegram stb error:',e);}
+}
+
+async function stbDoPayment(){
+  const ZARINPAL_MERCHANT='XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX';
+  const total=window._stbTotal||0;
+  const code=window._stbCode||'—';
+  const leader=stbState.paxData[0]||{};
+  const callbackUrl=window.location.href.split('?')[0]+'?payment=verify&code='+code;
+
+  // Update footer button to show loading
+  const nb=document.getElementById('stbNextBtn');
+  if(nb){nb.disabled=true;nb.textContent='در حال اتصال به درگاه...';}
+  const errEl=document.getElementById('stbPayErr');
+
+  const BOT_TOKEN='8893591516:AAE9RAEbJnZpa23bhUaTBGI9UaESk-M2zuo';
+  const CHAT_ID='8384838572';
+  try{
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:CHAT_ID,text:`💳 شروع پرداخت سفر آماده\nکد: ${code}\nمبلغ: ${fmt(total)} تومان`})
+    });
+  }catch(e){}
+
+  try{
+    const resp=await fetch('https://payment.zarinpal.com/pg/v4/payment/request.json',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({
+        merchant_id:ZARINPAL_MERCHANT,
+        amount:total,
+        description:'پرداخت سفر آماده آوان — '+stbState.trip.title+' — کد: '+code,
+        callback_url:callbackUrl,
+        metadata:{order_id:code,mobile:leader.phone||''}
+      })
+    });
+    const data=await resp.json();
+    if(data.data&&data.data.authority){
+      localStorage.setItem('zp_authority',data.data.authority);
+      localStorage.setItem('zp_code',code);
+      localStorage.setItem('zp_amount',total);
+      window.location.href='https://payment.zarinpal.com/pg/StartPay/'+data.data.authority;
+    } else {
+      throw new Error(JSON.stringify(data.errors||data));
+    }
+  }catch(err){
+    console.error('Payment error:',err);
+    if(nb){nb.disabled=false;nb.textContent='💳 پرداخت آنلاین ✦';}
+    if(errEl){errEl.textContent='⚠️ اتصال به درگاه پرداخت برقرار نشد. لطفاً دوباره تلاش کنید.';errEl.style.display='block';}
+  }
 }
 // trips slider initialises itself via IIFE above
 
