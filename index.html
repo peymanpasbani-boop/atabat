@@ -709,69 +709,78 @@ body.sheet-open{overflow:hidden;}
 .footer-credit-text{font-size:10px;color:rgba(255,255,255,.22);letter-spacing:.08em;}
 .footer-credit-name{font-size:11px;font-weight:700;color:rgba(201,168,76,.45);letter-spacing:.1em;margin-top:2px;}
 
-/* SUCCESS & PAYMENT */
-.success-overlay{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:999;display:none;align-items:center;justify-content:center;padding:20px;}
+/* SUCCESS & PAYMENT — bottom sheet */
+.success-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:999;display:none;align-items:flex-end;justify-content:center;}
 .success-overlay.show{display:flex;}
-.success-modal{background:var(--white);border-radius:var(--rL);padding:0;text-align:center;max-width:380px;width:100%;box-shadow:0 18px 54px rgba(0,0,0,.22);animation:fadeUp .4s ease;overflow:hidden;}
-.success-icon{font-size:48px;margin-bottom:12px;}
-.success-title{font-size:18px;font-weight:800;color:var(--em);margin-bottom:7px;}
-.success-body{font-size:12.5px;color:var(--tm);line-height:1.9;}
-.success-code{display:inline-block;margin-top:12px;padding:6px 16px;background:var(--goldP);border:1px solid var(--goldB);border-radius:100px;font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.08em;}
-.success-close-btn{margin-top:14px;display:inline-block;padding:8px 22px;background:var(--em);color:var(--goldL);border-radius:100px;font-family:"Vazirmatn",sans-serif;font-size:12px;font-weight:700;border:none;cursor:pointer;}
-/* ── Registration Success + Payment flow ── */
-.reg-modal-head{background:linear-gradient(135deg,var(--em),var(--em3));padding:20px 22px 16px;text-align:center;position:relative;}
-.reg-modal-confetti{font-size:40px;margin-bottom:6px;display:block;}
-.reg-modal-title{font-size:17px;font-weight:900;color:var(--goldL);margin-bottom:3px;}
-.reg-modal-subtitle{font-size:11px;color:rgba(232,201,122,.55);}
-.reg-modal-body{padding:20px 22px;}
-.reg-status-box{background:linear-gradient(135deg,rgba(13,59,46,.05),rgba(201,168,76,.06));border:1.5px solid var(--goldB);border-radius:14px;padding:14px 16px;margin-bottom:14px;text-align:right;}
-.reg-status-row{display:flex;align-items:center;gap:9px;padding:5px 0;font-size:12px;color:var(--tm);border-bottom:1px solid rgba(201,168,76,.08);}
-.reg-status-row:last-child{border-bottom:none;}
-.reg-status-icon{font-size:14px;flex-shrink:0;}
-.reg-status-label{color:var(--ts);font-size:11px;}
-.reg-status-val{font-weight:700;color:var(--em);margin-right:4px;}
-.reg-code-box{background:rgba(201,168,76,.08);border:1.5px dashed var(--goldB);border-radius:10px;padding:10px;text-align:center;margin-bottom:14px;}
-.reg-code-label{font-size:10px;color:var(--ts);margin-bottom:4px;letter-spacing:.05em;}
-.reg-code-val{font-size:18px;font-weight:900;color:var(--gold);letter-spacing:.12em;direction:ltr;}
-.reg-info-note{font-size:11.5px;color:var(--tm);background:rgba(13,59,46,.05);border-right:3px solid rgba(13,59,46,.25);border-radius:8px;padding:10px 12px;margin-bottom:18px;line-height:1.85;text-align:right;}
-.reg-info-note strong{color:var(--em);}
-/* Payment section */
-.reg-payment-section{border-top:1px solid rgba(201,168,76,.12);padding-top:16px;}
-.reg-payment-title{font-size:12px;font-weight:800;color:var(--em);text-align:center;margin-bottom:4px;display:flex;align-items:center;justify-content:center;gap:6px;}
-.reg-payment-sub{font-size:11px;color:var(--ts);text-align:center;margin-bottom:14px;}
-.reg-payment-amount-box{background:linear-gradient(135deg,var(--em),var(--em3));border-radius:12px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.reg-payment-amount-label{font-size:11px;color:rgba(255,255,255,.55);}
-.reg-payment-amount-val{font-size:20px;font-weight:900;color:var(--goldL);letter-spacing:-.02em;}
-.reg-payment-amount-unit{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px;}
-.reg-pay-btn{width:100%;padding:14px;border-radius:100px;border:none;background:linear-gradient(135deg,#1a7c4f,#22a060);color:#fff;font-family:"Vazirmatn",sans-serif;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(26,124,79,.35);transition:all .25s;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px;}
-.reg-pay-btn:hover{transform:translateY(-2px);box-shadow:0 7px 24px rgba(26,124,79,.5);}
-.reg-pay-btn-icon{font-size:18px;}
-.reg-pay-zarinpal{display:flex;align-items:center;justify-content:center;gap:5px;font-size:10px;color:var(--ts);margin-bottom:8px;}
-.reg-pay-zarinpal img{height:16px;opacity:.5;}
-.reg-pay-later-btn{width:100%;padding:10px;border-radius:100px;border:1.5px solid rgba(201,168,76,.25);background:transparent;color:var(--ts);font-family:"Vazirmatn",sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .22s;}
-.reg-pay-later-btn:hover{background:rgba(201,168,76,.06);border-color:var(--goldB);}
-/* Payment processing state */
-.reg-pay-processing{display:none;text-align:center;padding:14px 0 6px;}
-.reg-pay-processing.show{display:block;}
-.reg-pay-spinner{width:40px;height:40px;border:3px solid rgba(26,124,79,.2);border-top-color:#1a7c4f;border-radius:50%;animation:paySpinner .8s linear infinite;margin:0 auto 10px;}
-@keyframes paySpinner{to{transform:rotate(360deg)}}
-.reg-pay-proc-text{font-size:12px;color:var(--tm);}
-/* Paid success state */
-.reg-paid-badge{display:none;text-align:center;padding:10px 0;}
-.reg-paid-badge.show{display:block;}
-.reg-paid-icon{font-size:44px;margin-bottom:6px;}
-.reg-paid-title{font-size:15px;font-weight:800;color:#1a7c4f;margin-bottom:4px;}
-.reg-paid-sub{font-size:11.5px;color:var(--tm);}
-/* Step indicators in reg modal */
-.reg-steps-row{display:flex;align-items:center;justify-content:center;gap:0;padding:12px 0 0;}
-.reg-stp{display:flex;flex-direction:column;align-items:center;gap:3px;}
-.reg-stp-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;}
-.reg-stp-dot.done{background:var(--em);color:var(--goldL);}
-.reg-stp-dot.active{background:var(--gold);color:var(--em);}
-.reg-stp-dot.pending{background:#e5e7eb;color:#aaa;}
-.reg-stp-lbl{font-size:8px;color:var(--ts);font-weight:600;white-space:nowrap;}
-.reg-stp-line{width:30px;height:2px;background:#e5e7eb;margin-top:-14px;}
-.reg-stp-line.done{background:rgba(13,59,46,.3);}
+.success-modal{background:var(--cream);border-radius:24px 24px 0 0;width:100%;max-width:480px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 -8px 40px rgba(0,0,0,.22);animation:slideUpModal .4s cubic-bezier(.32,0,.15,1);}
+@keyframes slideUpModal{from{transform:translateY(100%)}to{transform:translateY(0)}}
+/* handle */
+.sm-handle{flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:10px 0 4px;}
+.sm-handle-bar{width:40px;height:4px;background:rgba(0,0,0,.12);border-radius:2px;}
+/* header */
+.sm-head{flex-shrink:0;background:linear-gradient(135deg,var(--em),var(--em3));padding:14px 18px 16px;}
+.sm-head-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.sm-head-icon{font-size:24px;}
+.sm-head-close{width:28px;height:28px;background:rgba(255,255,255,.12);border:none;border-radius:50%;color:rgba(255,255,255,.7);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.sm-head-close:hover{background:rgba(255,255,255,.22);}
+.sm-head-title{font-size:15px;font-weight:900;color:var(--goldL);margin-bottom:2px;}
+.sm-head-sub{font-size:10px;color:rgba(232,201,122,.5);}
+/* stepper in header */
+.sm-steps{display:flex;align-items:center;justify-content:center;gap:0;margin-top:10px;}
+.sm-stp{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.sm-stp-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;}
+.sm-stp-dot.done{background:rgba(255,255,255,.22);color:#fff;}
+.sm-stp-dot.active{background:var(--gold);color:var(--em);}
+.sm-stp-lbl{font-size:8px;color:rgba(255,255,255,.4);font-weight:600;white-space:nowrap;}
+.sm-stp-line{width:28px;height:2px;background:rgba(255,255,255,.15);margin-top:-14px;}
+.sm-stp-line.done{background:rgba(255,255,255,.28);}
+/* scrollable body */
+.sm-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px 6px;}
+.sm-body::-webkit-scrollbar{width:3px;}
+.sm-body::-webkit-scrollbar-thumb{background:rgba(201,168,76,.25);border-radius:2px;}
+/* code chip */
+.sm-code-row{display:flex;align-items:center;justify-content:space-between;background:rgba(201,168,76,.09);border:1.5px dashed var(--goldB);border-radius:12px;padding:9px 14px;margin-bottom:12px;}
+.sm-code-lbl{font-size:10px;color:var(--ts);}
+.sm-code-val{font-size:16px;font-weight:900;color:var(--gold);letter-spacing:.1em;direction:ltr;}
+/* compact trip chips */
+.sm-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;}
+.sm-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:var(--white);border:1px solid rgba(201,168,76,.2);border-radius:100px;font-size:11px;font-weight:600;color:var(--em);}
+/* info note */
+.sm-note{font-size:11.5px;color:var(--tm);background:rgba(13,59,46,.05);border-right:3px solid rgba(13,59,46,.2);border-radius:8px;padding:9px 12px;margin-bottom:12px;line-height:1.85;}
+.sm-note strong{color:var(--em);}
+/* amount box */
+.sm-amount-box{background:linear-gradient(135deg,var(--em),var(--em3));border-radius:14px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.sm-amount-lbl{font-size:10px;color:rgba(255,255,255,.5);margin-bottom:4px;}
+.sm-amount-val{font-size:24px;font-weight:900;color:var(--goldL);letter-spacing:-.02em;line-height:1;}
+.sm-amount-unit{font-size:10px;color:rgba(255,255,255,.4);margin-top:3px;}
+.sm-amount-icon{font-size:30px;opacity:.6;}
+/* sticky footer */
+.sm-footer{flex-shrink:0;background:var(--white);border-top:1px solid rgba(201,168,76,.14);padding:12px 16px calc(12px + env(safe-area-inset-bottom));}
+.sm-pay-btn{width:100%;padding:15px;border-radius:100px;border:none;background:linear-gradient(135deg,#1a7c4f,#22a060);color:#fff;font-family:"Vazirmatn",sans-serif;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(26,124,79,.3);transition:all .25s;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;}
+.sm-pay-btn:hover{transform:translateY(-2px);box-shadow:0 7px 22px rgba(26,124,79,.4);}
+.sm-pay-btn:active{transform:translateY(0);}
+.sm-pay-secure{font-size:10px;color:var(--ts);text-align:center;margin-bottom:8px;}
+.sm-pay-later{width:100%;padding:10px;border-radius:100px;border:1.5px solid rgba(201,168,76,.22);background:transparent;color:var(--ts);font-family:"Vazirmatn",sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;}
+.sm-pay-later:hover{background:rgba(201,168,76,.06);}
+/* processing */
+.sm-processing{display:none;text-align:center;padding:8px 0;}
+.sm-processing.show{display:block;}
+.sm-spinner{width:34px;height:34px;border:3px solid rgba(26,124,79,.2);border-top-color:#1a7c4f;border-radius:50%;animation:smSpin .8s linear infinite;margin:0 auto 8px;}
+@keyframes smSpin{to{transform:rotate(360deg)}}
+.sm-proc-txt{font-size:12px;color:var(--tm);}
+/* paid success */
+.sm-paid{display:none;text-align:center;padding:6px 0;}
+.sm-paid.show{display:block;}
+.sm-paid-icon{font-size:38px;margin-bottom:5px;}
+.sm-paid-title{font-size:14px;font-weight:800;color:#1a7c4f;margin-bottom:3px;}
+.sm-paid-sub{font-size:11px;color:var(--tm);}
+/* error */
+.sm-err{background:rgba(192,57,43,.07);border:1.5px solid rgba(192,57,43,.2);border-radius:10px;padding:9px 12px;font-size:11.5px;color:#c0392b;margin-bottom:10px;display:none;}
+.sm-err.show{display:block;}
+/* keep old class names working (JS references) */
+.success-icon,.success-title,.success-body,.success-close-btn{}
+.reg-pay-processing{display:none;}.reg-pay-processing.show{display:block;}
+.reg-paid-badge{display:none;}.reg-paid-badge.show{display:block;}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
@@ -1037,104 +1046,88 @@ body.sheet-open{overflow:hidden;}
   </div>
 </div>
 
-<!-- ══ REGISTRATION + PAYMENT OVERLAY ══ -->
+<!-- ══ REGISTRATION + PAYMENT BOTTOM SHEET ══ -->
 <div class="success-overlay" id="successOverlay">
-  <div class="success-modal" style="max-width:400px;">
+  <div class="success-modal">
 
-    <!-- Header -->
-    <div class="reg-modal-head">
-      <!-- Step indicator -->
-      <div class="reg-steps-row">
-        <div class="reg-stp">
-          <div class="reg-stp-dot done" id="regStp1">✓</div>
-          <div class="reg-stp-lbl">ثبت اطلاعات</div>
+    <!-- drag handle -->
+    <div class="sm-handle"><div class="sm-handle-bar"></div></div>
+
+    <!-- green header -->
+    <div class="sm-head">
+      <div class="sm-head-top">
+        <div>
+          <div class="sm-head-title">🕌 سفر شما ثبت شد!</div>
+          <div class="sm-head-sub">اطلاعات برای کارشناسان آوان ارسال گردید</div>
         </div>
-        <div class="reg-stp-line done" id="regLine1"></div>
-        <div class="reg-stp">
-          <div class="reg-stp-dot done" id="regStp2">✓</div>
-          <div class="reg-stp-lbl">ارسال به کارشناس</div>
-        </div>
-        <div class="reg-stp-line" id="regLine2"></div>
-        <div class="reg-stp">
-          <div class="reg-stp-dot active" id="regStp3">۳</div>
-          <div class="reg-stp-lbl">پرداخت بیعانه</div>
-        </div>
+        <button class="sm-head-close" onclick="closeRegModal()">✕</button>
       </div>
-      <div style="margin-top:14px;">
-        <span class="reg-modal-confetti">🕌</span>
-        <div class="reg-modal-title">درخواست سفر شما ثبت شد!</div>
-        <div class="reg-modal-subtitle">اطلاعات برای کارشناسان آوان ارسال گردید</div>
+      <!-- 3-step indicator -->
+      <div class="sm-steps">
+        <div class="sm-stp"><div class="sm-stp-dot done">✓</div><div class="sm-stp-lbl">ثبت‌نام</div></div>
+        <div class="sm-stp-line done"></div>
+        <div class="sm-stp"><div class="sm-stp-dot done">✓</div><div class="sm-stp-lbl">ارسال</div></div>
+        <div class="sm-stp-line done"></div>
+        <div class="sm-stp"><div class="sm-stp-dot active">💳</div><div class="sm-stp-lbl">پرداخت</div></div>
       </div>
     </div>
 
-    <!-- Body -->
-    <div class="reg-modal-body">
+    <!-- scrollable body -->
+    <div class="sm-body">
 
-      <!-- Trip summary chips -->
-      <div class="reg-status-box" id="regStatusBox">
-        <!-- filled by JS -->
+      <!-- code -->
+      <div class="sm-code-row">
+        <span class="sm-code-lbl">کد پیگیری</span>
+        <span class="sm-code-val" id="successCode">—</span>
       </div>
 
-      <!-- Tracking code -->
-      <div class="reg-code-box">
-        <div class="reg-code-label">کد پیگیری شما</div>
-        <div class="reg-code-val" id="successCode">—</div>
+      <!-- trip chips — filled by JS -->
+      <div class="sm-chips" id="smChips"></div>
+
+      <!-- info note -->
+      <div class="sm-note">
+        📌 درخواست سفر شما ثبت و برای کارشناسان ما ارسال شد.<br/>
+        جهت <strong>قطعی‌شدن سفر</strong>، لطفاً مبلغ را پرداخت نمایید.<br/>
+        ظرف <strong>۲ ساعت</strong> با شما تماس خواهیم گرفت.
       </div>
 
-      <!-- Info note -->
-      <div class="reg-info-note">
-        📌 درخواست سفر شما با موفقیت ثبت و برای کارشناسان ما ارسال شد.<br/>
-        <strong>برای قطعی‌شدن سفر</strong>، لطفاً مبلغ بیعانه را پرداخت نمایید.<br/>
-        کارشناسان ما پس از تأیید پرداخت، ظرف <strong>۲ ساعت</strong> با شما تماس خواهند گرفت.
+      <!-- amount box -->
+      <div class="sm-amount-box">
+        <div>
+          <div class="sm-amount-lbl">مبلغ کل سفر</div>
+          <div class="sm-amount-val" id="regDepositAmt">—</div>
+          <div class="sm-amount-unit">تومان</div>
+        </div>
+        <div class="sm-amount-icon">💰</div>
       </div>
 
-      <!-- Payment section -->
-      <div class="reg-payment-section" id="regPaymentSection">
-        <div class="reg-payment-title">
-          💳 پرداخت بیعانه
-        </div>
-        <div class="reg-payment-sub">جهت تأیید نهایی و قطعی‌شدن سفر</div>
-
-        <div class="reg-payment-amount-box">
-          <div>
-            <div class="reg-payment-amount-label">مبلغ بیعانه (۱۰٪ کل سفر)</div>
-            <div class="reg-payment-amount-val" id="regDepositAmt">—</div>
-            <div class="reg-payment-amount-unit">تومان</div>
-          </div>
-          <div style="font-size:28px;">💰</div>
-        </div>
-
-        <!-- Processing state (hidden by default) -->
-        <div class="reg-pay-processing" id="regPayProcessing">
-          <div class="reg-pay-spinner"></div>
-          <div class="reg-pay-proc-text">در حال انتقال به درگاه پرداخت زرین‌پال...</div>
-        </div>
-
-        <!-- Paid success (hidden by default) -->
-        <div class="reg-paid-badge" id="regPaidBadge">
-          <div class="reg-paid-icon">✅</div>
-          <div class="reg-paid-title">پرداخت با موفقیت انجام شد!</div>
-          <div class="reg-paid-sub">کارشناسان ما به‌زودی با شما تماس می‌گیرند.</div>
-        </div>
-
-        <!-- Pay button area -->
-        <div id="regPayBtnArea">
-          <button class="reg-pay-btn" onclick="doZarinpalPayment()">
-            <span class="reg-pay-btn-icon">💳</span>
-            پرداخت از طریق درگاه امن زرین‌پال
-          </button>
-          <div class="reg-pay-zarinpal">
-            <span>پرداخت امن توسط</span>
-            <strong style="color:#5c2d91;font-size:11px;">ZarinPal</strong>
-            <span>— رمزگذاری SSL</span>
-          </div>
-          <button class="reg-pay-later-btn" onclick="closeRegModal()">
-            پرداخت بعداً — فقط بستن
-          </button>
-        </div>
+      <!-- processing (hidden) -->
+      <div class="sm-processing" id="regPayProcessing">
+        <div class="sm-spinner"></div>
+        <div class="sm-proc-txt">در حال انتقال به درگاه پرداخت...</div>
       </div>
 
+      <!-- paid success (hidden) -->
+      <div class="sm-paid" id="regPaidBadge">
+        <div class="sm-paid-icon">✅</div>
+        <div class="sm-paid-title">پرداخت با موفقیت انجام شد!</div>
+        <div class="sm-paid-sub">کارشناسان ما به‌زودی با شما تماس می‌گیرند.</div>
+      </div>
+
+      <!-- error (hidden) -->
+      <div class="sm-err" id="smErr"></div>
+
+    </div><!-- /sm-body -->
+
+    <!-- sticky footer with pay button -->
+    <div class="sm-footer" id="regPayBtnArea">
+      <button class="sm-pay-btn" onclick="doZarinpalPayment()">
+        💳 &nbsp;پرداخت آنلاین با کارت‌های عضو شتاب
+      </button>
+      <div class="sm-pay-secure">🔒 پرداخت امن — رمزگذاری SSL</div>
+      <button class="sm-pay-later" onclick="closeRegModal()">بستن — پرداخت بعداً</button>
     </div>
+
   </div>
 </div>
 
@@ -3018,114 +3011,110 @@ ${cityText}
   window._currentRegCode = code;
   window._currentTotalPrice = state.totalPrice;
 
-  // پر کردن جزئیات سفر
+  // chips اطلاعات سفر
   const originLabel2 = CITY_LABEL[state.origin] || state.origin || '—';
   const typeLabel2 = state.tripType === 'air' ? '✈️ هوایی' : state.tripType === 'land' ? '🚌 زمینی' : '✈️+🚌 ترکیبی';
   let totalNights2 = 0;
   state.cities.forEach(k => { if (!state.cityData[k].transit) totalNights2 += state.cityData[k].nights; });
-  const paxNames = [
-    (document.getElementById('pfbFirstName')?.value.trim() || '') + ' ' + (document.getElementById('pfbLastName')?.value.trim() || '')
-  ].filter(Boolean);
+  const leaderName = ((document.getElementById('pfbFirstName')?.value.trim() || '') + ' ' + (document.getElementById('pfbLastName')?.value.trim() || '')).trim();
 
-  document.getElementById('regStatusBox').innerHTML = `
-    <div class="reg-status-row"><span class="reg-status-icon">👤</span><span class="reg-status-label">سرپرست</span><span class="reg-status-val">${paxNames[0] || '—'}</span></div>
-    <div class="reg-status-row"><span class="reg-status-icon">📍</span><span class="reg-status-label">مبدا</span><span class="reg-status-val">${originLabel2}</span></div>
-    <div class="reg-status-row"><span class="reg-status-icon">📅</span><span class="reg-status-label">تاریخ اعزام</span><span class="reg-status-val">${state.dateText || '—'}</span></div>
-    <div class="reg-status-row"><span class="reg-status-icon">${state.tripType === 'land' ? '🚌' : '✈️'}</span><span class="reg-status-label">نوع سفر</span><span class="reg-status-val">${typeLabel2}</span></div>
-    <div class="reg-status-row"><span class="reg-status-icon">🌙</span><span class="reg-status-label">مدت اقامت</span><span class="reg-status-val">${P(totalNights2)} شب</span></div>
-    <div class="reg-status-row"><span class="reg-status-icon">👥</span><span class="reg-status-label">تعداد زائران</span><span class="reg-status-val">${P(state.passengers)} نفر</span></div>
-  `;
+  const chipsData = [
+    { icon: '👤', text: leaderName || '—' },
+    { icon: '📍', text: originLabel2 },
+    { icon: '📅', text: state.dateText || '—' },
+    { icon: state.tripType === 'land' ? '🚌' : '✈️', text: typeLabel2.replace(/[✈️🚌]/g,'').trim() },
+    { icon: '🌙', text: P(totalNights2) + ' شب' },
+    { icon: '👥', text: P(state.passengers) + ' نفر' },
+  ];
+
+  document.getElementById('smChips').innerHTML = chipsData
+    .map(c => `<div class="sm-chip"><span>${c.icon}</span>${c.text}</div>`)
+    .join('');
 
   document.getElementById('successCode').textContent = code;
 
-  // مبلغ بیعانه = ۱۰٪ کل
-  const deposit = Math.round(state.totalPrice * 0.1);
-  document.getElementById('regDepositAmt').textContent = fmt(deposit);
-  window._currentDeposit = deposit;
+  // مبلغ کل سفر
+  document.getElementById('regDepositAmt').textContent = fmt(state.totalPrice);
+  window._currentDeposit = state.totalPrice;
 
-  // نمایش
-  closeBottomSheet();
-  setTimeout(() => document.getElementById('successOverlay').classList.add('show'), 400);
-}
-// ══ ZARINPAL PAYMENT ══
-function closeRegModal(){
-  document.getElementById('successOverlay').classList.remove('show');
-  // reset pay UI for next time
+  // ریست state دکمه‌ها
   document.getElementById('regPayBtnArea').style.display = '';
   document.getElementById('regPayProcessing').classList.remove('show');
   document.getElementById('regPaidBadge').classList.remove('show');
+  const smErr = document.getElementById('smErr');
+  if (smErr) { smErr.textContent = ''; smErr.classList.remove('show'); }
+
+  closeBottomSheet();
+  setTimeout(() => document.getElementById('successOverlay').classList.add('show'), 400);
+}
+// ══ PAYMENT ══
+function closeRegModal(){
+  document.getElementById('successOverlay').classList.remove('show');
+  document.getElementById('regPayBtnArea').style.display = '';
+  document.getElementById('regPayProcessing').classList.remove('show');
+  document.getElementById('regPaidBadge').classList.remove('show');
+  const smErr = document.getElementById('smErr');
+  if (smErr) { smErr.textContent=''; smErr.classList.remove('show'); }
 }
 
 async function doZarinpalPayment(){
   const ZARINPAL_MERCHANT = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX'; // ← کد ۲۶ رقمی خود را اینجا وارد کنید
-  const deposit = window._currentDeposit || 0;
-  const code    = window._currentRegCode || '—';
-  const amountToman = deposit;       // زرین‌پال از تومان پشتیبانی می‌کند
+  const amount    = window._currentDeposit || 0;
+  const code      = window._currentRegCode || '—';
   const callbackUrl = window.location.href.split('?')[0] + '?payment=verify&code=' + code;
-  const description = 'بیعانه سفر زیارتی آوان — کد: ' + code;
+  const description = 'پرداخت سفر زیارتی آوان — کد: ' + code;
 
-  // نمایش حالت در حال پردازش
+  // نمایش loading
   document.getElementById('regPayBtnArea').style.display = 'none';
   document.getElementById('regPayProcessing').classList.add('show');
+  const smErr = document.getElementById('smErr');
+  if (smErr) { smErr.textContent=''; smErr.classList.remove('show'); }
 
-  // ارسال پیام به تلگرام — شروع پرداخت
+  // اطلاع به تلگرام
   const BOT_TOKEN = '8893591516:AAE9RAEbJnZpa23bhUaTBGI9UaESk-M2zuo';
   const CHAT_ID   = '8384838572';
   try {
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: `💳 شروع پرداخت بیعانه\nکد: ${code}\nمبلغ: ${fmt(amountToman)} تومان\nوضعیت: در حال انتقال به زرین‌پال`
-      })
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ chat_id:CHAT_ID, text:`💳 شروع پرداخت\nکد: ${code}\nمبلغ: ${fmt(amount)} تومان` })
     });
-  } catch(e) { console.warn('Telegram notify error:', e); }
+  } catch(e){}
 
-  // درخواست توکن پرداخت از زرین‌پال
+  // درخواست token از زرین‌پال
   try {
-    const reqBody = {
-      merchant_id: ZARINPAL_MERCHANT,
-      amount: amountToman,
-      description: description,
-      callback_url: callbackUrl,
-      metadata: { order_id: code, mobile: document.getElementById('pfbPhone')?.value?.trim() || '' }
-    };
-
     const resp = await fetch('https://payment.zarinpal.com/pg/v4/payment/request.json', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(reqBody)
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({
+        merchant_id: ZARINPAL_MERCHANT,
+        amount: amount,
+        description: description,
+        callback_url: callbackUrl,
+        metadata: { order_id: code, mobile: document.getElementById('pfbPhone')?.value?.trim()||'' }
+      })
     });
     const data = await resp.json();
 
     if (data.data && data.data.authority) {
-      const authority = data.data.authority;
-      // ذخیره authority برای مرحله تأیید
-      localStorage.setItem('zp_authority', authority);
+      localStorage.setItem('zp_authority', data.data.authority);
       localStorage.setItem('zp_code', code);
-      localStorage.setItem('zp_amount', amountToman);
-      // انتقال به صفحه پرداخت
-      window.location.href = `https://payment.zarinpal.com/pg/StartPay/${authority}`;
+      localStorage.setItem('zp_amount', amount);
+      window.location.href = `https://payment.zarinpal.com/pg/StartPay/${data.data.authority}`;
     } else {
-      throw new Error('Authority not received: ' + JSON.stringify(data.errors || data));
+      throw new Error(JSON.stringify(data.errors || data));
     }
   } catch(err) {
-    console.error('ZarinPal request error:', err);
-    // نمایش خطا و بازگشت به دکمه‌ها
+    console.error('Payment error:', err);
     document.getElementById('regPayProcessing').classList.remove('show');
     document.getElementById('regPayBtnArea').style.display = '';
-    // نمایش پیام خطا
-    const errBox = document.createElement('div');
-    errBox.style.cssText = 'background:rgba(192,57,43,.08);border:1.5px solid rgba(192,57,43,.22);border-radius:10px;padding:10px 13px;font-size:12px;color:#c0392b;margin-bottom:10px;text-align:right;';
-    errBox.textContent = '⚠️ اتصال به درگاه پرداخت برقرار نشد. لطفاً دوباره تلاش کنید یا با پشتیبانی تماس بگیرید.';
-    const btnArea = document.getElementById('regPayBtnArea');
-    btnArea.insertBefore(errBox, btnArea.firstChild);
-    setTimeout(() => errBox.remove(), 5000);
+    if (smErr) {
+      smErr.textContent = '⚠️ اتصال به درگاه پرداخت برقرار نشد. لطفاً دوباره تلاش کنید.';
+      smErr.classList.add('show');
+    }
   }
 }
 
-// بررسی بازگشت از زرین‌پال پس از پرداخت
+// بررسی بازگشت از درگاه پرداخت
 (function checkZarinpalReturn(){
   const params = new URLSearchParams(window.location.search);
   if (params.get('payment') !== 'verify') return;
@@ -3137,48 +3126,37 @@ async function doZarinpalPayment(){
 
   if (!authority) return;
 
-  // نمایش مودال
   document.getElementById('successCode').textContent = code || '—';
-  document.getElementById('regDepositAmt').textContent = fmt(parseInt(amount) || 0);
-  document.getElementById('regStatusBox').innerHTML = `
-    <div class="reg-status-row"><span class="reg-status-icon">📋</span><span class="reg-status-label">کد پیگیری</span><span class="reg-status-val">${code}</span></div>
-    <div class="reg-status-row"><span class="reg-status-icon">🔑</span><span class="reg-status-label">شناسه Authority</span><span class="reg-status-val" style="font-size:10px;direction:ltr;">${authority.slice(0,16)}…</span></div>
-  `;
+  document.getElementById('regDepositAmt').textContent = fmt(parseInt(amount)||0);
+  document.getElementById('smChips').innerHTML = `<div class="sm-chip">📋 ${code}</div>`;
 
   if (status === 'OK') {
-    // پرداخت موفق — تأیید سمت سرور باید توسط backend انجام شود
-    document.getElementById('regPayBtnArea').style.display    = 'none';
+    document.getElementById('regPayBtnArea').style.display = 'none';
     document.getElementById('regPayProcessing').classList.remove('show');
     document.getElementById('regPaidBadge').classList.add('show');
 
-    // ارسال اطلاع به تلگرام
     const BOT_TOKEN = '8893591516:AAE9RAEbJnZpa23bhUaTBGI9UaESk-M2zuo';
     const CHAT_ID   = '8384838572';
     fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: `✅ پرداخت موفق\nکد: ${code}\nAuthority: ${authority}\nمبلغ: ${fmt(parseInt(amount)||0)} تومان\n⚠️ تأیید نهایی از طریق API سمت سرور الزامی است.`
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ chat_id:CHAT_ID,
+        text:`✅ پرداخت موفق\nکد: ${code}\nAuthority: ${authority}\nمبلغ: ${fmt(parseInt(amount)||0)} تومان\n⚠️ تأیید نهایی از سمت سرور الزامی است.`
       })
     }).catch(()=>{});
 
-    // پاک‌سازی localStorage
     localStorage.removeItem('zp_authority');
     localStorage.removeItem('zp_code');
     localStorage.removeItem('zp_amount');
   } else {
-    // پرداخت ناموفق یا انصراف
     document.getElementById('regPayBtnArea').style.display = '';
-    document.getElementById('regPayProcessing').classList.remove('show');
-    const errBox = document.createElement('div');
-    errBox.style.cssText = 'background:rgba(192,57,43,.08);border:1.5px solid rgba(192,57,43,.22);border-radius:10px;padding:10px 13px;font-size:12px;color:#c0392b;margin-bottom:10px;text-align:right;';
-    errBox.textContent = '⚠️ پرداخت انجام نشد یا لغو گردید. می‌توانید دوباره تلاش کنید.';
-    document.getElementById('regPayBtnArea').insertBefore(errBox, document.getElementById('regPayBtnArea').firstChild);
+    const smErr = document.getElementById('smErr');
+    if (smErr) {
+      smErr.textContent = '⚠️ پرداخت انجام نشد یا لغو گردید. می‌توانید دوباره تلاش کنید.';
+      smErr.classList.add('show');
+    }
   }
 
-  setTimeout(() => document.getElementById('successOverlay').classList.add('show'), 300);
-  // حذف پارامترها از URL
+  setTimeout(()=> document.getElementById('successOverlay').classList.add('show'), 300);
   window.history.replaceState({}, '', window.location.pathname);
 })();
 
