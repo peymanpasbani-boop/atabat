@@ -895,6 +895,49 @@ body.sheet-open{overflow:hidden;}
   .bsl-item{width:20px;font-size:7px;}
   .tnc-meta-strip{grid-template-columns:1fr 1fr 1fr;}
 }
+
+/* ══ HOTEL PHOTO MODAL ══ */
+.hpm-overlay{position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s ease;}
+.hpm-overlay.open{opacity:1;pointer-events:all;}
+.hpm-sheet{width:100%;max-width:520px;background:var(--cream);border-radius:24px 24px 0 0;box-shadow:0 -12px 60px rgba(0,0,0,.3);transform:translateY(100%);transition:transform .44s cubic-bezier(.32,0,.15,1);display:flex;flex-direction:column;max-height:90vh;overflow:hidden;}
+.hpm-overlay.open .hpm-sheet{transform:translateY(0);}
+.hpm-handle{flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:10px 0 4px;}
+.hpm-handle-bar{width:40px;height:4px;background:rgba(0,0,0,.13);border-radius:2px;}
+.hpm-header{flex-shrink:0;background:linear-gradient(135deg,var(--em),var(--em3));padding:12px 18px 14px;display:flex;align-items:center;justify-content:space-between;}
+.hpm-header-info{flex:1;}
+.hpm-header-name{font-size:14px;font-weight:800;color:var(--goldL);}
+.hpm-header-meta{font-size:10px;color:rgba(232,201,122,.55);margin-top:3px;}
+.hpm-close{width:30px;height:30px;background:rgba(255,255,255,.12);border:none;border-radius:50%;cursor:pointer;color:rgba(255,255,255,.65);font-size:15px;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0;}
+.hpm-close:hover{background:rgba(255,255,255,.22);}
+/* Big hero photo */
+.hpm-hero{flex-shrink:0;position:relative;height:200px;overflow:hidden;cursor:pointer;}
+.hpm-hero-img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+.hpm-hero:hover .hpm-hero-img{transform:scale(1.04);}
+.hpm-hero-counter{position:absolute;bottom:10px;left:12px;background:rgba(0,0,0,.55);color:#fff;font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;letter-spacing:.04em;direction:ltr;}
+.hpm-hero-nav{position:absolute;top:50%;transform:translateY(-50%);display:flex;justify-content:space-between;width:100%;padding:0 10px;pointer-events:none;}
+.hpm-hero-arrow{width:30px;height:30px;background:rgba(0,0,0,.45);border:none;border-radius:50%;color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;pointer-events:all;transition:background .2s;}
+.hpm-hero-arrow:hover{background:rgba(0,0,0,.7);}
+/* Thumbnail strip */
+.hpm-thumbs-wrap{flex-shrink:0;padding:10px 12px;background:var(--white);border-bottom:1px solid rgba(201,168,76,.1);}
+.hpm-thumbs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.hpm-thumbs::-webkit-scrollbar{display:none;}
+.hpm-thumb{width:52px;height:40px;border-radius:7px;object-fit:cover;cursor:pointer;flex-shrink:0;border:2px solid transparent;transition:all .2s;opacity:.6;}
+.hpm-thumb.active{border-color:var(--gold);opacity:1;box-shadow:0 2px 8px rgba(201,168,76,.35);}
+.hpm-thumb:hover{opacity:.9;}
+/* Info strip */
+.hpm-info{flex-shrink:0;padding:12px 16px;display:flex;gap:12px;flex-wrap:wrap;border-bottom:1px solid rgba(201,168,76,.1);}
+.hpm-info-pill{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;background:var(--goldP);border:1px solid var(--goldB);border-radius:100px;font-size:11px;font-weight:600;color:var(--em);}
+/* Stars row */
+.hpm-stars{display:flex;gap:3px;align-items:center;}
+.hpm-star{width:10px;height:10px;border-radius:50%;}
+.hpm-star.on{background:var(--gold);}
+.hpm-star.off{background:#ddd;}
+/* Footer buttons */
+.hpm-footer{flex-shrink:0;padding:12px 16px calc(14px + env(safe-area-inset-bottom));background:var(--white);border-top:1px solid rgba(201,168,76,.15);display:flex;gap:9px;}
+.hpm-select-btn{flex:1;padding:13px;border-radius:100px;border:none;background:linear-gradient(135deg,var(--em),var(--em3));color:var(--goldL);font-family:"Vazirmatn",sans-serif;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(13,59,46,.2);transition:all .22s;}
+.hpm-select-btn:hover{transform:translateY(-1px);}
+.hpm-other-btn{padding:13px 18px;border-radius:100px;border:1.5px solid rgba(201,168,76,.28);background:transparent;color:var(--tm);font-family:"Vazirmatn",sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.hpm-other-btn:hover{background:rgba(201,168,76,.06);border-color:var(--gold);}
 /* ══ CITY CHIPS — monochrome SVG icons ══ */
 .city-chip-svg{width:28px;height:28px;stroke:#e8c97a;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s;}
 .city-chip.selected .city-chip-svg{stroke:var(--goldL);}
@@ -1087,6 +1130,36 @@ body.sheet-open{overflow:hidden;}
 </style>
 </head>
 <body>
+
+<!-- ══ HOTEL PHOTO MODAL ══ -->
+<div class="hpm-overlay" id="hpmOverlay" onclick="hpmOverlayClick(event)">
+  <div class="hpm-sheet" id="hpmSheet">
+    <div class="hpm-handle"><div class="hpm-handle-bar"></div></div>
+    <div class="hpm-header">
+      <div class="hpm-header-info">
+        <div class="hpm-header-name" id="hpmHotelName">نام هتل</div>
+        <div class="hpm-header-meta" id="hpmHotelMeta"></div>
+      </div>
+      <button class="hpm-close" onclick="closeHpm()">✕</button>
+    </div>
+    <div class="hpm-hero">
+      <img class="hpm-hero-img" id="hpmHeroImg" src="" alt="عکس هتل"/>
+      <div class="hpm-hero-counter" id="hpmCounter">1 / 6</div>
+      <div class="hpm-hero-nav">
+        <button class="hpm-hero-arrow" onclick="hpmNav(1)">&#8249;</button>
+        <button class="hpm-hero-arrow" onclick="hpmNav(-1)">&#8250;</button>
+      </div>
+    </div>
+    <div class="hpm-thumbs-wrap">
+      <div class="hpm-thumbs" id="hpmThumbs"></div>
+    </div>
+    <div class="hpm-info" id="hpmInfo"></div>
+    <div class="hpm-footer">
+      <button class="hpm-other-btn" onclick="hpmPickOther()">هتل دیگه ↩</button>
+      <button class="hpm-select-btn" onclick="hpmConfirm()">✓ انتخاب این هتل</button>
+    </div>
+  </div>
+</div>
 
 <!-- ══ FLOATING SUPPORT ══ -->
 <div class="floating-support">
@@ -2816,8 +2889,8 @@ function togGradeItem(key,grade){
         const gIdx=HOTEL_DATA[key].indexOf(h);
         const card=document.createElement('div');
         card.className='hotel-card';card.id='hc_'+key+'_'+gIdx;
-        card.innerHTML=`${miniDots(h.stars)}<div class="hotel-info"><div class="hotel-name">${h.name}</div><div class="hotel-dist">📍 ${h.dist}</div></div><button class="hotel-select-btn">انتخاب</button>`;
-        card.onclick=()=>selHotel(key,gIdx);
+        card.innerHTML=`${miniDots(h.stars)}<div class="hotel-info"><div class="hotel-name">${h.name}</div><div class="hotel-dist">📍 ${h.dist}</div></div><button class="hotel-select-btn">مشاهده و انتخاب</button>`;
+        card.onclick=()=>openHotelPhotoModal(key,gIdx);
         inner.appendChild(card);
       });
     }
@@ -4043,7 +4116,168 @@ function aiInputResize(el){el.style.height='auto';el.style.height=Math.min(el.sc
 function aiFormatNum(n){return P(Math.round(n).toLocaleString('en'));}
 
 // ============================
-// ══ CITY STRIP (سایر شهرها) ══
+// ══ HOTEL PHOTO MODAL ══
+(function(){
+  'use strict';
+
+  // Unsplash photos keyed by hotel name keywords — fallback to category photos
+  // Using reliable Unsplash photo IDs for hotel/interior shots
+  var HOTEL_PHOTOS = {
+    // 5-star luxury
+    'عباسیه':    ['photo-1566073771259-6a8506099945','photo-1590490360182-c33d57733427','photo-1618773928121-c32242e63f39','photo-1621293954908-907159247fc8','photo-1551882547-ff40c63fe5fa','photo-1564501049412-61c2a3083791'],
+    'امیرالمؤمنین':['photo-1566073771259-6a8506099945','photo-1590490360182-c33d57733427','photo-1618773928121-c32242e63f39','photo-1613490493576-7fde63acd811','photo-1564501049412-61c2a3083791','photo-1444201983204-c43cbd584d93'],
+    'الحسین':    ['photo-1602002418082-a4443e081dd1','photo-1551882547-ff40c63fe5fa','photo-1590490360182-c33d57733427','photo-1618773928121-c32242e63f39','photo-1621293954908-907159247fc8','photo-1566073771259-6a8506099945'],
+    'نجف گرند':  ['photo-1551882547-ff40c63fe5fa','photo-1566073771259-6a8506099945','photo-1590490360182-c33d57733427','photo-1618773928121-c32242e63f39','photo-1602002418082-a4443e081dd1','photo-1613490493576-7fde63acd811'],
+    'النجف':     ['photo-1613490493576-7fde63acd811','photo-1566073771259-6a8506099945','photo-1551882547-ff40c63fe5fa','photo-1602002418082-a4443e081dd1','photo-1590490360182-c33d57733427','photo-1618773928121-c32242e63f39'],
+    'الامین':    ['photo-1621293954908-907159247fc8','photo-1566073771259-6a8506099945','photo-1590490360182-c33d57733427','photo-1618773928121-c32242e63f39','photo-1551882547-ff40c63fe5fa','photo-1564501049412-61c2a3083791'],
+    'الکاظمیه': ['photo-1564501049412-61c2a3083791','photo-1566073771259-6a8506099945','photo-1590490360182-c33d57733427','photo-1621293954908-907159247fc8','photo-1618773928121-c32242e63f39','photo-1551882547-ff40c63fe5fa'],
+    'العسکری':  ['photo-1618773928121-c32242e63f39','photo-1590490360182-c33d57733427','photo-1566073771259-6a8506099945','photo-1613490493576-7fde63acd811','photo-1551882547-ff40c63fe5fa','photo-1602002418082-a4443e081dd1'],
+    // 4-star mid
+    'کربلا اینترنشنال':['photo-1444201983204-c43cbd584d93','photo-1582719478250-c89cae4dc85b','photo-1551882547-ff40c63fe5fa','photo-1590490360182-c33d57733427','photo-1566073771259-6a8506099945','photo-1618773928121-c32242e63f39'],
+    'نجف پالاس': ['photo-1582719478250-c89cae4dc85b','photo-1444201983204-c43cbd584d93','photo-1618773928121-c32242e63f39','photo-1566073771259-6a8506099945','photo-1590490360182-c33d57733427','photo-1551882547-ff40c63fe5fa'],
+    'رویال':     ['photo-1582719478250-c89cae4dc85b','photo-1444201983204-c43cbd584d93','photo-1618773928121-c32242e63f39','photo-1590490360182-c33d57733427','photo-1566073771259-6a8506099945','photo-1551882547-ff40c63fe5fa'],
+    'فرات':      ['photo-1587985064135-0366536eab42','photo-1582719478250-c89cae4dc85b','photo-1444201983204-c43cbd584d93','photo-1566073771259-6a8506099945','photo-1590490360182-c33d57733427','photo-1618773928121-c32242e63f39'],
+    'مشرق':     ['photo-1587985064135-0366536eab42','photo-1444201983204-c43cbd584d93','photo-1582719478250-c89cae4dc85b','photo-1566073771259-6a8506099945','photo-1590490360182-c33d57733427','photo-1618773928121-c32242e63f39'],
+    'رشید':     ['photo-1587985064135-0366536eab42','photo-1444201983204-c43cbd584d93','photo-1582719478250-c89cae4dc85b','photo-1566073771259-6a8506099945','photo-1590490360182-c33d57733427','photo-1618773928121-c32242e63f39'],
+    // default fallback
+    '_default':  ['photo-1566073771259-6a8506099945','photo-1590490360182-c33d57733427','photo-1551882547-ff40c63fe5fa','photo-1618773928121-c32242e63f39','photo-1444201983204-c43cbd584d93','photo-1582719478250-c89cae4dc85b']
+  };
+
+  function getPhotos(hotelName){
+    var keys=Object.keys(HOTEL_PHOTOS);
+    for(var i=0;i<keys.length;i++){
+      if(keys[i]!=='_default'&&hotelName.indexOf(keys[i])>-1){
+        return HOTEL_PHOTOS[keys[i]];
+      }
+    }
+    return HOTEL_PHOTOS['_default'];
+  }
+
+  function photoUrl(id,w,h){
+    return 'https://images.unsplash.com/'+id+'?w='+w+'&h='+h+'&fit=crop&q=80';
+  }
+
+  // ── State ──────────────────────────────────────────────
+  var hpmState = {
+    cityKey: null,
+    hotelIdx: null,
+    hotel: null,
+    photos: [],
+    cur: 0,
+    onConfirm: null
+  };
+
+  // ── Open ───────────────────────────────────────────────
+  window.openHotelPhotoModal = function(cityKey, hotelIdx, onConfirmCb){
+    var hotel = HOTEL_DATA[cityKey] && HOTEL_DATA[cityKey][hotelIdx];
+    if(!hotel) return;
+
+    hpmState.cityKey   = cityKey;
+    hpmState.hotelIdx  = hotelIdx;
+    hpmState.hotel     = hotel;
+    hpmState.photos    = getPhotos(hotel.name);
+    hpmState.cur       = 0;
+    hpmState.onConfirm = onConfirmCb || null;
+
+    // Header
+    document.getElementById('hpmHotelName').textContent = hotel.name;
+
+    var starsHtml = '<div class="hpm-stars">';
+    for(var i=1;i<=5;i++) starsHtml+='<div class="hpm-star '+(i<=hotel.stars?'on':'off')+'"></div>';
+    starsHtml += '</div>';
+
+    document.getElementById('hpmHotelMeta').innerHTML =
+      starsHtml + ' &nbsp; 📍 ' + (hotel.dist||'') + ' از حرم';
+
+    // Info pills
+    var meta = CITY_META[cityKey];
+    var grade = hotel.cat==='alef'?'درجه الف — لوکس':hotel.cat==='be'?'درجه ب — متوسط':'درجه ج — اقتصادی';
+    document.getElementById('hpmInfo').innerHTML =
+      '<div class="hpm-info-pill">⭐ '+hotel.stars+' ستاره</div>'+
+      '<div class="hpm-info-pill">📍 '+hotel.dist+'</div>'+
+      '<div class="hpm-info-pill">'+grade+'</div>'+
+      (meta?'<div class="hpm-info-pill">🕌 '+meta.name+'</div>':'');
+
+    hpmRender();
+
+    document.getElementById('hpmOverlay').classList.add('open');
+    document.body.classList.add('sheet-open');
+  };
+
+  function hpmRender(){
+    var photos = hpmState.photos;
+    var cur    = hpmState.cur;
+
+    // hero
+    document.getElementById('hpmHeroImg').src = photoUrl(photos[cur],800,400);
+    document.getElementById('hpmCounter').textContent = (cur+1)+' / '+photos.length;
+
+    // thumbs
+    var thumbsEl = document.getElementById('hpmThumbs');
+    thumbsEl.innerHTML = '';
+    photos.forEach(function(id,i){
+      var img = document.createElement('img');
+      img.className = 'hpm-thumb'+(i===cur?' active':'');
+      img.src = photoUrl(id,120,90);
+      img.alt = 'عکس '+(i+1);
+      img.onclick = (function(idx){ return function(){ hpmGoTo(idx); }; })(i);
+      thumbsEl.appendChild(img);
+    });
+
+    // scroll active thumb into view
+    setTimeout(function(){
+      var active = thumbsEl.querySelector('.hpm-thumb.active');
+      if(active) active.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+    },80);
+  }
+
+  function hpmGoTo(idx){
+    hpmState.cur = ((idx % hpmState.photos.length) + hpmState.photos.length) % hpmState.photos.length;
+    hpmRender();
+  }
+
+  window.hpmNav = function(dir){
+    hpmGoTo(hpmState.cur + dir);
+  };
+
+  window.closeHpm = function(){
+    document.getElementById('hpmOverlay').classList.remove('open');
+    document.body.classList.remove('sheet-open');
+  };
+
+  window.hpmOverlayClick = function(e){
+    if(e.target === document.getElementById('hpmOverlay')) closeHpm();
+  };
+
+  window.hpmConfirm = function(){
+    var ck = hpmState.cityKey, hi = hpmState.hotelIdx;
+    closeHpm();
+    // call original selHotel after a short delay so sheet closes cleanly
+    setTimeout(function(){ selHotel(ck, hi); }, 280);
+  };
+
+  window.hpmPickOther = function(){
+    closeHpm();
+    // Re-open the grade accordion for this city so user can pick another hotel
+    var ck = hpmState.cityKey;
+    var drawer = document.getElementById('ccd_'+ck);
+    if(drawer){
+      drawer.classList.add('open');
+      // Expand all grade items briefly so user sees all options
+      setTimeout(function(){
+        ['alef','be','jim'].forEach(function(g){
+          var gi = document.getElementById('gi_'+ck+'_'+g);
+          if(gi){ gi.classList.add('open'); }
+          var inner = document.getElementById('hci_'+ck+'_'+g);
+          if(inner && !inner.hasChildNodes()) togGradeItem(ck,g);
+        });
+        drawer.scrollIntoView({behavior:'smooth',block:'start'});
+      },350);
+    }
+  };
+
+})();
+// ============================
 (function(){
   'use strict';
   var CITIES = [
