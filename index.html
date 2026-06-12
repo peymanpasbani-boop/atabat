@@ -844,6 +844,11 @@ body.locked{overflow:hidden}
 @media(min-width:860px){.hero{padding:50px 24px 0}.iw{border-radius:20px 20px 0 0}.s1-row3{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:500px){.footer-offices{grid-template-columns:1fr}.footer-office:first-child{border-left:none;border-bottom:1px solid rgba(201,168,76,.16)}.tf-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* stay badges in caravan detail */
+.cv-stay-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.cv-stay-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;background:rgba(13,59,46,.08);color:var(--g3);border:1px solid rgba(13,59,46,.15)}
+.cv-stay-badge::before{content:'✦';font-size:8px;opacity:.6}
 </style>
 </head>
 <body>
@@ -1204,7 +1209,7 @@ body.locked{overflow:hidden}
     </div>
 
     <div class="acc-wrap" style="margin-top:16px">
-      <div class="cv-header-banner">
+      <div class="cv-header-banner" onclick="toggleAcc('cv')" style="cursor:pointer">
         <div class="cv-header-bg-pattern"></div>
         <div class="cv-header-content">
           <div class="cv-header-top">
@@ -1216,7 +1221,7 @@ body.locked{overflow:hidden}
               <div class="cv-header-title">کاروان‌های گروهی</div>
               <div class="cv-header-sub">برنامه اعزام از شهرهای مختلف — هوایی و زمینی</div>
             </div>
-            <button class="cv-header-toggle open" id="cvToggleBtn" onclick="toggleAcc('cv')" aria-label="باز/بسته">
+            <button class="cv-header-toggle open" id="cvToggleBtn" onclick="event.stopPropagation();toggleAcc('cv')" aria-label="باز/بسته">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
           </div>
@@ -1240,9 +1245,13 @@ body.locked{overflow:hidden}
       </div>
       <div class="acc-body open" id="cvBody">
         <div class="acc-inner">
-          <div style="background:linear-gradient(135deg,rgba(13,59,46,.06),rgba(201,168,76,.05));border:1.5px solid rgba(201,168,76,.18);border-radius:13px;padding:13px 16px;margin-bottom:16px">
-            <div style="font-size:13px;font-weight:800;color:var(--g1);margin-bottom:5px">✦ ترجیح ما — طراحی سفر اختصاصی</div>
-            <div style="font-size:12px;color:var(--tm);line-height:1.85">بهترین سفر زیارتی، سفری‌ست که <strong>خودتان طراحی کنید.</strong></div>
+          <!-- پیام ترجیح -->
+          <div style="background:linear-gradient(135deg,rgba(13,59,46,.08),rgba(201,168,76,.06));border:1.5px solid rgba(201,168,76,.22);border-radius:13px;padding:13px 16px;margin-bottom:16px;display:flex;gap:10px;align-items:flex-start">
+            <div style="font-size:20px;flex-shrink:0;margin-top:1px">✦</div>
+            <div>
+              <div style="font-size:13px;font-weight:800;color:var(--g1);margin-bottom:5px">ترجیح ما — سفر اختصاصی به سبک خودتان</div>
+              <div style="font-size:12px;color:var(--tm);line-height:1.9">ما دوست داریم شما <strong style="color:var(--g1)">انفرادی</strong> و با برنامه دلخواه خودتان به زیارت بروید تا هر لحظه‌اش برای شما باشد. اما اگر سفر <strong style="color:var(--g1)">گروهی و کاروانی</strong> می‌خواهید، از کاروان‌های زیر استفاده کنید.</div>
+            </div>
           </div>
           <div class="cv-city-pills" id="cvCityPills"></div>
           <div class="cv-tabs" id="cvTabs">
@@ -2065,6 +2074,7 @@ function parseTripsFromJSON(trips){
     const ev={
       id:idx+1, day, month, type:tripType,
       cap, total, dur, route,
+      rawTripType:routeRaw,
       price:priceLabel,
       hotels,
       agent:trip.agent||'',
@@ -2082,7 +2092,7 @@ function parseTripsFromJSON(trips){
 
   CV_DATA=cityMap;
   CV_CITIES=cityOrder.map(c=>({city:c,type:(cityMap[c][Object.keys(cityMap[c])[0]]||[])[0]?.type||'land'}));
-  if(CV_CITIES.length)cvState.city=CV_CITIES[0].city;
+  // city starts empty → همه شهرها selected by default
   // update header stats
   const totalCaravans=Object.values(cityMap).reduce((sum,months)=>sum+Object.values(months).reduce((s,arr)=>s+arr.length,0),0);
   const totalCities=cityOrder.length;
@@ -2107,27 +2117,62 @@ async function cvLoadData(){
     if(list){list.innerHTML='<div style="text-align:center;padding:32px;color:#c0392b;font-size:12px">خطا در بارگذاری اطلاعات کاروان‌ها.<br/>لطفاً صفحه را رفرش کنید.</div>';}
   }
 }
+// تجزیه trip_type برای نمایش اقامت هر شهر
+function parseTripType(raw){
+  if(!raw)return[];
+  const parts=[];
+  // کربلا
+  const karM=raw.match(/کربلا[^\s]*\s*(\d+)\s*شب/);
+  if(karM)parts.push('کربلا '+P(karM[1])+' شب');
+  else if(raw.includes('کربلا'))parts.push('کربلا');
+  // نجف
+  const najM=raw.match(/نجف[^\s]*\s*(\d+)\s*شب/);
+  if(najM)parts.push('نجف '+P(najM[1])+' شب');
+  else if(raw.includes('نجف'))parts.push('نجف');
+  // کاظمین
+  const kazM=raw.match(/کاظم[^\s]*\s*(\d+)\s*شب/);
+  if(kazM)parts.push('کاظمین '+P(kazM[1])+' شب');
+  else if(raw.includes('کاظم'))parts.push('کاظمین');
+  // سامرا
+  if(raw.includes('سامرا'))parts.push('سامرا');
+  // اگر هیچی پیدا نشد، خود raw را کوتاه نشان بده
+  if(!parts.length&&raw.length<60)parts.push(raw);
+  return parts;
+}
 const cvCapCls=(c,t)=>{const r=c/t;return r>=.38?'hi':r>=.13?'mi':'lo'};
 const cvCapLbl=(c,t)=>{if(c<=0)return'تکمیل';const r=c/t;return r<.13?P(c)+' نفر — آخرین فرصت':r<.38?P(c)+' نفر — محدود':P(c)+' صندلی خالی'};
 
 function cvBuildCities(){
   const wrap=qs('cvCityPills');if(!wrap||wrap.children.length)return;
+  // گزینه «همه شهرها» اول
+  const allPill=document.createElement('div');
+  allPill.className='cv-cpill'+(cvState.city===''?' active':'');
+  allPill.id='cvPillAll';
+  allPill.innerHTML=`<div class="cv-cpill-dot"></div>همه شهرها`;
+  allPill.onclick=()=>{cvState.city='';cvState.openId=null;cvState.page=0;document.querySelectorAll('.cv-cpill').forEach(x=>x.classList.remove('active'));allPill.classList.add('active');cvRender()};
+  wrap.appendChild(allPill);
+  // شهرهای منفرد
   CV_CITIES.forEach(c=>{
-    const p=document.createElement('div');p.className='cv-cpill'+(c.city===cvState.city?' active':'');
+    const p=document.createElement('div');p.className='cv-cpill'+(c.city===cvState.city&&cvState.city!==''?' active':'');
     p.innerHTML=`<div class="cv-cpill-dot"></div>${c.city}`;
     p.onclick=()=>{cvState.city=c.city;cvState.openId=null;cvState.page=0;document.querySelectorAll('.cv-cpill').forEach(x=>x.classList.remove('active'));p.classList.add('active');cvRender()};
     wrap.appendChild(p);
   });
+  // اگر هیچ شهری انتخاب نشده، «همه» را فعال کن
+  if(!cvState.city)allPill.classList.add('active');
 }
 window.cvSetFilter=f=>{cvState.filter=f;cvState.openId=null;cvState.page=0;document.querySelectorAll('#cvTabs .cv-tab').forEach((t,i)=>t.classList.toggle('active',['all','air','land'][i]===f));cvRender()};
 const CV_PAGE_SIZE=5;
 function cvRender(){
   const list=qs('cvList'),empty=qs('cvEmpty');if(!list)return;
-  let all=[];[4,5,6].forEach(m=>{((CV_DATA[cvState.city]||{})[m]||[]).forEach(ev=>all.push({...ev,month:m}))});
+  let all=[];
+  const cities=cvState.city===''?Object.keys(CV_DATA):([cvState.city]);
+  cities.forEach(city=>{
+    [4,5,6].forEach(m=>{((CV_DATA[city]||{})[m]||[]).forEach(ev=>all.push({...ev,month:m,_city:city}))});
+  });
   if(cvState.filter!=='all')all=all.filter(ev=>ev.type===cvState.filter);
   all.sort((a,b)=>a.month!==b.month?a.month-b.month:a.day-b.day);
   list.innerHTML='';
-  // remove old pagination
   let oldPg=qs('cvPagination');if(oldPg)oldPg.remove();
   if(!all.length){list.style.display='none';empty.style.display='block';return}
   list.style.display='';empty.style.display='none';
@@ -2138,18 +2183,51 @@ function cvRender(){
   const SVG_BUS=`<svg viewBox="0 0 24 24" fill="none" stroke="#8a6820" stroke-width="1.7" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`;
   pageItems.forEach(ev=>{
     const isOpen=cvState.openId===ev.id;const cls=cvCapCls(ev.cap,ev.total);const pct=Math.round(ev.cap/ev.total*100);
+    // تجزیه trip_type برای نمایش اقامت هر شهر
+    const tripTypeParts=parseTripType(ev.rawTripType||ev.route||'');
+    const cityStayBadges=tripTypeParts.map(p=>`<span class="cv-stay-badge">${p}</span>`).join('');
+    const originCity=ev._city||cvState.city;
     const card=document.createElement('div');card.className='cv-card'+(isOpen?' open':'');card.id='cvc_'+ev.id;
-    card.innerHTML=`<div class="cv-head" onclick="cvToggle(${ev.id})"><div class="cv-tbox ${ev.type}">${ev.type==='air'?SVG_AIR:SVG_BUS}</div><div class="cv-date-block"><div class="cv-day">${P(ev.day)}</div><div class="cv-month">${PM_CV[ev.month-1]}</div></div><div class="cv-vdiv"></div><div class="cv-info"><div class="cv-route">${ev.route}</div><div class="cv-meta"><span class="cv-tag ${ev.type}">${ev.type==='air'?'هوایی':'زمینی'}</span><span class="cv-tag dur">${ev.dur}</span></div></div><div class="cv-cap ${cls}"><div class="cv-cap-dot"></div>${ev.cap<=0?'تکمیل':P(ev.cap)+' نفر'}</div><div class="cv-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="cv-detail"><div class="cv-detail-inner"><div class="cv-dgrid"><div class="cv-dcell"><div class="cv-dlbl">تاریخ</div><div class="cv-dval">${P(ev.day)} ${PM_CV[ev.month-1]}</div></div><div class="cv-dcell"><div class="cv-dlbl">مبدا</div><div class="cv-dval">${cvState.city}</div></div><div class="cv-dcell"><div class="cv-dlbl">مدت</div><div class="cv-dval">${ev.dur}</div></div><div class="cv-dcell"><div class="cv-dlbl">قیمت / نفر</div><div class="cv-dval price">${ev.price} ت</div></div>${ev.hotels&&ev.hotels!=='—'?`<div class="cv-dcell" style="grid-column:1/-1"><div class="cv-dlbl">هتل‌ها</div><div class="cv-dval" style="font-size:11px">${ev.hotels}</div></div>`:''}</div>${ev.operator?`<div style="font-size:10.5px;color:var(--ts);padding:6px 0 2px">کارگزار: ${ev.operator}</div>`:''}${ev.address?`<div style="font-size:10px;color:var(--ts);padding:2px 0 6px;line-height:1.6">📍 ${ev.address}</div>`:''}<div class="cv-capbar-wrap"><div class="cv-capbar-top"><span>ظرفیت</span><span class="cv-cap ${cls}"><div class="cv-cap-dot" style="display:inline-block;margin-left:4px;vertical-align:middle"></div>${cvCapLbl(ev.cap,ev.total)}</span></div><div class="cv-capbar-track"><div class="cv-capbar-fill ${cls}" style="width:${pct}%"></div></div></div><button class="cv-book-btn" onclick="cvBook()">رزرو این کاروان ✦</button></div></div>`;
+    card.innerHTML=`
+      <div class="cv-head" onclick="cvToggle(${ev.id})">
+        <div class="cv-tbox ${ev.type}">${ev.type==='air'?SVG_AIR:SVG_BUS}</div>
+        <div class="cv-date-block"><div class="cv-day">${P(ev.day)}</div><div class="cv-month">${PM_CV[ev.month-1]}</div></div>
+        <div class="cv-vdiv"></div>
+        <div class="cv-info">
+          <div class="cv-route">${ev.route}</div>
+          <div class="cv-meta">
+            <span class="cv-tag ${ev.type}">${ev.type==='air'?'هوایی':'زمینی'}</span>
+            <span class="cv-tag dur">${ev.dur}</span>
+            ${cvState.city===''?`<span class="cv-tag" style="background:rgba(13,59,46,.07);color:var(--g3)">${originCity}</span>`:''}
+          </div>
+        </div>
+        <div class="cv-cap ${cls}"><div class="cv-cap-dot"></div>${ev.cap<=0?'تکمیل':P(ev.cap)+' نفر'}</div>
+        <div class="cv-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="cv-detail"><div class="cv-detail-inner">
+        ${cityStayBadges?`<div class="cv-stay-row">${cityStayBadges}</div>`:''}
+        <div class="cv-dgrid">
+          <div class="cv-dcell"><div class="cv-dlbl">تاریخ</div><div class="cv-dval">${P(ev.day)} ${PM_CV[ev.month-1]}</div></div>
+          <div class="cv-dcell"><div class="cv-dlbl">مبدا</div><div class="cv-dval">${originCity}</div></div>
+          <div class="cv-dcell"><div class="cv-dlbl">مدت</div><div class="cv-dval">${ev.dur}</div></div>
+          <div class="cv-dcell"><div class="cv-dlbl">قیمت / نفر</div><div class="cv-dval price">${ev.price} ت</div></div>
+          ${ev.hotels&&ev.hotels!=='—'?`<div class="cv-dcell" style="grid-column:1/-1"><div class="cv-dlbl">هتل‌ها</div><div class="cv-dval" style="font-size:11px">${ev.hotels}</div></div>`:''}
+        </div>
+        ${ev.operator?`<div style="font-size:10.5px;color:var(--ts);padding:6px 0 2px">کارگزار: ${ev.operator}</div>`:''}
+        ${ev.address?`<div style="font-size:10px;color:var(--ts);padding:2px 0 6px;line-height:1.6">📍 ${ev.address}</div>`:''}
+        <div class="cv-capbar-wrap">
+          <div class="cv-capbar-top"><span>ظرفیت</span><span class="cv-cap ${cls}"><div class="cv-cap-dot" style="display:inline-block;margin-left:4px;vertical-align:middle"></div>${cvCapLbl(ev.cap,ev.total)}</span></div>
+          <div class="cv-capbar-track"><div class="cv-capbar-fill ${cls}" style="width:${pct}%"></div></div>
+        </div>
+        <button class="cv-book-btn" onclick="cvBook()">رزرو این کاروان ✦</button>
+      </div></div>`;
     list.appendChild(card);
   });
-  // pagination bar
   if(totalPages>1){
     const pg=document.createElement('div');pg.id='cvPagination';pg.className='cv-pagination';
-    // prev
     const prev=document.createElement('button');prev.className='cv-pgbtn';prev.innerHTML='&lsaquo;';prev.disabled=page===0;
     prev.onclick=()=>{cvState.page=page-1;cvState.openId=null;cvRender();list.scrollIntoView({behavior:'smooth',block:'nearest'})};
     pg.appendChild(prev);
-    // page buttons (max 5 visible)
     const startP=Math.max(0,Math.min(page-2,totalPages-5));
     const endP=Math.min(totalPages,startP+5);
     for(let i=startP;i<endP;i++){
@@ -2158,11 +2236,9 @@ function cvRender(){
       const pi=i;btn.onclick=()=>{cvState.page=pi;cvState.openId=null;cvRender();list.scrollIntoView({behavior:'smooth',block:'nearest'})};
       pg.appendChild(btn);
     }
-    // next
     const next=document.createElement('button');next.className='cv-pgbtn';next.innerHTML='&rsaquo;';next.disabled=page>=totalPages-1;
     next.onclick=()=>{cvState.page=page+1;cvState.openId=null;cvRender();list.scrollIntoView({behavior:'smooth',block:'nearest'})};
     pg.appendChild(next);
-    // info
     const info=document.createElement('span');info.className='cv-pginfo';info.textContent=`${P(page+1)} از ${P(totalPages)}`;
     pg.appendChild(info);
     list.after(pg);
@@ -2170,8 +2246,6 @@ function cvRender(){
 }
 window.cvToggle=id=>{cvState.openId=cvState.openId===id?null:id;cvRender()};
 window.cvBook=()=>{openAIChat();setTimeout(()=>{const inp=qs('aiInput');if(inp){inp.value='می‌خوام این کاروان رو رزرو کنم';aiSend()}},400)};
-
-// PARTNERS
 const PARTNER_DATA={sadra:{phone:'۰۲۱۷۴۴۰۵',addr:'تهران، پایین‌تر از چهارراه تلفنخانه، پلاک ۲۰۸'},mohebban:{phone:'۰۲۱۳۳۹۷۵۶۴۰',addr:'تهران، خیابان جمهوری، ابتدای خیابان ملت'}};
 window.togglePartner=id=>{
   const cap=id.charAt(0).toUpperCase()+id.slice(1);
