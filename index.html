@@ -91,18 +91,47 @@ body.locked{overflow:hidden}
 .origin-trigger-arr{transition:.28s;flex-shrink:0}
 .origin-trigger-arr svg{width:12px;height:12px;stroke:rgba(255,255,255,.35);stroke-width:2;fill:none;stroke-linecap:round}
 .origin-trigger.open .origin-trigger-arr{transform:rotate(180deg)}
-.origin-drop{position:absolute;top:calc(100% + 6px);right:0;left:0;background:linear-gradient(160deg,#0f4535,#1a5e49);border:1.5px solid rgba(201,168,76,.35);border-radius:12px;overflow:hidden;z-index:50;max-height:0;opacity:0;pointer-events:none;transition:max-height .32s cubic-bezier(.4,0,.2,1),opacity .22s;box-shadow:0 8px 28px rgba(0,0,0,.38)}
-.origin-drop.open{max-height:220px;opacity:1;pointer-events:auto}
-.origin-drop-inner{overflow-y:auto;max-height:218px;scrollbar-width:thin;scrollbar-color:rgba(201,168,76,.3) transparent;padding:5px}
-.origin-drop-inner::-webkit-scrollbar{width:3px}
-.origin-drop-inner::-webkit-scrollbar-track{background:transparent}
-.origin-drop-inner::-webkit-scrollbar-thumb{background:rgba(201,168,76,.3);border-radius:3px}
-.oitem{display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:8px;cursor:pointer;transition:.16s}
-.oitem:hover{background:rgba(201,168,76,.14)}
-.oitem.sel{background:rgba(201,168,76,.2)}
-.oitem-dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.35);flex-shrink:0;transition:.16s}
+/* پنل شهرها — grid inline بدون scroll مخفی */
+.origin-drop{
+  position:absolute;top:calc(100% + 8px);right:0;left:0;
+  background:linear-gradient(160deg,#0e4434,#1a5e49);
+  border:1.5px solid rgba(201,168,76,.38);
+  border-radius:14px;
+  z-index:100;
+  overflow:hidden;
+  max-height:0;
+  opacity:0;
+  pointer-events:none;
+  transition:max-height .38s cubic-bezier(.4,0,.2,1),opacity .25s,transform .3s;
+  transform:translateY(-6px);
+  box-shadow:0 12px 36px rgba(0,0,0,.42);
+}
+.origin-drop.open{
+  max-height:400px;
+  opacity:1;
+  pointer-events:auto;
+  transform:translateY(0);
+}
+.origin-drop-inner{
+  padding:10px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px;
+}
+.oitem{
+  display:flex;align-items:center;justify-content:center;
+  gap:6px;padding:9px 8px;
+  border-radius:9px;
+  border:1px solid rgba(255,255,255,.08);
+  cursor:pointer;transition:.15s;
+  text-align:center;
+  background:rgba(255,255,255,.05);
+}
+.oitem:hover{background:rgba(201,168,76,.18);border-color:rgba(201,168,76,.4)}
+.oitem.sel{background:rgba(201,168,76,.25);border-color:var(--goldL)}
+.oitem-dot{width:5px;height:5px;border-radius:50%;background:rgba(201,168,76,.4);flex-shrink:0;transition:.16s}
 .oitem.sel .oitem-dot{background:var(--goldL)}
-.oitem-name{font-size:12px;font-weight:700;color:rgba(255,255,255,.75);transition:.16s}
+.oitem-name{font-size:11.5px;font-weight:700;color:rgba(255,255,255,.78);transition:.16s}
 .oitem.sel .oitem-name{color:var(--goldL)}
 
 /* month chips — فقط ۳ ماه */
@@ -491,6 +520,20 @@ body.locked{overflow:hidden}
 .cv-capbar-fill.lo{background:linear-gradient(90deg,#dc2626,#ef4444)}
 .cv-book-btn{width:100%;padding:11px;border-radius:100px;border:none;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--g1);font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(201,168,76,.25);transition:.3s}
 .cv-book-btn:hover{transform:translateY(-2px)}
+/* CARAVAN PAGINATION */
+.cv-pagination{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;flex-wrap:wrap}
+.cv-pgbtn{
+  min-width:34px;height:34px;padding:0 10px;
+  border-radius:9px;border:1.5px solid rgba(201,168,76,.22);
+  background:var(--white);cursor:pointer;
+  font-family:inherit;font-size:12px;font-weight:700;color:var(--ts);
+  display:flex;align-items:center;justify-content:center;
+  transition:.18s;
+}
+.cv-pgbtn:hover{border-color:var(--gold);color:var(--g1)}
+.cv-pgbtn.active{background:var(--g1);color:var(--goldL);border-color:transparent;box-shadow:0 2px 10px rgba(13,59,46,.2)}
+.cv-pgbtn:disabled{opacity:.3;pointer-events:none}
+.cv-pginfo{font-size:11px;color:var(--ts);font-weight:600;padding:0 4px}
 
 /* CARAVAN HEADER BANNER */
 .cv-header-banner{
@@ -1125,7 +1168,7 @@ body.locked{overflow:hidden}
               <div class="cv-header-title">کاروان‌های گروهی</div>
               <div class="cv-header-sub">برنامه اعزام از شهرهای مختلف — هوایی و زمینی</div>
             </div>
-            <button class="cv-header-toggle" id="cvToggleBtn" onclick="toggleAcc('cv')" aria-label="باز/بسته">
+            <button class="cv-header-toggle open" id="cvToggleBtn" onclick="toggleAcc('cv')" aria-label="باز/بسته">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
           </div>
@@ -1147,7 +1190,7 @@ body.locked{overflow:hidden}
           </div>
         </div>
       </div>
-      <div class="acc-body" id="cvBody">
+      <div class="acc-body open" id="cvBody">
         <div class="acc-inner">
           <div style="background:linear-gradient(135deg,rgba(13,59,46,.06),rgba(201,168,76,.05));border:1.5px solid rgba(201,168,76,.18);border-radius:13px;padding:13px 16px;margin-bottom:16px">
             <div style="font-size:13px;font-weight:800;color:var(--g1);margin-bottom:5px">✦ ترجیح ما — طراحی سفر اختصاصی</div>
@@ -1760,7 +1803,7 @@ const CARAVANS_JSON_URL = 'caravans.json'; // مسیر فایل JSON کنار in
 let CV_CITIES = [];
 let CV_DATA = {};
 const PM_CV=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
-let cvState={city:'',filter:'all',openId:null};
+let cvState={city:'',filter:'all',openId:null,page:0};
 
 // تبدیل رکورد JSON به فرمت مورد استفاده سایت
 function parseTripsFromJSON(trips){
@@ -1857,27 +1900,58 @@ function cvBuildCities(){
   CV_CITIES.forEach(c=>{
     const p=document.createElement('div');p.className='cv-cpill'+(c.city===cvState.city?' active':'');
     p.innerHTML=`<div class="cv-cpill-dot"></div>${c.city}`;
-    p.onclick=()=>{cvState.city=c.city;cvState.openId=null;document.querySelectorAll('.cv-cpill').forEach(x=>x.classList.remove('active'));p.classList.add('active');cvRender()};
+    p.onclick=()=>{cvState.city=c.city;cvState.openId=null;cvState.page=0;document.querySelectorAll('.cv-cpill').forEach(x=>x.classList.remove('active'));p.classList.add('active');cvRender()};
     wrap.appendChild(p);
   });
 }
-window.cvSetFilter=f=>{cvState.filter=f;cvState.openId=null;document.querySelectorAll('#cvTabs .cv-tab').forEach((t,i)=>t.classList.toggle('active',['all','air','land'][i]===f));cvRender()};
+window.cvSetFilter=f=>{cvState.filter=f;cvState.openId=null;cvState.page=0;document.querySelectorAll('#cvTabs .cv-tab').forEach((t,i)=>t.classList.toggle('active',['all','air','land'][i]===f));cvRender()};
+const CV_PAGE_SIZE=5;
 function cvRender(){
   const list=qs('cvList'),empty=qs('cvEmpty');if(!list)return;
   let all=[];[4,5,6].forEach(m=>{((CV_DATA[cvState.city]||{})[m]||[]).forEach(ev=>all.push({...ev,month:m}))});
   if(cvState.filter!=='all')all=all.filter(ev=>ev.type===cvState.filter);
   all.sort((a,b)=>a.month!==b.month?a.month-b.month:a.day-b.day);
   list.innerHTML='';
+  // remove old pagination
+  let oldPg=qs('cvPagination');if(oldPg)oldPg.remove();
   if(!all.length){list.style.display='none';empty.style.display='block';return}
   list.style.display='';empty.style.display='none';
+  const page=cvState.page||0;
+  const totalPages=Math.ceil(all.length/CV_PAGE_SIZE);
+  const pageItems=all.slice(page*CV_PAGE_SIZE,(page+1)*CV_PAGE_SIZE);
   const SVG_AIR=`<svg viewBox="0 0 24 24" fill="none" stroke="#134a3a" stroke-width="1.7" stroke-linecap="round"><path d="M21 16l-6-3 2-7-4 2-4-4-5 3 5 3-2 4 3-1 2 5z"/></svg>`;
   const SVG_BUS=`<svg viewBox="0 0 24 24" fill="none" stroke="#8a6820" stroke-width="1.7" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`;
-  all.forEach(ev=>{
+  pageItems.forEach(ev=>{
     const isOpen=cvState.openId===ev.id;const cls=cvCapCls(ev.cap,ev.total);const pct=Math.round(ev.cap/ev.total*100);
     const card=document.createElement('div');card.className='cv-card'+(isOpen?' open':'');card.id='cvc_'+ev.id;
     card.innerHTML=`<div class="cv-head" onclick="cvToggle(${ev.id})"><div class="cv-tbox ${ev.type}">${ev.type==='air'?SVG_AIR:SVG_BUS}</div><div class="cv-date-block"><div class="cv-day">${P(ev.day)}</div><div class="cv-month">${PM_CV[ev.month-1]}</div></div><div class="cv-vdiv"></div><div class="cv-info"><div class="cv-route">${ev.route}</div><div class="cv-meta"><span class="cv-tag ${ev.type}">${ev.type==='air'?'هوایی':'زمینی'}</span><span class="cv-tag dur">${ev.dur}</span></div></div><div class="cv-cap ${cls}"><div class="cv-cap-dot"></div>${ev.cap<=0?'تکمیل':P(ev.cap)+' نفر'}</div><div class="cv-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="cv-detail"><div class="cv-detail-inner"><div class="cv-dgrid"><div class="cv-dcell"><div class="cv-dlbl">تاریخ</div><div class="cv-dval">${P(ev.day)} ${PM_CV[ev.month-1]}</div></div><div class="cv-dcell"><div class="cv-dlbl">مبدا</div><div class="cv-dval">${cvState.city}</div></div><div class="cv-dcell"><div class="cv-dlbl">مدت</div><div class="cv-dval">${ev.dur}</div></div><div class="cv-dcell"><div class="cv-dlbl">قیمت / نفر</div><div class="cv-dval price">${ev.price} ت</div></div>${ev.hotels&&ev.hotels!=='—'?`<div class="cv-dcell" style="grid-column:1/-1"><div class="cv-dlbl">هتل‌ها</div><div class="cv-dval" style="font-size:11px">${ev.hotels}</div></div>`:''}</div>${ev.operator?`<div style="font-size:10.5px;color:var(--ts);padding:6px 0 2px">کارگزار: ${ev.operator}</div>`:''}${ev.address?`<div style="font-size:10px;color:var(--ts);padding:2px 0 6px;line-height:1.6">📍 ${ev.address}</div>`:''}<div class="cv-capbar-wrap"><div class="cv-capbar-top"><span>ظرفیت</span><span class="cv-cap ${cls}"><div class="cv-cap-dot" style="display:inline-block;margin-left:4px;vertical-align:middle"></div>${cvCapLbl(ev.cap,ev.total)}</span></div><div class="cv-capbar-track"><div class="cv-capbar-fill ${cls}" style="width:${pct}%"></div></div></div><button class="cv-book-btn" onclick="cvBook()">رزرو این کاروان ✦</button></div></div>`;
     list.appendChild(card);
   });
+  // pagination bar
+  if(totalPages>1){
+    const pg=document.createElement('div');pg.id='cvPagination';pg.className='cv-pagination';
+    // prev
+    const prev=document.createElement('button');prev.className='cv-pgbtn';prev.innerHTML='&lsaquo;';prev.disabled=page===0;
+    prev.onclick=()=>{cvState.page=page-1;cvState.openId=null;cvRender();list.scrollIntoView({behavior:'smooth',block:'nearest'})};
+    pg.appendChild(prev);
+    // page buttons (max 5 visible)
+    const startP=Math.max(0,Math.min(page-2,totalPages-5));
+    const endP=Math.min(totalPages,startP+5);
+    for(let i=startP;i<endP;i++){
+      const btn=document.createElement('button');btn.className='cv-pgbtn'+(i===page?' active':'');
+      btn.textContent=P(i+1);
+      const pi=i;btn.onclick=()=>{cvState.page=pi;cvState.openId=null;cvRender();list.scrollIntoView({behavior:'smooth',block:'nearest'})};
+      pg.appendChild(btn);
+    }
+    // next
+    const next=document.createElement('button');next.className='cv-pgbtn';next.innerHTML='&rsaquo;';next.disabled=page>=totalPages-1;
+    next.onclick=()=>{cvState.page=page+1;cvState.openId=null;cvRender();list.scrollIntoView({behavior:'smooth',block:'nearest'})};
+    pg.appendChild(next);
+    // info
+    const info=document.createElement('span');info.className='cv-pginfo';info.textContent=`${P(page+1)} از ${P(totalPages)}`;
+    pg.appendChild(info);
+    list.after(pg);
+  }
 }
 window.cvToggle=id=>{cvState.openId=cvState.openId===id?null:id;cvRender()};
 window.cvBook=()=>{openAIChat();setTimeout(()=>{const inp=qs('aiInput');if(inp){inp.value='می‌خوام این کاروان رو رزرو کنم';aiSend()}},400)};
