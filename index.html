@@ -1,4 +1,3 @@
-HTMLEOF'
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -19,7 +18,7 @@ html{scroll-behavior:smooth}
 body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);overflow-x:hidden}
 body.locked{overflow:hidden}
 
-/* ── HEADER ── */
+/* HEADER */
 .hdr{background:linear-gradient(160deg,var(--g1),var(--g2) 50%,var(--g3));position:sticky;top:0;z-index:200;border-bottom:1px solid var(--goldB)}
 .hdr-in{max-width:1100px;margin:0 auto;padding:0 24px;height:var(--hh);display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:10px}
@@ -33,7 +32,7 @@ body.locked{overflow:hidden}
 .nav-btn svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round}
 .nav-btn span{font-size:9px;font-weight:600}
 
-/* ── HERO ── */
+/* HERO */
 .hero{background:linear-gradient(160deg,var(--g1),var(--g2) 55%,var(--g3));padding:40px 20px 0;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.07),transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
 .hero-in{max-width:860px;margin:0 auto;text-align:center;position:relative;z-index:1}
@@ -42,7 +41,7 @@ body.locked{overflow:hidden}
 .hero-title em{font-style:normal;background:linear-gradient(90deg,#ffe084,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero-desc{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.9;max-width:520px;margin:0 auto 24px}
 
-/* ── INLINE WIZARD ── */
+/* WIZARD */
 .iw{background:rgba(255,255,255,.13);border:1.5px solid rgba(201,168,76,.45);border-radius:20px 20px 0 0;overflow:hidden;position:relative;z-index:1;backdrop-filter:blur(20px)}
 .iw-progress{height:2px;background:rgba(255,255,255,.1)}
 .iw-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--goldL));border-radius:0 2px 2px 0;transition:width .5s ease}
@@ -64,7 +63,7 @@ body.locked{overflow:hidden}
 .iw-slide.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── LIVE COST BAR ── */
+/* LIVE COST BAR */
 .live-cost-bar{display:none;align-items:center;justify-content:space-between;gap:10px;background:rgba(0,0,0,.2);border-bottom:1px solid rgba(201,168,76,.22);padding:9px 18px;flex-wrap:wrap}
 .live-cost-bar.show{display:flex}
 .lcb-label{font-size:10px;color:rgba(255,255,255,.45);font-weight:600}
@@ -74,10 +73,13 @@ body.locked{overflow:hidden}
 .lcb-item{font-size:10px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:4px}
 .lcb-dot{width:4px;height:4px;border-radius:50%;background:rgba(201,168,76,.6)}
 
-/* ── STEP 1 ── */
-.s1-section{margin-bottom:16px}
-.s1-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.55);margin-bottom:9px;display:flex;align-items:center;gap:5px}
-.s1-label svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;opacity:.8}
+/* STEP 1 */
+.s1-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.55);margin-bottom:9px;display:flex;align-items:center;gap:5px}
+.s1-lbl svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;opacity:.8}
+
+/* Step 1 top row: date | origin | pax */
+.s1-top-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px}
+@media(max-width:560px){.s1-top-row{grid-template-columns:1fr}}
 
 /* month chips */
 .month-row{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
@@ -103,48 +105,41 @@ body.locked{overflow:hidden}
 .dchip:hover:not(.dis){background:rgba(201,168,76,.16);border-color:rgba(201,168,76,.38);color:var(--goldL)}
 .dchip.sel{background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--g1);font-weight:800;border-color:transparent;box-shadow:0 2px 8px rgba(201,168,76,.3)}
 .dchip.dis{opacity:.2;pointer-events:none}
-
-/* date chip */
-.sel-chip{display:none;align-items:center;gap:6px;padding:6px 12px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:8px;font-size:11px;font-weight:700;color:var(--goldL);margin-bottom:14px}
+.sel-chip{display:none;align-items:center;gap:6px;padding:6px 12px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:8px;font-size:11px;font-weight:700;color:var(--goldL);margin-bottom:10px}
 .sel-chip.show{display:inline-flex}
 .sel-chip svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
 
-/* step 1 row layout — date | origin | pax */
-.s1-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px}
-@media(max-width:560px){.s1-row3{grid-template-columns:1fr}}
-
 /* origin compact */
-.origin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
-.ochip{padding:7px 4px;border-radius:8px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.05);cursor:pointer;transition:.2s;text-align:center}
+.s1-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);border-radius:10px;padding:10px 12px;height:100%}
+.s1-locked{opacity:.32;pointer-events:none;transition:opacity .3s}
+.s1-unlocked{opacity:1;pointer-events:auto;transition:opacity .3s}
+.origin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:6px}
+.ochip{padding:6px 4px;border-radius:7px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.04);cursor:pointer;transition:.2s;text-align:center}
 .ochip:hover{border-color:rgba(201,168,76,.38);background:rgba(201,168,76,.09)}
 .ochip.sel{border-color:var(--gold);background:rgba(201,168,76,.18)}
 .ochip-n{font-size:10px;font-weight:700;color:rgba(255,255,255,.7)}
 .ochip.sel .ochip-n{color:var(--goldL)}
 
-/* pax inline */
-.pax-inline{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);border-radius:10px;padding:11px 14px;height:100%;min-height:52px}
-.pax-inline-lbl{font-size:11px;font-weight:600;color:rgba(255,255,255,.7)}
-.pax-ctrl{display:flex;align-items:center;gap:10px}
+/* pax */
+.pax-inline{display:flex;align-items:center;justify-content:space-between;height:100%;min-height:52px;margin-top:6px}
+.pax-inline-lbl{font-size:10px;font-weight:600;color:rgba(255,255,255,.5)}
+.pax-ctrl{display:flex;align-items:center;gap:8px}
 .pax-btn{width:28px;height:28px;border:none;border-radius:50%;background:rgba(201,168,76,.18);color:var(--goldL);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;font-family:inherit}
 .pax-btn:hover{background:rgba(201,168,76,.32)}
 .pax-num{font-size:19px;font-weight:900;color:var(--goldL);min-width:22px;text-align:center}
 
 /* type pills */
-.type-row{display:flex;gap:6px}
-.tpill{flex:1;padding:10px 8px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.06);border-radius:10px;cursor:pointer;text-align:center;transition:.2s;position:relative}
+.type-row{display:flex;gap:5px;margin-top:6px}
+.tpill{flex:1;padding:8px 6px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.05);border-radius:9px;cursor:pointer;text-align:center;transition:.2s;position:relative}
 .tpill:hover{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.1)}
-.tpill.sel{border-color:var(--gold);background:rgba(201,168,76,.2);box-shadow:0 2px 10px rgba(201,168,76,.22)}
+.tpill.sel{border-color:var(--gold);background:rgba(201,168,76,.2)}
 .tpill-tick{position:absolute;top:-5px;right:-5px;width:14px;height:14px;background:var(--gold);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:7px;color:var(--g1);font-weight:900}
 .tpill.sel .tpill-tick{display:flex}
-.tpill-ico{margin-bottom:3px;display:flex;align-items:center;justify-content:center}
-.tpill-ico svg{width:18px;height:18px;stroke:rgba(255,255,255,.65);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tpill-ico{margin-bottom:2px;display:flex;align-items:center;justify-content:center}
+.tpill-ico svg{width:16px;height:16px;stroke:rgba(255,255,255,.55);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .tpill.sel .tpill-ico svg{stroke:var(--goldL)}
-.tpill-n{font-size:11px;font-weight:700;color:rgba(255,255,255,.75)}
+.tpill-n{font-size:10px;font-weight:700;color:rgba(255,255,255,.7)}
 .tpill.sel .tpill-n{color:var(--goldL)}
-
-/* section lock overlay */
-.s1-locked{opacity:.32;pointer-events:none;transition:opacity .3s}
-.s1-unlocked{opacity:1;pointer-events:auto;transition:opacity .3s}
 
 /* errors / cta */
 .iw-err{font-size:11px;color:#f87171;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.18);border-radius:7px;padding:7px 11px;margin-bottom:10px;display:none}
@@ -156,13 +151,13 @@ body.locked{overflow:hidden}
 .iw-back-btn:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78)}
 .iw-btns{display:flex;gap:8px;margin-top:8px}
 
-/* ── STEP 2 – CITIES ── */
+/* STEP 2 - CITIES */
 .s2-hint{font-size:11.5px;color:rgba(255,255,255,.5);margin-bottom:12px;padding:9px 12px;background:rgba(201,168,76,.07);border-radius:9px;border-right:3px solid rgba(201,168,76,.28);line-height:1.7}
 .city-list{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
 .cc{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.09);border-radius:13px;overflow:hidden;transition:.25s}
 .cc:hover{border-color:rgba(201,168,76,.35);background:rgba(201,168,76,.05)}
 .cc.sel{border-color:var(--gold);background:rgba(201,168,76,.1)}
-.cc.sel.done-city{border-color:rgba(100,200,150,.3);background:rgba(26,94,73,.12)}
+.cc.done-city{border-color:rgba(100,200,150,.3);background:rgba(26,94,73,.12)}
 .cc-head{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;user-select:none}
 .cc-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--g1),var(--g3));border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .cc-icon svg{width:18px;height:18px;fill:none;stroke:var(--goldL);stroke-width:1.5;stroke-linecap:round}
@@ -170,21 +165,20 @@ body.locked{overflow:hidden}
 .cc-name{font-size:13px;font-weight:800;color:rgba(255,255,255,.9)}
 .cc-shrine{font-size:10px;color:rgba(255,255,255,.38);margin-top:2px}
 .cc-order{width:21px;height:21px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--g1);flex-shrink:0}
-.cc.sel .cc-order{display:flex}
+.cc.sel .cc-order,.cc.done-city .cc-order{display:flex}
 .cc-check{width:19px;height:19px;border-radius:50%;border:1.5px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.25s}
 .cc-check svg{width:10px;height:10px;stroke:transparent;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:.25s}
-.cc.sel .cc-check{background:linear-gradient(135deg,var(--gold),#a8722a);border-color:transparent}
-.cc.sel .cc-check svg{stroke:var(--g1)}
-/* sub panel */
+.cc.sel .cc-check,.cc.done-city .cc-check{background:linear-gradient(135deg,var(--gold),#a8722a);border-color:transparent}
+.cc.sel .cc-check svg,.cc.done-city .cc-check svg{stroke:var(--g1)}
 .cc-sub{max-height:0;overflow:hidden;transition:max-height .38s cubic-bezier(.4,0,.2,1)}
 .cc.sel .cc-sub{max-height:240px}
+.cc.done-city .cc-sub{max-height:0}
 .cc-sub-inner{padding:0 14px 14px;border-top:1px solid rgba(201,168,76,.13)}
-.stay-transit-row{display:flex;gap:6px;margin-top:11px;margin-bottom:0}
+.stay-transit-row{display:flex;gap:6px;margin-top:11px}
 .st-opt{flex:1;padding:9px 10px;border-radius:10px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);cursor:pointer;text-align:center;transition:.22s;display:flex;align-items:center;justify-content:center;gap:6px;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.65)}
 .st-opt svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;flex-shrink:0}
 .st-opt:hover{border-color:rgba(201,168,76,.38);background:rgba(201,168,76,.08);color:var(--goldL)}
 .st-opt.sel{border-color:var(--gold);background:rgba(201,168,76,.18);color:var(--goldL)}
-.st-opt.skip-city{border-color:rgba(255,255,255,.12)}
 .st-opt.skip-city.sel{border-color:rgba(255,100,100,.45);background:rgba(255,100,100,.07);color:rgba(255,140,140,.85)}
 .nights-row{display:none;align-items:center;justify-content:space-between;background:rgba(255,255,255,.05);border-radius:9px;padding:9px 13px;margin-top:9px}
 .nights-row.show{display:flex}
@@ -194,22 +188,18 @@ body.locked{overflow:hidden}
 .nbtn:hover{background:rgba(201,168,76,.32)}
 .nval{font-size:16px;font-weight:800;color:var(--goldL);min-width:22px;text-align:center}
 .nunit{font-size:10px;color:rgba(255,255,255,.38)}
-
-/* city done summary */
 .cc-done-summary{display:none;align-items:center;gap:6px;padding:6px 14px 10px;font-size:10.5px;color:rgba(100,220,160,.8);font-weight:600}
 .cc.done-city .cc-done-summary{display:flex}
 .cc-done-summary svg{width:13px;height:13px;stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
-/* ── STEP 3 – HOTELS ── */
+/* STEP 3 - HOTELS */
 .hotel-city-lbl{font-size:11px;font-weight:800;color:var(--goldL);padding:9px 12px;background:rgba(201,168,76,.1);border:1.5px solid rgba(201,168,76,.22);border-radius:10px;display:flex;align-items:center;gap:7px;margin-bottom:10px}
 .hotel-city-lbl svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round}
 .hotel-list{display:flex;flex-direction:column;gap:6px}
-/* premium hotel card */
 .hcard{border:1.5px solid rgba(255,255,255,.09);border-radius:12px;overflow:hidden;cursor:pointer;transition:.25s;background:rgba(255,255,255,.04)}
 .hcard:hover{border-color:rgba(201,168,76,.38);background:rgba(201,168,76,.07);transform:translateY(-1px)}
 .hcard.sel{border-color:var(--gold);background:rgba(201,168,76,.13);box-shadow:0 3px 14px rgba(201,168,76,.18)}
 .hcard-main{display:flex;align-items:center;gap:10px;padding:11px 13px}
-/* star rating — dots instead of stars */
 .hcard-rating{display:flex;gap:2px;flex-shrink:0;flex-direction:column;align-items:center}
 .hcard-stars-row{display:flex;gap:2px}
 .hcard-star{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.18)}
@@ -229,8 +219,6 @@ body.locked{overflow:hidden}
 .hcard.sel .hcard-sel-tick svg{stroke:var(--g1)}
 .hcard-detail-btn{font-size:9.5px;color:rgba(201,168,76,.6);border:none;background:none;cursor:pointer;font-family:inherit;padding:0 13px 10px;text-align:right;display:block;transition:.2s;width:100%}
 .hcard-detail-btn:hover{color:var(--goldL)}
-
-/* city confirmed bar before hotel step */
 .cities-confirmed{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
 .city-conf-row{display:flex;align-items:center;gap:7px;padding:7px 11px;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.13);border-radius:9px}
 .city-conf-num{width:19px;height:19px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:800;color:var(--g1);flex-shrink:0}
@@ -242,7 +230,7 @@ body.locked{overflow:hidden}
 .city-conf-edit{font-size:9px;color:rgba(255,255,255,.28);cursor:pointer;padding:2px 7px;border:1px solid rgba(255,255,255,.1);border-radius:100px;transition:.2s;flex-shrink:0}
 .city-conf-edit:hover{color:var(--goldL);border-color:rgba(201,168,76,.32)}
 
-/* hotel detail sheet */
+/* HOTEL DETAIL SHEET */
 .hotel-detail-ov{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:900;display:none;align-items:flex-end;justify-content:center}
 .hotel-detail-ov.open{display:flex}
 .hotel-detail-sheet{background:var(--white);border-radius:20px 20px 0 0;width:100%;max-width:520px;max-height:80vh;display:flex;flex-direction:column;animation:slideUp .34s cubic-bezier(.32,0,.15,1)}
@@ -254,7 +242,6 @@ body.locked{overflow:hidden}
 .hd-close{width:28px;height:28px;background:rgba(255,255,255,.1);border:none;border-radius:50%;color:rgba(255,255,255,.65);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
 .hd-close:hover{background:rgba(255,255,255,.2)}
 .hd-body{flex:1;overflow-y:auto;padding:16px}
-/* premium hotel mock images */
 .hd-photos{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:14px}
 .hd-photo{border-radius:9px;overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative}
 .hd-photo-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
@@ -265,13 +252,13 @@ body.locked{overflow:hidden}
 .hd-select-btn{width:100%;padding:13px;border-radius:100px;border:none;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--g1);font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;margin-top:14px;transition:.25s}
 .hd-select-btn:hover{transform:translateY(-2px)}
 
-/* ── STEP 4 – TRANSPORT & SERVICES ── */
-.opt-section{margin-bottom:14px}
+/* STEP 4 - TRANSPORT & SERVICES */
 .opt-sec-lbl{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(201,168,76,.65);margin-bottom:9px;display:flex;align-items:center;gap:5px}
 .opt-sec-lbl svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round}
 .opt-card{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.09);border-radius:12px;padding:12px 13px;cursor:pointer;transition:.25s;display:flex;align-items:center;gap:11px;margin-bottom:6px}
 .opt-card:hover{border-color:rgba(201,168,76,.38);background:rgba(201,168,76,.07)}
 .opt-card.sel{border-color:var(--gold);background:rgba(201,168,76,.12)}
+.opt-section{margin-bottom:14px}
 .opt-radio{width:15px;height:15px;border-radius:50%;border:1.5px solid rgba(255,255,255,.22);flex-shrink:0;transition:.25s;display:flex;align-items:center;justify-content:center}
 .opt-card.sel .opt-radio{border-color:var(--gold);background:var(--gold)}
 .opt-card.sel .opt-radio::after{content:'';width:5px;height:5px;background:var(--g1);border-radius:50%;display:block}
@@ -289,7 +276,7 @@ body.locked{overflow:hidden}
 .opt-ico svg{width:16px;height:16px;stroke:rgba(255,255,255,.55);stroke-width:1.7;fill:none;stroke-linecap:round}
 .opt-card.sel .opt-ico svg{stroke:var(--goldL)}
 
-/* ── STEP 5 – TRAVELER INFO ── */
+/* STEP 5 - TRAVELER INFO */
 .tf-group{margin-bottom:12px}
 .tf-lbl{font-size:10px;font-weight:700;color:rgba(255,255,255,.5);margin-bottom:5px;display:block}
 .tf-input{width:100%;padding:10px 13px;font-family:inherit;font-size:16px;color:var(--td);background:rgba(255,255,255,.92);border:1.5px solid rgba(201,168,76,.18);border-radius:10px;outline:none;transition:.2s;direction:rtl}
@@ -298,7 +285,7 @@ body.locked{overflow:hidden}
 .tf-note{display:flex;gap:8px;align-items:flex-start;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.22);border-radius:10px;padding:10px 13px;font-size:11.5px;color:rgba(255,255,255,.72);line-height:1.75;margin-top:4px;margin-bottom:14px}
 .tf-note svg{width:16px;height:16px;stroke:var(--goldL);stroke-width:1.7;fill:none;stroke-linecap:round;flex-shrink:0;margin-top:1px}
 
-/* ── STEP 6 – COST BREAKDOWN ── */
+/* STEP 6 - COST BREAKDOWN */
 .cost-section{background:linear-gradient(135deg,var(--g1),var(--g3));border-radius:15px;padding:16px;margin-bottom:12px}
 .cost-title{font-size:9.5px;font-weight:700;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
 .cost-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.07)}
@@ -311,8 +298,6 @@ body.locked{overflow:hidden}
 .cost-total-val{font-size:22px;font-weight:900;color:var(--goldL)}
 .pay-secure{font-size:10px;color:rgba(255,255,255,.32);text-align:center;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:5px}
 .pay-secure svg{width:11px;height:11px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round}
-
-/* trip summary before cost */
 .trip-summary-box{background:rgba(13,59,46,.28);border:1.5px solid rgba(201,168,76,.18);border-radius:13px;padding:13px 14px;margin-bottom:12px}
 .tsb-title{font-size:9.5px;font-weight:700;color:rgba(201,168,76,.55);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
 .tsb-meta{font-size:11.5px;color:rgba(255,255,255,.65);margin-bottom:9px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
@@ -323,12 +308,12 @@ body.locked{overflow:hidden}
 .tsb-city-name{flex:1;font-size:11px;font-weight:700;color:rgba(255,255,255,.82)}
 .tsb-city-detail{font-size:10px;color:rgba(255,255,255,.38)}
 
-/* ── REST OF PAGE ── */
+/* WAVE + BODY */
 .wave svg{display:block;width:100%}
 .body{background:var(--cream);padding:0 0 60px}
 .body-in{max-width:1100px;margin:0 auto;padding:0 24px}
 
-/* AI banner */
+/* AI BANNER */
 .ai-banner{background:linear-gradient(135deg,var(--g1),var(--g2) 50%,#1c6650);padding:18px;cursor:pointer;transition:opacity .2s}
 .ai-banner:hover{opacity:.9}
 .ai-banner-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:0 6px}
@@ -342,7 +327,7 @@ body.locked{overflow:hidden}
 .ai-arr svg{width:14px;height:14px;stroke:var(--goldL);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .ai-banner:hover .ai-arr{transform:translateX(-3px)}
 
-/* trips slider */
+/* TRIPS SLIDER */
 .trips-sec{padding:28px 0 8px}
 .trips-in{max-width:1100px;margin:0 auto;padding:0 24px}
 .sec-eyebrow{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
@@ -369,7 +354,7 @@ body.locked{overflow:hidden}
 .ts-price-val{font-size:22px;font-weight:900;color:var(--goldL);letter-spacing:-.02em;line-height:1}
 .ts-price-unit{font-size:10px;color:rgba(255,255,255,.38);margin-top:2px;text-align:left}
 .slider-nav{display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 0 6px}
-.nav-arr{width:30px;height:30px;border-radius:50%;border:1.5px solid rgba(201,168,76,.22);background:transparent;color:var(--ts);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
+.nav-arr{width:30px;height:30px;border-radius:50%;border:1.5px solid rgba(201,168,76,.22);background:transparent;color:var(--ts);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
 .nav-arr svg{width:13px;height:13px;stroke:var(--ts);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .nav-arr:hover{background:rgba(201,168,76,.1);border-color:var(--gold)}
 .nav-arr:hover svg{stroke:var(--g1)}
@@ -377,7 +362,7 @@ body.locked{overflow:hidden}
 .sdot{width:6px;height:6px;border-radius:50%;background:rgba(13,59,46,.18);cursor:pointer;transition:.25s}
 .sdot.active{width:20px;border-radius:3px;background:var(--g1)}
 
-/* accordion */
+/* ACCORDION */
 .acc-wrap{margin-top:24px}
 .acc-btn{width:100%;background:var(--white);border:1.5px solid rgba(201,168,76,.18);border-radius:18px;padding:18px 20px;cursor:pointer;display:flex;align-items:center;gap:14px;transition:.3s;box-shadow:0 2px 14px rgba(13,59,46,.04);font-family:inherit}
 .acc-btn:hover{border-color:var(--goldB)}
@@ -395,7 +380,7 @@ body.locked{overflow:hidden}
 .acc-body.open{max-height:3000px}
 .acc-inner{background:var(--white);border:1.5px solid var(--goldB);border-top:none;border-radius:0 0 18px 18px;padding:16px 18px 20px}
 
-/* steps list */
+/* STEPS LIST */
 .steps-list{display:flex;flex-direction:column;gap:7px}
 .step-item{background:var(--cream);border:1.5px solid rgba(201,168,76,.13);border-radius:13px;overflow:hidden;cursor:pointer;transition:.3s}
 .step-item:hover{border-color:rgba(201,168,76,.28)}
@@ -412,7 +397,7 @@ body.locked{overflow:hidden}
 .step-desc{padding:12px 16px 14px;font-size:12px;color:var(--tm);line-height:1.9;border-right:3px solid var(--goldB);margin-right:16px}
 .step-desc strong{color:var(--g1)}
 
-/* caravans */
+/* CARAVANS */
 .cv-city-pills{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px;margin-bottom:12px}
 .cv-city-pills::-webkit-scrollbar{display:none}
 .cv-cpill{padding:6px 13px;border-radius:100px;border:1.5px solid rgba(201,168,76,.18);background:var(--cream);cursor:pointer;transition:.2s;font-size:12px;font-weight:700;color:var(--td);display:flex;align-items:center;gap:5px;flex-shrink:0;white-space:nowrap}
@@ -456,7 +441,7 @@ body.locked{overflow:hidden}
 .cv-chev svg{width:9px;height:9px;stroke:var(--ts);stroke-width:2;fill:none;stroke-linecap:round}
 .cv-card.open .cv-chev{transform:rotate(180deg)}
 .cv-detail{max-height:0;overflow:hidden;transition:max-height .42s cubic-bezier(.4,0,.2,1)}
-.cv-card.open .cv-detail{max-height:400px}
+.cv-card.open .cv-detail{max-height:500px}
 .cv-detail-inner{padding:14px 16px 16px;display:flex;flex-direction:column;gap:12px}
 .cv-dgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .cv-dcell{background:var(--white);border:1px solid rgba(201,168,76,.1);border-radius:9px;padding:8px 12px}
@@ -470,6 +455,12 @@ body.locked{overflow:hidden}
 .cv-capbar-fill.hi{background:linear-gradient(90deg,var(--g3),#22c55e)}
 .cv-capbar-fill.mi{background:linear-gradient(90deg,#d97706,#f59e0b)}
 .cv-capbar-fill.lo{background:linear-gradient(90deg,#dc2626,#ef4444)}
+.cv-hotels-section{background:rgba(13,59,46,.04);border:1px solid rgba(201,168,76,.12);border-radius:9px;padding:10px 12px}
+.cv-hotels-lbl{font-size:9px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-bottom:7px}
+.cv-hotel-row{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:11px;color:var(--tm);border-bottom:1px solid rgba(201,168,76,.07)}
+.cv-hotel-row:last-child{border-bottom:none}
+.cv-hotel-row svg{width:12px;height:12px;stroke:var(--g3);stroke-width:1.8;fill:none;stroke-linecap:round;flex-shrink:0}
+.cv-hotel-city{font-weight:700;color:var(--g1);flex-shrink:0;min-width:60px}
 .cv-book-btn{width:100%;padding:11px;border-radius:100px;border:none;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--g1);font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(201,168,76,.25);transition:.3s}
 .cv-book-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,.38)}
 
@@ -488,7 +479,7 @@ body.locked{overflow:hidden}
 .faq-item.open .faq-body{max-height:150px}
 .faq-ans{padding:4px 16px 14px;font-size:12px;color:var(--tm);line-height:1.9;border-right:3px solid var(--goldB);margin:0 16px 0 0}
 
-/* partner */
+/* PARTNER */
 .partner-box{margin-top:28px;background:var(--white);border:1.5px solid rgba(201,168,76,.16);border-radius:18px;overflow:hidden}
 .partner-head{background:linear-gradient(135deg,var(--g1),var(--g3));padding:16px 20px;display:flex;align-items:center;gap:14px}
 .partner-head-icon{width:42px;height:42px;background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.16);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -515,7 +506,7 @@ body.locked{overflow:hidden}
 .pi-row{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--tm);line-height:1.6}
 .pi-row svg{width:14px;height:14px;stroke:var(--g3);stroke-width:1.8;fill:none;stroke-linecap:round;flex-shrink:0;margin-top:1px}
 
-/* footer */
+/* FOOTER */
 .footer{background:linear-gradient(170deg,var(--g1),#0b3026);border-top:1px solid var(--goldB);padding:30px 20px 18px}
 .footer-in{max-width:1100px;margin:0 auto}
 .footer-offices{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(201,168,76,.16);border-radius:13px;overflow:hidden;margin-bottom:18px}
@@ -555,7 +546,7 @@ body.locked{overflow:hidden}
 .support-btn svg{width:26px;height:26px;fill:white}
 .support-lbl{font-size:9px;font-weight:700;color:rgba(0,0,0,.42);background:rgba(255,255,255,.84);padding:2px 7px;border-radius:100px;white-space:nowrap}
 
-/* nav modals */
+/* MODALS */
 .modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-ov.open{display:flex}
 .modal{background:var(--white);border-radius:18px;max-width:440px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.22);animation:fadeUp .3s ease;overflow:hidden}
@@ -565,7 +556,7 @@ body.locked{overflow:hidden}
 .modal-close:hover{background:rgba(255,255,255,.2)}
 .modal-body{padding:20px 22px 24px;font-size:13px;color:var(--tm);line-height:2}
 
-/* success modal */
+/* SUCCESS MODAL */
 .success-ov{position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:999;display:none;align-items:flex-end;justify-content:center}
 .success-ov.show{display:flex}
 .success-modal{background:var(--cream);border-radius:22px 22px 0 0;width:100%;max-width:480px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 -8px 40px rgba(0,0,0,.2);animation:slideUp .4s cubic-bezier(.32,0,.15,1)}
@@ -593,7 +584,7 @@ body.locked{overflow:hidden}
 .sm-pay-later{width:100%;padding:10px;border-radius:100px;border:1.5px solid rgba(201,168,76,.2);background:transparent;color:var(--ts);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:.2s}
 .sm-pay-later:hover{background:rgba(201,168,76,.06)}
 
-/* AI chat */
+/* AI CHAT */
 .ai-panel{position:fixed;bottom:0;left:0;right:0;background:var(--cream);border-radius:22px 22px 0 0;box-shadow:0 -8px 40px rgba(0,0,0,.16);z-index:601;display:flex;flex-direction:column;overflow:hidden;transform:translateY(100%);transition:transform .42s cubic-bezier(.32,0,.15,1);max-height:72vh}
 .ai-panel.vis{transform:translateY(0)}
 .ai-panel-head{background:linear-gradient(135deg,var(--g1),var(--g3));padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
@@ -648,12 +639,9 @@ body.locked{overflow:hidden}
 .asc-book-btn{width:100%;padding:8px;background:linear-gradient(135deg,var(--gold),#a8722a);border:none;border-radius:0 0 12px 12px;font-family:inherit;font-size:11.5px;font-weight:800;color:var(--g1);cursor:pointer;transition:opacity .2s}
 .asc-book-btn:hover{opacity:.82}
 
-/* desktop layout helpers */
 @media(min-width:860px){
   .hero{padding:50px 24px 0}
-  .hero-in{text-align:center}
   .iw{border-radius:20px 20px 0 0}
-  .s1-row3{grid-template-columns:1fr 1fr 1fr}
   .month-row{grid-template-columns:repeat(6,1fr)}
 }
 @media(max-width:500px){
@@ -661,10 +649,9 @@ body.locked{overflow:hidden}
   .footer-offices{grid-template-columns:1fr}
   .footer-office:first-child{border-left:none;border-bottom:1px solid rgba(201,168,76,.16)}
   .tf-grid{grid-template-columns:1fr}
+  .s1-top-row{grid-template-columns:1fr}
 }
-@media(prefers-reduced-motion:reduce){
-  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
-}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
@@ -774,9 +761,8 @@ body.locked{overflow:hidden}
     <div class="hero-title">گروه زیارتی <em>آوان</em></div>
     <div class="hero-desc">زمان سفر، مدت اقامت، درجه هتل و مسیر را خودتان انتخاب کنید. کاملاً متناسب با بودجه، زمان و سلیقه شما.</div>
 
-    <!-- INLINE WIZARD -->
     <div class="iw" id="iwWrap">
-      <!-- Live cost bar — always visible from step 2+ -->
+      <!-- Live cost bar -->
       <div class="live-cost-bar" id="liveCostBar">
         <div>
           <div class="lcb-label">هزینه تخمینی کل</div>
@@ -801,52 +787,54 @@ body.locked{overflow:hidden}
         <div class="iw-snav-item"><div class="iw-snav-dot" id="iwD6">۶</div><div class="iw-snav-lbl" id="iwLb6">پرداخت</div></div>
       </div>
 
-      <!-- SLIDE 1 -->
+      <!-- SLIDE 1: Date | Origin | Pax+Type in one row -->
       <div class="iw-slide active" id="iwS1">
-        <!-- Month row -->
-        <div class="s1-section">
-          <div class="s1-label">
+        <!-- Month -->
+        <div style="margin-bottom:14px">
+          <div class="s1-lbl">
             <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
             ماه اعزام
           </div>
           <div class="month-row" id="iwMonths"></div>
-          <div class="day-row-wrap" id="iwDayWrap">
-            <div class="day-row" id="iwDays"></div>
-          </div>
+          <div class="day-row-wrap" id="iwDayWrap"><div class="day-row" id="iwDays"></div></div>
           <div class="sel-chip" id="iwDateChip">
             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
             <span id="iwDateChipTxt"></span>
           </div>
         </div>
 
-        <!-- Origin + Pax + Type row -->
-        <div class="s1-row3" id="iwRow3">
+        <!-- Three-column row: Origin | Pax | Type -->
+        <div class="s1-top-row">
           <!-- Origin -->
-          <div class="s1-section s1-locked" id="iwOriginSec">
-            <div class="s1-label">
+          <div id="iwOriginSec" class="s1-locked">
+            <div class="s1-lbl">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 010 16c-4 0-8-5-8-8a8 8 0 018-8z"/></svg>
               شهر مبدا
             </div>
-            <div class="origin-grid" id="iwOriginGrid"></div>
+            <div class="s1-box" style="padding:8px">
+              <div class="origin-grid" id="iwOriginGrid"></div>
+            </div>
           </div>
           <!-- Pax -->
-          <div class="s1-section s1-locked" id="iwPaxSec">
-            <div class="s1-label">
-              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          <div id="iwPaxSec" class="s1-locked">
+            <div class="s1-lbl">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
               مسافران
             </div>
-            <div class="pax-inline">
-              <div class="pax-inline-lbl">حداکثر ۴ نفر</div>
-              <div class="pax-ctrl">
-                <button class="pax-btn" onclick="iwChgPax(-1)">−</button>
-                <div class="pax-num" id="iwPaxVal">۱</div>
-                <button class="pax-btn" onclick="iwChgPax(1)">+</button>
+            <div class="s1-box">
+              <div class="pax-inline">
+                <div class="pax-inline-lbl">حداکثر ۴ نفر</div>
+                <div class="pax-ctrl">
+                  <button class="pax-btn" onclick="iwChgPax(-1)">−</button>
+                  <div class="pax-num" id="iwPaxVal">۱</div>
+                  <button class="pax-btn" onclick="iwChgPax(1)">+</button>
+                </div>
               </div>
             </div>
           </div>
           <!-- Type -->
-          <div class="s1-section s1-locked" id="iwTypeSec">
-            <div class="s1-label">
+          <div id="iwTypeSec" class="s1-locked">
+            <div class="s1-lbl">
               <svg viewBox="0 0 24 24"><path d="M21 16l-6-3 2-7-4 2-4-4-5 3 5 3-2 4 3-1 2 5z"/></svg>
               نوع سفر
             </div>
@@ -874,7 +862,7 @@ body.locked{overflow:hidden}
         <button class="iw-cta" onclick="iwNext(1)">ادامه — انتخاب شهرها</button>
       </div>
 
-      <!-- SLIDE 2 -->
+      <!-- SLIDE 2: Cities -->
       <div class="iw-slide" id="iwS2">
         <div class="s2-hint">به ترتیب بازدید انتخاب کنید. برای هر شهر مشخص کنید <strong style="color:var(--goldL)">اقامت</strong> دارید، <strong style="color:var(--goldL)">عبور</strong> می‌کنید، یا <strong style="color:rgba(255,140,140,.85)">نمی‌روید</strong>.</div>
         <div class="city-list" id="iwCityList">
@@ -894,16 +882,13 @@ body.locked{overflow:hidden}
               <div class="cc-sub-inner">
                 <div class="stay-transit-row">
                   <div class="st-opt" id="iwST_karbala_stay" onclick="iwSelMode('karbala','stay')">
-                    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                    اقامت
+                    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>اقامت
                   </div>
                   <div class="st-opt" id="iwST_karbala_transit" onclick="iwSelMode('karbala','transit')">
-                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                    عبور
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>عبور
                   </div>
                   <div class="st-opt skip-city" id="iwST_karbala_skip" onclick="iwSelMode('karbala','skip')">
-                    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                    نمی‌روم
+                    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>نمی‌روم
                   </div>
                 </div>
                 <div class="nights-row" id="iwNR_karbala">
@@ -934,16 +919,13 @@ body.locked{overflow:hidden}
               <div class="cc-sub-inner">
                 <div class="stay-transit-row">
                   <div class="st-opt" id="iwST_najaf_stay" onclick="iwSelMode('najaf','stay')">
-                    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                    اقامت
+                    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>اقامت
                   </div>
                   <div class="st-opt" id="iwST_najaf_transit" onclick="iwSelMode('najaf','transit')">
-                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                    عبور
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>عبور
                   </div>
                   <div class="st-opt skip-city" id="iwST_najaf_skip" onclick="iwSelMode('najaf','skip')">
-                    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                    نمی‌روم
+                    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>نمی‌روم
                   </div>
                 </div>
                 <div class="nights-row" id="iwNR_najaf">
@@ -974,16 +956,13 @@ body.locked{overflow:hidden}
               <div class="cc-sub-inner">
                 <div class="stay-transit-row">
                   <div class="st-opt" id="iwST_kadh_sam_stay" onclick="iwSelMode('kadh_sam','stay')">
-                    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                    اقامت
+                    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>اقامت
                   </div>
                   <div class="st-opt" id="iwST_kadh_sam_transit" onclick="iwSelMode('kadh_sam','transit')">
-                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-                    عبور
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>عبور
                   </div>
                   <div class="st-opt skip-city" id="iwST_kadh_sam_skip" onclick="iwSelMode('kadh_sam','skip')">
-                    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                    نمی‌روم
+                    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>نمی‌روم
                   </div>
                 </div>
                 <div class="nights-row" id="iwNR_kadh_sam">
@@ -1006,18 +985,18 @@ body.locked{overflow:hidden}
         </div>
       </div>
 
-      <!-- SLIDE 3 -->
+      <!-- SLIDE 3: Hotels -->
       <div class="iw-slide" id="iwS3">
         <div class="cities-confirmed" id="iwCitiesConfirmed"></div>
         <div id="iwHotelPicker"></div>
         <div class="iw-err" id="iwErr3"></div>
-        <div class="iw-btns" id="iwS3Btns">
+        <div class="iw-btns">
           <button class="iw-back-btn" onclick="iwBack(3)">← بازگشت</button>
           <button class="iw-cta" style="flex:1" onclick="iwNext(3)">ادامه — خدمات</button>
         </div>
       </div>
 
-      <!-- SLIDE 4 -->
+      <!-- SLIDE 4: Transport & Services -->
       <div class="iw-slide" id="iwS4">
         <div class="opt-section" id="iwTransportSec">
           <div class="opt-sec-lbl">
@@ -1104,9 +1083,7 @@ body.locked{overflow:hidden}
       <div class="ai-sub">حوصله انتخاب مرحله‌به‌مرحله نداری؟ همینجا بنویس.</div>
       <div class="ai-example">«۵ روز کربلا و نجف، هوایی، هتل متوسط، ارزون‌تر باشه»</div>
     </div>
-    <div class="ai-arr">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-    </div>
+    <div class="ai-arr"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></div>
   </div>
 </div>
 
@@ -1272,8 +1249,8 @@ const PM=['فروردین','اردیبهشت','خرداد','تیر','مرداد'
 const DIM=[31,31,31,31,31,31,30,30,30,30,30,29];
 const TODAY={y:1405,m:3,d:16};
 const isDis=(d,m,y)=>y<TODAY.y||(y===TODAY.y&&m<TODAY.m)||(y===TODAY.y&&m===TODAY.m&&d<=TODAY.d+1);
-const qs=id=>document.getElementById(id);
-const scrollTo$=el=>{if(!el)return;const r=el.getBoundingClientRect();if(r.top<80||r.top>window.innerHeight*.6)el.scrollIntoView({behavior:'smooth',block:'nearest'})};
+const $=id=>document.getElementById(id);
+const scrollTo$=el=>{if(!el)return;const r=el.getBoundingClientRect();if(r.top<80||r.top>window.innerHeight*.65)el.scrollIntoView({behavior:'smooth',block:'nearest'})};
 
 const CITY_LABELS={tehran:'تهران',mashhad:'مشهد',isfahan:'اصفهان',shiraz:'شیراز',tabriz:'تبریز',qom:'قم',karaj:'کرج',ahvaz:'اهواز',rasht:'رشت',kermanshah:'کرمانشاه',other:'سایر'};
 const CITY_META={
@@ -1287,8 +1264,8 @@ const HOTELS={
   karbala:[
     {name:'هتل عباسیه گرند',stars:5,dist:'۸۰ متر',tier:'a',tierLbl:'لوکس',mult:1.8,addr:'کربلا، میدان الحسین، نزدیک حرم'},
     {name:'هتل الحسین انترنشنال',stars:5,dist:'۱۰۰ متر',tier:'a',tierLbl:'لوکس',mult:1.6,addr:'کربلا، خیابان الحسین، روبروی حرم'},
-    {name:'هتل کربلا اینترنشنال',stars:4,dist:'۲۰۰ متر',tier:'b',tierLbl:'متوسط',mult:1.1,addr:'کربلا، خیابان الشهداء، ۲۰۰ متر از حرم'},
-    {name:'هتل فرات',stars:4,dist:'۳۵۰ متر',tier:'b',tierLbl:'متوسط',mult:0.9,addr:'کربلا، خیابان فرات، نزدیک بازار'},
+    {name:'هتل کربلا اینترنشنال',stars:4,dist:'۲۰۰ متر',tier:'b',tierLbl:'متوسط',mult:1.1,addr:'کربلا، خیابان الشهداء'},
+    {name:'هتل فرات',stars:4,dist:'۳۵۰ متر',tier:'b',tierLbl:'متوسط',mult:0.9,addr:'کربلا، خیابان فرات'},
     {name:'هتل الکوثر',stars:3,dist:'۶۰۰ متر',tier:'c',tierLbl:'اقتصادی',mult:0.55,addr:'کربلا، خیابان الکوثر'},
     {name:'هتل الانوار',stars:3,dist:'۷۵۰ متر',tier:'c',tierLbl:'اقتصادی',mult:0.45,addr:'کربلا، خیابان الانوار'}
   ],
@@ -1310,11 +1287,11 @@ const HOTELS={
   ]
 };
 
-// ── STATE ──────────────────────────────────────────────────────────────
+// ── STATE ────────────────────────────────────────────────────────────
 const IW={
   step:1,selM:null,selY:null,selD:null,
   pax:1,origin:null,type:null,
-  cityMode:{karbala:null,najaf:null,kadh_sam:null}, // null|'stay'|'transit'|'skip'
+  cityMode:{karbala:null,najaf:null,kadh_sam:null},
   cityNights:{karbala:3,najaf:3,kadh_sam:3},
   hotels:{},
   transportOpt:null,
@@ -1322,22 +1299,22 @@ const IW={
   travFirst:'',travLast:'',travNational:'',travBirth:'',travPhone:''
 };
 
-// ── NAV MODALS ─────────────────────────────────────────────────────────
-const openModal=id=>qs('modal-'+id).classList.add('open');
-const closeModalDirect=id=>qs('modal-'+id).classList.remove('open');
-const closeModal=(id,e)=>{if(e.target===qs('modal-'+id))closeModalDirect(id)};
+// ── NAV MODALS ────────────────────────────────────────────────────────
+const openModal=id=>$('modal-'+id).classList.add('open');
+const closeModalDirect=id=>$('modal-'+id).classList.remove('open');
+const closeModal=(id,e)=>{if(e.target===$('modal-'+id))closeModalDirect(id)};
 
-// ── FABs ───────────────────────────────────────────────────────────────
+// ── FABs ──────────────────────────────────────────────────────────────
 (()=>{
-  const hero=qs('heroSec'),fab=qs('fabWrap'),sup=qs('supportWrap');
-  if(window.IntersectionObserver){
-    new IntersectionObserver(es=>es.forEach(e=>{
-      e.isIntersecting?(fab.classList.remove('vis'),sup.classList.remove('vis')):(fab.classList.add('vis'),sup.classList.add('vis'))
-    }),{threshold:.05}).observe(hero);
-  }
+  const hero=$('heroSec'),fab=$('fabWrap'),sup=$('supportWrap');
+  if(!window.IntersectionObserver)return;
+  new IntersectionObserver(es=>es.forEach(e=>{
+    const show=!e.isIntersecting;
+    fab.classList.toggle('vis',show);sup.classList.toggle('vis',show);
+  }),{threshold:.05}).observe(hero);
 })();
 
-// ── TRIPS SLIDER ───────────────────────────────────────────────────────
+// ── TRIPS SLIDER ──────────────────────────────────────────────────────
 const TRIPS=[
   {tag:'محرم ۱۴۰۵',type:'air',day:'۲۶',month:'خرداد',year:'۱۴۰۵',title:'نجف + کربلا — محرم',origin:'تهران',nights:5,price:'۲۳,۰۰۰,۰۰۰'},
   {tag:'اقتصادی',type:'land',day:'۵',month:'تیر',year:'۱۴۰۵',title:'کربلا + نجف — زمینی',origin:'قم',nights:6,price:'۱۱,۵۰۰,۰۰۰'},
@@ -1346,24 +1323,26 @@ const TRIPS=[
 ];
 let tsCur=0,tsAuto=null,tsDrag=false,tsDragX=0,tsDelta=0,tsTouchX=0,tsTouchDelta=0,tsTouching=false;
 const GAP=14;
-const tsGetW=()=>{const o=qs('sliderOuter');return o?o.offsetWidth:0};
+const tsGetW=()=>{const o=$('sliderOuter');return o?o.offsetWidth:0};
 const tsGetOff=()=>-(tsCur*(tsGetW()+GAP));
+
 function tsGoTo(n){
   tsCur=((n%TRIPS.length)+TRIPS.length)%TRIPS.length;
-  const t=qs('sliderTrack');if(t)t.style.transition='transform .46s cubic-bezier(.4,0,.2,1)';
-  if(t)t.style.transform=`translateX(${tsGetOff()}px)`;
+  const t=$('sliderTrack');
+  if(t){t.style.transition='transform .46s cubic-bezier(.4,0,.2,1)';t.style.transform=`translateX(${tsGetOff()}px)`}
   document.querySelectorAll('#tsDots .sdot').forEach((d,i)=>d.classList.toggle('active',i===tsCur));
 }
 window.tsSlide=d=>{clearInterval(tsAuto);tsGoTo(tsCur+d);tsStartAuto()};
 function tsStartAuto(){tsAuto=setInterval(()=>tsGoTo(tsCur+1),3800)}
+
 function tsBuild(){
-  const track=qs('sliderTrack'),dots=qs('tsDots'),outer=qs('sliderOuter');
+  const track=$('sliderTrack'),dots=$('tsDots'),outer=$('sliderOuter');
   if(!track||!outer)return;
   track.innerHTML='';dots.innerHTML='';
+  const typeLabel={vip:'VIP',air:'هوایی',land:'زمینی'};
   TRIPS.forEach((t,i)=>{
-    const typeLabel=t.type==='vip'?'VIP':t.type==='air'?'هوایی':'زمینی';
-    const card=document.createElement('div');card.className='ts-card';card.style.cssText='position:absolute;top:0';
-    card.innerHTML=`<div class="ts-top"><div class="ts-row1"><span class="ts-tag">${t.tag}</span><span class="ts-type">${typeLabel}</span></div><div class="ts-date-block"><div class="ts-day">${t.day}</div><div class="ts-date-meta"><div class="ts-month">${t.month}</div><div class="ts-year">${t.year}</div></div></div><div class="ts-title">${t.title}</div></div><div class="ts-bottom"><div><div class="ts-origin"><div class="ts-dot"></div>${t.origin}</div><div class="ts-nights">${P(t.nights)} شب</div></div><div><div class="ts-price-lbl">هر نفر از</div><div class="ts-price-val">${t.price}</div><div class="ts-price-unit">تومان</div></div></div>`;
+    const card=document.createElement('div');card.className='ts-card';card.style.position='absolute';card.style.top='0';
+    card.innerHTML=`<div class="ts-top"><div class="ts-row1"><span class="ts-tag">${t.tag}</span><span class="ts-type">${typeLabel[t.type]||t.type}</span></div><div class="ts-date-block"><div class="ts-day">${t.day}</div><div class="ts-date-meta"><div class="ts-month">${t.month}</div><div class="ts-year">${t.year}</div></div></div><div class="ts-title">${t.title}</div></div><div class="ts-bottom"><div><div class="ts-origin"><div class="ts-dot"></div>${t.origin}</div><div class="ts-nights">${P(t.nights)} شب</div></div><div><div class="ts-price-lbl">هر نفر از</div><div class="ts-price-val">${t.price}</div><div class="ts-price-unit">تومان</div></div></div>`;
     card.onclick=()=>{if(Math.abs(tsDelta)<8)openAIChat()};
     track.appendChild(card);
     const d=document.createElement('div');d.className='sdot'+(i===0?' active':'');
@@ -1376,18 +1355,18 @@ function tsBuild(){
       c.style.width=w+'px';c.style.left=`${i*(w+GAP)}px`;
       if(c.offsetHeight>maxH)maxH=c.offsetHeight;
     });
-    track.style.height=maxH+'px';track.style.position='relative';track.style.overflow='visible';
+    track.style.height=maxH+'px';track.style.overflow='visible';
     tsGoTo(0);tsStartAuto();
   });
   outer.addEventListener('touchstart',e=>{tsTouching=true;tsTouchX=e.touches[0].clientX;tsTouchDelta=0;clearInterval(tsAuto)},{passive:true});
-  outer.addEventListener('touchmove',e=>{if(!tsTouching)return;tsTouchDelta=e.touches[0].clientX-tsTouchX;const t=qs('sliderTrack');if(t){t.style.transition='none';t.style.transform=`translateX(${tsGetOff()+tsTouchDelta}px)`}},{passive:true});
-  outer.addEventListener('touchend',()=>{if(!tsTouching)return;tsTouching=false;const t=qs('sliderTrack');if(t)t.style.transition='';Math.abs(tsTouchDelta)>50?tsTouchDelta<0?tsGoTo(tsCur+1):tsGoTo(tsCur-1):tsGoTo(tsCur);tsTouchDelta=0;tsStartAuto()});
-  outer.addEventListener('mousedown',e=>{tsDrag=true;tsDragX=e.clientX;tsDelta=0;clearInterval(tsAuto);const t=qs('sliderTrack');if(t)t.style.transition='none'});
-  document.addEventListener('mousemove',e=>{if(!tsDrag)return;tsDelta=e.clientX-tsDragX;const t=qs('sliderTrack');if(t)t.style.transform=`translateX(${tsGetOff()+tsDelta}px)`});
-  document.addEventListener('mouseup',()=>{if(!tsDrag)return;tsDrag=false;const t=qs('sliderTrack');if(t)t.style.transition='';Math.abs(tsDelta)>50?tsDelta<0?tsGoTo(tsCur+1):tsGoTo(tsCur-1):tsGoTo(tsCur);setTimeout(()=>tsDelta=0,50);tsStartAuto()});
+  outer.addEventListener('touchmove',e=>{if(!tsTouching)return;tsTouchDelta=e.touches[0].clientX-tsTouchX;const t=$('sliderTrack');if(t){t.style.transition='none';t.style.transform=`translateX(${tsGetOff()+tsTouchDelta}px)`}},{passive:true});
+  outer.addEventListener('touchend',()=>{if(!tsTouching)return;tsTouching=false;const t=$('sliderTrack');if(t)t.style.transition='';Math.abs(tsTouchDelta)>50?tsTouchDelta<0?tsGoTo(tsCur+1):tsGoTo(tsCur-1):tsGoTo(tsCur);tsTouchDelta=0;tsStartAuto()});
+  outer.addEventListener('mousedown',e=>{tsDrag=true;tsDragX=e.clientX;tsDelta=0;clearInterval(tsAuto);const t=$('sliderTrack');if(t)t.style.transition='none'});
+  document.addEventListener('mousemove',e=>{if(!tsDrag)return;tsDelta=e.clientX-tsDragX;const t=$('sliderTrack');if(t)t.style.transform=`translateX(${tsGetOff()+tsDelta}px)`});
+  document.addEventListener('mouseup',()=>{if(!tsDrag)return;tsDrag=false;const t=$('sliderTrack');if(t)t.style.transition='';Math.abs(tsDelta)>50?tsDelta<0?tsGoTo(tsCur+1):tsGoTo(tsCur-1):tsGoTo(tsCur);setTimeout(()=>tsDelta=0,50);tsStartAuto()});
 }
 
-// ── STEP 1 ─────────────────────────────────────────────────────────────
+// ── STEP 1 ────────────────────────────────────────────────────────────
 const IW_ORIGINS=[
   {city:'tehran',name:'تهران'},{city:'mashhad',name:'مشهد'},
   {city:'isfahan',name:'اصفهان'},{city:'shiraz',name:'شیراز'},
@@ -1398,36 +1377,35 @@ const IW_ORIGINS=[
 ];
 
 function iwBuildStep1(){
-  const mRow=qs('iwMonths');if(mRow.children.length)return;
+  const mRow=$('iwMonths');
+  if(mRow.children.length)return;
   let cy=TODAY.y,cm=TODAY.m;
   for(let i=0;i<6;i++){
     const m=cm,y=cy;
+    const isMoh=(m===4);
     const el=document.createElement('div');el.className='mchip';
-    const isMoh=(m===4);// Tir = محرم
-    let inner='';
-    if(isMoh)inner=`<div class="mchip-flag"><div class="mchip-flag-pole"></div><div class="mchip-flag-cloth"></div></div>`;
-    inner+=`<div class="mchip-n">${PM[m-1]}</div><div class="mchip-y">${P(y)}</div>`;
-    el.innerHTML=inner;
+    el.innerHTML=(isMoh?`<div class="mchip-flag"><div class="mchip-flag-pole"></div><div class="mchip-flag-cloth"></div></div>`:'')+
+      `<div class="mchip-n">${PM[m-1]}</div><div class="mchip-y">${P(y)}</div>`;
     el.onclick=()=>{
       document.querySelectorAll('#iwMonths .mchip').forEach(x=>x.classList.remove('sel'));
       el.classList.add('sel');IW.selM=m;IW.selY=y;IW.selD=null;
       iwBuildDays(m,y);
-      qs('iwDayWrap').classList.add('open');
-      qs('iwDateChip').classList.remove('show');
+      $('iwDayWrap').classList.add('open');
+      $('iwDateChip').classList.remove('show');
     };
     mRow.appendChild(el);
     cm++;if(cm>12){cm=1;cy++}
   }
-  // origins
-  const oGrid=qs('iwOriginGrid');if(oGrid.children.length)return;
+  const oGrid=$('iwOriginGrid');
+  if(oGrid.children.length)return;
   IW_ORIGINS.forEach(o=>{
     const el=document.createElement('div');el.className='ochip';
     el.innerHTML=`<div class="ochip-n">${o.name}</div>`;
     el.onclick=()=>{
       document.querySelectorAll('#iwOriginGrid .ochip').forEach(x=>x.classList.remove('sel'));
       el.classList.add('sel');IW.origin=o.city;
-      qs('iwPaxSec').className='s1-section s1-unlocked';
-      qs('iwTypeSec').className='s1-section s1-unlocked';
+      $('iwPaxSec').className='s1-unlocked';
+      $('iwTypeSec').className='s1-unlocked';
       updateLiveCost();
     };
     oGrid.appendChild(el);
@@ -1435,7 +1413,7 @@ function iwBuildStep1(){
 }
 
 function iwBuildDays(m,y){
-  const row=qs('iwDays');row.innerHTML='';
+  const row=$('iwDays');row.innerHTML='';
   for(let d=1;d<=DIM[m-1];d++){
     const dis=isDis(d,m,y);
     const el=document.createElement('div');el.className='dchip'+(dis?' dis':'');
@@ -1444,70 +1422,68 @@ function iwBuildDays(m,y){
       IW.selD=d;
       document.querySelectorAll('#iwDays .dchip').forEach(x=>x.classList.remove('sel'));
       el.classList.add('sel');
-      qs('iwDateChipTxt').textContent=`${P(d)} ${PM[m-1]} ${P(y)}`;
-      qs('iwDateChip').classList.add('show');
-      qs('iwOriginSec').className='s1-section s1-unlocked';
+      $('iwDateChipTxt').textContent=`${P(d)} ${PM[m-1]} ${P(y)}`;
+      $('iwDateChip').classList.add('show');
+      $('iwOriginSec').className='s1-unlocked';
       updateLiveCost();
-      setTimeout(()=>scrollTo$(qs('iwOriginSec')),200);
+      setTimeout(()=>scrollTo$($('iwOriginSec')),200);
     };
     row.appendChild(el);
   }
 }
 
-window.iwChgPax=d=>{IW.pax=Math.max(1,Math.min(4,IW.pax+d));qs('iwPaxVal').textContent=P(IW.pax);updateLiveCost()};
-window.iwSelType=t=>{IW.type=t;['air','mixed','land'].forEach(k=>qs('iwTP_'+k)?.classList.toggle('sel',k===t));updateLiveCost()};
+window.iwChgPax=d=>{IW.pax=Math.max(1,Math.min(4,IW.pax+d));$('iwPaxVal').textContent=P(IW.pax);updateLiveCost()};
+window.iwSelType=t=>{IW.type=t;['air','mixed','land'].forEach(k=>$('iwTP_'+k)?.classList.toggle('sel',k===t));updateLiveCost()};
 
-// ── STEP 2 ─────────────────────────────────────────────────────────────
+// ── STEP 2 ────────────────────────────────────────────────────────────
 window.iwToggleCity=key=>{
-  const el=qs('iwCC_'+key);
+  const el=$('iwCC_'+key);
   if(el.classList.contains('sel')){
-    el.classList.remove('sel');
+    el.classList.remove('sel','done-city');
     IW.cityMode[key]=null;
-    ['stay','transit','skip'].forEach(m=>qs(`iwST_${key}_${m}`)?.classList.remove('sel'));
-    qs('iwNR_'+key)?.classList.remove('show');
-    qs('iwDoneSummary_'+key).style.display='none';
+    ['stay','transit','skip'].forEach(m=>$(`iwST_${key}_${m}`)?.classList.remove('sel'));
+    $('iwNR_'+key)?.classList.remove('show');
+    $('iwDoneSummary_'+key).style.display='none';
   }else{
-    // open this, don't auto-close others (user can deselect)
     el.classList.add('sel');
+    setTimeout(()=>scrollTo$(el),100);
   }
   refreshCityOrder();updateLiveCost();
 };
 
 window.iwSelMode=(key,mode)=>{
   IW.cityMode[key]=mode;
-  ['stay','transit','skip'].forEach(m=>qs(`iwST_${key}_${m}`)?.classList.toggle('sel',m===mode));
-  qs('iwNR_'+key)?.classList.toggle('show',mode==='stay');
-  // update done summary
-  const ds=qs('iwDoneSummary_'+key),dt=qs('iwDoneText_'+key);
+  ['stay','transit','skip'].forEach(m=>$(`iwST_${key}_${m}`)?.classList.toggle('sel',m===mode));
+  $('iwNR_'+key)?.classList.toggle('show',mode==='stay');
   const mLabel={stay:'اقامت',transit:'عبور',skip:'نمی‌روم'};
-  if(ds&&dt){dt.textContent=mLabel[mode]+(mode==='stay'?' — '+P(IW.cityNights[key])+' شب':'');ds.style.display='flex'}
-  // auto-advance to next city
-  const idx=CITY_KEYS.indexOf(key);
-  const nextKey=CITY_KEYS[idx+1];
-  if(nextKey){
-    // if nights not yet confirmed for stay, wait for user
-    if(mode!=='stay'){
-      // collapse this, open next after brief delay
-      setTimeout(()=>{
-        // collapse current
-        const curEl=qs('iwCC_'+key);if(curEl){curEl.classList.add('done-city')}
-        // open next
-        const nEl=qs('iwCC_'+nextKey);
-        if(nEl&&!nEl.classList.contains('sel')){
+  const ds=$('iwDoneSummary_'+key),dt=$('iwDoneText_'+key);
+  if(ds&&dt){
+    dt.textContent=mLabel[mode]+(mode==='stay'?' — '+P(IW.cityNights[key])+' شب':'');
+    ds.style.display='flex';
+  }
+  // auto-advance: for non-stay, collapse and open next
+  if(mode!=='stay'){
+    setTimeout(()=>{
+      const curEl=$('iwCC_'+key);
+      if(curEl){curEl.classList.remove('sel');curEl.classList.add('done-city')}
+      const idx=CITY_KEYS.indexOf(key);
+      const nextKey=CITY_KEYS[idx+1];
+      if(nextKey){
+        const nEl=$('iwCC_'+nextKey);
+        if(nEl&&!nEl.classList.contains('sel')&&!nEl.classList.contains('done-city')){
           nEl.classList.add('sel');
           setTimeout(()=>scrollTo$(nEl),120);
         }
-      },300);
-    }
+      }
+    },280);
   }
-  updateLiveCost();
+  refreshCityOrder();updateLiveCost();
 };
 
 window.iwChgNights=(key,d)=>{
   IW.cityNights[key]=Math.max(1,Math.min(14,(IW.cityNights[key]||3)+d));
-  qs('iwNV_'+key).textContent=P(IW.cityNights[key]);
-  // update done text if visible
-  const dt=qs('iwDoneText_'+key);
+  $('iwNV_'+key).textContent=P(IW.cityNights[key]);
+  const dt=$('iwDoneText_'+key);
   if(dt&&IW.cityMode[key]==='stay')dt.textContent='اقامت — '+P(IW.cityNights[key])+' شب';
   updateLiveCost();
 };
@@ -1515,41 +1491,37 @@ window.iwChgNights=(key,d)=>{
 function refreshCityOrder(){
   const active=CITY_KEYS.filter(k=>IW.cityMode[k]&&IW.cityMode[k]!=='skip');
   CITY_KEYS.forEach(k=>{
-    const o=qs('iwOrd_'+k);if(!o)return;
+    const o=$('iwOrd_'+k);if(!o)return;
     const idx=active.indexOf(k);
     if(idx>-1){o.textContent=P(idx+1);o.style.display='flex'}
     else o.style.display='none';
   });
 }
 
-// ── STEP 3 – HOTELS ────────────────────────────────────────────────────
+// ── STEP 3 – HOTELS ───────────────────────────────────────────────────
 function iwBuildHotelStep(){
-  // city summary
-  const conf=qs('iwCitiesConfirmed');conf.innerHTML='';
+  const conf=$('iwCitiesConfirmed');conf.innerHTML='';
   const activeCities=CITY_KEYS.filter(k=>IW.cityMode[k]&&IW.cityMode[k]!=='skip');
-  let ord=0;
-  activeCities.forEach(k=>{
-    const mode=IW.cityMode[k];ord++;
+  activeCities.forEach((k,i)=>{
+    const mode=IW.cityMode[k];
     const row=document.createElement('div');row.className='city-conf-row';
-    const badgeCls=mode;
-    const badgeTxt=mode==='stay'?'اقامت':mode==='transit'?'عبور':'—';
-    row.innerHTML=`<div class="city-conf-num">${P(ord)}</div><div class="city-conf-name">${CITY_META[k].name}</div><span class="city-conf-badge ${badgeCls}">${badgeTxt}${mode==='stay'?' — '+P(IW.cityNights[k])+' شب':''}</span><span class="city-conf-edit" onclick="iwBack(3)">ویرایش</span>`;
+    const bdg=mode==='stay'?'stay':mode==='transit'?'transit':'skip';
+    const bdgTxt=mode==='stay'?'اقامت — '+P(IW.cityNights[k])+' شب':mode==='transit'?'عبور':'—';
+    row.innerHTML=`<div class="city-conf-num">${P(i+1)}</div><div class="city-conf-name">${CITY_META[k].name}</div><span class="city-conf-badge ${bdg}">${bdgTxt}</span><span class="city-conf-edit" onclick="iwBack(3)">ویرایش</span>`;
     conf.appendChild(row);
   });
-  // hotel picker
-  const picker=qs('iwHotelPicker');picker.innerHTML='';
+  const picker=$('iwHotelPicker');picker.innerHTML='';
   const stayCities=activeCities.filter(k=>IW.cityMode[k]==='stay');
   if(!stayCities.length){
     picker.innerHTML='<div style="text-align:center;padding:16px;font-size:12px;color:rgba(255,255,255,.48)">همه شهرها ترانزیت — نیازی به انتخاب هتل نیست ✓</div>';
     return;
   }
   stayCities.forEach(k=>{
-    const hotels=HOTELS[k];
     const sec=document.createElement('div');sec.style.marginBottom='18px';
     sec.innerHTML=`<div class="hotel-city-lbl"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>${CITY_META[k].name}</div><div class="hotel-list" id="iwHL_${k}"></div>`;
     picker.appendChild(sec);
     const listEl=sec.querySelector('.hotel-list');
-    hotels.forEach((h,i)=>{
+    HOTELS[k].forEach((h,i)=>{
       const starsRow=Array.from({length:5},(_,j)=>`<div class="hcard-star${j<h.stars?' on':''}"></div>`).join('');
       const card=document.createElement('div');
       card.className='hcard'+(IW.hotels[k]===i?' sel':'');
@@ -1562,70 +1534,69 @@ function iwBuildHotelStep(){
 
 window.iwSelHotel=(key,idx)=>{
   IW.hotels[key]=idx;
-  document.querySelectorAll(`[id^="iwH_${key}_"]`).forEach(c=>{
-    c.classList.toggle('sel',parseInt(c.id.split('_').pop())===idx);
-  });
+  document.querySelectorAll(`[id^="iwH_${key}_"]`).forEach(c=>c.classList.toggle('sel',parseInt(c.id.split('_').pop())===idx));
   updateLiveCost();
-  // auto-advance to next stay city
+  // auto-advance to next stay city section
   const stayCities=CITY_KEYS.filter(k=>IW.cityMode[k]==='stay');
   const curIdx=stayCities.indexOf(key);
   if(curIdx<stayCities.length-1){
-    const nextKey=stayCities[curIdx+1];
-    const nextSection=qs('iwHL_'+nextKey)?.closest('div');
+    const nextSection=document.getElementById('iwHL_'+stayCities[curIdx+1])?.closest('[style]');
     if(nextSection)setTimeout(()=>scrollTo$(nextSection),200);
   }
 };
 
-// ── HOTEL DETAIL ────────────────────────────────────────────────────────
-const PHOTO_ICONS=[
-  `<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
-  `<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>`,
-  `<svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
-  `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`
-];
+// ── HOTEL DETAIL ──────────────────────────────────────────────────────
 const PHOTO_GRADS=['linear-gradient(135deg,#0d3b2e,#1a5e49)','linear-gradient(135deg,#1a1a2e,#16213e)','linear-gradient(135deg,#2d1b00,#4a2f00)','linear-gradient(135deg,#0d2438,#1a3d5c)'];
+const PHOTO_SVGS=[
+  `<svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>`,
+  `<svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`
+];
 
 window.openHotelDetail=(key,idx)=>{
   const h=HOTELS[key][idx];
-  qs('hdTitle').textContent=h.name;
-  const starsRow=Array.from({length:5},(_,j)=>`<div class="hcard-star${j<h.stars?' on':''}" style="width:9px;height:9px;border-radius:50%;background:${j<h.stars?'var(--gold)':'rgba(255,255,255,.18)'};display:inline-block;margin-left:2px"></div>`).join('');
-  qs('hdBody').innerHTML=`
-    <div class="hd-photos">
-      ${PHOTO_ICONS.map((ico,i)=>`<div class="hd-photo" style="background:${PHOTO_GRADS[i]}"><div class="hd-photo-inner">${ico}</div></div>`).join('')}
-    </div>
-    <div class="hd-info-row"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>${starsRow}&nbsp; ${h.tierLbl}</span></div>
+  $('hdTitle').textContent=h.name;
+  const starsHtml=Array.from({length:5},(_,j)=>`<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${j<h.stars?'var(--gold)':'rgba(0,0,0,.1)'};margin-left:2px"></span>`).join('');
+  $('hdBody').innerHTML=`
+    <div class="hd-photos">${PHOTO_GRADS.map((g,i)=>`<div class="hd-photo" style="background:${g}"><div class="hd-photo-inner">${PHOTO_SVGS[i]}</div></div>`).join('')}</div>
+    <div class="hd-info-row"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>${starsHtml} ${h.tierLbl}</span></div>
     <div class="hd-info-row"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 010 16c-4 0-8-5-8-8a8 8 0 018-8z"/></svg><span>${h.addr}</span></div>
     <div class="hd-info-row"><svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="5"/><path d="M8 9 Q12 4 16 9"/><path d="M7 9 L7 16 L17 16 L17 9"/><rect x="10" y="12" width="4" height="4"/></svg><span>فاصله تا حرم: ${h.dist}</span></div>
     <div class="hd-info-row"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg><span>صبحانه رایگان — سرویس اتاق ۲۴ ساعته</span></div>
-    <button class="hd-select-btn" onclick="iwSelHotel('${key}',${idx});closeHotelDetail()">انتخاب این هتل ✓</button>
-  `;
-  qs('hotelDetailOv').classList.add('open');
+    <button class="hd-select-btn" onclick="iwSelHotel('${key}',${idx});closeHotelDetail()">انتخاب این هتل ✓</button>`;
+  $('hotelDetailOv').classList.add('open');
 };
-window.closeHotelDetail=()=>qs('hotelDetailOv').classList.remove('open');
-window.hotelDetailOvClose=e=>{if(e.target===qs('hotelDetailOv'))closeHotelDetail()};
+window.closeHotelDetail=()=>$('hotelDetailOv').classList.remove('open');
+window.hotelDetailOvClose=e=>{if(e.target===$('hotelDetailOv'))closeHotelDetail()};
 
-// ── STEP 4 – TRANSPORT ─────────────────────────────────────────────────
+// ── STEP 4 – TRANSPORT ────────────────────────────────────────────────
 function iwBuildTransport(){
-  const isAir=IW.type==='air'||IW.type==='mixed',isLand=IW.type==='land';
+  const isAir=IW.type==='air'||IW.type==='mixed';
+  const isLand=IW.type==='land'||IW.type==='mixed';
   const originLbl=CITY_LABELS[IW.origin]||IW.origin;
-  const sec=qs('iwTransportOpts');sec.innerHTML='';
-  const mkOpt=(id,ico,name,sub,price,optKey)=>{
+  const sec=$('iwTransportOpts');sec.innerHTML='';
+  const planeIco=`<svg viewBox="0 0 24 24"><path d="M21 16l-6-3 2-7-4 2-4-4-5 3 5 3-2 4 3-1 2 5z"/></svg>`;
+  const busIco=`<svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`;
+  const selfIco=`<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+  const mkOpt=(ico,name,sub,price,optKey)=>{
     const c=document.createElement('div');c.className='opt-card'+(IW.transportOpt===optKey?' sel':'');c.id='iwTO_'+optKey;
     c.innerHTML=`<div class="opt-ico">${ico}</div><div class="opt-radio"></div><div style="flex:1"><div class="opt-name">${name}</div><div class="opt-sub">${sub}</div></div><div class="opt-price">${price}</div>`;
     c.onclick=()=>iwSelTransport(optKey);
     sec.appendChild(c);
   };
-  const planeIco=`<svg viewBox="0 0 24 24"><path d="M21 16l-6-3 2-7-4 2-4-4-5 3 5 3-2 4 3-1 2 5z"/></svg>`;
-  const busIco=`<svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`;
-  const tickIco=`<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>`;
-  if(isAir){
-    mkOpt(1,planeIco,'آوان بلیط تهیه کند',`${originLbl} ← بغداد ← ${originLbl}`,'+۴,۵۰۰,۰۰۰ ت/نفر','flight_avan');
-    mkOpt(2,tickIco,'خودم بلیط می‌گیرم','هزینه پرواز به تخمین اضافه نمی‌شود','بدون هزینه','flight_self');
+  if(IW.type==='air'){
+    mkOpt(planeIco,'آوان بلیط تهیه کند',`${originLbl} ↔ بغداد`,'+۴,۵۰۰,۰۰۰ ت/نفر','flight_avan');
+    mkOpt(selfIco,'خودم بلیط می‌گیرم','هزینه پرواز جداگانه محاسبه نمی‌شود','بدون هزینه','flight_self');
   }
-  if(IW.type==='mixed')mkOpt(3,busIco,'برگشت زمینی با آوان',`بازگشت با اتوبوس تا ${originLbl}`,'+۱,۸۰۰,۰۰۰ ت/نفر','mixed_avan');
-  if(isLand){
-    mkOpt(4,busIco,'آوان اتوبوس رفت و برگشت',`${originLbl} ← مرز خسروی ← ${originLbl}`,'+۲,۲۰۰,۰۰۰ ت/نفر','land_avan');
-    mkOpt(5,tickIco,'خودم تا مرز می‌آیم','هزینه حمل‌ونقل داخلی محاسبه نمی‌شود','بدون هزینه','land_self');
+  if(IW.type==='mixed'){
+    mkOpt(planeIco,'آوان بلیط تهیه کند',`رفت هوایی ${originLbl} ↔ بغداد`,'+۴,۵۰۰,۰۰۰ ت/نفر','flight_avan');
+    mkOpt(busIco,'برگشت زمینی با آوان',`بازگشت با اتوبوس تا ${originLbl}`,'+۱,۸۰۰,۰۰۰ ت/نفر','mixed_avan');
+    mkOpt(selfIco,'خودم ترتیب می‌دهم','','بدون هزینه','flight_self');
+  }
+  if(IW.type==='land'){
+    mkOpt(busIco,'آوان اتوبوس رفت و برگشت',`${originLbl} ↔ مرز خسروی`,'+۲,۲۰۰,۰۰۰ ت/نفر','land_avan');
+    mkOpt(selfIco,'خودم تا مرز می‌آیم','هزینه حمل‌ونقل داخلی محاسبه نمی‌شود','بدون هزینه','land_self');
   }
 }
 
@@ -1635,15 +1606,14 @@ window.iwSelTransport=opt=>{
   updateLiveCost();
 };
 window.iwSkipTransport=()=>{IW.transportOpt='skip';iwNext(4)};
-
 window.iwToggleSvc=svc=>{
   const key='svc'+svc.charAt(0).toUpperCase()+svc.slice(1);
   IW[key]=!IW[key];
-  qs('iwSvc_'+svc)?.classList.toggle('sel',IW[key]);
+  $('iwSvc_'+svc)?.classList.toggle('sel',IW[key]);
   updateLiveCost();
 };
 
-// ── COST CALC ──────────────────────────────────────────────────────────
+// ── COST CALC ─────────────────────────────────────────────────────────
 function calcCosts(){
   let accommodationPP=0;
   CITY_KEYS.forEach(k=>{
@@ -1651,126 +1621,103 @@ function calcCosts(){
       accommodationPP+=CITY_META[k].basePerNight*HOTELS[k][IW.hotels[k]].mult*IW.cityNights[k];
   });
   const iraqServicesPP=accommodationPP+450000;
-  let transportPP=0;
-  if(IW.transportOpt==='flight_avan')transportPP=4500000;
-  else if(IW.transportOpt==='mixed_avan')transportPP=1800000;
-  else if(IW.transportOpt==='land_avan')transportPP=2200000;
+  const tpMap={flight_avan:4500000,mixed_avan:1800000,land_avan:2200000};
+  const transportPP=tpMap[IW.transportOpt]||0;
   const servicesPP=IW.svcSim?350000:0;
   const perPerson=Math.round(iraqServicesPP+transportPP+servicesPP);
-  const total=perPerson*IW.pax;
-  const totalNights=CITY_KEYS.filter(k=>IW.cityMode[k]==='stay').reduce((s,k)=>s+IW.cityNights[k],0);
-  return{accommodationPP:Math.round(accommodationPP),iraqServicesPP:Math.round(iraqServicesPP),transportPP,servicesPP,perPerson,total,totalNights};
+  return{accommodationPP:Math.round(accommodationPP),iraqServicesPP:Math.round(iraqServicesPP),transportPP,servicesPP,perPerson,total:perPerson*IW.pax};
 }
 
 function updateLiveCost(){
   const c=calcCosts();
-  const bar=qs('liveCostBar');
-  if(IW.step<2&&!IW.pax){bar.classList.remove('show');return}
+  const bar=$('liveCostBar');
   if(c.total===0&&IW.step<3){bar.classList.remove('show');return}
   bar.classList.add('show');
-  qs('lcbTotal').textContent=fmt(c.total)+' ت';
-  qs('lcbPP').textContent=IW.pax>1?`هر نفر: ${fmt(c.perPerson)} ت`:'';
+  $('lcbTotal').textContent=fmt(c.total)+' ت';
+  $('lcbPP').textContent=IW.pax>1?`هر نفر: ${fmt(c.perPerson)} ت`:'';
   const items=[];
   if(c.accommodationPP)items.push(`هتل: ${fmt(c.accommodationPP*IW.pax)} ت`);
   if(c.transportPP)items.push(`حمل‌ونقل: ${fmt(c.transportPP*IW.pax)} ت`);
   if(c.servicesPP)items.push(`خدمات: ${fmt(c.servicesPP*IW.pax)} ت`);
-  qs('lcbBreakdown').innerHTML=items.map(i=>`<div class="lcb-item"><div class="lcb-dot"></div>${i}</div>`).join('');
+  $('lcbBreakdown').innerHTML=items.map(i=>`<div class="lcb-item"><div class="lcb-dot"></div>${i}</div>`).join('');
 }
 
-// ── STEP 5 SUMMARY ─────────────────────────────────────────────────────
-function iwBuildTripSummary5(){
-  const c=calcCosts();
+// ── TRIP SUMMARY (shared) ─────────────────────────────────────────────
+function buildTripSummaryHTML(c){
   const activeCities=CITY_KEYS.filter(k=>IW.cityMode[k]&&IW.cityMode[k]!=='skip');
-  const transportLabel={
-    flight_avan:'پرواز — تهیه آوان',flight_self:'پرواز — تهیه مسافر',
-    mixed_avan:'ترکیبی — برگشت زمینی',land_avan:'اتوبوس رفت و برگشت',
-    land_self:'حمل‌ونقل شخصی',skip:'بدون حمل‌ونقل آوان'
-  };
-  const el=qs('iwTripSummary5');
-  el.innerHTML=`
-    <div class="trip-summary-box">
-      <div class="tsb-title">خلاصه سفر شما</div>
-      <div class="tsb-meta">
-        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
-        ${P(IW.selD)} ${PM[IW.selM-1]} ${P(IW.selY)}
-        &nbsp;·&nbsp;
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-        ${P(IW.pax)} نفر
-        &nbsp;·&nbsp;
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 010 16c-4 0-8-5-8-8a8 8 0 018-8z"/></svg>
-        ${CITY_LABELS[IW.origin]||IW.origin}
-      </div>
-      ${activeCities.map((k,i)=>{
-        const mode=IW.cityMode[k];
-        const hName=mode==='stay'&&IW.hotels[k]!==undefined?HOTELS[k][IW.hotels[k]].name:'ترانزیت';
-        return `<div class="tsb-city"><div class="tsb-city-n">${P(i+1)}</div><div class="tsb-city-name">${CITY_META[k].name}</div><div class="tsb-city-detail">${mode==='stay'?hName+' · '+P(IW.cityNights[k])+' شب':'عبور'}</div></div>`;
-      }).join('')}
-      <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,168,76,.15);font-size:11px;color:rgba(255,255,255,.55)">${transportLabel[IW.transportOpt]||'—'}${IW.svcSim?' · سیم‌کارت':''}</div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(201,168,76,.13);border:1px solid rgba(201,168,76,.28);border-radius:10px;padding:11px 14px;margin-bottom:16px">
-      <div style="font-size:11px;color:var(--goldL)">هزینه تخمینی کل — ${P(IW.pax)} نفر</div>
-      <div style="font-size:18px;font-weight:900;color:var(--goldL)">${fmt(c.total)} ت</div>
-    </div>
-  `;
+  const tpLabel={flight_avan:'پرواز — تهیه آوان',flight_self:'پرواز — تهیه مسافر',mixed_avan:'ترکیبی — برگشت زمینی',land_avan:'اتوبوس رفت و برگشت',land_self:'حمل‌ونقل شخصی',skip:'بدون حمل‌ونقل آوان'};
+  const cities=activeCities.map((k,i)=>{
+    const mode=IW.cityMode[k];
+    const hName=mode==='stay'&&IW.hotels[k]!==undefined?HOTELS[k][IW.hotels[k]].name:'ترانزیت';
+    return `<div class="tsb-city"><div class="tsb-city-n">${P(i+1)}</div><div class="tsb-city-name">${CITY_META[k].name}</div><div class="tsb-city-detail">${mode==='stay'?hName+' · '+P(IW.cityNights[k])+' شب':'عبور'}</div></div>`;
+  }).join('');
+  return`<div class="trip-summary-box"><div class="tsb-title">خلاصه سفر شما</div>
+    <div class="tsb-meta">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>${P(IW.selD)} ${PM[IW.selM-1]} ${P(IW.selY)}
+      &nbsp;·&nbsp;<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>${P(IW.pax)} نفر
+      &nbsp;·&nbsp;<svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 010 16c-4 0-8-5-8-8a8 8 0 018-8z"/></svg>${CITY_LABELS[IW.origin]||IW.origin}
+    </div>${cities}
+    <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,168,76,.15);font-size:11px;color:rgba(255,255,255,.55)">${tpLabel[IW.transportOpt]||'—'}${IW.svcSim?' · سیم‌کارت':''}</div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(201,168,76,.13);border:1px solid rgba(201,168,76,.28);border-radius:10px;padding:11px 14px;margin-bottom:16px">
+    <div style="font-size:11px;color:var(--goldL)">هزینه تخمینی — ${P(IW.pax)} نفر</div>
+    <div style="font-size:18px;font-weight:900;color:var(--goldL)">${fmt(c.total)} ت</div>
+  </div>`;
 }
 
-// ── STEP 6 ─────────────────────────────────────────────────────────────
+function iwBuildTripSummary5(){
+  $('iwTripSummary5').innerHTML=buildTripSummaryHTML(calcCosts());
+}
+
 function iwBuildCostBreakdown(){
   const c=calcCosts();
   const activeCities=CITY_KEYS.filter(k=>IW.cityMode[k]&&IW.cityMode[k]!=='skip');
   const tl={air:'هوایی',land:'زمینی',mixed:'ترکیبی'};
-  const transportLabel={
-    flight_avan:'پرواز — تهیه آوان',flight_self:'پرواز — تهیه مسافر',
-    mixed_avan:'ترکیبی — برگشت زمینی آوان',land_avan:'اتوبوس رفت و برگشت',
-    land_self:'حمل‌ونقل شخصی',skip:'بدون حمل‌ونقل آوان'
-  };
+  const tpLabel={flight_avan:'پرواز — تهیه آوان',flight_self:'پرواز — تهیه مسافر',mixed_avan:'ترکیبی — برگشت زمینی',land_avan:'اتوبوس رفت و برگشت',land_self:'حمل‌ونقل شخصی',skip:'—'};
   const citySummary=activeCities.map((k,i)=>{
     const mode=IW.cityMode[k];
     const hName=mode==='stay'&&IW.hotels[k]!==undefined?HOTELS[k][IW.hotels[k]].name:'ترانزیت';
     return `<div class="tsb-city"><div class="tsb-city-n">${P(i+1)}</div><div class="tsb-city-name">${CITY_META[k].name}</div><div class="tsb-city-detail">${hName}${mode==='stay'?' · '+P(IW.cityNights[k])+' شب':''}</div></div>`;
   }).join('');
-  qs('iwCostBreakdown').innerHTML=`
+  $('iwCostBreakdown').innerHTML=`
     <div class="trip-summary-box" style="margin-bottom:12px">
       <div class="tsb-title">خلاصه سفر</div>
-      <div class="tsb-meta">
-        ${P(IW.selD)} ${PM[IW.selM-1]} ${P(IW.selY)} &nbsp;·&nbsp; ${P(IW.pax)} نفر &nbsp;·&nbsp; ${CITY_LABELS[IW.origin]||IW.origin} &nbsp;·&nbsp; ${tl[IW.type]||'—'}
-      </div>
+      <div class="tsb-meta">${P(IW.selD)} ${PM[IW.selM-1]} ${P(IW.selY)} &nbsp;·&nbsp; ${P(IW.pax)} نفر &nbsp;·&nbsp; ${CITY_LABELS[IW.origin]||IW.origin} &nbsp;·&nbsp; ${tl[IW.type]||'—'}</div>
       ${citySummary}
     </div>
     <div class="cost-section">
       <div class="cost-title">تفکیک هزینه — هر نفر</div>
       <div class="cost-row"><div class="cost-row-lbl">خدمات داخل عراق (اقامت + خدمات محلی)</div><div class="cost-row-val">${fmt(c.iraqServicesPP)} ت</div></div>
-      <div class="cost-row"><div class="cost-row-lbl">${transportLabel[IW.transportOpt]||'حمل‌ونقل'}</div><div class="cost-row-val ${c.transportPP===0?'zero':''}">${c.transportPP?fmt(c.transportPP)+' ت':'—'}</div></div>
+      <div class="cost-row"><div class="cost-row-lbl">${tpLabel[IW.transportOpt]||'حمل‌ونقل'}</div><div class="cost-row-val ${c.transportPP===0?'zero':''}">${c.transportPP?fmt(c.transportPP)+' ت':'—'}</div></div>
       ${IW.svcSim?`<div class="cost-row"><div class="cost-row-lbl">سیم‌کارت عراقی</div><div class="cost-row-val">${fmt(350000)} ت</div></div>`:''}
       ${IW.svcExchange?`<div class="cost-row"><div class="cost-row-lbl">صرافی دینار عراقی</div><div class="cost-row-val zero">رایگان</div></div>`:''}
       <div class="cost-row" style="border-top:1px solid rgba(255,255,255,.1);margin-top:6px;padding-top:9px"><div class="cost-row-lbl" style="color:rgba(255,255,255,.82);font-weight:700">جمع هر نفر</div><div class="cost-row-val" style="font-size:14px;color:var(--goldL)">${fmt(c.perPerson)} ت</div></div>
       <div class="cost-total-row"><div class="cost-total-lbl">جمع کل — ${P(IW.pax)} نفر</div><div class="cost-total-val">${fmt(c.total)} ت</div></div>
     </div>
-    <div class="pay-secure"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> پرداخت امن — درگاه زرین‌پال — رمزگذاری SSL</div>
-  `;
+    <div class="pay-secure"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> پرداخت امن — درگاه زرین‌پال — رمزگذاری SSL</div>`;
 }
 
-// ── WIZARD NAV ─────────────────────────────────────────────────────────
+// ── WIZARD NAV ────────────────────────────────────────────────────────
 const STEP_PROG=[0,16,33,50,66,83,100];
 function iwSetStep(n){
   IW.step=n;
-  qs('iwBar').style.width=STEP_PROG[n]+'%';
+  $('iwBar').style.width=STEP_PROG[n]+'%';
   for(let i=1;i<=6;i++){
-    const d=qs(`iwD${i}`),l=qs(`iwLb${i}`),ln=qs(`iwL${i}`);
+    const d=$(`iwD${i}`),l=$(`iwLb${i}`),ln=$(`iwL${i}`);
     if(d){d.className='iw-snav-dot'+(i<n?' done':i===n?' active':'');d.textContent=i<n?'✓':P(i)}
     if(l)l.className='iw-snav-lbl'+(i<n?' done':i===n?' active':'');
     if(ln)ln.className='iw-snav-line'+(i<n?' done':'');
-    qs(`iwS${i}`)?.classList.toggle('active',i===n);
+    $(`iwS${i}`)?.classList.toggle('active',i===n);
   }
   if(n===3)iwBuildHotelStep();
-  if(n===4){iwBuildTransport();}
+  if(n===4)iwBuildTransport();
   if(n===5)iwBuildTripSummary5();
   if(n===6)iwBuildCostBreakdown();
   updateLiveCost();
-  setTimeout(()=>{const w=qs('iwWrap');if(w)window.scrollTo({top:w.offsetTop-72,behavior:'smooth'})},80);
+  setTimeout(()=>{const w=$('iwWrap');if(w)window.scrollTo({top:w.offsetTop-72,behavior:'smooth'})},80);
 }
 
-const iwShowErr=(n,msg)=>{const e=qs(`iwErr${n}`);e.textContent=msg;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),3200)};
+const iwShowErr=(n,msg)=>{const e=$(`iwErr${n}`);e.textContent=msg;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),3200)};
 
 window.iwNext=n=>{
   if(n===1){
@@ -1782,7 +1729,7 @@ window.iwNext=n=>{
   if(n===2){
     const active=CITY_KEYS.filter(k=>IW.cityMode[k]&&IW.cityMode[k]!=='skip');
     if(!active.length){iwShowErr(2,'حداقل یک شهر (اقامت یا عبور) انتخاب کنید.');return}
-    const noMode=CITY_KEYS.filter(k=>{const el=qs('iwCC_'+k);return el&&el.classList.contains('sel')&&!IW.cityMode[k]});
+    const noMode=CITY_KEYS.filter(k=>{const el=$('iwCC_'+k);return el&&el.classList.contains('sel')&&!el.classList.contains('done-city')&&!IW.cityMode[k]});
     if(noMode.length){iwShowErr(2,'برای هر شهر انتخاب‌شده گزینه‌ای مشخص کنید.');return}
     refreshCityOrder();iwSetStep(3);return;
   }
@@ -1796,11 +1743,11 @@ window.iwNext=n=>{
     iwSetStep(5);return;
   }
   if(n===5){
-    IW.travFirst=qs('tfFirst')?.value.trim();
-    IW.travLast=qs('tfLast')?.value.trim();
-    IW.travNational=qs('tfNational')?.value.trim();
-    IW.travBirth=qs('tfBirth')?.value.trim();
-    IW.travPhone=qs('tfPhone')?.value.trim();
+    IW.travFirst=$('tfFirst')?.value.trim()||'';
+    IW.travLast=$('tfLast')?.value.trim()||'';
+    IW.travNational=$('tfNational')?.value.trim()||'';
+    IW.travBirth=$('tfBirth')?.value.trim()||'';
+    IW.travPhone=$('tfPhone')?.value.trim()||'';
     if(!IW.travFirst||!IW.travLast){iwShowErr(5,'نام و نام خانوادگی الزامی است.');return}
     if(!IW.travPhone||IW.travPhone.length<10){iwShowErr(5,'شماره موبایل معتبر وارد کنید.');return}
     if(!IW.travNational||IW.travNational.length!==10){iwShowErr(5,'کد ملی ۱۰ رقمی وارد کنید.');return}
@@ -1809,46 +1756,35 @@ window.iwNext=n=>{
 };
 window.iwBack=from=>{if(from>1)iwSetStep(from-1)};
 
-// ── FINISH ─────────────────────────────────────────────────────────────
+// ── FINISH ────────────────────────────────────────────────────────────
 window.iwFinish=async()=>{
   const costs=calcCosts();
   const code='AVN-'+Math.random().toString(36).toUpperCase().slice(2,8);
   const TG_BOT_TOKEN='TELEGRAM_BOT_TOKEN_HERE';
   const TG_CHAT_ID='TELEGRAM_CHAT_ID_HERE';
-  const PM2=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
   const tl={air:'هوایی',land:'زمینی',mixed:'ترکیبی'};
-  const transportLabel={
-    flight_avan:'✈️ پرواز — تهیه آوان',flight_self:'✈️ پرواز — تهیه مسافر',
-    mixed_avan:'✈️🚌 ترکیبی — برگشت زمینی آوان',land_avan:'🚌 اتوبوس رفت و برگشت',
-    land_self:'🚶 حمل‌ونقل شخصی',skip:'— بدون حمل‌ونقل آوان'
-  };
+  const tpLabel={flight_avan:'✈️ پرواز — تهیه آوان',flight_self:'✈️ پرواز — تهیه مسافر',mixed_avan:'✈️ ترکیبی',land_avan:'🚌 اتوبوس رفت و برگشت',land_self:'🚶 حمل‌ونقل شخصی',skip:'—'};
   const activeCities=CITY_KEYS.filter(k=>IW.cityMode[k]&&IW.cityMode[k]!=='skip');
   const cityRows=activeCities.map((k,i)=>{
     const mode=IW.cityMode[k];
     const hName=mode==='stay'&&IW.hotels[k]!==undefined?HOTELS[k][IW.hotels[k]].name:'ترانزیت';
     return `  ${i+1}. ${CITY_META[k].name} — ${mode==='stay'?hName+' ('+IW.cityNights[k]+' شب)':'ترانزیت'}`;
   }).join('\n');
-  const svcs=[];
-  if(IW.svcSim)svcs.push('سیم‌کارت عراقی');
-  if(IW.svcExchange)svcs.push('صرافی دینار');
+  const svcs=[IW.svcSim?'سیم‌کارت عراقی':null,IW.svcExchange?'صرافی دینار':null].filter(Boolean);
   const msg=`🕌 ثبت‌نام جدید — گروه زیارتی آوان
 ━━━━━━━━━━━━━━━━
-🔖 کد پیگیری: ${code}
-━━━━━━━━━━━━━━━━
+🔖 کد: ${code}
 👤 ${IW.travFirst} ${IW.travLast}
 📱 ${IW.travPhone}
-🪪 کد ملی: ${IW.travNational}
+🪪 ${IW.travNational}
 🎂 ${IW.travBirth}
 ━━━━━━━━━━━━━━━━
-📅 ${IW.selD} ${PM2[(IW.selM||1)-1]} ${IW.selY}
-📍 مبدا: ${CITY_LABELS[IW.origin]||IW.origin}
-👥 مسافران: ${IW.pax} نفر
-🚀 نوع: ${tl[IW.type]||'—'}
+📅 ${IW.selD} ${PM[IW.selM-1]} ${IW.selY}
+📍 ${CITY_LABELS[IW.origin]||IW.origin} | 👥 ${IW.pax} نفر | 🚀 ${tl[IW.type]||'—'}
 ━━━━━━━━━━━━━━━━
-🗺️ مقاصد:
-${cityRows}
+🗺️ مقاصد:\n${cityRows}
 ━━━━━━━━━━━━━━━━
-${transportLabel[IW.transportOpt]||'—'}
+${tpLabel[IW.transportOpt]||'—'}
 ${svcs.length?'✅ '+svcs.join('، '):''}
 ━━━━━━━━━━━━━━━━
 💰 هر نفر: ${Math.round(costs.perPerson).toLocaleString()} ت
@@ -1858,28 +1794,35 @@ ${svcs.length?'✅ '+svcs.join('، '):''}
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({chat_id:TG_CHAT_ID,text:msg})
     });
-  }catch(e){console.log('Telegram not configured',e)}
-  qs('smCode').textContent=code;
-  qs('smAmt').textContent=fmt(costs.total);
-  qs('smPayBtn').onclick=()=>{alert('درگاه زرین‌پال: لطفاً Merchant ID را تنظیم کنید.')};
-  qs('successOv').classList.add('show');
+  }catch(e){console.log('Telegram not configured')}
+  $('smCode').textContent=code;
+  $('smAmt').textContent=fmt(costs.total);
+  $('smPayBtn').onclick=()=>alert('درگاه زرین‌پال: لطفاً Merchant ID را تنظیم کنید.');
+  $('successOv').classList.add('show');
 };
-window.closeSuccess=()=>qs('successOv').classList.remove('show');
+window.closeSuccess=()=>$('successOv').classList.remove('show');
 
-// ── COLLAPSIBLES ───────────────────────────────────────────────────────
-window.toggleAcc=id=>{qs(id+'Btn').classList.toggle('open');qs(id+'Body').classList.toggle('open')};
-window.togStep=id=>{const el=qs(id),was=el.classList.contains('open');document.querySelectorAll('.step-item').forEach(x=>x.classList.remove('open'));if(!was)el.classList.add('open')};
-window.togFaq=id=>{const el=qs(id),was=el.classList.contains('open');document.querySelectorAll('.faq-item').forEach(x=>x.classList.remove('open'));if(!was)el.classList.add('open')};
+// ── COLLAPSIBLES ──────────────────────────────────────────────────────
+window.toggleAcc=id=>{$(id+'Btn').classList.toggle('open');$(id+'Body').classList.toggle('open')};
+window.togStep=id=>{const el=$(id),was=el.classList.contains('open');document.querySelectorAll('.step-item').forEach(x=>x.classList.remove('open'));if(!was)el.classList.add('open')};
+window.togFaq=id=>{const el=$(id),was=el.classList.contains('open');document.querySelectorAll('.faq-item').forEach(x=>x.classList.remove('open'));if(!was)el.classList.add('open')};
 
-// ── CARAVANS ───────────────────────────────────────────────────────────
-const CV_CITIES=[{city:'تهران',type:'air'},{city:'مشهد',type:'air'},{city:'اصفهان',type:'air'},{city:'شیراز',type:'land'},{city:'تبریز',type:'land'},{city:'کرج',type:'land'}];
-const CV_DATA={'تهران':{3:[{id:1,day:17,type:'land',cap:14,total:40,dur:'۸ روز',route:'کربلا + نجف',price:'۸,۲۰۰,۰۰۰'},{id:2,day:20,type:'air',cap:8,total:30,dur:'۷ روز',route:'کربلا + نجف + کاظمین',price:'۱۴,۵۰۰,۰۰۰'}],4:[{id:8,day:3,type:'air',cap:18,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۳,۸۰۰,۰۰۰'}]},'مشهد':{3:[{id:20,day:18,type:'air',cap:20,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۶,۲۰۰,۰۰۰'}],4:[{id:23,day:5,type:'air',cap:24,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۶,۲۰۰,۰۰۰'}]},'اصفهان':{3:[{id:30,day:20,type:'air',cap:22,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۵,۸۰۰,۰۰۰'}],4:[]},'شیراز':{3:[{id:40,day:21,type:'land',cap:16,total:36,dur:'۱۰ روز',route:'کربلا + نجف',price:'۹,۶۰۰,۰۰۰'}],4:[]},'تبریز':{3:[{id:50,day:23,type:'land',cap:13,total:38,dur:'۹ روز',route:'کربلا + نجف',price:'۸,۸۰۰,۰۰۰'}],4:[]},'کرج':{3:[{id:60,day:19,type:'land',cap:18,total:40,dur:'۸ روز',route:'کربلا + نجف',price:'۸,۰۰۰,۰۰۰'}],4:[]}};
-const PM_CV=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+// ── CARAVANS ──────────────────────────────────────────────────────────
+const CV_CITIES=[{city:'تهران'},{city:'مشهد'},{city:'اصفهان'},{city:'شیراز'},{city:'تبریز'},{city:'کرج'}];
+const CV_DATA={
+  'تهران':{3:[{id:1,day:17,type:'land',cap:14,total:40,dur:'۸ روز',route:'کربلا + نجف',price:'۸,۲۰۰,۰۰۰',hotels:{karbala:'هتل الکوثر',najaf:'هتل النخیل'}},{id:2,day:20,type:'air',cap:8,total:30,dur:'۷ روز',route:'کربلا + نجف + کاظمین',price:'۱۴,۵۰۰,۰۰۰',hotels:{karbala:'هتل کربلا اینترنشنال',najaf:'هتل نجف پالاس',kadh_sam:'هتل الکاظمیه پالاس'}}],4:[{id:8,day:3,type:'air',cap:18,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۳,۸۰۰,۰۰۰',hotels:{karbala:'هتل فرات',najaf:'هتل المشرق'}}]},
+  'مشهد':{3:[{id:20,day:18,type:'air',cap:20,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۶,۲۰۰,۰۰۰',hotels:{karbala:'هتل کربلا اینترنشنال',najaf:'هتل نجف پالاس'}}],4:[{id:23,day:5,type:'air',cap:24,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۶,۲۰۰,۰۰۰',hotels:{karbala:'هتل الحسین انترنشنال',najaf:'هتل نجف گرند'}}]},
+  'اصفهان':{3:[{id:30,day:20,type:'air',cap:22,total:30,dur:'۷ روز',route:'کربلا + نجف',price:'۱۵,۸۰۰,۰۰۰',hotels:{karbala:'هتل کربلا اینترنشنال',najaf:'هتل المشرق'}}],4:[]},
+  'شیراز':{3:[{id:40,day:21,type:'land',cap:16,total:36,dur:'۱۰ روز',route:'کربلا + نجف',price:'۹,۶۰۰,۰۰۰',hotels:{karbala:'هتل الکوثر',najaf:'هتل النخیل'}}],4:[]},
+  'تبریز':{3:[{id:50,day:23,type:'land',cap:13,total:38,dur:'۹ روز',route:'کربلا + نجف',price:'۸,۸۰۰,۰۰۰',hotels:{karbala:'هتل الانوار',najaf:'هتل الروضه'}}],4:[]},
+  'کرج':{3:[{id:60,day:19,type:'land',cap:18,total:40,dur:'۸ روز',route:'کربلا + نجف',price:'۸,۰۰۰,۰۰۰',hotels:{karbala:'هتل الکوثر',najaf:'هتل النخیل'}}],4:[]}
+};
 let cvState={city:'تهران',filter:'all',openId:null};
 const cvCapCls=(c,t)=>{const r=c/t;return r>=.38?'hi':r>=.13?'mi':'lo'};
 const cvCapLbl=(c,t)=>{if(c<=0)return'تکمیل';const r=c/t;return r<.13?P(c)+' نفر — آخرین فرصت':r<.38?P(c)+' نفر — محدود':P(c)+' صندلی خالی'};
+
 function cvBuildCities(){
-  const wrap=qs('cvCityPills');if(!wrap||wrap.children.length)return;
+  const wrap=$('cvCityPills');if(!wrap||wrap.children.length)return;
   CV_CITIES.forEach(c=>{
     const p=document.createElement('div');p.className='cv-cpill'+(c.city===cvState.city?' active':'');
     p.innerHTML=`<div class="cv-cpill-dot"></div>${c.city}`;
@@ -1888,8 +1831,9 @@ function cvBuildCities(){
   });
 }
 window.cvSetFilter=f=>{cvState.filter=f;cvState.openId=null;document.querySelectorAll('#cvTabs .cv-tab').forEach((t,i)=>t.classList.toggle('active',['all','air','land'][i]===f));cvRender()};
+
 function cvRender(){
-  const list=qs('cvList'),empty=qs('cvEmpty');if(!list)return;
+  const list=$('cvList'),empty=$('cvEmpty');if(!list)return;
   let all=[];[3,4].forEach(m=>{((CV_DATA[cvState.city]||{})[m]||[]).forEach(ev=>all.push({...ev,month:m}))});
   if(cvState.filter!=='all')all=all.filter(ev=>ev.type===cvState.filter);
   all.sort((a,b)=>a.month!==b.month?a.month-b.month:a.day-b.day);
@@ -1900,95 +1844,132 @@ function cvRender(){
   const SVG_BUS=`<svg viewBox="0 0 24 24" fill="none" stroke="#8a6820" stroke-width="1.7" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`;
   all.forEach(ev=>{
     const isOpen=cvState.openId===ev.id;
-    const cls=cvCapCls(ev.cap,ev.total);const pct=Math.round(ev.cap/ev.total*100);
+    const cls=cvCapCls(ev.cap,ev.total);
+    const pct=Math.round(ev.cap/ev.total*100);
+    // Build hotels section
+    const hotelRows=Object.entries(ev.hotels||{}).map(([cKey,hName])=>
+      `<div class="cv-hotel-row"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="cv-hotel-city">${CITY_META[cKey]?.name||cKey}</span><span>${hName}</span></div>`
+    ).join('');
     const card=document.createElement('div');card.className='cv-card'+(isOpen?' open':'');card.id='cvc_'+ev.id;
-    card.innerHTML=`<div class="cv-head" onclick="cvToggle(${ev.id})"><div class="cv-tbox ${ev.type}">${ev.type==='air'?SVG_AIR:SVG_BUS}</div><div class="cv-date-block"><div class="cv-day">${P(ev.day)}</div><div class="cv-month">${PM_CV[ev.month-1]}</div></div><div class="cv-vdiv"></div><div class="cv-info"><div class="cv-route">${ev.route}</div><div class="cv-meta"><span class="cv-tag ${ev.type}">${ev.type==='air'?'هوایی':'زمینی'}</span><span class="cv-tag dur">${ev.dur}</span></div></div><div class="cv-cap ${cls}"><div class="cv-cap-dot"></div>${ev.cap<=0?'تکمیل':P(ev.cap)+' نفر'}</div><div class="cv-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="cv-detail"><div class="cv-detail-inner"><div class="cv-dgrid"><div class="cv-dcell"><div class="cv-dlbl">تاریخ</div><div class="cv-dval">${P(ev.day)} ${PM_CV[ev.month-1]}</div></div><div class="cv-dcell"><div class="cv-dlbl">مبدا</div><div class="cv-dval">${cvState.city}</div></div><div class="cv-dcell"><div class="cv-dlbl">مدت</div><div class="cv-dval">${ev.dur}</div></div><div class="cv-dcell"><div class="cv-dlbl">قیمت / نفر</div><div class="cv-dval price">${ev.price} ت</div></div></div><div class="cv-capbar-wrap"><div class="cv-capbar-top"><span>ظرفیت</span><span class="cv-cap ${cls}"><div class="cv-cap-dot" style="display:inline-block;margin-left:4px;vertical-align:middle"></div>${cvCapLbl(ev.cap,ev.total)}</span></div><div class="cv-capbar-track"><div class="cv-capbar-fill ${cls}" style="width:${pct}%"></div></div></div><button class="cv-book-btn" onclick="cvBook()">رزرو این کاروان ✦</button></div></div>`;
+    card.innerHTML=`
+      <div class="cv-head" onclick="cvToggle(${ev.id})">
+        <div class="cv-tbox ${ev.type}">${ev.type==='air'?SVG_AIR:SVG_BUS}</div>
+        <div class="cv-date-block"><div class="cv-day">${P(ev.day)}</div><div class="cv-month">${PM[ev.month-1]}</div></div>
+        <div class="cv-vdiv"></div>
+        <div class="cv-info"><div class="cv-route">${ev.route}</div><div class="cv-meta"><span class="cv-tag ${ev.type}">${ev.type==='air'?'هوایی':'زمینی'}</span><span class="cv-tag dur">${ev.dur}</span></div></div>
+        <div class="cv-cap ${cls}"><div class="cv-cap-dot"></div>${ev.cap<=0?'تکمیل':P(ev.cap)+' نفر'}</div>
+        <div class="cv-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="cv-detail"><div class="cv-detail-inner">
+        <div class="cv-dgrid">
+          <div class="cv-dcell"><div class="cv-dlbl">تاریخ</div><div class="cv-dval">${P(ev.day)} ${PM[ev.month-1]}</div></div>
+          <div class="cv-dcell"><div class="cv-dlbl">مبدا</div><div class="cv-dval">${cvState.city}</div></div>
+          <div class="cv-dcell"><div class="cv-dlbl">مدت</div><div class="cv-dval">${ev.dur}</div></div>
+          <div class="cv-dcell"><div class="cv-dlbl">قیمت / نفر</div><div class="cv-dval price">${ev.price} ت</div></div>
+        </div>
+        ${hotelRows?`<div class="cv-hotels-section"><div class="cv-hotels-lbl">هتل‌های برنامه</div>${hotelRows}</div>`:''}
+        <div class="cv-capbar-wrap">
+          <div class="cv-capbar-top"><span>ظرفیت</span><span class="cv-cap ${cls}"><div class="cv-cap-dot" style="display:inline-block;margin-left:4px;vertical-align:middle"></div>${cvCapLbl(ev.cap,ev.total)}</span></div>
+          <div class="cv-capbar-track"><div class="cv-capbar-fill ${cls}" style="width:${pct}%"></div></div>
+        </div>
+        <button class="cv-book-btn" onclick="cvBook()">رزرو این کاروان ✦</button>
+      </div></div>`;
     list.appendChild(card);
   });
 }
 window.cvToggle=id=>{cvState.openId=cvState.openId===id?null:id;cvRender()};
-window.cvBook=()=>{openAIChat();setTimeout(()=>{const inp=qs('aiInput');if(inp){inp.value='می‌خوام این کاروان رو رزرو کنم';aiSend()}},400)};
+window.cvBook=()=>{openAIChat();setTimeout(()=>{const inp=$('aiInput');if(inp){inp.value='می‌خوام این کاروان رو رزرو کنم';aiSend()}},400)};
 
-// ── PARTNERS ───────────────────────────────────────────────────────────
-const PARTNER_DATA={sadra:{phone:'۰۲۱۷۴۴۰۵',addr:'تهران، پایین‌تر از چهارراه تلفنخانه، پلاک ۲۰۸'},mohebban:{phone:'۰۲۱۳۳۹۷۵۶۴۰',addr:'تهران، خیابان جمهوری، ابتدای خیابان ملت'}};
+// ── PARTNERS ──────────────────────────────────────────────────────────
+const PARTNER_DATA={
+  sadra:{phone:'۰۲۱۷۴۴۰۵',addr:'تهران، پایین‌تر از چهارراه تلفنخانه، پلاک ۲۰۸'},
+  mohebban:{phone:'۰۲۱۳۳۹۷۵۶۴۰',addr:'تهران، خیابان جمهوری، ابتدای خیابان ملت'}
+};
 window.togglePartner=id=>{
   const cap=id.charAt(0).toUpperCase()+id.slice(1);
-  const info=qs('pinfo'+cap),chev=qs('pchev'+cap);
+  const info=$('pinfo'+cap),chev=$('pchev'+cap);
   if(!info||!chev)return;
   const isOpen=info.classList.contains('open');
-  ['sadra','mohebban'].forEach(k=>{const c=k.charAt(0).toUpperCase()+k.slice(1);qs('pinfo'+c)?.classList.remove('open');qs('pchev'+c)?.classList.remove('open')});
+  ['sadra','mohebban'].forEach(k=>{const c=k.charAt(0).toUpperCase()+k.slice(1);$('pinfo'+c)?.classList.remove('open');$('pchev'+c)?.classList.remove('open')});
   if(!isOpen){
     const d=PARTNER_DATA[id];
-    info.innerHTML=d?`<div class="partner-info-inner"><div class="pi-row"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span dir="ltr">${d.phone}</span></div><div class="pi-row"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 010 16c-4 0-8-5-8-8a8 8 0 018-8z"/></svg><span>${d.addr}</span></div></div>`:'';
+    if(d)info.innerHTML=`<div class="partner-info-inner"><div class="pi-row"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span dir="ltr">${d.phone}</span></div><div class="pi-row"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 010 16c-4 0-8-5-8-8a8 8 0 018-8z"/></svg><span>${d.addr}</span></div></div>`;
     info.offsetHeight;info.classList.add('open');chev.classList.add('open');
   }
 };
 
-// ── AI CHAT ────────────────────────────────────────────────────────────
+// ── AI CHAT ───────────────────────────────────────────────────────────
 let aiOpen=false,aiHistory=[],aiTyping=false;
 const AI_SYS='تو مشاور هوشمند گروه زیارتی آوان هستی. پاسخت باید دقیقاً JSON باشه:\n{"intro":"متن کوتاه صمیمی","suggestions":[{"title":"عنوان","origin":"مبدا","transport":"هوایی/زمینی","route":"مسیر","nights":5,"hotel":"5 ستاره","priceMin":18000000,"priceMax":24000000,"highlight":"ویژگی کلیدی"}]}';
+const BOT_AV=`<svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="5"/><path d="M8 9 Q12 4 16 9"/><path d="M7 9 L7 16 L17 16 L17 9"/><rect x="10" y="12" width="4" height="4"/></svg>`;
+const USER_AV=`<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+
 window.openAIChat=()=>{
-  aiOpen=true;qs('aiPanel').classList.add('vis');
+  aiOpen=true;$('aiPanel').classList.add('vis');
   if(!aiHistory.length)aiAddMsg('bot','سلام! بگو چه سفری می‌خوای — مثلاً «۵ روز کربلا و نجف، هوایی از تهران»');
-  setTimeout(()=>qs('aiInput').focus(),300);
+  setTimeout(()=>$('aiInput').focus(),300);
 };
-window.closeAIChat=()=>{aiOpen=false;qs('aiPanel').classList.remove('vis')};
-window.aiQuick=text=>{if(!aiOpen)openAIChat();setTimeout(()=>{qs('aiInput').value=text;aiSend()},aiOpen?0:400)};
+window.closeAIChat=()=>{aiOpen=false;$('aiPanel').classList.remove('vis')};
+window.aiQuick=text=>{if(!aiOpen)openAIChat();setTimeout(()=>{$('aiInput').value=text;aiSend()},aiOpen?0:400)};
+
 function aiAddMsg(role,text){
-  const msgs=qs('aiMsgs');
+  const msgs=$('aiMsgs');
   const wrap=document.createElement('div');wrap.className='ai-msg '+(role==='user'?'user':'');
-  const av=document.createElement('div');av.className='ai-msg-av';
-  av.innerHTML=role==='user'?`<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`:`<svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="5"/><path d="M8 9 Q12 4 16 9"/><path d="M7 9 L7 16 L17 16 L17 9"/><rect x="10" y="12" width="4" height="4"/></svg>`;
+  const av=document.createElement('div');av.className='ai-msg-av';av.innerHTML=role==='user'?USER_AV:BOT_AV;
   const bub=document.createElement('div');bub.className='ai-bubble';bub.innerHTML=text.replace(/\n/g,'<br/>');
   wrap.appendChild(av);wrap.appendChild(bub);msgs.appendChild(wrap);msgs.scrollTop=msgs.scrollHeight;
 }
 function aiShowTyping(){
-  const msgs=qs('aiMsgs');
+  const msgs=$('aiMsgs');
   const wrap=document.createElement('div');wrap.className='ai-msg';wrap.id='aiTyping';
-  const av=document.createElement('div');av.className='ai-msg-av';
-  av.innerHTML=`<svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="5"/><path d="M8 9 Q12 4 16 9"/><path d="M7 9 L7 16 L17 16 L17 9"/><rect x="10" y="12" width="4" height="4"/></svg>`;
+  const av=document.createElement('div');av.className='ai-msg-av';av.innerHTML=BOT_AV;
   const t=document.createElement('div');t.className='ai-typing';t.innerHTML='<span></span><span></span><span></span>';
   wrap.appendChild(av);wrap.appendChild(t);msgs.appendChild(wrap);msgs.scrollTop=msgs.scrollHeight;
 }
+
 window.aiSend=()=>{
   if(aiTyping)return;
-  const input=qs('aiInput');const text=input.value.trim();if(!text)return;
-  input.value='';input.style.height='';qs('aiSend').disabled=true;
+  const input=$('aiInput');const text=input.value.trim();if(!text)return;
+  input.value='';input.style.height='';$('aiSend').disabled=true;
   aiAddMsg('user',text);aiHistory.push({role:'user',content:text});aiTyping=true;aiShowTyping();
-  fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+  fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,system:AI_SYS,messages:aiHistory})
   }).then(r=>r.json()).then(data=>{
-    qs('aiTyping')?.remove();
+    $('aiTyping')?.remove();
     const raw=(data.content||[]).map(c=>c.text||'').join('');
-    let parsed=null;try{const m=raw.match(/\{[\s\S]*\}/);if(m)parsed=JSON.parse(m[0])}catch(e){}
+    let parsed=null;
+    try{const m=raw.match(/\{[\s\S]*\}/);if(m)parsed=JSON.parse(m[0])}catch(e){}
     if(parsed?.suggestions){
-      const msgs=qs('aiMsgs');
+      const msgs=$('aiMsgs');
       const wrap=document.createElement('div');wrap.className='ai-msg';
-      const av=document.createElement('div');av.className='ai-msg-av';
-      av.innerHTML=`<svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="5"/><path d="M8 9 Q12 4 16 9"/><path d="M7 9 L7 16 L17 16 L17 9"/><rect x="10" y="12" width="4" height="4"/></svg>`;
+      const av=document.createElement('div');av.className='ai-msg-av';av.innerHTML=BOT_AV;
       const cont=document.createElement('div');cont.style.cssText='display:flex;flex-direction:column;gap:8px;max-width:88%';
       if(parsed.intro){const b=document.createElement('div');b.className='ai-bubble';b.textContent=parsed.intro;cont.appendChild(b)}
       parsed.suggestions.forEach(s=>{
         const pLabel=s.priceMin?`${fmt(s.priceMin)} — ${fmt(s.priceMax)} ت`:'تماس';
-        const card=document.createElement('div');card.className='asc';
         const isAir=(s.transport||'').includes('هوایی');
         const tIco=isAir?`<svg viewBox="0 0 24 24"><path d="M21 16l-6-3 2-7-4 2-4-4-5 3 5 3-2 4 3-1 2 5z"/></svg>`:`<svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`;
+        const card=document.createElement('div');card.className='asc';
         card.innerHTML=`<div class="asc-head">${tIco}<div class="asc-title">${s.title||''}</div><div class="asc-type">${s.transport||''}</div></div><div class="asc-body"><div class="asc-row"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 010 16c-4 0-8-5-8-8a8 8 0 018-8z"/></svg><span>${s.origin||''}</span></div><div class="asc-row"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg><span>${s.route||''}</span></div><div class="asc-row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>${P(s.nights||0)} شب</span></div><div class="asc-row"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg><span>هتل ${s.hotel||''}</span></div>${s.highlight?`<div class="asc-row" style="color:var(--g1);font-weight:600"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>${s.highlight}</span></div>`:''}</div><div class="asc-price-row"><div class="asc-price-lbl">هر نفر از</div><div class="asc-price-val">${pLabel}</div></div><button class="asc-book-btn">ثبت‌نام این سفر ✦</button>`;
         cont.appendChild(card);
       });
       wrap.appendChild(av);wrap.appendChild(cont);msgs.appendChild(wrap);msgs.scrollTop=msgs.scrollHeight;
-    }else{aiAddMsg('bot',raw||'خطایی رخ داد.')}
-    aiHistory.push({role:'assistant',content:raw||''});aiTyping=false;qs('aiSend').disabled=false;
-  }).catch(()=>{qs('aiTyping')?.remove();aiAddMsg('bot','اتصال برقرار نشد.');aiTyping=false;qs('aiSend').disabled=false});
+    }else{
+      aiAddMsg('bot',raw||'خطایی رخ داد.');
+    }
+    aiHistory.push({role:'assistant',content:raw||''});aiTyping=false;$('aiSend').disabled=false;
+  }).catch(()=>{$('aiTyping')?.remove();aiAddMsg('bot','اتصال برقرار نشد.');aiTyping=false;$('aiSend').disabled=false});
 };
 window.aiKeyDown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();aiSend()}};
 window.aiResize=el=>{el.style.height='auto';el.style.height=Math.min(el.scrollHeight,80)+'px'};
 
-// ── INIT ───────────────────────────────────────────────────────────────
+// ── INIT ──────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',()=>{
   iwBuildStep1();
   tsBuild();
-  cvBuildCities();cvRender();
+  cvBuildCities();
+  cvRender();
 });
 </script>
 </body>
