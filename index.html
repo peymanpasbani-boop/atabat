@@ -37,8 +37,12 @@ body.locked{overflow:hidden}
 .hero::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.07),transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
 .hero-in{max-width:860px;margin:0 auto;text-align:center;position:relative;z-index:1}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--goldB);background:rgba(201,168,76,.09);color:var(--goldL);font-size:11px;font-weight:600;padding:5px 14px;border-radius:100px;margin-bottom:14px}
-.hero-title{font-size:clamp(26px,5vw,46px);font-weight:900;color:var(--goldL);line-height:1.2;margin-bottom:16px}
+.hero-title{font-size:clamp(26px,5vw,46px);font-weight:900;color:var(--goldL);line-height:1.2;margin-bottom:6px}
 .hero-title em{font-style:normal;background:linear-gradient(90deg,#ffe084,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-emblem{width:150px;margin:0 auto 10px;opacity:.92}
+.hero-emblem svg{width:100%;display:block;overflow:visible}
+.hero-deco{width:230px;max-width:80%;margin:8px auto 18px;opacity:.85}
+.hero-deco svg{width:100%;display:block;overflow:visible}
 .hero-desc{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.9;max-width:520px;margin:0 auto 24px}
 
 /* INLINE WIZARD */
@@ -153,58 +157,29 @@ body.locked{overflow:hidden}
 .oitem.sel .oitem-name{color:var(--goldL)}
 
 /* month chips — فقط ۳ ماه */
-.month-row{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:36px}
+.month-row{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:9px}
 .mchip{padding:9px 6px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);cursor:pointer;transition:.2s;text-align:center;position:relative;overflow:visible}
 .mchip:hover{border-color:rgba(201,168,76,.38);background:rgba(201,168,76,.1)}
 .mchip.sel{border-color:var(--gold);background:rgba(201,168,76,.18);box-shadow:0 2px 10px rgba(201,168,76,.2)}
 .mchip-n{font-size:11px;font-weight:700;color:rgba(255,255,255,.8)}
 .mchip.sel .mchip-n{color:var(--goldL)}
 .mchip-y{font-size:8px;color:rgba(255,255,255,.28);margin-top:2px}
-/* پرچم محرم — بزرگ و مدرن */
-.mchip-flag{
-  position:absolute;top:-38px;left:50%;
-  transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:flex-start;
-  pointer-events:none;z-index:10;
+/* محرم — کادر تیرماه با طیف رنگ مشکی */
+.mchip-moharram{
+  background:linear-gradient(160deg,#1c1c1c,#0a0a0a 60%,#1c1c1c);
+  border-color:rgba(255,255,255,.18);
 }
-.mchip-flag-pole{
-  width:2.5px;height:38px;
-  background:linear-gradient(to bottom,rgba(255,255,255,.8) 0%,rgba(255,255,255,.35) 100%);
-  border-radius:2px;
-  flex-shrink:0;
+.mchip-moharram:hover{border-color:rgba(255,255,255,.32);background:linear-gradient(160deg,#262626,#0a0a0a 60%,#262626)}
+.mchip-moharram .mchip-n{color:rgba(255,255,255,.92)}
+.mchip-moharram .mchip-y{color:rgba(255,255,255,.4)}
+.mchip-moharram.sel{border-color:var(--gold);box-shadow:0 2px 14px rgba(0,0,0,.5),0 0 0 1px rgba(201,168,76,.35)}
+.mchip-moh-lbl{
+  margin-top:4px;font-size:8px;font-weight:800;letter-spacing:.08em;
+  color:#22c55e;
+  background:rgba(34,197,94,.12);
+  border:1px solid rgba(34,197,94,.3);
+  border-radius:100px;padding:2px 8px;display:inline-block;
 }
-.mchip-flag-cloth{
-  position:absolute;top:0;left:2.5px;
-  width:28px;height:19px;
-  background:linear-gradient(145deg,#111,#1c1c1c);
-  border:1px solid rgba(255,255,255,.2);
-  border-left:none;
-  border-radius:0 6px 6px 0;
-  transform-origin:left center;
-  animation:flagWave3d 2.4s ease-in-out infinite;
-  overflow:hidden;
-  box-shadow:3px 3px 10px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.06);
-}
-.mchip-flag-cloth::before{
-  content:'';
-  position:absolute;
-  bottom:0;left:0;right:0;height:5px;
-  background:linear-gradient(90deg,#134a3a,#22c55e,#134a3a);
-  opacity:.85;
-}
-.mchip-flag-cloth::after{
-  content:'';
-  position:absolute;inset:0;
-  background:linear-gradient(110deg,rgba(255,255,255,.1) 0%,transparent 55%);
-}
-@keyframes flagWave3d{
-  0%  {clip-path:polygon(0 0,100% 3%,100% 97%,0 100%)}
-  20% {clip-path:polygon(0 3%,100% 0,100% 100%,0 97%)}
-  50% {clip-path:polygon(0 6%,100% 1%,100% 99%,0 94%)}
-  75% {clip-path:polygon(0 1%,100% 4%,100% 96%,0 99%)}
-  100%{clip-path:polygon(0 0,100% 3%,100% 97%,0 100%)}
-}
-
 /* day picker */
 .day-row-wrap{overflow:hidden;max-height:0;transition:max-height .38s cubic-bezier(.4,0,.2,1),opacity .28s;opacity:0}
 .day-row-wrap.open{max-height:80px;opacity:1}
@@ -960,7 +935,44 @@ body.locked{overflow:hidden}
 <section class="hero" id="heroSec">
   <div class="hero-in">
     <div class="hero-badge">✦ سفر زیارتی، به انتخاب شما</div>
+    <div class="hero-emblem">
+      <svg viewBox="0 0 160 70" fill="none">
+        <defs>
+          <linearGradient id="hg1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#c9a84c" stop-opacity="0"/>
+            <stop offset=".5" stop-color="#e8c97a"/>
+            <stop offset="1" stop-color="#c9a84c" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M2 35 C 30 10, 55 10, 80 35" stroke="url(#hg1)" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M158 35 C 130 10, 105 10, 80 35" stroke="url(#hg1)" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M2 35 C 30 60, 55 60, 80 35" stroke="url(#hg1)" stroke-width="1.4" stroke-linecap="round" opacity=".55"/>
+        <path d="M158 35 C 130 60, 105 60, 80 35" stroke="url(#hg1)" stroke-width="1.4" stroke-linecap="round" opacity=".55"/>
+        <g transform="translate(80,35)">
+          <circle r="20" stroke="#c9a84c" stroke-width="1" opacity=".4"/>
+          <path d="M0 -14C-7.7 -14 -14 -7.7 -14 0c0 7.5 3.7 14 9.5 18V21h9V18C10.3 14 14 7.5 14 0c0-7.7-6.3-14-14-14z" fill="#c9a84c" opacity=".95"/>
+          <rect x="-1.3" y="-19" width="2.6" height="6" rx="1" fill="#e8c97a"/>
+          <path d="M-4 18 Q0 12 4 18 L4 23 L-4 23 Z" fill="#0d3b2e" opacity=".7"/>
+          <circle cx="-26" cy="0" r="2" fill="#e8c97a"/>
+          <circle cx="26" cy="0" r="2" fill="#e8c97a"/>
+        </g>
+      </svg>
+    </div>
     <div class="hero-title">گروه زیارتی <em>آوان</em></div>
+    <div class="hero-deco">
+      <svg viewBox="0 0 240 24" fill="none">
+        <defs>
+          <linearGradient id="hg2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#c9a84c" stop-opacity="0"/>
+            <stop offset=".5" stop-color="#e8c97a"/>
+            <stop offset="1" stop-color="#c9a84c" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M0 12 C 60 -4, 90 24, 120 12 C 150 0, 180 24, 240 12" stroke="url(#hg2)" stroke-width="1.2" stroke-linecap="round"/>
+        <circle cx="120" cy="12" r="2.6" fill="#e8c97a"/>
+        <path d="M120 6 L124 12 L120 18 L116 12 Z" fill="none" stroke="#c9a84c" stroke-width="1" opacity=".7"/>
+      </svg>
+    </div>
     <div class="hero-desc">زمان سفر، مدت اقامت، درجه هتل و مسیر را خودتان انتخاب کنید. کاملاً متناسب با بودجه، زمان و سلیقه شما.</div>
 
     <div class="iw" id="iwWrap">
@@ -1491,11 +1503,9 @@ function iwBuildStep1(){
   // ماه‌ها — فقط تیر / مرداد / شهریور
   const mRow=qs('iwMonths');if(mRow.children.length)return;
   DEPLOY_MONTHS.forEach(({m,y})=>{
-    const el=document.createElement('div');el.className='mchip';
-    const isMoh=(m===4);// تیرماه = محرم
+    const el=document.createElement('div');el.className='mchip'+(m===4?' mchip-moharram':'');
     let inner='';
-    if(isMoh)inner=`<div class="mchip-flag"><div class="mchip-flag-pole"></div><div class="mchip-flag-cloth"></div></div>`;
-    inner+=`<div class="mchip-n">${PM[m-1]}</div><div class="mchip-y">${P(y)}</div>`;
+    inner+=`<div class="mchip-n">${PM[m-1]}</div><div class="mchip-y">${P(y)}</div>${m===4?'<div class="mchip-moh-lbl">محرم</div>':''}`;
     el.innerHTML=inner;
     el.onclick=()=>{
       document.querySelectorAll('#iwMonths .mchip').forEach(x=>x.classList.remove('sel'));
