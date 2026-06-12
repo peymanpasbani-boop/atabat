@@ -1297,7 +1297,7 @@ body.locked{overflow:hidden}
     </div>
     <div class="footer-divider"></div>
     <div class="footer-bottom">
-      <div><div class="footer-logo">گروه زیارتی آوان</div><div class="footer-logo-sub">مرجع تخصصی سفرهای زیارتی انفرادی</div></div>
+      <div><div class="footer-logo">گروه زیارتی آوان</div><div class="footer-logo-sub">از نجف اشرف تا کربلای معلی — همسفر زائران اهل‌بیت (ع)</div></div>
       <div class="footer-copy">© ۱۴۰۵</div>
     </div>
     <div class="footer-credit"><div class="footer-credit-txt">Designed &amp; Developed by</div><div class="footer-credit-name">P E Y M A N</div></div>
@@ -1492,6 +1492,7 @@ function iwBuildStep1(){
       iwBuildDays(m,y);
       qs('iwDayWrap').classList.add('open');
       qs('iwDateChip').classList.remove('show');
+      setTimeout(()=>scrollTo$(qs('iwDayWrap')),200);
     };
     mRow.appendChild(el);
   });
@@ -1512,6 +1513,7 @@ function iwBuildStep1(){
       qs('iwPaxSec').className='s1-section s1-revealed';
       qs('iwTypeSec').className='s1-section s1-revealed';
       updateLiveCost();
+      setTimeout(()=>scrollTo$(qs('iwTypeSec')),250);
     };
     oGrid.appendChild(el);
   });
@@ -1549,7 +1551,14 @@ window.iwChgPax=(type,d)=>{
 };
 const totalPax=()=>IW.paxAdult+IW.paxChild;// نوزاد صندلی جداگانه ندارد
 
-window.iwSelType=t=>{IW.type=t;['air','mixed','land'].forEach(k=>qs('iwTP_'+k)?.classList.toggle('sel',k===t));updateLiveCost()};
+window.iwSelType=t=>{
+  IW.type=t;
+  ['air','mixed','land'].forEach(k=>qs('iwTP_'+k)?.classList.toggle('sel',k===t));
+  updateLiveCost();
+  // اسکرول به دکمه ادامه
+  const btn=document.querySelector('#iwS1 .iw-cta');
+  if(btn)setTimeout(()=>scrollTo$(btn),200);
+};
 
 // STEP 2
 window.iwToggleCity=key=>{
@@ -1571,7 +1580,9 @@ window.iwSelMode=(key,mode)=>{
   const mLabel={stay:'اقامت',transit:'عبور',skip:'نمی‌روم'};
   if(ds&&dt){dt.textContent=mLabel[mode]+(mode==='stay'?' — '+P(IW.cityNights[key])+' شب':'');ds.style.display='flex'}
   const idx=CITY_KEYS.indexOf(key);const nextKey=CITY_KEYS[idx+1];
-  if(nextKey&&mode!=='stay'){
+  if(mode==='stay'){
+    setTimeout(()=>scrollTo$(qs('iwNR_'+key)),200);
+  } else if(nextKey){
     setTimeout(()=>{
       const curEl=qs('iwCC_'+key);if(curEl)curEl.classList.add('done-city');
       const nEl=qs('iwCC_'+nextKey);
@@ -1724,7 +1735,13 @@ function iwBuildTransport(){
   if(IW.type==='mixed')mkOpt(bIco,'برگشت زمینی با آوان',`بازگشت با اتوبوس تا ${originLbl}`,'+۱,۸۰۰,۰۰۰ ت/نفر','mixed_avan');
   if(isLand){mkOpt(bIco,'آوان اتوبوس رفت و برگشت',`${originLbl} ← مرز خسروی ← ${originLbl}`,'+۲,۲۰۰,۰۰۰ ت/نفر','land_avan');mkOpt(tIco,'خودم تا مرز می‌آیم','هزینه حمل‌ونقل داخلی محاسبه نمی‌شود','بدون هزینه','land_self')}
 }
-window.iwSelTransport=opt=>{IW.transportOpt=opt;document.querySelectorAll('[id^="iwTO_"]').forEach(c=>c.classList.toggle('sel',c.id==='iwTO_'+opt));updateLiveCost()};
+window.iwSelTransport=opt=>{
+  IW.transportOpt=opt;
+  document.querySelectorAll('[id^="iwTO_"]').forEach(c=>c.classList.toggle('sel',c.id==='iwTO_'+opt));
+  updateLiveCost();
+  const svcEl=qs('iwSvcSec')||document.querySelector('#iwS4 .s1-label');
+  if(svcEl)setTimeout(()=>scrollTo$(svcEl),220);
+};
 window.iwSkipTransport=()=>{IW.transportOpt='skip';iwNext(4)};
 window.iwToggleSvc=svc=>{const key='svc'+svc.charAt(0).toUpperCase()+svc.slice(1);IW[key]=!IW[key];qs('iwSvc_'+svc)?.classList.toggle('sel',IW[key]);updateLiveCost()};
 
@@ -2247,7 +2264,7 @@ window.iwCloseOriginDrop=()=>{
 };
 
 // HERO TAGLINE TYPEWRITER
-const HERO_TAGLINES=['سفر زیارتی به سبک خودتان','بدون واسطه، با اعتماد کامل'];
+const HERO_TAGLINES=['از نجف اشرف تا کربلای معلی، با آوان','زیارت اهل‌بیت، با کرامت و آرامش','کنار حرم علی (ع) و حسین (ع) با ما باش'];
 function heroTagline(){
   const el=qs('heroTaglineTxt');if(!el)return;
   let ti=0,ci=0,deleting=false;
