@@ -1075,62 +1075,7 @@ body.locked{overflow:hidden}
       <!-- SLIDE 2 -->
       <div class="iw-slide" id="iwS2">
         <div class="s2-hint">به ترتیب بازدید انتخاب کنید. برای هر شهر مشخص کنید <strong style="color:var(--goldL)">اقامت</strong> دارید، <strong style="color:var(--goldL)">عبور</strong> می‌کنید، یا <strong style="color:rgba(255,140,140,.85)">نمی‌روید</strong>.</div>
-        <div class="city-list" id="iwCityList">
-          <!-- کربلا -->
-          <div class="cc" id="iwCC_karbala">
-            <div class="cc-head" onclick="iwToggleCity('karbala')">
-              <div class="cc-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="5"/><path d="M8 9 Q12 4 16 9"/><path d="M7 9 L7 16 L17 16 L17 9"/><rect x="10" y="12" width="4" height="4"/><line x1="5" y1="16" x2="19" y2="16"/></svg></div>
-              <div class="cc-info"><div class="cc-name">کربلای معلی</div><div class="cc-shrine">حرم امام حسین (ع)</div></div>
-              <div class="cc-order" id="iwOrd_karbala"></div>
-              <div class="cc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-            </div>
-            <div class="cc-done-summary" id="iwDoneSummary_karbala"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span id="iwDoneText_karbala"></span></div>
-            <div class="cc-sub"><div class="cc-sub-inner">
-              <div class="stay-transit-row">
-                <div class="st-opt" id="iwST_karbala_stay" onclick="iwSelMode('karbala','stay')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>اقامت</div>
-                <div class="st-opt" id="iwST_karbala_transit" onclick="iwSelMode('karbala','transit')"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>عبور</div>
-                <div class="st-opt skip-city" id="iwST_karbala_skip" onclick="iwSelMode('karbala','skip')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>نمی‌روم</div>
-              </div>
-              <div class="nights-row" id="iwNR_karbala"><div class="nights-lbl">تعداد شب اقامت</div><div class="nights-ctrl"><button class="nbtn" onclick="iwChgNights('karbala',-1)">−</button><div class="nval" id="iwNV_karbala">۳</div><div class="nunit">شب</div><button class="nbtn" onclick="iwChgNights('karbala',1)">+</button></div></div>
-            </div></div>
-          </div>
-          <!-- نجف -->
-          <div class="cc" id="iwCC_najaf">
-            <div class="cc-head" onclick="iwToggleCity('najaf')">
-              <div class="cc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="3.5"/><line x1="12" y1="3" x2="12" y2="1"/><path d="M8.5 9.5 Q12 7 15.5 9.5"/><rect x="9" y="10" width="6" height="8"/><rect x="11" y="13" width="2" height="5"/></svg></div>
-              <div class="cc-info"><div class="cc-name">نجف اشرف</div><div class="cc-shrine">حرم امام علی (ع)</div></div>
-              <div class="cc-order" id="iwOrd_najaf"></div>
-              <div class="cc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-            </div>
-            <div class="cc-done-summary" id="iwDoneSummary_najaf"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span id="iwDoneText_najaf"></span></div>
-            <div class="cc-sub"><div class="cc-sub-inner">
-              <div class="stay-transit-row">
-                <div class="st-opt" id="iwST_najaf_stay" onclick="iwSelMode('najaf','stay')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>اقامت</div>
-                <div class="st-opt" id="iwST_najaf_transit" onclick="iwSelMode('najaf','transit')"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>عبور</div>
-                <div class="st-opt skip-city" id="iwST_najaf_skip" onclick="iwSelMode('najaf','skip')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>نمی‌روم</div>
-              </div>
-              <div class="nights-row" id="iwNR_najaf"><div class="nights-lbl">تعداد شب اقامت</div><div class="nights-ctrl"><button class="nbtn" onclick="iwChgNights('najaf',-1)">−</button><div class="nval" id="iwNV_najaf">۳</div><div class="nunit">شب</div><button class="nbtn" onclick="iwChgNights('najaf',1)">+</button></div></div>
-            </div></div>
-          </div>
-          <!-- کاظمین -->
-          <div class="cc" id="iwCC_kadh_sam">
-            <div class="cc-head" onclick="iwToggleCity('kadh_sam')">
-              <div class="cc-icon"><svg viewBox="0 0 24 24"><path d="M7 10 Q10 5 13 10"/><rect x="6" y="10" width="7" height="7"/><path d="M14 11 Q16.5 7 19 11"/><rect x="13.5" y="11" width="6" height="6"/></svg></div>
-              <div class="cc-info"><div class="cc-name">کاظمین و سامرا</div><div class="cc-shrine">حرم امام کاظم و عسکریین (ع)</div></div>
-              <div class="cc-order" id="iwOrd_kadh_sam"></div>
-              <div class="cc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-            </div>
-            <div class="cc-done-summary" id="iwDoneSummary_kadh_sam"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span id="iwDoneText_kadh_sam"></span></div>
-            <div class="cc-sub"><div class="cc-sub-inner">
-              <div class="stay-transit-row">
-                <div class="st-opt" id="iwST_kadh_sam_stay" onclick="iwSelMode('kadh_sam','stay')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>اقامت</div>
-                <div class="st-opt" id="iwST_kadh_sam_transit" onclick="iwSelMode('kadh_sam','transit')"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>عبور</div>
-                <div class="st-opt skip-city" id="iwST_kadh_sam_skip" onclick="iwSelMode('kadh_sam','skip')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>نمی‌روم</div>
-              </div>
-              <div class="nights-row" id="iwNR_kadh_sam"><div class="nights-lbl">تعداد شب اقامت</div><div class="nights-ctrl"><button class="nbtn" onclick="iwChgNights('kadh_sam',-1)">−</button><div class="nval" id="iwNV_kadh_sam">۳</div><div class="nunit">شب</div><button class="nbtn" onclick="iwChgNights('kadh_sam',1)">+</button></div></div>
-            </div></div>
-          </div>
-        </div>
+        <div class="city-list" id="iwCityList"></div>
         <div class="iw-err" id="iwErr2"></div>
         <div class="iw-btns">
           <button class="iw-back-btn" onclick="iwBack(2)">← بازگشت</button>
@@ -1170,6 +1115,12 @@ body.locked{overflow:hidden}
             <div style="flex:1"><div class="opt-name">صرافی دینار عراقی</div><div class="opt-sub">تبدیل با بهترین نرخ روز</div></div>
             <div class="opt-price" style="color:rgba(255,255,255,.4)">رایگان</div>
           </div>
+          <div class="opt-card" id="iwSvc_insurance" onclick="iwToggleSvc('insurance')">
+            <div class="opt-ico"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg></div>
+            <div class="opt-checkbox"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div style="flex:1"><div class="opt-name">بیمه مسافرتی</div><div class="opt-sub">پوشش درمان و حوادث در سفر</div></div>
+            <div class="opt-price">۱۵۰,۰۰۰ ت</div>
+          </div>
         </div>
         <div class="iw-err" id="iwErr4"></div>
         <div class="iw-btns">
@@ -1186,6 +1137,7 @@ body.locked{overflow:hidden}
           <div style="font-size:11px;color:rgba(255,255,255,.6)">هزینه تخمینی هر نفر</div>
           <div style="font-size:20px;font-weight:900;color:var(--goldL)" id="s5ppVal">—</div>
         </div>
+        <div id="s5TotalBox" style="display:none;background:rgba(0,0,0,.15);border-radius:11px;padding:12px 14px;margin-bottom:16px"></div>
         <!-- لیست زائران کشویی -->
         <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.55);margin-bottom:10px;display:flex;align-items:center;gap:5px">
           <svg style="width:14px;height:14px;stroke:currentColor;stroke-width:1.8;fill:none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
@@ -1414,10 +1366,15 @@ const scrollTo$=el=>{if(!el)return;const r=el.getBoundingClientRect();if(r.top<8
 
 const CITY_LABELS={tehran:'تهران',mashhad:'مشهد',isfahan:'اصفهان',shiraz:'شیراز',tabriz:'تبریز',qom:'قم',karaj:'کرج',ahvaz:'اهواز',rasht:'رشت',kermanshah:'کرمانشاه',other:'سایر'};
 const CITY_META={
-  karbala:{name:'کربلای معلی',basePerNight:1200000},
-  najaf:{name:'نجف اشرف',basePerNight:1100000},
-  kadh_sam:{name:'کاظمین و سامرا',basePerNight:950000}
+  karbala:{name:'کربلای معلی',shrine:'حرم امام حسین (ع)',basePerNight:1200000,icon:'<line x1="12" y1="2" x2="12" y2="5"/><path d="M8 9 Q12 4 16 9"/><path d="M7 9 L7 16 L17 16 L17 9"/><rect x="10" y="12" width="4" height="4"/><line x1="5" y1="16" x2="19" y2="16"/>'},
+  najaf:{name:'نجف اشرف',shrine:'حرم امام علی (ع)',basePerNight:1100000,icon:'<circle cx="12" cy="6" r="3.5"/><line x1="12" y1="3" x2="12" y2="1"/><path d="M8.5 9.5 Q12 7 15.5 9.5"/><rect x="9" y="10" width="6" height="8"/><rect x="11" y="13" width="2" height="5"/>'},
+  kadh_sam:{name:'کاظمین و سامرا',shrine:'حرم امام کاظم و عسکریین (ع)',basePerNight:950000,icon:'<path d="M7 10 Q10 5 13 10"/><rect x="6" y="10" width="7" height="7"/><path d="M14 11 Q16.5 7 19 11"/><rect x="13.5" y="11" width="6" height="6"/>'}
 };
+const ST_ICONS={stay:'<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',transit:'<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>',skip:'<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'};
+const ST_LABELS={stay:'اقامت',transit:'عبور',skip:'نمی\u200cروم'};
+function buildCityList(){
+  qs('iwCityList').innerHTML=CITY_KEYS.map(k=>{const m=CITY_META[k];return `<div class="cc" id="iwCC_${k}"><div class="cc-head" onclick="iwToggleCity('${k}')"><div class="cc-icon"><svg viewBox="0 0 24 24">${m.icon}</svg></div><div class="cc-info"><div class="cc-name">${m.name}</div><div class="cc-shrine">${m.shrine}</div></div><div class="cc-order" id="iwOrd_${k}"></div><div class="cc-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="cc-done-summary" id="iwDoneSummary_${k}"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span id="iwDoneText_${k}"></span></div><div class="cc-sub"><div class="cc-sub-inner"><div class="stay-transit-row">${['stay','transit','skip'].map(mo=>`<div class="st-opt${mo==='skip'?' skip-city':''}" id="iwST_${k}_${mo}" onclick="iwSelMode('${k}','${mo}')">${ST_ICONS[mo]}${ST_LABELS[mo]}</div>`).join('')}</div><div class="nights-row" id="iwNR_${k}"><div class="nights-lbl">تعداد شب اقامت</div><div class="nights-ctrl"><button class="nbtn" onclick="iwChgNights('${k}',-1)">−</button><div class="nval" id="iwNV_${k}">۳</div><div class="nunit">شب</div><button class="nbtn" onclick="iwChgNights('${k}',1)">+</button></div></div></div></div></div>`}).join('');
+}
 const CITY_KEYS=['karbala','najaf','kadh_sam'];
 
 const HOTELS={
@@ -1455,7 +1412,7 @@ const IW={
   cityMode:{karbala:null,najaf:null,kadh_sam:null},
   cityNights:{karbala:3,najaf:3,kadh_sam:3},
   hotels:{},transportOpt:null,
-  svcSim:false,svcExchange:false,
+  svcSim:false,svcExchange:false,svcInsurance:false,
   pilgrims:[]// [{first,last,national,birth,phone}]
 };
 
@@ -1799,7 +1756,7 @@ function calcCosts(){
   if(IW.transportOpt==='flight_avan')transportPP=4500000;
   else if(IW.transportOpt==='mixed_avan')transportPP=1800000;
   else if(IW.transportOpt==='land_avan')transportPP=2200000;
-  const servicesPP=IW.svcSim?350000:0;
+  const servicesPP=(IW.svcSim?350000:0)+(IW.svcInsurance?150000:0);
   const pax=totalPax();
   const perPerson=Math.round(iraqServicesPP+transportPP+servicesPP);
   const total=perPerson*pax;
@@ -1929,6 +1886,14 @@ function iwBuildTripSummary5(){
       <div><div class="s5-pp-lbl">هزینه تخمینی هر نفر</div><div class="s5-pp-unit">تومان</div></div>
       <div class="s5-pp-val">${fmt(c.perPerson)}</div>
     </div>`;
+  const tb=qs('s5TotalBox');
+  if(tb){
+    tb.style.display='block';
+    tb.innerHTML=`<div style="font-size:10px;font-weight:700;color:rgba(201,168,76,.6);margin-bottom:8px;text-transform:uppercase;letter-spacing:.07em">جمع کل هزینه سفر</div>
+      <div class="cost-row"><div class="cost-row-lbl">هزینه هر نفر</div><div class="cost-row-val">${fmt(c.perPerson)} ت</div></div>
+      <div class="cost-row"><div class="cost-row-lbl">تعداد نفرات</div><div class="cost-row-val">${P(totalPax())} نفر</div></div>
+      <div class="cost-total-row" style="margin-top:8px"><div class="cost-total-lbl">جمع کل</div><div class="cost-total-val">${fmt(c.total)} ت</div></div>`;
+  }
   // build pilgrim accordion
   const total=IW.paxAdult+IW.paxChild;
   IW.pilgrims=IW.pilgrims.length===total?IW.pilgrims:Array.from({length:total},(_,i)=>IW.pilgrims[i]||{});
@@ -1961,6 +1926,7 @@ function iwBuildCostBreakdown(){
       <div class="cost-row"><div class="cost-row-lbl">خدمات داخل عراق (اقامت + خدمات محلی)</div><div class="cost-row-val">${fmt(c.iraqServicesPP)} ت</div></div>
       <div class="cost-row"><div class="cost-row-lbl">${transportLabel[IW.transportOpt]||'حمل‌ونقل'}</div><div class="cost-row-val ${c.transportPP===0?'zero':''}">${c.transportPP?fmt(c.transportPP)+' ت':'—'}</div></div>
       ${IW.svcSim?`<div class="cost-row"><div class="cost-row-lbl">سیم‌کارت عراقی</div><div class="cost-row-val">${fmt(350000)} ت</div></div>`:''}
+      ${IW.svcInsurance?`<div class="cost-row"><div class="cost-row-lbl">بیمه مسافرتی</div><div class="cost-row-val">${fmt(150000)} ت</div></div>`:''}
       ${IW.svcExchange?`<div class="cost-row"><div class="cost-row-lbl">صرافی دینار عراقی</div><div class="cost-row-val zero">رایگان</div></div>`:''}
       <div class="cost-row" style="border-top:1px solid rgba(255,255,255,.1);margin-top:6px;padding-top:9px">
         <div class="cost-row-lbl" style="color:rgba(255,255,255,.82);font-weight:700">جمع هر نفر</div>
@@ -2328,6 +2294,7 @@ window.iwCloseOriginDrop=()=>{
 // INIT
 document.addEventListener('DOMContentLoaded',()=>{
   iwBuildStep1();
+  buildCityList();
   tsBuild();
   cvLoadData(); // بارگذاری کاروان‌ها از فایل caravans.json
 });
