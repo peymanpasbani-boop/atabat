@@ -657,15 +657,10 @@ body.locked{overflow:hidden}
 .iw-ls-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
 
 /* ── Trip type in step 1 (dark bg) ── */
-.iw-type-row{display:flex;gap:7px;margin-bottom:14px}
-.iw-tpill{flex:1;padding:9px 6px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);border-radius:12px;cursor:pointer;text-align:center;transition:.22s;position:relative}
-.iw-tpill:hover{border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.1)}
-.iw-tpill.sel{border-color:var(--gold);background:linear-gradient(135deg,rgba(201,168,76,.22),rgba(26,94,73,.12));box-shadow:0 3px 14px rgba(201,168,76,.3)}
-.iw-tpill-ico{font-size:18px;margin-bottom:3px}
-.iw-tpill-name{font-size:11px;font-weight:800;color:rgba(255,255,255,.8)}
-.iw-tpill.sel .iw-tpill-name{color:var(--goldL)}
-.iw-tpill-desc{font-size:9px;color:rgba(255,255,255,.38);margin-top:1px}
-.iw-tpill-tick{position:absolute;top:5px;right:5px;width:14px;height:14px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:8px;color:var(--g1);font-weight:800}
+.iw-tpill{flex:1;padding:8px 10px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);border-radius:100px;cursor:pointer;text-align:center;transition:.22s;position:relative;font-size:12px;font-weight:700;color:rgba(255,255,255,.75);display:flex;align-items:center;justify-content:center;white-space:nowrap}
+.iw-tpill:hover{border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.1);color:var(--goldL)}
+.iw-tpill.sel{border-color:var(--gold);background:linear-gradient(135deg,rgba(201,168,76,.25),rgba(26,94,73,.15));color:var(--goldL);box-shadow:0 2px 10px rgba(201,168,76,.3);font-weight:800}
+.iw-tpill-tick{position:absolute;top:-4px;right:-4px;width:14px;height:14px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:8px;color:var(--g1);font-weight:800}
 .iw-tpill.sel .iw-tpill-tick{display:flex}
 
 /* ── Flight arranger option ── */
@@ -708,35 +703,22 @@ body.locked{overflow:hidden}
 
 .iw-step2-phase{display:none;animation:fadeUp .3s ease}
 .iw-step2-phase.active{display:block}
-
-.hotel-tier-label{font-size:10px;font-weight:700;color:rgba(201,168,76,.6);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(201,168,76,.15)}
-.hotel-tier-group{margin-bottom:14px}
-.hotel-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:11px;cursor:pointer;transition:.25s;margin-bottom:6px}
-.hotel-opt:hover{border-color:rgba(201,168,76,.45);background:rgba(201,168,76,.1)}
-.hotel-opt.sel{border-color:var(--gold);background:linear-gradient(90deg,rgba(201,168,76,.18),rgba(26,94,73,.08));box-shadow:0 2px 10px rgba(201,168,76,.2)}
-.hotel-opt-stars{display:flex;gap:2px;flex-shrink:0}
-.hotel-opt-star{width:8px;height:8px;border-radius:50%}
-.hotel-opt-star.on{background:var(--gold)}
-.hotel-opt-star.off{background:rgba(255,255,255,.15)}
-.hotel-opt-name{flex:1;font-size:12px;font-weight:700;color:rgba(255,255,255,.85)}
-.hotel-opt.sel .hotel-opt-name{color:var(--goldL)}
-.hotel-opt-dist{font-size:10px;color:rgba(255,255,255,.38)}
-.hotel-opt-radio{width:16px;height:16px;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);flex-shrink:0;transition:.3s;display:flex;align-items:center;justify-content:center}
-.hotel-opt.sel .hotel-opt-radio{background:var(--gold);border-color:var(--gold)}
-.hotel-opt.sel .hotel-opt-radio::after{content:'';width:5px;height:5px;background:var(--g1);border-radius:50%;display:block}
-
-/* Hotel image confirmation */
-.hotel-confirm-box{background:rgba(255,255,255,.07);border:1.5px solid rgba(201,168,76,.3);border-radius:16px;overflow:hidden;margin-top:4px;animation:fadeUp .3s ease}
-.hotel-confirm-name{font-size:13px;font-weight:800;color:var(--goldL);padding:12px 14px 8px}
-.hotel-imgs-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;padding:0 3px 3px}
-.hotel-img-cell{aspect-ratio:3/2;background:linear-gradient(135deg,rgba(13,59,46,.6),rgba(26,94,73,.4));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:20px;overflow:hidden;position:relative}
-.hotel-img-cell img{width:100%;height:100%;object-fit:cover;display:block}
-.hotel-img-cell .hotel-img-placeholder{position:absolute;font-size:22px}
-.hotel-confirm-actions{display:flex;gap:8px;padding:10px 12px}
-.hotel-confirm-ok{flex:1;padding:10px;border-radius:100px;border:none;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--g1);font-family:inherit;font-size:12px;font-weight:800;cursor:pointer;transition:.25s}
-.hotel-confirm-ok:hover{opacity:.9}
-.hotel-confirm-change{padding:10px 16px;border-radius:100px;border:1.5px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.55);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:.2s}
-.hotel-confirm-change:hover{background:rgba(255,255,255,.08)}
+.hotel-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.hotel-gcard{border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:12px 10px;cursor:pointer;transition:.25s;background:rgba(255,255,255,.06);text-align:center;position:relative;overflow:hidden}
+.hotel-gcard:hover{border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.1);transform:translateY(-2px)}
+.hotel-gcard.sel{border-color:var(--gold);background:linear-gradient(135deg,rgba(201,168,76,.22),rgba(26,94,73,.12));box-shadow:0 4px 16px rgba(201,168,76,.3)}
+.hotel-gcard-tick{position:absolute;top:7px;left:7px;width:18px;height:18px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:9px;color:var(--g1);font-weight:800}
+.hotel-gcard.sel .hotel-gcard-tick{display:flex}
+.hotel-gcard-ico{font-size:22px;margin-bottom:6px}
+.hotel-gcard-stars{display:flex;justify-content:center;gap:3px;margin-bottom:5px}
+.hotel-gcard-star{font-size:8px}
+.hotel-gcard-name{font-size:11px;font-weight:800;color:rgba(255,255,255,.85);margin-bottom:3px;line-height:1.3}
+.hotel-gcard.sel .hotel-gcard-name{color:var(--goldL)}
+.hotel-gcard-dist{font-size:9.5px;color:rgba(255,255,255,.4)}
+.hotel-gcard-tier{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:100px;margin-top:5px}
+.hotel-gcard-tier.tier-a{background:rgba(201,168,76,.2);color:var(--goldL);border:1px solid rgba(201,168,76,.3)}
+.hotel-gcard-tier.tier-b{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15)}
+.hotel-gcard-tier.tier-c{background:rgba(255,255,255,.06);color:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.1)}
 
 @media(max-width:500px){
   .iw-origin-grid,.origin-grid{grid-template-columns:1fr 1fr}
@@ -967,15 +949,8 @@ body.locked{overflow:hidden}
           </div>
           <div class="date-chip" id="iwDateChip" style="display:none">✅ <span id="iwDateChipTxt"></span></div>
           <div id="iwOriginWrap" style="display:none;margin-bottom:14px">
-            <div class="origin-lbl">📍 شهر مبدا شما</div>
-            <div class="origin-grid">
-              <div class="ocard" data-city="tehran" onclick="iwSelOrigin(this)"><div class="ocard-tick">✓</div><svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round"><path d="M14 38 L16.5 24"/><path d="M30 38 L27.5 24"/><path d="M18 38 L19.5 27"/><path d="M26 38 L24.5 27"/><path d="M16.5 24 Q22 14 27.5 24"/><path d="M19.5 27 Q22 20 24.5 27"/><rect x="19" y="10" width="6" height="4" rx="1"/><path d="M19 10 Q22 6 25 10"/><circle cx="22" cy="6" r="1" fill="#e8c97a" stroke="none"/><line x1="9" y1="38" x2="35" y2="38"/></svg><div class="ocard-name">تهران</div><div class="obadge air">✈️ مستقیم</div></div>
-              <div class="ocard" data-city="mashhad" onclick="iwSelOrigin(this)"><div class="ocard-tick">✓</div><svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round"><rect x="6" y="20" width="4" height="16" rx="1"/><path d="M5 20 Q8 16 11 20"/><line x1="8" y1="16" x2="8" y2="13"/><circle cx="8" cy="13" r="1.2" fill="#e8c97a" stroke="none"/><rect x="34" y="20" width="4" height="16" rx="1"/><path d="M33 20 Q36 16 39 20"/><line x1="36" y1="16" x2="36" y2="13"/><circle cx="36" cy="13" r="1.2" fill="#e8c97a" stroke="none"/><path d="M14 22 Q14 9 22 8 Q30 9 30 22"/><rect x="11" y="22" width="22" height="3" rx="1"/><rect x="10" y="27" width="24" height="9" rx="1"/><path d="M19 36 L19 30 Q22 27 25 30 L25 36"/><line x1="5" y1="36" x2="39" y2="36"/></svg><div class="ocard-name">مشهد</div><div class="obadge air">✈️ مستقیم</div></div>
-              <div class="ocard" data-city="isfahan" onclick="iwSelOrigin(this)"><div class="ocard-tick">✓</div><svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round"><path d="M10 26 Q10 10 22 8 Q34 10 34 26"/><ellipse cx="22" cy="26" rx="12" ry="2.5" stroke-width="1.2"/><rect x="10" y="28" width="24" height="8" rx="1"/><path d="M17 36 L17 30 Q22 26 27 30 L27 36"/><line x1="6" y1="36" x2="38" y2="36"/></svg><div class="ocard-name">اصفهان</div><div class="obadge air">✈️ مستقیم</div></div>
-              <div class="ocard" data-city="shiraz" onclick="iwSelOrigin(this)"><div class="ocard-tick">✓</div><svg viewBox="0 0 44 44" fill="none" stroke="#e8c97a" stroke-width="1.5" stroke-linecap="round"><rect x="5" y="16" width="9" height="22" rx="1"/><rect x="30" y="16" width="9" height="22" rx="1"/><path d="M14 24 Q22 16 30 24"/><rect x="18" y="6" width="8" height="5" rx="1"/><line x1="3" y1="38" x2="41" y2="38"/></svg><div class="ocard-name">شیراز</div><div class="obadge land">🚍 زمینی</div></div>
-            </div>
-            <div class="more-lbl">سایر شهرها</div>
-            <div class="more-scroll"><div class="more-row" id="iwMoreRow"></div></div>
+            <div class="day-lbl" style="margin-bottom:9px">📍 شهر مبدا</div>
+            <div class="day-scroll"><div class="day-strip" id="iwOriginStrip"></div></div>
           </div>
           <div class="pax-row" id="iwPaxRow" style="opacity:.4;pointer-events:none">
             <div><div class="pax-lbl">تعداد مسافران</div><div class="pax-sub">حداکثر ۴ نفر</div></div>
@@ -986,12 +961,12 @@ body.locked{overflow:hidden}
             </div>
           </div>
           <!-- Trip type in step 1 -->
-          <div id="iwTypeWrap" style="display:none;margin-bottom:4px">
-            <div style="font-size:10px;font-weight:700;color:rgba(201,168,76,.65);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">🚀 نوع سفر</div>
-            <div class="iw-type-row">
-              <div class="iw-tpill" id="iwTP_air" onclick="iwSelTypePill('air')"><div class="iw-tpill-tick">✓</div><div class="iw-tpill-ico">✈️</div><div class="iw-tpill-name">هوایی</div><div class="iw-tpill-desc">سریع</div></div>
-              <div class="iw-tpill" id="iwTP_mixed" onclick="iwSelTypePill('mixed')"><div class="iw-tpill-tick">✓</div><div class="iw-tpill-ico">✈️+🚌</div><div class="iw-tpill-name">ترکیبی</div><div class="iw-tpill-desc">رفت هوایی</div></div>
-              <div class="iw-tpill" id="iwTP_land" onclick="iwSelTypePill('land')"><div class="iw-tpill-tick">✓</div><div class="iw-tpill-ico">🚌</div><div class="iw-tpill-name">زمینی</div><div class="iw-tpill-desc">اقتصادی</div></div>
+          <div id="iwTypeWrap" style="display:none;margin-bottom:14px">
+            <div class="day-lbl" style="margin-bottom:9px">🚀 نوع سفر</div>
+            <div style="display:flex;gap:6px">
+              <div class="iw-tpill" id="iwTP_air" onclick="iwSelTypePill('air')"><div class="iw-tpill-tick">✓</div><span style="margin-left:5px">✈️</span> هوایی</div>
+              <div class="iw-tpill" id="iwTP_mixed" onclick="iwSelTypePill('mixed')"><div class="iw-tpill-tick">✓</div><span style="margin-left:5px">✈️🚌</span> ترکیبی</div>
+              <div class="iw-tpill" id="iwTP_land" onclick="iwSelTypePill('land')"><div class="iw-tpill-tick">✓</div><span style="margin-left:5px">🚌</span> زمینی</div>
             </div>
           </div>
           <div class="iw-err" id="iwErr1"></div>
@@ -1034,22 +1009,8 @@ body.locked{overflow:hidden}
         </div>
         <!-- Slide 3: Review + Flight arranger -->
         <div class="iw-slide" id="iwS3">
-          <div class="iw-head"><div class="iw-icon">✦</div><div><div class="iw-title">خلاصه سفر شما</div><div class="iw-sub">همه چیز را تأیید کنید</div></div></div>
-          <!-- Flight arranger question (shown only for air/mixed) -->
-          <div class="flight-arr-sec" id="iwFlightArrSec" style="display:none">
-            <div class="flight-arr-head">✈️ بلیط پرواز چطور تهیه می‌شود؟</div>
-            <div class="flight-arr-opts">
-              <div class="farr-opt" id="iwFAR_avan" onclick="iwSelFlightArr('avan')"><div class="farr-radio"></div><div><div class="farr-name">🕌 آوان بلیط را تهیه کند</div><div class="farr-sub">هزینه پرواز به تخمین اضافه می‌شود</div></div></div>
-              <div class="farr-opt" id="iwFAR_self" onclick="iwSelFlightArr('self')"><div class="farr-radio"></div><div><div class="farr-name">🎟️ خودم بلیط می‌گیرم</div><div class="farr-sub">هزینه پرواز از تخمین کسر می‌شود</div></div></div>
-            </div>
-          </div>
-          <!-- Trip review card -->
-          <div class="iw-review" id="iwReviewCard">
-            <div class="iw-review-head"><span style="font-size:20px">🕌</span><div class="iw-review-title">مشخصات سفر زیارتی</div></div>
-            <div class="iw-review-body" id="iwReviewBody"></div>
-          </div>
-          <!-- Support note -->
-          <div class="iw-support-note"><span style="font-size:16px;flex-shrink:0">🤝</span><div>تیم آوان در تمام مدت اقامت در عراق، <strong>به‌صورت ۲۴ ساعته</strong> همراه شماست. از لحظه ورود تا بازگشت، یک نفر همیشه در دسترس است.</div></div>
+          <div class="iw-head"><div class="iw-icon">✦</div><div><div class="iw-title">خلاصه سفر شما</div><div class="iw-sub">تأیید و ثبت سفر</div></div></div>
+          <div id="iwReviewBody"></div>
           <div class="iw-err" id="iwErr3"></div>
           <div class="iw-btns">
             <button class="iw-back" onclick="iwBack(3)">← بازگشت</button>
@@ -1330,7 +1291,6 @@ const IW_HOTELS={
 };
 const TIER_LABELS=['لوکس A — ۵ ستاره','متوسط B — ۴ ستاره','اقتصادی C — ۳ ستاره'];
 const TIER_RANGES=[[0,1],[2,3],[4,5]];
-const MORE_CITIES=[{city:'tabriz',name:'تبریز'},{city:'qom',name:'قم'},{city:'karaj',name:'کرج'},{city:'ahvaz',name:'اهواز'},{city:'rasht',name:'رشت'},{city:'kermanshah',name:'کرمانشاه'},{city:'other',name:'سایر'}];
 
 function iwBuildMonths(){
   const wrap=document.getElementById('iwMonths');if(!wrap||wrap.children.length)return;
@@ -1347,26 +1307,32 @@ function iwBuildDays(m,y){
   const strip=document.getElementById('iwDays');strip.innerHTML='';
   for(let d=1;d<=DIM[m-1];d++){
     const dis=isDis(d,m,y);const el=document.createElement('div');el.className='dnum'+(dis?' dis':'');el.textContent=P(d);
-    if(!dis)el.onclick=()=>{IW.selD=d;document.querySelectorAll('#iwDays .dnum').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');const txt=`${P(d)} ${PM[m-1]} ${P(y)}`;document.getElementById('iwDateChipTxt').textContent=txt;document.getElementById('iwDateChip').style.display='inline-flex';const ow=document.getElementById('iwOriginWrap');ow.style.display='block';iwBuildMoreCities();iwUpdateLiveSummary();setTimeout(()=>ow.scrollIntoView({behavior:'smooth',block:'nearest'}),150);};
+    if(!dis)el.onclick=()=>{IW.selD=d;document.querySelectorAll('#iwDays .dnum').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');const txt=`${P(d)} ${PM[m-1]} ${P(y)}`;document.getElementById('iwDateChipTxt').textContent=txt;document.getElementById('iwDateChip').style.display='inline-flex';const ow=document.getElementById('iwOriginWrap');ow.style.display='block';iwBuildOriginStrip();iwUpdateLiveSummary();setTimeout(()=>ow.scrollIntoView({behavior:'smooth',block:'nearest'}),150);};
     strip.appendChild(el);
   }
 }
 
 window.iwChgPax=d=>{IW.pax=Math.max(1,Math.min(4,IW.pax+d));document.getElementById('iwPaxVal').textContent=P(IW.pax);iwUpdateLiveSummary()};
 
-window.iwSelOrigin=el=>{
-  document.querySelectorAll('.ocard').forEach(x=>x.classList.remove('sel'));
-  document.querySelectorAll('#iwMoreRow .mchip').forEach(x=>x.classList.remove('sel'));
-  el.classList.add('sel');IW.origin=el.dataset.city;
-  const pr=document.getElementById('iwPaxRow');pr.style.opacity='1';pr.style.pointerEvents='';pr.style.transform='scale(1.02)';
-  const tw=document.getElementById('iwTypeWrap');if(tw)tw.style.display='block';
-  iwUpdateLiveSummary();
-  setTimeout(()=>{pr.style.transform='';pr.scrollIntoView({behavior:'smooth',block:'nearest'})},280);
-};
-
-function iwBuildMoreCities(){
-  const row=document.getElementById('iwMoreRow');if(row.children.length)return;
-  MORE_CITIES.forEach(c=>{const ch=document.createElement('div');ch.className='mchip';ch.textContent=c.name;ch.onclick=()=>{document.querySelectorAll('.ocard').forEach(x=>x.classList.remove('sel'));document.querySelectorAll('#iwMoreRow .mchip').forEach(x=>x.classList.remove('sel'));ch.classList.add('sel');IW.origin=c.city;const pr=document.getElementById('iwPaxRow');pr.style.opacity='1';pr.style.pointerEvents='';const tw=document.getElementById('iwTypeWrap');if(tw)tw.style.display='block';iwUpdateLiveSummary();};row.appendChild(ch)});
+const IW_ORIGINS=[{city:'tehran',name:'تهران',badge:'✈️'},{city:'mashhad',name:'مشهد',badge:'✈️'},{city:'isfahan',name:'اصفهان',badge:'✈️'},{city:'shiraz',name:'شیراز',badge:'🚌'},{city:'tabriz',name:'تبریز',badge:'🚌'},{city:'qom',name:'قم',badge:'🚌'},{city:'karaj',name:'کرج',badge:'🚌'},{city:'ahvaz',name:'اهواز',badge:'🚌'},{city:'rasht',name:'رشت',badge:'🚌'},{city:'kermanshah',name:'کرمانشاه',badge:'🚌'},{city:'other',name:'سایر',badge:'📍'}];
+function iwBuildOriginStrip(){
+  const strip=document.getElementById('iwOriginStrip');if(!strip||strip.children.length)return;
+  IW_ORIGINS.forEach(o=>{
+    const el=document.createElement('div');
+    el.style.cssText='flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 14px;border-radius:12px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);cursor:pointer;transition:.2s;text-align:center;min-width:60px';
+    el.innerHTML=`<div style="font-size:16px">${o.badge}</div><div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.8)">${o.name}</div>`;
+    el.onclick=()=>{
+      document.querySelectorAll('#iwOriginStrip > div').forEach(x=>{x.style.borderColor='rgba(255,255,255,.12)';x.style.background='rgba(255,255,255,.07)'});
+      el.style.borderColor='var(--gold)';el.style.background='linear-gradient(135deg,rgba(201,168,76,.25),rgba(26,94,73,.12))';
+      el.querySelector('div:last-child').style.color='var(--goldL)';
+      IW.origin=o.city;
+      const pr=document.getElementById('iwPaxRow');pr.style.opacity='1';pr.style.pointerEvents='';
+      const tw=document.getElementById('iwTypeWrap');if(tw)tw.style.display='block';
+      iwUpdateLiveSummary();
+      setTimeout(()=>pr.scrollIntoView({behavior:'smooth',block:'nearest'}),200);
+    };
+    strip.appendChild(el);
+  });
 }
 
 window.iwToggleCity=key=>{
@@ -1392,12 +1358,6 @@ function iwUpdateLiveSummary(){
   bar.innerHTML=items.map(i=>`<div class="iw-ls-item"><div class="iw-ls-dot"></div>${i.ico} ${i.v}</div>`).join('');
 }
 
-window.iwSelFlightArr=opt=>{
-  IW.flightArr=opt;
-  ['avan','self'].forEach(k=>document.getElementById('iwFAR_'+k)?.classList.toggle('sel',k===opt));
-  iwRenderReview();
-};
-
 window.iwStartHotelFlow=()=>{
   if(!IW.cities.length){const e=document.getElementById('iwErr2');e.textContent='لطفاً حداقل یک شهر انتخاب کنید.';e.classList.add('show');return}
   document.getElementById('iwErr2').classList.remove('show');
@@ -1416,30 +1376,25 @@ function iwRenderNextHotelCity(){
   const remaining=IW.hotelFlow.queue.filter(k=>!IW.hotelFlow.confirmed[k]);
   iwUpdateSummary();
   if(!remaining.length){setTimeout(()=>{iwSetStep(3);iwRenderReview();},400);return;}
-  const key=remaining[0];IW.hotelFlow.current=key;IW.hotelFlow.pendingHotel=null;
+  const key=remaining[0];IW.hotelFlow.current=key;
   const meta=CITY_META[key];const hotels=IW_HOTELS[key];const wrap=document.getElementById('iwHotelPickerWrap');
-  let html=`<div style="font-size:12px;font-weight:800;color:var(--goldL);margin-bottom:12px;padding:10px 14px;background:rgba(201,168,76,.1);border:1.5px solid rgba(201,168,76,.28);border-radius:12px;display:flex;align-items:center;gap:8px"><span style="font-size:16px">🏨</span><div><div>${meta.name}</div><div style="font-size:10px;color:rgba(255,255,255,.45);font-weight:400;margin-top:2px">${meta.shrine} — هتل انتخاب کنید</div></div></div>`;
-  TIER_RANGES.forEach(([a,b],ti)=>{
-    html+=`<div class="hotel-tier-group"><div class="hotel-tier-label">${TIER_LABELS[ti]}</div>`;
-    for(let i=a;i<=b;i++){const h=hotels[i];const stars=Array.from({length:5},(_,j)=>`<div class="hotel-opt-star ${j<h.stars?'on':'off'}"></div>`).join('');html+=`<div class="hotel-opt" id="iwHO_${key}_${i}" onclick="iwSelHotelOpt('${key}',${i})"><div class="hotel-opt-stars">${stars}</div><div class="hotel-opt-name">${h.name}</div><div class="hotel-opt-dist">📍 ${h.dist}</div><div class="hotel-opt-radio"></div></div>`;}
-    html+='</div>';
+  const TIER_ICO=['🌟','⭐','🏠'];const TIER_CLS=['tier-a','tier-b','tier-c'];const TIER_LBL=['لوکس','متوسط','اقتصادی'];
+  let html=`<div style="font-size:12px;font-weight:800;color:var(--goldL);margin-bottom:10px;padding:9px 13px;background:rgba(201,168,76,.1);border:1.5px solid rgba(201,168,76,.28);border-radius:12px;display:flex;align-items:center;gap:8px"><span style="font-size:16px">🏨</span><div>${meta.name} — هتل را انتخاب کنید</div></div><div class="hotel-grid">`;
+  hotels.forEach((h,i)=>{
+    const ti=i<2?0:i<4?1:2;
+    const stars='★'.repeat(h.stars)+'☆'.repeat(5-h.stars);
+    html+=`<div class="hotel-gcard" id="iwHO_${key}_${i}" onclick="iwSelHotelOpt('${key}',${i})"><div class="hotel-gcard-tick">✓</div><div class="hotel-gcard-ico">${TIER_ICO[ti]}</div><div class="hotel-gcard-stars">${stars.split('').map((s,j)=>`<span class="hotel-gcard-star">${s}</span>`).join('')}</div><div class="hotel-gcard-name">${h.name}</div><div class="hotel-gcard-dist">📍 ${h.dist}</div><span class="hotel-gcard-tier ${TIER_CLS[ti]}">${TIER_LBL[ti]}</span></div>`;
   });
-  html+='<div id="iwHotelConfirmBox" style="display:none"></div>';
+  html+='</div>';
   wrap.innerHTML=html;
   setTimeout(()=>wrap.scrollIntoView({behavior:'smooth',block:'nearest'}),150);
 }
 
 window.iwSelHotelOpt=(key,idx)=>{
-  IW.hotelFlow.pendingHotel=idx;
   document.querySelectorAll(`[id^="iwHO_${key}_"]`).forEach(c=>c.classList.toggle('sel',parseInt(c.id.split('_').pop())===idx));
-  const h=IW_HOTELS[key][idx];const box=document.getElementById('iwHotelConfirmBox');box.style.display='block';box.className='hotel-confirm-box';
-  const imgCells=h.emojis.map(e=>`<div class="hotel-img-cell"><div class="hotel-img-placeholder">${e}</div></div>`).join('');
-  box.innerHTML=`<div class="hotel-confirm-name">${h.name}</div><div class="hotel-imgs-grid">${imgCells}</div><div class="hotel-confirm-actions"><button class="hotel-confirm-ok" onclick="iwConfirmHotel('${key}',${idx})">✓ تأیید این هتل</button><button class="hotel-confirm-change" onclick="iwChangeHotel('${key}')">تغییر</button></div>`;
-  setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+  IW.hotelFlow.confirmed[key]={idx,hotel:IW_HOTELS[key][idx]};
+  setTimeout(()=>iwRenderNextHotelCity(),420);
 };
-
-window.iwConfirmHotel=(key,idx)=>{IW.hotelFlow.confirmed[key]={idx,hotel:IW_HOTELS[key][idx]};iwRenderNextHotelCity();};
-window.iwChangeHotel=(key)=>{IW.hotelFlow.pendingHotel=null;document.querySelectorAll(`[id^="iwHO_${key}_"]`).forEach(c=>c.classList.remove('sel'));const box=document.getElementById('iwHotelConfirmBox');if(box)box.style.display='none';};
 window.iwReEditCity=key=>{delete IW.hotelFlow.confirmed[key];IW.hotelFlow.current=key;iwRenderNextHotelCity();};
 
 function iwUpdateSummary(){
@@ -1452,36 +1407,68 @@ function iwUpdateSummary(){
 
 function iwCalcEstimate(){
   const isAir=IW.type==='air'||IW.type==='mixed';
-  const selfFlight=IW.flightArr==='self';
-  let transport=isAir?(selfFlight?0:4500000):(IW.type==='mixed'?1500000:2200000);
   let nights=0,accommodation=0;
   IW.cities.forEach(k=>{const cf=IW.hotelFlow.confirmed[k];if(cf){const h=IW_HOTELS[k][cf.idx];const n=3;nights+=n;accommodation+=CITY_META[k].base*(h.stars>=5?1.5:h.stars>=4?1.0:0.65)*n}});
-  const perPerson=transport+accommodation+600000;
-  return{perPerson:Math.round(perPerson),total:Math.round(perPerson*IW.pax),nights};
+  const iraqServices=accommodation+600000; // hotels + local services per person
+  const flightCost=isAir?4500000:0;
+  const landCost=IW.type==='land'?2200000:IW.type==='mixed'?1500000:0;
+  return{iraqServices:Math.round(iraqServices),flightCost,landCost,nights,perPerson:Math.round(iraqServices+(IW.flightArr==='self'?0:flightCost)+landCost),total:Math.round((iraqServices+(IW.flightArr==='self'?0:flightCost)+landCost)*IW.pax)};
 }
 
+window.iwSelFlightArr=opt=>{
+  IW.flightArr=opt;
+  ['avan','self'].forEach(k=>document.getElementById('iwFAR_'+k)?.classList.toggle('sel',k===opt));
+  iwRenderReview();
+};
+
 function iwRenderReview(){
-  const isAir=IW.type==='air'||IW.type==='mixed';
-  // Show/hide flight arranger
-  const fas=document.getElementById('iwFlightArrSec');if(fas)fas.style.display=isAir?'block':'none';
   const rb=document.getElementById('iwReviewBody');if(!rb)return;
-  const tl={air:'✈️ هوایی',land:'🚌 زمینی',mixed:'✈️+🚌 ترکیبی'};
+  const isAir=IW.type==='air'||IW.type==='mixed';
+  const isLand=IW.type==='land'||IW.type==='mixed';
   const est=iwCalcEstimate();
-  const cityRows=IW.cities.map((k,i)=>{
-    const cf=IW.hotelFlow.confirmed[k];
-    return `<div class="iw-rv-row"><span class="iw-rv-ico">${i===0?'🕌':'🕌'}</span><span class="iw-rv-lbl">${P(i+1)}. ${CITY_META[k].name}</span><span class="iw-rv-val">${cf?cf.hotel.name:'—'}</span></div>`;
-  }).join('');
+  const tl={air:'هوایی',land:'زمینی',mixed:'رفت هوایی — برگشت زمینی'};
+  const originLbl=CITY_LABELS[IW.origin]||IW.origin||'—';
+  const dateStr=IW.selD?(P(IW.selD)+' '+PM[IW.selM-1]+' '+P(IW.selY)):'—';
+  const cityList=IW.cities.map((k,i)=>{const cf=IW.hotelFlow.confirmed[k];return `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(201,168,76,.1)"><div style="width:20px;height:20px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--g1);flex-shrink:0">${P(i+1)}</div><div style="flex:1"><div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.9)">${CITY_META[k].name}</div><div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:1px">${cf?cf.hotel.name:'—'}</div></div><div style="font-size:10px;color:rgba(201,168,76,.7)">۳ شب</div></div>`}).join('');
+
+  // Transport section HTML
+  const flightHTML=isAir?`<div style="background:rgba(255,255,255,.06);border:1.5px solid rgba(201,168,76,.25);border-radius:14px;overflow:hidden;margin-bottom:10px">
+    <div style="padding:10px 14px;background:rgba(201,168,76,.1);border-bottom:1px solid rgba(201,168,76,.15);font-size:11.5px;font-weight:800;color:var(--goldL);display:flex;align-items:center;gap:6px">✈️ بلیط پرواز ${originLbl} ← عراق</div>
+    <div style="padding:10px 12px;display:flex;flex-direction:column;gap:6px">
+      <div class="farr-opt ${IW.flightArr==='avan'?'sel':''}" id="iwFAR_avan" onclick="iwSelFlightArr('avan')"><div class="farr-radio"></div><div><div class="farr-name">آوان بلیط تهیه کند</div><div class="farr-sub">+${fmt(est.flightCost)} تومان / نفر اضافه می‌شود</div></div></div>
+      <div class="farr-opt ${IW.flightArr==='self'?'sel':''}" id="iwFAR_self" onclick="iwSelFlightArr('self')"><div class="farr-radio"></div><div><div class="farr-name">خودم بلیط می‌گیرم</div><div class="farr-sub">هزینه حمل‌ونقل از تخمین کسر می‌شود</div></div></div>
+    </div></div>`:'';
+  const landHTML=isLand&&IW.type==='land'?`<div style="background:rgba(255,255,255,.06);border:1.5px solid rgba(201,168,76,.2);border-radius:12px;padding:10px 14px;margin-bottom:10px;font-size:11.5px;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:8px"><span>🚌</span><div>حمل‌ونقل زمینی ${originLbl} تا مرز و بازگشت: <strong style="color:var(--goldL)">${fmt(est.landCost)} تومان / نفر</strong></div></div>`:'';
+
   rb.innerHTML=`
-    <div class="iw-rv-row"><span class="iw-rv-ico">📅</span><span class="iw-rv-lbl">تاریخ</span><span class="iw-rv-val">${IW.selD?(P(IW.selD)+' '+PM[IW.selM-1]+' '+P(IW.selY)):'—'}</span></div>
-    <div class="iw-rv-row"><span class="iw-rv-ico">📍</span><span class="iw-rv-lbl">مبدا</span><span class="iw-rv-val">${CITY_LABELS[IW.origin]||IW.origin||'—'}</span></div>
-    <div class="iw-rv-row"><span class="iw-rv-ico">👥</span><span class="iw-rv-lbl">مسافران</span><span class="iw-rv-val">${P(IW.pax)} نفر</span></div>
-    <div class="iw-rv-row"><span class="iw-rv-ico">🚀</span><span class="iw-rv-lbl">نوع سفر</span><span class="iw-rv-val">${tl[IW.type]||'—'}</span></div>
-    <div class="iw-rv-row"><span class="iw-rv-ico">🗺️</span><span class="iw-rv-lbl">مسیر</span><span class="iw-rv-val">${IW.cities.map(k=>CITY_META[k].name).join(' ← ')||'—'}</span></div>
-    <div class="iw-rv-row"><span class="iw-rv-ico">🌙</span><span class="iw-rv-lbl">مجموع شب</span><span class="iw-rv-val">${P(est.nights)} شب</span></div>
-    ${cityRows}
-    <div class="iw-rv-price"><div class="iw-rv-price-lbl">تخمین هزینه — هر نفر از</div><div class="iw-rv-price-val">${fmt(est.perPerson)} ت</div></div>
+    <div style="background:rgba(13,59,46,.4);border:1.5px solid rgba(201,168,76,.28);border-radius:14px;overflow:hidden;margin-bottom:12px">
+      <div style="background:linear-gradient(135deg,rgba(13,59,46,.7),rgba(26,94,73,.5));padding:12px 14px">
+        <div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:4px">سفر زیارتی شما</div>
+        <div style="font-size:14px;font-weight:800;color:var(--goldL);margin-bottom:2px">📅 ${dateStr} — ${P(IW.pax)} مسافر از ${originLbl}</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.6)">${IW.cities.map(k=>CITY_META[k].name).join(' ← ')||'—'} — ${P(est.nights)} شب — ${tl[IW.type]||'—'}</div>
+      </div>
+      <div style="padding:10px 14px">${cityList}</div>
+    </div>
+
+    <div style="background:rgba(201,168,76,.1);border:1.5px solid rgba(201,168,76,.3);border-radius:14px;padding:12px 14px;margin-bottom:12px">
+      <div style="font-size:10px;font-weight:700;color:rgba(201,168,76,.7);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">💰 هزینه تخمینی خدمات داخل عراق</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.6);line-height:1.8;margin-bottom:10px">این مبلغ شامل اقامت در هتل، ترانسفر داخل عراق، و خدمات محلی آوان می‌شود:</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(201,168,76,.12);border-radius:9px;padding:9px 12px">
+        <div style="font-size:11px;color:rgba(255,255,255,.6)">هر نفر</div>
+        <div style="font-size:18px;font-weight:900;color:var(--goldL)">${fmt(est.iraqServices)} تومان</div>
+      </div>
+      ${IW.pax>1?`<div style="text-align:left;font-size:10px;color:rgba(255,255,255,.4);margin-top:6px">جمع ${P(IW.pax)} نفر: ${fmt(est.iraqServices*IW.pax)} تومان</div>`:''}
+    </div>
+
+    <div style="margin-bottom:12px">
+      <div style="font-size:10px;font-weight:700;color:rgba(201,168,76,.6);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">🚀 حمل‌ونقل ایران ← عراق</div>
+      ${flightHTML}${landHTML}
+    </div>
+
+    <div style="background:rgba(13,59,46,.35);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:10px 13px;font-size:11px;color:rgba(255,255,255,.65);line-height:1.75;display:flex;gap:8px">
+      <span style="font-size:16px;flex-shrink:0">🤝</span><div>تیم آوان در تمام مدت اقامت در عراق، <strong style="color:var(--goldL)">۲۴ ساعته</strong> همراه شماست.</div>
+    </div>
   `;
-  setTimeout(()=>{const rc=document.getElementById('iwReviewCard');if(rc)rc.scrollIntoView({behavior:'smooth',block:'nearest'})},200);
 }
 
 function iwSetStep(n){
