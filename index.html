@@ -965,8 +965,7 @@ body.locked{overflow:hidden}
 
     <div class="iw" id="iwWrap">
       <div class="live-cost-bar" id="liveCostBar">
-        <div><div class="lcb-label">هزینه تخمینی کل</div><div class="lcb-total" id="lcbTotal">—</div><div class="lcb-pp" id="lcbPP"></div></div>
-        <div class="lcb-breakdown" id="lcbBreakdown"></div>
+        <div><div class="lcb-label">هزینه تخمینی هر نفر</div><div class="lcb-total" id="lcbTotal">—</div></div>
       </div>
       <div class="iw-progress"><div class="iw-progress-fill" id="iwBar" style="width:16%"></div></div>
       <div class="iw-step-nav" id="iwStepNav">
@@ -1767,15 +1766,9 @@ function calcCosts(){
 function updateLiveCost(){
   const c=calcCosts();const bar=qs('liveCostBar');
   if(IW.step<4){bar.classList.remove('show');return}
-  if(c.total===0){bar.classList.remove('show');return}
+  if(c.perPerson===0){bar.classList.remove('show');return}
   bar.classList.add('show');
-  qs('lcbTotal').textContent=fmt(c.total)+' ت';
-  qs('lcbPP').textContent=totalPax()>1?`هر نفر: ${fmt(c.perPerson)} ت`:'';
-  const items=[];
-  if(c.accommodationPP)items.push(`هتل: ${fmt(c.accommodationPP*totalPax())} ت`);
-  if(c.transportPP)items.push(`حمل‌ونقل: ${fmt(c.transportPP*totalPax())} ت`);
-  if(c.servicesPP)items.push(`خدمات: ${fmt(c.servicesPP*totalPax())} ت`);
-  qs('lcbBreakdown').innerHTML=items.map(i=>`<div class="lcb-item"><div class="lcb-dot"></div>${i}</div>`).join('');
+  qs('lcbTotal').textContent=fmt(c.perPerson)+' ت';
 }
 
 // STEP 5 SUMMARY + PILGRIM ACCORDION
@@ -1889,8 +1882,13 @@ function iwBuildTripSummary5(){
   const tb=qs('s5TotalBox');
   if(tb){
     tb.style.display='block';
-    tb.innerHTML=`<div style="font-size:10px;font-weight:700;color:rgba(201,168,76,.6);margin-bottom:8px;text-transform:uppercase;letter-spacing:.07em">جمع کل هزینه سفر</div>
-      <div class="cost-row"><div class="cost-row-lbl">هزینه هر نفر</div><div class="cost-row-val">${fmt(c.perPerson)} ت</div></div>
+    const items=[];
+    if(c.accommodationPP)items.push(['اقامت هتل',c.accommodationPP]);
+    if(c.transportPP)items.push(['بلیط / حمل‌ونقل',c.transportPP]);
+    if(IW.svcInsurance)items.push(['بیمه مسافرتی',150000]);
+    if(IW.svcSim)items.push(['سیم‌کارت عراقی',350000]);
+    tb.innerHTML=`<div style="font-size:10px;font-weight:700;color:rgba(201,168,76,.6);margin-bottom:8px;text-transform:uppercase;letter-spacing:.07em">جمع کل هزینه سفر — شامل ${items.map(i=>i[0]).join('، ')}</div>
+      ${items.map(i=>`<div class="cost-row"><div class="cost-row-lbl">${i[0]} (هر نفر)</div><div class="cost-row-val">${fmt(i[1])} ت</div></div>`).join('')}
       <div class="cost-row"><div class="cost-row-lbl">تعداد نفرات</div><div class="cost-row-val">${P(totalPax())} نفر</div></div>
       <div class="cost-total-row" style="margin-top:8px"><div class="cost-total-lbl">جمع کل</div><div class="cost-total-val">${fmt(c.total)} ت</div></div>`;
   }
