@@ -376,6 +376,22 @@ body.locked{overflow:hidden}
 .hd-info-row svg{width:15px;height:15px;stroke:var(--g3);stroke-width:1.8;fill:none;stroke-linecap:round;flex-shrink:0;margin-top:1px}
 .hd-select-btn{width:100%;margin-top:12px;padding:12px;border-radius:100px;border:none;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--g1);font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(201,168,76,.25)}
 
+/* STEP 3 — TIER SELECTOR */
+.tier-selector{display:flex;gap:7px;margin-bottom:14px}
+.tier-btn{flex:1;padding:10px 8px;border:1.5px solid rgba(255,255,255,.13);background:rgba(255,255,255,.06);border-radius:11px;cursor:pointer;text-align:center;transition:.22s;position:relative}
+.tier-btn:hover{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.1)}
+.tier-btn.sel{border-color:var(--gold);background:rgba(201,168,76,.18);box-shadow:0 2px 10px rgba(201,168,76,.2)}
+.tier-btn-tick{position:absolute;top:-5px;right:-5px;width:14px;height:14px;background:var(--gold);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:7px;color:var(--g1);font-weight:900}
+.tier-btn.sel .tier-btn-tick{display:flex}
+.tier-btn-ico{font-size:18px;margin-bottom:2px}
+.tier-btn-lbl{font-size:11px;font-weight:700;color:rgba(255,255,255,.75)}
+.tier-btn.sel .tier-btn-lbl{color:var(--goldL)}
+.tier-btn-sub{font-size:9px;color:rgba(255,255,255,.35);margin-top:2px}
+.tier-btn.sel .tier-btn-sub{color:rgba(201,168,76,.6)}
+/* hotel list accordion after tier selection */
+.hotel-tier-acc{max-height:0;overflow:hidden;transition:max-height .42s cubic-bezier(.4,0,.2,1),opacity .3s;opacity:0}
+.hotel-tier-acc.open{max-height:600px;opacity:1}
+
 /* STEP 4 */
 .opt-section{margin-bottom:16px}
 .opt-sec-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;color:rgba(201,168,76,.55);margin-bottom:9px;display:flex;align-items:center;gap:5px;text-transform:uppercase}
@@ -1623,24 +1639,78 @@ function iwBuildHotelStep(){
   const picker=qs('iwHotelPicker');picker.innerHTML='';
   const stayCities=activeCities.filter(k=>IW.cityMode[k]==='stay');
   if(!stayCities.length){picker.innerHTML='<div style="text-align:center;padding:16px;font-size:12px;color:rgba(255,255,255,.48)">همه شهرها ترانزیت — نیازی به انتخاب هتل نیست ✓</div>';return}
+
+  // tier definitions
+  const TIERS=[
+    {key:'a',ico:'⭐⭐⭐⭐⭐',lbl:'لوکس',sub:'۵ ستاره — نزدیک حرم'},
+    {key:'b',ico:'⭐⭐⭐⭐',lbl:'متوسط',sub:'۴ ستاره — مناسب'},
+    {key:'c',ico:'⭐⭐⭐',lbl:'اقتصادی',sub:'۳ ستاره — مقرون‌به‌صرفه'}
+  ];
+
   stayCities.forEach(k=>{
     const sec=document.createElement('div');sec.style.marginBottom='18px';
-    sec.innerHTML=`<div class="hotel-city-lbl"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>${CITY_META[k].name}</div><div class="hotel-list" id="iwHL_${k}"></div>`;
+    sec.innerHTML=`
+      <div class="hotel-city-lbl">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        ${CITY_META[k].name}
+      </div>
+      <div class="tier-selector" id="iwTierSel_${k}"></div>
+      <div class="hotel-tier-acc" id="iwTierAcc_${k}">
+        <div class="hotel-list" id="iwHL_${k}"></div>
+      </div>`;
     picker.appendChild(sec);
-    const listEl=sec.querySelector('.hotel-list');
+
+    const tierSel=sec.querySelector(`#iwTierSel_${k}`);
+    TIERS.forEach(t=>{
+      const btn=document.createElement('div');
+      btn.className='tier-btn';btn.id=`iwTierBtn_${k}_${t.key}`;
+      btn.innerHTML=`<div class="tier-btn-tick">✓</div><div class="tier-btn-ico">${t.ico}</div><div class="tier-btn-lbl">${t.lbl}</div><div class="tier-btn-sub">${t.sub}</div>`;
+      btn.onclick=()=>iwSelTier(k,t.key);
+      tierSel.appendChild(btn);
+    });
+
+    // build all hotel cards (hidden initially)
+    const listEl=sec.querySelector(`#iwHL_${k}`);
     HOTELS[k].forEach((h,i)=>{
       const starsRow=Array.from({length:5},(_,j)=>`<div class="hcard-star${j<h.stars?' on':''}"></div>`).join('');
       const card=document.createElement('div');card.className='hcard'+(IW.hotels[k]===i?' sel':'');card.id=`iwH_${k}_${i}`;
+      card.setAttribute('data-tier',h.tier);
+      card.style.display='none';// hidden until tier selected
       card.innerHTML=`<div class="hcard-main" onclick="iwSelHotel('${k}',${i})"><div class="hcard-rating"><div class="hcard-stars-row">${starsRow}</div></div><div class="hcard-info"><div class="hcard-name">${h.name}</div><div class="hcard-dist"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 010 16c-4 0-8-5-8-8a8 8 0 018-8z"/></svg>${h.dist} از حرم</div></div><div class="hcard-tier ${h.tier}">${h.tierLbl}</div><div class="hcard-sel-tick"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div><button class="hcard-detail-btn" onclick="openHotelDetail('${k}',${i})">مشاهده جزئیات ←</button>`;
       listEl.appendChild(card);
     });
+
+    // if hotel already selected, restore tier UI
+    if(IW.hotels[k]!==undefined){
+      const selTier=HOTELS[k][IW.hotels[k]].tier;
+      iwSelTier(k,selTier,true);
+    }
   });
 }
+
+window.iwSelTier=(key,tierKey,silent)=>{
+  // update tier buttons
+  ['a','b','c'].forEach(t=>{
+    qs(`iwTierBtn_${key}_${t}`)?.classList.toggle('sel',t===tierKey);
+  });
+  // show/hide hotel cards
+  const acc=qs(`iwTierAcc_${key}`);
+  const listEl=qs(`iwHL_${key}`);
+  if(!acc||!listEl)return;
+  listEl.querySelectorAll('.hcard').forEach(c=>{
+    c.style.display=c.getAttribute('data-tier')===tierKey?'':'none';
+  });
+  acc.classList.add('open');
+  if(!silent)setTimeout(()=>scrollTo$(acc),200);
+};
 
 window.iwSelHotel=(key,idx)=>{
   IW.hotels[key]=idx;
   document.querySelectorAll(`[id^="iwH_${key}_"]`).forEach(c=>{c.classList.toggle('sel',parseInt(c.id.split('_').pop())===idx)});
   updateLiveCost();
+  // highlight tier button of selected hotel
+  const selTier=HOTELS[key][idx].tier;
+  ['a','b','c'].forEach(t=>qs(`iwTierBtn_${key}_${t}`)?.classList.toggle('sel',t===selTier));
   const stayCities=CITY_KEYS.filter(k=>IW.cityMode[k]==='stay');
   const curIdx=stayCities.indexOf(key);
   if(curIdx<stayCities.length-1){const nextSection=qs('iwHL_'+stayCities[curIdx+1])?.closest('div');if(nextSection)setTimeout(()=>scrollTo$(nextSection),200)}
@@ -1705,7 +1775,8 @@ function calcCosts(){
 
 function updateLiveCost(){
   const c=calcCosts();const bar=qs('liveCostBar');
-  if(c.total===0&&IW.step<3){bar.classList.remove('show');return}
+  if(IW.step<4){bar.classList.remove('show');return}
+  if(c.total===0){bar.classList.remove('show');return}
   bar.classList.add('show');
   qs('lcbTotal').textContent=fmt(c.total)+' ت';
   qs('lcbPP').textContent=totalPax()>1?`هر نفر: ${fmt(c.perPerson)} ت`:'';
