@@ -885,7 +885,7 @@ body.locked{overflow:hidden}
 <div class="modal-ov" id="modal-guide" onclick="closeModal('guide',event)">
   <div class="modal">
     <div class="modal-head"><div class="modal-title">راهنمای استفاده</div><button class="modal-close" onclick="closeModalDirect('guide')">✕</button></div>
-    <div class="modal-body">۱. تاریخ، مبدا و مسافران را انتخاب کنید.<br/>۲. شهرهای زیارتی را تعیین کنید.<br/>۳. هتل دلخواه را انتخاب کنید.<br/>۴. حمل‌ونقل و خدمات را شخصی‌سازی کنید.<br/>۵. اطلاعات مسافر و پرداخت.</div>
+    <div class="modal-body">۱. تاریخ، مبدا و مسافران را انتخاب کنید.<br/>۲. شهرهای زیارتی را تعیین کنید.<br/>۳. هتل دلخواه را انتخاب کنید.<br/>۴. حمل‌ونقل و خدمات را شخصی‌سازی کنید.<br/>۵. خلاصه سفر و هزینه را تأیید کنید.<br/>۶. اطلاعات زائران را وارد و پرداخت کنید.</div>
   </div>
 </div>
 <div class="modal-ov" id="modal-contact" onclick="closeModal('contact',event)">
@@ -977,7 +977,7 @@ body.locked{overflow:hidden}
         <div class="iw-snav-line" id="iwL3"></div>
         <div class="iw-snav-item"><div class="iw-snav-dot" id="iwD4">۴</div><div class="iw-snav-lbl" id="iwLb4">خدمات</div></div>
         <div class="iw-snav-line" id="iwL4"></div>
-        <div class="iw-snav-item"><div class="iw-snav-dot" id="iwD5">۵</div><div class="iw-snav-lbl" id="iwLb5">تأیید</div></div>
+        <div class="iw-snav-item"><div class="iw-snav-dot" id="iwD5">۵</div><div class="iw-snav-lbl" id="iwLb5">هزینه</div></div>
         <div class="iw-snav-line" id="iwL5"></div>
         <div class="iw-snav-item"><div class="iw-snav-dot" id="iwD6">۶</div><div class="iw-snav-lbl" id="iwLb6">پرداخت</div></div>
       </div>
@@ -1128,32 +1128,28 @@ body.locked{overflow:hidden}
         </div>
       </div>
 
-      <!-- SLIDE 5 -->
+      <!-- SLIDE 5 — خلاصه سفر و تفکیک هزینه -->
       <div class="iw-slide" id="iwS5">
-        <div id="iwTripSummary5"></div>
-        <!-- هزینه هر نفر برجسته -->
-        <div id="s5CostPerPerson" style="display:none;background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.08));border:1.5px solid var(--gold);border-radius:12px;padding:11px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
+        <div id="iwCostBreakdown"></div>
+        <div class="iw-err" id="iwErr5"></div>
+        <div class="iw-btns">
+          <button class="iw-back-btn" onclick="iwBack(5)">← بازگشت</button>
+          <button class="iw-cta gold" style="flex:1" onclick="iwNext(5)">تأیید سفر — ادامه ✦</button>
+        </div>
+      </div>
+
+      <!-- SLIDE 6 — اطلاعات زائران و پرداخت -->
+      <div class="iw-slide" id="iwS6">
+        <div id="s5CostPerPerson" style="background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.08));border:1.5px solid var(--gold);border-radius:12px;padding:11px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
           <div style="font-size:11px;color:rgba(255,255,255,.6)">هزینه تخمینی هر نفر</div>
           <div style="font-size:20px;font-weight:900;color:var(--goldL)" id="s5ppVal">—</div>
         </div>
-        <div id="s5TotalBox" style="display:none;background:rgba(0,0,0,.15);border-radius:11px;padding:12px 14px;margin-bottom:16px"></div>
-        <!-- لیست زائران کشویی -->
         <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.55);margin-bottom:10px;display:flex;align-items:center;gap:5px">
           <svg style="width:14px;height:14px;stroke:currentColor;stroke-width:1.8;fill:none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
           اطلاعات زائران
         </div>
         <div id="pilgrimList"></div>
-        <div class="tf-note" style="margin-top:10px"><svg viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg><div>تصویر <strong style="color:var(--goldL)">گذرنامه</strong> در مرحله بعد دریافت می‌شود.</div></div>
-        <div class="iw-err" id="iwErr5"></div>
-        <div class="iw-btns">
-          <button class="iw-back-btn" onclick="iwBack(5)">← بازگشت</button>
-          <button class="iw-cta" style="flex:1" onclick="iwNext(5)">ادامه — هزینه نهایی</button>
-        </div>
-      </div>
-
-      <!-- SLIDE 6 -->
-      <div class="iw-slide" id="iwS6">
-        <div id="iwCostBreakdown"></div>
+        <div class="tf-note" style="margin-top:10px"><svg viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg><div>تصویر <strong style="color:var(--goldL)">گذرنامه</strong> پس از ثبت توسط کارشناسان دریافت می‌شود.</div></div>
         <div class="iw-err" id="iwErr6"></div>
         <div class="iw-btns">
           <button class="iw-back-btn" onclick="iwBack(6)">← بازگشت</button>
@@ -1209,8 +1205,8 @@ body.locked{overflow:hidden}
             <div class="step-item" id="si2" onclick="togStep('si2')"><div class="step-head"><div class="step-num">۲</div><div class="step-title">شهرهای زیارتی</div><div class="step-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="step-body"><div class="step-desc">شهرها را انتخاب کنید. برای هر شهر مشخص کنید اقامت دارید، عبور می‌کنید، یا نمی‌روید.</div></div></div>
             <div class="step-item" id="si3" onclick="togStep('si3')"><div class="step-head"><div class="step-num">۳</div><div class="step-title">انتخاب هتل</div><div class="step-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="step-body"><div class="step-desc">برای شهرهای اقامتی، هتل دلخواه را انتخاب کنید.</div></div></div>
             <div class="step-item" id="si4" onclick="togStep('si4')"><div class="step-head"><div class="step-num">۴</div><div class="step-title">حمل‌ونقل و خدمات</div><div class="step-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="step-body"><div class="step-desc">انتخاب حمل‌ونقل ایران-عراق و خدمات اختیاری.</div></div></div>
-            <div class="step-item" id="si5" onclick="togStep('si5')"><div class="step-head"><div class="step-num">۵</div><div class="step-title">تأیید و اطلاعات مسافر</div><div class="step-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="step-body"><div class="step-desc">خلاصه سفر را تأیید کرده و اطلاعات سرپرست گروه را وارد کنید.</div></div></div>
-            <div class="step-item" id="si6" onclick="togStep('si6')"><div class="step-head"><div class="step-num">۶</div><div class="step-title">تأیید هزینه و پرداخت</div><div class="step-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="step-body"><div class="step-desc">خلاصه کامل هزینه‌ها نمایش داده می‌شود و به درگاه زرین‌پال منتقل می‌شوید.</div></div></div>
+            <div class="step-item" id="si5" onclick="togStep('si5')"><div class="step-head"><div class="step-num">۵</div><div class="step-title">خلاصه سفر و تأیید هزینه</div><div class="step-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="step-body"><div class="step-desc">خلاصه کامل سفر و تفکیک هزینه‌ها نمایش داده می‌شود تا سفر را تأیید کنید.</div></div></div>
+            <div class="step-item" id="si6" onclick="togStep('si6')"><div class="step-head"><div class="step-num">۶</div><div class="step-title">اطلاعات زائران و پرداخت</div><div class="step-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="step-body"><div class="step-desc">اطلاعات زائران را وارد می‌کنید، سفر ثبت شده و به درگاه زرین‌پال منتقل می‌شوید.</div></div></div>
           </div>
         </div>
       </div>
@@ -1863,35 +1859,9 @@ window.togglePilgrim=(idx)=>{
   el.classList.toggle('open');
 };
 
-function iwBuildTripSummary5(){
+function iwBuildPilgrims(){
   const c=calcCosts();
-  const activeCities=CITY_KEYS.filter(k=>IW.cityMode[k]&&IW.cityMode[k]!=='skip');
-  const tl={air:'هوایی',land:'زمینی',mixed:'ترکیبی'};
-  const el=qs('iwTripSummary5');
-  el.innerHTML=`
-    <div class="trip-summary-box">
-      <div class="tsb-title">خلاصه سفر شما</div>
-      <div class="tsb-meta"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>${P(IW.selD)} ${PM[IW.selM-1]} ${P(IW.selY)} &nbsp;·&nbsp; <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>${P(totalPax())} نفر &nbsp;·&nbsp; <svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 010 16c-4 0-8-5-8-8a8 8 0 018-8z"/></svg>${CITY_LABELS[IW.origin]||IW.origin}</div>
-      ${activeCities.map((k,i)=>{const mode=IW.cityMode[k];const hName=mode==='stay'&&IW.hotels[k]!==undefined?HOTELS[k][IW.hotels[k]].name:'ترانزیت';return`<div class="tsb-city"><div class="tsb-city-n">${P(i+1)}</div><div class="tsb-city-name">${CITY_META[k].name}</div><div class="tsb-city-detail">${mode==='stay'?hName+' · '+P(IW.cityNights[k])+' شب':'عبور'}</div></div>`}).join('')}
-      <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,168,76,.15);font-size:11px;color:rgba(255,255,255,.55)">${tl[IW.type]||'—'}${IW.svcSim?' · سیم‌کارت':''}</div>
-    </div>
-    <div class="s5-pp-box">
-      <div><div class="s5-pp-lbl">هزینه تخمینی هر نفر</div><div class="s5-pp-unit">تومان</div></div>
-      <div class="s5-pp-val">${fmt(c.perPerson)}</div>
-    </div>`;
-  const tb=qs('s5TotalBox');
-  if(tb){
-    tb.style.display='block';
-    const items=[];
-    if(c.accommodationPP)items.push(['اقامت هتل',c.accommodationPP]);
-    if(c.transportPP)items.push(['بلیط / حمل‌ونقل',c.transportPP]);
-    if(IW.svcInsurance)items.push(['بیمه مسافرتی',150000]);
-    if(IW.svcSim)items.push(['سیم‌کارت عراقی',350000]);
-    tb.innerHTML=`<div style="font-size:10px;font-weight:700;color:rgba(201,168,76,.6);margin-bottom:8px;text-transform:uppercase;letter-spacing:.07em">جمع کل هزینه سفر — شامل ${items.map(i=>i[0]).join('، ')}</div>
-      ${items.map(i=>`<div class="cost-row"><div class="cost-row-lbl">${i[0]} (هر نفر)</div><div class="cost-row-val">${fmt(i[1])} ت</div></div>`).join('')}
-      <div class="cost-row"><div class="cost-row-lbl">تعداد نفرات</div><div class="cost-row-val">${P(totalPax())} نفر</div></div>
-      <div class="cost-total-row" style="margin-top:8px"><div class="cost-total-lbl">جمع کل</div><div class="cost-total-val">${fmt(c.total)} ت</div></div>`;
-  }
+  qs('s5ppVal').textContent=fmt(c.perPerson);
   // build pilgrim accordion
   const total=IW.paxAdult+IW.paxChild;
   IW.pilgrims=IW.pilgrims.length===total?IW.pilgrims:Array.from({length:total},(_,i)=>IW.pilgrims[i]||{});
@@ -1910,8 +1880,6 @@ function iwBuildTripSummary5(){
     list.appendChild(el);
   });
 }
-
-// STEP 6
 function iwBuildCostBreakdown(){
   const c=calcCosts();
   const activeCities=CITY_KEYS.filter(k=>IW.cityMode[k]&&IW.cityMode[k]!=='skip');
@@ -1952,8 +1920,8 @@ function iwSetStep(n){
   }
   if(n===3)iwBuildHotelStep();
   if(n===4)iwBuildTransport();
-  if(n===5)iwBuildTripSummary5();
-  if(n===6)iwBuildCostBreakdown();
+  if(n===5)iwBuildCostBreakdown();
+  if(n===6)iwBuildPilgrims();
   updateLiveCost();
   setTimeout(()=>{const w=qs('iwWrap');if(w)window.scrollTo({top:w.offsetTop-72,behavior:'smooth'})},80);
 }
@@ -1984,9 +1952,6 @@ window.iwNext=n=>{
     iwSetStep(5);return;
   }
   if(n===5){
-    const total=IW.paxAdult+IW.paxChild;
-    const incomplete=IW.pilgrims.filter((p,i)=>i<total&&!p?.done);
-    if(incomplete.length||IW.pilgrims.length<total){iwShowErr(5,'اطلاعات همه زائران را تکمیل کنید.');return}
     iwSetStep(6);return;
   }
 };
@@ -1994,6 +1959,9 @@ window.iwBack=from=>{if(from>1)iwSetStep(from-1)};
 
 // FINISH
 window.iwFinish=async()=>{
+  const total=IW.paxAdult+IW.paxChild;
+  const incomplete=IW.pilgrims.filter((p,i)=>i<total&&!p?.done);
+  if(incomplete.length||IW.pilgrims.length<total){iwShowErr(6,'اطلاعات همه زائران را تکمیل کنید.');return}
   const costs=calcCosts();
   const code='AVN-'+Math.random().toString(36).toUpperCase().slice(2,8);
   const TG_BOT_TOKEN='TELEGRAM_BOT_TOKEN_HERE';
