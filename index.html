@@ -42,7 +42,7 @@ body.locked{overflow:hidden}
 .hero-desc{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.9;max-width:520px;margin:0 auto 24px}
 
 /* ═══ INLINE WIZARD ═══ */
-.iw{background:rgba(255,255,255,.1);border:1px solid rgba(201,168,76,.28);border-radius:20px 20px 0 0;overflow:hidden;position:relative;z-index:1;backdrop-filter:blur(10px)}
+.iw{background:rgba(255,255,255,.15);border:1.5px solid rgba(201,168,76,.45);border-radius:20px 20px 0 0;overflow:hidden;position:relative;z-index:1;backdrop-filter:blur(12px)}
 .iw-bar{height:3px;background:rgba(255,255,255,.08)}
 .iw-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--goldL));border-radius:0 3px 3px 0;transition:width .5s ease}
 .iw-steps{display:flex;align-items:center;justify-content:center;gap:0;padding:16px 0 6px}
@@ -941,7 +941,7 @@ body.locked{overflow:hidden}
     <div class="hero-desc">زمان سفر، مدت اقامت، درجه هتل و مسیر را خودتان انتخاب کنید. کاملاً متناسب با بودجه، زمان و سلیقه شما.</div>
     <!-- INLINE WIZARD -->
     <div class="iw" id="iwWrap">
-      <div class="iw-bar"><div class="iw-progress-bar" id="iwBar" style="width:33%"></div></div>
+      <div class="iw-bar"><div class="iw-bar-fill" id="iwBar" style="width:33%"></div></div>
       <div class="iw-steps">
         <div class="iw-dot active" id="iwD1">۱</div>
         <div class="iw-line" id="iwL1"></div>
@@ -1472,7 +1472,7 @@ function iwRenderReview(){
     return `<div class="iw-rv-row"><span class="iw-rv-ico">${i===0?'🕌':'🕌'}</span><span class="iw-rv-lbl">${P(i+1)}. ${CITY_META[k].name}</span><span class="iw-rv-val">${cf?cf.hotel.name:'—'}</span></div>`;
   }).join('');
   rb.innerHTML=`
-    <div class="iw-rv-row"><span class="iw-rv-ico">📅</span><span class="iw-rv-lbl">تاریخ</span><span class="iw-rv-val">${IW.selD?`${P(IW.selD)} ${PM[IW.selM-1]} ${P(IW.selY)}`:'—'}</span></div>
+    <div class="iw-rv-row"><span class="iw-rv-ico">📅</span><span class="iw-rv-lbl">تاریخ</span><span class="iw-rv-val">${IW.selD?(P(IW.selD)+' '+PM[IW.selM-1]+' '+P(IW.selY)):'—'}</span></div>
     <div class="iw-rv-row"><span class="iw-rv-ico">📍</span><span class="iw-rv-lbl">مبدا</span><span class="iw-rv-val">${CITY_LABELS[IW.origin]||IW.origin||'—'}</span></div>
     <div class="iw-rv-row"><span class="iw-rv-ico">👥</span><span class="iw-rv-lbl">مسافران</span><span class="iw-rv-val">${P(IW.pax)} نفر</span></div>
     <div class="iw-rv-row"><span class="iw-rv-ico">🚀</span><span class="iw-rv-lbl">نوع سفر</span><span class="iw-rv-val">${tl[IW.type]||'—'}</span></div>
