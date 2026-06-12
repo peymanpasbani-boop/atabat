@@ -78,8 +78,9 @@ body.locked{overflow:hidden}
 .s1-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.55);margin-bottom:9px;display:flex;align-items:center;gap:5px}
 .s1-label svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;opacity:.8}
 
-/* ── شهر مبدا — اسکرول افقی یک ردیف ── */
-.origin-scroll{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
+/* ── شهر مبدا — باکس اسکرول افقی ── */
+.origin-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);border-radius:10px;padding:8px;-webkit-mask-image:linear-gradient(to left,transparent,#000 10px,#000 calc(100% - 10px),transparent);mask-image:linear-gradient(to left,transparent,#000 10px,#000 calc(100% - 10px),transparent)}
+.origin-scroll{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .origin-scroll::-webkit-scrollbar{display:none}
 .ochip{padding:7px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.05);cursor:pointer;transition:.2s;text-align:center;white-space:nowrap;scroll-snap-align:start;flex-shrink:0}
 .ochip:hover{border-color:rgba(201,168,76,.38);background:rgba(201,168,76,.09)}
@@ -122,20 +123,15 @@ body.locked{overflow:hidden}
 @media(max-width:560px){.s1-row3{grid-template-columns:1fr}}
 
 /* ── نفرات — بزرگسال / خردسال / نوزاد ── */
-.pax-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);border-radius:10px;padding:10px 12px}
-.pax-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0}
-.pax-row+.pax-row{border-top:1px solid rgba(255,255,255,.07)}
-.pax-row-info{flex:1}
-.pax-row-lbl{font-size:10px;font-weight:700;color:rgba(255,255,255,.78)}
-.pax-row-sub{font-size:8.5px;color:rgba(255,255,255,.35);margin-top:1px;cursor:help}
-.pax-ctrl{display:flex;align-items:center;gap:8px}
-.pax-btn{width:24px;height:24px;border:none;border-radius:50%;background:rgba(201,168,76,.18);color:var(--goldL);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;font-family:inherit}
+.pax-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.pax-cell{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:9px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;text-align:center;transition:.2s}
+.pax-cell:hover{border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.07)}
+.pax-lbl{font-size:10px;font-weight:700;color:rgba(255,255,255,.78)}
+.pax-age{display:block;font-size:8px;font-weight:500;color:rgba(255,255,255,.32);margin-top:1px}
+.pax-ctrl{display:flex;align-items:center;justify-content:center;gap:7px}
+.pax-btn{width:22px;height:22px;border:none;border-radius:50%;background:rgba(201,168,76,.18);color:var(--goldL);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;font-family:inherit;line-height:1}
 .pax-btn:hover{background:rgba(201,168,76,.32)}
-.pax-num{font-size:16px;font-weight:900;color:var(--goldL);min-width:18px;text-align:center}
-/* توضیح سنی — تولتیپ ساده */
-.pax-tooltip{position:relative;display:inline-block}
-.pax-tooltip .tt{visibility:hidden;background:rgba(20,20,20,.92);color:#fff;font-size:10px;border-radius:7px;padding:5px 9px;white-space:nowrap;position:absolute;bottom:120%;right:0;z-index:10;pointer-events:none;opacity:0;transition:.2s;border:1px solid rgba(255,255,255,.1)}
-.pax-tooltip:hover .tt{visibility:visible;opacity:1}
+.pax-num{font-size:15px;font-weight:900;color:var(--goldL);min-width:16px;text-align:center}
 
 /* type pills */
 .type-row{display:flex;gap:6px}
@@ -332,7 +328,7 @@ body.locked{overflow:hidden}
 .ai-arr svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round}
 
 /* TRIPS SLIDER */
-.trips-sec{padding:28px 0 0;overflow:hidden}
+.trips-sec{padding:28px 0 8px;overflow:hidden;background:var(--cream)}
 .trips-in{max-width:860px;margin:0 auto;padding:0 20px}
 .sec-eyebrow{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
 .sec-title{font-size:20px;font-weight:800;color:var(--g1);margin-bottom:16px}
@@ -761,36 +757,30 @@ body.locked{overflow:hidden}
           <!-- مبدا — اسکرول افقی -->
           <div class="s1-section s1-locked" id="iwOriginSec">
             <div class="s1-label"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 010 16c-4 0-8-5-8-8a8 8 0 018-8z"/></svg> شهر مبدا</div>
-            <div class="origin-scroll" id="iwOriginGrid"></div>
+            <div class="origin-box"><div class="origin-scroll" id="iwOriginGrid"></div></div>
           </div>
           <!-- نفرات — بزرگسال / خردسال / نوزاد -->
           <div class="s1-section s1-locked" id="iwPaxSec">
             <div class="s1-label"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg> مسافران</div>
-            <div class="pax-box">
-              <div class="pax-row">
-                <div class="pax-row-info"><div class="pax-row-lbl">بزرگسال</div><div class="pax-row-sub">۷ سال به بالا</div></div>
+            <div class="pax-grid">
+              <div class="pax-cell">
+                <div class="pax-lbl">بزرگسال<span class="pax-age">۷ سال به بالا</span></div>
                 <div class="pax-ctrl">
                   <button class="pax-btn" onclick="iwChgPax('adult',-1)">−</button>
                   <div class="pax-num" id="iwPaxAdult">۱</div>
                   <button class="pax-btn" onclick="iwChgPax('adult',1)">+</button>
                 </div>
               </div>
-              <div class="pax-row">
-                <div class="pax-row-info">
-                  <div class="pax-row-lbl pax-tooltip">خردسال <span class="tt">۲ تا ۷ سال — نیاز به صندلی جداگانه</span></div>
-                  <div class="pax-row-sub" style="cursor:default">۲ تا ۷ سال</div>
-                </div>
+              <div class="pax-cell">
+                <div class="pax-lbl">خردسال<span class="pax-age">۲ تا ۷ سال</span></div>
                 <div class="pax-ctrl">
                   <button class="pax-btn" onclick="iwChgPax('child',-1)">−</button>
                   <div class="pax-num" id="iwPaxChild">۰</div>
                   <button class="pax-btn" onclick="iwChgPax('child',1)">+</button>
                 </div>
               </div>
-              <div class="pax-row">
-                <div class="pax-row-info">
-                  <div class="pax-row-lbl pax-tooltip">نوزاد <span class="tt">۱ ماه تا ۲ سال — بدون صندلی جداگانه</span></div>
-                  <div class="pax-row-sub" style="cursor:default">۱ ماه تا ۲ سال</div>
-                </div>
+              <div class="pax-cell">
+                <div class="pax-lbl">نوزاد<span class="pax-age">۱ ماه تا ۲ سال</span></div>
                 <div class="pax-ctrl">
                   <button class="pax-btn" onclick="iwChgPax('infant',-1)">−</button>
                   <div class="pax-num" id="iwPaxInfant">۰</div>
