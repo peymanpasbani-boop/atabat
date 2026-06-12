@@ -42,7 +42,7 @@ body.locked{overflow:hidden}
 .hero-desc{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.9;max-width:520px;margin:0 auto 24px}
 
 /* ═══ INLINE WIZARD ═══ */
-.iw{background:rgba(255,255,255,.15);border:1.5px solid rgba(201,168,76,.45);border-radius:20px 20px 0 0;overflow:hidden;position:relative;z-index:1;backdrop-filter:blur(12px)}
+.iw{background:rgba(255,255,255,.22);border:1.5px solid rgba(201,168,76,.6);border-radius:20px 20px 0 0;overflow:hidden;position:relative;z-index:1;backdrop-filter:blur(16px)}
 .iw-bar{height:3px;background:rgba(255,255,255,.08)}
 .iw-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--goldL));border-radius:0 3px 3px 0;transition:width .5s ease}
 .iw-steps{display:flex;align-items:center;justify-content:center;gap:0;padding:16px 0 6px}
@@ -1484,7 +1484,7 @@ function iwRenderReview(){
   setTimeout(()=>{const rc=document.getElementById('iwReviewCard');if(rc)rc.scrollIntoView({behavior:'smooth',block:'nearest'})},200);
 }
 
-
+function iwSetStep(n){
   IW.step=n;
   document.getElementById('iwBar').style.width=(n===1?'33':n===2?'66':'100')+'%';
   [1,2,3].forEach(i=>{
