@@ -5,1270 +5,1945 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>گروه زیارتی آوان — طراحی سفر زیارتی</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap');
 
-  :root {
-    --gold: #c9a96e;
-    --gold-light: #e8d5a3;
-    --dark: #0f0e0b;
-    --dark2: #1a1814;
-    --dark3: #242118;
-    --surface: #1e1c17;
-    --border: #2e2b22;
-    --text: #f0ead8;
-    --muted: #8a8070;
-    --green: #4caf7d;
-    --radius: 12px;
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --gold: #c9a96e;
+  --gold2: #e8d5a3;
+  --dark: #0f0e0b;
+  --dark2: #181610;
+  --dark3: #211f18;
+  --dark4: #282520;
+  --border: #2e2a20;
+  --text: #f0ead8;
+  --muted: #7a7060;
+  --muted2: #a09080;
+  --green: #4caf7d;
+  --red: #e05555;
+  --r: 12px;
+}
 
-  body {
-    font-family: 'Vazirmatn', sans-serif;
-    background: var(--dark);
-    color: var(--text);
-    min-height: 100vh;
-    direction: rtl;
-  }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Vazirmatn', sans-serif;
+  background: var(--dark);
+  color: var(--text);
+  direction: rtl;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
 
-  /* ── NAV ── */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(15,14,11,.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 20px;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 56px;
-  }
-  .nav-logo { font-size: 15px; font-weight: 700; color: var(--gold); }
-  .nav-logo span { color: var(--text); font-weight: 400; font-size: 12px; }
-  .nav-links { display: flex; gap: 20px; }
-  .nav-links button {
-    background: none; border: none; color: var(--muted);
-    font-family: inherit; font-size: 13px; cursor: pointer;
-    padding: 4px 0;
-    transition: color .2s;
-  }
-  .nav-links button:hover { color: var(--gold); }
+button, input { font-family: inherit; }
+a { text-decoration: none; color: inherit; }
 
-  /* ── HERO ── */
-  .hero {
-    padding: 60px 20px 50px;
-    text-align: center;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,169,110,.12) 0%, transparent 70%);
-  }
-  .hero-tag {
-    display: inline-block;
-    font-size: 11px; color: var(--gold);
-    border: 1px solid rgba(201,169,110,.3);
-    border-radius: 20px; padding: 4px 14px;
-    margin-bottom: 20px; letter-spacing: .5px;
-  }
-  .hero h1 {
-    font-size: clamp(26px,6vw,44px); font-weight: 800;
-    line-height: 1.35;
-    margin-bottom: 14px;
-  }
-  .hero h1 em { color: var(--gold); font-style: normal; }
-  .hero p {
-    font-size: 14px; color: var(--muted);
-    max-width: 420px; margin: 0 auto 36px; line-height: 1.8;
-  }
+/* ═══════════════════════════════════
+   HEADER / NAV
+═══════════════════════════════════ */
+header {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(15,14,11,.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav {
+  max-width: 480px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px; height: 52px;
+}
+.nav-brand {
+  display: flex; flex-direction: column; gap: 1px;
+}
+.nav-brand .title { font-size: 14px; font-weight: 800; color: var(--gold); }
+.nav-brand .sub { font-size: 10px; color: var(--muted); }
+.nav-links { display: flex; gap: 4px; }
+.nav-btn {
+  background: none; border: none; cursor: pointer;
+  color: var(--muted2); font-size: 12px; padding: 6px 10px;
+  border-radius: 8px; transition: background .2s, color .2s;
+}
+.nav-btn:hover { background: rgba(201,169,110,.1); color: var(--gold); }
 
-  /* ── MINI STEPPER (hero) ── */
-  .hero-steps {
-    display: flex; align-items: center; justify-content: center;
-    gap: 0; margin-bottom: 32px;
-  }
-  .hero-step {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 12px; color: var(--muted);
-  }
-  .hero-step .dot {
-    width: 28px; height: 28px; border-radius: 50%;
-    border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 700;
-  }
-  .hero-step.active .dot { background: var(--gold); color: var(--dark); border-color: var(--gold); }
-  .hero-step .connector { width: 32px; height: 1px; background: var(--border); margin: 0 4px; }
+/* ═══════════════════════════════════
+   HERO
+═══════════════════════════════════ */
+.hero {
+  max-width: 480px; margin: 0 auto;
+  padding: 40px 16px 32px;
+  text-align: center;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--gold);
+  border: 1px solid rgba(201,169,110,.25);
+  border-radius: 20px; padding: 5px 14px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: 28px; font-weight: 900; line-height: 1.4;
+  margin-bottom: 8px;
+}
+.hero h1 em { font-style: normal; color: var(--gold); }
+.hero-sub {
+  font-size: 13px; color: var(--muted2); line-height: 1.9;
+  max-width: 340px; margin: 0 auto 28px;
+}
 
-  /* ── MAIN WIZARD ── */
-  .wizard-card {
-    max-width: 480px; margin: 0 auto 40px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    overflow: hidden;
-  }
-  .wizard-header {
-    padding: 20px 24px 0;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .wizard-header h2 { font-size: 16px; font-weight: 700; }
-  .wizard-header .icon { font-size: 20px; }
+/* Hero steps pills */
+.hero-steps {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; margin-bottom: 4px;
+}
+.hero-step { display: flex; align-items: center; gap: 6px; }
+.hero-step-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 1px solid var(--border);
+  font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); transition: all .3s;
+}
+.hero-step.active .hero-step-num {
+  background: var(--gold); border-color: var(--gold); color: var(--dark);
+}
+.hero-step-label { font-size: 11px; color: var(--muted); }
+.hero-step.active .hero-step-label { color: var(--text); }
+.hero-step-line { width: 20px; height: 1px; background: var(--border); margin: 0 2px; }
 
-  /* step progress bar */
-  .step-tabs {
-    display: flex; padding: 16px 24px 0; gap: 6px;
-  }
-  .step-tab {
-    flex: 1; height: 3px; border-radius: 3px;
-    background: var(--border);
-    transition: background .3s;
-  }
-  .step-tab.done { background: var(--gold); }
-  .step-tab.active { background: var(--gold-light); }
+/* ═══════════════════════════════════
+   WIZARD CARD (main)
+═══════════════════════════════════ */
+.wizard {
+  max-width: 480px; margin: 0 auto 16px;
+  padding: 0 16px;
+}
+.wizard-card {
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+}
 
-  .wizard-body { padding: 24px; }
+/* Wizard top bar */
+.wizard-topbar {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.wizard-topbar .icon { font-size: 20px; }
+.wizard-topbar-text {}
+.wizard-topbar-text .wt { font-size: 15px; font-weight: 800; }
+.wizard-topbar-text .ws { font-size: 11px; color: var(--muted); margin-top: 1px; }
 
-  .step-label {
-    font-size: 12px; color: var(--muted);
-    margin-bottom: 18px;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .step-label strong { color: var(--text); }
+/* Step tabs */
+.step-tabs {
+  display: flex; gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+.step-tab {
+  flex: 1; padding: 10px 0;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all .2s; position: relative;
+}
+.step-tab.active { border-bottom-color: var(--gold); }
+.step-tab .tab-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid var(--border);
+  font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); transition: all .2s;
+}
+.step-tab.active .tab-num { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+.step-tab.done .tab-num { background: rgba(201,169,110,.2); border-color: var(--gold); color: var(--gold); }
+.step-tab .tab-label { font-size: 10px; color: var(--muted); }
+.step-tab.active .tab-label { color: var(--gold); }
 
-  /* Month selector */
-  .month-grid {
-    display: grid; grid-template-columns: repeat(4,1fr); gap: 7px;
-    margin-bottom: 18px;
-  }
-  .month-btn {
-    background: var(--dark3); border: 1px solid var(--border);
-    border-radius: 8px; padding: 8px 4px;
-    color: var(--text); font-family: inherit; font-size: 12px;
-    cursor: pointer; transition: all .2s; text-align: center;
-  }
-  .month-btn:hover { border-color: var(--gold); color: var(--gold); }
-  .month-btn.selected { background: var(--gold); color: var(--dark); border-color: var(--gold); font-weight: 700; }
+/* Step bodies */
+.step-body { padding: 20px; display: none; }
+.step-body.active { display: block; }
 
-  /* Day scroller */
-  .day-scroll-wrap {
-    background: var(--dark3); border: 1px solid var(--border);
-    border-radius: 10px; padding: 12px;
-    margin-bottom: 18px; overflow: hidden;
-  }
-  .day-scroll-label {
-    font-size: 11px; color: var(--muted); margin-bottom: 8px;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .day-scroll {
-    display: flex; gap: 6px;
-    overflow-x: auto; padding-bottom: 4px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-  .day-scroll::-webkit-scrollbar { height: 3px; }
-  .day-scroll::-webkit-scrollbar-track { background: var(--border); border-radius: 3px; }
-  .day-scroll::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
-  .day-btn {
-    min-width: 40px; height: 48px;
-    border-radius: 8px; border: 1px solid var(--border);
-    background: none; color: var(--muted);
-    font-family: inherit; font-size: 12px; cursor: pointer;
-    scroll-snap-align: start;
-    transition: all .2s; flex-shrink: 0;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 2px;
-  }
-  .day-btn:hover { border-color: var(--gold); color: var(--gold); }
-  .day-btn.selected { background: var(--gold); color: var(--dark); border-color: var(--gold); font-weight: 700; }
-  .day-btn .day-num { font-size: 13px; font-weight: 700; }
-  .day-btn .day-name { font-size: 9px; }
+.step-section-title {
+  font-size: 13px; font-weight: 700; margin-bottom: 4px;
+}
+.step-section-sub {
+  font-size: 11px; color: var(--muted); margin-bottom: 14px; line-height: 1.7;
+}
 
-  /* Origin city */
-  .origin-row {
-    background: var(--dark3); border: 1px solid var(--border);
-    border-radius: 10px; padding: 12px 14px;
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 18px; cursor: pointer;
-    transition: border-color .2s;
-  }
-  .origin-row:hover { border-color: var(--gold); }
-  .origin-row .label { font-size: 12px; color: var(--muted); }
-  .origin-row .value { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
-  .origin-row .check { color: var(--green); font-size: 14px; }
+/* Month grid */
+.label-row {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--muted); margin-bottom: 8px;
+}
+.month-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 6px;
+  margin-bottom: 14px;
+}
+.month-btn {
+  background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 9px 4px;
+  font-size: 12px; color: var(--text); cursor: pointer;
+  transition: all .18s; text-align: center;
+}
+.month-btn:hover { border-color: var(--gold); color: var(--gold); }
+.month-btn.sel { background: var(--gold); border-color: var(--gold); color: var(--dark); font-weight: 700; }
 
-  /* Passenger counter */
-  .passenger-row {
-    display: flex; align-items: center; justify-content: space-between;
-    background: var(--dark3); border: 1px solid var(--border);
-    border-radius: 10px; padding: 12px 16px;
-    margin-bottom: 24px;
-  }
-  .passenger-row .info .label { font-size: 12px; color: var(--muted); }
-  .passenger-row .info .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
-  .counter { display: flex; align-items: center; gap: 12px; }
-  .counter-btn {
-    width: 34px; height: 34px; border-radius: 50%;
-    border: 1px solid var(--border); background: var(--dark2);
-    color: var(--text); font-size: 18px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all .2s; font-family: inherit;
-  }
-  .counter-btn:hover { border-color: var(--gold); color: var(--gold); }
-  .counter-val { font-size: 22px; font-weight: 700; min-width: 28px; text-align: center; }
+/* Day scroller */
+.day-scroll-box {
+  background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px;
+  margin-bottom: 12px;
+}
+.day-scroll-hint {
+  font-size: 11px; color: var(--muted); margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.days-row {
+  display: flex; gap: 5px;
+  overflow-x: auto; padding-bottom: 2px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.days-row::-webkit-scrollbar { height: 3px; }
+.days-row::-webkit-scrollbar-track { background: var(--border); border-radius: 2px; }
+.days-row::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+.day-btn {
+  min-width: 38px; height: 50px; flex-shrink: 0;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: none; color: var(--muted); cursor: pointer;
+  scroll-snap-align: start; transition: all .18s;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+}
+.day-btn:hover { border-color: var(--gold); color: var(--gold); }
+.day-btn.sel { background: var(--gold); border-color: var(--gold); color: var(--dark); font-weight: 700; }
+.day-btn .dn { font-size: 14px; font-weight: 700; }
+.day-btn .dw { font-size: 9px; }
 
-  /* Travel type selector */
-  .type-cards { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
-  .type-card {
-    border: 1px solid var(--border); border-radius: 10px;
-    padding: 14px 16px;
-    cursor: pointer; transition: all .2s;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .type-card:hover { border-color: var(--gold); }
-  .type-card.selected { border-color: var(--gold); background: rgba(201,169,110,.08); }
-  .type-card .type-icon { font-size: 22px; }
-  .type-card .type-info .name { font-size: 14px; font-weight: 600; }
-  .type-card .type-info .desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
-  .type-card .check-circle {
-    margin-right: auto; width: 20px; height: 20px; border-radius: 50%;
-    border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; color: transparent;
-    transition: all .2s;
-  }
-  .type-card.selected .check-circle { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+/* Origin & passenger */
+.origin-btn {
+  width: 100%; background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; transition: border-color .2s; margin-bottom: 12px;
+}
+.origin-btn:hover { border-color: var(--gold); }
+.origin-btn .lft { font-size: 12px; color: var(--muted); }
+.origin-btn .rgt { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; }
+.origin-btn .rgt .check { color: var(--green); }
 
-  /* City origin grid */
-  .city-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 24px; }
-  .city-btn {
-    border: 1px solid var(--border); border-radius: 10px;
-    padding: 12px 14px; cursor: pointer; transition: all .2s;
-    background: none; color: var(--text); font-family: inherit;
-    text-align: right;
-  }
-  .city-btn:hover { border-color: var(--gold); }
-  .city-btn.selected { border-color: var(--gold); background: rgba(201,169,110,.08); }
-  .city-btn .c-name { font-size: 13px; font-weight: 600; display: block; }
-  .city-btn .c-type { font-size: 11px; color: var(--muted); margin-top: 3px; display: block; }
+.pass-row {
+  background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 4px;
+}
+.pass-info .pl { font-size: 12px; color: var(--muted); }
+.pass-info .ps { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.counter { display: flex; align-items: center; gap: 10px; }
+.cnt-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--dark2);
+  color: var(--text); font-size: 17px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .18s; line-height: 1;
+}
+.cnt-btn:hover { border-color: var(--gold); color: var(--gold); }
+.cnt-val { font-size: 20px; font-weight: 800; min-width: 26px; text-align: center; }
 
-  /* Destination cities */
-  .dest-cards { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
-  .dest-card {
-    border: 1px solid var(--border); border-radius: 10px;
-    padding: 14px 16px; cursor: pointer; transition: all .2s;
-    display: flex; align-items: center; gap: 12px;
-    position: relative;
-  }
-  .dest-card:hover { border-color: var(--gold); }
-  .dest-card.selected { border-color: var(--gold); background: rgba(201,169,110,.08); }
-  .dest-card .order-badge {
-    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-    width: 22px; height: 22px; border-radius: 50%;
-    background: var(--gold); color: var(--dark);
-    font-size: 11px; font-weight: 700;
-    display: none; align-items: center; justify-content: center;
-  }
-  .dest-card.selected .order-badge { display: flex; }
-  .dest-card .dest-icon { font-size: 22px; }
-  .dest-card .dest-info .name { font-size: 14px; font-weight: 600; }
-  .dest-card .dest-info .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+/* Step 2 — Travel type */
+.type-cards { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.type-card {
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 13px 14px; cursor: pointer; transition: all .18s;
+  display: flex; align-items: center; gap: 12px;
+}
+.type-card:hover { border-color: rgba(201,169,110,.4); }
+.type-card.sel { border-color: var(--gold); background: rgba(201,169,110,.07); }
+.type-card .tc-check {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 1px solid var(--border); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: transparent; transition: all .18s;
+  margin-right: auto;
+}
+.type-card.sel .tc-check { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+.type-card .tc-icon { font-size: 20px; flex-shrink: 0; }
+.type-card .tc-name { font-size: 13px; font-weight: 700; }
+.type-card .tc-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
-  /* Hotel cards */
-  .hotel-cards { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
-  .hotel-card {
-    border: 1px solid var(--border); border-radius: 10px;
-    padding: 14px 16px; cursor: pointer; transition: all .2s;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .hotel-card:hover { border-color: var(--gold); }
-  .hotel-card.selected { border-color: var(--gold); background: rgba(201,169,110,.08); }
-  .hotel-card .h-left .h-name { font-size: 14px; font-weight: 600; }
-  .hotel-card .h-left .h-stars { color: #f0c040; font-size: 12px; margin-top: 3px; }
-  .hotel-card .h-price { text-align: left; }
-  .hotel-card .h-price .price { font-size: 13px; font-weight: 700; color: var(--gold); }
-  .hotel-card .h-price .per { font-size: 10px; color: var(--muted); }
+/* Airport picker */
+.airport-section {
+  margin-bottom: 14px; display: none;
+}
+.airport-section.show { display: block; }
+.airport-label {
+  font-size: 11px; color: var(--muted); margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.airport-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.airport-btn {
+  background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 12px; cursor: pointer;
+  color: var(--text); font-size: 12px; transition: all .18s; text-align: right;
+}
+.airport-btn:hover { border-color: var(--gold); color: var(--gold); }
+.airport-btn.sel { border-color: var(--gold); background: rgba(201,169,110,.08); color: var(--gold); font-weight: 700; }
+.airport-btn .ac { font-size: 11px; color: var(--muted); display: block; margin-top: 2px; }
+.airport-btn.sel .ac { color: var(--gold); }
 
-  /* Summary box */
-  .summary-box {
-    background: var(--dark3); border: 1px solid var(--border);
-    border-radius: 12px; padding: 16px;
-    margin-bottom: 20px;
-  }
-  .summary-row {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 7px 0; border-bottom: 1px solid var(--border);
-  }
-  .summary-row:last-child { border-bottom: none; }
-  .summary-row .s-label { font-size: 12px; color: var(--muted); }
-  .summary-row .s-val { font-size: 13px; font-weight: 600; }
-  .summary-row.total .s-label { font-size: 14px; color: var(--text); font-weight: 700; }
-  .summary-row.total .s-val { font-size: 16px; color: var(--gold); font-weight: 800; }
+/* Can attend row */
+.attend-row { display: flex; gap: 8px; margin-bottom: 4px; }
+.attend-btn {
+  flex: 1; background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px; font-size: 12px; cursor: pointer;
+  color: var(--muted); transition: all .18s; text-align: center;
+}
+.attend-btn:hover { border-color: var(--gold); color: var(--gold); }
+.attend-btn.sel { border-color: var(--gold); background: rgba(201,169,110,.08); color: var(--gold); font-weight: 700; }
 
-  /* Wizard nav buttons */
-  .wizard-nav {
-    display: flex; gap: 10px;
-    padding: 0 24px 24px;
-  }
-  .btn-back {
-    flex: 1; background: none; border: 1px solid var(--border);
-    border-radius: 10px; padding: 13px;
-    color: var(--muted); font-family: inherit; font-size: 14px;
-    cursor: pointer; transition: all .2s;
-  }
-  .btn-back:hover { border-color: var(--gold); color: var(--gold); }
-  .btn-next {
-    flex: 2; background: var(--gold); border: none;
-    border-radius: 10px; padding: 13px;
-    color: var(--dark); font-family: inherit; font-size: 14px; font-weight: 700;
-    cursor: pointer; transition: all .2s;
-  }
-  .btn-next:hover { background: var(--gold-light); }
-  .btn-next:disabled { opacity: .4; cursor: not-allowed; }
+/* Step 3 — Destinations */
+.dest-cards { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.dest-card {
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 13px 14px; cursor: pointer; transition: all .18s;
+  display: flex; align-items: center; gap: 12px; position: relative;
+}
+.dest-card:hover { border-color: rgba(201,169,110,.4); }
+.dest-card.sel { border-color: var(--gold); background: rgba(201,169,110,.07); }
+.dest-card .order-badge {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--gold); color: var(--dark); font-size: 10px; font-weight: 800;
+  display: none; align-items: center; justify-content: center;
+}
+.dest-card.sel .order-badge { display: flex; }
+.dest-card .dc-check {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 1px solid var(--border); flex-shrink: 0; margin-right: auto;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: transparent; transition: all .18s;
+}
+.dest-card.sel .dc-check { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+.dest-card .dc-icon { font-size: 22px; flex-shrink: 0; }
+.dest-card .dc-name { font-size: 13px; font-weight: 700; }
+.dest-card .dc-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
-  /* ── HOW IT WORKS ── */
-  .section { max-width: 480px; margin: 0 auto; padding: 0 20px 48px; }
-  .section-title {
-    font-size: 13px; color: var(--gold);
-    margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
-  }
-  .section-title::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
-  }
+/* Step 4 — Hotel + summary */
+.hotel-note {
+  font-size: 11px; color: var(--muted); margin-bottom: 12px; line-height: 1.7;
+}
+/* hotel cards rendered dynamically */
+.summary-box {
+  background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden; margin-top: 14px;
+}
+.sum-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px; border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.sum-row:last-child { border-bottom: none; }
+.sum-row .sl { color: var(--muted); }
+.sum-row .sv { font-weight: 600; }
+.sum-row.total { background: rgba(201,169,110,.05); }
+.sum-row.total .sl { font-size: 13px; font-weight: 700; color: var(--text); }
+.sum-row.total .sv { font-size: 15px; font-weight: 900; color: var(--gold); }
 
-  .how-steps { display: flex; flex-direction: column; }
-  .how-step {
-    display: flex; gap: 16px;
-    padding: 18px 0; border-bottom: 1px solid var(--border);
-  }
-  .how-step:last-child { border-bottom: none; }
-  .how-num {
-    width: 32px; height: 32px; border-radius: 50%;
-    border: 1px solid var(--gold);
-    color: var(--gold); font-size: 13px; font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; margin-top: 2px;
-  }
-  .how-step-content .title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-  .how-step-content .desc { font-size: 12px; color: var(--muted); line-height: 1.8; }
+/* Error */
+.err-msg { font-size: 11px; color: var(--red); margin-top: 8px; display: none; }
+.err-msg.show { display: block; }
 
-  /* ── AI CHAT ── */
-  .ai-card {
-    max-width: 480px; margin: 0 auto 40px;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 18px; overflow: hidden;
-    padding: 0 20px;
-  }
-  .ai-header {
-    padding: 20px 0 16px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .ai-avatar {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--gold), #8a6030);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-  }
-  .ai-header .info .name { font-size: 14px; font-weight: 700; }
-  .ai-header .info .status { font-size: 11px; color: var(--green); }
-  .ai-header .badge {
-    margin-right: auto;
-    background: rgba(201,169,110,.15); color: var(--gold);
-    font-size: 11px; border-radius: 20px; padding: 3px 10px;
-    border: 1px solid rgba(201,169,110,.2);
-  }
-  .ai-intro { font-size: 13px; color: var(--muted); margin-bottom: 14px; line-height: 1.8; }
-  .ai-example {
-    background: var(--dark3); border: 1px solid var(--border);
-    border-radius: 10px; padding: 10px 14px;
-    font-size: 12px; color: var(--muted); margin-bottom: 14px;
-    font-style: italic; line-height: 1.7;
-  }
-  .ai-input-row {
-    display: flex; gap: 8px; margin-bottom: 14px;
-  }
-  .ai-input {
-    flex: 1; background: var(--dark3); border: 1px solid var(--border);
-    border-radius: 10px; padding: 10px 14px;
-    color: var(--text); font-family: inherit; font-size: 13px;
-    outline: none; transition: border-color .2s;
-  }
-  .ai-input:focus { border-color: var(--gold); }
-  .ai-input::placeholder { color: var(--muted); }
-  .ai-send {
-    background: var(--gold); border: none; border-radius: 10px;
-    width: 42px; cursor: pointer; font-size: 16px;
-    transition: background .2s;
-  }
-  .ai-send:hover { background: var(--gold-light); }
-  .quick-chips {
-    display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 20px;
-  }
-  .chip {
-    background: var(--dark3); border: 1px solid var(--border);
-    border-radius: 20px; padding: 6px 12px;
-    font-size: 11px; color: var(--muted); cursor: pointer;
-    font-family: inherit; transition: all .2s;
-  }
-  .chip:hover { border-color: var(--gold); color: var(--gold); }
+/* Wizard nav buttons */
+.wizard-nav {
+  padding: 0 20px 20px;
+  display: flex; gap: 8px;
+}
+.btn-back {
+  flex: 1; background: none; border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px;
+  color: var(--muted2); font-size: 13px; cursor: pointer; transition: all .2s;
+  display: none;
+}
+.btn-back.show { display: block; }
+.btn-back:hover { border-color: var(--gold); color: var(--gold); }
+.btn-next {
+  flex: 2; background: var(--gold); border: none;
+  border-radius: 10px; padding: 12px;
+  color: var(--dark); font-size: 14px; font-weight: 800; cursor: pointer;
+  transition: background .2s;
+}
+.btn-next:hover { background: var(--gold2); }
 
-  .ai-messages {
-    max-height: 240px; overflow-y: auto;
-    margin-bottom: 14px; display: flex; flex-direction: column; gap: 10px;
-  }
-  .ai-messages:empty { display: none; }
-  .msg {
-    max-width: 85%; padding: 10px 14px;
-    border-radius: 12px; font-size: 13px; line-height: 1.7;
-  }
-  .msg.user {
-    background: rgba(201,169,110,.15); border: 1px solid rgba(201,169,110,.2);
-    align-self: flex-end; color: var(--text);
-  }
-  .msg.bot {
-    background: var(--dark3); border: 1px solid var(--border);
-    align-self: flex-start; color: var(--text);
-  }
-  .msg.loading { color: var(--muted); font-style: italic; }
+/* ═══════════════════════════════════
+   FULL WIZARD MODAL (رزرو کاروان)
+═══════════════════════════════════ */
+.full-modal-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,.8); backdrop-filter: blur(6px);
+  display: flex; align-items: flex-end; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .3s;
+}
+.full-modal-overlay.open { opacity: 1; pointer-events: all; }
+.full-modal {
+  width: 100%; max-width: 480px; max-height: 92vh;
+  background: var(--dark2); border-radius: 20px 20px 0 0;
+  border-top: 1px solid var(--border);
+  overflow-y: auto;
+  transform: translateY(100%); transition: transform .35s cubic-bezier(.4,0,.2,1);
+}
+.full-modal-overlay.open .full-modal { transform: translateY(0); }
+.full-modal-header {
+  position: sticky; top: 0;
+  background: var(--dark2); border-bottom: 1px solid var(--border);
+  padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  z-index: 10;
+}
+.full-modal-header h3 { font-size: 15px; font-weight: 800; }
+.modal-close-btn {
+  background: none; border: none; color: var(--muted2);
+  font-size: 18px; cursor: pointer; padding: 4px 8px;
+  border-radius: 6px; transition: background .2s;
+}
+.modal-close-btn:hover { background: var(--dark3); }
 
-  /* ── FEATURED TRIPS ── */
-  .trips-scroll {
-    display: flex; gap: 12px; overflow-x: auto; padding-bottom: 4px;
-    scroll-snap-type: x mandatory;
-  }
-  .trips-scroll::-webkit-scrollbar { height: 3px; }
-  .trips-scroll::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
-  .trip-card {
-    min-width: 200px; background: var(--dark3);
-    border: 1px solid var(--border); border-radius: 14px;
-    padding: 16px; scroll-snap-align: start;
-    flex-shrink: 0; cursor: pointer; transition: border-color .2s;
-  }
-  .trip-card:hover { border-color: var(--gold); }
-  .trip-card .t-icon { font-size: 24px; margin-bottom: 10px; }
-  .trip-card .t-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-  .trip-card .t-detail { font-size: 11px; color: var(--muted); line-height: 1.7; }
-  .trip-card .t-price {
-    margin-top: 12px; font-size: 13px; font-weight: 700; color: var(--gold);
-  }
+/* Modal step tabs (3 steps) */
+.modal-tabs {
+  display: flex; padding: 0 20px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-tab {
+  flex: 1; padding: 10px 0;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  border-bottom: 2px solid transparent; transition: all .2s;
+}
+.modal-tab.active { border-bottom-color: var(--gold); }
+.modal-tab .mt-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid var(--border); font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; color: var(--muted);
+  transition: all .2s;
+}
+.modal-tab.active .mt-num { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+.modal-tab.done .mt-num { background: rgba(201,169,110,.2); border-color: var(--gold); color: var(--gold); }
+.modal-tab .mt-label { font-size: 10px; color: var(--muted); }
+.modal-body { padding: 20px; }
 
-  /* ── CARAVANS ── */
-  .filter-row { display: flex; gap: 7px; margin-bottom: 16px; }
-  .filter-btn {
-    background: var(--dark3); border: 1px solid var(--border);
-    border-radius: 20px; padding: 6px 14px;
-    color: var(--muted); font-family: inherit; font-size: 12px;
-    cursor: pointer; transition: all .2s;
-  }
-  .filter-btn.active { background: var(--gold); color: var(--dark); border-color: var(--gold); font-weight: 700; }
-  .empty-msg { font-size: 13px; color: var(--muted); text-align: center; padding: 30px 0; line-height: 1.9; }
+/* ═══════════════════════════════════
+   SUCCESS SCREEN (after registration)
+═══════════════════════════════════ */
+.success-screen {
+  padding: 32px 20px 24px; text-align: center; display: none;
+}
+.success-screen.show { display: block; }
+.success-steps {
+  display: flex; justify-content: center; align-items: center;
+  gap: 0; margin-bottom: 24px;
+}
+.suc-step { display: flex; align-items: center; gap: 6px; }
+.suc-step .sn {
+  width: 28px; height: 28px; border-radius: 50%;
+  font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border); color: var(--muted);
+}
+.suc-step.done .sn { background: var(--green); border-color: var(--green); color: #fff; }
+.suc-step.active .sn { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+.suc-step .sl-text { font-size: 10px; color: var(--muted); }
+.suc-step.done .sl-text, .suc-step.active .sl-text { color: var(--text); }
+.suc-line { width: 24px; height: 1px; background: var(--border); margin: 0 2px; }
+.suc-line.done { background: var(--green); }
 
-  /* ── FAQ ── */
-  .faq-list { display: flex; flex-direction: column; gap: 8px; }
-  .faq-item {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; overflow: hidden;
-    transition: border-color .2s;
-  }
-  .faq-item:hover { border-color: rgba(201,169,110,.3); }
-  .faq-q {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 16px; cursor: pointer;
-    font-size: 13px; font-weight: 600; gap: 10px;
-  }
-  .faq-q .q-icon { color: var(--gold); font-weight: 700; font-size: 14px; flex-shrink: 0; }
-  .faq-q .arrow { color: var(--muted); font-size: 12px; transition: transform .3s; }
-  .faq-item.open .faq-q .arrow { transform: rotate(180deg); }
-  .faq-a {
-    display: none; padding: 0 16px 14px;
-    font-size: 12px; color: var(--muted); line-height: 1.9;
-    border-top: 1px solid var(--border);
-    padding-top: 12px;
-  }
-  .faq-item.open .faq-a { display: block; }
+.success-icon {
+  width: 60px; height: 60px; border-radius: 50%;
+  border: 2px solid var(--green);
+  background: rgba(76,175,125,.12);
+  margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+}
+.success-title { font-size: 18px; font-weight: 900; margin-bottom: 6px; }
+.success-sub { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+.tracking-box {
+  background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px;
+  margin-bottom: 20px;
+}
+.tracking-box .tk-label { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+.tracking-box .tk-code { font-size: 13px; font-weight: 700; color: var(--muted2); }
+.success-msg { font-size: 12px; color: var(--muted); line-height: 1.9; margin-bottom: 16px; }
+.success-msg strong { color: var(--text); }
+.total-amount-box {
+  background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px;
+  margin-bottom: 20px;
+}
+.total-amount-box .ta-label { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+.total-amount-box .ta-val { font-size: 22px; font-weight: 900; color: var(--gold); }
+.total-amount-box .ta-unit { font-size: 12px; color: var(--muted); }
+.pay-btn {
+  width: 100%; background: var(--green); border: none;
+  border-radius: 12px; padding: 14px;
+  color: #fff; font-size: 14px; font-weight: 800;
+  cursor: pointer; transition: background .2s; margin-bottom: 10px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.pay-btn:hover { background: #3d9e6a; }
+.pay-skip {
+  background: none; border: none; color: var(--muted);
+  font-size: 12px; cursor: pointer; padding: 8px;
+  width: 100%;
+}
+.pay-info { font-size: 11px; color: var(--muted); margin-top: 10px; text-align: center; line-height: 1.8; }
 
-  /* ── FOOTER ── */
-  footer {
-    max-width: 480px; margin: 0 auto;
-    padding: 32px 20px;
-    border-top: 1px solid var(--border);
-    text-align: center;
-  }
-  .footer-logo { font-size: 16px; font-weight: 800; color: var(--gold); margin-bottom: 6px; }
-  .footer-sub { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
-  .footer-links {
-    display: flex; justify-content: center; gap: 20px; margin-bottom: 16px;
-  }
-  .footer-links a { color: var(--muted); font-size: 12px; text-decoration: none; }
-  .footer-links a:hover { color: var(--gold); }
-  .footer-contact { font-size: 12px; color: var(--muted); line-height: 2; }
-  .footer-contact strong { color: var(--text); }
-  .social-row { display: flex; justify-content: center; gap: 12px; margin-top: 16px; }
-  .soc-btn {
-    background: var(--dark3); border: 1px solid var(--border);
-    border-radius: 8px; padding: 8px 14px;
-    font-size: 12px; color: var(--muted); text-decoration: none;
-    transition: all .2s;
-  }
-  .soc-btn:hover { border-color: var(--gold); color: var(--gold); }
-  .copyright { font-size: 11px; color: var(--muted); margin-top: 20px; }
+/* ═══════════════════════════════════
+   SMALL INFO MODALS
+═══════════════════════════════════ */
+.sheet-overlay {
+  position: fixed; inset: 0; z-index: 400;
+  background: rgba(0,0,0,.75); backdrop-filter: blur(4px);
+  display: flex; align-items: flex-end; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .25s;
+}
+.sheet-overlay.open { opacity: 1; pointer-events: all; }
+.sheet {
+  width: 100%; max-width: 480px; max-height: 80vh;
+  background: var(--dark2); border-radius: 20px 20px 0 0;
+  border-top: 1px solid var(--border); overflow-y: auto;
+  transform: translateY(100%); transition: transform .3s cubic-bezier(.4,0,.2,1);
+  padding: 0 0 24px;
+}
+.sheet-overlay.open .sheet { transform: translateY(0); }
+.sheet-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; background: var(--dark2); z-index: 2;
+}
+.sheet-header h3 { font-size: 15px; font-weight: 800; }
+.sheet-body { padding: 16px 20px; }
+.sheet-body p { font-size: 13px; color: var(--muted2); line-height: 2; }
+.sheet-body strong { color: var(--text); }
 
-  /* ── MODAL ── */
-  .modal-overlay {
-    position: fixed; inset: 0; z-index: 200;
-    background: rgba(0,0,0,.7); backdrop-filter: blur(4px);
-    display: flex; align-items: flex-end; justify-content: center;
-    opacity: 0; pointer-events: none;
-    transition: opacity .3s;
-  }
-  .modal-overlay.open { opacity: 1; pointer-events: all; }
-  .modal {
-    background: var(--dark2); border: 1px solid var(--border);
-    border-radius: 20px 20px 0 0; padding: 24px 20px;
-    width: 100%; max-width: 480px;
-    transform: translateY(100%); transition: transform .35s cubic-bezier(.4,0,.2,1);
-  }
-  .modal-overlay.open .modal { transform: translateY(0); }
-  .modal-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  .modal-header h3 { font-size: 16px; font-weight: 700; }
-  .modal-close {
-    background: none; border: none; color: var(--muted);
-    font-size: 18px; cursor: pointer; padding: 4px;
-  }
+/* Origin picker */
+.origin-list { display: flex; flex-direction: column; gap: 6px; }
+.origin-item {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px;
+  cursor: pointer; transition: all .18s;
+}
+.origin-item:hover { border-color: var(--gold); }
+.origin-item.sel { border-color: var(--gold); background: rgba(201,169,110,.07); }
+.origin-item .oi-name { font-size: 13px; font-weight: 700; }
+.origin-item .oi-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.origin-item .oi-check { color: var(--green); font-size: 14px; opacity: 0; }
+.origin-item.sel .oi-check { opacity: 1; }
 
-  /* ── FLOATING CHAT BTN ── */
-  .fab {
-    position: fixed; bottom: 20px; left: 20px; z-index: 150;
-    width: 54px; height: 54px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--gold), #8a6030);
-    border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px; box-shadow: 0 4px 20px rgba(201,169,110,.4);
-    transition: transform .2s;
-  }
-  .fab:hover { transform: scale(1.1); }
+/* ═══════════════════════════════════
+   FEATURED TRIPS (پیشنهادهای ویژه)
+═══════════════════════════════════ */
+.section { max-width: 480px; margin: 0 auto; padding: 0 16px 32px; }
+.section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+.section-title { font-size: 13px; font-weight: 800; color: var(--gold); }
+.section-sub { font-size: 11px; color: var(--muted); }
 
-  /* ── SUCCESS SCREEN ── */
-  .success-screen {
-    display: none; text-align: center; padding: 30px 24px;
-  }
-  .success-screen.show { display: block; }
-  .success-icon {
-    width: 64px; height: 64px; border-radius: 50%;
-    background: rgba(76,175,125,.15); border: 2px solid var(--green);
-    margin: 0 auto 16px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 28px;
-  }
-  .success-screen h3 { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
-  .success-screen p { font-size: 13px; color: var(--muted); line-height: 1.9; }
-  .tracking-code {
-    background: var(--dark3); border: 1px solid var(--gold);
-    border-radius: 10px; padding: 12px;
-    margin: 16px 0; font-size: 14px; font-weight: 700; color: var(--gold);
-    letter-spacing: 2px;
-  }
+.trips-scroll {
+  display: flex; gap: 10px;
+  overflow-x: auto; padding-bottom: 6px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.trips-scroll::-webkit-scrollbar { height: 3px; }
+.trips-scroll::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+.trip-card {
+  min-width: 160px; flex-shrink: 0;
+  background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 14px; padding: 14px; cursor: pointer;
+  scroll-snap-align: start; transition: border-color .18s;
+}
+.trip-card:hover { border-color: var(--gold); }
+.trip-card .tc-emoji { font-size: 22px; margin-bottom: 10px; }
+.trip-card .tc-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.trip-card .tc-detail { font-size: 11px; color: var(--muted); line-height: 1.7; }
+.trip-card .tc-price { font-size: 12px; font-weight: 700; color: var(--gold); margin-top: 10px; }
 
-  .visually-hidden { display: none; }
-  .error-msg { font-size: 12px; color: #e05050; margin-top: -14px; margin-bottom: 14px; padding-right: 4px; }
+/* Trip detail modal */
+.trip-detail-sheet .trip-big-price { font-size: 22px; font-weight: 900; color: var(--gold); margin-bottom: 4px; }
+.trip-detail-sheet .trip-price-sub { font-size: 11px; color: var(--muted); margin-bottom: 20px; }
+.trip-detail-sheet .register-btn {
+  width: 100%; background: var(--gold); border: none;
+  border-radius: 12px; padding: 14px;
+  color: var(--dark); font-size: 14px; font-weight: 800;
+  cursor: pointer; transition: background .2s; margin-bottom: 4px;
+}
+.trip-detail-sheet .register-btn:hover { background: var(--gold2); }
+
+/* ═══════════════════════════════════
+   AI CHAT SECTION
+═══════════════════════════════════ */
+.ai-section { max-width: 480px; margin: 0 auto; padding: 0 16px 32px; }
+.ai-card {
+  background: var(--dark2); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden;
+}
+.ai-card-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.ai-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg,#c9a96e,#6a4010);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.ai-info .ai-name { font-size: 13px; font-weight: 800; }
+.ai-info .ai-status { font-size: 11px; color: var(--green); }
+.ai-badge {
+  margin-right: auto;
+  background: rgba(201,169,110,.12); border: 1px solid rgba(201,169,110,.2);
+  border-radius: 20px; padding: 3px 10px;
+  font-size: 11px; color: var(--gold);
+}
+.ai-body { padding: 14px 16px; }
+.ai-heading { font-size: 14px; font-weight: 800; margin-bottom: 4px; }
+.ai-subtext { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.ai-example-box {
+  background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 12px;
+  font-size: 12px; color: var(--muted2); font-style: italic;
+  line-height: 1.7; margin-bottom: 12px;
+}
+.ai-input-row { display: flex; gap: 8px; margin-bottom: 10px; }
+.ai-input {
+  flex: 1; background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px 12px;
+  color: var(--text); font-size: 13px; outline: none;
+  transition: border-color .2s;
+}
+.ai-input:focus { border-color: var(--gold); }
+.ai-input::placeholder { color: var(--muted); }
+.ai-send-btn {
+  background: var(--gold); border: none; border-radius: 10px;
+  width: 40px; font-size: 14px; cursor: pointer; color: var(--dark);
+  transition: background .2s; flex-shrink: 0;
+}
+.ai-send-btn:hover { background: var(--gold2); }
+.quick-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip {
+  background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 20px; padding: 5px 11px;
+  font-size: 11px; color: var(--muted2); cursor: pointer;
+  transition: all .18s;
+}
+.chip:hover { border-color: var(--gold); color: var(--gold); }
+.ai-messages { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+.ai-msg {
+  max-width: 88%; padding: 9px 12px; border-radius: 10px;
+  font-size: 12px; line-height: 1.8;
+}
+.ai-msg.user {
+  background: rgba(201,169,110,.12); border: 1px solid rgba(201,169,110,.18);
+  align-self: flex-end;
+}
+.ai-msg.bot {
+  background: var(--dark3); border: 1px solid var(--border);
+  align-self: flex-start;
+}
+.ai-msg.loading { color: var(--muted); font-style: italic; }
+
+/* ═══════════════════════════════════
+   HOW IT WORKS
+═══════════════════════════════════ */
+.how-section { max-width: 480px; margin: 0 auto; padding: 0 16px 32px; }
+.how-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 6px;
+}
+.how-title { font-size: 14px; font-weight: 800; }
+.how-subtitle { font-size: 11px; color: var(--muted); margin-bottom: 14px; }
+.how-toggle {
+  background: none; border: none; color: var(--muted); font-size: 12px; cursor: pointer;
+  display: flex; align-items: center; gap: 4px; padding: 4px 8px;
+  border-radius: 6px; transition: all .18s;
+}
+.how-toggle:hover { color: var(--gold); }
+.how-steps { display: flex; flex-direction: column; }
+.how-step {
+  border: 1px solid var(--border); border-radius: 12px;
+  margin-bottom: 8px; overflow: hidden;
+  transition: border-color .2s;
+}
+.how-step:hover { border-color: rgba(201,169,110,.3); }
+.how-step-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px; cursor: pointer;
+}
+.how-step-header .hn {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid var(--gold); color: var(--gold);
+  font-size: 13px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.how-step-header .hinfo { flex: 1; }
+.how-step-header .htitle { font-size: 13px; font-weight: 700; }
+.how-step-header .hsub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.how-step-header .harrow { color: var(--muted); font-size: 11px; transition: transform .3s; }
+.how-step.open .harrow { transform: rotate(180deg); }
+.how-step-body {
+  padding: 0 14px 14px; font-size: 12px; color: var(--muted2);
+  line-height: 2; border-top: 1px solid var(--border);
+  padding-top: 12px; display: none;
+}
+.how-step.open .how-step-body { display: block; }
+.how-step-body strong { color: var(--text); }
+
+/* ═══════════════════════════════════
+   CARAVANS SECTION
+═══════════════════════════════════ */
+.caravan-section { max-width: 480px; margin: 0 auto; padding: 0 16px 32px; }
+.caravan-notice {
+  background: rgba(201,169,110,.06); border: 1px solid rgba(201,169,110,.2);
+  border-radius: 12px; padding: 14px 16px; margin-bottom: 14px;
+}
+.cn-top { font-size: 11px; color: var(--gold); margin-bottom: 6px; }
+.cn-text { font-size: 12px; color: var(--muted2); line-height: 1.9; }
+.cn-text strong { color: var(--text); }
+.cn-link {
+  display: inline-block; margin-top: 10px;
+  background: none; border: 1px solid var(--border);
+  border-radius: 8px; padding: 7px 12px;
+  font-size: 11px; color: var(--muted2); cursor: pointer; transition: all .18s;
+}
+.cn-link:hover { border-color: var(--gold); color: var(--gold); }
+
+.caravan-filters {
+  display: flex; gap: 0;
+  background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 3px; margin-bottom: 12px;
+}
+.cf-btn {
+  flex: 1; background: none; border: none;
+  border-radius: 8px; padding: 8px 6px;
+  font-size: 12px; color: var(--muted); cursor: pointer; transition: all .18s;
+}
+.cf-btn.active { background: var(--dark2); color: var(--text); font-weight: 700; }
+.cf-search {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 9px 12px; margin-bottom: 12px;
+}
+.cf-search .si { color: var(--muted); font-size: 13px; }
+.cf-search select {
+  flex: 1; background: none; border: none; color: var(--text);
+  font-family: inherit; font-size: 12px; outline: none; cursor: pointer;
+  -webkit-appearance: none;
+}
+.caravan-empty {
+  text-align: center; padding: 32px 16px;
+  font-size: 13px; color: var(--muted); line-height: 2;
+}
+
+/* ═══════════════════════════════════
+   FAQ
+═══════════════════════════════════ */
+.faq-section { max-width: 480px; margin: 0 auto; padding: 0 16px 32px; }
+.faq-section h2 {
+  font-size: 16px; font-weight: 900; margin-bottom: 4px;
+}
+.faq-section .faq-sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+.faq-items { display: flex; flex-direction: column; gap: 6px; }
+.faq-item {
+  background: var(--dark2); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden; transition: border-color .2s;
+}
+.faq-item:hover { border-color: rgba(201,169,110,.3); }
+.faq-q {
+  display: flex; align-items: center; gap: 10px;
+  padding: 13px 14px; cursor: pointer;
+}
+.faq-q .qi { color: var(--gold); font-size: 13px; font-weight: 900; flex-shrink: 0; }
+.faq-q .qt { font-size: 13px; font-weight: 600; flex: 1; }
+.faq-q .qa { color: var(--muted); font-size: 11px; transition: transform .3s; }
+.faq-item.open .qa { transform: rotate(180deg); }
+.faq-a {
+  padding: 0 14px 13px 14px;
+  border-top: 1px solid var(--border);
+  padding-top: 11px;
+  font-size: 12px; color: var(--muted2); line-height: 1.9; display: none;
+}
+.faq-item.open .faq-a { display: block; }
+
+/* ═══════════════════════════════════
+   PARTNER SECTION (گزینه‌های دیگر)
+═══════════════════════════════════ */
+.partner-section { max-width: 480px; margin: 0 auto; padding: 0 16px 32px; }
+.partner-section h2 { font-size: 15px; font-weight: 900; margin-bottom: 4px; }
+.partner-section .pt-sub { font-size: 12px; color: var(--muted); margin-bottom: 14px; line-height: 1.8; }
+.partner-section .pt-sub strong { color: var(--text); }
+.partner-cards { display: flex; flex-direction: column; gap: 8px; }
+.partner-card {
+  background: var(--dark2); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+}
+.partner-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 14px; cursor: pointer;
+}
+.partner-card-header .pc-name { font-size: 13px; font-weight: 700; }
+.partner-card-header .pc-arrow { color: var(--muted); font-size: 11px; transition: transform .3s; }
+.partner-card.open .pc-arrow { transform: rotate(180deg); }
+.partner-card-body {
+  padding: 0 14px 14px; border-top: 1px solid var(--border);
+  padding-top: 12px; font-size: 12px; color: var(--muted2);
+  line-height: 1.9; display: none;
+}
+.partner-card.open .partner-card-body { display: block; }
+
+/* ═══════════════════════════════════
+   FOOTER
+═══════════════════════════════════ */
+footer {
+  max-width: 480px; margin: 0 auto;
+  border-top: 1px solid var(--border);
+  padding: 24px 16px 40px;
+}
+.footer-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 20px;
+}
+.footer-brand .fb-name { font-size: 14px; font-weight: 900; color: var(--gold); }
+.footer-brand .fb-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.footer-links-col { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+.footer-links-col button {
+  background: none; border: none; color: var(--muted); font-size: 12px;
+  cursor: pointer; transition: color .18s; text-align: left;
+}
+.footer-links-col button:hover { color: var(--gold); }
+
+.footer-contacts { margin-bottom: 16px; }
+.fc-row {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 6px 0; border-bottom: 1px solid var(--border);
+}
+.fc-row:last-child { border-bottom: none; }
+.fc-icon { font-size: 13px; color: var(--gold); margin-top: 1px; flex-shrink: 0; }
+.fc-text { font-size: 12px; color: var(--muted2); line-height: 1.7; }
+.fc-text strong { color: var(--text); }
+
+.footer-socials { display: flex; gap: 8px; margin-bottom: 20px; }
+.soc-btn {
+  background: var(--dark3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 7px 12px;
+  font-size: 11px; color: var(--muted); transition: all .18s;
+}
+.soc-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+.footer-bottom {
+  font-size: 11px; color: var(--muted); text-align: center; line-height: 2;
+}
+.footer-bottom .dev { color: var(--muted); letter-spacing: 2px; margin-top: 4px; }
+
+/* ═══════════════════════════════════
+   FAB (floating chat button)
+═══════════════════════════════════ */
+.fab {
+  position: fixed; bottom: 20px; left: 20px; z-index: 150;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: linear-gradient(135deg,#c9a96e,#8a5a20);
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 4px 16px rgba(201,169,110,.35);
+  transition: transform .2s, box-shadow .2s;
+}
+.fab:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(201,169,110,.5); }
+.fab-badge {
+  position: absolute; top: -2px; right: -2px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--green); border: 2px solid var(--dark);
+}
+
+/* ═══════════════════════════════════
+   UTILITIES
+═══════════════════════════════════ */
+.divider { height: 1px; background: var(--border); max-width: 480px; margin: 0 auto 32px; }
+.hidden { display: none !important; }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">🕌 آوان <span>| گروه زیارتی</span></div>
-  <div class="nav-links">
-    <button onclick="openModal('guide')">راهنما</button>
-    <button onclick="openModal('contact')">تماس</button>
-    <button onclick="openModal('about')">درباره ما</button>
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="nav">
+    <div class="nav-brand">
+      <span class="title">گروه زیارتی آوان</span>
+      <span class="sub">مرجع تخصصی سفرهای زیارتی انفرادی</span>
+    </div>
+    <div class="nav-links">
+      <button class="nav-btn" onclick="openSheet('guide')">راهنما</button>
+      <button class="nav-btn" onclick="openSheet('contact')">تماس</button>
+      <button class="nav-btn" onclick="openSheet('about')">درباره ما</button>
+    </div>
   </div>
-</nav>
+</header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-tag">✦ سفر زیارتی، به انتخاب شما</div>
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-badge">✦ سفر زیارتی، به انتخاب شما</div>
   <h1>گروه زیارتی <em>آوان</em></h1>
-  <p>زمان سفر، مدت اقامت، درجه هتل و مسیر را خودتان انتخاب کنید. کاملاً متناسب با بودجه، زمان و سلیقه شما.</p>
+  <p class="hero-sub">زمان سفر، مدت اقامت، درجه هتل و مسیر را خودتان انتخاب کنید. کاملاً متناسب با بودجه، زمان و سلیقه شما.</p>
   <div class="hero-steps">
-    <div class="hero-step active" id="hs1">
-      <div class="dot">۱</div>
-      <span>تاریخ و نفرات</span>
+    <div class="hero-step active" id="hs-1">
+      <div class="hero-step-num">۱</div>
+      <span class="hero-step-label">تاریخ و نفرات</span>
     </div>
-    <div class="connector"></div>
-    <div class="hero-step" id="hs2">
-      <div class="dot">۲</div>
-      <span>شهرهای زیارتی</span>
+    <div class="hero-step-line"></div>
+    <div class="hero-step" id="hs-2">
+      <div class="hero-step-num">۲</div>
+      <span class="hero-step-label">شهرهای زیارتی</span>
     </div>
-    <div class="connector"></div>
-    <div class="hero-step" id="hs3">
-      <div class="dot">۳</div>
-      <span>نوع سفر</span>
+    <div class="hero-step-line"></div>
+    <div class="hero-step" id="hs-3">
+      <div class="hero-step-num">۳</div>
+      <span class="hero-step-label">نوع سفر</span>
     </div>
-  </div>
-</section>
-
-<!-- WIZARD -->
-<div class="wizard-card" id="wizardCard">
-  <div class="wizard-header">
-    <span class="icon" id="wizardIcon">📅</span>
-    <h2 id="wizardTitle">تاریخ و مسافران</h2>
-  </div>
-  <div class="step-tabs">
-    <div class="step-tab active" id="tab1"></div>
-    <div class="step-tab" id="tab2"></div>
-    <div class="step-tab" id="tab3"></div>
-    <div class="step-tab" id="tab4"></div>
-  </div>
-
-  <!-- STEP 1 -->
-  <div class="wizard-body" id="step1">
-    <div class="step-label">مرحله ۱ از ۴ — <strong>ماه و روز اعزام را انتخاب کنید</strong></div>
-    <div class="month-grid">
-      <button class="month-btn" onclick="selectMonth(this,'فروردین')">فروردین</button>
-      <button class="month-btn" onclick="selectMonth(this,'اردیبهشت')">اردیبهشت</button>
-      <button class="month-btn" onclick="selectMonth(this,'خرداد')">خرداد</button>
-      <button class="month-btn" onclick="selectMonth(this,'تیر')">تیر</button>
-      <button class="month-btn" onclick="selectMonth(this,'مرداد')">مرداد</button>
-      <button class="month-btn" onclick="selectMonth(this,'شهریور')">شهریور</button>
-      <button class="month-btn" onclick="selectMonth(this,'مهر')">مهر</button>
-      <button class="month-btn" onclick="selectMonth(this,'آبان')">آبان</button>
-      <button class="month-btn" onclick="selectMonth(this,'آذر')">آذر</button>
-      <button class="month-btn" onclick="selectMonth(this,'دی')">دی</button>
-      <button class="month-btn" onclick="selectMonth(this,'بهمن')">بهمن</button>
-      <button class="month-btn" onclick="selectMonth(this,'اسفند')">اسفند</button>
-    </div>
-    <div class="day-scroll-wrap">
-      <div class="day-scroll-label">📅 انتخاب روز — انگشت را بکشید</div>
-      <div class="day-scroll" id="dayScroll"></div>
-    </div>
-    <div class="origin-row" id="originRow" onclick="openModal('origin')">
-      <div class="label">📍 شهر مبدا</div>
-      <div class="value" id="originVal"><span style="color:var(--muted)">انتخاب کنید</span></div>
-    </div>
-    <div class="passenger-row">
-      <div class="info">
-        <div class="label">👥 تعداد مسافران</div>
-        <div class="sub">حداکثر ۴ نفر</div>
-      </div>
-      <div class="counter">
-        <button class="counter-btn" onclick="changePass(-1)">−</button>
-        <span class="counter-val" id="passVal">۱</span>
-        <button class="counter-btn" onclick="changePass(1)">+</button>
-      </div>
-    </div>
-    <div id="err1" class="error-msg visually-hidden">لطفاً ماه، روز اعزام و شهر مبدا را انتخاب کنید.</div>
-  </div>
-
-  <!-- STEP 2 -->
-  <div class="wizard-body visually-hidden" id="step2">
-    <div class="step-label">مرحله ۲ از ۴ — <strong>شهرهای زیارتی</strong></div>
-    <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.9">می‌توانید چند شهر انتخاب کنید. <strong style="color:var(--text)">ترتیب انتخاب = ترتیب سفر.</strong></p>
-    <div class="dest-cards" id="destCards">
-      <div class="dest-card" data-city="کربلای معلی" onclick="toggleDest(this)">
-        <div class="order-badge">۱</div>
-        <div class="dest-icon">🕌</div>
-        <div class="dest-info">
-          <div class="name">کربلای معلی</div>
-          <div class="sub">حرم امام حسین (ع)</div>
-        </div>
-      </div>
-      <div class="dest-card" data-city="نجف اشرف" onclick="toggleDest(this)">
-        <div class="order-badge">۱</div>
-        <div class="dest-icon">🕌</div>
-        <div class="dest-info">
-          <div class="name">نجف اشرف</div>
-          <div class="sub">حرم امام علی (ع)</div>
-        </div>
-      </div>
-      <div class="dest-card" data-city="کاظمین و سامرا" onclick="toggleDest(this)">
-        <div class="order-badge">۱</div>
-        <div class="dest-icon">🕌</div>
-        <div class="dest-info">
-          <div class="name">کاظمین و سامرا</div>
-          <div class="sub">حرم امام کاظم و عسکریین (ع)</div>
-        </div>
-      </div>
-    </div>
-    <div id="err2" class="error-msg visually-hidden">لطفاً حداقل یک شهر زیارتی انتخاب کنید.</div>
-  </div>
-
-  <!-- STEP 3 -->
-  <div class="wizard-body visually-hidden" id="step3">
-    <div class="step-label">مرحله ۳ از ۴ — <strong>نوع سفر و شهر مبدا</strong></div>
-    <div class="type-cards">
-      <div class="type-card selected" data-type="هوایی" onclick="selectType(this)">
-        <div class="type-icon">✈️</div>
-        <div class="type-info">
-          <div class="name">رفت‌وبرگشت هوایی</div>
-          <div class="desc">سریع و راحت</div>
-        </div>
-        <div class="check-circle">✓</div>
-      </div>
-      <div class="type-card" data-type="زمینی" onclick="selectType(this)">
-        <div class="type-icon">🚌</div>
-        <div class="type-info">
-          <div class="name">رفت‌وبرگشت زمینی</div>
-          <div class="desc">اقتصادی</div>
-        </div>
-        <div class="check-circle">✓</div>
-      </div>
-      <div class="type-card" data-type="ترکیبی" onclick="selectType(this)">
-        <div class="type-icon">✈️+🚌</div>
-        <div class="type-info">
-          <div class="name">رفت هوایی، برگشت زمینی</div>
-          <div class="desc">ترکیبی</div>
-        </div>
-        <div class="check-circle">✓</div>
-      </div>
-    </div>
-    <div class="step-label" style="margin-top:8px">📍 شهر مبدا شما</div>
-    <div class="city-grid" id="cityGrid">
-      <button class="city-btn selected" data-city="تهران" onclick="selectCity(this)">
-        <span class="c-name">تهران</span>
-        <span class="c-type">✈️ مستقیم</span>
-      </button>
-      <button class="city-btn" data-city="مشهد" onclick="selectCity(this)">
-        <span class="c-name">مشهد</span>
-        <span class="c-type">✈️ مستقیم</span>
-      </button>
-      <button class="city-btn" data-city="اصفهان" onclick="selectCity(this)">
-        <span class="c-name">اصفهان</span>
-        <span class="c-type">✈️ مستقیم</span>
-      </button>
-      <button class="city-btn" data-city="شیراز" onclick="selectCity(this)">
-        <span class="c-name">شیراز</span>
-        <span class="c-type">🚍 زمینی</span>
-      </button>
-      <button class="city-btn" data-city="سایر شهرها" onclick="selectCity(this)" style="grid-column:span 2">
-        <span class="c-name">سایر شهرها</span>
-        <span class="c-type">با هماهنگی کارشناس</span>
-      </button>
-    </div>
-    <div id="err3" class="error-msg visually-hidden">لطفاً نوع سفر را انتخاب کنید.</div>
-  </div>
-
-  <!-- STEP 4 -->
-  <div class="wizard-body visually-hidden" id="step4">
-    <div class="step-label">مرحله ۴ از ۴ — <strong>هتل و تأیید</strong></div>
-    <div class="hotel-cards" id="hotelCards">
-      <div class="hotel-card" data-hotel="ساده" data-price="۸۵۰,۰۰۰" onclick="selectHotel(this)">
-        <div class="h-left">
-          <div class="h-name">هتل ساده</div>
-          <div class="h-stars">★★☆☆☆</div>
-        </div>
-        <div class="h-price">
-          <div class="price">۸۵۰,۰۰۰</div>
-          <div class="per">تومان / نفر</div>
-        </div>
-      </div>
-      <div class="hotel-card" data-hotel="متوسط" data-price="۱,۲۰۰,۰۰۰" onclick="selectHotel(this)">
-        <div class="h-left">
-          <div class="h-name">هتل متوسط</div>
-          <div class="h-stars">★★★☆☆</div>
-        </div>
-        <div class="h-price">
-          <div class="price">۱,۲۰۰,۰۰۰</div>
-          <div class="per">تومان / نفر</div>
-        </div>
-      </div>
-      <div class="hotel-card" data-hotel="خوب" data-price="۱,۸۰۰,۰۰۰" onclick="selectHotel(this)">
-        <div class="h-left">
-          <div class="h-name">هتل خوب</div>
-          <div class="h-stars">★★★★☆</div>
-        </div>
-        <div class="h-price">
-          <div class="price">۱,۸۰۰,۰۰۰</div>
-          <div class="per">تومان / نفر</div>
-        </div>
-      </div>
-      <div class="hotel-card" data-hotel="لوکس" data-price="۲,۸۰۰,۰۰۰" onclick="selectHotel(this)">
-        <div class="h-left">
-          <div class="h-name">هتل لوکس VIP</div>
-          <div class="h-stars">★★★★★</div>
-        </div>
-        <div class="h-price">
-          <div class="price">۲,۸۰۰,۰۰۰</div>
-          <div class="per">تومان / نفر</div>
-        </div>
-      </div>
-    </div>
-    <div class="summary-box" id="summaryBox" style="display:none">
-      <div class="summary-row"><span class="s-label">ماه اعزام</span><span class="s-val" id="sum-month">—</span></div>
-      <div class="summary-row"><span class="s-label">روز اعزام</span><span class="s-val" id="sum-day">—</span></div>
-      <div class="summary-row"><span class="s-label">شهر مبدا</span><span class="s-val" id="sum-origin">—</span></div>
-      <div class="summary-row"><span class="s-label">تعداد مسافر</span><span class="s-val" id="sum-pass">—</span></div>
-      <div class="summary-row"><span class="s-label">مقاصد</span><span class="s-val" id="sum-dest">—</span></div>
-      <div class="summary-row"><span class="s-label">نوع سفر</span><span class="s-val" id="sum-type">—</span></div>
-      <div class="summary-row"><span class="s-label">هتل</span><span class="s-val" id="sum-hotel">—</span></div>
-      <div class="summary-row total"><span class="s-label">هزینه تخمینی</span><span class="s-val" id="sum-total">—</span></div>
-    </div>
-    <div id="err4" class="error-msg visually-hidden">لطفاً یک هتل انتخاب کنید.</div>
-  </div>
-
-  <!-- SUCCESS -->
-  <div class="success-screen" id="successScreen">
-    <div class="success-icon">✓</div>
-    <h3>🕌 سفر شما ثبت شد!</h3>
-    <p>اطلاعات برای کارشناسان آوان ارسال گردید.<br>ظرف <strong>۲ ساعت</strong> با شما تماس خواهیم گرفت.</p>
-    <div class="tracking-code" id="trackingCode">— — — —</div>
-    <p style="font-size:11px;color:var(--muted)">کد پیگیری سفر شما</p>
-  </div>
-
-  <div class="wizard-nav" id="wizardNav">
-    <button class="btn-back visually-hidden" id="btnBack" onclick="goPrev()">← بازگشت</button>
-    <button class="btn-next" id="btnNext" onclick="goNext()">ادامه ←</button>
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
+<!-- ═══ MAIN WIZARD ═══ -->
+<div class="wizard">
+  <div class="wizard-card" id="mainWizard">
+
+    <!-- Top bar -->
+    <div class="wizard-topbar">
+      <span class="icon" id="wIcon">📅</span>
+      <div class="wizard-topbar-text">
+        <div class="wt" id="wTitle">تاریخ و تعداد مسافران</div>
+        <div class="ws" id="wSub">ماه اعزام را انتخاب کنید</div>
+      </div>
+    </div>
+
+    <!-- Step tabs -->
+    <div class="step-tabs">
+      <div class="step-tab active" id="wtab-1" onclick="goToStep(1)">
+        <div class="tab-num">۱</div>
+        <div class="tab-label">تاریخ</div>
+      </div>
+      <div class="step-tab" id="wtab-2" onclick="goToStep(2)">
+        <div class="tab-num">۲</div>
+        <div class="tab-label">نوع</div>
+      </div>
+      <div class="step-tab" id="wtab-3" onclick="goToStep(3)">
+        <div class="tab-num">۳</div>
+        <div class="tab-label">مقاصد</div>
+      </div>
+      <div class="step-tab" id="wtab-4" onclick="goToStep(4)">
+        <div class="tab-num">۴</div>
+        <div class="tab-label">اقامت</div>
+      </div>
+    </div>
+
+    <!-- ── STEP 1 : تاریخ و مسافران ── -->
+    <div class="step-body active" id="sb-1">
+      <div class="step-section-title">مرحله ۱📅 تاریخ و مسافران</div>
+      <div class="step-section-sub">ماه و روز اعزام را انتخاب کنید</div>
+
+      <div class="label-row">ماه اعزام</div>
+      <div class="month-grid" id="monthGrid">
+        <button class="month-btn" onclick="selMonth(this,'فروردین')">فروردین</button>
+        <button class="month-btn" onclick="selMonth(this,'اردیبهشت')">اردیبهشت</button>
+        <button class="month-btn" onclick="selMonth(this,'خرداد')">خرداد</button>
+        <button class="month-btn" onclick="selMonth(this,'تیر')">تیر</button>
+        <button class="month-btn" onclick="selMonth(this,'مرداد')">مرداد</button>
+        <button class="month-btn" onclick="selMonth(this,'شهریور')">شهریور</button>
+        <button class="month-btn" onclick="selMonth(this,'مهر')">مهر</button>
+        <button class="month-btn" onclick="selMonth(this,'آبان')">آبان</button>
+        <button class="month-btn" onclick="selMonth(this,'آذر')">آذر</button>
+        <button class="month-btn" onclick="selMonth(this,'دی')">دی</button>
+        <button class="month-btn" onclick="selMonth(this,'بهمن')">بهمن</button>
+        <button class="month-btn" onclick="selMonth(this,'اسفند')">اسفند</button>
+      </div>
+
+      <div class="day-scroll-box">
+        <div class="day-scroll-hint">📅 انتخاب روز — انگشت را بکشید</div>
+        <div class="days-row" id="daysRow"></div>
+      </div>
+
+      <button class="origin-btn" id="originBtn" onclick="openSheet('origin')">
+        <span class="lft">شهر مبدا</span>
+        <span class="rgt" id="originVal">
+          <span style="color:var(--muted)">—</span>
+        </span>
+      </button>
+
+      <div class="pass-row">
+        <div class="pass-info">
+          <div class="pl">تعداد مسافر</div>
+        </div>
+        <div class="counter">
+          <button class="cnt-btn" onclick="adjPass(-1)">−</button>
+          <span class="cnt-val" id="passVal">۰</span>
+          <button class="cnt-btn" onclick="adjPass(1)">+</button>
+        </div>
+      </div>
+
+      <div class="err-msg" id="err1">لطفاً تاریخ اعزام را انتخاب کنید.</div>
+    </div>
+
+    <!-- ── STEP 2 : نوع سفر ── -->
+    <div class="step-body" id="sb-2">
+      <div class="step-section-title">مرحله ۲🚌 نوع سفر</div>
+      <div class="step-section-sub">روش حمل‌ونقل رفت و برگشت خود را انتخاب کنید</div>
+
+      <div class="type-cards">
+        <div class="type-card sel" data-type="هوایی" onclick="selType(this)">
+          <div class="tc-icon">✈️</div>
+          <div>
+            <div class="tc-name">رفت‌وبرگشت هوایی</div>
+            <div class="tc-desc">سریع و راحت</div>
+          </div>
+          <div class="tc-check">✓</div>
+        </div>
+        <div class="type-card" data-type="زمینی" onclick="selType(this)">
+          <div class="tc-icon">🚌</div>
+          <div>
+            <div class="tc-name">رفت‌وبرگشت زمینی</div>
+            <div class="tc-desc">اقتصادی</div>
+          </div>
+          <div class="tc-check">✓</div>
+        </div>
+        <div class="type-card" data-type="ترکیبی" onclick="selType(this)">
+          <div class="tc-icon">✈️🚌</div>
+          <div>
+            <div class="tc-name">رفت هوایی، برگشت زمینی</div>
+            <div class="tc-desc">ترکیبی</div>
+          </div>
+          <div class="tc-check">✓</div>
+        </div>
+      </div>
+
+      <div class="airport-section" id="airportSection">
+        <div class="airport-label">✈️ انتخاب فرودگاه مبدا</div>
+        <div class="airport-grid">
+          <button class="airport-btn sel" data-ap="تهران" onclick="selAirport(this)">
+            تهران
+            <span class="ac">امام خمینی</span>
+          </button>
+          <button class="airport-btn" data-ap="مشهد" onclick="selAirport(this)">
+            مشهد
+            <span class="ac">شهید هاشمی‌نژاد</span>
+          </button>
+          <button class="airport-btn" data-ap="اصفهان" onclick="selAirport(this)">
+            اصفهان
+            <span class="ac">شهید بهشتی</span>
+          </button>
+          <button class="airport-btn" data-ap="شیراز" onclick="selAirport(this)">
+            شیراز
+            <span class="ac">شهید دستغیب</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="label-row" style="margin-top:8px">بله، می‌توانم حضور داشته باشم</div>
+      <div class="attend-row">
+        <button class="attend-btn sel" data-v="yes" onclick="selAttend(this)">بله، می‌توانم حضور داشته باشم</button>
+        <button class="attend-btn" data-v="no" onclick="selAttend(this)">خیر</button>
+      </div>
+
+      <div class="err-msg" id="err2">لطفاً نوع سفر را انتخاب کنید.</div>
+    </div>
+
+    <!-- ── STEP 3 : شهرهای زیارتی ── -->
+    <div class="step-body" id="sb-3">
+      <div class="step-section-title">مرحله ۳🕌 شهرهای زیارتی</div>
+      <div class="step-section-sub">مقصدهای سفر را به ترتیب بازدید انتخاب کنید</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.9">
+        می‌توانید چند شهر انتخاب کنید. <strong style="color:var(--text)">ترتیب انتخاب = ترتیب سفر.</strong>
+      </p>
+
+      <div class="dest-cards">
+        <div class="dest-card" data-city="کربلای معلی" onclick="selDest(this)">
+          <div class="dc-icon">🕌</div>
+          <div>
+            <div class="dc-name">کربلای معلی</div>
+            <div class="dc-sub">حرم امام حسین (ع)</div>
+          </div>
+          <div class="dc-check">✓</div>
+          <div class="order-badge">۱</div>
+        </div>
+        <div class="dest-card" data-city="نجف اشرف" onclick="selDest(this)">
+          <div class="dc-icon">🕌</div>
+          <div>
+            <div class="dc-name">نجف اشرف</div>
+            <div class="dc-sub">حرم امام علی (ع)</div>
+          </div>
+          <div class="dc-check">✓</div>
+          <div class="order-badge">۱</div>
+        </div>
+        <div class="dest-card" data-city="کاظمین و سامرا" onclick="selDest(this)">
+          <div class="dc-icon">🕌</div>
+          <div>
+            <div class="dc-name">کاظمین و سامرا</div>
+            <div class="dc-sub">حرم امام کاظم و عسکریین (ع)</div>
+          </div>
+          <div class="dc-check">✓</div>
+          <div class="order-badge">۱</div>
+        </div>
+      </div>
+
+      <div class="err-msg" id="err3">لطفاً حداقل یک شهر زیارتی انتخاب کنید.</div>
+    </div>
+
+    <!-- ── STEP 4 : اقامت ── -->
+    <div class="step-body" id="sb-4">
+      <div class="step-section-title">مرحله ۴🏨 اقامت و تأیید</div>
+      <p class="hotel-note">هتل را انتخاب کنید، سپس خلاصه و هزینه نمایش داده می‌شود</p>
+      <div id="hotelCards"></div>
+      <div class="summary-box hidden" id="summaryBox">
+        <div class="sum-row"><span class="sl">ماه اعزام</span><span class="sv" id="s-month">—</span></div>
+        <div class="sum-row"><span class="sl">روز اعزام</span><span class="sv" id="s-day">—</span></div>
+        <div class="sum-row"><span class="sl">شهر مبدا</span><span class="sv" id="s-origin">—</span></div>
+        <div class="sum-row"><span class="sl">تعداد مسافر</span><span class="sv" id="s-pass">—</span></div>
+        <div class="sum-row"><span class="sl">مقاصد زیارتی</span><span class="sv" id="s-dest">—</span></div>
+        <div class="sum-row"><span class="sl">نوع سفر</span><span class="sv" id="s-type">—</span></div>
+        <div class="sum-row"><span class="sl">هتل</span><span class="sv" id="s-hotel">—</span></div>
+        <div class="sum-row total"><span class="sl">هزینه تخمینی کل</span><span class="sv" id="s-total">—</span></div>
+      </div>
+      <div class="err-msg" id="err4"></div>
+    </div>
+
+    <!-- Wizard nav -->
+    <div class="wizard-nav" id="wizNav">
+      <button class="btn-back" id="btnBack" onclick="wizPrev()">← بازگشت</button>
+      <button class="btn-next" id="btnNext" onclick="wizNext()">ادامه — انتخاب شهرها ←</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ AI SECTION ═══ -->
+<div class="ai-section">
+  <div class="ai-card">
+    <div class="ai-card-header">
+      <div class="ai-avatar">🤖</div>
+      <div class="ai-info">
+        <div class="ai-name">بگو چی می‌خوای — ما برنامه می‌چینیم</div>
+        <div class="ai-status">● آنلاین — آماده پاسخ</div>
+      </div>
+      <div class="ai-badge">✨ AI</div>
+    </div>
+    <div class="ai-body">
+      <div class="ai-subtext">حوصله انتخاب مرحله‌به‌مرحله نداری؟ همینجا بنویس.</div>
+      <div class="ai-example-box">«۵ روز کربلا و نجف، هوایی، هتل متوسط، ارزون‌تر باشه»</div>
+      <div class="ai-input-row">
+        <input class="ai-input" id="aiInput" placeholder="سفرت رو توضیح بده..." onkeydown="if(event.key==='Enter')sendAI()">
+        <button class="ai-send-btn" onclick="sendAI()">←</button>
+      </div>
+      <div class="quick-chips">
+        <button class="chip" onclick="setAIQ('✈️ ۵ روز هوایی')">✈️ ۵ روز هوایی</button>
+        <button class="chip" onclick="setAIQ('🚌 زمینی ارزون')">🚌 زمینی ارزون</button>
+        <button class="chip" onclick="setAIQ('👑 VIP لوکس')">👑 VIP لوکس</button>
+        <button class="chip" onclick="setAIQ('👨‍👩‍👧 خانوادگی')">👨‍👩‍👧 خانوادگی</button>
+      </div>
+      <div class="ai-messages" id="aiMessages"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FEATURED TRIPS ═══ -->
 <div class="section">
-  <div class="section-title">مراحل طراحی سفر شما</div>
+  <div class="section-header">
+    <span class="section-title">✦ پیشنهادهای ویژه</span>
+    <span class="section-sub">سفرهای آماده آوان</span>
+  </div>
+  <div class="trips-scroll" id="tripsScroll">
+    <div class="trip-card" onclick="openTripDetail(this)" data-name="کربلا + نجف ۵ روزه" data-detail="هوایی، هتل ۳ ستاره، از تهران" data-price="۶,۰۰۰,۰۰۰">
+      <div class="tc-emoji">🕌</div>
+      <div class="tc-name">کربلا + نجف ۵ روزه</div>
+      <div class="tc-detail">هوایی • هتل ۳ ستاره<br>از تهران</div>
+      <div class="tc-price">از ۶,۰۰۰,۰۰۰ تومان</div>
+    </div>
+    <div class="trip-card" onclick="openTripDetail(this)" data-name="سفر هوایی اقتصادی" data-detail="۴ روز کربلا، هتل ساده" data-price="۳,۴۰۰,۰۰۰">
+      <div class="tc-emoji">✈️</div>
+      <div class="tc-name">سفر هوایی اقتصادی</div>
+      <div class="tc-detail">۴ روز • کربلا<br>هتل ساده</div>
+      <div class="tc-price">از ۳,۴۰۰,۰۰۰ تومان</div>
+    </div>
+    <div class="trip-card" onclick="openTripDetail(this)" data-name="VIP لوکس ۷ روزه" data-detail="همه مقاصد، هتل ۵ ستاره" data-price="۱۹,۶۰۰,۰۰۰">
+      <div class="tc-emoji">👑</div>
+      <div class="tc-name">VIP لوکس ۷ روزه</div>
+      <div class="tc-detail">همه مقاصد • هتل ۵ ستاره</div>
+      <div class="tc-price">از ۱۹,۶۰۰,۰۰۰ تومان</div>
+    </div>
+    <div class="trip-card" onclick="openTripDetail(this)" data-name="زمینی اقتصادی" data-detail="۶ روز کربلا و نجف" data-price="۲,۵۰۰,۰۰۰">
+      <div class="tc-emoji">🚌</div>
+      <div class="tc-name">زمینی اقتصادی</div>
+      <div class="tc-detail">۶ روز • کربلا و نجف</div>
+      <div class="tc-price">از ۲,۵۰۰,۰۰۰ تومان</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<div class="how-section">
+  <div class="how-header">
+    <div>
+      <div class="how-title">مراحل طراحی سفر شما</div>
+      <div class="how-subtitle">چهار گام ساده برای طراحی سفر دلخواه</div>
+    </div>
+    <button class="how-toggle" onclick="toggleAll()">راهنما ▼</button>
+  </div>
   <div class="how-steps">
-    <div class="how-step">
-      <div class="how-num">۱</div>
-      <div class="how-step-content">
-        <div class="title">تاریخ، شهر و مسافران</div>
-        <div class="desc">ماه اعزام را انتخاب کنید، نوار روزها باز می‌شود. روز را با کشیدن انگشت انتخاب کنید. تعداد مسافران را تنظیم کنید.</div>
+    <div class="how-step" onclick="toggleHow(this)">
+      <div class="how-step-header">
+        <div class="hn">۱</div>
+        <div class="hinfo">
+          <div class="htitle">تاریخ، شهر و مسافران</div>
+          <div class="hsub">ماه، روز اعزام و تعداد نفرات</div>
+        </div>
+        <span class="harrow">▼</span>
+      </div>
+      <div class="how-step-body">
+        ماه اعزام را انتخاب کنید، نوار روزها باز می‌شود. روز را با کشیدن انگشت انتخاب کنید. تعداد مسافران را تنظیم کنید. <strong>این گام پایه برنامه‌ریزی سفر شماست.</strong>
       </div>
     </div>
-    <div class="how-step">
-      <div class="how-num">۲</div>
-      <div class="how-step-content">
-        <div class="title">انتخاب شهرهای زیارتی</div>
-        <div class="desc">شهرهای زیارتی را به <strong>ترتیب دلخواه سفر</strong> انتخاب کنید.</div>
+    <div class="how-step" onclick="toggleHow(this)">
+      <div class="how-step-header">
+        <div class="hn">۲</div>
+        <div class="hinfo">
+          <div class="htitle">نوع سفر</div>
+          <div class="hsub">هوایی، زمینی یا ترکیبی</div>
+        </div>
+        <span class="harrow">▼</span>
+      </div>
+      <div class="how-step-body">
+        <strong>هوایی:</strong> سریع‌ترین روش. <strong>زمینی:</strong> اقتصادی‌تر. <strong>ترکیبی:</strong> رفت با هواپیما، برگشت با اتوبوس.
       </div>
     </div>
-    <div class="how-step">
-      <div class="how-num">۳</div>
-      <div class="how-step-content">
-        <div class="title">نوع سفر</div>
-        <div class="desc"><strong>هوایی:</strong> سریع‌ترین روش. <strong>زمینی:</strong> اقتصادی‌تر. <strong>ترکیبی:</strong> رفت با هواپیما، برگشت با اتوبوس.</div>
+    <div class="how-step" onclick="toggleHow(this)">
+      <div class="how-step-header">
+        <div class="hn">۳</div>
+        <div class="hinfo">
+          <div class="htitle">انتخاب شهرهای زیارتی</div>
+          <div class="hsub">کربلا، نجف، کاظمین و سامرا</div>
+        </div>
+        <span class="harrow">▼</span>
+      </div>
+      <div class="how-step-body">
+        شهرهای زیارتی را به <strong>ترتیب دلخواه سفر</strong> انتخاب کنید.
       </div>
     </div>
-    <div class="how-step">
-      <div class="how-num">۴</div>
-      <div class="how-step-content">
-        <div class="title">هتل، خلاصه سفر و هزینه</div>
-        <div class="desc">پس از انتخاب هتل، خلاصه سفر و <strong>هزینه تخمینی</strong> خودکار نمایش داده می‌شود.</div>
+    <div class="how-step" onclick="toggleHow(this)">
+      <div class="how-step-header">
+        <div class="hn">۴</div>
+        <div class="hinfo">
+          <div class="htitle">هتل، خلاصه سفر و هزینه</div>
+          <div class="hsub">هتل را انتخاب کنید و هزینه را ببینید</div>
+        </div>
+        <span class="harrow">▼</span>
+      </div>
+      <div class="how-step-body">
+        پس از انتخاب هتل، خلاصه سفر و <strong>هزینه تخمینی</strong> خودکار نمایش داده می‌شود.
       </div>
     </div>
   </div>
 </div>
 
-<!-- AI CHAT -->
-<div class="ai-card">
-  <div class="ai-header">
-    <div class="ai-avatar">🤖</div>
-    <div class="info">
-      <div class="name">مشاور هوشمند آوان</div>
-      <div class="status">● آنلاین — آماده پاسخ</div>
+<!-- ═══ CARAVANS ═══ -->
+<div class="caravan-section">
+  <div class="section-header" style="margin-bottom:12px">
+    <span class="section-title">کاروان‌های گروهی</span>
+    <span class="section-sub">برنامه اعزام از شهرهای مختلف — هوایی و زمینی</span>
+  </div>
+
+  <div class="how-step" style="margin-bottom:12px" onclick="toggleHow(this)">
+    <div class="how-step-header">
+      <div style="font-size:13px;font-weight:700;flex:1">سرویس مکمل</div>
+      <span class="harrow">▼</span>
     </div>
-    <div class="badge">✨ AI</div>
+    <div class="how-step-body" style="display:none"></div>
   </div>
-  <p class="ai-intro">حوصله انتخاب مرحله‌به‌مرحله نداری؟ همینجا بنویس، ما برنامه می‌چینیم.</p>
-  <div class="ai-example">«۵ روز کربلا و نجف، هوایی، هتل متوسط، ارزون‌تر باشه»</div>
-  <div class="quick-chips">
-    <button class="chip" onclick="sendQuick('✈️ ۵ روز هوایی')">✈️ ۵ روز هوایی</button>
-    <button class="chip" onclick="sendQuick('🚌 زمینی ارزون')">🚌 زمینی ارزون</button>
-    <button class="chip" onclick="sendQuick('👑 VIP لوکس')">👑 VIP لوکس</button>
-    <button class="chip" onclick="sendQuick('👨‍👩‍👧 خانوادگی')">👨‍👩‍👧 خانوادگی</button>
+
+  <div class="caravan-notice">
+    <div class="cn-top">✦ ترجیح ما — طراحی سفر اختصاصی</div>
+    <p class="cn-text">
+      ما باور داریم بهترین سفر زیارتی، <strong>سفری‌ست که خودتان طراحی کنید</strong> — تاریخ، مسیر، هتل و مدت اقامت دقیقاً مطابق خواسته شما.<br>
+      اما اگر ترجیح می‌دهید با <strong>کاروان گروهی</strong> سفر کنید، برنامه‌های اعزام پیش رو را ببینید.
+    </p>
+    <button class="cn-link" onclick="document.getElementById('mainWizard').scrollIntoView({behavior:'smooth'})">← سفر اختصاصی طراحی کنید</button>
   </div>
-  <div class="ai-messages" id="aiMessages"></div>
-  <div class="ai-input-row">
-    <input class="ai-input" id="aiInput" placeholder="سفرت رو توضیح بده..." onkeydown="if(event.key==='Enter')sendAI()">
-    <button class="ai-send" onclick="sendAI()">←</button>
+
+  <div class="caravan-filters">
+    <button class="cf-btn active" onclick="filterCaravan(this,'همه')">همه</button>
+    <button class="cf-btn" onclick="filterCaravan(this,'هوایی')">هوایی</button>
+    <button class="cf-btn" onclick="filterCaravan(this,'زمینی')">زمینی</button>
+  </div>
+
+  <div class="cf-search">
+    <span class="si">🔍</span>
+    <select onchange="filterByCity(this.value)">
+      <option value="">شهر مبدا</option>
+      <option>تهران</option>
+      <option>مشهد</option>
+      <option>اصفهان</option>
+      <option>شیراز</option>
+    </select>
+  </div>
+
+  <div class="caravan-empty" id="caravanEmpty">
+    کاروانی برای این شهر و فیلتر یافت نشد.<br>
+    فیلتر دیگری را امتحان کنید.
   </div>
 </div>
 
-<!-- FEATURED TRIPS -->
-<div class="section" style="padding-top:32px">
-  <div class="section-title">✦ پیشنهادهای ویژه</div>
-  <div class="trips-scroll">
-    <div class="trip-card">
-      <div class="t-icon">🕌</div>
-      <div class="t-title">کربلا + نجف ۵ روزه</div>
-      <div class="t-detail">هوایی • هتل ۳ ستاره<br>از تهران</div>
-      <div class="t-price">از ۶,۰۰۰,۰۰۰ تومان</div>
-    </div>
-    <div class="trip-card">
-      <div class="t-icon">✈️</div>
-      <div class="t-title">سفر هوایی اقتصادی</div>
-      <div class="t-detail">۴ روز • کربلا<br>هتل ساده</div>
-      <div class="t-price">از ۳,۴۰۰,۰۰۰ تومان</div>
-    </div>
-    <div class="trip-card">
-      <div class="t-icon">👑</div>
-      <div class="t-title">VIP لوکس ۷ روزه</div>
-      <div class="t-detail">همه مقاصد • هتل ۵ ستاره</div>
-      <div class="t-price">از ۱۹,۶۰۰,۰۰۰ تومان</div>
-    </div>
-    <div class="trip-card">
-      <div class="t-icon">🚌</div>
-      <div class="t-title">زمینی اقتصادی</div>
-      <div class="t-detail">۶ روز • کربلا و نجف</div>
-      <div class="t-price">از ۲,۵۰۰,۰۰۰ تومان</div>
-    </div>
-  </div>
-</div>
-
-<!-- CARAVANS -->
-<div class="section">
-  <div class="section-title">کاروان‌های گروهی</div>
-  <div class="filter-row">
-    <button class="filter-btn active" onclick="filterCar(this,'همه')">همه</button>
-    <button class="filter-btn" onclick="filterCar(this,'هوایی')">هوایی</button>
-    <button class="filter-btn" onclick="filterCar(this,'زمینی')">زمینی</button>
-  </div>
-  <div class="empty-msg">کاروانی برای این فیلتر یافت نشد.<br>فیلتر دیگری را امتحان کنید.</div>
-</div>
-
-<!-- FAQ -->
-<div class="section">
-  <div class="section-title">سؤالات متداول</div>
-  <div class="faq-list">
+<!-- ═══ FAQ ═══ -->
+<div class="faq-section">
+  <h2>سؤالات متداول</h2>
+  <p class="faq-sub">پاسخ سؤالات رایج زائران</p>
+  <div class="faq-items">
     <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q"><span class="q-icon">؟</span><span>آیا می‌توانم به تنهایی سفر کنم؟</span><span class="arrow">▼</span></div>
+      <div class="faq-q">
+        <span class="qi">؟</span>
+        <span class="qt">آیا می‌توانم به تنهایی سفر کنم؟</span>
+        <span class="qa">▼</span>
+      </div>
       <div class="faq-a">بله، این سامانه برای سفرهای انفرادی (۱ نفر) طراحی شده است.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q"><span class="q-icon">؟</span><span>هزینه تخمینی چه مواردی را شامل می‌شود؟</span><span class="arrow">▼</span></div>
+      <div class="faq-q">
+        <span class="qi">؟</span>
+        <span class="qt">هزینه تخمینی چه مواردی را شامل می‌شود؟</span>
+        <span class="qa">▼</span>
+      </div>
       <div class="faq-a">ترانسفر از درب منزل، بلیط رفت و برگشت، اقامت، وعده‌های غذایی و خدمات راهنما.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q"><span class="q-icon">؟</span><span>مدارک لازم برای سفر به عراق چیست؟</span><span class="arrow">▼</span></div>
+      <div class="faq-q">
+        <span class="qi">؟</span>
+        <span class="qt">مدارک لازم برای سفر به عراق چیست؟</span>
+        <span class="qa">▼</span>
+      </div>
       <div class="faq-a">گذرنامه با حداقل ۶ ماه اعتبار. برای برخی مسیرهای زمینی کارت ملی هوشمند کافی است.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q"><span class="q-icon">؟</span><span>آیا امکان تغییر تاریخ پس از ثبت وجود دارد؟</span><span class="arrow">▼</span></div>
+      <div class="faq-q">
+        <span class="qi">؟</span>
+        <span class="qt">آیا امکان تغییر تاریخ پس از ثبت وجود دارد؟</span>
+        <span class="qa">▼</span>
+      </div>
       <div class="faq-a">بله، تا ۷۲ ساعت قبل از اعزام امکان تغییر وجود دارد.</div>
     </div>
     <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q"><span class="q-icon">؟</span><span>پس از ثبت‌نام آنلاین، مراحل بعدی چیست؟</span><span class="arrow">▼</span></div>
+      <div class="faq-q">
+        <span class="qi">؟</span>
+        <span class="qt">پس از ثبت‌نام آنلاین، مراحل بعدی چیست؟</span>
+        <span class="qa">▼</span>
+      </div>
       <div class="faq-a">کارشناس ما ظرف ۲ ساعت تماس می‌گیرد، هزینه تأیید می‌شود و برنامه سفر ارسال می‌شود.</div>
     </div>
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ═══ PARTNERS ═══ -->
+<div class="partner-section">
+  <h2>گزینه‌های دیگر سفر زیارتی</h2>
+  <p class="pt-sub">شرکت‌های معتبر پیشنهادی آوان<br><br>
+    اگر به هر دلیلی ترجیح می‌دهید با <strong>کاروان‌های گروهی حج و زیارت</strong> سفر کنید، این دو شرکت معتبر را به شما پیشنهاد می‌کنیم:
+  </p>
+  <div class="partner-cards">
+    <div class="partner-card" onclick="togglePartner(this)">
+      <div class="partner-card-header">
+        <span class="pc-name">صدراگشت گیتی</span>
+        <span class="pc-arrow">▼</span>
+      </div>
+      <div class="partner-card-body">شرکت معتبر در حوزه سفرهای زیارتی با سابقه بیش از ۲۰ سال.</div>
+    </div>
+    <div class="partner-card" onclick="togglePartner(this)">
+      <div class="partner-card-header">
+        <span class="pc-name">محبان عباس</span>
+        <span class="pc-arrow">▼</span>
+      </div>
+      <div class="partner-card-body">یکی از پرسابقه‌ترین شرکت‌های سفرهای زیارتی به عتبات عالیات.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
 <footer>
-  <div class="footer-logo">🕌 گروه زیارتی آوان</div>
-  <div class="footer-sub">مرجع تخصصی سفرهای زیارتی انفرادی</div>
-  <div class="footer-links">
-    <a href="#" onclick="openModal('guide')">راهنما</a>
-    <a href="#" onclick="openModal('contact')">تماس</a>
-    <a href="#" onclick="openModal('about')">درباره ما</a>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="fb-name">گروه زیارتی آوان</div>
+      <div class="fb-sub">مرجع تخصصی سفرهای زیارتی انفرادی</div>
+    </div>
+    <div class="footer-links-col">
+      <button onclick="openSheet('guide')">راهنما</button>
+      <button onclick="openSheet('contact')">تماس</button>
+      <button onclick="openSheet('about')">درباره ما</button>
+    </div>
   </div>
-  <div class="footer-contact">
-    <strong>شماره تماس:</strong> ۰۹۱۰۲۱۹۸۲۶۱<br>
-    <strong>دفتر تهران:</strong> ولیعصر، نرسیده به پارک‌وی، پلاک ۱۲۴<br>
-    <strong>دفتر نجف:</strong> خ. الرسول، ساختمان الزائر
+
+  <div class="footer-contacts">
+    <div class="fc-row">
+      <span class="fc-icon">📍</span>
+      <div class="fc-text"><strong>دفتر مرکزی تهران</strong><br>تهران، ولیعصر، نرسیده به پارک‌وی، پلاک ۱۲۴</div>
+    </div>
+    <div class="fc-row">
+      <span class="fc-icon">📍</span>
+      <div class="fc-text"><strong>دفتر نجف اشرف</strong><br>نجف اشرف، خ. الرسول، ساختمان الزائر</div>
+    </div>
+    <div class="fc-row">
+      <span class="fc-icon">📞</span>
+      <div class="fc-text"><strong>تماس مستقیم</strong><br>۰۹۱۰۲۱۹۸۲۶۱</div>
+    </div>
   </div>
-  <div class="social-row">
+
+  <div class="footer-socials">
     <a class="soc-btn" href="https://wa.me/989102198261" target="_blank">واتساپ</a>
     <a class="soc-btn" href="https://t.me/avanatabat" target="_blank">تلگرام</a>
     <a class="soc-btn" href="https://bale.ai/avanatabat" target="_blank">بله</a>
   </div>
-  <div class="copyright">© ۱۴۰۵ — تمامی حقوق محفوظ است</div>
+
+  <div class="footer-bottom">
+    گروه زیارتی آوان<br>
+    مرجع تخصصی سفرهای زیارتی انفرادی<br>
+    © ۱۴۰۵ — تمامی حقوق محفوظ است<br>
+    <div class="dev">Designed, Developed &amp; Deployed by P E Y M A N</div>
+  </div>
 </footer>
 
-<!-- FAB -->
-<button class="fab" onclick="openModal('chat')" title="مشاور هوشمند">🤖</button>
+<!-- ═══ FAB ═══ -->
+<button class="fab" onclick="openSheet('chat')" title="مشاور هوشمند آوان">
+  🤖
+  <div class="fab-badge"></div>
+</button>
 
-<!-- MODALS -->
-<div class="modal-overlay" id="modal" onclick="closeModal(event)">
-  <div class="modal" id="modalBox">
-    <div class="modal-header">
-      <h3 id="modalTitle"></h3>
-      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+<!-- ═══════════════════════════════════
+     SHEETS (bottom modals)
+═══════════════════════════════════ -->
+<div class="sheet-overlay" id="sheetOverlay" onclick="closeSheetOutside(event)">
+  <div class="sheet" id="sheetEl">
+    <div class="sheet-header">
+      <h3 id="sheetTitle"></h3>
+      <button class="modal-close-btn" onclick="closeSheet()">✕</button>
     </div>
-    <div id="modalBody"></div>
+    <div class="sheet-body" id="sheetBody"></div>
+  </div>
+</div>
+
+<!-- ═══ SUCCESS / PAYMENT MODAL ═══ -->
+<div class="full-modal-overlay" id="successOverlay">
+  <div class="full-modal">
+    <div class="full-modal-header">
+      <h3>🕌 سفر شما ثبت شد!</h3>
+      <button class="modal-close-btn" onclick="closeModal('successOverlay')">✕</button>
+    </div>
+    <div class="success-screen show" id="successContent">
+      <div class="success-steps">
+        <div class="suc-step done">
+          <div class="sn">✓</div>
+          <span class="sl-text">ثبت‌نام</span>
+        </div>
+        <div class="suc-line done"></div>
+        <div class="suc-step done">
+          <div class="sn">✓</div>
+          <span class="sl-text">ارسال</span>
+        </div>
+        <div class="suc-line"></div>
+        <div class="suc-step active">
+          <div class="sn">💳</div>
+          <span class="sl-text">پرداخت</span>
+        </div>
+      </div>
+      <div class="tracking-box">
+        <div class="tk-label">کد پیگیری</div>
+        <div class="tk-code" id="trackCode">—</div>
+      </div>
+      <p class="success-msg">
+        📌 درخواست سفر شما ثبت و برای کارشناسان ما ارسال شد.<br>
+        جهت <strong>قطعی‌شدن سفر</strong>، لطفاً مبلغ را پرداخت نمایید.<br>
+        ظرف <strong>۲ ساعت</strong> با شما تماس خواهیم گرفت.
+      </p>
+      <div class="total-amount-box">
+        <div class="ta-label">مبلغ کل سفر</div>
+        <div class="ta-val" id="payAmount">—</div>
+        <div class="ta-unit">تومان</div>
+      </div>
+      <button class="pay-btn" onclick="simulatePay()">
+        💰 پرداخت آنلاین
+      </button>
+      <p class="pay-info">
+        💳 پرداخت آنلاین با کارت‌های عضو شتاب<br>
+        🔒 پرداخت امن — رمزگذاری SSL
+      </p>
+      <button class="pay-skip" onclick="closeModal('successOverlay')">بستن — پرداخت بعداً</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TRIP DETAIL MODAL ═══ -->
+<div class="full-modal-overlay" id="tripDetailOverlay">
+  <div class="full-modal trip-detail-sheet">
+    <div class="full-modal-header">
+      <h3 id="tripDetailTitle">جزئیات سفر</h3>
+      <button class="modal-close-btn" onclick="closeModal('tripDetailOverlay')">✕</button>
+    </div>
+    <div style="padding:20px">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.9" id="tripDetailBody"></p>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:4px">هر نفر از</div>
+      <div class="trip-big-price" id="tripDetailPrice">—</div>
+      <div class="trip-price-sub">تومان</div>
+      <button class="register-btn" onclick="closeModal('tripDetailOverlay');openSheet('register')">ثبت‌نام این سفر ✦</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CARAVAN REGISTER MODAL ═══ -->
+<div class="full-modal-overlay" id="caravanRegOverlay">
+  <div class="full-modal">
+    <div class="full-modal-header">
+      <h3>🕌 ثبت‌نام سفر</h3>
+      <button class="modal-close-btn" onclick="closeModal('caravanRegOverlay')">✕</button>
+    </div>
+    <div style="padding:0">
+      <div class="modal-tabs">
+        <div class="modal-tab active" id="rt-1">
+          <div class="mt-num">۱</div>
+          <div class="mt-label">جزئیات</div>
+        </div>
+        <div class="modal-tab" id="rt-2">
+          <div class="mt-num">۲</div>
+          <div class="mt-label">مسافران</div>
+        </div>
+        <div class="modal-tab" id="rt-3">
+          <div class="mt-num">۳</div>
+          <div class="mt-label">پرداخت</div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:13px;color:var(--muted);line-height:1.9">
+          لطفاً اطلاعات سفر را تکمیل کنید.
+        </p>
+      </div>
+      <div style="padding:0 20px 20px;display:flex;gap:8px">
+        <button class="btn-back show" style="display:block" onclick="closeModal('caravanRegOverlay')">← بازگشت</button>
+        <button class="btn-next" style="flex:2">ادامه ←</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
-const state = {
+// ═══════════════════════════════════
+// STATE
+// ═══════════════════════════════════
+const S = {
   step: 1,
-  month: null, day: null, origin: 'تهران', passengers: 1,
-  dests: [], type: 'هوایی', city: 'تهران', hotel: null, hotelPrice: 0
+  month: null, day: null,
+  origin: null, passengers: 0,
+  travelType: 'هوایی', airport: 'تهران',
+  dests: [], destOrder: [],
+  hotel: null, hotelPrice: 0
 };
 
-const toFa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
-const days7 = ['ی','د','س','چ','پ','ج','ش'];
+const fa = n => String(n).replace(/\d/g,'d'=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+const weekDays = ['ش','ی','د','س','چ','پ','ج'];
+const HOTELS = [
+  {name:'نام هتل', stars:2, price:850000},
+  {name:'هتل دیگر', stars:3, price:1200000},
+  {name:'هتل متوسط', stars:3, price:1500000},
+  {name:'هتل خوب', stars:4, price:2200000},
+  {name:'هتل لوکس VIP', stars:5, price:3500000}
+];
 
-// Build day scrolller
-function buildDays() {
-  const sc = document.getElementById('dayScroll');
-  sc.innerHTML = '';
-  for (let i = 1; i <= 31; i++) {
-    const b = document.createElement('button');
-    b.className = 'day-btn' + (state.day == i ? ' selected' : '');
-    b.innerHTML = `<span class="day-num">${toFa(i)}</span><span class="day-name">${days7[(i-1)%7]}</span>`;
-    b.onclick = () => { state.day = i; buildDays(); };
-    sc.appendChild(b);
+// ═══════════════════════════════════
+// DAYS ROW
+// ═══════════════════════════════════
+function buildDays(){
+  const row = document.getElementById('daysRow');
+  row.innerHTML='';
+  for(let i=1;i<=31;i++){
+    const b=document.createElement('button');
+    b.className='day-btn'+(S.day===i?' sel':'');
+    b.innerHTML=`<span class="dn">${fa(i)}</span><span class="dw">${weekDays[(i-1)%7]}</span>`;
+    b.onclick=()=>{S.day=i;buildDays();};
+    row.appendChild(b);
   }
 }
 buildDays();
 
-function selectMonth(el, m) {
-  document.querySelectorAll('.month-btn').forEach(b => b.classList.remove('selected'));
-  el.classList.add('selected');
-  state.month = m;
+// ═══════════════════════════════════
+// STEP 1
+// ═══════════════════════════════════
+function selMonth(el, m){
+  document.querySelectorAll('.month-btn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  S.month=m;
+}
+function adjPass(d){
+  S.passengers=Math.max(0,Math.min(4,S.passengers+d));
+  document.getElementById('passVal').textContent=fa(S.passengers);
 }
 
-function changePass(d) {
-  state.passengers = Math.max(1, Math.min(4, state.passengers + d));
-  document.getElementById('passVal').textContent = toFa(state.passengers);
+// ═══════════════════════════════════
+// STEP 2
+// ═══════════════════════════════════
+function selType(el){
+  document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  S.travelType=el.dataset.type;
+  const air=el.dataset.type!=='زمینی';
+  document.getElementById('airportSection').classList.toggle('show',air);
+}
+// show airport by default (هوایی is default)
+document.getElementById('airportSection').classList.add('show');
+
+function selAirport(el){
+  document.querySelectorAll('.airport-btn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  S.airport=el.dataset.ap;
+}
+function selAttend(el){
+  document.querySelectorAll('.attend-btn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
 }
 
-// Destination toggle with order badges
-function toggleDest(el) {
-  if (el.classList.contains('selected')) {
-    el.classList.remove('selected');
-    state.dests = state.dests.filter(c => c !== el.dataset.city);
+// ═══════════════════════════════════
+// STEP 3
+// ═══════════════════════════════════
+function selDest(el){
+  const city=el.dataset.city;
+  if(el.classList.contains('sel')){
+    el.classList.remove('sel');
+    S.dests=S.dests.filter(c=>c!==city);
   } else {
-    el.classList.add('selected');
-    state.dests.push(el.dataset.city);
+    el.classList.add('sel');
+    S.dests.push(city);
   }
-  // Update order badges
-  let o = 1;
-  document.querySelectorAll('.dest-card').forEach(c => {
-    if (c.classList.contains('selected')) {
-      c.querySelector('.order-badge').textContent = toFa(o++);
-    }
+  // reorder badges
+  let ord=1;
+  document.querySelectorAll('.dest-card').forEach(c=>{
+    if(c.classList.contains('sel'))
+      c.querySelector('.order-badge').textContent=fa(ord++);
   });
 }
 
-function selectType(el) {
-  document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  state.type = el.dataset.type;
-}
-
-function selectCity(el) {
-  document.querySelectorAll('.city-btn').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  state.city = el.dataset.city;
-}
-
-function selectHotel(el) {
-  document.querySelectorAll('.hotel-card').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  state.hotel = el.dataset.hotel;
-  state.hotelPrice = el.dataset.price;
-  updateSummary();
-  document.getElementById('summaryBox').style.display = 'block';
-}
-
-function updateSummary() {
-  document.getElementById('sum-month').textContent = state.month || '—';
-  document.getElementById('sum-day').textContent = state.day ? ('روز ' + toFa(state.day)) : '—';
-  document.getElementById('sum-origin').textContent = state.origin;
-  document.getElementById('sum-pass').textContent = toFa(state.passengers) + ' نفر';
-  document.getElementById('sum-dest').textContent = state.dests.join(' ، ') || '—';
-  document.getElementById('sum-type').textContent = state.type || '—';
-  document.getElementById('sum-hotel').textContent = state.hotel ? ('هتل ' + state.hotel) : '—';
-  // total
-  const priceNum = state.hotelPrice ? parseInt(state.hotelPrice.replace(/,/g,'')) : 0;
-  const total = priceNum * state.passengers;
-  document.getElementById('sum-total').textContent = total ? (total.toLocaleString('fa-IR') + ' تومان') : '—';
-}
-
-// Step navigation
-const steps = ['step1','step2','step3','step4'];
-const icons = ['📅','🕌','🚌','🏨'];
-const titles = ['تاریخ و مسافران','شهرهای زیارتی','نوع سفر','اقامت و تأیید'];
-
-function showStep(n) {
-  steps.forEach((id,i) => {
-    document.getElementById(id).classList.toggle('visually-hidden', i+1 !== n);
-    const tab = document.getElementById('tab'+(i+1));
-    tab.className = 'step-tab' + (i+1 < n ? ' done' : i+1 === n ? ' active' : '');
-  });
-  document.getElementById('wizardIcon').textContent = icons[n-1];
-  document.getElementById('wizardTitle').textContent = titles[n-1];
-  document.getElementById('btnBack').classList.toggle('visually-hidden', n === 1);
-  document.getElementById('btnNext').textContent = n === 4 ? '🕌 ثبت سفر ✦' : 'ادامه ←';
-  // hero steps
-  [1,2,3].forEach(i => {
-    document.getElementById('hs'+i).classList.toggle('active', i === Math.min(n, 3));
-  });
-  state.step = n;
-  window.scrollTo({top: document.getElementById('wizardCard').offsetTop - 70, behavior: 'smooth'});
-}
-
-function goNext() {
-  if (state.step === 1) {
-    if (!state.month || !state.day || !state.origin) {
-      showErr('err1'); return;
-    }
-    hideErr('err1'); showStep(2);
-  } else if (state.step === 2) {
-    if (state.dests.length === 0) { showErr('err2'); return; }
-    hideErr('err2'); showStep(3);
-  } else if (state.step === 3) {
-    if (!state.type) { showErr('err3'); return; }
-    hideErr('err3'); showStep(4);
-  } else if (state.step === 4) {
-    if (!state.hotel) { showErr('err4'); return; }
-    hideErr('err4'); submitTrip();
-  }
-}
-
-function goPrev() {
-  if (state.step > 1) showStep(state.step - 1);
-}
-
-function submitTrip() {
-  steps.forEach(id => document.getElementById(id).classList.add('visually-hidden'));
-  document.getElementById('summaryBox').style.display = 'none';
-  document.getElementById('successScreen').classList.add('show');
-  document.getElementById('wizardNav').style.display = 'none';
-  const code = 'AV-' + Math.random().toString(36).substr(2,6).toUpperCase();
-  document.getElementById('trackingCode').textContent = code;
-}
-
-function showErr(id) {
-  document.getElementById(id).classList.remove('visually-hidden');
-}
-function hideErr(id) {
-  document.getElementById(id).classList.add('visually-hidden');
-}
-
-// Origin modal inline
-function openModal(type) {
-  const overlay = document.getElementById('modal');
-  const title = document.getElementById('modalTitle');
-  const body = document.getElementById('modalBody');
-  const modals = {
-    guide: ['📖 راهنمای استفاده', `<p style="font-size:13px;color:var(--muted);line-height:2">
-      ۱. شهر مبدا خود را انتخاب کنید.<br>
-      ۲. ماه، روز اعزام و تعداد مسافران را انتخاب کنید.<br>
-      ۳. نوع سفر را انتخاب کنید.<br>
-      ۴. شهرهای زیارتی را انتخاب کنید.<br>
-      ۵. هتل و خدمات را تنظیم کنید.<br>
-      ۶. خلاصه و هزینه را مشاهده کنید.
-    </p>`],
-    contact: ['📞 تماس با ما', `<p style="font-size:13px;color:var(--muted);line-height:2.2">
-      <strong style="color:var(--text)">شماره تماس:</strong> ۰۹۱۰۲۱۹۸۲۶۱<br>
-      <strong style="color:var(--text)">دفتر تهران:</strong> ولیعصر، نرسیده به پارک‌وی، پلاک ۱۲۴<br>
-      <strong style="color:var(--text)">دفتر نجف:</strong> خ. الرسول، کوچه ۱۲، ساختمان الزائر
-    </p>`],
-    about: ['🕌 درباره ما', `<p style="font-size:13px;color:var(--muted);line-height:2">
-      گروه زیارتی آوان — مرجع تخصصی سفرهای زیارتی انفرادی<br><br>
-      بیش از ۱۵ سال تجربه در برگزاری سفرهای زیارتی به عراق.<br><br>
-      <strong style="color:var(--text)">تخصص ما:</strong><br>
-      • سفرهای انفرادی و گروه‌های کوچک (۱ تا ۴ نفر)<br>
-      • مدیریت کامل از درب منزل تا بازگشت<br>
-      • پشتیبانی ۲۴ ساعته در مسیر
-    </p>`],
-    origin: ['📍 انتخاب شهر مبدا', `<div style="display:flex;flex-direction:column;gap:8px">
-      ${['تهران','مشهد','اصفهان','شیراز','تبریز','قم','کرج','اهواز','سایر'].map(c =>
-        `<button onclick="setOriginFromModal('${c}')" style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-family:inherit;font-size:13px;cursor:pointer;text-align:right">${c}</button>`
-      ).join('')}
-    </div>`],
-    chat: ['🤖 مشاور هوشمند آوان', `<p style="font-size:13px;color:var(--muted);margin-bottom:12px">همینجا بنویس، ما برنامه می‌چینیم.</p>
-    <div style="display:flex;gap:8px">
-      <input id="modalAiInput" class="ai-input" placeholder="سفرت رو توضیح بده..." style="flex:1" onkeydown="if(event.key==='Enter')sendModalAI()">
-      <button onclick="sendModalAI()" class="ai-send" style="background:var(--gold);border:none;border-radius:10px;width:42px;cursor:pointer;font-size:16px">←</button>
+// ═══════════════════════════════════
+// STEP 4 — Hotels
+// ═══════════════════════════════════
+function buildHotels(){
+  const el=document.getElementById('hotelCards');
+  el.innerHTML=HOTELS.map((h,i)=>`
+    <div class="type-card${S.hotel===h.name?' sel':''}" data-hotel="${h.name}" data-price="${h.price}" onclick="selHotel(this)" style="justify-content:space-between;margin-bottom:8px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="tc-icon">🏨</div>
+        <div>
+          <div class="tc-name">${h.name}</div>
+          <div class="tc-desc">${'★'.repeat(h.stars)}${'☆'.repeat(5-h.stars)}</div>
+        </div>
+      </div>
+      <div style="text-align:left">
+        <div style="font-size:13px;font-weight:700;color:var(--gold)">${fa(h.price.toLocaleString())}</div>
+        <div style="font-size:10px;color:var(--muted)">تومان / نفر</div>
+      </div>
     </div>
-    <div id="modalAiReply" style="margin-top:12px;font-size:13px;color:var(--muted);line-height:1.9"></div>`]
-  };
-  if (!modals[type]) return;
-  title.textContent = modals[type][0];
-  body.innerHTML = modals[type][1];
-  overlay.classList.add('open');
+  `).join('');
 }
 
-function setOriginFromModal(c) {
-  state.origin = c;
-  document.getElementById('originVal').innerHTML = `<span class="check">✓</span> ${c}`;
-  closeModalDirect();
+function selHotel(el){
+  document.querySelectorAll('#hotelCards .type-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  S.hotel=el.dataset.hotel;
+  S.hotelPrice=parseInt(el.dataset.price);
+  updateSummary();
+  document.getElementById('summaryBox').classList.remove('hidden');
 }
 
-function closeModal(e) {
-  if (e.target === document.getElementById('modal')) closeModalDirect();
-}
-function closeModalDirect() {
-  document.getElementById('modal').classList.remove('open');
+function updateSummary(){
+  document.getElementById('s-month').textContent=S.month||'—';
+  document.getElementById('s-day').textContent=S.day?'روز '+fa(S.day):'—';
+  document.getElementById('s-origin').textContent=S.origin||'—';
+  document.getElementById('s-pass').textContent=S.passengers?fa(S.passengers)+' نفر':'—';
+  document.getElementById('s-dest').textContent=S.dests.length?S.dests.join(' ← '):'—';
+  document.getElementById('s-type').textContent=S.travelType||'—';
+  document.getElementById('s-hotel').textContent=S.hotel||'—';
+  const total=S.hotelPrice*Math.max(1,S.passengers);
+  document.getElementById('s-total').textContent=fa(total.toLocaleString())+' تومان';
 }
 
-// FAQ toggle
-function toggleFaq(el) {
-  el.classList.toggle('open');
+// ═══════════════════════════════════
+// WIZARD NAV
+// ═══════════════════════════════════
+const stepConfig=[
+  {icon:'📅',title:'تاریخ و تعداد مسافران',sub:'ماه اعزام را انتخاب کنید',next:'ادامه — انتخاب شهرها ←'},
+  {icon:'🚌',title:'نوع سفر',sub:'روش حمل‌ونقل را انتخاب کنید',next:'ادامه — مقاصد ←'},
+  {icon:'🕌',title:'شهرهای زیارتی',sub:'به ترتیب بازدید انتخاب کنید',next:'ادامه — انتخاب هتل ←'},
+  {icon:'🏨',title:'اقامت و تأیید',sub:'هتل را انتخاب کنید',next:'🕌 ادامه — انتخاب هتل ✦'}
+];
+
+function goToStep(n){
+  if(n>S.step) return; // only allow going back
+  S.step=n; renderStep();
 }
 
-// Filter caravans (demo — always empty)
-function filterCar(el) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+function wizNext(){
+  if(S.step===1){
+    if(!S.month||!S.day){showErr('err1','لطفاً تاریخ اعزام را انتخاب کنید.');return;}
+    hideErr('err1');
+  } else if(S.step===2){
+    hideErr('err2');
+  } else if(S.step===3){
+    if(!S.dests.length){showErr('err3','لطفاً حداقل یک شهر زیارتی انتخاب کنید.');return;}
+    hideErr('err3');
+    buildHotels();
+  } else if(S.step===4){
+    if(!S.hotel){showErr('err4','لطفاً یک هتل انتخاب کنید.');return;}
+    hideErr('err4');
+    doRegister(); return;
+  }
+  S.step=Math.min(4,S.step+1);
+  renderStep();
+}
+
+function wizPrev(){
+  S.step=Math.max(1,S.step-1);
+  renderStep();
+}
+
+function renderStep(){
+  const n=S.step;
+  for(let i=1;i<=4;i++){
+    document.getElementById('sb-'+i).classList.toggle('active',i===n);
+    const tab=document.getElementById('wtab-'+i);
+    tab.className='step-tab'+(i===n?' active':i<n?' done':'');
+  }
+  const c=stepConfig[n-1];
+  document.getElementById('wIcon').textContent=c.icon;
+  document.getElementById('wTitle').textContent=c.title;
+  document.getElementById('wSub').textContent=c.sub;
+  document.getElementById('btnNext').textContent=c.next;
+  document.getElementById('btnBack').classList.toggle('show',n>1);
+
+  // hero steps
+  for(let i=1;i<=3;i++){
+    document.getElementById('hs-'+i).classList.toggle('active',i===Math.min(n,3));
+  }
+}
+
+function showErr(id,msg){const e=document.getElementById(id);e.textContent=msg;e.classList.add('show');}
+function hideErr(id){document.getElementById(id).classList.remove('show');}
+
+// ═══════════════════════════════════
+// REGISTER / SUCCESS
+// ═══════════════════════════════════
+function doRegister(){
+  const code='AV-'+Math.random().toString(36).substr(2,6).toUpperCase();
+  document.getElementById('trackCode').textContent=code;
+  const total=S.hotelPrice*Math.max(1,S.passengers);
+  document.getElementById('payAmount').textContent=fa(total.toLocaleString());
+  document.getElementById('successOverlay').classList.add('open');
+}
+
+function simulatePay(){
+  const btn=document.querySelector('#successOverlay .pay-btn');
+  btn.textContent='💰 در حال انتقال به درگاه پرداخت...';
+  btn.disabled=true;
+  setTimeout(()=>{
+    btn.textContent='✅ پرداخت با موفقیت انجام شد!';
+    btn.style.background='var(--gold)';
+    btn.style.color='var(--dark)';
+    setTimeout(()=>closeModal('successOverlay'),2500);
+  },2000);
+}
+
+// ═══════════════════════════════════
+// SHEETS
+// ═══════════════════════════════════
+const sheetContents={
+  guide:{
+    title:'📖 راهنمای استفاده',
+    html:`<p><strong>چگونه سفر خود را طراحی کنید؟</strong></p><br>
+    <p>۱. شهر مبدا خود را انتخاب کنید.</p>
+    <p>۲. ماه، روز اعزام و تعداد مسافران را انتخاب کنید.</p>
+    <p>۳. نوع سفر را انتخاب کنید.</p>
+    <p>۴. شهرهای زیارتی را انتخاب کنید.</p>
+    <p>۵. هتل و خدمات را تنظیم کنید.</p>
+    <p>۶. خلاصه و هزینه را مشاهده کنید.</p>`
+  },
+  contact:{
+    title:'📞 تماس با ما',
+    html:`<p><strong>شماره تماس:</strong> ۰۹۱۰۲۱۹۸۲۶۱</p><br>
+    <p><strong>دفتر مرکزی تهران:</strong> تهران، خیابان ولیعصر، نرسیده به پارک‌وی، پلاک ۱۲۴</p><br>
+    <p><strong>دفتر نمایندگی نجف اشرف:</strong> نجف اشرف، خیابان الرسول، کوچه ۱۲، ساختمان الزائر</p>`
+  },
+  about:{
+    title:'🕌 درباره ما',
+    html:`<p><strong>گروه زیارتی آوان — مرجع تخصصی سفرهای زیارتی انفرادی</strong></p><br>
+    <p>بیش از ۱۵ سال تجربه در برگزاری سفرهای زیارتی به عراق.</p><br>
+    <p><strong>تخصص ما:</strong></p>
+    <p>• سفرهای انفرادی و گروه‌های کوچک (۱ تا ۴ نفر)</p>
+    <p>• مدیریت کامل از درب منزل تا بازگشت</p>
+    <p>• پشتیبانی ۲۴ ساعته در مسیر</p>`
+  },
+  origin:{
+    title:'📍 شهر مبدا',
+    html:buildOriginHTML()
+  },
+  chat:{
+    title:'🤖 مشاور هوشمند آوان',
+    html:`<p style="font-size:12px;color:var(--muted);margin-bottom:12px">آنلاین — آماده پاسخ</p>
+    <div style="font-size:12px;color:var(--muted2);margin-bottom:12px">پیشنهادهای سریع</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px">
+      <button class="chip" onclick="setSheetAI('✈️ ۵ روز هوایی')">✈️ ۵ روز هوایی</button>
+      <button class="chip" onclick="setSheetAI('🚌 زمینی ارزون')">🚌 زمینی ارزون</button>
+      <button class="chip" onclick="setSheetAI('👑 VIP لوکس')">👑 VIP لوکس</button>
+      <button class="chip" onclick="setSheetAI('👨‍👩‍👧 خانوادگی')">👨‍👩‍👧 خانوادگی</button>
+    </div>
+    <div style="display:flex;gap:8px">
+      <input class="ai-input" id="sheetAIInput" placeholder="سفرت رو توضیح بده..." onkeydown="if(event.key==='Enter')sendSheetAI()" style="flex:1">
+      <button class="ai-send-btn" onclick="sendSheetAI()">←</button>
+    </div>
+    <div id="sheetAIMessages" style="margin-top:12px;display:flex;flex-direction:column;gap:8px;max-height:200px;overflow-y:auto"></div>`
+  },
+  register:{
+    title:'🕌 رزرو کاروان زیارتی',
+    html:`<p style="font-size:13px;color:var(--muted);line-height:1.9">برای رزرو کاروان زیارتی با ما تماس بگیرید.<br><strong style="color:var(--text)">۰۹۱۰۲۱۹۸۲۶۱</strong></p>`
+  }
+};
+
+function buildOriginHTML(){
+  const cities=[
+    {name:'تهران',sub:'✈️ پرواز مستقیم'},
+    {name:'مشهد',sub:'✈️ پرواز مستقیم'},
+    {name:'اصفهان',sub:'✈️ پرواز مستقیم'},
+    {name:'شیراز',sub:'🚍 اتوبوس / هواپیما'},
+    {name:'تبریز',sub:'🚍 اتوبوس'},
+    {name:'قم',sub:'🚍 اتوبوس'},
+    {name:'کرج',sub:'از تهران'},
+    {name:'اهواز',sub:'🚍 اتوبوس / هواپیما'},
+    {name:'سایر شهرها',sub:'با هماهنگی کارشناس'}
+  ];
+  return `<div class="origin-list">${cities.map(c=>`
+    <div class="origin-item${S.origin===c.name?' sel':''}" onclick="pickOrigin('${c.name}')">
+      <div><div class="oi-name">${c.name}</div><div class="oi-sub">${c.sub}</div></div>
+      <span class="oi-check">✓</span>
+    </div>`).join('')}</div>`;
+}
+
+function pickOrigin(city){
+  S.origin=city;
+  document.getElementById('originVal').innerHTML=`<span class="check">✅</span> ${city}`;
+  closeSheet();
+}
+
+function openSheet(type){
+  if(type==='origin') sheetContents.origin.html=buildOriginHTML();
+  const c=sheetContents[type];
+  if(!c)return;
+  document.getElementById('sheetTitle').textContent=c.title;
+  document.getElementById('sheetBody').innerHTML=c.html;
+  document.getElementById('sheetOverlay').classList.add('open');
+}
+function closeSheet(){document.getElementById('sheetOverlay').classList.remove('open');}
+function closeSheetOutside(e){if(e.target===document.getElementById('sheetOverlay'))closeSheet();}
+
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+// ═══════════════════════════════════
+// TRIP DETAIL
+// ═══════════════════════════════════
+function openTripDetail(el){
+  document.getElementById('tripDetailTitle').textContent=el.dataset.name;
+  document.getElementById('tripDetailBody').textContent=el.dataset.detail;
+  document.getElementById('tripDetailPrice').textContent=el.dataset.price;
+  openModal('tripDetailOverlay');
+}
+
+// ═══════════════════════════════════
+// ACCORDION HELPERS
+// ═══════════════════════════════════
+function toggleHow(el){el.classList.toggle('open');}
+function toggleFaq(el){el.classList.toggle('open');}
+function togglePartner(el){el.classList.toggle('open');}
+function toggleAll(){
+  document.querySelectorAll('.how-step').forEach(s=>s.classList.toggle('open'));
+}
+
+// ═══════════════════════════════════
+// CARAVAN FILTERS
+// ═══════════════════════════════════
+function filterCaravan(el,type){
+  document.querySelectorAll('.cf-btn').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
 }
+function filterByCity(v){}
 
-// AI Chat
-const API_URL = 'https://api.anthropic.com/v1/messages';
-
-async function sendAI() {
-  const inp = document.getElementById('aiInput');
-  const msg = inp.value.trim();
-  if (!msg) return;
-  inp.value = '';
-  addMsg(msg, 'user');
-  const loading = addMsg('در حال پاسخ...', 'bot loading');
-  try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1000,
-        system: 'تو مشاور سفرهای زیارتی گروه آوان هستی. فارسی پاسخ بده. کوتاه و مفید باش. سفرهای زیارتی به عراق (کربلا، نجف، کاظمین، سامرا) طراحی می‌کنی.',
-        messages: [{ role: 'user', content: msg }]
+// ═══════════════════════════════════
+// AI CHAT
+// ═══════════════════════════════════
+async function sendAI(){
+  const inp=document.getElementById('aiInput');
+  const msg=inp.value.trim(); if(!msg)return;
+  inp.value='';
+  addAIMsg('aiMessages',msg,'user');
+  const bot=addAIMsg('aiMessages','در حال پاسخ...','bot loading');
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',max_tokens:1000,
+        system:'تو مشاور سفرهای زیارتی گروه آوان هستی. پاسخ‌های کوتاه و مفید به فارسی بده. سفرهای زیارتی به عراق (کربلا، نجف، کاظمین، سامرا) طراحی می‌کنی.',
+        messages:[{role:'user',content:msg}]
       })
     });
-    const data = await res.json();
-    loading.textContent = data.content?.[0]?.text || 'خطا در پاسخ';
-    loading.classList.remove('loading');
-  } catch {
-    loading.textContent = 'خطا در اتصال. لطفاً دوباره امتحان کنید.';
-    loading.classList.remove('loading');
-  }
+    const d=await res.json();
+    bot.textContent=d.content?.[0]?.text||'خطا در دریافت پاسخ';
+    bot.classList.remove('loading');
+  }catch(e){bot.textContent='خطا در اتصال.';bot.classList.remove('loading');}
 }
 
-function sendQuick(q) {
-  document.getElementById('aiInput').value = q;
-  sendAI();
-}
+function setAIQ(q){document.getElementById('aiInput').value=q;sendAI();}
 
-function addMsg(text, cls) {
-  const box = document.getElementById('aiMessages');
-  const el = document.createElement('div');
-  el.className = 'msg ' + cls;
-  el.textContent = text;
+function addAIMsg(containerId,text,cls){
+  const box=document.getElementById(containerId);
+  const el=document.createElement('div');
+  el.className='ai-msg '+cls;
+  el.textContent=text;
   box.appendChild(el);
-  box.scrollTop = box.scrollHeight;
+  box.scrollTop=box.scrollHeight;
   return el;
 }
 
-async function sendModalAI() {
-  const inp = document.getElementById('modalAiInput');
-  const reply = document.getElementById('modalAiReply');
-  const msg = inp.value.trim();
-  if (!msg) return;
-  inp.value = '';
-  reply.textContent = 'در حال پاسخ...';
-  try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1000,
-        system: 'مشاور سفر زیارتی آوان. فارسی، کوتاه، مفید.',
-        messages: [{ role: 'user', content: msg }]
+async function sendSheetAI(){
+  const inp=document.getElementById('sheetAIInput');
+  if(!inp)return;
+  const msg=inp.value.trim(); if(!msg)return;
+  inp.value='';
+  addAIMsg('sheetAIMessages',msg,'user');
+  const bot=addAIMsg('sheetAIMessages','در حال پاسخ...','bot loading');
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',max_tokens:800,
+        system:'مشاور سفر زیارتی آوان. فارسی، مختصر، مفید.',
+        messages:[{role:'user',content:msg}]
       })
     });
-    const data = await res.json();
-    reply.textContent = data.content?.[0]?.text || 'خطا';
-  } catch {
-    reply.textContent = 'خطا در اتصال.';
-  }
+    const d=await res.json();
+    bot.textContent=d.content?.[0]?.text||'خطا';
+    bot.classList.remove('loading');
+  }catch(e){bot.textContent='خطا در اتصال.';bot.classList.remove('loading');}
+}
+function setSheetAI(q){
+  const inp=document.getElementById('sheetAIInput');
+  if(inp){inp.value=q;sendSheetAI();}
 }
 </script>
 </body>
