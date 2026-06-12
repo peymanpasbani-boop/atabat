@@ -448,6 +448,41 @@ body.locked{overflow:hidden}
 /* wave */
 .wave svg{display:block}
 
+/* PILGRIM ACCORDION */
+.pilgrim-acc{border:1.5px solid rgba(255,255,255,.1);border-radius:13px;overflow:hidden;margin-bottom:8px;transition:.25s}
+.pilgrim-acc.open{border-color:rgba(201,168,76,.45)}
+.pilgrim-acc-head{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;user-select:none}
+.pilgrim-acc-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#a8722a);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:var(--g1);flex-shrink:0}
+.pilgrim-acc-info{flex:1}
+.pilgrim-acc-title{font-size:12px;font-weight:800;color:rgba(255,255,255,.9)}
+.pilgrim-acc-sub{font-size:10px;color:rgba(255,255,255,.38);margin-top:1px}
+.pilgrim-acc-status{font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;flex-shrink:0}
+.pilgrim-acc-status.done{background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.25)}
+.pilgrim-acc-status.pending{background:rgba(201,168,76,.1);color:var(--goldL);border:1px solid rgba(201,168,76,.22)}
+.pilgrim-acc-status.locked{background:rgba(255,255,255,.05);color:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.08)}
+.pilgrim-acc-chev{flex-shrink:0;transition:.3s}
+.pilgrim-acc-chev svg{width:12px;height:12px;stroke:rgba(255,255,255,.35);stroke-width:2;fill:none;stroke-linecap:round}
+.pilgrim-acc.open .pilgrim-acc-chev{transform:rotate(180deg)}
+.pilgrim-acc-body{max-height:0;overflow:hidden;transition:max-height .42s cubic-bezier(.4,0,.2,1)}
+.pilgrim-acc.open .pilgrim-acc-body{max-height:600px}
+.pilgrim-acc-inner{padding:0 14px 14px;border-top:1px solid rgba(255,255,255,.07)}
+
+/* DATE PICKER — سال/ماه/روز */
+.birth-date-row{display:grid;grid-template-columns:2fr 2fr 1.4fr;gap:6px;direction:rtl}
+.birth-select-wrap{position:relative}
+.birth-select-wrap::after{content:'▾';position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--goldL);font-size:10px;pointer-events:none}
+.birth-select{width:100%;appearance:none;-webkit-appearance:none;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.13);border-radius:9px;padding:10px 13px 10px 28px;color:#fff;font-family:inherit;font-size:12px;font-weight:600;transition:.2s;cursor:pointer;direction:rtl}
+.birth-select:focus{outline:none;border-color:rgba(201,168,76,.55);background:rgba(255,255,255,.11)}
+.birth-select option{background:#1a3d2e;color:#fff}
+.birth-lbl-row{display:grid;grid-template-columns:2fr 2fr 1.4fr;gap:6px;margin-bottom:3px}
+.birth-lbl-row span{font-size:9px;font-weight:700;color:rgba(255,255,255,.38);text-align:right}
+
+/* per-person cost highlight in step 5 */
+.s5-pp-box{background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.06));border:1.5px solid var(--gold);border-radius:12px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.s5-pp-lbl{font-size:11px;color:rgba(255,255,255,.6);font-weight:600}
+.s5-pp-val{font-size:22px;font-weight:900;color:var(--goldL)}
+.s5-pp-unit{font-size:10px;color:rgba(201,168,76,.6);margin-top:2px}
+
 /* AI BANNER */
 .ai-banner{background:linear-gradient(135deg,var(--g1),var(--g2));border-bottom:1px solid rgba(201,168,76,.15);cursor:pointer;transition:.2s}
 .ai-banner:hover{background:linear-gradient(135deg,#0f4535,var(--g3))}
@@ -1146,19 +1181,18 @@ body.locked{overflow:hidden}
       <!-- SLIDE 5 -->
       <div class="iw-slide" id="iwS5">
         <div id="iwTripSummary5"></div>
-        <div style="font-size:13px;font-weight:800;color:var(--goldL);margin-bottom:14px;display:flex;align-items:center;gap:7px">
-          <svg style="width:18px;height:18px;stroke:var(--goldL);stroke-width:1.6;fill:none;stroke-linecap:round" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>اطلاعات سرپرست گروه
+        <!-- هزینه هر نفر برجسته -->
+        <div id="s5CostPerPerson" style="display:none;background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.08));border:1.5px solid var(--gold);border-radius:12px;padding:11px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:11px;color:rgba(255,255,255,.6)">هزینه تخمینی هر نفر</div>
+          <div style="font-size:20px;font-weight:900;color:var(--goldL)" id="s5ppVal">—</div>
         </div>
-        <div class="tf-grid">
-          <div class="tf-group"><label class="tf-lbl">نام *</label><input class="tf-input" id="tfFirst" type="text" placeholder="نام" autocomplete="given-name"/></div>
-          <div class="tf-group"><label class="tf-lbl">نام خانوادگی *</label><input class="tf-input" id="tfLast" type="text" placeholder="نام خانوادگی" autocomplete="family-name"/></div>
+        <!-- لیست زائران کشویی -->
+        <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.55);margin-bottom:10px;display:flex;align-items:center;gap:5px">
+          <svg style="width:14px;height:14px;stroke:currentColor;stroke-width:1.8;fill:none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          اطلاعات زائران
         </div>
-        <div class="tf-grid">
-          <div class="tf-group"><label class="tf-lbl">کد ملی *</label><input class="tf-input" id="tfNational" type="text" placeholder="۱۰ رقم" dir="ltr" maxlength="10" inputmode="numeric"/></div>
-          <div class="tf-group"><label class="tf-lbl">تاریخ تولد *</label><input class="tf-input" id="tfBirth" type="text" placeholder="۱۳۶۰/۰۱/۱۵" dir="ltr"/></div>
-        </div>
-        <div class="tf-group"><label class="tf-lbl">شماره موبایل *</label><input class="tf-input" id="tfPhone" type="tel" placeholder="۰۹XXXXXXXXX" dir="ltr" autocomplete="tel"/></div>
-        <div class="tf-note"><svg viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg><div>تصویر <strong style="color:var(--goldL)">گذرنامه</strong> در مرحله بعدی از شما دریافت خواهد شد.</div></div>
+        <div id="pilgrimList"></div>
+        <div class="tf-note" style="margin-top:10px"><svg viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg><div>تصویر <strong style="color:var(--goldL)">گذرنامه</strong> در مرحله بعد دریافت می‌شود.</div></div>
         <div class="iw-err" id="iwErr5"></div>
         <div class="iw-btns">
           <button class="iw-back-btn" onclick="iwBack(5)">← بازگشت</button>
@@ -1422,7 +1456,7 @@ const IW={
   cityNights:{karbala:3,najaf:3,kadh_sam:3},
   hotels:{},transportOpt:null,
   svcSim:false,svcExchange:false,
-  travFirst:'',travLast:'',travNational:'',travBirth:'',travPhone:''
+  pilgrims:[]// [{first,last,national,birth,phone}]
 };
 
 // ماه‌های اعزام — فقط تیر / مرداد / شهریور
@@ -1787,7 +1821,98 @@ function updateLiveCost(){
   qs('lcbBreakdown').innerHTML=items.map(i=>`<div class="lcb-item"><div class="lcb-dot"></div>${i}</div>`).join('');
 }
 
-// STEP 5 SUMMARY
+// STEP 5 SUMMARY + PILGRIM ACCORDION
+function buildBirthSelect(type,idx,val){
+  const MONTHS_FA=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+  if(type==='year'){
+    let o=`<option value="">سال</option>`;
+    for(let y=1320;y<=1385;y++)o+=`<option value="${y}"${val==y?' selected':''}>${P(y)}</option>`;
+    return o;
+  }
+  if(type==='month'){
+    let o=`<option value="">ماه</option>`;
+    MONTHS_FA.forEach((m,i)=>o+=`<option value="${i+1}"${val==i+1?' selected':''}>${m}</option>`);
+    return o;
+  }
+  if(type==='day'){
+    let o=`<option value="">روز</option>`;
+    for(let d=1;d<=31;d++)o+=`<option value="${d}"${val==d?' selected':''}>${P(d)}</option>`;
+    return o;
+  }
+}
+function buildPilgrimForm(idx){
+  const p=IW.pilgrims[idx]||{};
+  const isSuper=idx===0;
+  return `
+  <div class="pilgrim-acc-inner">
+    <div class="tf-grid" style="margin-top:12px">
+      <div class="tf-group"><label class="tf-lbl">نام *</label><input class="tf-input" id="pf_first_${idx}" type="text" placeholder="نام" value="${p.first||''}" autocomplete="given-name"/></div>
+      <div class="tf-group"><label class="tf-lbl">نام خانوادگی *</label><input class="tf-input" id="pf_last_${idx}" type="text" placeholder="نام خانوادگی" value="${p.last||''}" autocomplete="family-name"/></div>
+    </div>
+    <div class="tf-grid">
+      <div class="tf-group"><label class="tf-lbl">کد ملی *</label><input class="tf-input" id="pf_nat_${idx}" type="text" placeholder="۱۰ رقم" dir="ltr" maxlength="10" inputmode="numeric" value="${p.national||''}"/></div>
+      <div class="tf-group">
+        <label class="tf-lbl">تاریخ تولد *</label>
+        <div class="birth-lbl-row"><span>سال</span><span>ماه</span><span>روز</span></div>
+        <div class="birth-date-row">
+          <div class="birth-select-wrap"><select class="birth-select" id="pf_by_${idx}" onchange="syncBirth(${idx})">${buildBirthSelect('year',idx,p.birthY)}</select></div>
+          <div class="birth-select-wrap"><select class="birth-select" id="pf_bm_${idx}" onchange="syncBirth(${idx})">${buildBirthSelect('month',idx,p.birthM)}</select></div>
+          <div class="birth-select-wrap"><select class="birth-select" id="pf_bd_${idx}" onchange="syncBirth(${idx})">${buildBirthSelect('day',idx,p.birthD)}</select></div>
+        </div>
+      </div>
+    </div>
+    ${isSuper?`<div class="tf-group"><label class="tf-lbl">شماره موبایل *</label><input class="tf-input" id="pf_phone_${idx}" type="tel" placeholder="۰۹XXXXXXXXX" dir="ltr" value="${p.phone||''}" autocomplete="tel"/></div>`:''}
+    <button class="iw-cta" style="margin-top:10px;padding:10px" onclick="savePilgrim(${idx})">تأیید و ادامه ✓</button>
+  </div>`;
+}
+
+window.syncBirth=(idx)=>{
+  if(!IW.pilgrims[idx])IW.pilgrims[idx]={};
+  IW.pilgrims[idx].birthY=qs(`pf_by_${idx}`)?.value;
+  IW.pilgrims[idx].birthM=qs(`pf_bm_${idx}`)?.value;
+  IW.pilgrims[idx].birthD=qs(`pf_bd_${idx}`)?.value;
+};
+
+window.savePilgrim=(idx)=>{
+  const first=qs(`pf_first_${idx}`)?.value.trim();
+  const last=qs(`pf_last_${idx}`)?.value.trim();
+  const nat=qs(`pf_nat_${idx}`)?.value.trim();
+  const phone=idx===0?qs(`pf_phone_${idx}`)?.value.trim():'ok';
+  const by=qs(`pf_by_${idx}`)?.value,bm=qs(`pf_bm_${idx}`)?.value,bd=qs(`pf_bd_${idx}`)?.value;
+  if(!first||!last){alert('نام و نام خانوادگی الزامی است.');return}
+  if(!nat||nat.length!==10){alert('کد ملی ۱۰ رقمی وارد کنید.');return}
+  if(!by||!bm||!bd){alert('تاریخ تولد را کامل کنید.');return}
+  if(idx===0&&(!phone||phone.length<10)){alert('شماره موبایل معتبر وارد کنید.');return}
+  IW.pilgrims[idx]={first,last,national:nat,phone:idx===0?phone:'',birthY:by,birthM:bm,birthD:bd,done:true};
+  // update header
+  const el=qs(`pilgrim_${idx}`);
+  if(el){
+    el.querySelector('.pilgrim-acc-status').className='pilgrim-acc-status done';
+    el.querySelector('.pilgrim-acc-status').textContent='✓ تکمیل';
+    el.querySelector('.pilgrim-acc-sub').textContent=`${first} ${last}`;
+    el.classList.remove('open');
+  }
+  // open next
+  const total=IW.paxAdult+IW.paxChild;
+  if(idx+1<total){
+    const nextEl=qs(`pilgrim_${idx+1}`);
+    if(nextEl){
+      nextEl.style.pointerEvents='auto';nextEl.style.opacity='1';
+      nextEl.querySelector('.pilgrim-acc-status').className='pilgrim-acc-status pending';
+      nextEl.querySelector('.pilgrim-acc-status').textContent='در انتظار';
+      nextEl.classList.add('open');
+      setTimeout(()=>scrollTo$(nextEl),150);
+    }
+  }
+};
+
+window.togglePilgrim=(idx)=>{
+  const el=qs(`pilgrim_${idx}`);if(!el)return;
+  const locked=el.querySelector('.pilgrim-acc-status.locked');
+  if(locked)return;
+  el.classList.toggle('open');
+};
+
 function iwBuildTripSummary5(){
   const c=calcCosts();
   const activeCities=CITY_KEYS.filter(k=>IW.cityMode[k]&&IW.cityMode[k]!=='skip');
@@ -1800,10 +1925,27 @@ function iwBuildTripSummary5(){
       ${activeCities.map((k,i)=>{const mode=IW.cityMode[k];const hName=mode==='stay'&&IW.hotels[k]!==undefined?HOTELS[k][IW.hotels[k]].name:'ترانزیت';return`<div class="tsb-city"><div class="tsb-city-n">${P(i+1)}</div><div class="tsb-city-name">${CITY_META[k].name}</div><div class="tsb-city-detail">${mode==='stay'?hName+' · '+P(IW.cityNights[k])+' شب':'عبور'}</div></div>`}).join('')}
       <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,168,76,.15);font-size:11px;color:rgba(255,255,255,.55)">${tl[IW.type]||'—'}${IW.svcSim?' · سیم‌کارت':''}</div>
     </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(201,168,76,.13);border:1px solid rgba(201,168,76,.28);border-radius:10px;padding:11px 14px;margin-bottom:16px">
-      <div style="font-size:11px;color:var(--goldL)">هزینه تخمینی کل — ${P(totalPax())} نفر</div>
-      <div style="font-size:18px;font-weight:900;color:var(--goldL)">${fmt(c.total)} ت</div>
+    <div class="s5-pp-box">
+      <div><div class="s5-pp-lbl">هزینه تخمینی هر نفر</div><div class="s5-pp-unit">تومان</div></div>
+      <div class="s5-pp-val">${fmt(c.perPerson)}</div>
     </div>`;
+  // build pilgrim accordion
+  const total=IW.paxAdult+IW.paxChild;
+  IW.pilgrims=IW.pilgrims.length===total?IW.pilgrims:Array.from({length:total},(_,i)=>IW.pilgrims[i]||{});
+  const list=qs('pilgrimList');list.innerHTML='';
+  IW.pilgrims.forEach((_,i)=>{
+    const isFirst=i===0,isDone=IW.pilgrims[i]?.done;
+    const lbl=isFirst?'سرپرست گروه':'زائر '+(i>0?`شماره ${P(i+1)}`:'');
+    const sub=isDone?`${IW.pilgrims[i].first} ${IW.pilgrims[i].last}`:isFirst?'اطلاعات اجباری':'پس از تکمیل نفر قبل';
+    const status=isDone?'done':isFirst?'pending':'locked';
+    const statusLbl=isDone?'✓ تکمیل':isFirst?'در انتظار':'قفل';
+    const el=document.createElement('div');
+    el.className='pilgrim-acc'+(isFirst?' open':'');
+    el.id=`pilgrim_${i}`;
+    if(!isFirst&&!isDone)el.style.cssText='opacity:.45;pointer-events:none';
+    el.innerHTML=`<div class="pilgrim-acc-head" onclick="togglePilgrim(${i})"><div class="pilgrim-acc-num">${P(i+1)}</div><div class="pilgrim-acc-info"><div class="pilgrim-acc-title">${lbl}</div><div class="pilgrim-acc-sub">${sub}</div></div><span class="pilgrim-acc-status ${status}">${statusLbl}</span><div class="pilgrim-acc-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="pilgrim-acc-body">${buildPilgrimForm(i)}</div>`;
+    list.appendChild(el);
+  });
 }
 
 // STEP 6
@@ -1820,8 +1962,14 @@ function iwBuildCostBreakdown(){
       <div class="cost-row"><div class="cost-row-lbl">${transportLabel[IW.transportOpt]||'حمل‌ونقل'}</div><div class="cost-row-val ${c.transportPP===0?'zero':''}">${c.transportPP?fmt(c.transportPP)+' ت':'—'}</div></div>
       ${IW.svcSim?`<div class="cost-row"><div class="cost-row-lbl">سیم‌کارت عراقی</div><div class="cost-row-val">${fmt(350000)} ت</div></div>`:''}
       ${IW.svcExchange?`<div class="cost-row"><div class="cost-row-lbl">صرافی دینار عراقی</div><div class="cost-row-val zero">رایگان</div></div>`:''}
-      <div class="cost-row" style="border-top:1px solid rgba(255,255,255,.1);margin-top:6px;padding-top:9px"><div class="cost-row-lbl" style="color:rgba(255,255,255,.82);font-weight:700">جمع هر نفر</div><div class="cost-row-val" style="font-size:14px;color:var(--goldL)">${fmt(c.perPerson)} ت</div></div>
-      <div class="cost-total-row"><div class="cost-total-lbl">جمع کل — ${P(totalPax())} نفر</div><div class="cost-total-val">${fmt(c.total)} ت</div></div>
+      <div class="cost-row" style="border-top:1px solid rgba(255,255,255,.1);margin-top:6px;padding-top:9px">
+        <div class="cost-row-lbl" style="color:rgba(255,255,255,.82);font-weight:700">جمع هر نفر</div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end">
+          <div style="font-size:20px;font-weight:900;color:var(--goldL);line-height:1">${fmt(c.perPerson)} ت</div>
+          <div style="font-size:9px;color:rgba(201,168,76,.5);margin-top:2px">تومان / نفر</div>
+        </div>
+      </div>
+      <div class="cost-total-row" style="margin-top:12px"><div class="cost-total-lbl">هزینه کل — ${P(totalPax())} نفر</div><div class="cost-total-val">${fmt(c.total)} ت</div></div>
     </div>
     <div class="pay-secure"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> پرداخت امن — درگاه زرین‌پال — رمزگذاری SSL</div>`;
 }
@@ -1872,12 +2020,9 @@ window.iwNext=n=>{
     iwSetStep(5);return;
   }
   if(n===5){
-    IW.travFirst=qs('tfFirst')?.value.trim();IW.travLast=qs('tfLast')?.value.trim();
-    IW.travNational=qs('tfNational')?.value.trim();IW.travBirth=qs('tfBirth')?.value.trim();
-    IW.travPhone=qs('tfPhone')?.value.trim();
-    if(!IW.travFirst||!IW.travLast){iwShowErr(5,'نام و نام خانوادگی الزامی است.');return}
-    if(!IW.travPhone||IW.travPhone.length<10){iwShowErr(5,'شماره موبایل معتبر وارد کنید.');return}
-    if(!IW.travNational||IW.travNational.length!==10){iwShowErr(5,'کد ملی ۱۰ رقمی وارد کنید.');return}
+    const total=IW.paxAdult+IW.paxChild;
+    const incomplete=IW.pilgrims.filter((p,i)=>i<total&&!p?.done);
+    if(incomplete.length||IW.pilgrims.length<total){iwShowErr(5,'اطلاعات همه زائران را تکمیل کنید.');return}
     iwSetStep(6);return;
   }
 };
@@ -1894,7 +2039,8 @@ window.iwFinish=async()=>{
   const activeCities=CITY_KEYS.filter(k=>IW.cityMode[k]&&IW.cityMode[k]!=='skip');
   const cityRows=activeCities.map((k,i)=>{const mode=IW.cityMode[k];const hName=mode==='stay'&&IW.hotels[k]!==undefined?HOTELS[k][IW.hotels[k]].name:'ترانزیت';return`  ${i+1}. ${CITY_META[k].name} — ${mode==='stay'?hName+' ('+IW.cityNights[k]+' شب)':'ترانزیت'}`}).join('\n');
   const svcs=[];if(IW.svcSim)svcs.push('سیم‌کارت');if(IW.svcExchange)svcs.push('صرافی');
-  const msg=`🕌 ثبت‌نام — آوان\n🔖 ${code}\n👤 ${IW.travFirst} ${IW.travLast}\n📱 ${IW.travPhone}\n🪪 ${IW.travNational}\n📅 ${IW.selD} ${PM[(IW.selM||1)-1]} ${IW.selY}\n📍 ${CITY_LABELS[IW.origin]||IW.origin} | ${P(IW.paxAdult)}بزرگسال ${P(IW.paxChild)}خردسال ${P(IW.paxInfant)}نوزاد\n🗺️\n${cityRows}\n${transportLabel[IW.transportOpt]||'—'}\n${svcs.length?'✅ '+svcs.join(' · '):''}\n💰 کل: ${Math.round(costs.total).toLocaleString()} ت`;
+  const sup=IW.pilgrims[0]||{};
+  const msg=`🕌 ثبت‌نام — آوان\n🔖 ${code}\n👤 ${sup.first} ${sup.last}\n📱 ${sup.phone}\n🪪 ${sup.national}\n📅 ${IW.selD} ${PM[(IW.selM||1)-1]} ${IW.selY}\n📍 ${CITY_LABELS[IW.origin]||IW.origin} | ${P(IW.paxAdult)}بزرگسال ${P(IW.paxChild)}خردسال ${P(IW.paxInfant)}نوزاد\n👥 زائران:\n${IW.pilgrims.map((p,i)=>`  ${i+1}. ${p.first} ${p.last} — ${p.national}`).join('\n')}\n🗺️\n${cityRows}\n${transportLabel[IW.transportOpt]||'—'}\n${svcs.length?'✅ '+svcs.join(' · '):''}\n💰 کل: ${Math.round(costs.total).toLocaleString()} ت`;
   try{await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:TG_CHAT_ID,text:msg})})}catch(e){}
   qs('smCode').textContent=code;
   qs('smAmt').textContent=fmt(costs.total);
