@@ -5,20 +5,20 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
 <title>گروه زیارتی آوان</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-<style>
-:root{
+<style>:root{
   --g1:#0d3b2e;--g2:#134a3a;--g3:#1a5e49;
   --gold:#c9a84c;--goldL:#e8c97a;--goldP:rgba(201,168,76,.12);--goldB:rgba(201,168,76,.28);
   --cream:#f9f5ee;--white:#fff;
   --td:#1a1a1a;--tm:#4a4a4a;--ts:#7a7a7a;
   --r:14px;--hh:64px;
+  --ggrad:var(--ggrad);
+  --goldGrad:var(--goldGrad);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:"Vazirmatn",sans-serif;background:var(--cream);color:var(--td);overflow-x:hidden}
 body.locked{overflow:hidden}
 
-/* HEADER */
 .hdr{background:linear-gradient(160deg,var(--g1),var(--g2) 50%,var(--g3));position:sticky;top:0;z-index:200;border-bottom:1px solid var(--goldB)}
 .hdr-in{max-width:1100px;margin:0 auto;padding:0 24px;height:var(--hh);display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:10px}
@@ -32,7 +32,6 @@ body.locked{overflow:hidden}
 .nav-btn svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round}
 .nav-btn span{font-size:9px;font-weight:600}
 
-/* HERO */
 .hero{background:linear-gradient(160deg,var(--g1),var(--g2) 55%,var(--g3));padding:40px 20px 0;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.07),transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
 .hero-in{max-width:860px;margin:0 auto;text-align:center;position:relative;z-index:1}
@@ -46,12 +45,10 @@ body.locked{overflow:hidden}
 .hero-deco svg{width:100%;display:block;overflow:visible}
 .hero-desc{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.9;max-width:520px;margin:0 auto 24px}
 
-/* INLINE WIZARD */
 .iw{background:rgba(255,255,255,.13);border:1.5px solid rgba(201,168,76,.45);border-radius:20px 20px 0 0;overflow:hidden;position:relative;z-index:1;backdrop-filter:blur(20px)}
 .iw-progress{height:2px;background:rgba(255,255,255,.1)}
 .iw-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--goldL));border-radius:0 2px 2px 0;transition:width .5s ease}
 
-/* step nav */
 .iw-step-nav{display:flex;align-items:center;justify-content:center;gap:0;padding:16px 0 4px}
 .iw-snav-item{display:flex;flex-direction:column;align-items:center;gap:3px}
 .iw-snav-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;transition:.3s;border:1.5px solid rgba(255,255,255,.18);color:rgba(255,255,255,.35);background:rgba(255,255,255,.07)}
@@ -63,12 +60,10 @@ body.locked{overflow:hidden}
 .iw-snav-lbl.active{color:var(--goldL)}
 .iw-snav-lbl.done{color:rgba(100,220,160,.55)}
 
-/* slides */
 .iw-slide{padding:18px 18px 20px;display:none;animation:fadeUp .3s ease both}
 .iw-slide.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
 
-/* LIVE COST BAR */
 .live-cost-bar{display:none;align-items:center;justify-content:space-between;gap:10px;background:rgba(0,0,0,.2);border-bottom:1px solid rgba(201,168,76,.22);padding:9px 18px;flex-wrap:wrap}
 .live-cost-bar.show{display:flex}
 .lcb-label{font-size:10px;color:rgba(255,255,255,.45);font-weight:600}
@@ -78,12 +73,10 @@ body.locked{overflow:hidden}
 .lcb-item{font-size:10px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:4px}
 .lcb-dot{width:4px;height:4px;border-radius:50%;background:rgba(201,168,76,.6)}
 
-/* STEP 1 */
 .s1-section{margin-bottom:16px}
 .s1-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.55);margin-bottom:9px;display:flex;align-items:center;gap:5px}
 .s1-label svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;opacity:.8}
 
-/* ── شهر مبدا — dropdown کشویی ── */
 .origin-dropdown-wrap{position:relative}
 .origin-trigger{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;border-radius:10px;border:1.5px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);cursor:pointer;transition:.22s;user-select:none}
 .origin-trigger:hover{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.09)}
@@ -96,15 +89,14 @@ body.locked{overflow:hidden}
 .origin-trigger-arr{transition:.28s;flex-shrink:0}
 .origin-trigger-arr svg{width:12px;height:12px;stroke:rgba(255,255,255,.35);stroke-width:2;fill:none;stroke-linecap:round}
 .origin-trigger.open .origin-trigger-arr{transform:rotate(180deg)}
-/* پنل شهرها — fixed روی صفحه */
+
 .origin-drop-overlay{
   display:none;position:fixed;inset:0;z-index:990;background:rgba(0,0,0,.35);
   backdrop-filter:blur(2px);
 }
 .origin-drop-overlay.open{display:block}
 .origin-drop{
-  position:fixed;
-  left:50%;transform:translateX(-50%) translateY(6px);
+  position:fixed;left:50%;transform:translateX(-50%) translateY(6px);
   width:min(92vw,460px);
   background:linear-gradient(160deg,#0b3a2b,#145240,#1a5e49);
   border:1.5px solid rgba(201,168,76,.45);
@@ -157,7 +149,6 @@ body.locked{overflow:hidden}
 .oitem-name{font-size:12px;font-weight:700;color:rgba(255,255,255,.8);transition:.16s}
 .oitem.sel .oitem-name{color:var(--goldL)}
 
-/* month chips — فقط ۳ ماه */
 .month-row{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:9px}
 .mchip{padding:6px 6px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);cursor:pointer;transition:.2s;text-align:center;position:relative;overflow:visible}
 .mchip:hover{border-color:rgba(201,168,76,.38);background:rgba(201,168,76,.1)}
@@ -165,7 +156,7 @@ body.locked{overflow:hidden}
 .mchip-n{font-size:11px;font-weight:700;color:rgba(255,255,255,.8)}
 .mchip.sel .mchip-n{color:var(--goldL)}
 .mchip-y{font-size:8px;color:rgba(255,255,255,.28);margin-top:2px}
-/* محرم — کادر تیرماه با طیف رنگ مشکی */
+
 .mchip-moharram{
   background:linear-gradient(160deg,#1c1c1c,#0a0a0a 60%,#1c1c1c);
   border-color:rgba(255,255,255,.18);
@@ -181,26 +172,23 @@ body.locked{overflow:hidden}
   border:1px solid rgba(34,197,94,.3);
   border-radius:100px;padding:2px 8px;display:inline-block;
 }
-/* day picker */
+
 .day-row-wrap{overflow:hidden;max-height:0;transition:max-height .38s cubic-bezier(.4,0,.2,1),opacity .28s;opacity:0}
 .day-row-wrap.open{max-height:80px;opacity:1}
 .day-row{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:10px 0 4px}
 .day-row::-webkit-scrollbar{display:none}
 .dchip{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;cursor:pointer;transition:.15s;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.05);flex-shrink:0}
 .dchip:hover:not(.dis){background:rgba(201,168,76,.16);border-color:rgba(201,168,76,.38);color:var(--goldL)}
-.dchip.sel{background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--g1);font-weight:800;border-color:transparent;box-shadow:0 2px 8px rgba(201,168,76,.3)}
+.dchip.sel{background:var(--goldGrad);color:var(--g1);font-weight:800;border-color:transparent;box-shadow:0 2px 8px rgba(201,168,76,.3)}
 .dchip.dis{opacity:.2;pointer-events:none}
 
-/* date chip */
 .sel-chip{display:none;align-items:center;gap:6px;padding:6px 12px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:8px;font-size:11px;font-weight:700;color:var(--goldL);margin-bottom:14px}
 .sel-chip.show{display:inline-flex}
 .sel-chip svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none}
 
-/* step 1 row layout */
 .s1-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px}
 @media(max-width:560px){.s1-row3{grid-template-columns:1fr}}
 
-/* ── نفرات — مینیمال کامپکت ── */
 .pax-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;gap:0}
 .pax-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0}
 .pax-row+.pax-row{border-top:1px solid rgba(255,255,255,.06)}
@@ -211,12 +199,11 @@ body.locked{overflow:hidden}
 .pax-btn{width:20px;height:20px;border:none;border-radius:50%;background:rgba(201,168,76,.16);color:var(--goldL);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.18s;font-family:inherit;line-height:1}
 .pax-btn:hover{background:rgba(201,168,76,.3)}
 .pax-num{font-size:13px;font-weight:900;color:var(--goldL);min-width:14px;text-align:center}
-/* توضیح سنی — تولتیپ ساده */
+
 .pax-tooltip{position:relative;display:inline-block}
 .pax-tooltip .tt{visibility:hidden;background:rgba(20,20,20,.92);color:#fff;font-size:10px;border-radius:7px;padding:5px 9px;white-space:nowrap;position:absolute;bottom:120%;right:0;z-index:10;pointer-events:none;opacity:0;transition:.2s;border:1px solid rgba(255,255,255,.1)}
 .pax-tooltip:hover .tt{visibility:visible;opacity:1}
 
-/* type pills */
 .type-row{display:flex;gap:6px}
 .tpill{flex:1;padding:10px 8px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.06);border-radius:10px;cursor:pointer;text-align:center;transition:.2s;position:relative}
 .tpill:hover{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.1)}
@@ -229,10 +216,9 @@ body.locked{overflow:hidden}
 .tpill-n{font-size:11px;font-weight:700;color:rgba(255,255,255,.75)}
 .tpill.sel .tpill-n{color:var(--goldL)}
 
-/* section lock */
 .s1-locked{opacity:.32;pointer-events:none;transition:opacity .3s}
 .s1-unlocked{opacity:1;pointer-events:auto;transition:opacity .3s}
-/* hidden until origin selected */
+
 .s1-hidden{
   max-height:0;overflow:hidden;opacity:0;pointer-events:none;
   transition:max-height .45s cubic-bezier(.4,0,.2,1),opacity .35s ease,margin .35s ease;
@@ -244,17 +230,15 @@ body.locked{overflow:hidden}
   margin-bottom:16px!important;
 }
 
-/* errors / cta */
 .iw-err{font-size:11px;color:#f87171;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.18);border-radius:7px;padding:7px 11px;margin-bottom:10px;display:none}
 .iw-err.show{display:block}
-.iw-cta{width:100%;padding:13px;border-radius:100px;border:none;background:linear-gradient(135deg,var(--g1),var(--g3));color:var(--goldL);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:.25s;box-shadow:0 4px 14px rgba(13,59,46,.22)}
+.iw-cta{width:100%;padding:13px;border-radius:100px;border:none;background:var(--ggrad);color:var(--goldL);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:.25s;box-shadow:0 4px 14px rgba(13,59,46,.22)}
 .iw-cta:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(13,59,46,.32)}
-.iw-cta.gold{background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--g1)}
+.iw-cta.gold{background:var(--goldGrad);color:var(--g1)}
 .iw-back-btn{padding:11px 18px;border-radius:100px;border:1px solid rgba(255,255,255,.16);background:transparent;color:rgba(255,255,255,.5);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:.2s}
 .iw-back-btn:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78)}
 .iw-btns{display:flex;gap:8px;margin-top:8px}
 
-/* STEP 2 */
 .s2-hint{font-size:11.5px;color:rgba(255,255,255,.5);margin-bottom:12px;padding:9px 12px;background:rgba(201,168,76,.07);border-radius:9px;border-right:3px solid rgba(201,168,76,.28);line-height:1.7}
 .city-list{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
 .cc{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.09);border-radius:13px;overflow:hidden;transition:.25s}
@@ -262,16 +246,16 @@ body.locked{overflow:hidden}
 .cc.sel{border-color:var(--gold);background:rgba(201,168,76,.1)}
 .cc.sel.done-city{border-color:rgba(100,200,150,.3);background:rgba(26,94,73,.12)}
 .cc-head{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;user-select:none}
-.cc-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--g1),var(--g3));border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cc-icon{width:36px;height:36px;background:var(--ggrad);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .cc-icon svg{width:18px;height:18px;fill:none;stroke:var(--goldL);stroke-width:1.5;stroke-linecap:round}
 .cc-info{flex:1}
 .cc-name{font-size:13px;font-weight:800;color:rgba(255,255,255,.9)}
 .cc-shrine{font-size:10px;color:rgba(255,255,255,.38);margin-top:2px}
-.cc-order{width:21px;height:21px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--g1);flex-shrink:0}
+.cc-order{width:21px;height:21px;background:var(--goldGrad);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--g1);flex-shrink:0}
 .cc.sel .cc-order{display:flex}
 .cc-check{width:19px;height:19px;border-radius:50%;border:1.5px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.25s}
 .cc-check svg{width:10px;height:10px;stroke:transparent;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:.25s}
-.cc.sel .cc-check{background:linear-gradient(135deg,var(--gold),#a8722a);border-color:transparent}
+.cc.sel .cc-check{background:var(--goldGrad);border-color:transparent}
 .cc.sel .cc-check svg{stroke:var(--g1)}
 .cc-sub{max-height:0;overflow:hidden;transition:max-height .38s cubic-bezier(.4,0,.2,1)}
 .cc.sel .cc-sub{max-height:240px}
@@ -294,7 +278,6 @@ body.locked{overflow:hidden}
 .cc.done-city .cc-done-summary{display:flex}
 .cc-done-summary svg{width:13px;height:13px;stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
-/* STEP 3 */
 .hotel-city-lbl{font-size:11px;font-weight:800;color:var(--goldL);padding:9px 12px;background:rgba(201,168,76,.1);border:1.5px solid rgba(201,168,76,.22);border-radius:10px;display:flex;align-items:center;gap:7px;margin-bottom:10px}
 .hotel-city-lbl svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round}
 .hotel-list{display:flex;flex-direction:column;gap:6px}
@@ -317,13 +300,13 @@ body.locked{overflow:hidden}
 .hcard-tier.c{background:rgba(255,255,255,.03);color:rgba(255,255,255,.38);border:1px solid rgba(255,255,255,.07)}
 .hcard-sel-tick{width:19px;height:19px;border-radius:50%;border:1.5px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;transition:.25s;flex-shrink:0}
 .hcard-sel-tick svg{width:10px;height:10px;stroke:transparent;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:.25s}
-.hcard.sel .hcard-sel-tick{background:linear-gradient(135deg,var(--gold),#a8722a);border-color:transparent}
+.hcard.sel .hcard-sel-tick{background:var(--goldGrad);border-color:transparent}
 .hcard.sel .hcard-sel-tick svg{stroke:var(--g1)}
 .hcard-detail-btn{font-size:9.5px;color:rgba(201,168,76,.6);border:none;background:none;cursor:pointer;font-family:inherit;padding:0 13px 10px;text-align:right;display:block;transition:.2s;width:100%}
 .hcard-detail-btn:hover{color:var(--goldL)}
 .cities-confirmed{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
 .city-conf-row{display:flex;align-items:center;gap:7px;padding:7px 11px;background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.13);border-radius:9px}
-.city-conf-num{width:19px;height:19px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:800;color:var(--g1);flex-shrink:0}
+.city-conf-num{width:19px;height:19px;background:var(--goldGrad);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:800;color:var(--g1);flex-shrink:0}
 .city-conf-name{flex:1;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.82)}
 .city-conf-badge{font-size:9px;padding:2px 7px;border-radius:100px;font-weight:700}
 .city-conf-badge.stay{background:rgba(26,94,73,.28);color:rgba(100,220,160,.82);border:1px solid rgba(100,220,160,.18)}
@@ -331,14 +314,13 @@ body.locked{overflow:hidden}
 .city-conf-edit{font-size:9px;color:rgba(255,255,255,.28);cursor:pointer;padding:2px 7px;border:1px solid rgba(255,255,255,.1);border-radius:100px;transition:.2s;flex-shrink:0}
 .city-conf-edit:hover{color:var(--goldL);border-color:rgba(201,168,76,.32)}
 
-/* hotel detail sheet */
 .hotel-detail-ov{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:900;display:none;align-items:flex-end;justify-content:center}
 .hotel-detail-ov.open{display:flex}
 .hotel-detail-sheet{background:var(--white);border-radius:20px 20px 0 0;width:100%;max-width:520px;max-height:80vh;display:flex;flex-direction:column;animation:slideUp .34s cubic-bezier(.32,0,.15,1)}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .hd-handle{display:flex;justify-content:center;padding:10px 0 4px;flex-shrink:0}
 .hd-handle-bar{width:36px;height:3px;background:rgba(0,0,0,.1);border-radius:2px}
-.hd-head{background:linear-gradient(135deg,var(--g1),var(--g3));padding:13px 18px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between}
+.hd-head{background:var(--ggrad);padding:13px 18px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between}
 .hd-title{font-size:14px;font-weight:800;color:var(--goldL)}
 .hd-close{width:28px;height:28px;background:rgba(255,255,255,.1);border:none;border-radius:50%;color:rgba(255,255,255,.65);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
 .hd-close:hover{background:rgba(255,255,255,.2)}
@@ -350,9 +332,8 @@ body.locked{overflow:hidden}
 .hd-info-row{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-bottom:1px solid rgba(201,168,76,.1);font-size:11.5px;color:var(--tm)}
 .hd-info-row:last-child{border-bottom:none}
 .hd-info-row svg{width:15px;height:15px;stroke:var(--g3);stroke-width:1.8;fill:none;stroke-linecap:round;flex-shrink:0;margin-top:1px}
-.hd-select-btn{width:100%;margin-top:12px;padding:12px;border-radius:100px;border:none;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--g1);font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(201,168,76,.25)}
+.hd-select-btn{width:100%;margin-top:12px;padding:12px;border-radius:100px;border:none;background:var(--goldGrad);color:var(--g1);font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(201,168,76,.25)}
 
-/* STEP 3 — TIER SELECTOR */
 .tier-selector{display:flex;gap:7px;margin-bottom:14px}
 .tier-btn{flex:1;padding:10px 8px;border:1.5px solid rgba(255,255,255,.13);background:rgba(255,255,255,.06);border-radius:11px;cursor:pointer;text-align:center;transition:.22s;position:relative}
 .tier-btn:hover{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.1)}
@@ -364,14 +345,10 @@ body.locked{overflow:hidden}
 .tier-btn.sel .tier-btn-lbl{color:var(--goldL)}
 .tier-btn-sub{font-size:9px;color:rgba(255,255,255,.35);margin-top:2px}
 .tier-btn.sel .tier-btn-sub{color:rgba(201,168,76,.6)}
-/* hotel list accordion after tier selection */
+
 .hotel-tier-acc{max-height:0;overflow:hidden;transition:max-height .42s cubic-bezier(.4,0,.2,1),opacity .3s;opacity:0}
 .hotel-tier-acc.open{max-height:600px;opacity:1}
 
-/* STEP 4 */
-.opt-section{margin-bottom:16px}
-.opt-sec-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;color:rgba(201,168,76,.55);margin-bottom:9px;display:flex;align-items:center;gap:5px;text-transform:uppercase}
-.opt-sec-lbl svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;opacity:.8}
 .opt-card{display:flex;align-items:center;gap:10px;padding:11px 13px;border:1.5px solid rgba(255,255,255,.09);border-radius:11px;background:rgba(255,255,255,.04);cursor:pointer;transition:.22s;margin-bottom:7px}
 .opt-card:hover{border-color:rgba(201,168,76,.35);background:rgba(201,168,76,.07)}
 .opt-card.sel{border-color:var(--gold);background:rgba(201,168,76,.13)}
@@ -390,7 +367,6 @@ body.locked{overflow:hidden}
 .skip-link{font-size:10.5px;color:rgba(255,255,255,.35);cursor:pointer;transition:.2s;display:block;margin-top:-4px;margin-bottom:8px;text-align:right}
 .skip-link:hover{color:rgba(255,255,255,.6)}
 
-/* STEP 5 */
 .tf-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
 @media(max-width:480px){.tf-grid{grid-template-columns:1fr}}
 .tf-group{margin-bottom:10px}
@@ -400,14 +376,13 @@ body.locked{overflow:hidden}
 .tf-note{display:flex;align-items:flex-start;gap:9px;font-size:11.5px;color:rgba(255,255,255,.45);background:rgba(255,255,255,.04);border-radius:9px;padding:10px 12px;line-height:1.7;margin-bottom:14px}
 .tf-note svg{width:16px;height:16px;stroke:rgba(201,168,76,.55);stroke-width:1.5;fill:none;stroke-linecap:round;flex-shrink:0;margin-top:2px}
 
-/* STEP 6 */
 .trip-summary-box{background:rgba(255,255,255,.05);border:1.5px solid rgba(201,168,76,.18);border-radius:13px;padding:14px;margin-bottom:14px}
 .tsb-title{font-size:12px;font-weight:800;color:var(--goldL);margin-bottom:8px}
 .tsb-meta{font-size:10.5px;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:10px}
 .tsb-meta svg{width:12px;height:12px;stroke:currentColor;stroke-width:1.8;fill:none;flex-shrink:0}
 .tsb-city{display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06)}
 .tsb-city:last-child{border-bottom:none}
-.tsb-city-n{width:18px;height:18px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:var(--g1);flex-shrink:0}
+.tsb-city-n{width:18px;height:18px;background:var(--goldGrad);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:var(--g1);flex-shrink:0}
 .tsb-city-name{font-size:11.5px;font-weight:700;color:rgba(255,255,255,.82);flex:1}
 .tsb-city-detail{font-size:10px;color:rgba(255,255,255,.42)}
 .cost-section{background:rgba(0,0,0,.15);border-radius:11px;padding:12px 14px;margin-bottom:12px}
@@ -415,20 +390,18 @@ body.locked{overflow:hidden}
 .cost-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0;font-size:11px;color:rgba(255,255,255,.55)}
 .cost-row-val{font-weight:700;color:rgba(255,255,255,.75)}
 .cost-row-val.zero{color:rgba(100,220,160,.7)}
-.cost-total-row{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,var(--g1),var(--g3));border-radius:10px;padding:10px 12px;margin-top:8px}
+.cost-total-row{display:flex;align-items:center;justify-content:space-between;background:var(--ggrad);border-radius:10px;padding:10px 12px;margin-top:8px}
 .cost-total-lbl{font-size:10.5px;color:rgba(255,255,255,.6);font-weight:700}
 .cost-total-val{font-size:18px;font-weight:900;color:var(--goldL)}
 .pay-secure{font-size:10px;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:5px;margin-bottom:14px}
 .pay-secure svg{width:11px;height:11px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round}
 
-/* wave */
 .wave svg{display:block}
 
-/* PILGRIM ACCORDION */
 .pilgrim-acc{border:1.5px solid rgba(255,255,255,.1);border-radius:13px;overflow:hidden;margin-bottom:8px;transition:.25s}
 .pilgrim-acc.open{border-color:rgba(201,168,76,.45)}
 .pilgrim-acc-head{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;user-select:none}
-.pilgrim-acc-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#a8722a);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:var(--g1);flex-shrink:0}
+.pilgrim-acc-num{width:28px;height:28px;border-radius:50%;background:var(--goldGrad);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:var(--g1);flex-shrink:0}
 .pilgrim-acc-info{flex:1}
 .pilgrim-acc-title{font-size:12px;font-weight:800;color:rgba(255,255,255,.9)}
 .pilgrim-acc-sub{font-size:10px;color:rgba(255,255,255,.38);margin-top:1px}
@@ -443,7 +416,6 @@ body.locked{overflow:hidden}
 .pilgrim-acc.open .pilgrim-acc-body{max-height:600px}
 .pilgrim-acc-inner{padding:0 14px 14px;border-top:1px solid rgba(255,255,255,.07)}
 
-/* DATE PICKER — سال/ماه/روز */
 .birth-date-row{display:grid;grid-template-columns:2fr 2fr 1.4fr;gap:6px;direction:rtl}
 .birth-select-wrap{position:relative}
 .birth-select-wrap::after{content:'▾';position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--goldL);font-size:10px;pointer-events:none}
@@ -453,13 +425,6 @@ body.locked{overflow:hidden}
 .birth-lbl-row{display:grid;grid-template-columns:2fr 2fr 1.4fr;gap:6px;margin-bottom:3px}
 .birth-lbl-row span{font-size:9px;font-weight:700;color:rgba(255,255,255,.38);text-align:right}
 
-/* per-person cost highlight in step 5 */
-.s5-pp-box{background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.06));border:1.5px solid var(--gold);border-radius:12px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
-.s5-pp-lbl{font-size:11px;color:rgba(255,255,255,.6);font-weight:600}
-.s5-pp-val{font-size:22px;font-weight:900;color:var(--goldL)}
-.s5-pp-unit{font-size:10px;color:rgba(201,168,76,.6);margin-top:2px}
-
-/* AI BANNER */
 .ai-banner{background:linear-gradient(135deg,var(--g1),var(--g2));border-bottom:1px solid rgba(201,168,76,.15);cursor:pointer;transition:.2s}
 .ai-banner:hover{background:linear-gradient(135deg,#0f4535,var(--g3))}
 .ai-banner-in{max-width:860px;margin:0 auto;padding:13px 20px;display:flex;align-items:center;gap:12px}
@@ -472,7 +437,6 @@ body.locked{overflow:hidden}
 .ai-arr{color:rgba(255,255,255,.3)}
 .ai-arr svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round}
 
-/* TRIPS SLIDER */
 .trips-sec{padding:28px 0 0;overflow:hidden}
 .trips-in{max-width:860px;margin:0 auto;padding:0 20px}
 .sec-eyebrow{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px}
@@ -506,11 +470,9 @@ body.locked{overflow:hidden}
 .sdot{width:6px;height:6px;border-radius:50%;background:rgba(13,59,46,.15);cursor:pointer;transition:.3s}
 .sdot.active{background:var(--g1);width:18px;border-radius:3px}
 
-/* PAGE BODY */
 .body{padding:20px 0 32px}
 .body-in{max-width:860px;margin:0 auto;padding:0 20px}
 
-/* accordion */
 .acc-wrap{border:1.5px solid rgba(201,168,76,.14);border-radius:16px;overflow:hidden;background:var(--white)}
 .acc-btn{width:100%;display:flex;align-items:center;gap:10px;padding:14px 18px;background:transparent;border:none;cursor:pointer;font-family:inherit;text-align:right;transition:.2s}
 .acc-btn:hover{background:rgba(201,168,76,.04)}
@@ -528,12 +490,11 @@ body.locked{overflow:hidden}
 .acc-body.open{max-height:1600px}
 .acc-inner{padding:14px 18px 18px}
 
-/* steps list */
 .steps-list{display:flex;flex-direction:column;gap:6px}
 .step-item{border:1.5px solid rgba(201,168,76,.1);border-radius:10px;overflow:hidden;transition:.2s}
 .step-item.open{border-color:var(--goldB)}
 .step-head{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;user-select:none}
-.step-num{width:24px;height:24px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--g1);flex-shrink:0}
+.step-num{width:24px;height:24px;background:var(--goldGrad);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--g1);flex-shrink:0}
 .step-title{flex:1;font-size:12px;font-weight:700;color:var(--td)}
 .step-chev{flex-shrink:0;transition:.3s}
 .step-chev svg{width:11px;height:11px;stroke:var(--ts);stroke-width:2;fill:none;stroke-linecap:round}
@@ -542,12 +503,11 @@ body.locked{overflow:hidden}
 .step-item.open .step-body{max-height:100px}
 .step-desc{padding:4px 14px 12px;font-size:12px;color:var(--tm);line-height:1.85;border-right:3px solid var(--goldB)}
 
-/* caravan pills */
 .cv-city-pills{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:10px;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
 .cv-city-pills::-webkit-scrollbar{display:none}
 .cv-cpill{display:flex;align-items:center;gap:5px;padding:7px 13px;border-radius:100px;border:1.5px solid rgba(201,168,76,.16);background:var(--cream);cursor:pointer;transition:.22s;font-size:11px;font-weight:700;color:var(--ts);white-space:nowrap;flex-shrink:0;scroll-snap-align:start}
 .cv-cpill:hover{border-color:var(--gold);color:var(--g1)}
-.cv-cpill.active{background:linear-gradient(135deg,var(--g1),var(--g3));color:var(--goldL);border-color:transparent;box-shadow:0 2px 10px rgba(13,59,46,.18)}
+.cv-cpill.active{background:var(--ggrad);color:var(--goldL);border-color:transparent;box-shadow:0 2px 10px rgba(13,59,46,.18)}
 .cv-cpill-dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.55}
 .cv-tabs{display:flex;gap:5px;margin-bottom:12px}
 .cv-tab{padding:6px 14px;border-radius:100px;border:1.5px solid rgba(201,168,76,.2);background:transparent;cursor:pointer;font-family:inherit;font-size:11px;font-weight:700;color:var(--ts);transition:.2s}
@@ -600,9 +560,9 @@ body.locked{overflow:hidden}
 .cv-capbar-fill.hi{background:linear-gradient(90deg,var(--g3),#22c55e)}
 .cv-capbar-fill.mi{background:linear-gradient(90deg,#d97706,#f59e0b)}
 .cv-capbar-fill.lo{background:linear-gradient(90deg,#dc2626,#ef4444)}
-.cv-book-btn{width:100%;padding:11px;border-radius:100px;border:none;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--g1);font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(201,168,76,.25);transition:.3s}
+.cv-book-btn{width:100%;padding:11px;border-radius:100px;border:none;background:var(--goldGrad);color:var(--g1);font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(201,168,76,.25);transition:.3s}
 .cv-book-btn:hover{transform:translateY(-2px)}
-/* CARAVAN PAGINATION */
+
 .cv-pagination{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;flex-wrap:wrap}
 .cv-pgbtn{
   min-width:34px;height:34px;padding:0 10px;
@@ -617,7 +577,6 @@ body.locked{overflow:hidden}
 .cv-pgbtn:disabled{opacity:.3;pointer-events:none}
 .cv-pginfo{font-size:11px;color:var(--ts);font-weight:600;padding:0 4px}
 
-/* CARAVAN HEADER BANNER */
 .cv-header-banner{
   background:linear-gradient(135deg,var(--g1) 0%,var(--g2) 55%,var(--g3) 100%);
   border-radius:14px 14px 0 0;
@@ -657,7 +616,7 @@ body.locked{overflow:hidden}
 }
 .cv-header-toggle svg{width:13px;height:13px;transition:transform .35s cubic-bezier(.4,0,.2,1)}
 .cv-header-toggle.open svg{transform:rotate(180deg)}
-/* Stats row */
+
 .cv-stats-row{
   display:flex;align-items:center;justify-content:center;gap:0;
   background:rgba(0,0,0,.22);border-radius:10px;overflow:hidden;
@@ -672,10 +631,9 @@ body.locked{overflow:hidden}
 @keyframes numPop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
 .cv-stat-lbl{font-size:9px;font-weight:600;color:rgba(255,255,255,.38);margin-top:3px;letter-spacing:.04em}
 .cv-stat-div{width:1px;height:40px;background:rgba(255,255,255,.1);flex-shrink:0}
-/* Override acc-body border for caravan */
+
 .acc-wrap .cv-header-banner + .acc-body{border-radius:0 0 14px 14px;border:1.5px solid rgba(201,168,76,.35);border-top:none}
 
-/* FAQ */
 .faq-sec{margin-top:36px}
 .faq-list{display:flex;flex-direction:column;gap:7px}
 .faq-item{background:var(--white);border:1.5px solid rgba(201,168,76,.12);border-radius:13px;overflow:hidden;transition:.3s}
@@ -690,9 +648,8 @@ body.locked{overflow:hidden}
 .faq-item.open .faq-body{max-height:150px}
 .faq-ans{padding:4px 16px 14px;font-size:12px;color:var(--tm);line-height:1.9;border-right:3px solid var(--goldB);margin:0 16px 0 0}
 
-/* partner */
 .partner-box{margin-top:28px;background:var(--white);border:1.5px solid rgba(201,168,76,.16);border-radius:18px;overflow:hidden}
-.partner-head{background:linear-gradient(135deg,var(--g1),var(--g3));padding:16px 20px;display:flex;align-items:center;gap:14px}
+.partner-head{background:var(--ggrad);padding:16px 20px;display:flex;align-items:center;gap:14px}
 .partner-head-icon{width:42px;height:42px;background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.16);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .partner-head-icon svg{width:22px;height:22px;stroke:rgba(255,255,255,.82);stroke-width:1.7;fill:none}
 .partner-head-text{flex:1}
@@ -715,7 +672,6 @@ body.locked{overflow:hidden}
 .pi-row{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--tm);line-height:1.6}
 .pi-row svg{width:14px;height:14px;stroke:var(--g3);stroke-width:1.8;fill:none;stroke-linecap:round;flex-shrink:0;margin-top:1px}
 
-/* footer */
 .footer{background:linear-gradient(170deg,var(--g1),#0b3026);border-top:1px solid var(--goldB);padding:30px 20px 18px}
 .footer-in{max-width:1100px;margin:0 auto}
 .footer-offices{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(201,168,76,.16);border-radius:13px;overflow:hidden;margin-bottom:18px}
@@ -739,10 +695,9 @@ body.locked{overflow:hidden}
 .footer-credit-txt{font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.08em}
 .footer-credit-name{font-size:11px;font-weight:700;color:rgba(201,168,76,.42);letter-spacing:.1em;margin-top:2px}
 
-/* FABs */
 .fab-wrap{position:fixed;bottom:88px;right:18px;z-index:600;display:flex;flex-direction:column;align-items:center;gap:5px;opacity:0;pointer-events:none;transition:opacity .4s}
 .fab-wrap.vis{opacity:1;pointer-events:all}
-.fab{width:52px;height:52px;background:linear-gradient(135deg,var(--gold),#a8722a);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 22px rgba(201,168,76,.48),0 0 0 3px rgba(201,168,76,.16);transition:.3s;position:relative}
+.fab{width:52px;height:52px;background:var(--goldGrad);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 22px rgba(201,168,76,.48),0 0 0 3px rgba(201,168,76,.16);transition:.3s;position:relative}
 .fab:hover{transform:scale(1.1)}
 .fab svg{width:22px;height:22px;stroke:var(--g1);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .fab-pulse{position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(201,168,76,.32);animation:pulse 2.6s ease-out infinite;pointer-events:none}
@@ -755,23 +710,21 @@ body.locked{overflow:hidden}
 .support-btn svg{width:26px;height:26px;fill:white}
 .support-lbl{font-size:9px;font-weight:700;color:rgba(0,0,0,.42);background:rgba(255,255,255,.84);padding:2px 7px;border-radius:100px;white-space:nowrap}
 
-/* nav modals */
 .modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-ov.open{display:flex}
 .modal{background:var(--white);border-radius:18px;max-width:440px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.22);animation:fadeUp .3s ease;overflow:hidden}
-.modal-head{background:linear-gradient(135deg,var(--g1),var(--g3));padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.modal-head{background:var(--ggrad);padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
 .modal-title{font-size:14px;font-weight:800;color:var(--goldL)}
 .modal-close{width:28px;height:28px;background:rgba(255,255,255,.1);border:none;border-radius:50%;cursor:pointer;color:rgba(255,255,255,.65);font-size:15px;display:flex;align-items:center;justify-content:center;transition:.2s}
 .modal-close:hover{background:rgba(255,255,255,.2)}
 .modal-body{padding:20px 22px 24px;font-size:13px;color:var(--tm);line-height:2}
 
-/* success modal */
 .success-ov{position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:999;display:none;align-items:flex-end;justify-content:center}
 .success-ov.show{display:flex}
 .success-modal{background:var(--cream);border-radius:22px 22px 0 0;width:100%;max-width:480px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 -8px 40px rgba(0,0,0,.2);animation:slideUp .4s cubic-bezier(.32,0,.15,1)}
 .sm-handle{flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:10px 0 4px}
 .sm-handle-bar{width:40px;height:4px;background:rgba(0,0,0,.1);border-radius:2px}
-.sm-head{flex-shrink:0;background:linear-gradient(135deg,var(--g1),var(--g3));padding:14px 18px 16px}
+.sm-head{flex-shrink:0;background:var(--ggrad);padding:14px 18px 16px}
 .sm-head-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .sm-head-title{font-size:15px;font-weight:900;color:var(--goldL);margin-bottom:2px}
 .sm-head-sub{font-size:10px;color:rgba(232,201,122,.48)}
@@ -781,7 +734,7 @@ body.locked{overflow:hidden}
 .sm-code-lbl{font-size:10px;color:var(--ts)}
 .sm-code-val{font-size:16px;font-weight:900;color:var(--gold);letter-spacing:.1em;direction:ltr}
 .sm-note{font-size:11px;color:var(--tm);background:rgba(13,59,46,.05);border-right:3px solid rgba(13,59,46,.18);border-radius:8px;padding:9px 12px;margin-bottom:12px;line-height:1.85}
-.sm-amount-box{background:linear-gradient(135deg,var(--g1),var(--g3));border-radius:13px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.sm-amount-box{background:var(--ggrad);border-radius:13px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .sm-amount-lbl{font-size:10px;color:rgba(255,255,255,.48);margin-bottom:4px}
 .sm-amount-val{font-size:24px;font-weight:900;color:var(--goldL);line-height:1}
 .sm-amount-unit{font-size:10px;color:rgba(255,255,255,.38);margin-top:3px}
@@ -792,10 +745,9 @@ body.locked{overflow:hidden}
 .sm-pay-secure svg{width:11px;height:11px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round}
 .sm-pay-later{width:100%;padding:10px;border-radius:100px;border:1.5px solid rgba(201,168,76,.2);background:transparent;color:var(--ts);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:.2s}
 
-/* AI chat */
 .ai-panel{position:fixed;bottom:0;left:0;right:0;background:var(--cream);border-radius:22px 22px 0 0;box-shadow:0 -8px 40px rgba(0,0,0,.16);z-index:601;display:flex;flex-direction:column;overflow:hidden;transform:translateY(100%);transition:transform .42s cubic-bezier(.32,0,.15,1);max-height:72vh}
 .ai-panel.vis{transform:translateY(0)}
-.ai-panel-head{background:linear-gradient(135deg,var(--g1),var(--g3));padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.ai-panel-head{background:var(--ggrad);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
 .ai-panel-av{width:34px;height:34px;background:rgba(201,168,76,.22);border-radius:50%;border:2px solid rgba(201,168,76,.38);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ai-panel-av svg{width:18px;height:18px;stroke:var(--goldL);stroke-width:1.5;fill:none}
 .ai-panel-name{font-size:13px;font-weight:800;color:#fff}
@@ -811,19 +763,19 @@ body.locked{overflow:hidden}
 .ai-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
 .ai-msg{display:flex;align-items:flex-end;gap:7px}
 .ai-msg.user{flex-direction:row-reverse}
-.ai-msg-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--g1),var(--g3));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ai-msg-av{width:28px;height:28px;border-radius:50%;background:var(--ggrad);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ai-msg-av svg{width:14px;height:14px;stroke:rgba(255,255,255,.7);stroke-width:1.6;fill:none;stroke-linecap:round}
 .ai-msg.user .ai-msg-av{background:rgba(201,168,76,.18)}
 .ai-msg.user .ai-msg-av svg{stroke:var(--g1)}
 .ai-bubble{max-width:78%;background:var(--white);border-radius:14px 14px 14px 4px;padding:9px 12px;font-size:12px;color:var(--td);line-height:1.75;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(201,168,76,.1)}
-.ai-msg.user .ai-bubble{background:linear-gradient(135deg,var(--g1),var(--g3));color:rgba(255,255,255,.9);border-radius:14px 14px 4px 14px;border:none}
+.ai-msg.user .ai-bubble{background:var(--ggrad);color:rgba(255,255,255,.9);border-radius:14px 14px 4px 14px;border:none}
 .ai-typing{display:flex;gap:4px;padding:9px 12px;background:var(--white);border-radius:14px 14px 14px 4px;border:1px solid rgba(201,168,76,.1)}
 .ai-typing span{width:6px;height:6px;background:rgba(201,168,76,.5);border-radius:50%;animation:typingBounce 1.2s ease-in-out infinite}
 .ai-typing span:nth-child(2){animation-delay:.2s}
 .ai-typing span:nth-child(3){animation-delay:.4s}
 @keyframes typingBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
 .asc{background:var(--white);border:1.5px solid rgba(201,168,76,.18);border-radius:13px;overflow:hidden;max-width:88%}
-.asc-head{background:linear-gradient(135deg,var(--g1),var(--g3));padding:10px 12px;display:flex;align-items:center;gap:8px}
+.asc-head{background:var(--ggrad);padding:10px 12px;display:flex;align-items:center;gap:8px}
 .asc-head svg{width:16px;height:16px;stroke:var(--goldL);stroke-width:1.6;fill:none;stroke-linecap:round;flex-shrink:0}
 .asc-title{font-size:12px;font-weight:800;color:#fff;flex:1}
 .asc-type{font-size:9px;color:rgba(255,255,255,.45)}
@@ -833,11 +785,11 @@ body.locked{overflow:hidden}
 .asc-price-row{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(201,168,76,.12);padding:8px 12px}
 .asc-price-lbl{font-size:9px;color:var(--ts)}
 .asc-price-val{font-size:14px;font-weight:900;color:var(--g1)}
-.asc-book-btn{width:100%;padding:10px;border:none;background:linear-gradient(135deg,var(--gold),#a8722a);color:var(--g1);font-family:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.asc-book-btn{width:100%;padding:10px;border:none;background:var(--goldGrad);color:var(--g1);font-family:inherit;font-size:12px;font-weight:800;cursor:pointer}
 .ai-input-area{display:flex;align-items:flex-end;gap:8px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));border-top:1px solid rgba(201,168,76,.1);flex-shrink:0;background:var(--cream)}
 .ai-input{flex:1;background:var(--white);border:1.5px solid rgba(201,168,76,.2);border-radius:12px;padding:9px 13px;font-family:inherit;font-size:13px;color:var(--td);resize:none;overflow:hidden;max-height:80px;line-height:1.5}
 .ai-input:focus{outline:none;border-color:rgba(201,168,76,.5)}
-.ai-send{width:38px;height:38px;background:linear-gradient(135deg,var(--g1),var(--g3));border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s}
+.ai-send{width:38px;height:38px;background:var(--ggrad);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s}
 .ai-send:hover{transform:scale(1.1)}
 .ai-send svg{width:16px;height:16px;stroke:#fff;stroke-width:2;fill:none;stroke-linecap:round}
 
@@ -845,10 +797,10 @@ body.locked{overflow:hidden}
 @media(max-width:500px){.footer-offices{grid-template-columns:1fr}.footer-office:first-child{border-left:none;border-bottom:1px solid rgba(201,168,76,.16)}.tf-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
-/* stay badges in caravan detail */
 .cv-stay-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
 .cv-stay-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;background:rgba(13,59,46,.08);color:var(--g3);border:1px solid rgba(13,59,46,.15)}
 .cv-stay-badge::before{content:'✦';font-size:8px;opacity:.6}
+
 </style>
 </head>
 <body>
@@ -1091,13 +1043,13 @@ body.locked{overflow:hidden}
 
       <!-- SLIDE 4 -->
       <div class="iw-slide" id="iwS4">
-        <div class="opt-section" id="iwTransportSec">
-          <div class="opt-sec-lbl"><svg viewBox="0 0 24 24"><path d="M21 16l-6-3 2-7-4 2-4-4-5 3 5 3-2 4 3-1 2 5z"/></svg>حمل‌ونقل ایران ↔ عراق</div>
+        <div class="s1-section" id="iwTransportSec">
+          <div class="s1-label"><svg viewBox="0 0 24 24"><path d="M21 16l-6-3 2-7-4 2-4-4-5 3 5 3-2 4 3-1 2 5z"/></svg>حمل‌ونقل ایران ↔ عراق</div>
           <div id="iwTransportOpts"></div>
           <span class="skip-link" onclick="iwSkipTransport()">رد کردن — حمل‌ونقل را خودم ترتیب می‌دهم</span>
         </div>
-        <div class="opt-section">
-          <div class="opt-sec-lbl"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>خدمات اختیاری</div>
+        <div class="s1-section">
+          <div class="s1-label"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>خدمات اختیاری</div>
           <div class="opt-card" id="iwSvc_sim" onclick="iwToggleSvc('sim')">
             <div class="opt-ico"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
             <div class="opt-checkbox"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
@@ -1350,6 +1302,7 @@ body.locked{overflow:hidden}
 </div>
 
 <script>
+
 const P=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
 const fmt=n=>P(Math.round(n).toLocaleString('en'));
 const PM=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
@@ -1399,7 +1352,6 @@ const HOTELS={
   ]
 };
 
-// STATE
 const IW={
   step:1,selM:null,selY:null,selD:null,
   paxAdult:1,paxChild:0,paxInfant:0,
@@ -1411,25 +1363,19 @@ const IW={
   pilgrims:[]// [{first,last,national,birth,phone}]
 };
 
-// ماه‌های اعزام — فقط تیر / مرداد / شهریور
 const DEPLOY_MONTHS=[{m:4,y:1404},{m:5,y:1404},{m:6,y:1404}];
 
-// NAV MODALS
 const openModal=id=>qs('modal-'+id).classList.add('open');
 const closeModalDirect=id=>qs('modal-'+id).classList.remove('open');
 const closeModal=(id,e)=>{if(e.target===qs('modal-'+id))closeModalDirect(id)};
 
-// FABs
-(()=>{
+if(window.IntersectionObserver){
   const hero=qs('heroSec'),fab=qs('fabWrap'),sup=qs('supportWrap');
-  if(window.IntersectionObserver){
-    new IntersectionObserver(es=>es.forEach(e=>{
-      e.isIntersecting?(fab.classList.remove('vis'),sup.classList.remove('vis')):(fab.classList.add('vis'),sup.classList.add('vis'))
-    }),{threshold:.05}).observe(hero);
-  }
-})();
+  new IntersectionObserver(es=>es.forEach(e=>{
+    const v=!e.isIntersecting;[fab,sup].forEach(el=>el.classList.toggle('vis',v));
+  }),{threshold:.05}).observe(hero);
+}
 
-// TRIPS SLIDER
 const TRIPS=[
   {tag:'محرم ۱۴۰۴',type:'air',day:'۵',month:'تیر',year:'۱۴۰۴',title:'نجف + کربلا — محرم',origin:'تهران',nights:5,price:'۲۳,۰۰۰,۰۰۰'},
   {tag:'اقتصادی',type:'land',day:'۱۵',month:'تیر',year:'۱۴۰۴',title:'کربلا + نجف — زمینی',origin:'قم',nights:6,price:'۱۱,۵۰۰,۰۰۰'},
@@ -1479,7 +1425,6 @@ function tsBuild(){
   document.addEventListener('mouseup',()=>{if(!tsDrag)return;tsDrag=false;const t=qs('sliderTrack');if(t)t.style.transition='';Math.abs(tsDelta)>50?tsDelta<0?tsGoTo(tsCur+1):tsGoTo(tsCur-1):tsGoTo(tsCur);setTimeout(()=>tsDelta=0,50);tsStartAuto()});
 }
 
-// IW ORIGINS
 const IW_ORIGINS=[
   {city:'tehran',name:'تهران'},{city:'mashhad',name:'مشهد'},{city:'isfahan',name:'اصفهان'},
   {city:'shiraz',name:'شیراز'},{city:'tabriz',name:'تبریز'},{city:'qom',name:'قم'},
@@ -1488,14 +1433,12 @@ const IW_ORIGINS=[
 ];
 
 function iwBuildStep1(){
-  // ماه‌ها — فقط تیر / مرداد / شهریور
+
   const mRow=qs('iwMonths');if(mRow.children.length)return;
   DEPLOY_MONTHS.forEach(({m,y})=>{
     const el=document.createElement('div');el.className='mchip'+(m===4?' mchip-moharram':'');
-    let inner='';
-    inner+=`<div class="mchip-n">${PM[m-1]}</div>${m===4?'<div class="mchip-moh-lbl">محرم</div>':''}`;
-    el.innerHTML=inner;
-    el.onclick=()=>{
+    const inner=`<div class="mchip-n">${PM[m-1]}</div>${m===4?'<div class="mchip-moh-lbl">محرم</div>':''}`;
+    el.innerHTML=inner;el.onclick=()=>{
       document.querySelectorAll('#iwMonths .mchip').forEach(x=>x.classList.remove('sel'));
       el.classList.add('sel');IW.selM=m;IW.selY=y;IW.selD=null;
       iwBuildDays(m,y);
@@ -1505,7 +1448,7 @@ function iwBuildStep1(){
     };
     mRow.appendChild(el);
   });
-  // origins — dropdown کشویی
+
   const oGrid=qs('iwOriginGrid');if(oGrid.children.length)return;
   IW_ORIGINS.forEach(o=>{
     const el=document.createElement('div');el.className='oitem';
@@ -1513,7 +1456,7 @@ function iwBuildStep1(){
     el.onclick=()=>{
       document.querySelectorAll('#iwOriginGrid .oitem').forEach(x=>x.classList.remove('sel'));
       el.classList.add('sel');IW.origin=o.city;
-      // update trigger display
+
       const lbl=qs('iwOriginLbl'),val=qs('iwOriginVal'),trig=qs('iwOriginTrigger');
       if(lbl)lbl.style.display='none';
       if(val){val.textContent=o.name;val.style.display='block'}
@@ -1548,7 +1491,6 @@ function iwBuildDays(m,y){
   }
 }
 
-// نفرات — بزرگسال / خردسال / نوزاد
 window.iwChgPax=(type,d)=>{
   if(type==='adult')IW.paxAdult=Math.max(1,Math.min(4,IW.paxAdult+d));
   else if(type==='child')IW.paxChild=Math.max(0,Math.min(4,IW.paxChild+d));
@@ -1564,12 +1506,11 @@ window.iwSelType=t=>{
   IW.type=t;
   ['air','mixed','land'].forEach(k=>qs('iwTP_'+k)?.classList.toggle('sel',k===t));
   updateLiveCost();
-  // اسکرول به دکمه ادامه
+
   const btn=document.querySelector('#iwS1 .iw-cta');
   if(btn)setTimeout(()=>scrollTo$(btn),200);
 };
 
-// STEP 2
 window.iwToggleCity=key=>{
   const el=qs('iwCC_'+key);
   if(el.classList.contains('sel')){
@@ -1611,14 +1552,9 @@ window.iwChgNights=(key,d)=>{
 
 function refreshCityOrder(){
   const active=CITY_KEYS.filter(k=>IW.cityMode[k]&&IW.cityMode[k]!=='skip');
-  CITY_KEYS.forEach(k=>{
-    const o=qs('iwOrd_'+k);if(!o)return;
-    const idx=active.indexOf(k);
-    if(idx>-1){o.textContent=P(idx+1);o.style.display='flex'}else o.style.display='none';
-  });
+  CITY_KEYS.forEach(k=>{const o=qs('iwOrd_'+k);if(!o)return;const idx=active.indexOf(k);if(idx>-1){o.textContent=P(idx+1);o.style.display='flex'}else o.style.display='none'});
 }
 
-// STEP 3 – HOTELS
 const PHOTO_GRADS=['linear-gradient(135deg,#0d3b2e,#1a5e49)','linear-gradient(135deg,#1a1a2e,#16213e)','linear-gradient(135deg,#2d1b00,#4a2f00)','linear-gradient(135deg,#0d2438,#1a3d5c)'];
 const PHOTO_ICO=`<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
 
@@ -1635,7 +1571,6 @@ function iwBuildHotelStep(){
   const stayCities=activeCities.filter(k=>IW.cityMode[k]==='stay');
   if(!stayCities.length){picker.innerHTML='<div style="text-align:center;padding:16px;font-size:12px;color:rgba(255,255,255,.48)">همه شهرها ترانزیت — نیازی به انتخاب هتل نیست ✓</div>';return}
 
-  // tier definitions
   const TIERS=[
     {key:'a',ico:'⭐⭐⭐⭐⭐',lbl:'لوکس',sub:'۵ ستاره — نزدیک حرم'},
     {key:'b',ico:'⭐⭐⭐⭐',lbl:'متوسط',sub:'۴ ستاره — مناسب'},
@@ -1664,7 +1599,6 @@ function iwBuildHotelStep(){
       tierSel.appendChild(btn);
     });
 
-    // build all hotel cards (hidden initially)
     const listEl=sec.querySelector(`#iwHL_${k}`);
     HOTELS[k].forEach((h,i)=>{
       const starsRow=Array.from({length:5},(_,j)=>`<div class="hcard-star${j<h.stars?' on':''}"></div>`).join('');
@@ -1675,7 +1609,6 @@ function iwBuildHotelStep(){
       listEl.appendChild(card);
     });
 
-    // if hotel already selected, restore tier UI
     if(IW.hotels[k]!==undefined){
       const selTier=HOTELS[k][IW.hotels[k]].tier;
       iwSelTier(k,selTier,true);
@@ -1684,11 +1617,11 @@ function iwBuildHotelStep(){
 }
 
 window.iwSelTier=(key,tierKey,silent)=>{
-  // update tier buttons
+
   ['a','b','c'].forEach(t=>{
     qs(`iwTierBtn_${key}_${t}`)?.classList.toggle('sel',t===tierKey);
   });
-  // show/hide hotel cards
+
   const acc=qs(`iwTierAcc_${key}`);
   const listEl=qs(`iwHL_${key}`);
   if(!acc||!listEl)return;
@@ -1703,7 +1636,7 @@ window.iwSelHotel=(key,idx)=>{
   IW.hotels[key]=idx;
   document.querySelectorAll(`[id^="iwH_${key}_"]`).forEach(c=>{c.classList.toggle('sel',parseInt(c.id.split('_').pop())===idx)});
   updateLiveCost();
-  // highlight tier button of selected hotel
+
   const selTier=HOTELS[key][idx].tier;
   ['a','b','c'].forEach(t=>qs(`iwTierBtn_${key}_${t}`)?.classList.toggle('sel',t===selTier));
   const stayCities=CITY_KEYS.filter(k=>IW.cityMode[k]==='stay');
@@ -1727,7 +1660,6 @@ window.openHotelDetail=(key,idx)=>{
 window.closeHotelDetail=()=>qs('hotelDetailOv').classList.remove('open');
 window.hotelDetailOvClose=e=>{if(e.target===qs('hotelDetailOv'))closeHotelDetail()};
 
-// STEP 4 – TRANSPORT
 function iwBuildTransport(){
   const isAir=IW.type==='air'||IW.type==='mixed',isLand=IW.type==='land';
   const originLbl=CITY_LABELS[IW.origin]||IW.origin;
@@ -1754,7 +1686,6 @@ window.iwSelTransport=opt=>{
 window.iwSkipTransport=()=>{IW.transportOpt='skip';iwNext(4)};
 window.iwToggleSvc=svc=>{const key='svc'+svc.charAt(0).toUpperCase()+svc.slice(1);IW[key]=!IW[key];qs('iwSvc_'+svc)?.classList.toggle('sel',IW[key]);updateLiveCost()};
 
-// COST CALC
 function calcCosts(){
   let accommodationPP=0;
   CITY_KEYS.forEach(k=>{
@@ -1775,16 +1706,13 @@ function calcCosts(){
 }
 
 function updateLiveCost(){
-  const c=calcCosts();const bar=qs('liveCostBar');
-  if(IW.step<4){bar.classList.remove('show');return}
-  if(c.perPerson===0){bar.classList.remove('show');return}
-  bar.classList.add('show');
-  qs('lcbTotal').textContent=fmt(c.perPerson)+' ت';
+  const c=calcCosts(),bar=qs('liveCostBar');
+  const show=IW.step>=4&&c.perPerson>0;
+  bar.classList.toggle('show',show);
+  if(show)qs('lcbTotal').textContent=fmt(c.perPerson)+' ت';
 }
 
-// STEP 5 SUMMARY + PILGRIM ACCORDION
 function buildBirthSelect(type,idx,val){
-  const MONTHS_FA=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
   if(type==='year'){
     let o=`<option value="">سال</option>`;
     for(let y=1320;y<=1385;y++)o+=`<option value="${y}"${val==y?' selected':''}>${P(y)}</option>`;
@@ -1792,7 +1720,7 @@ function buildBirthSelect(type,idx,val){
   }
   if(type==='month'){
     let o=`<option value="">ماه</option>`;
-    MONTHS_FA.forEach((m,i)=>o+=`<option value="${i+1}"${val==i+1?' selected':''}>${m}</option>`);
+    PM.forEach((m,i)=>o+=`<option value="${i+1}"${val==i+1?' selected':''}>${m}</option>`);
     return o;
   }
   if(type==='day'){
@@ -1845,7 +1773,7 @@ window.savePilgrim=(idx)=>{
   if(!by||!bm||!bd){alert('تاریخ تولد را کامل کنید.');return}
   if(idx===0&&(!phone||phone.length<10)){alert('شماره موبایل معتبر وارد کنید.');return}
   IW.pilgrims[idx]={first,last,national:nat,phone:idx===0?phone:'',birthY:by,birthM:bm,birthD:bd,done:true};
-  // update header
+
   const el=qs(`pilgrim_${idx}`);
   if(el){
     el.querySelector('.pilgrim-acc-status').className='pilgrim-acc-status done';
@@ -1853,7 +1781,7 @@ window.savePilgrim=(idx)=>{
     el.querySelector('.pilgrim-acc-sub').textContent=`${first} ${last}`;
     el.classList.remove('open');
   }
-  // open next
+
   const total=IW.paxAdult+IW.paxChild;
   if(idx+1<total){
     const nextEl=qs(`pilgrim_${idx+1}`);
@@ -1877,7 +1805,7 @@ window.togglePilgrim=(idx)=>{
 function iwBuildPilgrims(){
   const c=calcCosts();
   qs('s5ppVal').textContent=fmt(c.perPerson);
-  // build pilgrim accordion
+
   const total=IW.paxAdult+IW.paxChild;
   IW.pilgrims=IW.pilgrims.length===total?IW.pilgrims:Array.from({length:total},(_,i)=>IW.pilgrims[i]||{});
   const list=qs('pilgrimList');list.innerHTML='';
@@ -1921,7 +1849,6 @@ function iwBuildCostBreakdown(){
     <div class="pay-secure"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> پرداخت امن — درگاه زرین‌پال — رمزگذاری SSL</div>`;
 }
 
-// WIZARD NAV
 const STEP_PROG=[0,16,33,50,66,83,100];
 function iwSetStep(n){
   IW.step=n;
@@ -1972,7 +1899,6 @@ window.iwNext=n=>{
 };
 window.iwBack=from=>{if(from>1)iwSetStep(from-1)};
 
-// FINISH
 window.iwFinish=async()=>{
   const total=IW.paxAdult+IW.paxChild;
   const incomplete=IW.pilgrims.filter((p,i)=>i<total&&!p?.done);
@@ -1996,40 +1922,20 @@ window.iwFinish=async()=>{
 };
 window.closeSuccess=()=>qs('successOv').classList.remove('show');
 
-// COLLAPSIBLES
-window.toggleAcc=id=>{
-  const body=qs(id+'Body');
-  const isOpen=body.classList.contains('open');
-  body.classList.toggle('open');
-  if(id==='cv'){
-    const btn=qs('cvToggleBtn');
-    if(btn)btn.classList.toggle('open',!isOpen);
-  }else{
-    qs(id+'Btn')?.classList.toggle('open',!isOpen);
-  }
-};
+window.toggleAcc=id=>{const body=qs(id+'Body');const open=!body.classList.contains('open');body.classList.toggle('open');if(id==='cv')qs('cvToggleBtn')?.classList.toggle('open',open);else qs(id+'Btn')?.classList.toggle('open',open)};
+
 window.togStep=id=>{const el=qs(id),was=el.classList.contains('open');document.querySelectorAll('.step-item').forEach(x=>x.classList.remove('open'));if(!was)el.classList.add('open')};
 window.togFaq=id=>{const el=qs(id),was=el.classList.contains('open');document.querySelectorAll('.faq-item').forEach(x=>x.classList.remove('open'));if(!was)el.classList.add('open')};
 
-// CARAVANS — داده‌ها از فایل JSON در GitHub بارگذاری می‌شوند
-function animateNum(el,target){
-  const dur=900,start=performance.now();
-  const step=ts=>{
-    const p=Math.min((ts-start)/dur,1);
-    const eased=1-Math.pow(1-p,3);
-    el.textContent=P(Math.round(eased*target));
-    if(p<1)requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
-}
-const CARAVANS_JSON_URL = 'caravans.json'; // مسیر فایل JSON کنار index.html در گیتهاب
+function animateNum(el,target){const s=performance.now();(function step(ts){const p=Math.min((ts-s)/900,1),e=1-Math.pow(1-p,3);el.textContent=P(Math.round(e*target));if(p<1)requestAnimationFrame(step)})(s)}
+
+const CARAVANS_JSON_URL = 'caravans.json';
 
 let CV_CITIES = [];
 let CV_DATA = {};
 const PM_CV=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 let cvState={city:'',filter:'all',openId:null,page:0};
 
-// تبدیل رکورد JSON به فرمت مورد استفاده سایت
 function parseTripsFromJSON(trips){
   const cityMap={};
   const cityOrder=[];
@@ -2037,37 +1943,30 @@ function parseTripsFromJSON(trips){
     const city=trip.departure_city||trip.city||'';
     if(!city)return;
 
-    // تاریخ اعزام: "05/04/01" → ماه=4، روز=1
     const parts=(trip.departure_date||'').split('/');
     const month=parseInt(parts[1]||'0',10);
     const day=parseInt(parts[2]||'0',10);
     if(!month||!day)return;
 
-    // نوع سفر: هوایی یا زمینی
     const tripType=(trip.trip_type||'').includes('هوايي')||
                    (trip.trip_type||'').includes('هوایی')?'air':'land';
 
-    // مسیر از نوع سفر
     const routeRaw=trip.trip_type||'';
     let route='کربلا + نجف';
     if(routeRaw.includes('کاظمين')||routeRaw.includes('کاظمین'))route='کربلا + نجف + کاظمین';
     if(routeRaw.includes('سامرا'))route+=' + سامرا';
 
-    // مدت سفر — استخراج عدد شب از نوع سفر
     const nightMatch=routeRaw.match(/(\d+)شب/);
     const nights=nightMatch?parseInt(nightMatch[1],10):6;
     const dur=P(nights+1)+' روز';
 
-    // قیمت — تومان (تقسیم بر ۱۰)
     const priceRial=parseInt((trip.price||'0').replace(/,/g,''),10)||0;
     const priceToman=Math.round(priceRial/10);
     const priceLabel=fmt(priceToman);
 
-    // ظرفیت مانده
     const cap=parseInt(trip.capacity||'0',10)||0;
-    const total=45; // ظرفیت پیش‌فرض اتوبوس
+    const total=45;
 
-    // هتل‌ها
     const hotels=[trip.hotel_najaf,trip.hotel_karbala,trip.hotel_kazimain]
       .filter(Boolean).join(' · ')||'—';
 
@@ -2092,8 +1991,7 @@ function parseTripsFromJSON(trips){
 
   CV_DATA=cityMap;
   CV_CITIES=cityOrder.map(c=>({city:c,type:(cityMap[c][Object.keys(cityMap[c])[0]]||[])[0]?.type||'land'}));
-  // city starts empty → همه شهرها selected by default
-  // update header stats
+
   const totalCaravans=Object.values(cityMap).reduce((sum,months)=>sum+Object.values(months).reduce((s,arr)=>s+arr.length,0),0);
   const totalCities=cityOrder.length;
   const numEl=qs('cvStatCaravans'),citEl=qs('cvStatCities');
@@ -2101,7 +1999,6 @@ function parseTripsFromJSON(trips){
   if(citEl)animateNum(citEl,totalCities);
 }
 
-// بارگذاری JSON از گیتهاب
 async function cvLoadData(){
   const list=qs('cvList'),empty=qs('cvEmpty');
   if(list){list.innerHTML='<div style="text-align:center;padding:32px;color:var(--ts);font-size:13px">در حال بارگذاری کاروان‌ها…</div>';list.style.display='';}
@@ -2117,25 +2014,24 @@ async function cvLoadData(){
     if(list){list.innerHTML='<div style="text-align:center;padding:32px;color:#c0392b;font-size:12px">خطا در بارگذاری اطلاعات کاروان‌ها.<br/>لطفاً صفحه را رفرش کنید.</div>';}
   }
 }
-// تجزیه trip_type برای نمایش اقامت هر شهر
 function parseTripType(raw){
   if(!raw)return[];
   const parts=[];
-  // کربلا
+
   const karM=raw.match(/کربلا[^\s]*\s*(\d+)\s*شب/);
   if(karM)parts.push('کربلا '+P(karM[1])+' شب');
   else if(raw.includes('کربلا'))parts.push('کربلا');
-  // نجف
+
   const najM=raw.match(/نجف[^\s]*\s*(\d+)\s*شب/);
   if(najM)parts.push('نجف '+P(najM[1])+' شب');
   else if(raw.includes('نجف'))parts.push('نجف');
-  // کاظمین
+
   const kazM=raw.match(/کاظم[^\s]*\s*(\d+)\s*شب/);
   if(kazM)parts.push('کاظمین '+P(kazM[1])+' شب');
   else if(raw.includes('کاظم'))parts.push('کاظمین');
-  // سامرا
+
   if(raw.includes('سامرا'))parts.push('سامرا');
-  // اگر هیچی پیدا نشد، خود raw را کوتاه نشان بده
+
   if(!parts.length&&raw.length<60)parts.push(raw);
   return parts;
 }
@@ -2144,21 +2040,21 @@ const cvCapLbl=(c,t)=>{if(c<=0)return'تکمیل';const r=c/t;return r<.13?P(c)+
 
 function cvBuildCities(){
   const wrap=qs('cvCityPills');if(!wrap||wrap.children.length)return;
-  // گزینه «همه شهرها» اول
+
   const allPill=document.createElement('div');
   allPill.className='cv-cpill'+(cvState.city===''?' active':'');
   allPill.id='cvPillAll';
   allPill.innerHTML=`<div class="cv-cpill-dot"></div>همه شهرها`;
   allPill.onclick=()=>{cvState.city='';cvState.openId=null;cvState.page=0;document.querySelectorAll('.cv-cpill').forEach(x=>x.classList.remove('active'));allPill.classList.add('active');cvRender()};
   wrap.appendChild(allPill);
-  // شهرهای منفرد
+
   CV_CITIES.forEach(c=>{
     const p=document.createElement('div');p.className='cv-cpill'+(c.city===cvState.city&&cvState.city!==''?' active':'');
     p.innerHTML=`<div class="cv-cpill-dot"></div>${c.city}`;
     p.onclick=()=>{cvState.city=c.city;cvState.openId=null;cvState.page=0;document.querySelectorAll('.cv-cpill').forEach(x=>x.classList.remove('active'));p.classList.add('active');cvRender()};
     wrap.appendChild(p);
   });
-  // اگر هیچ شهری انتخاب نشده، «همه» را فعال کن
+
   if(!cvState.city)allPill.classList.add('active');
 }
 window.cvSetFilter=f=>{cvState.filter=f;cvState.openId=null;cvState.page=0;document.querySelectorAll('#cvTabs .cv-tab').forEach((t,i)=>t.classList.toggle('active',['all','air','land'][i]===f));cvRender()};
@@ -2183,7 +2079,7 @@ function cvRender(){
   const SVG_BUS=`<svg viewBox="0 0 24 24" fill="none" stroke="#8a6820" stroke-width="1.7" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`;
   pageItems.forEach(ev=>{
     const isOpen=cvState.openId===ev.id;const cls=cvCapCls(ev.cap,ev.total);const pct=Math.round(ev.cap/ev.total*100);
-    // تجزیه trip_type برای نمایش اقامت هر شهر
+
     const tripTypeParts=parseTripType(ev.rawTripType||ev.route||'');
     const cityStayBadges=tripTypeParts.map(p=>`<span class="cv-stay-badge">${p}</span>`).join('');
     const originCity=ev._city||cvState.city;
@@ -2259,7 +2155,6 @@ window.togglePartner=id=>{
   }
 };
 
-// AI CHAT
 let aiOpen=false,aiHistory=[],aiTyping=false;
 const AI_SYS='تو مشاور هوشمند گروه زیارتی آوان هستی. پاسخت باید دقیقاً JSON باشه:\n{"intro":"متن کوتاه صمیمی","suggestions":[{"title":"عنوان","origin":"مبدا","transport":"هوایی/زمینی","route":"مسیر","nights":5,"hotel":"5 ستاره","priceMin":18000000,"priceMax":24000000,"highlight":"ویژگی کلیدی"}]}';
 window.openAIChat=()=>{aiOpen=true;qs('aiPanel').classList.add('vis');if(!aiHistory.length)aiAddMsg('bot','سلام! بگو چه سفری می‌خوای — مثلاً «۵ روز کربلا و نجف، هوایی از تهران»');setTimeout(()=>qs('aiInput').focus(),300)};
@@ -2315,55 +2210,35 @@ window.aiSend=()=>{
 window.aiKeyDown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();aiSend()}};
 window.aiResize=el=>{el.style.height='auto';el.style.height=Math.min(el.scrollHeight,80)+'px'};
 
-// ORIGIN DROPDOWN
 window.iwToggleOriginDrop=()=>{
-  const drop=qs('iwOriginDrop'),trig=qs('iwOriginTrigger'),ov=qs('iwOriginOverlay');
-  if(!drop)return;
-  const isOpen=drop.classList.contains('open');
-  if(isOpen){
-    drop.classList.remove('open');trig?.classList.remove('open');
-    if(ov)ov.classList.remove('open');
-    document.body.classList.remove('locked');
-  }else{
-    drop.classList.add('open');trig?.classList.add('open');
-    if(ov)ov.classList.add('open');
-    document.body.classList.add('locked');
-  }
+  const drop=qs('iwOriginDrop');if(!drop)return;
+  const open=!drop.classList.contains('open');
+  [drop,qs('iwOriginTrigger'),qs('iwOriginOverlay')].forEach(el=>el?.classList.toggle('open',open));
+  document.body.classList.toggle('locked',open);
 };
-window.iwCloseOriginDrop=()=>{
-  qs('iwOriginDrop')?.classList.remove('open');
-  qs('iwOriginTrigger')?.classList.remove('open');
-  qs('iwOriginOverlay')?.classList.remove('open');
-  document.body.classList.remove('locked');
-};
+window.iwCloseOriginDrop=()=>{['iwOriginDrop','iwOriginTrigger','iwOriginOverlay'].forEach(id=>qs(id)?.classList.remove('open'));document.body.classList.remove('locked')};
 
-// HERO TAGLINE TYPEWRITER
+
 const HERO_TAGLINES=['از نجف اشرف تا کربلای معلی، با آوان','زیارت اهل‌بیت، با کرامت و آرامش','کنار حرم علی (ع) و حسین (ع) با ما باش'];
 function heroTagline(){
   const el=qs('heroTaglineTxt');if(!el)return;
-  let ti=0,ci=0,deleting=false;
-  const tick=()=>{
+  let ti=0,ci=0,del=false;
+  (function tick(){
     const txt=HERO_TAGLINES[ti];
-    if(!deleting){
-      ci++;el.textContent=txt.slice(0,ci);
-      if(ci===txt.length){deleting=true;setTimeout(tick,1600);return}
-    }else{
-      ci--;el.textContent=txt.slice(0,ci);
-      if(ci===0){deleting=false;ti=(ti+1)%HERO_TAGLINES.length;setTimeout(tick,300);return}
-    }
-    setTimeout(tick,deleting?35:65);
-  };
-  tick();
+    if(!del){ci++;el.textContent=txt.slice(0,ci);if(ci===txt.length){del=true;setTimeout(tick,1600);return}}
+    else{ci--;el.textContent=txt.slice(0,ci);if(ci===0){del=false;ti=(ti+1)%HERO_TAGLINES.length;setTimeout(tick,300);return}}
+    setTimeout(tick,del?35:65);
+  })();
 }
 
-// INIT
 document.addEventListener('DOMContentLoaded',()=>{
   iwBuildStep1();
   heroTagline();
   buildCityList();
   tsBuild();
-  cvLoadData(); // بارگذاری کاروان‌ها از فایل caravans.json
+  cvLoadData();
 });
+
 </script>
 </body>
 </html>
