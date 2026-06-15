@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>هانیه — مدرس زبان روسی</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+/* ===================== TOKENS ===================== */
+:root{
+  --ruby:#8B2A36;
+  --ruby-d:#6E1F29;
+  --ruby-soft:#F4E3E2;
+  --gold:#C9A227;
+  --gold-soft:#F1E6C4;
+  --cream:#F7F1E4;
+  --paper:#FFFCF5;
+  --ink:#2A2320;
+  --ink-soft:#86766D;
+  --sage:#52705E;
+  --sage-soft:#E2EAE3;
+  --r:20px;
+  --rp:999px;
+  --ff-d:'Playfair Display',serif;
+  --ff-b:'Vazirmatn',sans-serif;
+  --shadow:0 14px 36px -12px rgba(139,42,54,.20);
+  --shadow-sm:0 6px 18px -8px rgba(42,35,32,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+html,body{width:100%;font-family:var(--ff-b);background:var(--cream);color:var(--ink);direction:rtl;overflow-x:hidden;}
+button{font-family:var(--ff-b);cursor:pointer;border:none;background:none;color:inherit;}
+img,svg{display:block;}
+a{color:inherit;text-decoration:none;}
+:focus-visible{outline:2px solid var(--ruby);outline-offset:3px;}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001s!important;transition-duration:.001s!important;}}
+
+/* ===================== SHARED ===================== */
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px;}
+.cyr{
+  font-family:var(--ff-d);
+  position:absolute;
+  font-weight:800;
+  color:var(--ruby);
+  opacity:.05;
+  letter-spacing:6px;
+  white-space:nowrap;
+  pointer-events:none;
+  z-index:0;
+  user-select:none;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11.5px;font-weight:700;color:var(--ruby);
+  background:var(--ruby-soft);border:1px solid rgba(139,42,54,.14);
+  padding:6px 16px;border-radius:var(--rp);letter-spacing:.5px;margin-bottom:14px;
+}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--gold);}
+.sec-head{position:relative;z-index:1;text-align:center;margin-bottom:34px;}
+.sec-head h2{font-family:var(--ff-d);font-size:clamp(26px,5vw,40px);font-weight:800;color:var(--ink);line-height:1.3;}
+.sec-head p{font-size:13.5px;color:var(--ink-soft);margin-top:8px;line-height:1.9;max-width:480px;margin-inline:auto;}
+section{position:relative;padding:64px 0;overflow:hidden;}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}
+.reveal.in{opacity:1;transform:none;}
+.reveal-d1{transition-delay:.08s;}
+.reveal-d2{transition-delay:.16s;}
+.reveal-d3{transition-delay:.24s;}
+.reveal-d4{transition-delay:.32s;}
+
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 26px;border-radius:var(--rp);
+  font-size:13.5px;font-weight:700;font-family:var(--ff-b);
+  transition:transform .2s,box-shadow .2s,background .2s,color .2s;
+  white-space:nowrap;
+}
+.btn-ruby{background:var(--ruby);color:var(--paper);box-shadow:var(--shadow);}
+.btn-ruby:hover{background:var(--ruby-d);transform:translateY(-2px);}
+.btn-line{background:transparent;color:var(--ink);border:1.5px solid rgba(42,35,32,.18);}
+.btn-line:hover{border-color:var(--ruby);color:var(--ruby);}
+.btn-gold{background:var(--gold);color:var(--ink);box-shadow:0 10px 26px -10px rgba(201,162,39,.5);}
+.btn-gold:hover{transform:translateY(-2px);}
+.btn svg{width:16px;height:16px;}
+
+/* ===================== NAV ===================== */
+.nav{
+  position:fixed;top:0;inset-inline:0;z-index:300;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 22px;
+  background:rgba(247,241,228,.78);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(42,35,32,.06);
+  transition:box-shadow .3s;
+}
+.nav.scrolled{box-shadow:0 4px 20px -10px rgba(42,35,32,.25);}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo .mark{
+  width:38px;height:38px;border-radius:12px;
+  background:linear-gradient(150deg,var(--ruby),var(--ruby-d));
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold-soft);font-family:var(--ff-d);font-weight:800;font-size:17px;
+  box-shadow:var(--shadow-sm);
+}
+.nav-logo .txt{display:flex;flex-direction:column;line-height:1.15;}
+.nav-logo .txt b{font-family:var(--ff-d);font-size:15px;font-weight:800;color:var(--ink);}
+.nav-logo .txt span{font-size:9.5px;color:var(--ink-soft);letter-spacing:1.5px;font-weight:600;direction:ltr;}
+.nav-links{display:flex;align-items:center;gap:22px;}
+.nav-links a{font-size:13px;font-weight:600;color:var(--ink-soft);transition:color .2s;}
+.nav-links a:hover{color:var(--ruby);}
+@media(max-width:780px){.nav-links{display:none;}}
+.nav-status{
+  display:flex;align-items:center;gap:7px;
+  font-size:11px;font-weight:700;color:var(--ruby);
+  background:var(--ruby-soft);border:1px solid rgba(139,42,54,.16);
+  padding:6px 12px;border-radius:var(--rp);
+}
+.nav-status.off{color:var(--sage);background:var(--sage-soft);border-color:rgba(82,112,94,.18);}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--ruby);position:relative;flex-shrink:0;}
+.pulse-dot::after{
+  content:'';position:absolute;inset:-4px;border-radius:50%;
+  border:1.5px solid var(--ruby);animation:pulse-ring 1.8s ease-out infinite;
+}
+.nav-status.off .pulse-dot{background:var(--sage);}
+.nav-status.off .pulse-dot::after{display:none;}
+@keyframes pulse-ring{0%{opacity:.9;transform:scale(.6);}100%{opacity:0;transform:scale(2.4);}}
+
+/* ===================== HERO ===================== */
+.hero{padding-top:128px;padding-bottom:40px;}
+.hero .cyr{top:14%;inset-inline-end:-2%;font-size:clamp(48px,15vw,150px);}
+.hero-inner{position:relative;z-index:1;text-align:center;display:flex;flex-direction:column;align-items:center;}
+.hero-tag{font-family:var(--ff-d);font-size:13px;font-weight:600;color:var(--gold);letter-spacing:3px;direction:ltr;margin-bottom:10px;}
+.hero h1{font-family:var(--ff-d);font-size:clamp(34px,8vw,64px);font-weight:800;line-height:1.18;color:var(--ink);margin-bottom:16px;}
+.hero h1 em{
+  font-style:italic;color:var(--ruby);
+  position:relative;
+}
+.hero p.lead{font-size:14.5px;color:var(--ink-soft);line-height:1.95;max-width:430px;margin-bottom:26px;}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:46px;}
+
+/* avatar / signature */
+.hero-id{
+  display:flex;align-items:center;gap:13px;
+  background:var(--paper);border:1px solid rgba(42,35,32,.07);
+  border-radius:var(--rp);padding:8px 20px 8px 8px;
+  box-shadow:var(--shadow-sm);margin-bottom:44px;
+}
+.hero-id .ava{
+  width:46px;height:46px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(150deg,var(--gold-soft),var(--ruby-soft));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--ff-d);font-weight:800;color:var(--ruby);font-size:18px;
+  border:2px solid var(--paper);outline:2px solid var(--gold);
+}
+.hero-id .txt{text-align:right;}
+.hero-id .txt b{display:block;font-size:13.5px;font-weight:800;color:var(--ink);}
+.hero-id .txt span{font-size:11px;color:var(--ink-soft);}
+
+/* STORIES ROW */
+.stories{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;width:100%;}
+.story-item{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:transform .2s;}
+.story-item:hover{transform:translateY(-3px);}
+.story-ring{
+  width:74px;height:74px;border-radius:50%;
+  background:conic-gradient(from -45deg,var(--ruby),var(--gold),var(--ruby));
+  display:flex;align-items:center;justify-content:center;
+  padding:3px;transition:filter .25s;
+}
+.story-item.seen .story-ring{background:rgba(42,35,32,.14);}
+.story-avatar{
+  width:100%;height:100%;border-radius:50%;
+  background:var(--paper);border:2.5px solid var(--paper);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ruby);
+}
+.story-avatar svg{width:28px;height:28px;}
+.story-item span{font-size:11px;font-weight:600;color:var(--ink-soft);}
+
+/* ===================== LIVE STATUS SECTION ===================== */
+.live-section{padding:30px 0;}
+.live-card{
+  position:relative;z-index:1;
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  background:linear-gradient(120deg,var(--ruby) 0%,var(--ruby-d) 100%);
+  border-radius:var(--r);padding:22px 26px;
+  box-shadow:var(--shadow);color:var(--paper);
+}
+.live-card.off{background:linear-gradient(120deg,var(--sage) 0%,#3E5A4B 100%);}
+.live-orb{
+  width:56px;height:56px;border-radius:50%;flex-shrink:0;
+  background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.22);
+  display:flex;align-items:center;justify-content:center;position:relative;
+}
+.live-orb svg{width:24px;height:24px;color:var(--gold-soft);}
+.live-orb::after{
+  content:'';position:absolute;inset:-6px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.35);
+  animation:pulse-ring 2.4s ease-out infinite;
+}
+.live-card.off .live-orb::after{display:none;}
+.live-text{flex:1;min-width:180px;}
+.live-text .lbl{font-size:10.5px;font-weight:700;letter-spacing:1.5px;color:var(--gold-soft);text-transform:uppercase;direction:ltr;text-align:right;margin-bottom:3px;}
+.live-text h3{font-family:var(--ff-d);font-size:18px;font-weight:700;margin-bottom:3px;}
+.live-text p{font-size:12.5px;color:rgba(255,255,255,.78);}
+.live-progress{width:100%;height:5px;border-radius:3px;background:rgba(255,255,255,.18);overflow:hidden;margin-top:10px;}
+.live-progress-fill{height:100%;background:var(--gold);border-radius:3px;transition:width 1s linear;}
+.live-meta{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
+.live-badge{font-size:11px;font-weight:800;background:rgba(255,255,255,.16);padding:5px 13px;border-radius:var(--rp);}
+
+/* ===================== ABOUT ===================== */
+.about{background:var(--paper);}
+.about .cyr{bottom:-6%;inset-inline-start:-3%;font-size:clamp(60px,18vw,180px);}
+.about-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center;}
+@media(max-width:760px){.about-grid{grid-template-columns:1fr;gap:34px;}}
+.about-photo{
+  aspect-ratio:4/5;border-radius:var(--r);
+  background:linear-gradient(150deg,var(--ruby-soft),var(--gold-soft));
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;box-shadow:var(--shadow);
+}
+.about-photo .big-init{font-family:var(--ff-d);font-size:clamp(80px,18vw,160px);font-weight:800;color:var(--ruby);opacity:.85;}
+.about-photo .ring{position:absolute;inset:14px;border:1.5px dashed rgba(139,42,54,.25);border-radius:calc(var(--r) - 6px);}
+.about-text h2{font-family:var(--ff-d);font-size:clamp(24px,4.5vw,36px);font-weight:800;margin-bottom:14px;line-height:1.35;}
+.about-text p{font-size:13.5px;color:var(--ink-soft);line-height:1.95;margin-bottom:14px;}
+.about-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px;}
+.stat-box{
+  background:var(--cream);border:1px solid rgba(42,35,32,.06);
+  border-radius:14px;padding:16px 14px;text-align:center;
+}
+.stat-num{font-family:var(--ff-d);font-size:clamp(24px,4vw,32px);font-weight:800;color:var(--ruby);direction:ltr;}
+.stat-lbl{font-size:11px;color:var(--ink-soft);margin-top:3px;}
+
+/* ===================== COURSES ===================== */
+.courses{background:var(--cream);}
+.courses .cyr{top:-4%;inset-inline-end:-4%;font-size:clamp(50px,16vw,170px);}
+.course-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+@media(max-width:980px){.course-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.course-grid{grid-template-columns:1fr;}}
+.course-card{
+  background:var(--paper);border-radius:var(--r);
+  border:1px solid rgba(42,35,32,.06);
+  padding:22px 18px;display:flex;flex-direction:column;gap:10px;
+  box-shadow:var(--shadow-sm);
+  transition:transform .12s ease-out,box-shadow .3s;
+  will-change:transform;
+}
+.course-card:hover{box-shadow:var(--shadow);}
+.course-tag{
+  align-self:flex-start;
+  font-size:10px;font-weight:700;letter-spacing:.4px;
+  padding:4px 11px;border-radius:var(--rp);
+  background:var(--ruby-soft);color:var(--ruby);
+}
+.course-tag.gold{background:var(--gold-soft);color:#8a6c12;}
+.course-tag.sage{background:var(--sage-soft);color:var(--sage);}
+.course-icon{
+  width:42px;height:42px;border-radius:12px;
+  background:var(--cream);display:flex;align-items:center;justify-content:center;
+  color:var(--ruby);margin-top:4px;
+}
+.course-icon svg{width:21px;height:21px;}
+.course-card h3{font-family:var(--ff-d);font-size:17px;font-weight:800;}
+.course-card .desc{font-size:12px;color:var(--ink-soft);line-height:1.8;flex:1;}
+.course-levels{display:flex;gap:5px;flex-wrap:wrap;}
+.lvl{font-size:10px;font-weight:700;padding:3px 8px;border-radius:var(--rp);background:var(--cream);color:var(--ink-soft);border:1px solid rgba(42,35,32,.06);}
+.course-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:10px;border-top:1px solid rgba(42,35,32,.06);}
+.course-price{display:flex;flex-direction:column;}
+.course-price b{font-family:var(--ff-d);font-size:16px;font-weight:800;color:var(--ink);direction:ltr;text-align:right;}
+.course-price span{font-size:10px;color:var(--ink-soft);}
+.course-cta{
+  width:36px;height:36px;border-radius:50%;background:var(--ruby);color:var(--paper);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s;
+}
+.course-cta:hover{background:var(--ruby-d);transform:scale(1.06);}
+.course-cta svg{width:15px;height:15px;}
+
+/* ===================== SCHEDULE ===================== */
+.schedule{background:var(--paper);}
+.schedule .cyr{bottom:-8%;inset-inline-end:-3%;font-size:clamp(60px,17vw,170px);}
+.sched-wrap{position:relative;z-index:1;overflow-x:auto;border-radius:var(--r);border:1px solid rgba(42,35,32,.07);box-shadow:var(--shadow-sm);}
+table.sched{width:100%;border-collapse:collapse;min-width:620px;background:var(--paper);}
+table.sched th,table.sched td{padding:11px 8px;text-align:center;font-size:11.5px;border:1px solid rgba(42,35,32,.06);}
+table.sched th{
+  background:var(--cream);font-weight:800;font-size:11.5px;color:var(--ink);
+  position:sticky;top:0;
+}
+table.sched th:first-child,table.sched td:first-child{
+  font-weight:700;color:var(--ink-soft);background:var(--cream);
+  position:sticky;inset-inline-start:0;white-space:nowrap;
+}
+.slot{border-radius:10px;padding:7px 6px;font-size:10.5px;font-weight:700;line-height:1.5;}
+.slot.online{background:var(--ruby-soft);color:var(--ruby);}
+.slot.offline{background:var(--gold-soft);color:#8a6c12;}
+.slot.live-now{background:var(--ruby);color:var(--paper);box-shadow:0 0 0 3px rgba(139,42,54,.18);}
+.slot small{display:block;font-weight:500;opacity:.8;font-size:9.5px;margin-top:1px;}
+.sched-legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:16px;position:relative;z-index:1;}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-soft);}
+.leg-dot{width:11px;height:11px;border-radius:4px;}
+.leg-dot.online{background:var(--ruby-soft);border:1px solid var(--ruby);}
+.leg-dot.offline{background:var(--gold-soft);border:1px solid var(--gold);}
+
+/* ===================== TESTIMONIALS ===================== */
+.testi{background:var(--cream);}
+.testi .cyr{top:-4%;inset-inline-start:-3%;font-size:clamp(50px,16vw,170px);}
+.testi-wrap{position:relative;z-index:1;max-width:680px;margin:0 auto;overflow:hidden;}
+.testi-track{display:flex;transition:transform .5s cubic-bezier(.2,.7,.2,1);}
+.testi-card{
+  flex:0 0 100%;padding:0 6px;
+}
+.testi-inner{
+  background:var(--paper);border-radius:var(--r);padding:28px 26px;
+  box-shadow:var(--shadow-sm);border:1px solid rgba(42,35,32,.06);text-align:center;
+}
+.testi-quote{font-family:var(--ff-d);font-size:15px;font-style:italic;line-height:2;color:var(--ink);margin-bottom:16px;}
+.testi-stars{color:var(--gold);font-size:14px;margin-bottom:10px;letter-spacing:2px;}
+.testi-name{font-weight:800;font-size:13px;}
+.testi-level{font-size:11px;color:var(--ink-soft);margin-top:2px;}
+.testi-dots{display:flex;gap:7px;justify-content:center;margin-top:18px;}
+.testi-dot{width:8px;height:8px;border-radius:50%;background:rgba(42,35,32,.16);transition:.25s;cursor:pointer;}
+.testi-dot.active{width:22px;border-radius:4px;background:var(--ruby);}
+
+/* ===================== CONTACT ===================== */
+.contact{background:var(--paper);}
+.contact .cyr{bottom:-6%;inset-inline-start:-2%;font-size:clamp(50px,15vw,160px);}
+.contact-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.05fr;gap:40px;align-items:start;}
+@media(max-width:780px){.contact-grid{grid-template-columns:1fr;gap:30px;}}
+.contact-info h2{font-family:var(--ff-d);font-size:clamp(24px,4.5vw,34px);font-weight:800;margin-bottom:12px;line-height:1.35;}
+.contact-info p{font-size:13.5px;color:var(--ink-soft);line-height:1.95;margin-bottom:22px;}
+.social-list{display:flex;flex-direction:column;gap:10px;}
+.social-row{
+  display:flex;align-items:center;gap:12px;
+  background:var(--cream);border:1px solid rgba(42,35,32,.06);
+  border-radius:14px;padding:13px 16px;transition:.2s;
+}
+.social-row:hover{border-color:var(--ruby);transform:translateX(-3px);}
+[dir="rtl"] .social-row:hover{transform:translateX(3px);}
+.social-row .ic{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--ruby-soft);color:var(--ruby);
+}
+.social-row .ic svg{width:18px;height:18px;}
+.social-row .t b{display:block;font-size:13px;font-weight:700;}
+.social-row .t span{font-size:11px;color:var(--ink-soft);}
+
+.contact-form{
+  background:var(--cream);border:1px solid rgba(42,35,32,.06);
+  border-radius:var(--r);padding:26px;box-shadow:var(--shadow-sm);
+}
+.f-row{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.f-row label{font-size:12px;font-weight:700;color:var(--ink);}
+.f-row input,.f-row select,.f-row textarea{
+  padding:12px 14px;border-radius:11px;border:1.5px solid rgba(42,35,32,.1);
+  background:var(--paper);font-family:var(--ff-b);font-size:13px;color:var(--ink);
+  transition:border-color .2s;appearance:none;
+}
+.f-row input:focus,.f-row select:focus,.f-row textarea:focus{border-color:var(--ruby);outline:none;}
+.f-row textarea{resize:vertical;min-height:78px;}
+.f-two{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:480px){.f-two{grid-template-columns:1fr;}}
+.contact-form .btn{width:100%;justify-content:center;margin-top:6px;}
+.form-note{font-size:11px;color:var(--ink-soft);text-align:center;margin-top:10px;line-height:1.7;}
+
+/* ===================== FOOTER ===================== */
+footer{background:var(--ruby-d);color:var(--gold-soft);padding:38px 0 26px;position:relative;overflow:hidden;}
+footer .cyr{color:var(--gold-soft);opacity:.06;top:-30%;inset-inline-start:10%;font-size:clamp(60px,20vw,200px);}
+.foot-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;}
+.foot-logo{font-family:var(--ff-d);font-size:20px;font-weight:800;color:var(--paper);}
+.foot-tag{font-size:12px;color:rgba(247,241,228,.7);max-width:380px;line-height:1.8;}
+.foot-links{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+.foot-links a{font-size:12px;color:rgba(247,241,228,.85);transition:.2s;}
+.foot-links a:hover{color:var(--gold);}
+.foot-social{display:flex;gap:10px;}
+.foot-social a{
+  width:36px;height:36px;border-radius:50%;background:rgba(247,241,228,.08);
+  border:1px solid rgba(247,241,228,.14);
+  display:flex;align-items:center;justify-content:center;color:var(--paper);transition:.2s;
+}
+.foot-social a:hover{background:var(--gold);color:var(--ruby-d);}
+.foot-social svg{width:16px;height:16px;}
+.foot-copy{font-size:10.5px;color:rgba(247,241,228,.5);margin-top:6px;}
+
+/* ===================== WHATSAPP FAB ===================== */
+.fab{
+  position:fixed;bottom:22px;inset-inline-end:18px;z-index:250;
+  width:54px;height:54px;border-radius:50%;
+  background:var(--sage);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 10px 28px -8px rgba(82,112,94,.55);
+  transition:transform .2s;
+}
+.fab:hover{transform:scale(1.08);}
+.fab svg{width:26px;height:26px;}
+
+/* ===================== STORY OVERLAY ===================== */
+.story-overlay{
+  position:fixed;inset:0;z-index:500;
+  background:#1a1411;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.story-overlay.open{opacity:1;pointer-events:auto;}
+.story-modal{
+  position:relative;width:100%;max-width:420px;height:100%;max-height:780px;
+  background:linear-gradient(160deg,var(--ruby-d),var(--ruby) 60%,#5a1822);
+  border-radius:0;overflow:hidden;display:flex;flex-direction:column;
+  color:var(--paper);
+}
+@media(min-width:480px){.story-modal{border-radius:22px;height:88vh;}}
+.story-bars{display:flex;gap:5px;padding:14px 14px 0;}
+.story-bar{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.25);overflow:hidden;}
+.story-bar-fill{height:100%;width:0%;background:var(--gold);}
+.story-bar.done .story-bar-fill{width:100%!important;transition:none;}
+.story-top{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;}
+.story-top .who{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;}
+.story-top .who .av{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;}
+.story-top .who .av svg{width:15px;height:15px;}
+.story-close{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:var(--paper);font-size:14px;}
+.story-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 28px;position:relative;}
+.story-icon{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.story-icon svg{width:30px;height:30px;color:var(--gold-soft);}
+.story-body h3{font-family:var(--ff-d);font-size:21px;font-weight:800;margin-bottom:10px;line-height:1.4;}
+.story-body p{font-size:13px;color:rgba(255,255,255,.82);line-height:1.95;max-width:300px;}
+.story-cta{margin-top:20px;}
+.story-tap{position:absolute;top:0;bottom:0;width:50%;z-index:5;}
+.story-tap.left{inset-inline-start:0;}
+.story-tap.right{inset-inline-end:0;}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <a href="#home" class="nav-logo">
+    <span class="mark">Х</span>
+    <span class="txt"><b>هانیه</b><span>RUSSIAN&nbsp;TUTOR</span></span>
+  </a>
+  <nav class="nav-links">
+    <a href="#about">درباره من</a>
+    <a href="#courses">دوره‌ها</a>
+    <a href="#schedule">برنامه هفتگی</a>
+    <a href="#testimonials">نظرات</a>
+    <a href="#contact">ثبت‌نام</a>
+  </nav>
+  <span class="nav-status" id="navStatus"><span class="pulse-dot"></span><span id="navStatusText">در حال بررسی...</span></span>
+</header>
+
+<main>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="home">
+    <div class="cyr" dir="ltr">ПРИВЕТ</div>
+    <div class="wrap hero-inner">
+      <div class="hero-tag reveal">HANIYEH · RUSSIAN LANGUAGE</div>
+      <h1 class="reveal reveal-d1">زبان روسی را طوری یاد بگیر<br>که واقعاً <em>حرفش را بزنی</em></h1>
+      <p class="lead reveal reveal-d2">
+        کلاس‌های خصوصی و گروهی، آنلاین و حضوری — با برنامه‌ی هفتگی منظم، تمرین مکالمه‌ی واقعی
+        و مسیر یادگیری شخصی‌سازی‌شده از سطح A1 تا C1.
+      </p>
+      <div class="hero-ctas reveal reveal-d3">
+        <a href="#courses" class="btn btn-ruby">
+          مشاهده دوره‌ها و ثبت‌نام
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </a>
+        <a href="https://instagram.com/" target="_blank" class="btn btn-line">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+          پیج اینستاگرام
+        </a>
+      </div>
+
+      <div class="hero-id reveal reveal-d4">
+        <div class="ava">Х</div>
+        <div class="txt">
+          <b>هانیه</b>
+          <span>مدرس زبان روسی · ۵+ سال تجربه تدریس</span>
+        </div>
+      </div>
+
+      <!-- STORIES -->
+      <div class="stories reveal reveal-d4" id="storiesRow"></div>
+    </div>
+  </section>
+
+  <!-- ===================== LIVE STATUS ===================== -->
+  <section class="live-section">
+    <div class="wrap">
+      <div class="live-card reveal" id="liveCard">
+        <div class="live-orb" id="liveOrb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        </div>
+        <div class="live-text">
+          <div class="lbl" id="liveLabel">LIVE NOW</div>
+          <h3 id="liveTitle">در حال بررسی برنامه...</h3>
+          <p id="liveSub">یک لحظه صبر کن</p>
+          <div class="live-progress" id="liveProgressWrap" style="display:none;">
+            <div class="live-progress-fill" id="liveProgressFill"></div>
+          </div>
+        </div>
+        <div class="live-meta">
+          <span class="live-badge" id="liveBadge">—</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="about" id="about">
+    <div class="cyr">ОБО МНЕ</div>
+    <div class="wrap about-grid">
+      <div class="about-photo reveal">
+        <div class="ring"></div>
+        <span class="big-init">Х</span>
+      </div>
+      <div class="about-text reveal reveal-d1">
+        <span class="eyebrow"><span class="dot"></span> درباره من</span>
+        <h2>یادگیری روسی، قدم‌به‌قدم و با آرامش</h2>
+        <p>
+          من هانیه هستم، مدرس زبان روسی. بیش از پنج سال است که زبان‌آموزها را از صفر تا سطح
+          مکالمه‌ی روان همراهی می‌کنم؛ هم در کلاس‌های حضوری و هم آنلاین، با برنامه‌ای منظم و
+          تمرین‌های واقعی مکالمه.
+        </p>
+        <p>
+          باور دارم بهترین یادگیری وقتی اتفاق می‌افتد که زبان بخشی از روتین روزانه‌ات بشه، نه
+          یک درس سنگین و دور از دسترس. به همین‌خاطر برنامه‌ی هر کلاس از قبل مشخص است و
+          می‌توانی همین‌جا ببینی الان دقیقاً چه کلاسی در جریان است.
+        </p>
+        <div class="about-stats">
+          <div class="stat-box"><div class="stat-num" data-count="120">0</div><div class="stat-lbl">زبان‌آموز</div></div>
+          <div class="stat-box"><div class="stat-num" data-count="5">0</div><div class="stat-lbl">سال تجربه</div></div>
+          <div class="stat-box"><div class="stat-num" data-count="900">0</div><div class="stat-lbl">جلسه برگزار شده</div></div>
+          <div class="stat-box"><div class="stat-num" data-count="4">0</div><div class="stat-lbl">سطح آموزشی</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== COURSES ===================== -->
+  <section class="courses" id="courses">
+    <div class="cyr" dir="ltr">КУРСЫ</div>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="dot"></span> دوره‌ها و قیمت‌ها</span>
+        <h2>کلاسی که با برنامه‌ی تو هماهنگ است</h2>
+        <p>از خصوصی تا گروهی، از آنلاین تا حضوری — هر مسیر، با همان دقت و پیگیری همیشگی.</p>
+      </div>
+      <div class="course-grid">
+
+        <article class="course-card reveal">
+          <span class="course-tag">پرطرفدار</span>
+          <div class="course-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <h3>خصوصی آنلاین</h3>
+          <p class="desc">یک‌به‌یک، با برنامه‌ی اختصاصی متناسب با هدف تو (مکالمه، مهاجرت، تحصیل یا کار).</p>
+          <div class="course-levels"><span class="lvl">A1</span><span class="lvl">A2</span><span class="lvl">B1</span><span class="lvl">B2</span><span class="lvl">C1</span></div>
+          <div class="course-foot">
+            <div class="course-price"><b>۸۵۰,۰۰۰ ت</b><span>هر جلسه (۹۰ دقیقه)</span></div>
+            <a href="#contact" class="course-cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <article class="course-card reveal reveal-d1">
+          <span class="course-tag sage">گروه کوچک</span>
+          <div class="course-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><circle cx="17" cy="8" r="2.5"/><path d="M15 19c0-2.3 1.5-4 4.5-4"/></svg></div>
+          <h3>گروهی آنلاین</h3>
+          <p class="desc">گروه‌های ۳ تا ۵ نفره هم‌سطح، با تمرکز بر مکالمه و تعامل بین زبان‌آموزها.</p>
+          <div class="course-levels"><span class="lvl">A1</span><span class="lvl">A2</span><span class="lvl">B1</span></div>
+          <div class="course-foot">
+            <div class="course-price"><b>۴۵۰,۰۰۰ ت</b><span>هر جلسه (۹۰ دقیقه)</span></div>
+            <a href="#contact" class="course-cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <article class="course-card reveal reveal-d2">
+          <span class="course-tag gold">حضوری</span>
+          <div class="course-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <h3>کلاس حضوری</h3>
+          <p class="desc">جلسات منظم هفتگی به‌صورت حضوری، مناسب برای تمرین تلفظ و مکالمه‌ی زنده.</p>
+          <div class="course-levels"><span class="lvl">A1</span><span class="lvl">A2</span><span class="lvl">B1</span><span class="lvl">B2</span></div>
+          <div class="course-foot">
+            <div class="course-price"><b>۷۵۰,۰۰۰ ت</b><span>هر جلسه (۹۰ دقیقه)</span></div>
+            <a href="#contact" class="course-cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+        <article class="course-card reveal reveal-d3">
+          <span class="course-tag">فشرده</span>
+          <div class="course-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7v8l10-12h-7z"/></svg></div>
+          <h3>پکیج فشرده مکالمه</h3>
+          <p class="desc">۸ جلسه‌ی متمرکز روی مکالمه‌ی روزمره، برای آماده‌شدن سریع پیش از سفر یا مصاحبه.</p>
+          <div class="course-levels"><span class="lvl">B1</span><span class="lvl">B2</span><span class="lvl">C1</span></div>
+          <div class="course-foot">
+            <div class="course-price"><b>۶,۰۰۰,۰۰۰ ت</b><span>۸ جلسه / ۹۰ دقیقه</span></div>
+            <a href="#contact" class="course-cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCHEDULE ===================== -->
+  <section class="schedule" id="schedule">
+    <div class="cyr" dir="ltr">УРОКИ</div>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="dot"></span> برنامه هفتگی</span>
+        <h2>این هفته کِی کلاس دارم؟</h2>
+        <p>برنامه‌ی کلاس‌های ثابت هفتگی — اگر الان داخل یکی از این بازه‌ها باشی، بالای صفحه وضعیت زنده را می‌بینی.</p>
+      </div>
+      <div class="sched-wrap reveal">
+        <table class="sched" id="schedTable"></table>
+      </div>
+      <div class="sched-legend reveal">
+        <span class="leg-item"><span class="leg-dot online"></span> کلاس آنلاین</span>
+        <span class="leg-item"><span class="leg-dot offline"></span> کلاس حضوری</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIALS ===================== -->
+  <section class="testi" id="testimonials">
+    <div class="cyr" dir="ltr">ОТЗЫВЫ</div>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="dot"></span> نظرات زبان‌آموزها</span>
+        <h2>تجربه‌ی کسانی که کلاس رو امتحان کردن</h2>
+      </div>
+      <div class="testi-wrap reveal">
+        <div class="testi-track" id="testiTrack"></div>
+        <div class="testi-dots" id="testiDots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="contact" id="contact">
+    <div class="cyr" dir="ltr">СВЯЗЬ</div>
+    <div class="wrap contact-grid">
+      <div class="contact-info reveal">
+        <span class="eyebrow"><span class="dot"></span> ثبت‌نام و تماس</span>
+        <h2>برای شروع، فقط یک پیام کافیه</h2>
+        <p>
+          فرم کنار رو پر کن تا پیام آماده‌ت مستقیم برای من در واتس‌اپ یا تلگرام باز بشه،
+          یا از همین حالا یکی از راه‌های زیر رو انتخاب کن.
+        </p>
+        <div class="social-list">
+          <a href="https://wa.me/989120000000" target="_blank" class="social-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 20l1.05-5.4A8.5 8.5 0 1 1 21 11.5Z"/></svg></span>
+            <span class="t"><b>واتس‌اپ</b><span>پاسخگویی سریع · ۰۹۱۲ ۰۰۰ ۰۰۰۰</span></span>
+          </a>
+          <a href="https://t.me/" target="_blank" class="social-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg></span>
+            <span class="t"><b>تلگرام</b><span>سوال یا هماهنگی کلاس</span></span>
+          </a>
+          <a href="https://instagram.com/" target="_blank" class="social-row">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></span>
+            <span class="t"><b>اینستاگرام</b><span>محتوای آموزشی و کلاس‌های جدید</span></span>
+          </a>
+        </div>
+      </div>
+
+      <form class="contact-form reveal reveal-d1" id="contactForm">
+        <div class="f-row">
+          <label>نام و نام خانوادگی</label>
+          <input type="text" id="f-name" placeholder="مثلاً: نگار محمدی" required>
+        </div>
+        <div class="f-two">
+          <div class="f-row">
+            <label>شماره تماس / تلگرام</label>
+            <input type="text" id="f-phone" placeholder="۰۹xxxxxxxxx" required>
+          </div>
+          <div class="f-row">
+            <label>سطح فعلی</label>
+            <select id="f-level">
+              <option>هنوز شروع نکرده‌ام</option>
+              <option>A1</option>
+              <option>A2</option>
+              <option>B1</option>
+              <option>B2</option>
+              <option>C1</option>
+            </select>
+          </div>
+        </div>
+        <div class="f-row">
+          <label>نوع کلاس مدنظر</label>
+          <select id="f-type">
+            <option>خصوصی آنلاین</option>
+            <option>گروهی آنلاین</option>
+            <option>حضوری</option>
+            <option>پکیج فشرده مکالمه</option>
+            <option>هنوز مطمئن نیستم</option>
+          </select>
+        </div>
+        <div class="f-row">
+          <label>توضیح کوتاه (اختیاری)</label>
+          <textarea id="f-msg" placeholder="مثلاً: زمان‌های پیشنهادی‌ام عصرهای زوج هست..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-ruby">
+          ارسال درخواست در واتس‌اپ
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+        </button>
+        <p class="form-note">با ارسال فرم، پیامی آماده شده با اطلاعات تو در واتس‌اپ باز می‌شود تا مستقیم برای هانیه ارسال کنی.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="cyr" dir="ltr">СПАСИБО</div>
+  <div class="wrap foot-inner">
+    <div class="foot-logo">هانیه · مدرس زبان روسی</div>
+    <p class="foot-tag">یادگیری زبان روسی با برنامه‌ای منظم، مکالمه‌محور و همراه با پیگیری مستمر — آنلاین یا حضوری.</p>
+    <div class="foot-links">
+      <a href="#about">درباره من</a>
+      <a href="#courses">دوره‌ها</a>
+      <a href="#schedule">برنامه هفتگی</a>
+      <a href="#testimonials">نظرات</a>
+      <a href="#contact">ثبت‌نام</a>
+    </div>
+    <div class="foot-social">
+      <a href="https://instagram.com/" target="_blank" aria-label="اینستاگرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+      <a href="https://t.me/" target="_blank" aria-label="تلگرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg></a>
+      <a href="https://wa.me/989120000000" target="_blank" aria-label="واتس‌اپ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 20l1.05-5.4A8.5 8.5 0 1 1 21 11.5Z"/></svg></a>
+    </div>
+    <div class="foot-copy">© ۱۴۰۴ — تمامی حقوق محفوظ است</div>
+  </div>
+</footer>
+
+<!-- ===================== WHATSAPP FAB ===================== -->
+<a href="https://wa.me/989120000000" target="_blank" class="fab" aria-label="واتس‌اپ">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 20l1.05-5.4A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+</a>
+
+<!-- ===================== STORY OVERLAY ===================== -->
+<div class="story-overlay" id="storyOverlay">
+  <div class="story-modal">
+    <div class="story-bars" id="storyBars"></div>
+    <div class="story-top">
+      <div class="who">
+        <span class="av" id="storyAvatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/></svg></span>
+        <span id="storyName">هانیه</span>
+      </div>
+      <button class="story-close" id="storyClose">✕</button>
+    </div>
+    <div class="story-body" id="storyBody">
+      <div class="story-tap left" id="tapLeft"></div>
+      <div class="story-tap right" id="tapRight"></div>
+      <div class="story-icon" id="storyIcon"></div>
+      <h3 id="storyTitle"></h3>
+      <p id="storyText"></p>
+      <div class="story-cta" id="storyCtaWrap"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   تنظیمات هانیه — این بخش رو ساده می‌تونی ویرایش کنی
+   ========================================================= */
+
+// --- برنامه هفتگی کلاس‌ها ---
+// dayIndex بر اساس JS: شنبه=6, یکشنبه=0, دوشنبه=1, سه‌شنبه=2, چهارشنبه=3, پنج‌شنبه=4, جمعه=5
+const SCHEDULE = [
+  {dayIndex:6, day:'شنبه',     start:'17:00', end:'18:30', title:'مکالمه پایه (A1) — گروهی', mode:'online', session:'جلسه ۳ از ۱۲'},
+  {dayIndex:6, day:'شنبه',     start:'19:00', end:'20:30', title:'خصوصی — سطح B1',           mode:'online', session:'جلسه ۷ از ۱۰'},
+  {dayIndex:0, day:'یکشنبه',   start:'18:00', end:'19:30', title:'حضوری — سطح A2',           mode:'offline', session:'جلسه ۴ از ۱۶'},
+  {dayIndex:1, day:'دوشنبه',   start:'17:30', end:'19:00', title:'خصوصی — سطح B2',           mode:'online', session:'جلسه ۲ از ۱۰'},
+  {dayIndex:2, day:'سه‌شنبه',  start:'18:00', end:'19:30', title:'مکالمه پیشرفته (B2) — گروهی', mode:'online', session:'جلسه ۵ از ۱۲'},
+  {dayIndex:3, day:'چهارشنبه', start:'17:00', end:'18:30', title:'حضوری — سطح A1',           mode:'offline', session:'جلسه ۹ از ۱۶'},
+  {dayIndex:4, day:'پنج‌شنبه', start:'10:00', end:'11:30', title:'خصوصی — سطح C1',           mode:'online', session:'جلسه ۱ از ۸'},
+  {dayIndex:4, day:'پنج‌شنبه', start:'17:00', end:'18:30', title:'پکیج فشرده مکالمه',        mode:'online', session:'جلسه ۳ از ۸'},
+];
+
+// --- استوری‌ها (مثل اینستاگرام) ---
+const STORIES = [
+  {
+    name:'کلاس امروز',
+    icon:'cal',
+    slides:[
+      {title:'برنامه امروز', text:'برای دیدن اینکه الان دقیقاً چه کلاسی در جریانه یا کلاس بعدی کِیه، نوار وضعیت زنده رو در بالای صفحه ببین.', cta:'مشاهده برنامه هفتگی', ctaHref:'#schedule'}
+    ]
+  },
+  {
+    name:'نمونه تدریس',
+    icon:'play',
+    slides:[
+      {title:'یک جلسه‌ی نمونه چطوره؟', text:'هر جلسه با مرور لغات شروع می‌شه، بعد گرامر کاربردی با مثال‌های واقعی، و در پایان تمرین مکالمه‌ی زنده با موضوع روز.', cta:null},
+      {title:'تمرکز روی مکالمه', text:'حتی در سطح A1، از همون جلسات اول سعی می‌کنم جمله‌های کوتاه روسی رو در مکالمه تمرین کنیم — نه فقط حفظ کردن قواعد.', cta:'رزرو جلسه آزمایشی', ctaHref:'#contact'}
+    ]
+  },
+  {
+    name:'تجربه زبان‌آموزها',
+    icon:'heart',
+    slides:[
+      {title:'«بعد از ۳ ماه، مکالمه روزمره برام راحت شد»', text:'یکی از زبان‌آموزهای سطح B1 می‌گه با وجود برنامه‌ی فشرده‌ی کاری، کلاس‌های منظم هفتگی کمک کرد پیشرفتش رو واقعاً حس کنه.', cta:null},
+      {title:'برای مهاجرت هم کاربردی است', text:'چند نفر از زبان‌آموزها برای آمادگی مصاحبه و زندگی روزمره در روسیه از پکیج فشرده مکالمه استفاده کردن.', cta:'مشاهده نظرات', ctaHref:'#testimonials'}
+    ]
+  },
+  {
+    name:'پکیج ویژه',
+    icon:'gift',
+    slides:[
+      {title:'پکیج فشرده مکالمه', text:'۸ جلسه‌ی ۹۰ دقیقه‌ای، فقط روی مکالمه‌ی روزمره — مناسب برای کسایی که زمان کمی دارن ولی می‌خوان سریع پیشرفت کنن.', cta:'مشاهده قیمت‌ها', ctaHref:'#courses'}
+    ]
+  },
+];
+
+const ICONS = {
+  cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
+  play:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg>',
+  heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
+  gift:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M12 8v13M3 12h18M7.5 8a2.5 2.5 0 1 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 1 1 0 5"/></svg>'
+};
+
+// --- نظرات زبان‌آموزها ---
+const TESTIMONIALS = [
+  {text:'هانیه خیلی منظم و دقیق برنامه می‌چینه. توی سه ماه احساس کردم مکالمه روزمره‌ام چقدر روان‌تر شده.', name:'سارا.ر', level:'زبان‌آموز سطح B1', stars:5},
+  {text:'بهترین چیز کلاس‌های آنلاینش اینه که جلسات تصویری و کاملاً تعاملیه، شبیه کلاس حضوری.', name:'محمد.ک', level:'زبان‌آموز سطح A2', stars:5},
+  {text:'برای آمادگی مصاحبه از پکیج فشرده استفاده کردم و خیلی به موقع و کاربردی بود.', name:'نگار.م', level:'پکیج فشرده مکالمه', stars:5},
+  {text:'کلاس حضوری هفتگی باعث شد بالاخره روی تلفظم هم کار کنم، چیزی که آنلاین برام سخت بود.', name:'علی.ت', level:'زبان‌آموز سطح A1', stars:4},
+];
+
+/* =========================================================
+   منطق برنامه — معمولاً نیازی به تغییر نیست
+   ========================================================= */
+
+// ---------- NAV scroll shadow ----------
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', ()=>{ nav.classList.toggle('scrolled', window.scrollY > 10); });
+
+// ---------- Reveal on scroll ----------
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:.15});
+revealEls.forEach(el=>io.observe(el));
+
+// ---------- Animated counters ----------
+const counters = document.querySelectorAll('.stat-num');
+const cio = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target, target=+el.dataset.count, dur=1200, start=performance.now();
+      function step(now){
+        const p=Math.min((now-start)/dur,1);
+        el.textContent=Math.round(target*(1-Math.pow(1-p,3))).toLocaleString('fa-IR');
+        if(p<1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      cio.unobserve(el);
+    }
+  });
+},{threshold:.4});
+counters.forEach(el=>cio.observe(el));
+
+// ---------- Live status (driven by SCHEDULE) ----------
+const liveCard=document.getElementById('liveCard');
+const liveOrb=document.getElementById('liveOrb');
+const liveLabel=document.getElementById('liveLabel');
+const liveTitle=document.getElementById('liveTitle');
+const liveSub=document.getElementById('liveSub');
+const liveBadge=document.getElementById('liveBadge');
+const liveProgressWrap=document.getElementById('liveProgressWrap');
+const liveProgressFill=document.getElementById('liveProgressFill');
+const navStatus=document.getElementById('navStatus');
+const navStatusText=document.getElementById('navStatusText');
+
+const DAY_NAMES=['یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنج‌شنبه','جمعه','شنبه'];
+
+function toMinutes(t){ const [h,m]=t.split(':').map(Number); return h*60+m; }
+
+function findCurrentSlot(now){
+  const dayIndex=now.getDay(), mins=now.getHours()*60+now.getMinutes();
+  return SCHEDULE.find(s=> s.dayIndex===dayIndex && mins>=toMinutes(s.start) && mins<toMinutes(s.end));
+}
+function findNextSlot(now){
+  const dayIndex=now.getDay(), mins=now.getHours()*60+now.getMinutes();
+  // search next 7 days starting today
+  for(let add=0; add<8; add++){
+    const di=(dayIndex+add)%7;
+    const items=SCHEDULE.filter(s=>s.dayIndex===di).sort((a,b)=>toMinutes(a.start)-toMinutes(b.start));
+    for(const it of items){
+      if(add===0 && toMinutes(it.start)<=mins) continue;
+      return {...it, daysAhead:add};
+    }
+  }
+  return null;
+}
+
+function updateLiveStatus(){
+  const now=new Date();
+  const current=findCurrentSlot(now);
+  if(current){
+    const mins=now.getHours()*60+now.getMinutes();
+    const total=toMinutes(current.end)-toMinutes(current.start);
+    const passed=mins-toMinutes(current.start);
+    const pct=Math.max(0,Math.min(100,(passed/total)*100));
+
+    liveCard.classList.remove('off');
+    liveLabel.textContent='LIVE NOW';
+    liveTitle.textContent='هم‌اکنون: '+current.title;
+    liveSub.textContent=(current.mode==='online'?'به‌صورت آنلاین':'به‌صورت حضوری')+' · '+current.session;
+    liveBadge.textContent=current.mode==='online'?'آنلاین':'حضوری';
+    liveProgressWrap.style.display='block';
+    liveProgressFill.style.width=pct+'%';
+    liveOrb.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>';
+
+    navStatus.classList.remove('off');
+    navStatusText.textContent='هم‌اکنون سر کلاسم';
+  } else {
+    const next=findNextSlot(now);
+    liveCard.classList.add('off');
+    liveLabel.textContent='NEXT CLASS';
+    liveProgressWrap.style.display='none';
+    liveOrb.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>';
+    if(next){
+      const dayLabel = next.daysAhead===0?'امروز':(next.daysAhead===1?'فردا':next.day);
+      liveTitle.textContent='کلاس بعدی: '+next.title;
+      liveSub.textContent=dayLabel+' ساعت '+next.start+' · '+(next.mode==='online'?'آنلاین':'حضوری');
+      liveBadge.textContent=next.mode==='online'?'آنلاین':'حضوری';
+    } else {
+      liveTitle.textContent='این هفته کلاسی ثبت نشده';
+      liveSub.textContent='برنامه‌ی کلاس‌ها را در بخش زیر ببین';
+      liveBadge.textContent='—';
+    }
+    navStatus.classList.add('off');
+    navStatusText.textContent='الان آفلاینم';
+  }
+}
+updateLiveStatus();
+setInterval(updateLiveStatus, 30000);
+
+// ---------- Schedule table ----------
+const schedTable=document.getElementById('schedTable');
+const TIME_SLOTS=['10:00','17:00','17:30','18:00','19:00'];
+const DAYS_ORDER=[
+  {dayIndex:6,label:'شنبه'},
+  {dayIndex:0,label:'یکشنبه'},
+  {dayIndex:1,label:'دوشنبه'},
+  {dayIndex:2,label:'سه‌شنبه'},
+  {dayIndex:3,label:'چهارشنبه'},
+  {dayIndex:4,label:'پنج‌شنبه'},
+  {dayIndex:5,label:'جمعه'},
+];
+
+function buildSchedTable(){
+  const now=new Date();
+  const curDay=now.getDay(), curMin=now.getHours()*60+now.getMinutes();
+
+  let html='<thead><tr><th>ساعت</th>';
+  DAYS_ORDER.forEach(d=> html+='<th>'+d.label+'</th>');
+  html+='</tr></thead><tbody>';
+
+  // collect all relevant times sorted
+  const allTimes=[...new Set(SCHEDULE.map(s=>s.start))].sort();
+
+  allTimes.forEach(time=>{
+    html+='<tr><td>'+time+'</td>';
+    DAYS_ORDER.forEach(d=>{
+      const slot=SCHEDULE.find(s=>s.dayIndex===d.dayIndex && s.start===time);
+      if(slot){
+        const isLive = d.dayIndex===curDay && curMin>=toMinutes(slot.start) && curMin<toMinutes(slot.end);
+        html+='<td><div class="slot '+slot.mode+(isLive?' live-now':'')+'">'+slot.title.split('—')[0].trim()+'<small>'+slot.start+'–'+slot.end+'</small></div></td>';
+      } else {
+        html+='<td>—</td>';
+      }
+    });
+    html+='</tr>';
+  });
+  html+='</tbody>';
+  schedTable.innerHTML=html;
+}
+buildSchedTable();
+
+// ---------- Stories row ----------
+const storiesRow=document.getElementById('storiesRow');
+STORIES.forEach((story,idx)=>{
+  const item=document.createElement('div');
+  item.className='story-item';
+  item.dataset.idx=idx;
+  item.innerHTML='<div class="story-ring"><div class="story-avatar">'+ICONS[story.icon]+'</div></div><span>'+story.name+'</span>';
+  item.addEventListener('click',()=>openStory(idx));
+  storiesRow.appendChild(item);
+});
+
+// ---------- Story overlay ----------
+const storyOverlay=document.getElementById('storyOverlay');
+const storyBars=document.getElementById('storyBars');
+const storyIcon=document.getElementById('storyIcon');
+const storyTitle=document.getElementById('storyTitle');
+const storyText=document.getElementById('storyText');
+const storyCtaWrap=document.getElementById('storyCtaWrap');
+const storyName=document.getElementById('storyName');
+const storyAvatar=document.getElementById('storyAvatar');
+const storyClose=document.getElementById('storyClose');
+const tapLeft=document.getElementById('tapLeft');
+const tapRight=document.getElementById('tapRight');
+
+let curStory=0, curSlide=0, storyTimer=null;
+const STORY_DURATION=4500;
+
+function openStory(idx){
+  curStory=idx; curSlide=0;
+  document.querySelectorAll('.story-item')[idx].classList.add('seen');
+  storyName.textContent=STORIES[idx].name;
+  storyAvatar.innerHTML=ICONS[STORIES[idx].icon];
+  renderBars();
+  showSlide();
+  storyOverlay.classList.add('open');
+}
+function renderBars(){
+  storyBars.innerHTML='';
+  STORIES[curStory].slides.forEach(()=>{
+    const bar=document.createElement('div');
+    bar.className='story-bar';
+    bar.innerHTML='<div class="story-bar-fill"></div>';
+    storyBars.appendChild(bar);
+  });
+}
+function showSlide(){
+  clearTimeout(storyTimer);
+  const slides=STORIES[curStory].slides;
+  const data=slides[curSlide];
+  storyIcon.innerHTML=ICONS[STORIES[curStory].icon];
+  storyTitle.textContent=data.title;
+  storyText.textContent=data.text;
+  storyCtaWrap.innerHTML = data.cta ? '<a href="'+data.ctaHref+'" class="btn btn-gold">'+data.cta+'</a>' : '';
+  if(data.cta){ storyCtaWrap.querySelector('a').addEventListener('click', closeStory); }
+
+  // bars state
+  const bars=storyBars.querySelectorAll('.story-bar');
+  bars.forEach((b,i)=>{
+    b.classList.remove('done');
+    const fill=b.querySelector('.story-bar-fill');
+    fill.style.transition='none'; fill.style.width='0%';
+    if(i<curSlide){ b.classList.add('done'); }
+  });
+  requestAnimationFrame(()=>{
+    const fill=bars[curSlide].querySelector('.story-bar-fill');
+    fill.style.transition='width '+STORY_DURATION+'ms linear';
+    fill.style.width='100%';
+  });
+
+  storyTimer=setTimeout(nextSlide, STORY_DURATION);
+}
+function nextSlide(){
+  const slides=STORIES[curStory].slides;
+  if(curSlide < slides.length-1){ curSlide++; showSlide(); }
+  else if(curStory < STORIES.length-1){ openStory(curStory+1); }
+  else { closeStory(); }
+}
+function prevSlide(){
+  if(curSlide>0){ curSlide--; showSlide(); }
+  else if(curStory>0){ curStory--; curSlide=STORIES[curStory].slides.length-1; renderBars(); showSlide(); document.querySelectorAll('.story-item')[curStory].classList.add('seen'); storyName.textContent=STORIES[curStory].name; storyAvatar.innerHTML=ICONS[STORIES[curStory].icon]; }
+}
+function closeStory(){
+  clearTimeout(storyTimer);
+  storyOverlay.classList.remove('open');
+}
+storyClose.addEventListener('click', closeStory);
+tapRight.addEventListener('click', nextSlide);
+tapLeft.addEventListener('click', prevSlide);
+storyOverlay.addEventListener('click', (e)=>{ if(e.target===storyOverlay) closeStory(); });
+
+// ---------- Testimonials slider ----------
+const testiTrack=document.getElementById('testiTrack');
+const testiDots=document.getElementById('testiDots');
+let testiIdx=0;
+
+TESTIMONIALS.forEach((t,i)=>{
+  const card=document.createElement('div');
+  card.className='testi-card';
+  card.innerHTML=`
+    <div class="testi-inner">
+      <div class="testi-stars">${'★'.repeat(t.stars)}${'☆'.repeat(5-t.stars)}</div>
+      <p class="testi-quote">«${t.text}»</p>
+      <div class="testi-name">${t.name}</div>
+      <div class="testi-level">${t.level}</div>
+    </div>`;
+  testiTrack.appendChild(card);
+
+  const dot=document.createElement('span');
+  dot.className='testi-dot'+(i===0?' active':'');
+  dot.addEventListener('click',()=>goTesti(i));
+  testiDots.appendChild(dot);
+});
+
+function goTesti(i){
+  testiIdx=i;
+  testiTrack.style.transform=`translateX(${i*100}%)`;
+  document.querySelectorAll('.testi-dot').forEach((d,j)=>d.classList.toggle('active',j===i));
+}
+// RTL: translateX direction flip
+testiTrack.style.transform='translateX(0%)';
+function autoTesti(){ goTesti((testiIdx+1)%TESTIMONIALS.length); }
+let testiAuto=setInterval(autoTesti, 6000);
+testiTrack.parentElement.addEventListener('mouseenter',()=>clearInterval(testiAuto));
+testiTrack.parentElement.addEventListener('mouseleave',()=>{testiAuto=setInterval(autoTesti,6000);});
+
+// fix direction for RTL: in RTL, translateX(+) moves content visually to the left,
+// but we want slide index 0 to show first without offset, and moving "forward"
+// to slide toward the start (right-to-left reading). We'll use negative for RTL.
+function goTestiRTL(i){
+  testiIdx=i;
+  testiTrack.style.transform=`translateX(${i*100}%)`;
+  document.querySelectorAll('.testi-dot').forEach((d,j)=>d.classList.toggle('active',j===i));
+}
+
+// ---------- Card tilt effect ----------
+const tiltCards=document.querySelectorAll('.course-card');
+const canHover=window.matchMedia('(hover: hover)').matches;
+if(canHover){
+  tiltCards.forEach(card=>{
+    card.addEventListener('mousemove',(e)=>{
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-0.5;
+      const y=(e.clientY-r.top)/r.height-0.5;
+      card.style.transform=`perspective(700px) rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg) translateY(-2px)`;
+    });
+    card.addEventListener('mouseleave',()=>{ card.style.transform=''; });
+  });
+}
+
+// ---------- Contact form -> WhatsApp ----------
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const level=document.getElementById('f-level').value;
+  const type=document.getElementById('f-type').value;
+  const msg=document.getElementById('f-msg').value.trim();
+
+  let text = `سلام هانیه‌جان 👋\nاسم من ${name} هست.\nشماره تماس: ${phone}\nسطح فعلی: ${level}\nنوع کلاس مدنظر: ${type}`;
+  if(msg) text += `\nتوضیح: ${msg}`;
+
+  const url = 'https://wa.me/989120000000?text=' + encodeURIComponent(text);
+  window.open(url, '_blank');
+});
+</script>
+</body>
+</html>
