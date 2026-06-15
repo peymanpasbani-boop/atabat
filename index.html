@@ -164,19 +164,34 @@ img,svg{display:block;}
 .gold .cc-pill svg{color:#08201A;}
 .emerald .cc-pill svg{color:var(--al);}
 
-<!-- ABOUT STRIP -->
-<div class="h-about">
-  <div class="h-about-icon">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>
-  </div>
-  <h3>آوان چیکار می‌کنه؟</h3>
-  <p>آوان جایی‌ست که سفر زیارتی‌ات از فکر به واقعیت می‌رسه. کافی‌ست مقصد، تاریخ و سبک سفرت را انتخاب کنی تا هتل، پرواز و برنامهٔ روزانه‌ات را با دقت برایت بچینیم؛ یا اگر آرامش بیشتری می‌خواهی، یکی از کاروان‌های آماده با تاریخ مشخص را انتخاب کن. تو فقط دل به زیارت بسپار، بقیه‌اش با ماست ✦</p>
-  <div class="h-about-feats">
-    <span class="h-about-feat">🧭 سفر کاملاً شخصی‌سازی‌شده</span>
-    <span class="h-about-feat">🚌 کاروان آماده با تاریخ ثابت</span>
-    <span class="h-about-feat">✦ قیمت شفاف، بدون هزینه پنهان</span>
-  </div>
-</div>
+/* ===== ABOUT STRIP (home page intro) ===== */
+#panel-home .h-about{
+  position:relative;z-index:2;
+  margin:8px 16px 4px;
+  padding:22px 20px;
+  text-align:center;
+  border-radius:var(--r);
+  background:linear-gradient(145deg,#fff 0%,var(--gs) 100%);
+  border:1px solid rgba(15,77,58,.08);
+  box-shadow:var(--sc);
+}
+.h-about-icon{
+  width:46px;height:46px;border-radius:50%;
+  margin:0 auto 12px;
+  background:linear-gradient(135deg,var(--g),var(--gm));
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 18px -4px rgba(15,77,58,.35);
+}
+.h-about-icon svg{width:21px;height:21px;color:#fff;}
+.h-about h3{font-size:16px;font-weight:800;color:var(--g);margin-bottom:8px;}
+.h-about p{font-size:12.5px;color:var(--is);line-height:1.95;max-width:440px;margin:0 auto 14px;}
+.h-about-feats{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.h-about-feat{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:600;color:var(--g);
+  background:#fff;border:1px solid rgba(15,77,58,.12);
+  padding:6px 13px;border-radius:var(--rp);
+}
 
 /* FOOTER */
 #panel-home .h-foot{
@@ -956,6 +971,20 @@ input[type=date]{padding:11px 13px;border-radius:11px;border:1.5px solid var(--s
           <div class="cc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         </div>
       </article>
+    </div>
+
+    <!-- ABOUT STRIP -->
+    <div class="h-about">
+      <div class="h-about-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>
+      </div>
+      <h3>آوان چیکار می‌کنه؟</h3>
+      <p>آوان جایی‌ست که سفر زیارتی‌ات از فکر به واقعیت می‌رسه. کافی‌ست مقصد، تاریخ و سبک سفرت را انتخاب کنی تا هتل، پرواز و برنامهٔ روزانه‌ات را با دقت برایت بچینیم؛ یا اگر آرامش بیشتری می‌خواهی، یکی از کاروان‌های آماده با تاریخ مشخص را انتخاب کن. تو فقط دل به زیارت بسپار، بقیه‌اش با ماست ✦</p>
+      <div class="h-about-feats">
+        <span class="h-about-feat">🧭 سفر کاملاً شخصی‌سازی‌شده</span>
+        <span class="h-about-feat">🚌 کاروان آماده با تاریخ ثابت</span>
+        <span class="h-about-feat">✦ قیمت شفاف، بدون هزینه پنهان</span>
+      </div>
     </div>
 
     <div class="h-foot">
