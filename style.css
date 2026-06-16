@@ -103,34 +103,43 @@ img,svg,.loading.active,.pi-zaer.active .pi-zaer-body,#inline-results.show {
 .app {
   width:100vw;
   min-height:100vh;
-  position:relative
+  position:relative;
+  overflow-x:hidden
 }
 .panel {
   position:absolute;
-  inset:0;
+  top:0;
+  left:0;
+  right:0;
   display:flex;
   flex-direction:column;
   opacity:0;
   pointer-events:none;
   transform:translateY(16px);
-  transition:opacity .35s ease,transform .35s ease
+  transition:opacity .35s ease,transform .35s ease;
+  visibility:hidden
 }
 .panel.active {
   opacity:1;
   pointer-events:auto;
   transform:none;
-  position:relative
+  position:relative;
+  height:auto;
+  min-height:100vh;
+  visibility:visible
 }
 .panel.exit-up {
   opacity:0;
   transform:translateY(-16px);
   pointer-events:none;
-  position:absolute
+  position:absolute;
+  visibility:hidden
 }
 #panel-home {
   background:var(--cr);
   color:var(--ink);
   overflow-x:hidden;
+  overflow-y:auto;
   min-height:unset
 }
 #panel-home::before {
