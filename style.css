@@ -135,6 +135,7 @@ img,svg,.loading.active,.pi-zaer.active .pi-zaer-body,#inline-results.show {
 #panel-home {
   background:var(--cr);
   color:var(--ink);
+  overflow:hidden;
 }
 #panel-home::before {
   content:'';
