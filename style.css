@@ -141,6 +141,7 @@ img,svg,.loading.active,.pi-zaer.active .pi-zaer-body,#inline-results.show {
   color:var(--ink);
   overflow-x:hidden;
   overflow-y:auto;
+  min-height:unset;
 }
 #panel-home::before {
   content:'';
@@ -3606,7 +3607,8 @@ to {
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  cursor:pointer
+  cursor:pointer;
+  touch-action:pan-y;
 }
 .hsc-wrap::before {
   content:'';
@@ -3619,7 +3621,8 @@ to {
 .hsc-stage {
   position:relative;
   width:100%;
-  height:186px
+  height:186px;
+  touch-action:pan-y;
 }
 .hsc-float {
   position:absolute;
