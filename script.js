@@ -475,7 +475,6 @@ setTimeout(()=>t.classList.remove('active'),2800);
 
 function openPanel(id){
   window.scrollTo(0,0);
-  document.body.style.overflow = id === 'home' ? '' : 'hidden';
   document.querySelectorAll('.panel').forEach(p=>{
     if(p.id==='panel-'+id){
       p.classList.remove('exit-up');p.classList.add('active');
@@ -1226,6 +1225,13 @@ function reset(){clearInterval(timer);timer=setInterval(next,4200);}
 dots.forEach(d=>d.addEventListener('click',()=>{go(+d.dataset.dot);reset();}));
 reset();
 })();
+function toggleAbout(){
+  const drawer = document.getElementById('about-drawer');
+  const overlay = document.getElementById('about-overlay');
+  const open = drawer.classList.toggle('open');
+  overlay.classList.toggle('open', open);
+}
+
 const chatData={
 open:false,
 msgs:[],
