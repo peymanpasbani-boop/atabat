@@ -1422,49 +1422,56 @@ el.innerHTML=calcStats().map((s,i)=>`<div class="cst-item" style="animation-dela
 renderStats();
 window._refreshCstBar=renderStats;
 })();
-// ── Caravan Quick-Stats Box (Home) ──
+// ── Caravan Quick-Stats Box (Home) — Accordion ──
 (function(){
 const gridEl=document.getElementById('acsGrid');
-if(!gridEl)return;
-const fa2n=s=>parseInt(String(s).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d))||'0')||0;
-const n2fa=n=>n.toLocaleString('fa-IR');
+const caravansEl=document.getElementById('acsCaravans');
+if(!gridEl||!caravansEl)return;
+const n2fa=n=>Number(n).toLocaleString('fa-IR');
+const fa2n=s=>parseInt(String(s).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)))||0;
+
+// Stats from data
 const activeCount=caravans.length;
-const origins=new Set(caravans.map(c=>(c.badges.find(b=>b.startsWith('از'))||'').replace('از ','')).filter(Boolean));
-const totalCap=caravans.reduce((sum,c)=>{const m=c.meta.match(/ظرفیت[:\s]*([۰-۹\d]+)/);return sum+(m?fa2n(m[1]):0);},0);
-const icons=[
-`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="7" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><circle cx="17" cy="8" r="2.5"/><path d="M15 19c0-2.3 1.5-4 4.5-4"/></svg>`,
-`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
-`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg>`
-];
-const stats=[
-{target:activeCount,lbl:'کاروان فعال',icon:0},
-{target:origins.size,lbl:'شهر مبدأ',icon:1},
-{target:totalCap||0,lbl:'نفر ظرفیت',icon:2},
-];
-gridEl.innerHTML=stats.map((s,i)=>`
-<div class="acs-item" style="animation-delay:${(.12+i*.1)}s">
-  <div class="acs-icon">${icons[s.icon]}</div>
-  <div class="acs-num" data-target="${s.target}">۰</div>
-  <div class="acs-lbl">${s.lbl}</div>
-</div>`).join('');
-// animated count-up
-function countUp(el,target,delay){
-  if(!target){el.textContent='—';return;}
-  setTimeout(()=>{
-    const dur=900,fps=50,steps=Math.round(dur/fps*60/1000*fps);
-    let step=0;
-    const t=setInterval(()=>{
-      step++;
-      const ease=1-Math.pow(1-step/steps,3);
-      el.textContent=n2fa(Math.round(target*ease));
-      if(step>=steps){el.textContent=n2fa(target);clearInterval(t);}
-    },dur/steps);
-  },delay);
-}
-gridEl.querySelectorAll('.acs-num').forEach((el,i)=>{
-  countUp(el,stats[i].target,400+i*120);
-});
+const origins=new Set(caravans.map(c=>{const b=(c.badges||[]).find(b=>b.startsWith('از'));return b?b.replace('از ',''):'';}).filter(Boolean));
+const totalCap=caravans.reduce((s,c)=>{const m=(c.meta||'').match(/ظرفیت[:\s]*([۰-۹\d]+)/);return s+(m?fa2n(m[1]):0);},0);
+
+gridEl.innerHTML=[
+{n:activeCount,l:'کاروان'},
+{n:origins.size,l:'شهر'},
+{n:totalCap||0,l:'نفر'},
+].map((s,i)=>`<div class="acs-item"><span class="acs-num">${n2fa(s.n)}</span><span class="acs-lbl">${s.l}</span></div>`).join('');
+
+// 3 nearest caravans
+const sorted=[...caravans].sort((a,b)=>{
+  const da=(a._date||'').replace(/\//g,''),db=(b._date||'').replace(/\//g,'');
+  return da.localeCompare(db);
+}).slice(0,3);
+
+caravansEl.innerHTML=sorted.map(c=>{
+  const dateMatch=(c.meta||'').match(/اعزام\s+([۰-۹\d]+)\s+(\S+)\s+([۱۴۰-۹]+)/);
+  const dateStr=dateMatch?`${dateMatch[1]} ${dateMatch[2]}`:c._date||'—';
+  const price=c.price?Math.round(c.price/1e6).toLocaleString('fa-IR')+'م':'—';
+  return `<div class="acs-cv" onclick="openPanel('group')">
+    <div class="acs-cv-date">${dateStr}</div>
+    <div class="acs-cv-info">
+      <div class="acs-cv-title">${c.title||'کاروان'}</div>
+      <div class="acs-cv-sub">از ${c.origin||'—'} · ${c.type==='air'?'✈ هوایی':'🚌 زمینی'}</div>
+    </div>
+    <div class="acs-cv-price">${price}</div>
+  </div>`;
+}).join('');
 })();
+
+function toggleAcs(){
+  const box=document.getElementById('acsBox');
+  const body=document.getElementById('acsBody');
+  const btn=document.getElementById('acsHeader');
+  if(!box||!body||!btn)return;
+  const open=box.classList.toggle('open');
+  btn.setAttribute('aria-expanded',open);
+  body.setAttribute('aria-hidden',!open);
+}
+
 (function(){
 const jalaliMonths=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const dpm=[31,31,31,31,31,31,30,30,30,30,30,29];
