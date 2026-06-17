@@ -1681,38 +1681,3 @@ st.querySelectorAll('button').forEach(b=>b.addEventListener('click',updatePrevie
 });
 document.querySelectorAll('.mc').forEach(c=>c.addEventListener('click',updatePreview));
 updatePreview();
-// ── Ad widget hide-on-scroll (panel-builder scroll target) ───────
-(function(){
-  const ad = document.getElementById('adSlider');
-  if (!ad) return;
-  // panel-builder is the scroll container
-  const scroller = document.getElementById('panel-builder') || window;
-  let lastY = 0, ticking = false;
-  const THRESHOLD = 60;
-
-  function update() {
-    const y = scroller === window ? window.scrollY : scroller.scrollTop;
-    const goingDown = y > lastY;
-    if (goingDown && y > THRESHOLD) {
-      ad.classList.add('ad-hidden');
-    } else if (!goingDown && y < lastY - 10) {
-      ad.classList.remove('ad-hidden');
-    }
-    lastY = y;
-    ticking = false;
-  }
-
-  scroller.addEventListener('scroll', function() {
-    if (!ticking) { requestAnimationFrame(update); ticking = true; }
-  }, { passive: true });
-})();
-
-// ── panel-home nav scrolled class ───────────────────────────────
-(function(){
-  const home = document.getElementById('panel-home');
-  const nav  = home && home.querySelector('.h-nav');
-  if (!home || !nav) return;
-  home.addEventListener('scroll', function() {
-    nav.classList.toggle('scrolled', home.scrollTop > 6);
-  }, { passive: true });
-})();
