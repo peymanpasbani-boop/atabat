@@ -49,16 +49,25 @@
   <div class="h-cards">
 
     <!-- Caravan quick-stats box -->
-    <div class="acs-box" id="acsBox" onclick="openPanel('group')" role="button" tabindex="0" aria-label="مشاهده کاروان‌های فعال">
-      <div class="acs-glow" aria-hidden="true"></div>
-      <div class="acs-top">
-        <span class="acs-tag">✦ کاروان‌های فعال</span>
-        <span class="acs-arrow" aria-hidden="true">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </span>
-      </div>
-      <div class="acs-grid" id="acsGrid">
-        <!-- filled by JS -->
+    <div class="acs-box" id="acsBox">
+      <button class="acs-header" id="acsHeader" onclick="toggleAcs()" aria-expanded="false" aria-controls="acsBody">
+        <div class="acs-header-left">
+          <span class="acs-pulse-dot"></span>
+          <span class="acs-tag">✦ کاروان‌های فعال</span>
+        </div>
+        <div class="acs-header-right">
+          <div class="acs-grid" id="acsGrid"></div>
+          <span class="acs-chev" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </div>
+      </button>
+      <div class="acs-body" id="acsBody" aria-hidden="true">
+        <div class="acs-caravans" id="acsCaravans"></div>
+        <button class="acs-all-btn" onclick="openPanel('group')">
+          مشاهده همه کاروان‌ها
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
       </div>
     </div>
 
