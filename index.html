@@ -19,12 +19,22 @@
   <!-- Navigation -->
   <nav class="h-nav">
     <div class="logo">آوان<span class="logo-star">✦</span></div>
-    <button class="ai-btn" id="ai-chat-btn" aria-label="دستیار هوش مصنوعی" onclick="toggleChat()">
-      <svg class="si" viewBox="0 0 24 24">
-        <path d="M12 2C6.48 2 2 6.05 2 11c0 2.6 1.13 4.95 2.94 6.64L4 21l3.7-1.35C9.07 20.52 10.5 21 12 21c5.52 0 10-4.05 10-9s-4.48-9-10-9z"/>
-        <path d="M8 10h.01M12 10h.01M16 10h.01" stroke-width="2.5"/>
-      </svg>
-    </button>
+    <div class="h-nav-actions">
+      <button class="about-btn" id="about-btn" aria-label="درباره آوان" onclick="toggleAbout()">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="15" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M16 14.5v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="16" cy="10.5" r="1.2" fill="currentColor"/>
+        </svg>
+        <span>درباره ما</span>
+      </button>
+      <button class="ai-btn" id="ai-chat-btn" aria-label="دستیار هوش مصنوعی" onclick="toggleChat()">
+        <svg class="si" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.05 2 11c0 2.6 1.13 4.95 2.94 6.64L4 21l3.7-1.35C9.07 20.52 10.5 21 12 21c5.52 0 10-4.05 10-9s-4.48-9-10-9z"/>
+          <path d="M8 10h.01M12 10h.01M16 10h.01" stroke-width="2.5"/>
+        </svg>
+      </button>
+    </div>
   </nav>
 
   <!-- Hero -->
@@ -185,53 +195,6 @@
     </article>
 
   </div><!-- /.h-cards -->
-
-  <!-- About section -->
-  <section class="h-about">
-    <div class="h-about-header">
-      <div class="h-about-badge">✦ درباره آوان</div>
-      <h3 class="h-about-title">سفر زیارتی،<br><em>آن‌طور که تو می‌خواهی</em></h3>
-    </div>
-    <div class="h-about-grid">
-      <div class="h-about-item">
-        <div class="h-about-item-icon">
-          <svg class="s18" viewBox="0 0 24 24"><path d="M12 2C8 2 4 5.5 4 10c0 6 8 12 8 12s8-6 8-12c0-4.5-4-8-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
-        </div>
-        <div class="h-about-item-body">
-          <strong>مقصد دلخواه</strong>
-          <span>کربلا، نجف، کاظمین و سامرا — هر ترکیبی که بخواهی</span>
-        </div>
-      </div>
-      <div class="h-about-item">
-        <div class="h-about-item-icon">
-          <svg class="s18" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        </div>
-        <div class="h-about-item-body">
-          <strong>تاریخ آزاد یا تاریخ ثابت</strong>
-          <span>سفر شخصی با تاریخ دلخواهت یا کاروان آماده با اعزام مشخص</span>
-        </div>
-      </div>
-      <div class="h-about-item">
-        <div class="h-about-item-icon">
-          <svg class="s18" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
-        </div>
-        <div class="h-about-item-body">
-          <strong>هتل تضمینی نزدیک حرم</strong>
-          <span>از ۳ ستاره تا ۵ ستاره — با فاصله دقیق تا حرم</span>
-        </div>
-      </div>
-      <div class="h-about-item">
-        <div class="h-about-item-icon">
-          <svg class="s18" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-        </div>
-        <div class="h-about-item-body">
-          <strong>قیمت شفاف</strong>
-          <span>بدون هزینه پنهان — آنچه می‌بینی همان چیزی‌ست که می‌پردازی</span>
-        </div>
-      </div>
-    </div>
-    <p class="h-about-note">تو فقط دل به زیارت بسپار، بقیه‌اش با ماست ✦</p>
-  </section>
 
   <!-- Footer -->
   <footer class="h-foot">
@@ -1345,6 +1308,68 @@
 <button class="jdp-confirm" onclick="confirmJDP()">تأیید تاریخ ✦</button>
 </div>
 </div>
+
+<!-- About drawer -->
+<div class="about-overlay" id="about-overlay" onclick="toggleAbout()"></div>
+<div class="about-drawer" id="about-drawer" role="dialog" aria-label="درباره آوان">
+  <div class="about-handle"></div>
+  <div class="about-header">
+    <div class="about-header-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+        <path d="M12 11v5M12 8h.01"/>
+      </svg>
+    </div>
+    <div class="about-header-text">
+      <h4>درباره آوان ✦</h4>
+      <span>همراه زیارت شما</span>
+    </div>
+    <button class="about-close" onclick="toggleAbout()">✕</button>
+  </div>
+  <div class="about-body">
+    <p class="about-quote">«سفر زیارتی، آن‌طور که تو می‌خواهی»</p>
+    <div class="about-grid">
+      <div class="about-item">
+        <div class="about-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8 2 4 5.5 4 10c0 6 8 12 8 12s8-6 8-12c0-4.5-4-8-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="about-item-body">
+          <strong>مقصد دلخواه</strong>
+          <span>کربلا، نجف، کاظمین و سامرا — هر ترکیبی که بخواهی</span>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <div class="about-item-body">
+          <strong>تاریخ آزاد یا تاریخ ثابت</strong>
+          <span>سفر شخصی یا کاروان آماده با اعزام مشخص</span>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+        </div>
+        <div class="about-item-body">
+          <strong>هتل تضمینی نزدیک حرم</strong>
+          <span>از ۳ ستاره تا ۵ ستاره — با فاصله دقیق تا حرم</span>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        </div>
+        <div class="about-item-body">
+          <strong>قیمت شفاف</strong>
+          <span>بدون هزینه پنهان — آنچه می‌بینی همان چیزی‌ست که می‌پردازی</span>
+        </div>
+      </div>
+    </div>
+    <p class="about-note">تو فقط دل به زیارت بسپار، بقیه‌اش با ماست ✦</p>
+  </div>
+</div>
+
 <div class="toast" id="toast">
 </div>
 <script src="script.js">
