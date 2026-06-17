@@ -54,6 +54,7 @@ sub:c.sub||''
 if(mapped.length&&typeof caravans!=='undefined'){
 caravans.length=0;
 mapped.forEach(m=>caravans.push(m));
+if(typeof groupPage!=='undefined')groupPage=1;
 const gg=document.getElementById('cgrid-group');
 const cv=document.getElementById('cvt-list');
 if(typeof renderCaravans==='function'){
@@ -1297,10 +1298,27 @@ const caravans=[
 {grad:'#CFA13A,#0F4D3A',title:'۱۰ روز | زمینی(مهران)',price:'۱۴,۸۰۰,۰۰۰',badges:['کربلا ۵ شب','نجف ۳ شب','از مشهد'],meta:'🗓 اعزام ۲۵ تیر · ظرفیت:۹ نفر',sub:'هتل ۳★ · اتوبوس VIP'},
 {grad:'#1F6F6B,#0F4D3A',title:'۵ روز | هوایی از اصفهان',price:'۲۲,۳۰۰,۰۰۰',badges:['کربلا ۳ شب','نجف ۱ شب','از اصفهان'],meta:'🗓 اعزام ۱ مرداد · ظرفیت:۲ نفر',sub:'هتل ۵★ · ۸۰ متر تا حرم'},
 ];
+const MINI_LIMIT=3;
+const GROUP_PAGE_SIZE=10;
+let groupPage=1;
+let groupFullList=caravans;
 function renderCaravans(el,mini,list){
-const src=list||caravans;
-if(!src.length){el.innerHTML='<p style="text-align:center;padding:24px;color:var(--is);font-size:13px;">کاروانی با این فیلتر پیدا نشد</p>';return;}
-el.innerHTML=src.map(c=>{
+const full=list||caravans;
+if(!full.length){el.innerHTML='<p style="text-align:center;padding:24px;color:var(--is);font-size:13px;">کاروانی با این فیلتر پیدا نشد</p>';return;}
+let src=full;
+let pagHtml='';
+if(mini){
+src=full.slice(0,MINI_LIMIT);
+}else{
+groupFullList=full;
+const totalPages=Math.max(1,Math.ceil(full.length/GROUP_PAGE_SIZE));
+if(groupPage>totalPages)groupPage=totalPages;
+if(groupPage<1)groupPage=1;
+const start=(groupPage-1)*GROUP_PAGE_SIZE;
+src=full.slice(start,start+GROUP_PAGE_SIZE);
+pagHtml=renderGroupPagination(totalPages,groupPage);
+}
+const cardsHtml=src.map(c=>{
 const ci=caravans.indexOf(c);
 const bdg=c.badges.map(b=>`<span class="badge">${b}</span>`).join('');
 return mini
@@ -1322,6 +1340,32 @@ return mini
 </div>
 </article>`;
 }).join('');
+el.innerHTML=cardsHtml+pagHtml;
+}
+function renderGroupPagination(totalPages,page){
+if(totalPages<=1)return '';
+let btns='';
+for(let i=1;i<=totalPages;i++){
+btns+=`<button class="cgrid-page-btn${i===page?' active':''}" onclick="goToGroupPage(${i})">${i.toLocaleString('fa-IR')}</button>`;
+}
+return `<div class="cgrid-pagination">
+<button class="cgrid-page-nav" onclick="goToGroupPage(${page-1})" ${page<=1?'disabled':''} aria-label="صفحه قبل">
+<svg class="si" width="14" height="14" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+</button>
+${btns}
+<button class="cgrid-page-nav" onclick="goToGroupPage(${page+1})" ${page>=totalPages?'disabled':''} aria-label="صفحه بعد">
+<svg class="si" width="14" height="14" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+</button>
+</div>`;
+}
+function goToGroupPage(n){
+const grid=document.getElementById('cgrid-group');
+if(!grid)return;
+const totalPages=Math.max(1,Math.ceil(groupFullList.length/GROUP_PAGE_SIZE));
+if(n<1||n>totalPages)return;
+groupPage=n;
+renderCaravans(grid,false,groupFullList);
+grid.scrollIntoView({behavior:'smooth',block:'start'});
 }
 (function(){
 const el=document.getElementById('cstBar');
@@ -1474,6 +1518,7 @@ if(!inRange)return false;
 }
 return true;
 });
+groupPage=1;
 renderCaravans(grid,false,list);
 }
 document.getElementById('gcalPrev')?.addEventListener('click',()=>{if(curMonth>0){curMonth--;renderCal('prev');}});
