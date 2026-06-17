@@ -48,20 +48,16 @@
   <!-- Cards -->
   <div class="h-cards">
 
-    <!-- Caravan stats widget -->
-    <div class="csw-wrap" id="cswWrap" onclick="openPanel('group')" role="button" tabindex="0" aria-label="مشاهده کاروان‌های گروهی">
-      <div class="csw-header">
-        <div class="csw-title-row">
-          <span class="csw-label">✦ کاروان‌های فعال</span>
-          <span class="csw-cta">مشاهده همه
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-        </div>
+    <!-- Caravan quick-stats box -->
+    <div class="acs-box" id="acsBox" onclick="openPanel('group')" role="button" tabindex="0" aria-label="مشاهده کاروان‌های فعال">
+      <div class="acs-glow" aria-hidden="true"></div>
+      <div class="acs-top">
+        <span class="acs-tag">✦ کاروان‌های فعال</span>
+        <span class="acs-arrow" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
       </div>
-      <div class="csw-stats" id="cswStats">
-        <!-- filled by JS -->
-      </div>
-      <div class="csw-cards" id="cswCards">
+      <div class="acs-grid" id="acsGrid">
         <!-- filled by JS -->
       </div>
     </div>
