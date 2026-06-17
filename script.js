@@ -1738,3 +1738,149 @@ st.querySelectorAll('button').forEach(b=>b.addEventListener('click',updatePrevie
 });
 document.querySelectorAll('.mc').forEach(c=>c.addEventListener('click',updatePreview));
 updatePreview();
+
+
+/* ══════════════════════════════════════════════════════
+   Hotel Iraq Panel — data & logic
+══════════════════════════════════════════════════════ */
+const HI_HOTELS = {
+  najaf: [
+    { name:'هتل الصادق', stars:5, dist:'۸۰ متر تا حرم', price:'۳٬۲۰۰٬۰۰۰', features:['صبحانه','وای‌فای','پارکینگ','نزدیک‌ترین به حرم'] },
+    { name:'هتل فجر النجف', stars:5, dist:'۱۵۰ متر تا حرم', price:'۲٬۸۰۰٬۰۰۰', features:['صبحانه','استخر','سالن غذا'] },
+    { name:'هتل المرجان', stars:4, dist:'۲۵۰ متر تا حرم', price:'۱٬۹۰۰٬۰۰۰', features:['وای‌فای','صبحانه','لابی ۲۴ساعته'] },
+    { name:'هتل قدس نجف', stars:4, dist:'۳۵۰ متر تا حرم', price:'۱٬۵۰۰٬۰۰۰', features:['وای‌فای','پارکینگ','رستوران'] },
+    { name:'هتل الولاء', stars:3, dist:'۵۰۰ متر تا حرم', price:'۹۵۰٬۰۰۰', features:['وای‌فای','سرویس اتاق'] },
+    { name:'هتل مهر نجف', stars:3, dist:'۶۵۰ متر تا حرم', price:'۷۵۰٬۰۰۰', features:['وای‌فای','پارکینگ'] },
+  ],
+  karbala: [
+    { name:'هتل عباس', stars:5, dist:'۶۰ متر تا حرم', price:'۳٬۵۰۰٬۰۰۰', features:['صبحانه','وای‌فای','نزدیک‌ترین','لوکس'] },
+    { name:'هتل الحسینی', stars:5, dist:'۱۲۰ متر تا حرم', price:'۲٬۹۰۰٬۰۰۰', features:['صبحانه','استخر','رستوران'] },
+    { name:'هتل الرشید کربلا', stars:4, dist:'۲۸۰ متر تا حرم', price:'۲٬۱۰۰٬۰۰۰', features:['وای‌فای','صبحانه','لابی'] },
+    { name:'هتل مشیر', stars:4, dist:'۴۰۰ متر تا حرم', price:'۱٬۶۵۰٬۰۰۰', features:['وای‌فای','پارکینگ','رستوران'] },
+    { name:'هتل الغدیر', stars:3, dist:'۵۵۰ متر تا حرم', price:'۱٬۰۵۰٬۰۰۰', features:['وای‌فای','سرویس اتاق'] },
+    { name:'هتل نور کربلا', stars:3, dist:'۷۰۰ متر تا حرم', price:'۸۲۰٬۰۰۰', features:['وای‌فای','پارکینگ'] },
+  ],
+  kazimiya: [
+    { name:'هتل الکاظم', stars:5, dist:'۱۰۰ متر تا حرم', price:'۲٬۶۰۰٬۰۰۰', features:['صبحانه','وای‌فای','لوکس','رستوران'] },
+    { name:'هتل الرشید کاظمین', stars:4, dist:'۲۲۰ متر تا حرم', price:'۱٬۸۰۰٬۰۰۰', features:['وای‌فای','صبحانه','لابی'] },
+    { name:'هتل الحرمین', stars:3, dist:'۴۵۰ متر تا حرم', price:'۸۸۰٬۰۰۰', features:['وای‌فای','پارکینگ'] },
+  ],
+};
+
+let hiState = { city:'najaf', star:'all', hotel:null, rooms:1, guests:2 };
+
+function hiRenderGrid() {
+  const grid = document.getElementById('hiGrid');
+  if(!grid) return;
+  let list = (HI_HOTELS[hiState.city] || []).filter(h =>
+    hiState.star === 'all' || h.stars === parseInt(hiState.star)
+  );
+  if(!list.length) {
+    grid.innerHTML = '<div style="text-align:center;padding:32px 16px;color:var(--is);font-size:13px;">هتلی با این فیلتر یافت نشد</div>';
+    return;
+  }
+  grid.innerHTML = list.map((h,i) => `
+    <div class="hi-card" onclick="hiOpenSheet(${i})">
+      <div class="hi-card-top">
+        <div class="hi-card-top-left">
+          <div class="hi-card-name">${h.name}</div>
+          <div class="hi-card-dist">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8 2 4 5.5 4 10c0 6 8 12 8 12s8-6 8-12c0-4.5-4-8-8-8z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            ${h.dist}
+          </div>
+        </div>
+        <div class="hi-card-stars">${'<svg viewBox="0 0 12 12" fill="currentColor"><polygon points="6,1 7.5,4.5 11,5 8.5,7.5 9,11 6,9.5 3,11 3.5,7.5 1,5 4.5,4.5"/></svg>'.repeat(h.stars)}</div>
+      </div>
+      <div class="hi-card-body">
+        <div class="hi-card-features">${h.features.map(f=>`<span class="hi-card-feat">${f}</span>`).join('')}</div>
+        <div class="hi-card-price-wrap">
+          <span class="hi-card-price-lbl">هر شب از</span>
+          <span class="hi-card-price">${h.price}</span>
+          <span class="hi-card-price-unit">تومان</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  // store filtered list for sheet access
+  hiState._filtered = list;
+}
+
+function hiSelectCity(btn, city) {
+  document.querySelectorAll('.hi-tab').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected','true');
+  hiState.city = city;
+  hiRenderGrid();
+}
+
+function hiFilterStar(btn, star) {
+  document.querySelectorAll('.hi-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  hiState.star = star;
+  hiRenderGrid();
+}
+
+function hiOpenSheet(idx) {
+  const h = (hiState._filtered || HI_HOTELS[hiState.city])[idx];
+  if(!h) return;
+  hiState.hotel = h;
+  const head = document.getElementById('hiSheetHead');
+  if(head) head.innerHTML = `
+    <div class="hi-sheet-hotel-name">${h.name}</div>
+    <div class="hi-sheet-hotel-meta">${'★'.repeat(h.stars)} &nbsp;·&nbsp; ${h.dist}</div>
+  `;
+  hiUpdateSheetTotal();
+  document.getElementById('hiSheetOverlay').classList.add('open');
+  document.getElementById('hiSheet').classList.add('open');
+}
+
+function hiCloseSheet() {
+  document.getElementById('hiSheetOverlay').classList.remove('open');
+  document.getElementById('hiSheet').classList.remove('open');
+}
+
+function hiCounter(type, delta) {
+  if(type==='rooms') {
+    hiState.rooms = Math.max(1, Math.min(10, hiState.rooms + delta));
+    const el = document.getElementById('hiRoomsVal');
+    if(el) el.textContent = toFarsiNum(hiState.rooms);
+  } else {
+    hiState.guests = Math.max(1, Math.min(20, hiState.guests + delta));
+    const el = document.getElementById('hiGuestsVal');
+    if(el) el.textContent = toFarsiNum(hiState.guests);
+  }
+  hiUpdateSheetTotal();
+}
+
+function hiUpdateSheetTotal() {
+  const el = document.getElementById('hiSheetTotal');
+  if(!el || !hiState.hotel) return;
+  const baseStr = hiState.hotel.price.replace(/[٬,]/g,'');
+  // convert farsi digits to latin
+  const base = parseInt(baseStr.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
+  if(isNaN(base)) { el.textContent = '—'; return; }
+  const total = base * hiState.rooms;
+  el.textContent = total.toLocaleString('fa-IR') + ' تومان / شب';
+}
+
+function hiSubmitReserve() {
+  const name = document.getElementById('hiName')?.value?.trim();
+  const phone = document.getElementById('hiPhone')?.value?.trim();
+  if(!name) { showToast('نام سرپرست را وارد کنید'); return; }
+  if(!phone || phone.length < 10) { showToast('شماره موبایل معتبر وارد کنید'); return; }
+  showToast('✦ درخواست رزرو شما ثبت شد. کارشناس آوان با شما تماس می‌گیرد.');
+  hiCloseSheet();
+}
+
+// Auto-render when hotel-iraq panel opens
+const _origOpenPanel = typeof openPanel === 'function' ? openPanel : null;
+document.addEventListener('DOMContentLoaded', () => {
+  // Patch openPanel to init hotel grid
+  const orig = window.openPanel;
+  window.openPanel = function(name) {
+    orig(name);
+    if(name === 'hotel-iraq') {
+      setTimeout(() => { hiState._filtered = null; hiRenderGrid(); }, 50);
+    }
+  };
+});
