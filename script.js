@@ -474,15 +474,16 @@ setTimeout(()=>t.classList.remove('active'),2800);
 // ===== script block =====
 
 function openPanel(id){
-window.scrollTo(0,0);
-document.querySelectorAll('.panel').forEach(p=>{
-if(p.id==='panel-'+id){
-p.classList.remove('exit-up');p.classList.add('active');
-}else{
-p.classList.remove('active');p.classList.add('exit-up');
-setTimeout(()=>p.classList.remove('exit-up'),380);
-}
-});
+  window.scrollTo(0,0);
+  document.body.style.overflow = id === 'home' ? '' : 'hidden';
+  document.querySelectorAll('.panel').forEach(p=>{
+    if(p.id==='panel-'+id){
+      p.classList.remove('exit-up');p.classList.add('active');
+    }else{
+      p.classList.remove('active');p.classList.add('exit-up');
+      setTimeout(()=>p.classList.remove('exit-up'),380);
+    }
+  });
 }
 function toggleStats(){
 const el=document.getElementById('tstats');
