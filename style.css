@@ -6861,7 +6861,7 @@ to {
   grid-column: 1 / -1;                         /* full width */
   background: linear-gradient(135deg,
     #6B2737 0%,
-    #C0621A 28%,
+    #B03A52 28%,
     #D4813A 52%,
     #9E4E18 75%,
     #5E2A0C 100%);
@@ -7059,7 +7059,7 @@ to {
 .hi-eyebrow {
   font-size: 11px;
   font-weight: 700;
-  color: #C0621A;
+  color: #B03A52;
   background: rgba(180,90,20,.08);
   border: 1px solid rgba(180,90,20,.18);
   padding: 4px 14px;
@@ -7076,7 +7076,7 @@ to {
 }
 .hi-title em {
   font-style: normal;
-  background: linear-gradient(135deg, #8B3A0A 0%, #C0621A 50%, #D4813A 100%);
+  background: linear-gradient(135deg, #8B3A0A 0%, #B03A52 50%, #D4813A 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -7110,7 +7110,7 @@ to {
   white-space: nowrap;
 }
 .hi-tab.active {
-  background: linear-gradient(135deg, #6B2737, #C0621A);
+  background: linear-gradient(135deg, #6B2737, #B03A52);
   color: #FFF8EE;
   box-shadow: 0 4px 14px -4px rgba(180,90,20,.45);
 }
@@ -7138,7 +7138,7 @@ to {
   flex-shrink: 0;
 }
 .hi-filter.active {
-  background: linear-gradient(135deg, #6B2737, #C0621A);
+  background: linear-gradient(135deg, #6B2737, #B03A52);
   color: #FFF8EE;
   border-color: transparent;
   box-shadow: 0 4px 12px -4px rgba(180,90,20,.4);
@@ -7167,7 +7167,7 @@ to {
   box-shadow: 0 12px 32px -8px rgba(180,90,20,.28);
 }
 .hi-card-top {
-  background: linear-gradient(135deg, #6B2737 0%, #C0621A 50%, #D4813A 100%);
+  background: linear-gradient(135deg, #6B2737 0%, #B03A52 50%, #D4813A 100%);
   padding: 16px 18px 14px;
   display: flex;
   align-items: flex-start;
@@ -7252,7 +7252,7 @@ to {
 .hi-card-reserve {
   padding: 8px 16px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #76B2737, #C0621A);
+  background: linear-gradient(135deg, #76B2737, #B03A52);
   color: #FFF8EE;
   font-size: 11.5px;
   font-weight: 800;
@@ -7292,7 +7292,7 @@ to {
 .hi-info-item svg {
   width: 18px;
   height: 18px;
-  color: #C0621A;
+  color: #B03A52;
 }
 
 /* Reserve bottom sheet */
@@ -7384,7 +7384,7 @@ to {
   direction: rtl;
 }
 .hi-field-inp:focus {
-  border-color: #C0621A;
+  border-color: #B03A52;
 }
 
 /* Counter */
@@ -7401,7 +7401,7 @@ to {
   height: 42px;
   font-size: 18px;
   font-weight: 300;
-  color: #C0621A;
+  color: #B03A52;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7440,7 +7440,7 @@ to {
 .hi-sheet-reserve {
   padding: 13px 22px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #6B2737, #C0621A);
+  background: linear-gradient(135deg, #6B2737, #B03A52);
   color: #FFF8EE;
   font-family: var(--ff);
   font-size: 13px;
