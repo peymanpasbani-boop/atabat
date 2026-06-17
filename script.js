@@ -1427,6 +1427,7 @@ window._refreshCstBar=renderStats;
 const gridEl=document.getElementById('acsGrid');
 if(!gridEl)return;
 const fa2n=s=>parseInt(String(s).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d))||'0')||0;
+const n2fa=n=>n.toLocaleString('fa-IR');
 const activeCount=caravans.length;
 const origins=new Set(caravans.map(c=>(c.badges.find(b=>b.startsWith('از'))||'').replace('از ','')).filter(Boolean));
 const totalCap=caravans.reduce((sum,c)=>{const m=c.meta.match(/ظرفیت[:\s]*([۰-۹\d]+)/);return sum+(m?fa2n(m[1]):0);},0);
@@ -1436,16 +1437,33 @@ const icons=[
 `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg>`
 ];
 const stats=[
-{num:activeCount.toLocaleString('fa-IR'),lbl:'کاروان فعال',icon:0},
-{num:origins.size.toLocaleString('fa-IR'),lbl:'شهر مبدأ',icon:1},
-{num:totalCap?totalCap.toLocaleString('fa-IR'):'—',lbl:'نفر ظرفیت',icon:2},
+{target:activeCount,lbl:'کاروان فعال',icon:0},
+{target:origins.size,lbl:'شهر مبدأ',icon:1},
+{target:totalCap||0,lbl:'نفر ظرفیت',icon:2},
 ];
 gridEl.innerHTML=stats.map((s,i)=>`
-<div class="acs-item" style="animation-delay:${i*.08}s">
+<div class="acs-item" style="animation-delay:${(.12+i*.1)}s">
   <div class="acs-icon">${icons[s.icon]}</div>
-  <div class="acs-num">${s.num}</div>
+  <div class="acs-num" data-target="${s.target}">۰</div>
   <div class="acs-lbl">${s.lbl}</div>
 </div>`).join('');
+// animated count-up
+function countUp(el,target,delay){
+  if(!target){el.textContent='—';return;}
+  setTimeout(()=>{
+    const dur=900,fps=50,steps=Math.round(dur/fps*60/1000*fps);
+    let step=0;
+    const t=setInterval(()=>{
+      step++;
+      const ease=1-Math.pow(1-step/steps,3);
+      el.textContent=n2fa(Math.round(target*ease));
+      if(step>=steps){el.textContent=n2fa(target);clearInterval(t);}
+    },dur/steps);
+  },delay);
+}
+gridEl.querySelectorAll('.acs-num').forEach((el,i)=>{
+  countUp(el,stats[i].target,400+i*120);
+});
 })();
 (function(){
 const jalaliMonths=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
