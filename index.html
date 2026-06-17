@@ -10,259 +10,252 @@
 <body>
 <div class="app">
 <div class="panel active" id="panel-home">
-<div class="hero-orb o1">
-</div>
-<div class="hero-orb o2">
-</div>
-<div class="hero-mesh">
-</div>
-<div class="h-nav">
-<div class="logo">آوان<span class="logo-star">✦</span>
-</div>
-<button class="ai-btn" id="ai-chat-btn" aria-label="دستیار هوش مصنوعی" onclick="toggleChat()">
-<svg class="si" viewBox="0 0 24 24" >
-<path d="M12 2C6.48 2 2 6.05 2 11c0 2.6 1.13 4.95 2.94 6.64L4 21l3.7-1.35C9.07 20.52 10.5 21 12 21c5.52 0 10-4.05 10-9s-4.48-9-10-9z"/>
-<path d="M8 10h.01M12 10h.01M16 10h.01" stroke-width="2.5"/>
-</svg>
-</button>
-</div>
-<div class="h-hero">
-<span class="eyebrow">✦ &nbsp;سفر زیارتی &nbsp;·&nbsp; به انتخاب تو</span>
-<h1 class="h1">هر زیارت، <em>یک مسیر</em> دارد</h1>
-<p class="hero-sub">سفر خود را بساز یا از کاروان‌های آماده انتخاب کن</p>
-</div>
-<div class="h-cards">
-<div class="hsc-wrap" id="hscWrap" onclick="openPanel('builder')" role="button" tabindex="0" aria-label="ساخت سفر اختصاصی">
-<div class="hsc-stage" id="hscStage">
-<div class="hsc-float hfc-flight">
-<div class="hfc-icon" style="background:rgba(207,161,58,.15);color:var(--au);">
-<svg class="s22" width="14" height="14" viewBox="0 0 24 24" >
-<path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/>
-</svg>
-</div>
-<div class="hfc-text">
-<div class="hfc-label">پرواز</div>
-<div class="hfc-val">تهران ← کربلا</div>
-</div>
-</div>
-<div class="hsc-float hfc-hotel">
-<div class="hfc-icon" style="background:rgba(207,161,58,.12);color:var(--au);">
-<svg class="s22" width="14" height="14" viewBox="0 0 24 24" >
-<path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/>
-</svg>
-</div>
-<div class="hfc-text">
-<div class="hfc-label">هتل</div>
-<div class="hfc-val">۴★ نزدیک حرم</div>
-</div>
-</div>
-<div class="hsc-float hfc-days">
-<div class="hfc-icon" style="background:rgba(31,111,107,.12);color:#1F6F6B;">
-<svg class="s22" width="14" height="14" viewBox="0 0 24 24" >
-<rect x="3" y="4" width="18" height="18" rx="2"/>
-<path d="M16 2v4M8 2v4M3 10h18"/>
-</svg>
-</div>
-<div class="hfc-text">
-<div class="hfc-label">مدت</div>
-<div class="hfc-val">۷ روز</div>
-</div>
-</div>
-<div class="hsc-float hfc-city">
-<div class="hfc-icon" style="background:rgba(201,123,60,.12);color:#C97B3C;">
-<svg class="s22" width="14" height="14" viewBox="0 0 24 24" >
-<path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/>
-<circle cx="12" cy="10" r="3"/>
-</svg>
-</div>
-<div class="hfc-text">
-<div class="hfc-label">مقاصد</div>
-<div class="hfc-val">کربلا · نجف</div>
-</div>
-</div>
-<div class="hsc-float hfc-price">
-<div class="hfc-icon" style="background:rgba(207,161,58,.12);color:var(--au);">
-<svg class="s22" width="14" height="14" viewBox="0 0 24 24" >
-<rect x="2" y="5" width="20" height="14" rx="2"/>
-<path d="M2 10h20"/>
-</svg>
-</div>
-<div class="hfc-text">
-<div class="hfc-label">بودجه</div>
-<div class="hfc-val">۱۸.۵ میلیون</div>
-</div>
-</div>
-<div class="hsc-dash" id="hscDash">
-<div class="hscd-top">
-<div class="hscd-badge">✦ سفر زیارتی شخصی</div>
-<div class="hscd-meta">۲ نفر · تیر ۱۴۰۴</div>
-</div>
-<div class="hscd-cities">
-<div class="hscd-city-row">
-<div class="hscd-dot" style="background:#CFA13A;box-shadow:0 0 8px rgba(207,161,58,.5);">
-</div>
-<span class="hscd-cname">کربلا</span>
-<span class="hscd-csub">حرم امام حسین (ع)</span>
-<span class="hscd-nbadge">۴ شب</span>
-</div>
-<div class="hscd-divider">
-</div>
-<div class="hscd-city-row">
-<div class="hscd-dot" style="background:#1a6b51;box-shadow:0 0 8px rgba(26,107,81,.5);">
-</div>
-<span class="hscd-cname">نجف</span>
-<span class="hscd-csub">حرم امام علی (ع)</span>
-<span class="hscd-nbadge">۲ شب</span>
-</div>
-</div>
-<div class="hscd-chips">
-<span class="hscd-chip">✈ هوایی</span>
-<span class="hscd-chip">🏨 هتل ۴★</span>
-<span class="hscd-chip">📅 ۷ روز</span>
-</div>
-<div class="hscd-price-row">
-<span class="hscd-price-label">هر نفر از</span>
-<span class="hscd-price">۱۸,۵۰۰,۰۰۰ ت</span>
-<span class="hscd-best">✦ بهترین قیمت</span>
-</div>
-</div>
-</div>
-</div>
-<article class="cc gold" onclick="openPanel('builder')">
-<div class="cc-body">
-<div class="cc-top">
-<span class="cc-badge">✦ پیشنهاد ویژه</span>
-<span class="cc-num">۰۱</span>
-</div>
-<div class="cc-icon">
-<svg class="s17" viewBox="0 0 24 24" >
-<path d="M12 2L2 7l10 5 10-5-10-5z"/>
-<path d="M2 17l10 5 10-5"/>
-<path d="M2 12l10 5 10-5"/>
-</svg>
-</div>
-<div class="cc-title">سفر اختصاصی بساز</div>
-<div class="cc-desc">مقصد، تاریخ و هتل دلخواهت را انتخاب کن؛ یک برنامه دقیق فقط برای تو می‌چینیم.</div>
-<div class="cc-tags">
-<span class="cc-tag">کربلا · نجف</span>
-<span class="cc-tag">زمان دلخواه</span>
-<span class="cc-tag">بودجه آزاد</span>
-</div>
-</div>
-<div class="cc-foot">
-<span class="cc-cta">شروع سفر من <svg class="s22" viewBox="0 0 24 24" >
-<path d="M19 12H5M12 19l-7-7 7-7"/>
-</svg>
-</span>
-<div class="cc-pill">
-<svg class="si" viewBox="0 0 24 24" >
-<path d="M5 12h14M12 5l7 7-7 7"/>
-</svg>
-</div>
-</div>
-</article>
-<article class="cc emerald" onclick="openPanel('group')">
-<div class="cc-body">
-<div class="cc-top">
-<span class="cc-badge">کاروان آماده</span>
-<span class="cc-num">۰۲</span>
-</div>
-<div class="cc-icon">
-<svg class="s17" viewBox="0 0 24 24" >
-<circle cx="9" cy="7" r="3"/>
-<path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/>
-<circle cx="17" cy="8" r="2.5"/>
-<path d="M15 19c0-2.3 1.5-4 4.5-4"/>
-</svg>
-</div>
-<div class="cc-title">سفر گروهی عتبات</div>
-<div class="cc-desc">با کاروان‌های آماده و تاریخ مشخص، بدون دغدغه‌ برنامه‌ریزی حرکت کن.</div>
-<div class="cc-tags">
-<span class="cc-tag">تاریخ مشخص</span>
-<span class="cc-tag">هتل تضمینی</span>
-<span class="cc-tag">راهنما همراه</span>
-</div>
-</div>
-<div class="cc-foot">
-<span class="cc-cta">مشاهده کاروان‌ها <svg class="s22" viewBox="0 0 24 24" >
-<path d="M19 12H5M12 19l-7-7 7-7"/>
-</svg>
-</span>
-<div class="cc-pill">
-<svg class="si" viewBox="0 0 24 24" >
-<path d="M5 12h14M12 5l7 7-7 7"/>
-</svg>
-</div>
-</div>
-</article>
-</div>
-<section class="h-about">
-<div class="h-about-header">
-<div class="h-about-badge">✦ درباره آوان</div>
-<h3 class="h-about-title">سفر زیارتی،<br><em>آن‌طور که تو می‌خواهی</em></h3>
-</div>
-<div class="h-about-grid">
-<div class="h-about-item">
-<div class="h-about-item-icon">
-<svg class="s18" viewBox="0 0 24 24"><path d="M12 2C8 2 4 5.5 4 10c0 6 8 12 8 12s8-6 8-12c0-4.5-4-8-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
-</div>
-<div class="h-about-item-body">
-<strong>مقصد دلخواه</strong>
-<span>کربلا، نجف، کاظمین و سامرا — هر ترکیبی که بخواهی</span>
-</div>
-</div>
-<div class="h-about-item">
-<div class="h-about-item-icon">
-<svg class="s18" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-</div>
-<div class="h-about-item-body">
-<strong>تاریخ آزاد یا تاریخ ثابت</strong>
-<span>سفر شخصی با تاریخ دلخواهت یا کاروان آماده با اعزام مشخص</span>
-</div>
-</div>
-<div class="h-about-item">
-<div class="h-about-item-icon">
-<svg class="s18" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
-</div>
-<div class="h-about-item-body">
-<strong>هتل تضمینی نزدیک حرم</strong>
-<span>از ۳ ستاره تا ۵ ستاره — با فاصله دقیق تا حرم</span>
-</div>
-</div>
-<div class="h-about-item">
-<div class="h-about-item-icon">
-<svg class="s18" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-</div>
-<div class="h-about-item-body">
-<strong>قیمت شفاف</strong>
-<span>بدون هزینه پنهان — آنچه می‌بینی همان چیزی‌ست که می‌پردازی</span>
-</div>
-</div>
-</div>
-<p class="h-about-note">تو فقط دل به زیارت بسپار، بقیه‌اش با ماست ✦</p>
-</section>
 
-<footer class="h-foot">
-<div class="h-foot-brand">
-<span class="h-foot-logo">آوان<span>✦</span></span>
-<span class="h-foot-tagline">همراه زیارت شما</span>
-</div>
-<div class="h-foot-links">
-<a class="h-foot-link" href="tel:02112345678">
-<svg class="s18" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 3.1 4.2 2 2 0 0 1 5.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L9.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7A2 2 0 0 1 23 17z"/></svg>
-۰۲۱–۱۲۳۴۵۶۷۸
-</a>
-<a class="h-foot-link" href="mailto:info@avan-travel.ir">
-<svg class="s18" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-info@avan-travel.ir
-</a>
-<span class="h-foot-link">
-<svg class="s18" viewBox="0 0 24 24"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-تهران، ولیعصر
-</span>
-</div>
-<div class="h-foot-copy">© ۱۴۰۴ آوان — تمامی حقوق محفوظ است</div>
-</footer>
+  <!-- Background layers -->
+  <div class="hero-orb o1" aria-hidden="true"></div>
+  <div class="hero-orb o2" aria-hidden="true"></div>
+  <div class="hero-mesh" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <nav class="h-nav">
+    <div class="logo">آوان<span class="logo-star">✦</span></div>
+    <button class="ai-btn" id="ai-chat-btn" aria-label="دستیار هوش مصنوعی" onclick="toggleChat()">
+      <svg class="si" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.05 2 11c0 2.6 1.13 4.95 2.94 6.64L4 21l3.7-1.35C9.07 20.52 10.5 21 12 21c5.52 0 10-4.05 10-9s-4.48-9-10-9z"/>
+        <path d="M8 10h.01M12 10h.01M16 10h.01" stroke-width="2.5"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Hero -->
+  <div class="h-hero">
+    <span class="eyebrow">✦ &nbsp;سفر زیارتی &nbsp;·&nbsp; به انتخاب تو</span>
+    <h1 class="h1">هر زیارت، <em>یک مسیر</em> دارد</h1>
+    <p class="hero-sub">سفر خود را بساز یا از کاروان‌های آماده انتخاب کن</p>
+  </div>
+
+  <!-- Cards -->
+  <div class="h-cards">
+
+    <!-- Interactive preview card -->
+    <div class="hsc-wrap" id="hscWrap" onclick="openPanel('builder')" role="button" tabindex="0" aria-label="ساخت سفر اختصاصی">
+      <div class="hsc-stage" id="hscStage">
+        <div class="hsc-float hfc-flight">
+          <div class="hfc-icon" style="background:rgba(207,161,58,.15);color:var(--au);">
+            <svg class="s22" width="14" height="14" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+          </div>
+          <div class="hfc-text">
+            <div class="hfc-label">پرواز</div>
+            <div class="hfc-val">تهران ← کربلا</div>
+          </div>
+        </div>
+        <div class="hsc-float hfc-hotel">
+          <div class="hfc-icon" style="background:rgba(207,161,58,.12);color:var(--au);">
+            <svg class="s22" width="14" height="14" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+          </div>
+          <div class="hfc-text">
+            <div class="hfc-label">هتل</div>
+            <div class="hfc-val">۴★ نزدیک حرم</div>
+          </div>
+        </div>
+        <div class="hsc-float hfc-days">
+          <div class="hfc-icon" style="background:rgba(31,111,107,.12);color:#1F6F6B;">
+            <svg class="s22" width="14" height="14" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </div>
+          <div class="hfc-text">
+            <div class="hfc-label">مدت</div>
+            <div class="hfc-val">۷ روز</div>
+          </div>
+        </div>
+        <div class="hsc-float hfc-city">
+          <div class="hfc-icon" style="background:rgba(201,123,60,.12);color:#C97B3C;">
+            <svg class="s22" width="14" height="14" viewBox="0 0 24 24"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="hfc-text">
+            <div class="hfc-label">مقاصد</div>
+            <div class="hfc-val">کربلا · نجف</div>
+          </div>
+        </div>
+        <div class="hsc-float hfc-price">
+          <div class="hfc-icon" style="background:rgba(207,161,58,.12);color:var(--au);">
+            <svg class="s22" width="14" height="14" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          </div>
+          <div class="hfc-text">
+            <div class="hfc-label">بودجه</div>
+            <div class="hfc-val">۱۸.۵ میلیون</div>
+          </div>
+        </div>
+        <div class="hsc-dash" id="hscDash">
+          <div class="hscd-top">
+            <div class="hscd-badge">✦ سفر زیارتی شخصی</div>
+            <div class="hscd-meta">۲ نفر · تیر ۱۴۰۴</div>
+          </div>
+          <div class="hscd-cities">
+            <div class="hscd-city-row">
+              <div class="hscd-dot" style="background:#CFA13A;box-shadow:0 0 8px rgba(207,161,58,.5);"></div>
+              <span class="hscd-cname">کربلا</span>
+              <span class="hscd-csub">حرم امام حسین (ع)</span>
+              <span class="hscd-nbadge">۴ شب</span>
+            </div>
+            <div class="hscd-divider"></div>
+            <div class="hscd-city-row">
+              <div class="hscd-dot" style="background:#1a6b51;box-shadow:0 0 8px rgba(26,107,81,.5);"></div>
+              <span class="hscd-cname">نجف</span>
+              <span class="hscd-csub">حرم امام علی (ع)</span>
+              <span class="hscd-nbadge">۲ شب</span>
+            </div>
+          </div>
+          <div class="hscd-chips">
+            <span class="hscd-chip">✈ هوایی</span>
+            <span class="hscd-chip">🏨 هتل ۴★</span>
+            <span class="hscd-chip">📅 ۷ روز</span>
+          </div>
+          <div class="hscd-price-row">
+            <span class="hscd-price-label">هر نفر از</span>
+            <span class="hscd-price">۱۸,۵۰۰,۰۰۰ ت</span>
+            <span class="hscd-best">✦ بهترین قیمت</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card: سفر اختصاصی -->
+    <article class="cc gold" onclick="openPanel('builder')">
+      <div class="cc-body">
+        <div class="cc-top">
+          <span class="cc-badge">✦ پیشنهاد ویژه</span>
+          <span class="cc-num">۰۱</span>
+        </div>
+        <div class="cc-icon">
+          <svg class="s17" viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="cc-title">سفر اختصاصی بساز</div>
+        <div class="cc-desc">مقصد، تاریخ و هتل دلخواهت را انتخاب کن؛ یک برنامه دقیق فقط برای تو می‌چینیم.</div>
+        <div class="cc-tags">
+          <span class="cc-tag">کربلا · نجف</span>
+          <span class="cc-tag">زمان دلخواه</span>
+          <span class="cc-tag">بودجه آزاد</span>
+        </div>
+      </div>
+      <div class="cc-foot">
+        <span class="cc-cta">شروع سفر من
+          <svg class="s22" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </span>
+        <div class="cc-pill">
+          <svg class="si" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card: سفر گروهی -->
+    <article class="cc emerald" onclick="openPanel('group')">
+      <div class="cc-body">
+        <div class="cc-top">
+          <span class="cc-badge">کاروان آماده</span>
+          <span class="cc-num">۰۲</span>
+        </div>
+        <div class="cc-icon">
+          <svg class="s17" viewBox="0 0 24 24">
+            <circle cx="9" cy="7" r="3"/>
+            <path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/>
+            <circle cx="17" cy="8" r="2.5"/>
+            <path d="M15 19c0-2.3 1.5-4 4.5-4"/>
+          </svg>
+        </div>
+        <div class="cc-title">سفر گروهی عتبات</div>
+        <div class="cc-desc">با کاروان‌های آماده و تاریخ مشخص، بدون دغدغه‌ برنامه‌ریزی حرکت کن.</div>
+        <div class="cc-tags">
+          <span class="cc-tag">تاریخ مشخص</span>
+          <span class="cc-tag">هتل تضمینی</span>
+          <span class="cc-tag">راهنما همراه</span>
+        </div>
+      </div>
+      <div class="cc-foot">
+        <span class="cc-cta">مشاهده کاروان‌ها
+          <svg class="s22" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </span>
+        <div class="cc-pill">
+          <svg class="si" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </article>
+
+  </div><!-- /.h-cards -->
+
+  <!-- About section -->
+  <section class="h-about">
+    <div class="h-about-header">
+      <div class="h-about-badge">✦ درباره آوان</div>
+      <h3 class="h-about-title">سفر زیارتی،<br><em>آن‌طور که تو می‌خواهی</em></h3>
+    </div>
+    <div class="h-about-grid">
+      <div class="h-about-item">
+        <div class="h-about-item-icon">
+          <svg class="s18" viewBox="0 0 24 24"><path d="M12 2C8 2 4 5.5 4 10c0 6 8 12 8 12s8-6 8-12c0-4.5-4-8-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="h-about-item-body">
+          <strong>مقصد دلخواه</strong>
+          <span>کربلا، نجف، کاظمین و سامرا — هر ترکیبی که بخواهی</span>
+        </div>
+      </div>
+      <div class="h-about-item">
+        <div class="h-about-item-icon">
+          <svg class="s18" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <div class="h-about-item-body">
+          <strong>تاریخ آزاد یا تاریخ ثابت</strong>
+          <span>سفر شخصی با تاریخ دلخواهت یا کاروان آماده با اعزام مشخص</span>
+        </div>
+      </div>
+      <div class="h-about-item">
+        <div class="h-about-item-icon">
+          <svg class="s18" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+        </div>
+        <div class="h-about-item-body">
+          <strong>هتل تضمینی نزدیک حرم</strong>
+          <span>از ۳ ستاره تا ۵ ستاره — با فاصله دقیق تا حرم</span>
+        </div>
+      </div>
+      <div class="h-about-item">
+        <div class="h-about-item-icon">
+          <svg class="s18" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        </div>
+        <div class="h-about-item-body">
+          <strong>قیمت شفاف</strong>
+          <span>بدون هزینه پنهان — آنچه می‌بینی همان چیزی‌ست که می‌پردازی</span>
+        </div>
+      </div>
+    </div>
+    <p class="h-about-note">تو فقط دل به زیارت بسپار، بقیه‌اش با ماست ✦</p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="h-foot">
+    <div class="h-foot-brand">
+      <span class="h-foot-logo">آوان<span>✦</span></span>
+      <span class="h-foot-tagline">همراه زیارت شما</span>
+    </div>
+    <div class="h-foot-links">
+      <a class="h-foot-link" href="tel:02112345678">
+        <svg class="s18" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 3.1 4.2 2 2 0 0 1 5.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L9.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7A2 2 0 0 1 23 17z"/></svg>
+        ۰۲۱–۱۲۳۴۵۶۷۸
+      </a>
+      <a class="h-foot-link" href="mailto:info@avan-travel.ir">
+        <svg class="s18" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        info@avan-travel.ir
+      </a>
+      <span class="h-foot-link">
+        <svg class="s18" viewBox="0 0 24 24"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        تهران، ولیعصر
+      </span>
+    </div>
+    <div class="h-foot-copy">© ۱۴۰۴ آوان — تمامی حقوق محفوظ است</div>
+  </footer>
+
 </div>
 <div class="panel" id="panel-builder">
 <div class="topbar">
