@@ -135,51 +135,48 @@ img,svg,.loading.active,.pi-zaer.active .pi-zaer-body,#inline-results.show {
   position:absolute;
   visibility:hidden
 }
+/* ── panel-home ─────────────────────────────────── */
 #panel-home {
   background:var(--cr);
   color:var(--ink);
   overflow-x:hidden;
   overflow-y:auto;
-  min-height:unset
 }
 #panel-home::before {
   content:'';
   position:absolute;
   inset:0;
   z-index:0;
-  background:radial-gradient(ellipse 70% 50% at 10% 0%,var(--gb) 0%,transparent 60%),radial-gradient(ellipse 80% 60% at 90% 100%,rgba(207,161,58,.08) 0%,transparent 65%)
+  background:
+    radial-gradient(ellipse 70% 50% at 10% 0%, var(--gb) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 90% 100%, rgba(207,161,58,.08) 0%, transparent 65%);
 }
+
+/* Decorative orbs */
 .hero-orb {
   position:absolute;
   border-radius:50%;
   z-index:0;
-  pointer-events:none
+  pointer-events:none;
 }
 .hero-orb.o1 {
-  bottom:-25%;
-  left:-15%;
-  width:60vw;
-  height:60vw;
-  background:radial-gradient(circle,rgba(207,161,58,.1) 0%,transparent 70%);
-  animation:orb 12s ease-in-out infinite alternate
+  bottom:-25%; left:-15%;
+  width:60vw; height:60vw;
+  background:radial-gradient(circle, rgba(207,161,58,.1) 0%, transparent 70%);
+  animation:orb 12s ease-in-out infinite alternate;
 }
 .hero-orb.o2 {
-  top:-20%;
-  right:-10%;
-  width:52vw;
-  height:52vw;
-  background:radial-gradient(circle,var(--ge) 0%,transparent 70%);
-  animation:orb 15s ease-in-out infinite alternate-reverse
+  top:-20%; right:-10%;
+  width:52vw; height:52vw;
+  background:radial-gradient(circle, var(--ge) 0%, transparent 70%);
+  animation:orb 15s ease-in-out infinite alternate-reverse;
 }
 @keyframes orb {
-  from {
-  transform:scale(1)
-}
-to {
-  transform:scale(1.1) translate(3%,-5%)
+  from { transform:scale(1); }
+  to   { transform:scale(1.1) translate(3%,-5%); }
 }
 
-}
+/* Mesh texture */
 .hero-mesh {
   position:absolute;
   inset:0;
@@ -187,16 +184,18 @@ to {
   pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%230F4D3A' stroke-width='0.3'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z' opacity='0.12'/%3E%3C/g%3E%3C/svg%3E");
   background-size:60px 60px;
-  opacity:.6
+  opacity:.6;
 }
+
+/* Nav */
 #panel-home .h-nav {
   position:relative;
   z-index:2;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:max(env(safe-area-inset-top,0px),20px) 24px 0;
-  height:68px
+  padding:max(env(safe-area-inset-top, 0px), 20px) 24px 0;
+  height:68px;
 }
 .logo {
   font-weight:800;
@@ -209,6 +208,7 @@ to {
 .logo-star,.emerald .cc-cta,.hfi a:hover,.p-logo span {
   color:var(--au)
 }
+/* Hero */
 #panel-home .h-hero {
   position:relative;
   z-index:2;
@@ -216,7 +216,7 @@ to {
   flex-direction:column;
   align-items:center;
   text-align:center;
-  padding:28px 28px 20px
+  padding:28px 28px 20px;
 }
 .eyebrow {
   display:inline-flex;
@@ -253,21 +253,21 @@ to {
   line-height:1.7;
   max-width:320px
 }
+/* Cards grid */
 #panel-home .h-cards {
   position:relative;
   z-index:2;
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:14px;
-  padding:0 16px 8px
+  padding:0 16px 8px;
 }
 @media(max-width:500px) {
   #panel-home .h-cards {
-  grid-template-columns:1fr;
-  gap:12px;
-  padding:0 14px 8px
-}
-
+    grid-template-columns:1fr;
+    gap:12px;
+    padding:0 14px 8px;
+  }
 }
 .cc {
   border-radius:22px;
