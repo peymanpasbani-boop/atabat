@@ -291,7 +291,7 @@ img,svg,.loading.active,.pi-zaer.active .pi-zaer-body,#inline-results.show {
     gap:12px;
     padding:0 14px 8px;
   }
-  .csw-wrap {
+  .acs-box {
     grid-column:1;
   }
 }
@@ -3990,179 +3990,115 @@ to {
   padding:3px 9px;
   border-radius:var(--rp)
 }
-/* ── Caravan Stats Widget ── */
-.csw-wrap {
+/* ── Caravan Quick-Stats Box ── */
+.acs-box {
   grid-column:1/-1;
   position:relative;
-  background:linear-gradient(145deg,#f0f7f3 0%,#faf6ee 50%,#eef4f1 100%);
-  border:1.5px solid var(--gc);
-  border-radius:22px;
-  padding:14px 16px 12px;
-  overflow:hidden;
-  cursor:pointer;
+  background:linear-gradient(150deg,#0A3328 0%,#0F4D3A 55%,#0A3328 100%);
+  border:1px solid rgba(207,161,58,.22);
+  border-radius:20px;
+  padding:13px 16px 14px;
   display:flex;
   flex-direction:column;
   gap:10px;
+  cursor:pointer;
+  overflow:hidden;
   min-width:0;
   width:100%;
   box-sizing:border-box;
+  box-shadow:0 14px 36px -10px rgba(10,51,40,.45),inset 0 1px 0 rgba(255,255,255,.06);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;
 }
-.csw-wrap::before {
-  content:'';
+.acs-box:hover {
+  transform:translateY(-3px);
+  box-shadow:0 20px 46px -10px rgba(10,51,40,.55),inset 0 1px 0 rgba(255,255,255,.08);
+}
+.acs-box:active {
+  transform:translateY(-1px) scale(.995);
+}
+.acs-glow {
   position:absolute;
   inset:0;
-  border-radius:22px;
-  background:radial-gradient(ellipse 80% 60% at 80% 110%,rgba(207,161,58,.08) 0%,transparent 70%),radial-gradient(ellipse 60% 50% at 10% 0%,var(--gb) 0%,transparent 60%);
-  pointer-events:none
+  background:
+    radial-gradient(ellipse 70% 70% at 88% 0%,rgba(207,161,58,.30) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 60% at 6% 110%,rgba(31,111,107,.40) 0%,transparent 65%);
+  pointer-events:none;
 }
-.csw-header {
-  position:relative;z-index:1
-}
-.csw-title-row {
+.acs-top {
+  position:relative;
+  z-index:1;
   display:flex;
   align-items:center;
-  justify-content:space-between
+  justify-content:space-between;
 }
-.csw-label {
-  font-size:12px;
+.acs-tag {
+  font-size:11.5px;
   font-weight:800;
-  color:var(--g);
-  letter-spacing:.2px
+  color:var(--al);
+  letter-spacing:.2px;
 }
-.csw-cta {
+.acs-arrow {
+  position:relative;
   display:flex;
   align-items:center;
-  gap:4px;
-  font-size:11px;
-  font-weight:600;
-  color:var(--au)
+  justify-content:center;
+  width:21px;height:21px;
+  border-radius:50%;
+  background:rgba(255,255,255,.09);
+  color:var(--al);
+  flex-shrink:0;
+  transition:background .25s,transform .25s;
 }
-.csw-stats {
+.acs-box:hover .acs-arrow {
+  background:rgba(207,161,58,.28);
+  transform:translateX(-2px);
+}
+.acs-grid {
+  position:relative;
+  z-index:1;
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  position:relative;
-  z-index:1;
   width:100%;
   min-width:0;
 }
-.csw-cards {
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  position:relative;
-  z-index:1;
-  width:100%;
-  min-width:0;
-}
-  background:#fff;
-  border:1px solid var(--gc);
-  border-radius:13px;
-  padding:9px 10px 8px;
+.acs-item {
   display:flex;
   flex-direction:column;
   align-items:center;
   gap:3px;
-  box-shadow:0 4px 14px -4px rgba(15,77,58,.1);
+  padding:1px 4px;
   opacity:0;
-  transform:translateY(10px);
-  animation:cswFadeUp .5s ease forwards
+  transform:translateY(8px);
+  animation:acsFadeUp .5s ease forwards;
 }
-.csw-stat:nth-child(1){animation-delay:.05s}
-.csw-stat:nth-child(2){animation-delay:.12s}
-.csw-stat:nth-child(3){animation-delay:.19s}
-@keyframes cswFadeUp{
+.acs-item:not(:last-child) {
+  border-inline-end:1px solid rgba(255,255,255,.13);
+}
+.acs-item:nth-child(1){animation-delay:.05s}
+.acs-item:nth-child(2){animation-delay:.12s}
+.acs-item:nth-child(3){animation-delay:.19s}
+@keyframes acsFadeUp{
   to{opacity:1;transform:translateY(0)}
 }
-.csw-stat-num {
-  font-size:22px;
-  font-weight:900;
-  color:var(--g);
-  line-height:1;
-  animation:cswCount .8s ease forwards
-}
-.csw-stat-lbl {
-  font-size:9.5px;
-  color:var(--is);
-  font-weight:500;
-  text-align:center
-}
-.csw-stat-icon {
-  width:22px;height:22px;
-  border-radius:7px;
+.acs-icon {
+  width:23px;height:23px;
+  border-radius:8px;
   display:flex;align-items:center;justify-content:center;
-  margin-bottom:2px
+  background:rgba(207,161,58,.20);
+  color:var(--au);
+  margin-bottom:1px;
 }
-.csw-card {
-  background:#fff;
-  border:1px solid var(--gc);
-  border-radius:12px;
-  padding:9px 12px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  box-shadow:0 3px 10px -3px rgba(15,77,58,.08);
-  opacity:0;
-  transform:translateX(12px);
-  animation:cswSlide .45s ease forwards
-}
-.csw-card:nth-child(1){animation-delay:.25s}
-.csw-card:nth-child(2){animation-delay:.35s}
-.csw-card:nth-child(3){animation-delay:.45s}
-@keyframes cswSlide{
-  to{opacity:1;transform:translateX(0)}
-}
-.csw-card-bar {
-  width:4px;
-  border-radius:4px;
-  align-self:stretch;
-  flex-shrink:0
-}
-.csw-card-body {
-  flex:1;
-  min-width:0
-}
-.csw-card-title {
-  font-size:11.5px;
-  font-weight:700;
-  color:var(--ink);
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis
-}
-.csw-card-meta {
-  font-size:9.5px;
-  color:var(--is);
-  margin-top:2px;
-  display:flex;
-  gap:6px;
-  align-items:center
-}
-.csw-card-origin {
-  font-size:9.5px;
-  font-weight:700;
+.acs-num {
+  font-size:21px;
+  font-weight:900;
   color:#fff;
-  padding:2px 7px;
-  border-radius:var(--rp)
+  line-height:1;
 }
-.csw-card-price {
-  font-size:11px;
-  font-weight:800;
-  color:var(--g);
-  white-space:nowrap
-}
-.csw-pulse {
-  display:inline-block;
-  width:6px;height:6px;
-  border-radius:50%;
-  background:#22c55e;
-  box-shadow:0 0 0 0 rgba(34,197,94,.4);
-  animation:cswPulse 1.8s ease-in-out infinite
-}
-@keyframes cswPulse{
-  0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}
-  60%{box-shadow:0 0 0 6px rgba(34,197,94,0)}
-  100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
+.acs-lbl {
+  font-size:9.5px;
+  font-weight:500;
+  color:rgba(255,255,255,.64);
+  text-align:center;
 }
 .sc-stage {
   position:relative;
