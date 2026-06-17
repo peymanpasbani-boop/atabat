@@ -73,12 +73,10 @@
 }
 html,body {
   width:100%;
-  min-height:100%;
   font-family:var(--ff);
   background:var(--cr);
   color:var(--ink);
   direction:rtl;
-  overflow-x:hidden;
 }
 button {
   font-family:var(--ff);
@@ -104,7 +102,6 @@ img,svg,.loading.active,.pi-zaer.active .pi-zaer-body,#inline-results.show {
 .app {
   width:100%;
   position:relative;
-  overflow-x:hidden;
 }
 .panel {
   position:absolute;
@@ -125,8 +122,7 @@ img,svg,.loading.active,.pi-zaer.active .pi-zaer-body,#inline-results.show {
   transform:none;
   position:relative;
   height:auto;
-  min-height:100vh;
-  visibility:visible
+  visibility:visible;
 }
 .panel.exit-up {
   opacity:0;
@@ -139,8 +135,6 @@ img,svg,.loading.active,.pi-zaer.active .pi-zaer-body,#inline-results.show {
 #panel-home {
   background:var(--cr);
   color:var(--ink);
-  overflow:visible;
-  min-height:unset;
 }
 #panel-home::before {
   content:'';
@@ -196,6 +190,35 @@ img,svg,.loading.active,.pi-zaer.active .pi-zaer-body,#inline-results.show {
   justify-content:space-between;
   padding:max(env(safe-area-inset-top, 0px), 20px) 24px 0;
   height:68px;
+}
+.h-nav-actions {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* About button in nav */
+.about-btn {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:7px 13px 7px 10px;
+  border-radius:var(--rp);
+  background:rgba(15,77,58,.08);
+  border:1px solid rgba(15,77,58,.15);
+  color:var(--g);
+  font-size:12px;
+  font-weight:700;
+  transition:background .2s, transform .2s;
+}
+.about-btn:hover {
+  background:rgba(15,77,58,.13);
+  transform:scale(1.03);
+}
+.about-btn svg {
+  width:17px;
+  height:17px;
+  flex-shrink:0;
 }
 .logo {
   font-weight:800;
@@ -437,99 +460,157 @@ img,svg,.loading.active,.pi-zaer.active .pi-zaer-body,#inline-results.show {
 .emerald .cc-pill {
   background:rgba(207,161,58,.13)
 }
-/* ── h-about ─────────────────────────────────────── */
-.h-about {
-  position:relative;
-  z-index:2;
-  margin:12px 16px 0;
-  padding:24px 20px 20px;
-  border-radius:var(--r);
-  background:#fff;
-  border:1px solid var(--ge);
-  box-shadow:var(--sc)
+/* ── about drawer ────────────────────────────────── */
+.about-overlay {
+  position:fixed;
+  inset:0;
+  background:rgba(10,51,40,.45);
+  z-index:900;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .3s ease;
 }
-.h-about-header {
-  text-align:center;
-  margin-bottom:20px
+.about-overlay.open {
+  opacity:1;
+  pointer-events:auto;
 }
-.h-about-badge {
-  display:inline-flex;
+.about-drawer {
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:901;
+  background:var(--cr);
+  border-radius:24px 24px 0 0;
+  padding:12px 20px max(env(safe-area-inset-bottom,0px),24px);
+  transform:translateY(100%);
+  transition:transform .38s cubic-bezier(.2,.8,.2,1);
+  max-height:88vh;
+  overflow-y:auto;
+}
+.about-drawer.open {
+  transform:translateY(0);
+}
+.about-handle {
+  width:40px;
+  height:4px;
+  background:var(--gf);
+  border-radius:2px;
+  margin:0 auto 18px;
+}
+.about-header {
+  display:flex;
   align-items:center;
-  gap:6px;
-  font-size:10.5px;
-  font-weight:700;
-  color:var(--g);
-  background:var(--gs);
-  border:1px solid var(--ga);
-  padding:4px 14px;
-  border-radius:var(--rp);
-  margin-bottom:10px
+  gap:12px;
+  margin-bottom:20px;
 }
-.h-about-title {
-  font-size:clamp(17px,4vw,22px);
+.about-header-icon {
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  background:linear-gradient(135deg,var(--g),var(--gm));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.about-header-icon svg {
+  width:20px;
+  height:20px;
+  color:#fff;
+}
+.about-header-text {
+  flex:1;
+}
+.about-header-text h4 {
+  font-size:16px;
   font-weight:900;
   color:var(--ink);
-  line-height:1.3
+  margin-bottom:2px;
 }
-.h-about-title em {
-  font-style:normal;
-  color:var(--g)
+.about-header-text span {
+  font-size:12px;
+  color:var(--is);
 }
-.h-about-grid {
+.about-close {
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:var(--gs);
+  border:1px solid var(--ge);
+  color:var(--is);
+  font-size:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.about-quote {
+  font-size:14px;
+  font-weight:700;
+  color:var(--g);
+  text-align:center;
+  padding:14px 16px;
+  background:var(--gs);
+  border:1px solid var(--ga);
+  border-radius:14px;
+  margin-bottom:16px;
+  font-style:italic;
+}
+.about-grid {
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
-  margin-bottom:18px
+  margin-bottom:16px;
 }
-@media(max-width:400px){
-  .h-about-grid{grid-template-columns:1fr}
+@media(max-width:360px){
+  .about-grid { grid-template-columns:1fr; }
 }
-.h-about-item {
+.about-item {
   display:flex;
   align-items:flex-start;
   gap:10px;
   padding:12px;
   border-radius:14px;
-  background:var(--gs);
-  border:1px solid var(--ga)
+  background:#fff;
+  border:1px solid var(--ge);
 }
-.h-about-item-icon {
-  width:32px;
-  height:32px;
-  border-radius:9px;
+.about-item-icon {
+  width:30px;
+  height:30px;
+  border-radius:8px;
   background:linear-gradient(135deg,var(--g),var(--gm));
   display:flex;
   align-items:center;
   justify-content:center;
-  flex-shrink:0
+  flex-shrink:0;
 }
-.h-about-item-icon svg {
-  width:15px;
-  height:15px;
-  color:#fff
+.about-item-icon svg {
+  width:14px;
+  height:14px;
+  color:#fff;
 }
-.h-about-item-body {
+.about-item-body {
   display:flex;
   flex-direction:column;
-  gap:3px
+  gap:3px;
 }
-.h-about-item-body strong {
-  font-size:11.5px;
+.about-item-body strong {
+  font-size:11px;
   font-weight:800;
-  color:var(--ink)
+  color:var(--ink);
 }
-.h-about-item-body span {
-  font-size:10.5px;
+.about-item-body span {
+  font-size:10px;
   color:var(--is);
-  line-height:1.6
+  line-height:1.6;
 }
-.h-about-note {
+.about-note {
   text-align:center;
   font-size:12px;
   color:var(--is);
   font-style:italic;
   padding-top:14px;
-  border-top:1px solid var(--ge)
+  border-top:1px solid var(--ge);
 }
 
 /* ── h-foot ─────────────────────────────────────── */
@@ -606,11 +687,9 @@ img,svg,.loading.active,.pi-zaer.active .pi-zaer-body,#inline-results.show {
 }
 #panel-builder,#panel-group,#panel-suggestions,#panel-about,#panel-contact {
   background:var(--cr);
+  height:100vh;
   overflow-y:auto;
   overflow-x:hidden;
-  height:100vh;
-  min-height:100vh;
-  -webkit-overflow-scrolling:touch;
 }
 #panel-builder::-webkit-scrollbar,#panel-group::-webkit-scrollbar,#panel-suggestions::-webkit-scrollbar,#panel-about::-webkit-scrollbar,#panel-contact::-webkit-scrollbar {
   width:3px
