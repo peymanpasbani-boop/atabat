@@ -1422,6 +1422,61 @@ el.innerHTML=calcStats().map((s,i)=>`<div class="cst-item" style="animation-dela
 renderStats();
 window._refreshCstBar=renderStats;
 })();
+// ── Caravan Stats Widget (Home) ──
+(function(){
+const statsEl=document.getElementById('cswStats');
+const cardsEl=document.getElementById('cswCards');
+if(!statsEl||!cardsEl)return;
+const fa2n=s=>parseInt(String(s).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d))||'0')||0;
+// ─ stats
+const activeCount=caravans.length;
+const origins=new Set(caravans.map(c=>(c.badges.find(b=>b.startsWith('از'))||'').replace('از ','')).filter(Boolean));
+const totalCap=caravans.reduce((sum,c)=>{const m=c.meta.match(/ظرفیت[:\s]*([۰-۹\d]+)/);return sum+(m?fa2n(m[1]):0);},0);
+const statIcons=[
+`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="7" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><circle cx="17" cy="8" r="2.5"/><path d="M15 19c0-2.3 1.5-4 4.5-4"/></svg>`,
+`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg>`
+];
+const statColors=['rgba(15,77,58,.12)','rgba(207,161,58,.15)','rgba(31,111,107,.12)'];
+const statIconColors=['var(--g)','var(--au)','#1F6F6B'];
+const stats=[
+{num:activeCount.toLocaleString('fa-IR'),lbl:'کاروان فعال',icon:0},
+{num:origins.size.toLocaleString('fa-IR'),lbl:'شهر مبدأ',icon:1},
+{num:totalCap?totalCap.toLocaleString('fa-IR'):'—',lbl:'نفر ظرفیت',icon:2},
+];
+statsEl.innerHTML=stats.map((s,i)=>`
+<div class="csw-stat">
+  <div class="csw-stat-icon" style="background:${statColors[i]};color:${statIconColors[i]}">${statIcons[s.icon]}</div>
+  <div class="csw-stat-num">${s.num}</div>
+  <div class="csw-stat-lbl">${s.lbl}</div>
+</div>`).join('');
+// ─ caravan rows (max 3)
+const sorted=sortCaravansByDate(caravans).slice(0,3);
+const barGrads=[
+'linear-gradient(to bottom,#0F4D3A,#CFA13A)',
+'linear-gradient(to bottom,#CFA13A,#0F4D3A)',
+'linear-gradient(to bottom,#1F6F6B,#0F4D3A)'
+];
+cardsEl.innerHTML=sorted.map((c,i)=>{
+const origin=(c.badges.find(b=>b.startsWith('از'))||'').replace('از ','');
+const capM=c.meta.match(/ظرفیت[:\s]*([۰-۹\d]+\s*نفر|[۰-۹\d]+)/);
+const capStr=capM?capM[1]+' نفر باقی':'';
+const depM=c.meta.match(/اعزام\s+([۰-۹\d]+\s+[\u0600-\u06FF]+)/);
+const dep=depM?depM[1]:'';
+return `<div class="csw-card">
+  <div class="csw-card-bar" style="background:${barGrads[i%3]}"></div>
+  <div class="csw-card-body">
+    <div class="csw-card-title">${c.title}</div>
+    <div class="csw-card-meta">
+      <span class="csw-pulse"></span>
+      ${dep?`<span>${dep}</span>`:''}
+      ${capStr?`<span>·</span><span>${capStr}</span>`:''}
+    </div>
+  </div>
+  ${origin?`<span class="csw-card-origin" style="background:linear-gradient(135deg,var(--g),var(--gm))">از ${origin}</span>`:''}
+</div>`;
+}).join('');
+})();
 (function(){
 const jalaliMonths=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
 const dpm=[31,31,31,31,31,31,30,30,30,30,30,29];
