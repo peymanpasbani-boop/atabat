@@ -6862,7 +6862,7 @@ to {
   background: linear-gradient(135deg,
     #6B2737 0%,
     #B03A52 28%,
-    #D4813A 52%,
+    #D4637A 52%,
     #9E4E18 75%,
     #5E2A0C 100%);
   border-radius: 22px;
@@ -7076,7 +7076,7 @@ to {
 }
 .hi-title em {
   font-style: normal;
-  background: linear-gradient(135deg, #8B3A0A 0%, #B03A52 50%, #D4813A 100%);
+  background: linear-gradient(135deg, #8B3A0A 0%, #B03A52 50%, #D4637A 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -7167,7 +7167,7 @@ to {
   box-shadow: 0 12px 32px -8px rgba(180,90,20,.28);
 }
 .hi-card-top {
-  background: linear-gradient(135deg, #6B2737 0%, #B03A52 50%, #D4813A 100%);
+  background: linear-gradient(135deg, #6B2737 0%, #B03A52 50%, #D4637A 100%);
   padding: 16px 18px 14px;
   display: flex;
   align-items: flex-start;
