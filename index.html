@@ -28,11 +28,12 @@
         </svg>
         <span>درباره ما</span>
       </button>
-      <button class="ai-btn" id="ai-chat-btn" aria-label="دستیار هوش مصنوعی" onclick="toggleChat()">
+      <button class="ai-btn" id="ai-chat-btn" aria-label="چت هوشمند آوان" onclick="toggleChat()">
         <svg class="si" viewBox="0 0 24 24">
           <path d="M12 2C6.48 2 2 6.05 2 11c0 2.6 1.13 4.95 2.94 6.64L4 21l3.7-1.35C9.07 20.52 10.5 21 12 21c5.52 0 10-4.05 10-9s-4.48-9-10-9z"/>
           <path d="M8 10h.01M12 10h.01M16 10h.01" stroke-width="2.5"/>
         </svg>
+        <span class="ai-badge">AI</span>
       </button>
     </div>
   </nav>
@@ -47,85 +48,21 @@
   <!-- Cards -->
   <div class="h-cards">
 
-    <!-- Interactive preview card -->
-    <div class="hsc-wrap" id="hscWrap" onclick="openPanel('builder')" role="button" tabindex="0" aria-label="ساخت سفر اختصاصی">
-      <div class="hsc-stage" id="hscStage">
-        <div class="hsc-float hfc-flight">
-          <div class="hfc-icon" style="background:rgba(207,161,58,.15);color:var(--au);">
-            <svg class="s22" width="14" height="14" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg>
-          </div>
-          <div class="hfc-text">
-            <div class="hfc-label">پرواز</div>
-            <div class="hfc-val">تهران ← کربلا</div>
-          </div>
+    <!-- Caravan stats widget -->
+    <div class="csw-wrap" id="cswWrap" onclick="openPanel('group')" role="button" tabindex="0" aria-label="مشاهده کاروان‌های گروهی">
+      <div class="csw-header">
+        <div class="csw-title-row">
+          <span class="csw-label">✦ کاروان‌های فعال</span>
+          <span class="csw-cta">مشاهده همه
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
         </div>
-        <div class="hsc-float hfc-hotel">
-          <div class="hfc-icon" style="background:rgba(207,161,58,.12);color:var(--au);">
-            <svg class="s22" width="14" height="14" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
-          </div>
-          <div class="hfc-text">
-            <div class="hfc-label">هتل</div>
-            <div class="hfc-val">۴★ نزدیک حرم</div>
-          </div>
-        </div>
-        <div class="hsc-float hfc-days">
-          <div class="hfc-icon" style="background:rgba(31,111,107,.12);color:#1F6F6B;">
-            <svg class="s22" width="14" height="14" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          </div>
-          <div class="hfc-text">
-            <div class="hfc-label">مدت</div>
-            <div class="hfc-val">۷ روز</div>
-          </div>
-        </div>
-        <div class="hsc-float hfc-city">
-          <div class="hfc-icon" style="background:rgba(201,123,60,.12);color:#C97B3C;">
-            <svg class="s22" width="14" height="14" viewBox="0 0 24 24"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          </div>
-          <div class="hfc-text">
-            <div class="hfc-label">مقاصد</div>
-            <div class="hfc-val">کربلا · نجف</div>
-          </div>
-        </div>
-        <div class="hsc-float hfc-price">
-          <div class="hfc-icon" style="background:rgba(207,161,58,.12);color:var(--au);">
-            <svg class="s22" width="14" height="14" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-          </div>
-          <div class="hfc-text">
-            <div class="hfc-label">بودجه</div>
-            <div class="hfc-val">۱۸.۵ میلیون</div>
-          </div>
-        </div>
-        <div class="hsc-dash" id="hscDash">
-          <div class="hscd-top">
-            <div class="hscd-badge">✦ سفر زیارتی شخصی</div>
-            <div class="hscd-meta">۲ نفر · تیر ۱۴۰۴</div>
-          </div>
-          <div class="hscd-cities">
-            <div class="hscd-city-row">
-              <div class="hscd-dot" style="background:#CFA13A;box-shadow:0 0 8px rgba(207,161,58,.5);"></div>
-              <span class="hscd-cname">کربلا</span>
-              <span class="hscd-csub">حرم امام حسین (ع)</span>
-              <span class="hscd-nbadge">۴ شب</span>
-            </div>
-            <div class="hscd-divider"></div>
-            <div class="hscd-city-row">
-              <div class="hscd-dot" style="background:#1a6b51;box-shadow:0 0 8px rgba(26,107,81,.5);"></div>
-              <span class="hscd-cname">نجف</span>
-              <span class="hscd-csub">حرم امام علی (ع)</span>
-              <span class="hscd-nbadge">۲ شب</span>
-            </div>
-          </div>
-          <div class="hscd-chips">
-            <span class="hscd-chip">✈ هوایی</span>
-            <span class="hscd-chip">🏨 هتل ۴★</span>
-            <span class="hscd-chip">📅 ۷ روز</span>
-          </div>
-          <div class="hscd-price-row">
-            <span class="hscd-price-label">هر نفر از</span>
-            <span class="hscd-price">۱۸,۵۰۰,۰۰۰ ت</span>
-            <span class="hscd-best">✦ بهترین قیمت</span>
-          </div>
-        </div>
+      </div>
+      <div class="csw-stats" id="cswStats">
+        <!-- filled by JS -->
+      </div>
+      <div class="csw-cards" id="cswCards">
+        <!-- filled by JS -->
       </div>
     </div>
 
@@ -196,29 +133,6 @@
 
   </div><!-- /.h-cards -->
 
-  <!-- Footer -->
-  <footer class="h-foot">
-    <div class="h-foot-brand">
-      <span class="h-foot-logo">آوان<span>✦</span></span>
-      <span class="h-foot-tagline">همراه زیارت شما</span>
-    </div>
-    <div class="h-foot-links">
-      <a class="h-foot-link" href="tel:02112345678">
-        <svg class="s18" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 3.1 4.2 2 2 0 0 1 5.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L9.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7A2 2 0 0 1 23 17z"/></svg>
-        ۰۲۱–۱۲۳۴۵۶۷۸
-      </a>
-      <a class="h-foot-link" href="mailto:info@avan-travel.ir">
-        <svg class="s18" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-        info@avan-travel.ir
-      </a>
-      <span class="h-foot-link">
-        <svg class="s18" viewBox="0 0 24 24"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        تهران، ولیعصر
-      </span>
-    </div>
-    <div class="h-foot-copy">© ۱۴۰۴ آوان — تمامی حقوق محفوظ است</div>
-  </footer>
-
 </div>
 <div class="panel" id="panel-builder">
 <div class="topbar">
@@ -229,7 +143,11 @@
  </button>
 <div class="p-logo">آوان<span>✦</span>
 </div>
-<div style="width:80px">
+<div class="topbar-ai-wrap">
+<button class="ai-btn ai-btn--sm" id="ai-chat-btn-builder" aria-label="چت هوشمند آوان" onclick="toggleChat()">
+<svg class="si" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.05 2 11c0 2.6 1.13 4.95 2.94 6.64L4 21l3.7-1.35C9.07 20.52 10.5 21 12 21c5.52 0 10-4.05 10-9s-4.48-9-10-9z"/><path d="M8 10h.01M12 10h.01M16 10h.01" stroke-width="2.5"/></svg>
+<span class="ai-badge">AI</span>
+</button>
 </div>
 </div>
 <div class="pcontent">
@@ -783,7 +701,11 @@
 </svg>بازگشت</button>
 <div class="p-logo">آوان<span>✦</span>
 </div>
-<div style="width:80px">
+<div class="topbar-ai-wrap">
+<button class="ai-btn ai-btn--sm" id="ai-chat-btn-group" aria-label="چت هوشمند آوان" onclick="toggleChat()">
+<svg class="si" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.05 2 11c0 2.6 1.13 4.95 2.94 6.64L4 21l3.7-1.35C9.07 20.52 10.5 21 12 21c5.52 0 10-4.05 10-9s-4.48-9-10-9z"/><path d="M8 10h.01M12 10h.01M16 10h.01" stroke-width="2.5"/></svg>
+<span class="ai-badge">AI</span>
+</button>
 </div>
 </div>
 <div class="pcontent">
@@ -887,7 +809,11 @@
 </svg>بازگشت</button>
 <div class="p-logo">آوان<span>✦</span>
 </div>
-<div style="width:80px">
+<div class="topbar-ai-wrap">
+<button class="ai-btn ai-btn--sm" id="ai-chat-btn-suggestions" aria-label="چت هوشمند آوان" onclick="toggleChat()">
+<svg class="si" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.05 2 11c0 2.6 1.13 4.95 2.94 6.64L4 21l3.7-1.35C9.07 20.52 10.5 21 12 21c5.52 0 10-4.05 10-9s-4.48-9-10-9z"/><path d="M8 10h.01M12 10h.01M16 10h.01" stroke-width="2.5"/></svg>
+<span class="ai-badge">AI</span>
+</button>
 </div>
 </div>
 <div class="pcontent">
@@ -985,7 +911,11 @@
 </svg>بازگشت</button>
 <div class="p-logo">آوان<span>✦</span>
 </div>
-<div style="width:80px">
+<div class="topbar-ai-wrap">
+<button class="ai-btn ai-btn--sm" id="ai-chat-btn-about" aria-label="چت هوشمند آوان" onclick="toggleChat()">
+<svg class="si" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.05 2 11c0 2.6 1.13 4.95 2.94 6.64L4 21l3.7-1.35C9.07 20.52 10.5 21 12 21c5.52 0 10-4.05 10-9s-4.48-9-10-9z"/><path d="M8 10h.01M12 10h.01M16 10h.01" stroke-width="2.5"/></svg>
+<span class="ai-badge">AI</span>
+</button>
 </div>
 </div>
 <div class="pcontent">
@@ -1047,7 +977,11 @@
 </svg>بازگشت</button>
 <div class="p-logo">آوان<span>✦</span>
 </div>
-<div style="width:80px">
+<div class="topbar-ai-wrap">
+<button class="ai-btn ai-btn--sm" id="ai-chat-btn-contact" aria-label="چت هوشمند آوان" onclick="toggleChat()">
+<svg class="si" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.05 2 11c0 2.6 1.13 4.95 2.94 6.64L4 21l3.7-1.35C9.07 20.52 10.5 21 12 21c5.52 0 10-4.05 10-9s-4.48-9-10-9z"/><path d="M8 10h.01M12 10h.01M16 10h.01" stroke-width="2.5"/></svg>
+<span class="ai-badge">AI</span>
+</button>
 </div>
 </div>
 <div class="pcontent">
@@ -1367,6 +1301,13 @@
       </div>
     </div>
     <p class="about-note">تو فقط دل به زیارت بسپار، بقیه‌اش با ماست ✦</p>
+    <div class="about-contact">
+      <a href="tel:02112345678">۰۲۱–۱۲۳۴۵۶۷۸</a>
+      <span class="about-contact-sep">·</span>
+      <a href="mailto:info@avan-travel.ir">info@avan-travel.ir</a>
+      <span class="about-contact-sep">·</span>
+      <span>تهران، ولیعصر</span>
+    </div>
   </div>
 </div>
 
