@@ -40,6 +40,73 @@
 
   <!-- Hero -->
   <div class="h-hero">
+
+    <!-- Animated Service Icons -->
+    <div class="svc-icons" aria-label="خدمات آوان">
+
+      <!-- هتل عراق -->
+      <div class="svc-icon-item" onclick="openPanel('hotel-iraq')">
+        <div class="svc-icon-wrap svc-gold">
+          <div class="svc-ring svc-ring-1"></div>
+          <div class="svc-ring svc-ring-2"></div>
+          <svg class="svc-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path class="svc-path-hotel" d="M3 21h18M5 21V7l7-4 7 4v14"/>
+            <rect class="svc-rect-hotel" x="9" y="14" width="6" height="7" rx="1"/>
+            <rect class="svc-win" x="7" y="10" width="2.5" height="2.5" rx=".4"/>
+            <rect class="svc-win" x="14.5" y="10" width="2.5" height="2.5" rx=".4"/>
+          </svg>
+          <div class="svc-dot svc-dot-gold"></div>
+        </div>
+        <span class="svc-label">هتل عراق</span>
+      </div>
+
+      <!-- پرواز نجف -->
+      <div class="svc-icon-item" onclick="openPanel('flight')">
+        <div class="svc-icon-wrap svc-sky">
+          <div class="svc-ring svc-ring-1"></div>
+          <div class="svc-ring svc-ring-2"></div>
+          <svg class="svc-svg svc-fly-anim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 2L3 12l7 2 2 7 3-5"/>
+            <path class="svc-trail" d="M5 17l3-1M3 19l2-.7"/>
+          </svg>
+          <div class="svc-dot svc-dot-sky"></div>
+        </div>
+        <span class="svc-label">پرواز نجف</span>
+      </div>
+
+      <!-- سفر انفرادی -->
+      <div class="svc-icon-item" onclick="openPanel('builder')">
+        <div class="svc-icon-wrap svc-emerald">
+          <div class="svc-ring svc-ring-1"></div>
+          <div class="svc-ring svc-ring-2"></div>
+          <svg class="svc-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle class="svc-person-anim" cx="12" cy="7.5" r="3.2"/>
+            <path d="M5 21c0-3.9 3.1-6.5 7-6.5s7 2.6 7 6.5"/>
+            <path class="svc-star-anim" d="M18.5 3l.5 1.5L20.5 5l-1.5.5L18.5 7l-.5-1.5L16.5 5l1.5-.5z"/>
+          </svg>
+          <div class="svc-dot svc-dot-emerald"></div>
+        </div>
+        <span class="svc-label">سفر انفرادی</span>
+      </div>
+
+      <!-- سفر گروهی -->
+      <div class="svc-icon-item" onclick="openPanel('group')">
+        <div class="svc-icon-wrap svc-rose">
+          <div class="svc-ring svc-ring-1"></div>
+          <div class="svc-ring svc-ring-2"></div>
+          <svg class="svc-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle class="svc-g1" cx="8" cy="7" r="2.8"/>
+            <circle class="svc-g2" cx="16" cy="7" r="2.8"/>
+            <path class="svc-gp1" d="M2 21c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/>
+            <path class="svc-gp2" d="M13 21c.4-3 2.8-5.5 5-5.5 2.7 0 4.5 2 4.5 5.5"/>
+          </svg>
+          <div class="svc-dot svc-dot-rose"></div>
+        </div>
+        <span class="svc-label">سفر گروهی</span>
+      </div>
+
+    </div><!-- /.svc-icons -->
+
     <span class="eyebrow">✦ &nbsp;سفر زیارتی &nbsp;·&nbsp; به انتخاب تو</span>
     <h1 class="h1">هر زیارت، <em>یک مسیر</em> دارد</h1>
     <p class="hero-sub">سفر خود را بساز یا از کاروان‌های آماده انتخاب کن</p>
@@ -50,7 +117,7 @@
 
     <!-- Hotels & airlines quick-facts banner -->
     <div class="qab" id="qabBanner">
-      <p class="qab-lead"><span class="qab-lead-spark" aria-hidden="true">✦</span><span class="qab-lead-text" id="qabLeadText"></span><span class="qab-lead-cursor" aria-hidden="true">|</span></p>
+      <p class="qab-lead"><span class="qab-lead-spark" aria-hidden="true">✦</span><span id="qabLeadText" class="qab-lead-text" aria-hidden="true"></span><span class="qab-lead-cursor" aria-hidden="true"></span><span class="sr-only">این امکانات رو برات فراهم کرده‌ایم</span></p>
       <div class="qab-stats">
         <div class="qab-stat">
           <span class="qab-stat-icon">
