@@ -1372,10 +1372,10 @@
       </div>
     </div>
     <div class="hi-filter-bar">
-      <button class="hi-filter active" data-star="all" onclick="hiFilterStar(this,'all')">همه</button>
-      <button class="hi-filter" data-star="5" onclick="hiFilterStar(this,'5')">۵ ستاره</button>
-      <button class="hi-filter" data-star="4" onclick="hiFilterStar(this,'4')">۴ ستاره</button>
-      <button class="hi-filter" data-star="3" onclick="hiFilterStar(this,'3')">۳ ستاره</button>
+      <button class="hi-filter active" data-grade="all" onclick="hiFilterGrade(this,'all')">همه</button>
+      <button class="hi-filter" data-grade="luxury" onclick="hiFilterGrade(this,'luxury')">✦ لوکس</button>
+      <button class="hi-filter" data-grade="mid" onclick="hiFilterGrade(this,'mid')">⬥ متوسط</button>
+      <button class="hi-filter" data-grade="eco" onclick="hiFilterGrade(this,'eco')">◇ اقتصادی</button>
     </div>
     <div class="hi-grid" id="hiGrid"></div>
     <div class="hi-info-strip">
@@ -1397,17 +1397,42 @@
   <div class="hi-sheet-overlay" id="hiSheetOverlay" onclick="hiCloseSheet()"></div>
   <div class="hi-sheet" id="hiSheet" role="dialog" aria-modal="true" aria-label="رزرو هتل">
     <div class="hi-sheet-handle"></div>
-    <div class="hi-sheet-head" id="hiSheetHead"></div>
+    <div class="hi-sheet-head" id="hiSheetHead">
+      <!-- photo preview trigger injected by JS -->
+    </div>
+    <!-- Photo Gallery Overlay -->
+    <div class="hi-gallery-overlay" id="hiGalleryOverlay" onclick="hiCloseGallery()"></div>
+    <div class="hi-gallery" id="hiGallery">
+      <div class="hi-gallery-header">
+        <span class="hi-gallery-title" id="hiGalleryTitle">عکس‌های هتل</span>
+        <button class="hi-gallery-close" onclick="hiCloseGallery()">✕</button>
+      </div>
+      <div class="hi-gallery-grid" id="hiGalleryGrid"></div>
+      <button class="hi-gallery-back" onclick="hiCloseGallery()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+        بازگشت به رزرو
+      </button>
+    </div>
     <div class="hi-sheet-body">
       <div class="hi-field-row">
         <div class="hi-field">
           <label class="hi-field-lbl">تاریخ ورود</label>
-          <input class="hi-field-inp" id="hiCheckin" type="text" placeholder="۱۴۰۳/۰۸/۱۵" readonly>
+          <input class="hi-field-inp" id="hiCheckin" type="text" placeholder="۱۴۰۵/۰۱/۱۵" readonly onclick="hiOpenCal('checkin')">
         </div>
         <div class="hi-field">
           <label class="hi-field-lbl">تاریخ خروج</label>
-          <input class="hi-field-inp" id="hiCheckout" type="text" placeholder="۱۴۰۳/۰۸/۱۸" readonly>
+          <input class="hi-field-inp" id="hiCheckout" type="text" placeholder="۱۴۰۵/۰۱/۱۸" readonly onclick="hiOpenCal('checkout')">
         </div>
+      </div>
+      <!-- Jalali calendar picker for hotel -->
+      <div class="hi-cal-wrap" id="hiCalWrap" style="display:none">
+        <div class="hi-cal-nav">
+          <button class="hi-cal-nav-btn" onclick="hiCalPrev()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <span class="hi-cal-month" id="hiCalMonth"></span>
+          <button class="hi-cal-nav-btn" onclick="hiCalNext()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+        <div class="hi-cal-week"><span>ش</span><span>ی</span><span>د</span><span>س</span><span>چ</span><span>پ</span><span>ج</span></div>
+        <div class="hi-cal-days" id="hiCalDays"></div>
       </div>
       <div class="hi-field-row">
         <div class="hi-field">
