@@ -7468,3 +7468,181 @@ to {
 .ts-live-num{font-size:22px;font-weight:900;color:var(--au);letter-spacing:-.5px;line-height:1;}
 .ts-live-lbl{font-size:10px;color:var(--is);font-weight:600;text-align:center;}
 .ts-live-sep{width:1px;height:36px;background:rgba(255,255,255,.08);flex-shrink:0;}
+
+/* ── Hotel grade badge on card ── */
+.hi-card-grade-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: .3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Photo button in sheet header ── */
+.hi-photo-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 10px;
+  background: rgba(207,161,58,.10);
+  border: 1px solid rgba(207,161,58,.3);
+  color: var(--au);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  width: 100%;
+  font-family: Vazirmatn, sans-serif;
+  transition: background .2s, transform .15s;
+}
+.hi-photo-btn:active { transform: scale(.97); }
+.hi-photo-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* ── Gallery overlay ── */
+.hi-gallery-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.7);
+  z-index: 3100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s;
+}
+.hi-gallery-overlay.open { opacity: 1; pointer-events: auto; }
+.hi-gallery {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 3101;
+  background: var(--cr);
+  border-radius: 22px 22px 0 0;
+  padding: 0 0 24px;
+  transform: translateY(100%);
+  transition: transform .32s cubic-bezier(.2,.8,.2,1);
+  max-height: 82vh;
+  overflow-y: auto;
+}
+.hi-gallery.open { transform: translateY(0); }
+.hi-gallery-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.hi-gallery-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--tp);
+}
+.hi-gallery-close {
+  background: rgba(255,255,255,.06);
+  border: none;
+  color: var(--is);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 13px;
+}
+.hi-gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 14px 16px;
+}
+.hi-gallery-item {
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 4/2.6;
+  background: rgba(255,255,255,.04);
+  cursor: pointer;
+}
+.hi-gallery-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 16px;
+  background: var(--pp);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 13px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: Vazirmatn, sans-serif;
+  cursor: pointer;
+  width: calc(100% - 32px);
+}
+.hi-gallery-back svg { width: 16px; height: 16px; }
+
+/* ── Hotel jalali calendar inside sheet ── */
+.hi-cal-wrap {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.hi-cal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.hi-cal-nav-btn {
+  background: rgba(255,255,255,.06);
+  border: none;
+  color: var(--tp);
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+.hi-cal-month {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--tp);
+}
+.hi-cal-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  padding: 6px 8px 2px;
+  gap: 2px;
+}
+.hi-cal-week span {
+  font-size: 10px;
+  color: var(--is);
+  font-weight: 600;
+}
+.hi-cal-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  padding: 2px 8px 10px;
+}
+.hi-cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11.5px;
+  color: var(--tp);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background .15s;
+}
+.hi-cal-day:hover { background: rgba(255,255,255,.07); }
+.hi-cal-empty { pointer-events: none; }
+.hi-cal-sel {
+  background: var(--pp);
+  color: #fff;
+  font-weight: 700;
+}
+.hi-cal-range { background: rgba(207,161,58,.12); }
