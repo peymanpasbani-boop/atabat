@@ -1292,24 +1292,21 @@ const caravans=[
 {grad:'#1F6F6B,#0F4D3A',title:'۵ روز | هوایی از اصفهان',price:'۲۲,۳۰۰,۰۰۰',badges:['کربلا ۳ شب','نجف ۱ شب','از اصفهان'],meta:'🗓 اعزام ۱ مرداد · ظرفیت:۲ نفر',sub:'هتل ۵★ · ۸۰ متر تا حرم'},
 ];
 // ── Live home-page stats — same source as group caravan page ──
-(function updateHomeStats(){
+function updateHomeStats(){
   var fa2n=function(s){return parseInt(String(s).replace(/[۰-۹]/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)}))||0;};
   var n2fa=function(n){return Number(n).toLocaleString('fa-IR');};
-  // همان منطق calcStats صفحه کاروان‌های گروهی
   var activeCaravans=caravans.length;
   var origins=new Set(caravans.map(function(c){var b=(c.badges||[]).find(function(b){return b.startsWith('از');});return b?b.replace('از ',''):'';}).filter(Boolean));
   var totalCap=caravans.reduce(function(sum,c){var m=(c.meta||'').match(/ظرفیت[:\s]*([۰-۹\d]+)/);return sum+(m?fa2n(m[1]):0);},0);
   var days=caravans.map(function(c){var m=(c.title||'').match(/^([۰-۹\d]+)/);return m?fa2n(m[1]):0;}).filter(function(d){return d>0;});
   var avgDays=days.length?Math.round(days.reduce(function(a,b){return a+b;},0)/days.length):0;
-  // عدد اصلی دکمه = تعداد کاروان فعال
   var tsTotalEl=document.getElementById('tsTotal');
   if(tsTotalEl) tsTotalEl.textContent=n2fa(activeCaravans);
-  // گرید داخل accordion
   var el=document.getElementById('tsLiveCaravans'); if(el) el.textContent=n2fa(activeCaravans);
   var el2=document.getElementById('tsLiveOrigins'); if(el2) el2.textContent=n2fa(origins.size);
   var el3=document.getElementById('tsLiveCap'); if(el3) el3.textContent=totalCap?n2fa(totalCap):'—';
   var el4=document.getElementById('tsLiveDays'); if(el4) el4.textContent=avgDays?n2fa(avgDays):'—';
-})();
+}
 
 
 const JALALI_MONTHS={
@@ -1764,44 +1761,127 @@ updatePreview();
 /* ══════════════════════════════════════════════════════
    Hotel Iraq Panel — data & logic
 ══════════════════════════════════════════════════════ */
+/* ── Grade labels & photo palettes ── */
+const HI_GRADE = {
+  luxury: { label:'✦ لوکس', color:'#CFA13A', bg:'rgba(207,161,58,.12)', border:'rgba(207,161,58,.3)' },
+  mid:    { label:'⬥ متوسط', color:'#4A90D9', bg:'rgba(74,144,217,.10)', border:'rgba(74,144,217,.25)' },
+  eco:    { label:'◇ اقتصادی', color:'#5AB87A', bg:'rgba(90,184,122,.10)', border:'rgba(90,184,122,.25)' },
+};
+
+/* photo color palettes per city (SVG placeholder colours) */
+const HI_PHOTO_PALETTES = {
+  najaf:    [['#1a4a2e','#2d7a4f'],['#3a2a0a','#c9963a'],['#1a2a4a','#2d4a7a'],['#2a1a3a','#5a3a8a']],
+  karbala:  [['#3a1a1a','#8a3a3a'],['#1a3a2a','#3a8a5a'],['#1a1a3a','#3a3a8a'],['#3a2a1a','#8a6a3a']],
+  kazimiya: [['#1a3a3a','#3a8a8a'],['#2a1a3a','#6a3a8a'],['#1a2a1a','#4a7a4a'],['#3a3a1a','#8a8a3a']],
+};
+
 const HI_HOTELS = {
   najaf: [
-    { name:'هتل الصادق', stars:5, dist:'۸۰ متر تا حرم', price:'۳٬۲۰۰٬۰۰۰', features:['صبحانه','وای‌فای','پارکینگ','نزدیک‌ترین به حرم'] },
-    { name:'هتل فجر النجف', stars:5, dist:'۱۵۰ متر تا حرم', price:'۲٬۸۰۰٬۰۰۰', features:['صبحانه','استخر','سالن غذا'] },
-    { name:'هتل المرجان', stars:4, dist:'۲۵۰ متر تا حرم', price:'۱٬۹۰۰٬۰۰۰', features:['وای‌فای','صبحانه','لابی ۲۴ساعته'] },
-    { name:'هتل قدس نجف', stars:4, dist:'۳۵۰ متر تا حرم', price:'۱٬۵۰۰٬۰۰۰', features:['وای‌فای','پارکینگ','رستوران'] },
-    { name:'هتل الولاء', stars:3, dist:'۵۰۰ متر تا حرم', price:'۹۵۰٬۰۰۰', features:['وای‌فای','سرویس اتاق'] },
-    { name:'هتل مهر نجف', stars:3, dist:'۶۵۰ متر تا حرم', price:'۷۵۰٬۰۰۰', features:['وای‌فای','پارکینگ'] },
+    { name:'هتل الصادق', grade:'luxury', dist:'۸۰ متر تا حرم', price:'۳٬۲۰۰٬۰۰۰', features:['صبحانه بوفه','وای‌فای','پارکینگ','نزدیک‌ترین به حرم','سرویس ۲۴ساعته'] },
+    { name:'هتل فجر النجف', grade:'luxury', dist:'۱۵۰ متر تا حرم', price:'۲٬۸۰۰٬۰۰۰', features:['صبحانه','استخر','سالن غذا','لابی VIP'] },
+    { name:'هتل المرجان', grade:'mid', dist:'۲۵۰ متر تا حرم', price:'۱٬۹۰۰٬۰۰۰', features:['وای‌فای','صبحانه','لابی ۲۴ساعته','رستوران'] },
+    { name:'هتل قدس نجف', grade:'mid', dist:'۳۵۰ متر تا حرم', price:'۱٬۵۰۰٬۰۰۰', features:['وای‌فای','پارکینگ','رستوران','اتاق‌های تمیز'] },
+    { name:'هتل الولاء', grade:'eco', dist:'۵۰۰ متر تا حرم', price:'۹۵۰٬۰۰۰', features:['وای‌فای','سرویس اتاق','نزدیک بازار'] },
+    { name:'هتل مهر نجف', grade:'eco', dist:'۶۵۰ متر تا حرم', price:'۷۵۰٬۰۰۰', features:['وای‌فای','پارکینگ','قیمت مناسب'] },
   ],
   karbala: [
-    { name:'هتل عباس', stars:5, dist:'۶۰ متر تا حرم', price:'۳٬۵۰۰٬۰۰۰', features:['صبحانه','وای‌فای','نزدیک‌ترین','لوکس'] },
-    { name:'هتل الحسینی', stars:5, dist:'۱۲۰ متر تا حرم', price:'۲٬۹۰۰٬۰۰۰', features:['صبحانه','استخر','رستوران'] },
-    { name:'هتل الرشید کربلا', stars:4, dist:'۲۸۰ متر تا حرم', price:'۲٬۱۰۰٬۰۰۰', features:['وای‌فای','صبحانه','لابی'] },
-    { name:'هتل مشیر', stars:4, dist:'۴۰۰ متر تا حرم', price:'۱٬۶۵۰٬۰۰۰', features:['وای‌فای','پارکینگ','رستوران'] },
-    { name:'هتل الغدیر', stars:3, dist:'۵۵۰ متر تا حرم', price:'۱٬۰۵۰٬۰۰۰', features:['وای‌فای','سرویس اتاق'] },
-    { name:'هتل نور کربلا', stars:3, dist:'۷۰۰ متر تا حرم', price:'۸۲۰٬۰۰۰', features:['وای‌فای','پارکینگ'] },
+    { name:'هتل عباس', grade:'luxury', dist:'۶۰ متر تا حرم', price:'۳٬۵۰۰٬۰۰۰', features:['صبحانه','وای‌فای','نزدیک‌ترین','دید حرم از اتاق'] },
+    { name:'هتل الحسینی', grade:'luxury', dist:'۱۲۰ متر تا حرم', price:'۲٬۹۰۰٬۰۰۰', features:['صبحانه','استخر','رستوران لوکس','لابی VIP'] },
+    { name:'هتل الرشید کربلا', grade:'mid', dist:'۲۸۰ متر تا حرم', price:'۲٬۱۰۰٬۰۰۰', features:['وای‌فای','صبحانه','لابی','پارکینگ'] },
+    { name:'هتل مشیر', grade:'mid', dist:'۴۰۰ متر تا حرم', price:'۱٬۶۵۰٬۰۰۰', features:['وای‌فای','پارکینگ','رستوران','امکانات خوب'] },
+    { name:'هتل الغدیر', grade:'eco', dist:'۵۵۰ متر تا حرم', price:'۱٬۰۵۰٬۰۰۰', features:['وای‌فای','سرویس اتاق','قیمت مناسب'] },
+    { name:'هتل نور کربلا', grade:'eco', dist:'۷۰۰ متر تا حرم', price:'۸۲۰٬۰۰۰', features:['وای‌فای','پارکینگ','اقتصادی'] },
   ],
   kazimiya: [
-    { name:'هتل الکاظم', stars:5, dist:'۱۰۰ متر تا حرم', price:'۲٬۶۰۰٬۰۰۰', features:['صبحانه','وای‌فای','لوکس','رستوران'] },
-    { name:'هتل الرشید کاظمین', stars:4, dist:'۲۲۰ متر تا حرم', price:'۱٬۸۰۰٬۰۰۰', features:['وای‌فای','صبحانه','لابی'] },
-    { name:'هتل الحرمین', stars:3, dist:'۴۵۰ متر تا حرم', price:'۸۸۰٬۰۰۰', features:['وای‌فای','پارکینگ'] },
+    { name:'هتل الکاظم', grade:'luxury', dist:'۱۰۰ متر تا حرم', price:'۲٬۶۰۰٬۰۰۰', features:['صبحانه','وای‌فای','رستوران','سرویس ویژه'] },
+    { name:'هتل الرشید کاظمین', grade:'mid', dist:'۲۲۰ متر تا حرم', price:'۱٬۸۰۰٬۰۰۰', features:['وای‌فای','صبحانه','لابی','امکانات کامل'] },
+    { name:'هتل الحرمین', grade:'eco', dist:'۴۵۰ متر تا حرم', price:'۸۸۰٬۰۰۰', features:['وای‌فای','پارکینگ','مناسب خانواده'] },
   ],
 };
 
-let hiState = { city:'najaf', star:'all', hotel:null, rooms:1, guests:2 };
+let hiState = { city:'najaf', grade:'all', hotel:null, rooms:1, guests:2 };
+
+/* ── Jalali calendar for hotel sheet ── */
+const HI_J_MONTHS = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+const HI_J_DPM    = [31,31,31,31,31,31,30,30,30,30,30,29];
+const HI_J_FDAYS  = [5,1,4,0,3,5,1,4,0,2,5,1]; // first weekday of each 1404 month (Sat=0)
+let hiCal = { month:0, target:'checkin', checkin:null, checkout:null };
+
+function hiOpenCal(target) {
+  hiCal.target = target;
+  // start from current picked month or month 0 (Farvardin 1405)
+  if(target==='checkout' && hiCal.checkin) hiCal.month = hiCal.checkin.m;
+  document.getElementById('hiCalWrap').style.display = 'block';
+  hiRenderHiCal();
+}
+
+function hiRenderHiCal() {
+  const m = hiCal.month;
+  const labelEl = document.getElementById('hiCalMonth');
+  if(labelEl) labelEl.textContent = HI_J_MONTHS[m] + ' ۱۴۰۵';
+  const total = HI_J_DPM[m];
+  const first = HI_J_FDAYS[m];
+  let html = '';
+  for(let i=0;i<first;i++) html += '<div class="hi-cal-day hi-cal-empty"></div>';
+  const ci = hiCal.checkin, co = hiCal.checkout;
+  for(let d=1;d<=total;d++) {
+    const isSel = (ci&&ci.m===m&&ci.d===d)||(co&&co.m===m&&co.d===d);
+    const inRange = ci&&co&&((m===ci.m&&m===co.m&&d>ci.d&&d<co.d)||(m>ci.m&&m<co.m)||(m===ci.m&&co.m>ci.m&&d>ci.d)||(m===co.m&&ci.m<co.m&&d<co.d));
+    let cls = 'hi-cal-day';
+    if(isSel) cls += ' hi-cal-sel';
+    if(inRange) cls += ' hi-cal-range';
+    html += `<div class="${cls}" onclick="hiCalPick(${m},${d})">${d.toLocaleString('fa-IR')}</div>`;
+  }
+  const el = document.getElementById('hiCalDays');
+  if(el) el.innerHTML = html;
+}
+
+function hiCalPick(m, d) {
+  if(hiCal.target==='checkin') {
+    hiCal.checkin = {m,d};
+    hiCal.checkout = null;
+    const v = HI_J_MONTHS[m]+' '+d.toLocaleString('fa-IR')+' ۱۴۰۵';
+    const inp = document.getElementById('hiCheckin');
+    if(inp) inp.value = v;
+    document.getElementById('hiCheckout').value = '';
+    // auto switch to checkout
+    hiCal.target = 'checkout';
+  } else {
+    if(hiCal.checkin && (m<hiCal.checkin.m||(m===hiCal.checkin.m&&d<=hiCal.checkin.d))) {
+      showToast('تاریخ خروج باید بعد از ورود باشد'); return;
+    }
+    hiCal.checkout = {m,d};
+    const v = HI_J_MONTHS[m]+' '+d.toLocaleString('fa-IR')+' ۱۴۰۵';
+    const inp = document.getElementById('hiCheckout');
+    if(inp) inp.value = v;
+    document.getElementById('hiCalWrap').style.display = 'none';
+  }
+  hiRenderHiCal();
+  hiUpdateSheetTotal();
+}
+
+function hiCalPrev() {
+  hiCal.month = Math.max(0, hiCal.month - 1);
+  hiRenderHiCal();
+}
+function hiCalNext() {
+  hiCal.month = Math.min(11, hiCal.month + 1);
+  hiRenderHiCal();
+}
 
 function hiRenderGrid() {
   const grid = document.getElementById('hiGrid');
   if(!grid) return;
   let list = (HI_HOTELS[hiState.city] || []).filter(h =>
-    hiState.star === 'all' || h.stars === parseInt(hiState.star)
+    hiState.grade === 'all' || h.grade === hiState.grade
   );
   if(!list.length) {
-    grid.innerHTML = '<div style="text-align:center;padding:32px 16px;color:var(--is);font-size:13px;">هتلی با این فیلتر یافت نشد</div>';
+    grid.innerHTML = '<div style="text-align:center;padding:32px 16px;color:var(--is);font-size:13px;">هتلی با این درجه‌بندی یافت نشد</div>';
     return;
   }
-  grid.innerHTML = list.map((h,i) => `
-    <div class="hi-card" onclick="hiOpenSheet(${i})">
+  grid.innerHTML = list.map((h,i) => {
+    const g = HI_GRADE[h.grade] || HI_GRADE.mid;
+    return `<div class="hi-card" onclick="hiOpenSheet(${i})">
       <div class="hi-card-top">
         <div class="hi-card-top-left">
           <div class="hi-card-name">${h.name}</div>
@@ -1810,7 +1890,7 @@ function hiRenderGrid() {
             ${h.dist}
           </div>
         </div>
-        <div class="hi-card-stars">${'<svg viewBox="0 0 12 12" fill="currentColor"><polygon points="6,1 7.5,4.5 11,5 8.5,7.5 9,11 6,9.5 3,11 3.5,7.5 1,5 4.5,4.5"/></svg>'.repeat(h.stars)}</div>
+        <div class="hi-card-grade-badge" style="color:${g.color};background:${g.bg};border:1px solid ${g.border}">${g.label}</div>
       </div>
       <div class="hi-card-body">
         <div class="hi-card-features">${h.features.map(f=>`<span class="hi-card-feat">${f}</span>`).join('')}</div>
@@ -1820,9 +1900,8 @@ function hiRenderGrid() {
           <span class="hi-card-price-unit">تومان</span>
         </div>
       </div>
-    </div>
-  `).join('');
-  // store filtered list for sheet access
+    </div>`;
+  }).join('');
   hiState._filtered = list;
 }
 
@@ -1834,10 +1913,10 @@ function hiSelectCity(btn, city) {
   hiRenderGrid();
 }
 
-function hiFilterStar(btn, star) {
+function hiFilterGrade(btn, grade) {
   document.querySelectorAll('.hi-filter').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  hiState.star = star;
+  hiState.grade = grade;
   hiRenderGrid();
 }
 
@@ -1845,19 +1924,61 @@ function hiOpenSheet(idx) {
   const h = (hiState._filtered || HI_HOTELS[hiState.city])[idx];
   if(!h) return;
   hiState.hotel = h;
+  hiState._hotelIdx = idx;
+  const g = HI_GRADE[h.grade] || HI_GRADE.mid;
   const head = document.getElementById('hiSheetHead');
   if(head) head.innerHTML = `
     <div class="hi-sheet-hotel-name">${h.name}</div>
-    <div class="hi-sheet-hotel-meta">${'★'.repeat(h.stars)} &nbsp;·&nbsp; ${h.dist}</div>
+    <div class="hi-sheet-hotel-meta" style="color:${g.color}">${g.label} &nbsp;·&nbsp; ${h.dist}</div>
+    <button class="hi-photo-btn" onclick="hiOpenGallery()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="14" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      مشاهده عکس‌های هتل
+    </button>
   `;
+  document.getElementById('hiCalWrap').style.display = 'none';
   hiUpdateSheetTotal();
   document.getElementById('hiSheetOverlay').classList.add('open');
   document.getElementById('hiSheet').classList.add('open');
 }
 
+function hiOpenGallery() {
+  const h = hiState.hotel;
+  if(!h) return;
+  const palettes = HI_PHOTO_PALETTES[hiState.city] || HI_PHOTO_PALETTES.najaf;
+  const labels = ['نمای بیرونی','لابی هتل','اتاق دبل','رستوران'];
+  const titleEl = document.getElementById('hiGalleryTitle');
+  if(titleEl) titleEl.textContent = 'عکس‌های ' + h.name;
+  const grid = document.getElementById('hiGalleryGrid');
+  if(grid) grid.innerHTML = palettes.map((p,i) => `
+    <div class="hi-gallery-item">
+      <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;border-radius:10px;">
+        <defs><linearGradient id="hg${i}" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="${p[0]}"/>
+          <stop offset="100%" stop-color="${p[1]}"/>
+        </linearGradient></defs>
+        <rect width="200" height="130" fill="url(#hg${i})" rx="10"/>
+        <rect x="15" y="15" width="70" height="45" rx="6" fill="rgba(255,255,255,.1)"/>
+        <rect x="95" y="15" width="90" height="20" rx="4" fill="rgba(255,255,255,.08)"/>
+        <rect x="95" y="42" width="60" height="18" rx="4" fill="rgba(255,255,255,.06)"/>
+        <rect x="15" y="70" width="170" height="12" rx="3" fill="rgba(255,255,255,.07)"/>
+        <rect x="15" y="90" width="120" height="10" rx="3" fill="rgba(255,255,255,.05)"/>
+        <text x="100" y="116" text-anchor="middle" fill="rgba(255,255,255,.6)" font-size="10" font-family="Vazirmatn,sans-serif">${labels[i]}</text>
+      </svg>
+    </div>
+  `).join('');
+  document.getElementById('hiGalleryOverlay').classList.add('open');
+  document.getElementById('hiGallery').classList.add('open');
+}
+
+function hiCloseGallery() {
+  document.getElementById('hiGalleryOverlay').classList.remove('open');
+  document.getElementById('hiGallery').classList.remove('open');
+}
+
 function hiCloseSheet() {
   document.getElementById('hiSheetOverlay').classList.remove('open');
   document.getElementById('hiSheet').classList.remove('open');
+  document.getElementById('hiCalWrap').style.display = 'none';
 }
 
 function hiCounter(type, delta) {
@@ -1877,11 +1998,21 @@ function hiUpdateSheetTotal() {
   const el = document.getElementById('hiSheetTotal');
   if(!el || !hiState.hotel) return;
   const baseStr = hiState.hotel.price.replace(/[٬,]/g,'');
-  // convert farsi digits to latin
   const base = parseInt(baseStr.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
   if(isNaN(base)) { el.textContent = '—'; return; }
-  const total = base * hiState.rooms;
-  el.textContent = total.toLocaleString('fa-IR') + ' تومان / شب';
+  // calc nights if both dates selected
+  let nights = 1;
+  if(hiCal.checkin && hiCal.checkout) {
+    const ci=hiCal.checkin, co=hiCal.checkout;
+    const dpm=HI_J_DPM;
+    let nd=0;
+    if(co.m===ci.m) nd=co.d-ci.d;
+    else { nd=dpm[ci.m]-ci.d; for(let m=ci.m+1;m<co.m;m++) nd+=dpm[m]; nd+=co.d; }
+    if(nd>0) nights=nd;
+  }
+  const total = base * hiState.rooms * nights;
+  const nightsLabel = nights>1 ? nights.toLocaleString('fa-IR')+' شب · ' : '';
+  el.textContent = nightsLabel + total.toLocaleString('fa-IR') + ' تومان';
 }
 
 function hiSubmitReserve() {
@@ -1893,15 +2024,20 @@ function hiSubmitReserve() {
   hiCloseSheet();
 }
 
-// Auto-render when hotel-iraq panel opens
-const _origOpenPanel = typeof openPanel === 'function' ? openPanel : null;
+// Auto-render when hotel-iraq panel opens + home stats
 document.addEventListener('DOMContentLoaded', () => {
-  // Patch openPanel to init hotel grid
+  // home stats — DOM is ready now
+  updateHomeStats();
+
   const orig = window.openPanel;
   window.openPanel = function(name) {
     orig(name);
     if(name === 'hotel-iraq') {
       setTimeout(() => { hiState._filtered = null; hiRenderGrid(); }, 50);
+    }
+    // refresh home stats whenever user returns to home
+    if(name === 'home') {
+      setTimeout(updateHomeStats, 80);
     }
   };
 });
