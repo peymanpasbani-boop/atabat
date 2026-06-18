@@ -1475,6 +1475,75 @@ if('IntersectionObserver' in window){
   runOnce();
 }
 })();
+// ── Hotels & Airlines Quick-Facts Banner (Home) — Typewriter lead text ──
+(function(){
+const textEl=document.getElementById('qabLeadText');
+if(!textEl)return;
+const phrases=['بهترین‌ها، برای سفر تو','آسوده سفر کن، باقی با ماست','هرچه لازم داری، همین‌جاست'];
+let pi=0,ci=0,deleting=false,timer=null;
+const typeSpeed=55,deleteSpeed=30,holdTime=1900,gapTime=450,startDelay=500;
+function tick(){
+  const phrase=phrases[pi];
+  if(!deleting){
+    ci++;
+    textEl.textContent=phrase.slice(0,ci);
+    if(ci===phrase.length){
+      deleting=true;
+      timer=setTimeout(tick,holdTime);
+      return;
+    }
+    timer=setTimeout(tick,typeSpeed);
+  }else{
+    ci--;
+    textEl.textContent=phrase.slice(0,ci);
+    if(ci===0){
+      deleting=false;
+      pi=(pi+1)%phrases.length;
+      timer=setTimeout(tick,gapTime);
+      return;
+    }
+    timer=setTimeout(tick,deleteSpeed);
+  }
+}
+timer=setTimeout(tick,startDelay);
+})();
+// ── Quick-Facts Banner — Typewriter lead text ──
+(function(){
+const el=document.getElementById('qabTypewriter');
+if(!el)return;
+const phrases=[
+  'بهترین‌ها را برایت آماده کرده‌ایم',
+  'همه‌چیز برای سفر تو، یک‌جا',
+  'راحتی تو، دغدغه‌ی ماست',
+  'نزدیک‌ترین راه به حرم'
+];
+let pIdx=0,charIdx=0,typing=true;
+const typeSpeed=55,eraseSpeed=30,holdTime=1700,gapTime=400;
+function tick(){
+  const phrase=phrases[pIdx];
+  if(typing){
+    charIdx++;
+    el.textContent=phrase.slice(0,charIdx);
+    if(charIdx>=phrase.length){
+      typing=false;
+      setTimeout(tick,holdTime);
+      return;
+    }
+    setTimeout(tick,typeSpeed);
+  }else{
+    charIdx--;
+    el.textContent=phrase.slice(0,charIdx);
+    if(charIdx<=0){
+      typing=true;
+      pIdx=(pIdx+1)%phrases.length;
+      setTimeout(tick,gapTime);
+      return;
+    }
+    setTimeout(tick,eraseSpeed);
+  }
+}
+tick();
+})();
 
 (function(){
 const jalaliMonths=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
