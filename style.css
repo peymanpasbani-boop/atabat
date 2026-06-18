@@ -6860,18 +6860,20 @@ to {
 .cc-hotel-iraq {
   grid-column: 1 / -1;                         /* full width */
   background: linear-gradient(135deg,
-    #2D1B69 0%,
-    #5B2D8E 28%,
-    #8B5CF6 52%,
-    #4C1D95 75%,
-    #1E0F4A 100%);
+    rgba(255,255,255,0.22) 0%,
+    rgba(230,245,255,0.28) 35%,
+    rgba(200,235,255,0.20) 65%,
+    rgba(220,240,255,0.25) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 22px;
   overflow: hidden;
   cursor: pointer;
-  border: 1px solid rgba(255,200,120,.2);
+  border: 1px solid rgba(255,255,255,0.55);
   box-shadow:
-    0 14px 44px -8px rgba(91,45,142,.45),
-    inset 0 1px 0 rgba(255,255,255,.18);
+    0 14px 44px -8px rgba(100,180,255,0.18),
+    0 2px 8px rgba(120,190,255,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.7);
   transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
   position: relative;
 }
@@ -6880,17 +6882,17 @@ to {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 90% 50%, rgba(255,200,100,.08) 0%, transparent 65%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23fff' stroke-width='0.3' opacity='0.08'%3E%3Cpath d='M20 0L40 20L20 40L0 20Z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: auto, 40px 40px;
+    radial-gradient(ellipse 70% 80% at 85% 50%, rgba(150,210,255,0.18) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 60% at 15% 30%, rgba(200,230,255,0.12) 0%, transparent 55%);
   pointer-events: none;
 }
 .cc-hotel-iraq:hover {
   transform: translateY(-5px);
   box-shadow:
-    0 24px 56px -10px rgba(91,45,142,.6),
-    inset 0 1px 0 rgba(255,255,255,.22);
-  border-color: rgba(255,200,120,.35);
+    0 24px 56px -10px rgba(80,160,255,0.22),
+    0 4px 16px rgba(120,190,255,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  border-color: rgba(255,255,255,0.75);
 }
 .cc-hotel-inner {
   position: relative;
@@ -6915,9 +6917,9 @@ to {
 .cc-hotel-badge {
   font-size: 10px;
   font-weight: 700;
-  color: rgba(255,220,150,.9);
-  background: rgba(255,255,255,.1);
-  border: 1px solid rgba(255,200,100,.25);
+  color: rgba(30,80,140,.85);
+  background: rgba(255,255,255,.55);
+  border: 1px solid rgba(120,180,255,.35);
   padding: 3px 10px;
   border-radius: 999px;
   letter-spacing: .4px;
@@ -6925,13 +6927,13 @@ to {
 .cc-hotel-title {
   font-size: 18px;
   font-weight: 900;
-  color: #FFF8EE;
+  color: #0F2A4A;
   line-height: 1.2;
   letter-spacing: -.2px;
 }
 .cc-hotel-desc {
   font-size: 11.5px;
-  color: rgba(255,240,210,.7);
+  color: rgba(20,60,110,.65);
   line-height: 1.7;
   flex: 1;
 }
@@ -6947,9 +6949,9 @@ to {
   gap: 4px;
   font-size: 10px;
   font-weight: 700;
-  color: rgba(255,220,150,.85);
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,200,100,.2);
+  color: rgba(20,70,130,.85);
+  background: rgba(255,255,255,.45);
+  border: 1px solid rgba(100,170,255,.3);
   padding: 3px 8px 3px 6px;
   border-radius: 999px;
 }
@@ -6959,7 +6961,7 @@ to {
   flex-shrink: 0;
 }
 .cc-hotel-city-sep {
-  color: rgba(255,220,150,.4);
+  color: rgba(80,140,220,.35);
   font-size: 12px;
   line-height: 1;
 }
@@ -6969,7 +6971,7 @@ to {
   align-items: center;
   justify-content: space-between;
   padding-right: 16px;
-  border-right: 1px solid rgba(255,200,100,.15);
+  border-right: 1px solid rgba(100,170,255,.2);
   margin-right: 16px;
   gap: 12px;
 }
@@ -6983,12 +6985,12 @@ to {
   width: 38px;
   height: 38px;
   border-radius: 12px;
-  background: rgba(255,255,255,.1);
-  border: 1.5px solid rgba(255,200,100,.25);
+  background: rgba(255,255,255,.55);
+  border: 1.5px solid rgba(100,170,255,.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255,220,150,.9);
+  color: rgba(20,80,160,.8);
 }
 .cc-hotel-stars-icon svg {
   width: 20px;
@@ -6997,7 +6999,7 @@ to {
 .cc-hotel-star-row {
   display: flex;
   gap: 2px;
-  color: #FFD060;
+  color: #CFA13A;
 }
 .cc-hotel-star-row svg {
   width: 9px;
@@ -7006,19 +7008,19 @@ to {
 .cc-hotel-star-lbl {
   font-size: 9px;
   font-weight: 700;
-  color: rgba(255,220,150,.7);
+  color: rgba(20,70,130,.65);
   white-space: nowrap;
 }
 .cc-hotel-cta-pill {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: rgba(255,255,255,.12);
-  border: 1px solid rgba(255,200,100,.22);
+  background: rgba(255,255,255,.55);
+  border: 1px solid rgba(100,170,255,.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255,220,150,.9);
+  color: rgba(20,80,160,.8);
 }
 .cc-hotel-cta-pill svg {
   width: 14px;
@@ -7459,3 +7461,10 @@ to {
   .hi-field-row { grid-template-columns: 1fr; }
   .cc-hotel-left { display: none; }
 }
+
+/* ── Home live stats grid ── */
+.ts-live-grid{display:flex;align-items:center;justify-content:space-around;padding:14px 8px 6px;gap:0;}
+.ts-live-item{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;}
+.ts-live-num{font-size:22px;font-weight:900;color:var(--au);letter-spacing:-.5px;line-height:1;}
+.ts-live-lbl{font-size:10px;color:var(--is);font-weight:600;text-align:center;}
+.ts-live-sep{width:1px;height:36px;background:rgba(255,255,255,.08);flex-shrink:0;}
