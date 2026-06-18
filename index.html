@@ -48,26 +48,25 @@
   <!-- Cards -->
   <div class="h-cards">
 
-    <!-- Caravan quick-stats box -->
-    <div class="acs-box" id="acsBox">
-      <button class="acs-header" id="acsHeader" onclick="toggleAcs()" aria-expanded="false" aria-controls="acsBody">
-        <div class="acs-header-left">
-          <span class="acs-pulse-dot"></span>
-          <span class="acs-tag">✦ کاروان‌های فعال</span>
-        </div>
-        <div class="acs-header-right">
-          <div class="acs-grid" id="acsGrid"></div>
-          <span class="acs-chev" aria-hidden="true">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    <!-- Hotels & airlines quick-facts banner -->
+    <div class="qab" id="qabBanner">
+      <p class="qab-lead"><span class="qab-lead-spark" aria-hidden="true">✦</span>این امکانات رو برات فراهم کرده‌ایم</p>
+      <div class="qab-stats">
+        <div class="qab-stat">
+          <span class="qab-stat-icon">
+            <svg class="s17" width="15" height="15" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
           </span>
+          <span class="qab-stat-num" data-target="43">۰</span>
+          <span class="qab-stat-lbl">هتل در نجف و کربلا</span>
         </div>
-      </button>
-      <div class="acs-body" id="acsBody" aria-hidden="true">
-        <div class="acs-caravans" id="acsCaravans"></div>
-        <button class="acs-all-btn" onclick="openPanel('group')">
-          مشاهده همه کاروان‌ها
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        </button>
+        <span class="qab-div" aria-hidden="true"></span>
+        <div class="qab-stat">
+          <span class="qab-stat-icon">
+            <svg class="s17" width="15" height="15" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+          </span>
+          <span class="qab-stat-num" data-target="6">۰</span>
+          <span class="qab-stat-lbl">ایرلاین پرواز به نجف</span>
+        </div>
       </div>
     </div>
 
