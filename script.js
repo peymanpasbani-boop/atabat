@@ -1291,6 +1291,27 @@ const caravans=[
 {grad:'#CFA13A,#0F4D3A',title:'۱۰ روز | زمینی(مهران)',price:'۱۴,۸۰۰,۰۰۰',badges:['کربلا ۵ شب','نجف ۳ شب','از مشهد'],meta:'🗓 اعزام ۲۵ تیر · ظرفیت:۹ نفر',sub:'هتل ۳★ · اتوبوس VIP'},
 {grad:'#1F6F6B,#0F4D3A',title:'۵ روز | هوایی از اصفهان',price:'۲۲,۳۰۰,۰۰۰',badges:['کربلا ۳ شب','نجف ۱ شب','از اصفهان'],meta:'🗓 اعزام ۱ مرداد · ظرفیت:۲ نفر',sub:'هتل ۵★ · ۸۰ متر تا حرم'},
 ];
+// ── Live home-page stats — same source as group caravan page ──
+(function updateHomeStats(){
+  var fa2n=function(s){return parseInt(String(s).replace(/[۰-۹]/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)}))||0;};
+  var n2fa=function(n){return Number(n).toLocaleString('fa-IR');};
+  // همان منطق calcStats صفحه کاروان‌های گروهی
+  var activeCaravans=caravans.length;
+  var origins=new Set(caravans.map(function(c){var b=(c.badges||[]).find(function(b){return b.startsWith('از');});return b?b.replace('از ',''):'';}).filter(Boolean));
+  var totalCap=caravans.reduce(function(sum,c){var m=(c.meta||'').match(/ظرفیت[:\s]*([۰-۹\d]+)/);return sum+(m?fa2n(m[1]):0);},0);
+  var days=caravans.map(function(c){var m=(c.title||'').match(/^([۰-۹\d]+)/);return m?fa2n(m[1]):0;}).filter(function(d){return d>0;});
+  var avgDays=days.length?Math.round(days.reduce(function(a,b){return a+b;},0)/days.length):0;
+  // عدد اصلی دکمه = تعداد کاروان فعال
+  var tsTotalEl=document.getElementById('tsTotal');
+  if(tsTotalEl) tsTotalEl.textContent=n2fa(activeCaravans);
+  // گرید داخل accordion
+  var el=document.getElementById('tsLiveCaravans'); if(el) el.textContent=n2fa(activeCaravans);
+  var el2=document.getElementById('tsLiveOrigins'); if(el2) el2.textContent=n2fa(origins.size);
+  var el3=document.getElementById('tsLiveCap'); if(el3) el3.textContent=totalCap?n2fa(totalCap):'—';
+  var el4=document.getElementById('tsLiveDays'); if(el4) el4.textContent=avgDays?n2fa(avgDays):'—';
+})();
+
+
 const JALALI_MONTHS={
 'فروردین':1,'اردیبهشت':2,'خرداد':3,'تیر':4,'مرداد':5,'شهریور':6,
 'مهر':7,'آبان':8,'آذر':9,'دی':10,'بهمن':11,'اسفند':12
