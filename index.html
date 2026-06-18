@@ -142,7 +142,7 @@
         <div class="cc-hotel-right">
           <div class="cc-hotel-badge-row">
             <span class="cc-hotel-badge">🏨 رزرو اختصاصی هتل</span>
-            <span class="cc-num" style="color:rgba(207,161,58,.5)">۰۳</span>
+          <span class="cc-num" style="color:rgba(20,80,160,.25)">۰۳</span>
           </div>
           <div class="cc-hotel-title">هتل‌های نجف و کربلا</div>
           <div class="cc-hotel-desc">بهترین هتل‌های نزدیک حرم را مستقیم رزرو کن — بدون واسطه، با تضمین قیمت.</div>
@@ -626,7 +626,7 @@
 <button class="ts-toggle" id="tsToggle" onclick="toggleStats()" aria-expanded="false">
 <div class="ts-toggle-left">
 <span class="ts-toggle-num" id="tsTotal">۴٬۸۲۷</span>
-<span class="ts-toggle-label">سفر زیارتی از طریق آوان برنامه‌ریزی شده ✦ مشاهده آمار</span>
+<span class="ts-toggle-label">کاروان فعال با ظرفیت کامل ✦ مشاهده جزئیات</span>
 </div>
 <span class="ts-toggle-icon">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -636,59 +636,30 @@
 </button>
 <div class="ts-body">
 <div class="ts-banner">
-<div class="ts-banner-quote">هر عدد، یک زیارت مقبول</div>
+<div class="ts-banner-quote">هر عدد، یک کاروان واقعی</div>
 </div>
 <div class="ts-section-label">
-<span class="ts-dot">
-</span>امروز در عراق<span class="ts-dot">
-</span>
+<span class="ts-dot"></span>کاروان‌های فعال آوان<span class="ts-dot"></span>
 </div>
-<div class="ts-cities">
-<div class="ts-city ts-city--karbala">
-<div class="ts-city-top">
-<span class="ts-city-icon">☽</span>
-<span class="ts-city-count">۱۵</span>
+<div class="ts-live-grid" id="tsLiveGrid">
+<div class="ts-live-item">
+<span class="ts-live-num" id="tsLiveCaravans">—</span>
+<span class="ts-live-lbl">کاروان فعال</span>
 </div>
-<div class="ts-city-name">کربلا</div>
-<div class="ts-city-sub">حرم امام حسین (ع)</div>
+<div class="ts-live-sep"></div>
+<div class="ts-live-item">
+<span class="ts-live-num" id="tsLiveOrigins">—</span>
+<span class="ts-live-lbl">شهر مبدأ</span>
 </div>
-<div class="ts-city-sep">
-<div class="ts-city-sep-line">
+<div class="ts-live-sep"></div>
+<div class="ts-live-item">
+<span class="ts-live-num" id="tsLiveCap">—</span>
+<span class="ts-live-lbl">نفر ظرفیت</span>
 </div>
-<span class="ts-city-sep-total">۳۰ نفر</span>
-<div class="ts-city-sep-line">
-</div>
-</div>
-<div class="ts-city ts-city--najaf">
-<div class="ts-city-top">
-<span class="ts-city-icon">☽</span>
-<span class="ts-city-count">۱۵</span>
-</div>
-<div class="ts-city-name">نجف</div>
-<div class="ts-city-sub">حرم امام علی (ع)</div>
-</div>
-</div>
-<div class="ts-transport">
-<div class="ts-tr">
-<svg class="si" width="14" height="14" viewBox="0 0 24 24" >
-<path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/>
-</svg>
-<span class="ts-tr-num">۱۵</span>
-<span class="ts-tr-lbl">نفر هوایی</span>
-</div>
-<div class="ts-tr-bar-track">
-<div class="ts-tr-bar-fill" style="--w:60%">
-</div>
-</div>
-<div class="ts-tr">
-<svg class="si" width="14" height="14" viewBox="0 0 24 24" >
-<rect x="3" y="6" width="18" height="10" rx="2"/>
-<circle cx="7.5" cy="18" r="1.5"/>
-<circle cx="16.5" cy="18" r="1.5"/>
-<path d="M3 11h18"/>
-</svg>
-<span class="ts-tr-num">۱۰</span>
-<span class="ts-tr-lbl">نفر زمینی</span>
+<div class="ts-live-sep"></div>
+<div class="ts-live-item">
+<span class="ts-live-num" id="tsLiveDays">—</span>
+<span class="ts-live-lbl">روز میانگین</span>
 </div>
 </div>
 <div class="ts-footer-quote">
