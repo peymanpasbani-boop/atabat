@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پنل ادمین آوان</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g:#0F4D3A;--gd:#0A3328;--gm:#1a6b51;--gs:#E3EEE8;
+  --au:#CFA13A;--al:#E8CB8A;--ap:#FBF1DC;
+  --cr:#F7F3EC;--sd:#EDE5D6;--ink:#1F2A23;--is:#6B7A70;
+  --err:#c0392b;--ok:#1a6b51;
+  --ff:'Vazirmatn',sans-serif;--r:16px;--rp:999px;
+  --sc:0 4px 24px -6px rgba(15,77,58,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{font-family:var(--ff);background:#F0EBE1;color:var(--ink);direction:rtl;min-height:100vh;}
+button{font-family:var(--ff);cursor:pointer;border:none;background:none;}
+input,select,textarea{font-family:var(--ff);}
+
+/* ─── LAYOUT ─── */
+.admin-shell{display:flex;min-height:100vh;}
+.sidebar{width:220px;flex-shrink:0;background:var(--gd);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;}
+.sidebar-logo{padding:22px 18px 16px;border-bottom:1px solid rgba(255,255,255,.08);}
+.sidebar-logo h1{font-size:18px;font-weight:900;color:#fff;letter-spacing:-.3px;}
+.sidebar-logo span{color:var(--au);}
+.sidebar-logo p{font-size:10px;color:rgba(255,255,255,.4);margin-top:3px;font-weight:500;}
+.nav-group{padding:14px 10px 6px;}
+.nav-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.8px;text-transform:uppercase;padding:0 8px;margin-bottom:6px;}
+.nav-item{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:10px;color:rgba(255,255,255,.6);font-size:12.5px;font-weight:500;cursor:pointer;transition:.15s;margin-bottom:2px;}
+.nav-item:hover{background:rgba(255,255,255,.07);color:#fff;}
+.nav-item.active{background:var(--au);color:#1a0f00;font-weight:700;}
+.nav-item .ni{width:16px;height:16px;opacity:.8;flex-shrink:0;}
+.sidebar-foot{margin-top:auto;padding:14px 10px;}
+
+.main{flex:1;min-width:0;display:flex;flex-direction:column;}
+.topbar{background:#fff;border-bottom:1px solid rgba(15,77,58,.07);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.topbar-title{font-size:15px;font-weight:700;color:var(--g);}
+.topbar-actions{display:flex;gap:8px;}
+
+.content{padding:24px 28px;flex:1;}
+
+/* ─── SECTIONS ─── */
+.section{display:none;}
+.section.active{display:block;}
+
+/* ─── CARDS ─── */
+.card{background:#fff;border:1px solid rgba(15,77,58,.08);border-radius:var(--r);box-shadow:var(--sc);margin-bottom:18px;}
+.card-head{padding:16px 20px 14px;border-bottom:1px solid rgba(15,77,58,.06);display:flex;align-items:center;justify-content:space-between;}
+.card-head h3{font-size:14px;font-weight:700;color:var(--g);}
+.card-body{padding:20px;}
+
+/* ─── FORM ELEMENTS ─── */
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+.fg label{font-size:11.5px;font-weight:600;color:var(--is);}
+.fg input,.fg select,.fg textarea{
+  width:100%;padding:10px 13px;border:1.5px solid var(--sd);
+  border-radius:10px;font-size:13px;background:var(--cr);
+  color:var(--ink);transition:border-color .18s;outline:none;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--au);}
+.fg textarea{resize:vertical;min-height:70px;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+
+/* ─── BUTTONS ─── */
+.btn{padding:9px 18px;border-radius:var(--rp);font-size:12.5px;font-weight:700;transition:.15s;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
+.btn-p{background:var(--g);color:#fff;border:none;}
+.btn-p:hover{background:var(--gd);}
+.btn-au{background:var(--au);color:#1a0f00;border:none;}
+.btn-au:hover{background:#b8920f;}
+.btn-o{background:#fff;color:var(--g);border:1.5px solid rgba(15,77,58,.2);}
+.btn-o:hover{border-color:var(--g);}
+.btn-err{background:#fff;color:var(--err);border:1.5px solid rgba(192,57,43,.2);}
+.btn-err:hover{background:#fdf3f2;}
+.btn-sm{padding:5px 11px;font-size:11px;}
+.btn-xs{padding:3px 8px;font-size:10.5px;border-radius:6px;}
+
+/* ─── TABLES ─── */
+.tbl{width:100%;border-collapse:collapse;}
+.tbl th{font-size:11px;font-weight:700;color:var(--is);text-align:right;padding:8px 12px;border-bottom:2px solid var(--sd);}
+.tbl td{font-size:12.5px;padding:10px 12px;border-bottom:1px solid rgba(15,77,58,.06);vertical-align:middle;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:var(--gs);}
+
+/* ─── BADGES ─── */
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:var(--rp);font-size:10.5px;font-weight:600;}
+.badge-g{background:var(--gs);color:var(--g);}
+.badge-au{background:var(--ap);color:#8a6520;}
+.badge-air{background:#EEF4FF;color:#1a4fa3;}
+.badge-land{background:#F4F0E8;color:#6B5000;}
+.badge-ok{background:#e8f5e9;color:#1a6b51;}
+.badge-warn{background:#fff8e1;color:#b8920f;}
+.badge-err{background:#fdf3f2;color:var(--err);}
+
+/* ─── TOGGLE ─── */
+.tog-row{display:flex;align-items:center;gap:10px;}
+.tog{position:relative;width:40px;height:22px;flex-shrink:0;}
+.tog input{opacity:0;width:0;height:0;}
+.tog-sl{position:absolute;inset:0;background:var(--sd);border-radius:var(--rp);cursor:pointer;transition:.2s;}
+.tog input:checked+.tog-sl{background:var(--g);}
+.tog-sl::before{content:'';position:absolute;height:16px;width:16px;right:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;}
+.tog input:checked+.tog-sl::before{transform:translateX(-18px);}
+
+/* ─── TABS ─── */
+.tabs{display:flex;gap:2px;background:var(--sd);border-radius:10px;padding:3px;margin-bottom:18px;width:fit-content;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{padding:7px 16px;border-radius:8px;font-size:12px;font-weight:600;color:var(--is);cursor:pointer;transition:.15s;white-space:nowrap;flex-shrink:0;}
+.tab.active{background:#fff;color:var(--g);box-shadow:0 1px 4px rgba(15,77,58,.12);}
+
+/* ─── IRAQ-PAGE HOTEL CARDS (mobile entry) ─── */
+.ihp-card{background:var(--cr);border:1.5px solid var(--sd);border-radius:14px;padding:14px;margin-bottom:12px;}
+.ihp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.ihp-num{font-size:10.5px;font-weight:700;color:#8a6520;background:var(--ap);padding:3px 10px;border-radius:999px;}
+.ihp-card .fg{margin-bottom:10px;}
+.ihp-grade{display:flex;gap:6px;}
+.ihp-grade button{flex:1;padding:10px 0;border-radius:9px;border:1.5px solid var(--sd);background:#fff;font-size:12.5px;font-weight:700;color:var(--is);transition:.15s;}
+.ihp-grade button.active{background:var(--au);color:#1a0f00;border-color:var(--au);}
+.ihp-price-wrap{position:relative;}
+.ihp-price-wrap input{padding-left:50px;}
+.ihp-price-suffix{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--is);font-weight:600;pointer-events:none;}
+
+/* ─── CITY CARD in hotel section ─── */
+.city-hotel-card{border:1.5px solid var(--sd);border-radius:12px;overflow:hidden;margin-bottom:12px;}
+.city-hotel-head{background:var(--gs);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
+.city-hotel-head h4{font-size:13px;font-weight:700;color:var(--g);}
+.city-hotel-body{padding:14px 16px;}
+.hotel-tier{display:flex;flex-direction:column;gap:8px;margin-bottom:10px;}
+.hotel-tier-label{font-size:10.5px;font-weight:700;color:var(--is);letter-spacing:.3px;margin-bottom:4px;}
+.hotel-item{display:flex;align-items:center;gap:8px;padding:9px 12px;border:1.5px solid var(--sd);border-radius:9px;background:var(--cr);}
+.hotel-item input{flex:1;}
+.hotel-item .hi-stars{font-size:12px;font-weight:700;color:var(--au);min-width:42px;}
+.hotel-item .hi-dist{width:100px;}
+.hotel-item .hi-price{width:120px;}
+
+/* ─── DEPARTURE ROW ─── */
+.dep-row{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1.5px solid var(--sd);border-radius:10px;background:var(--cr);margin-bottom:8px;}
+.dep-row input[type=text]{flex:1;}
+.dep-row select{width:110px;}
+.dep-row .dep-surcharge{width:90px;}
+
+/* ─── CITY SOURCE ROW ─── */
+.origin-row{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1.5px solid var(--sd);border-radius:10px;margin-bottom:8px;background:var(--cr);}
+.origin-row input{flex:1;}
+.origin-row .or-air{width:130px;}
+.origin-row .or-bus{width:130px;}
+.origin-row .or-tf{width:110px;}
+
+/* ─── STATUS ─── */
+.status-bar{background:var(--gs);border:1px solid rgba(15,77,58,.12);border-radius:10px;padding:10px 16px;font-size:12px;color:var(--g);display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex-shrink:0;}
+
+/* ─── SUMMARY STAT ─── */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+.stat-card{background:#fff;border:1px solid rgba(15,77,58,.08);border-radius:12px;padding:14px;text-align:center;}
+.stat-num{font-size:22px;font-weight:900;color:var(--g);}
+.stat-lbl{font-size:10.5px;color:var(--is);margin-top:3px;}
+
+/* ─── TOAST ─── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--gd);color:#fff;padding:10px 22px;border-radius:var(--rp);font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all .3s;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ─── EXPORT BOX ─── */
+.export-box{background:var(--gd);border-radius:14px;padding:20px;color:#fff;}
+.export-box h3{font-size:14px;font-weight:700;margin-bottom:8px;}
+.export-box p{font-size:11.5px;opacity:.7;margin-bottom:14px;line-height:1.7;}
+.export-actions{display:flex;gap:8px;flex-wrap:wrap;}
+
+/* ─── CARAVAN ENTRY ─── */
+.caravan-entry{border:1.5px solid var(--sd);border-radius:12px;padding:16px;margin-bottom:12px;background:var(--cr);position:relative;}
+.caravan-entry-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.caravan-entry-num{font-size:11px;font-weight:700;color:var(--au);background:var(--ap);padding:3px 10px;border-radius:var(--rp);}
+
+/* ─── PROFIT ROW ─── */
+.profit-section{background:linear-gradient(135deg,var(--ap),#fff5dd);border:1.5px solid rgba(207,161,58,.25);border-radius:12px;padding:16px;margin-bottom:14px;}
+.profit-section h4{font-size:12.5px;font-weight:700;color:#8a6520;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+
+/* Hide bottom nav on desktop */
+.bottom-nav{ display:none; }
+
+/* ─── MOBILE ─── */
+@media(max-width:768px){
+
+  /* Hide desktop sidebar */
+  .sidebar{ display:none; }
+
+  /* Main fills full screen */
+  .admin-shell{ flex-direction:column; }
+  .main{ padding-bottom:72px; }
+
+  /* Topbar */
+  .topbar{ padding:10px 14px; gap:8px; }
+  .topbar-title{ font-size:14px; }
+  .topbar-actions .btn-sm{ padding:7px 11px; font-size:11.5px; }
+
+  /* Content */
+  .content{ padding:12px 14px; }
+
+  /* Grids → single column */
+  .row,.row3{ grid-template-columns:1fr; gap:10px; }
+  .stat-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+  .stat-num{ font-size:18px; }
+  .stat-lbl{ font-size:10px; }
+
+  /* Cards */
+  .card{ border-radius:12px; margin-bottom:14px; }
+  .card-head{ padding:12px 14px; }
+  .card-body{ padding:14px; }
+
+  /* Form inputs — bigger touch targets */
+  .fg input,.fg select,.fg textarea{
+    padding:12px 13px; font-size:14px; border-radius:10px;
+  }
+  .fg label{ font-size:12px; }
+  .fg{ margin-bottom:12px; }
+
+  /* Buttons */
+  .btn{ padding:10px 16px; font-size:13px; }
+  .btn-sm{ padding:8px 13px; font-size:12px; }
+  .btn-xs{ padding:5px 10px; font-size:11px; }
+
+  /* Rows with fixed-width inputs → stack */
+  .dep-row, .origin-row{
+    flex-wrap:wrap; gap:8px;
+  }
+  .dep-row input[type=text],
+  .origin-row input{ width:100%; flex:none; }
+  .dep-row select,
+  .dep-row .dep-surcharge,
+  .origin-row .or-air,
+  .origin-row .or-bus,
+  .origin-row .or-tf{ width:calc(50% - 4px); flex:none; }
+
+  /* Hotel items → stack */
+  .hotel-item{ flex-wrap:wrap; gap:8px; }
+  .hotel-item input{ width:100%; }
+  .hotel-item .hi-dist,
+  .hotel-item .hi-price{ width:calc(50% - 4px); }
+
+  /* Caravan entry */
+  .caravan-entry{ padding:12px; }
+  .caravan-entry-head{ margin-bottom:10px; }
+
+  /* Export */
+  .export-box{ padding:16px; border-radius:12px; }
+  .export-box p{ font-size:12px; }
+  .export-actions{ flex-direction:column; }
+  .export-actions .btn{ width:100%; justify-content:center; }
+
+  /* Tabs */
+  .tabs{ width:100%; justify-content:stretch; }
+  .tab{ flex:1; text-align:center; padding:8px 6px; font-size:11.5px; }
+
+  /* City hotel card */
+  .city-hotel-head{ padding:10px 12px; }
+  .city-hotel-body{ padding:10px 12px; }
+
+  /* Import status */
+  #import-status{ font-size:12px; }
+
+  /* ── Bottom Navigation Bar ── */
+  .bottom-nav{
+    display:flex !important;
+    position:fixed;
+    bottom:0; left:0; right:0;
+    height:60px;
+    background:var(--gd);
+    border-top:1px solid rgba(255,255,255,.1);
+    z-index:200;
+    justify-content:space-around;
+    align-items:stretch;
+    padding:0 2px;
+    box-shadow:0 -4px 20px rgba(0,0,0,.2);
+  }
+  .bn-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    flex:1;
+    color:rgba(255,255,255,.5);
+    font-size:9.5px;
+    font-weight:600;
+    cursor:pointer;
+    border-radius:0;
+    padding:6px 2px;
+    transition:.15s;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .bn-item svg{ width:20px; height:20px; }
+  .bn-item.active{ color:var(--au); }
+  .bn-item:active{ background:rgba(255,255,255,.06); }
+}
+</style>
+</head>
+<body>
+
+<div class="admin-shell">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <h1>آوان <span>✦</span></h1>
+    <p>پنل مدیریت سفر</p>
+  </div>
+
+  <nav class="nav-group">
+    <div class="nav-label">اصلی</div>
+    <div class="nav-item active" onclick="gotoSection('dashboard')">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <span>داشبورد</span>
+    </div>
+    <div class="nav-item" onclick="gotoSection('origins')">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+      <span>شهرهای اعزام</span>
+    </div>
+    <div class="nav-item" onclick="gotoSection('hotels')">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+      <span>هتل‌های کاروان</span>
+    </div>
+    <div class="nav-item" onclick="gotoSection('hihotels')">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+      <span>هتل رزرو مستقیم</span>
+    </div>
+    <div class="nav-item" onclick="gotoSection('pricing')">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <span>نرخ‌گذاری</span>
+    </div>
+    <div class="nav-item" onclick="gotoSection('departures')">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      <span>تاریخ اعزام</span>
+    </div>
+    <div class="nav-item" onclick="gotoSection('caravans')">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span>کاروان‌های گروهی</span>
+    </div>
+  </nav>
+
+  <nav class="nav-group">
+    <div class="nav-label">خروجی</div>
+    <div class="nav-item" onclick="gotoSection('export')">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span>ذخیره / خروجی</span>
+    </div>
+  </nav>
+
+  <div class="sidebar-foot">
+    <div class="nav-item" style="opacity:.5;font-size:11px;cursor:default;">
+      <svg class="ni" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <span>v1.0</span>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-title" id="page-title">داشبورد</div>
+    <div class="topbar-actions">
+      <label class="btn btn-o btn-sm" style="cursor:pointer;">
+        📂 بارگذاری JSON
+        <input type="file" accept=".json" onchange="loadJSON(event)" style="display:none;">
+      </label>
+      <button class="btn btn-au btn-sm" onclick="gotoSection('export')">💾 ذخیره</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ══════════ DASHBOARD ══════════ -->
+    <div id="sec-dashboard" class="section active">
+      <div class="status-bar"><div class="status-dot"></div> پنل آوان آماده است — اطلاعات را تکمیل و فایل JSON را خروجی بگیرید</div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-num" id="d-origins">۰</div><div class="stat-lbl">شهر اعزام</div></div>
+        <div class="stat-card"><div class="stat-num" id="d-caravans">۰</div><div class="stat-lbl">کاروان گروهی</div></div>
+        <div class="stat-card"><div class="stat-num" id="d-departures">۰</div><div class="stat-lbl">تاریخ اعزام</div></div>
+        <div class="stat-card"><div class="stat-num" id="d-hotels">۰</div><div class="stat-lbl">هتل تعریف‌شده</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>📋 راهنمای تکمیل پنل</h3></div>
+        <div class="card-body" style="font-size:13px;line-height:2;color:var(--is);">
+          <b style="color:var(--g);">۱. شهرهای اعزام</b> — شهرهایی که از آن‌ها اعزام دارید را با نرخ پرواز و اتوبوس تعریف کنید.<br>
+          <b style="color:var(--g);">۲. هتل‌ها</b> — برای هر شهر (کربلا، نجف، کاظمین/سامرا) هتل‌های موجود را با درجه و فاصله تا حرم وارد کنید.<br>
+          <b style="color:var(--g);">۳. نرخ‌گذاری</b> — هزینه پایه هر شب اقامت، ترانسفر، خدمات جانبی و سود هر سفر را مشخص کنید.<br>
+          <b style="color:var(--g);">۴. تاریخ اعزام</b> — تاریخ‌های موجود را اضافه کنید، ظرفیت و افزایش نرخ فصلی را تعیین کنید.<br>
+          <b style="color:var(--g);">۵. کاروان‌های گروهی</b> — بسته‌های آماده را معرفی کنید.<br>
+          <b style="color:var(--g);">۶. ذخیره</b> — JSON را دانلود کنید و در مخزن GitHub آپلود کنید.
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ ORIGINS ══════════ -->
+    <div id="sec-origins" class="section">
+      <div class="card">
+        <div class="card-head">
+          <h3>✈ شهرهای اعزام و نرخ حمل‌ونقل</h3>
+          <button class="btn btn-p btn-sm" onclick="addOrigin()">+ اضافه‌کردن شهر</button>
+        </div>
+        <div class="card-body">
+          <div style="font-size:11.5px;color:var(--is);margin-bottom:14px;background:var(--gs);border-radius:8px;padding:9px 13px;">
+            نرخ‌ها به <b>تومان</b> وارد شوند. قیمت پایه یک‌طرفه برای هر نفر.
+          </div>
+          <div style="display:grid;grid-template-columns:2fr 1.5fr 1.5fr 1.2fr 80px;gap:6px;padding:0 4px;margin-bottom:6px;">
+            <div style="font-size:10.5px;font-weight:700;color:var(--is);">نام شهر</div>
+            <div style="font-size:10.5px;font-weight:700;color:var(--is);">پرواز (تومان)</div>
+            <div style="font-size:10.5px;font-weight:700;color:var(--is);">اتوبوس VIP (تومان)</div>
+            <div style="font-size:10.5px;font-weight:700;color:var(--is);">فعال</div>
+            <div></div>
+          </div>
+          <div id="origins-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ HOTELS ══════════ -->
+    <div id="sec-hotels" class="section">
+      <div class="card">
+        <div class="card-head"><h3>🏨 هتل‌های سفر انفرادی</h3></div>
+        <div class="card-body">
+          <div style="font-size:12px;color:var(--is);background:var(--gs);border-radius:8px;padding:9px 13px;margin-bottom:14px;line-height:1.8;">
+            برای هر هتل، نام، آدرس، درجه (لوکس / متوسط / اقتصادی) و <b>نرخ هر شب (تومان)</b> را وارد کنید. این نرخ‌ها هنگام دانلود/ذخیره در فایل <b dir="ltr">avan-data.json</b> ذخیره می‌شوند و سایت از همان فایل می‌خواند.
+          </div>
+          <div class="tabs" id="hotel-tabs">
+            <div class="tab active" onclick="setHotelTab('karbala',this)">کربلا</div>
+            <div class="tab" onclick="setHotelTab('najaf',this)">نجف</div>
+            <div class="tab" onclick="setHotelTab('kazsamarra',this)">کاظمین / سامرا</div>
+          </div>
+          <div id="hotel-city-panel"></div>
+          <button class="btn btn-p btn-sm" style="margin-top:4px;width:100%;" onclick="addHotel()">+ افزودن هتل جدید</button>
+        </div>
+      </div>
+
+      <!-- ── هتل‌های صفحه عراق (متفاوت از کاروان و سفر انفرادی) ── -->
+      <div class="card">
+        <div class="card-head"><h3>🌍 هتل‌های صفحه عراق</h3></div>
+        <div class="card-body">
+          <div style="font-size:12px;color:var(--is);background:var(--gs);border-radius:8px;padding:9px 13px;margin-bottom:14px;line-height:1.8;">
+            این لیست مخصوص صفحهٔ کلی هتل‌های عراق روی سایت است و <b>جدا از هتل‌های کاروان و هتل‌های سفر انفرادی</b> است. برای هر هتل نام، آدرس، درجه و نرخ هر شب را وارد کنید.
+          </div>
+          <div class="tabs" id="ihp-tabs">
+            <div class="tab active" onclick="setIhpTab('karbala',this)">کربلا</div>
+            <div class="tab" onclick="setIhpTab('najaf',this)">نجف</div>
+            <div class="tab" onclick="setIhpTab('kazimiya',this)">کاظمین</div>
+            <div class="tab" onclick="setIhpTab('erbil',this)">اربیل</div>
+            <div class="tab" onclick="setIhpTab('baghdad',this)">بغداد</div>
+          </div>
+          <div id="ihp-city-panel"></div>
+          <button class="btn btn-p btn-sm" style="margin-top:4px;width:100%;" onclick="addIhpHotel()">+ افزودن هتل جدید</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ PRICING ══════════ -->
+    <div id="sec-pricing" class="section">
+      <div class="card">
+        <div class="card-head"><h3>💰 نرخ‌گذاری پایه</h3></div>
+        <div class="card-body">
+
+          <div class="profit-section">
+            <h4>✦ سود مورد انتظار هر سفر</h4>
+            <div class="row">
+              <div class="fg">
+                <label>سود هر نفر — سفر هوایی (تومان)</label>
+                <input type="number" id="p-profit-air" placeholder="مثال: 2000000">
+              </div>
+              <div class="fg">
+                <label>سود هر نفر — سفر زمینی (تومان)</label>
+                <input type="number" id="p-profit-land" placeholder="مثال: 1500000">
+              </div>
+            </div>
+          </div>
+
+          <h4 style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:12px;">هزینه اقامت (هر شب / هر نفر)</h4>
+          <div class="row3">
+            <div class="fg"><label>هتل ۵★ لوکس — کربلا (هر شب/نفر)</label><input type="number" id="p-lux-karbala" placeholder="5500000"></div>
+            <div class="fg"><label>هتل ۴★ متوسط — کربلا</label><input type="number" id="p-mid-karbala" placeholder="3200000"></div>
+            <div class="fg"><label>هتل ۳★ اقتصادی — کربلا</label><input type="number" id="p-eco-karbala" placeholder="1650000"></div>
+          </div>
+          <div class="row3">
+            <div class="fg"><label>هتل ۵★ لوکس — نجف</label><input type="number" id="p-lux-najaf" placeholder="4800000"></div>
+            <div class="fg"><label>هتل ۴★ متوسط — نجف</label><input type="number" id="p-mid-najaf" placeholder="2900000"></div>
+            <div class="fg"><label>هتل ۳★ اقتصادی — نجف</label><input type="number" id="p-eco-najaf" placeholder="1450000"></div>
+          </div>
+          <div class="row3">
+            <div class="fg"><label>هتل ۵★ لوکس — کاظمین/سامرا</label><input type="number" id="p-lux-kaz" placeholder="4100000"></div>
+            <div class="fg"><label>هتل ۴★ متوسط — کاظمین/سامرا</label><input type="number" id="p-mid-kaz" placeholder="2500000"></div>
+            <div class="fg"><label>هتل ۳★ اقتصادی — کاظمین/سامرا</label><input type="number" id="p-eco-kaz" placeholder="1350000"></div>
+          </div>
+
+          <h4 style="font-size:13px;font-weight:700;color:var(--g);margin:16px 0 12px;">سایر هزینه‌ها (هر نفر)</h4>
+          <div class="row3">
+            <div class="fg"><label>ترانسفر فرودگاه (رفت+برگشت)</label><input type="number" id="p-transfer" placeholder="600000"></div>
+            <div class="fg"><label>ویزا عراق (تومان)</label><input type="number" id="p-visa" placeholder="350000"></div>
+            <div class="fg"><label>بیمه مسافرتی</label><input type="number" id="p-insurance" placeholder="220000"></div>
+          </div>
+          <div class="row3">
+            <div class="fg"><label>سیم‌کارت عراقی</label><input type="number" id="p-sim" placeholder="480000"></div>
+            <div class="fg"><label>هزینه مدیریت / خدمات</label><input type="number" id="p-mgmt" placeholder="450000"></div>
+            <div class="fg"><label>سایر (توضیح دهید)</label><input type="number" id="p-misc" placeholder="0"></div>
+          </div>
+          <div class="fg">
+            <label>توضیح سایر هزینه</label>
+            <input type="text" id="p-misc-label" placeholder="مثال: هزینه گید زیارتی">
+          </div>
+
+          <div style="margin-top:8px;">
+            <button class="btn btn-p" onclick="savePricing()">ذخیره نرخ‌ها</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ HI-HOTELS (رزرو مستقیم) ══════════ -->
+    <div id="sec-hihotels" class="section">
+
+      <!-- ── EXTRACTOR ── -->
+      <div class="card">
+        <div class="card-head">
+          <h3>🔗 افزودن هتل از صفحه سایت گلگشت</h3>
+          <span class="badge badge-au" style="cursor:pointer;" onclick="toggleExtractorBox()" id="extractor-toggle-btn">باز کردن ▾</span>
+        </div>
+        <div class="card-body" id="extractor-box" style="display:none;">
+          <div style="font-size:11.5px;color:var(--is);background:var(--gs);border-radius:8px;padding:10px 13px;margin-bottom:14px;line-height:1.9;">
+            چون سایت گلگشت اجازهٔ دریافت خودکار اطلاعات را نمی‌دهد، باید کد HTML صفحهٔ هر هتل را دستی کپی کنید:
+            ۱) صفحهٔ هتل را در سایت گلگشت باز کنید &nbsp;۲) راست‌کلیک → «نمایش کد صفحه / View Page Source» (یا Ctrl+U) &nbsp;۳) همهٔ متن را کپی (Ctrl+A → Ctrl+C) و در کادر پایین پیست کنید &nbsp;۴) روی «استخراج اطلاعات» بزنید.
+          </div>
+          <div class="fg">
+            <label>لینک صفحهٔ هتل (فقط برای یادداشت)</label>
+            <input type="text" id="extract-url" placeholder="https://golgashthotel.ir/...">
+          </div>
+          <div class="fg">
+            <label>کد HTML صفحه را اینجا پیست کنید</label>
+            <textarea id="extract-html" style="min-height:110px;font-size:11px;direction:ltr;text-align:left;" placeholder="<html>...کل کد صفحه را اینجا پیست کنید...</html>"></textarea>
+          </div>
+          <button class="btn btn-au btn-sm" onclick="runExtract()">✦ استخراج اطلاعات</button>
+
+          <div id="extract-results" style="display:none;margin-top:16px;border-top:1.5px dashed var(--sd);padding-top:14px;">
+            <div class="row">
+              <div class="fg"><label>نام هتل (تشخیص خودکار — قابل ویرایش)</label><input type="text" id="extract-name"></div>
+              <div class="fg"><label>آدرس (تشخیص خودکار — قابل ویرایش)</label><input type="text" id="extract-address"></div>
+            </div>
+            <input type="hidden" id="extract-source">
+            <div class="fg">
+              <label>عکس‌های پیدا شده — روی ۴ مورد دلخواه کلیک کنید</label>
+              <div id="extract-images" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;"></div>
+            </div>
+            <button class="btn btn-p btn-sm" onclick="confirmAddExtracted()">+ افزودن این هتل به شهر فعال</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LIST ── -->
+      <div class="card">
+        <div class="card-head"><h3>🏨 هتل‌های رزرو مستقیم (پانل Hotel-Iraq)</h3></div>
+        <div class="card-body">
+          <div style="font-size:12px;color:var(--is);background:var(--gs);border-radius:8px;padding:9px 13px;margin-bottom:14px;line-height:1.8;">
+            این هتل‌ها در پانل «رزرو مستقیم هتل» سایت نمایش داده می‌شوند.<br>
+            <b>نکته:</b> قیمت به تومان — نرخ هر شب برای یک اتاق دو نفره؛ قیمت‌ها را دستی وارد کنید.
+          </div>
+          <div class="tabs" id="hihotel-tabs">
+            <div class="tab active" onclick="setHiHotelTab('najaf',this)">نجف اشرف</div>
+            <div class="tab" onclick="setHiHotelTab('karbala',this)">کربلای معلی</div>
+            <div class="tab" onclick="setHiHotelTab('kazimiya',this)">کاظمین / سامرا</div>
+            <div class="tab" onclick="setHiHotelTab('baghdad',this)">بغداد</div>
+            <div class="tab" onclick="setHiHotelTab('erbil',this)">اربیل</div>
+          </div>
+          <div id="hihotel-city-panel"></div>
+          <div id="hihotel-pager" style="display:flex;align-items:center;gap:10px;justify-content:center;margin-top:14px;"></div>
+          <button class="btn btn-p btn-sm" style="margin-top:10px;" onclick="addHiHotel()">+ هتل جدید (خالی)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ DEPARTURES ══════════ -->
+    <div id="sec-departures" class="section">
+      <div class="card">
+        <div class="card-head">
+          <h3>📅 تاریخ‌های اعزام</h3>
+          <button class="btn btn-p btn-sm" onclick="addDeparture()">+ تاریخ جدید</button>
+        </div>
+        <div class="card-body">
+          <div style="font-size:11.5px;color:var(--is);background:var(--gs);border-radius:8px;padding:9px 13px;margin-bottom:14px;">
+            تاریخ به فرمت <b dir="ltr">YYYY/MM/DD</b> شمسی وارد کنید. افزایش نرخ به درصد (مثال: ۱۵ برای ۱۵٪ افزایش).
+          </div>
+          <div style="display:grid;grid-template-columns:1.4fr 1.2fr 1.2fr 1fr 120px 70px;gap:6px;padding:0 4px;margin-bottom:6px;">
+            <div style="font-size:10.5px;font-weight:700;color:var(--is);">تاریخ (شمسی)</div>
+            <div style="font-size:10.5px;font-weight:700;color:var(--is);">شهر مبدأ</div>
+            <div style="font-size:10.5px;font-weight:700;color:var(--is);">نوع سفر</div>
+            <div style="font-size:10.5px;font-weight:700;color:var(--is);">ظرفیت (نفر)</div>
+            <div style="font-size:10.5px;font-weight:700;color:var(--is);">افزایش نرخ (%)</div>
+            <div></div>
+          </div>
+          <div id="departures-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ CARAVANS ══════════ -->
+    <div id="sec-caravans" class="section">
+
+      <!-- ── Import from haj.ir ── -->
+      <div class="card" style="margin-bottom:18px;">
+        <div class="card-head">
+          <h3>📥 وارد کردن از سازمان حج و زیارت</h3>
+        </div>
+        <div class="card-body">
+          <p style="font-size:12.5px;color:var(--is);line-height:2;margin-bottom:14px;">
+            صفحه‌ی نتایج سایت <b>haj.ir</b> را به‌صورت HTML ذخیره کنید (Ctrl+S) و در باکس مربوطه آپلود کنید.
+            سیستم به‌طور خودکار اطلاعات کاروان‌ها را استخراج می‌کند.<br>
+            <span style="color:var(--au);font-weight:600;">⚠ توجه:</span> کاروان‌های موجود حذف نمی‌شوند — داده‌های جدید اضافه می‌شوند.
+          </p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+            <div style="flex:1;min-width:220px;background:var(--gs);border-radius:10px;padding:14px;">
+              <div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:10px;">🕌 زیارت (عتبات عالیات)</div>
+              <label class="btn btn-au" style="cursor:pointer;display:inline-flex;">
+                📂 آپلود فایل HTML زیارت
+                <input type="file" accept=".html,.htm,.mhtml" multiple onchange="importHajHTML(event,'ziyarat')" style="display:none;">
+              </label>
+            </div>
+            <div style="flex:1;min-width:220px;background:var(--gs);border-radius:10px;padding:14px;">
+              <div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:10px;">🕋 حج</div>
+              <label class="btn btn-au" style="cursor:pointer;display:inline-flex;">
+                📂 آپلود فایل HTML حج
+                <input type="file" accept=".html,.htm,.mhtml" multiple onchange="importHajHTML(event,'hajj')" style="display:none;">
+              </label>
+            </div>
+          </div>
+          <button class="btn btn-err btn-sm" onclick="if(confirm('همه کاروان‌های گروهی پاک شوند؟')){state.caravans=[];renderCaravans();toast('کاروان‌ها پاک شدند');}">🗑 پاک کردن همه</button>
+          <div id="import-status" style="display:none;margin-top:12px;padding:10px 14px;border-radius:10px;font-size:12.5px;line-height:1.8;"></div>
+        </div>
+      </div>
+
+      <!-- ── Manual caravans ── -->
+      <div class="card">
+        <div class="card-head">
+          <h3>🚌 کاروان‌های گروهی</h3>
+          <button class="btn btn-p btn-sm" onclick="addCaravan()">+ کاروان جدید</button>
+        </div>
+        <div class="card-body">
+          <div id="caravans-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ EXPORT ══════════ -->
+    <div id="sec-export" class="section">
+      <div class="export-box" style="margin-bottom:18px;">
+        <h3>📦 خروجی JSON برای GitHub</h3>
+        <p>اطلاعات پنل را به‌صورت یک فایل <b>avan-data.json</b> ذخیره کنید و در مخزن GitHub کنار فایل اصلی آپلود کنید. سایت آوان به‌صورت خودکار این فایل را می‌خواند.</p>
+        <div class="export-actions">
+          <button class="btn btn-au" onclick="downloadJSON()">⬇ دانلود avan-data.json</button>
+          <button class="btn btn-o" style="color:#fff;border-color:rgba(255,255,255,.3);" onclick="previewJSON()">👁 پیش‌نمایش JSON</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>📋 راهنمای GitHub</h3></div>
+        <div class="card-body" style="font-size:13px;line-height:2.1;color:var(--is);">
+          ۱. فایل <code style="background:var(--sd);padding:2px 6px;border-radius:4px;font-size:12px;color:var(--g);">avan-data.json</code> را دانلود کنید.<br>
+          ۲. به مخزن GitHub بروید و فایل را کنار <code style="background:var(--sd);padding:2px 6px;border-radius:4px;font-size:12px;color:var(--g);">avan_v16.html</code> آپلود کنید.<br>
+          ۳. آدرس raw فایل را در <b>سایت اصلی</b> تنظیم کنید (یا از آدرس پیش‌فرض GitHub Pages استفاده کنید).<br>
+          ۴. برای ویرایش بعدی: همین پنل را باز کنید، فایل JSON قبلی را <b>بارگذاری</b> کنید، تغییر دهید و دوباره دانلود کنید.
+        </div>
+      </div>
+
+      <div class="card" id="json-preview-card" style="display:none;">
+        <div class="card-head"><h3>پیش‌نمایش JSON</h3></div>
+        <div class="card-body">
+          <pre id="json-preview-code" style="font-size:11px;background:var(--gd);color:#a8f0d0;padding:16px;border-radius:10px;overflow:auto;max-height:400px;line-height:1.7;direction:ltr;text-align:left;"></pre>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /shell -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ════════════════════════════════════
+// STATE
+// ════════════════════════════════════
+const state={
+  origins:[
+    {city:'تهران',    airPrice:5800000, busPrice:2200000, active:true},
+    {city:'مشهد',     airPrice:6500000, busPrice:2700000, active:true},
+    {city:'اصفهان',   airPrice:6200000, busPrice:2400000, active:true},
+    {city:'شیراز',    airPrice:6400000, busPrice:2600000, active:true},
+    {city:'تبریز',    airPrice:6700000, busPrice:2900000, active:true},
+    {city:'اهواز',    airPrice:5200000, busPrice:1600000, active:true},
+    {city:'کرمانشاه', airPrice:5600000, busPrice:1400000, active:true},
+    {city:'قم',       airPrice:5500000, busPrice:2000000, active:true},
+  ],
+  hotels:{
+    karbala:[
+      {name:'هتل بیت‌العباس',  address:'', grade:'lux', priceNum:5500000},
+      {name:'هتل عمر بن علی',  address:'', grade:'lux', priceNum:5500000},
+      {name:'هتل الحسین',      address:'', grade:'lux', priceNum:5500000},
+      {name:'هتل کوثر کربلا',  address:'', grade:'mid', priceNum:3200000},
+      {name:'هتل الرافدین',    address:'', grade:'mid', priceNum:3200000},
+      {name:'هتل عشتار کربلا', address:'', grade:'mid', priceNum:3200000},
+      {name:'هتل المصطفی',     address:'', grade:'eco', priceNum:1650000},
+      {name:'هتل الزهرا',      address:'', grade:'eco', priceNum:1650000},
+      {name:'هتل بدرالهواشم',  address:'', grade:'eco', priceNum:1650000},
+    ],
+    najaf:[
+      {name:'هتل الصفوه',      address:'', grade:'lux', priceNum:4800000},
+      {name:'هتل النجف رویال', address:'', grade:'lux', priceNum:4800000},
+      {name:'هتل فجر النجف',   address:'', grade:'lux', priceNum:4800000},
+      {name:'هتل العلوی',      address:'', grade:'mid', priceNum:2900000},
+      {name:'هتل الامام نجف',  address:'', grade:'mid', priceNum:2900000},
+      {name:'هتل ریان نجف',    address:'', grade:'mid', priceNum:2900000},
+      {name:'هتل الکاظم نجف',  address:'', grade:'eco', priceNum:1450000},
+      {name:'هتل الاخوه',      address:'', grade:'eco', priceNum:1450000},
+      {name:'هتل اعراف نجف',   address:'', grade:'eco', priceNum:1450000},
+    ],
+    kazsamarra:[
+      {name:'هتل الکاظمیه گراند', address:'', grade:'lux', priceNum:4100000},
+      {name:'هتل الامامین',       address:'', grade:'lux', priceNum:4100000},
+      {name:'هتل الجواد کاظمین', address:'', grade:'mid', priceNum:2500000},
+      {name:'هتل برج الضامن',    address:'', grade:'mid', priceNum:2500000},
+      {name:'هتل الهادی',        address:'', grade:'eco', priceNum:1350000},
+      {name:'هتل العسکری',       address:'', grade:'eco', priceNum:1350000},
+    ]
+  },
+  /* هتل‌های پانل رزرو مستقیم (hotel-iraq) */
+  hiHotels:{
+    najaf:[
+      {name:'هتل الصادق النجف',    grade:'luxury', dist:'۷۵ متر تا حرم',   priceNum:4800000, price:'۴٬۸۰۰٬۰۰۰', features:['صبحانه بوفه','وای‌فای رایگان','پارکینگ','نزدیک‌ترین به حرم','سرویس ۲۴ساعته','نمای حرم']},
+      {name:'هتل فجر النجف',       grade:'luxury', dist:'۱۵۰ متر تا حرم',  priceNum:4200000, price:'۴٬۲۰۰٬۰۰۰', features:['صبحانه','استخر','سالن غذا','لابی VIP','سرویس ترانسفر','اتاق دبل و سویت']},
+      {name:'هتل النجف الکبیر',    grade:'luxury', dist:'۲۰۰ متر تا حرم',  priceNum:3800000, price:'۳٬۸۰۰٬۰۰۰', features:['صبحانه بوفه','وای‌فای','رستوران ایرانی','سالن اجتماعات','پارکینگ']},
+      {name:'هتل المرجان نجف',     grade:'mid',    dist:'۲۵۰ متر تا حرم',  priceNum:2900000, price:'۲٬۹۰۰٬۰۰۰', features:['وای‌فای','صبحانه','لابی ۲۴ساعته','رستوران','سرویس اتاق']},
+      {name:'هتل قدس نجف',         grade:'mid',    dist:'۳۵۰ متر تا حرم',  priceNum:2400000, price:'۲٬۴۰۰٬۰۰۰', features:['وای‌فای','پارکینگ','رستوران','اتاق‌های بازسازی‌شده','صبحانه']},
+      {name:'هتل ریان نجف',        grade:'mid',    dist:'۴۱۰ متر تا حرم',  priceNum:2100000, price:'۲٬۱۰۰٬۰۰۰', features:['وای‌فای','پارکینگ','رستوران','دسترسی آسان']},
+      {name:'هتل الولاء نجف',      grade:'eco',    dist:'۵۰۰ متر تا حرم',  priceNum:1450000, price:'۱٬۴۵۰٬۰۰۰', features:['وای‌فای','سرویس اتاق','نزدیک بازار','امکانات پایه']},
+      {name:'هتل مهر نجف',         grade:'eco',    dist:'۶۵۰ متر تا حرم',  priceNum:1150000, price:'۱٬۱۵۰٬۰۰۰', features:['وای‌فای','پارکینگ','قیمت مناسب','مناسب گروه‌های زیارتی']},
+    ],
+    karbala:[
+      {name:'هتل بیت‌العباس',      grade:'luxury', dist:'۶۰ متر تا حرم',   priceNum:5500000, price:'۵٬۵۰۰٬۰۰۰', features:['صبحانه بوفه','وای‌فای','نزدیک‌ترین','دید حرم از اتاق','سرویس VIP','رستوران اختصاصی']},
+      {name:'هتل الحسین کربلا',    grade:'luxury', dist:'۱۲۰ متر تا حرم',  priceNum:4800000, price:'۴٬۸۰۰٬۰۰۰', features:['صبحانه','استخر','رستوران لوکس','لابی VIP','نمای حرم','سرویس ترانسفر']},
+      {name:'هتل عمر بن علی',      grade:'luxury', dist:'۱۸۰ متر تا حرم',  priceNum:4200000, price:'۴٬۲۰۰٬۰۰۰', features:['صبحانه بوفه','وای‌فای','رستوران','سالن اجتماعات','خدمات ویژه حج']},
+      {name:'هتل کوثر کربلا',      grade:'mid',    dist:'۲۸۰ متر تا حرم',  priceNum:3200000, price:'۳٬۲۰۰٬۰۰۰', features:['وای‌فای','صبحانه','لابی','پارکینگ','سرویس اتاق']},
+      {name:'هتل عشتار کربلا',     grade:'mid',    dist:'۳۸۰ متر تا حرم',  priceNum:2700000, price:'۲٬۷۰۰٬۰۰۰', features:['وای‌فای','پارکینگ','رستوران','اتاق‌های نوسازی‌شده','مناسب خانواده']},
+      {name:'هتل الرافدین کربلا',  grade:'mid',    dist:'۴۵۰ متر تا حرم',  priceNum:2300000, price:'۲٬۳۰۰٬۰۰۰', features:['وای‌فای','پارکینگ','رستوران','دسترسی به حمل‌ونقل']},
+      {name:'هتل المصطفی کربلا',   grade:'eco',    dist:'۵۵۰ متر تا حرم',  priceNum:1650000, price:'۱٬۶۵۰٬۰۰۰', features:['وای‌فای','سرویس اتاق','قیمت مناسب','پارکینگ']},
+      {name:'هتل الزهرا کربلا',    grade:'eco',    dist:'۷۰۰ متر تا حرم',  priceNum:1300000, price:'۱٬۳۰۰٬۰۰۰', features:['وای‌فای','پارکینگ','اقتصادی','مناسب گروه‌های زیارتی']},
+    ],
+    kazimiya:[
+      {name:'هتل الکاظمیه گراند',  grade:'luxury', dist:'۹۰ متر تا حرم',   priceNum:4100000, price:'۴٬۱۰۰٬۰۰۰', features:['صبحانه بوفه','وای‌فای','رستوران','سرویس ویژه','نمای حرم','پارکینگ']},
+      {name:'هتل الامامین',        grade:'luxury', dist:'۱۸۰ متر تا حرم',  priceNum:3600000, price:'۳٬۶۰۰٬۰۰۰', features:['صبحانه','وای‌فای','لابی VIP','رستوران','سرویس ترانسفر']},
+      {name:'هتل الجواد کاظمین',   grade:'mid',    dist:'۳۰۰ متر تا حرم',  priceNum:2500000, price:'۲٬۵۰۰٬۰۰۰', features:['وای‌فای','صبحانه','لابی','امکانات کامل','پارکینگ']},
+      {name:'هتل برج الضامن',      grade:'mid',    dist:'۴۰۰ متر تا حرم',  priceNum:2100000, price:'۲٬۱۰۰٬۰۰۰', features:['وای‌فای','پارکینگ','رستوران','قیمت مناسب']},
+      {name:'هتل الهادی کاظمین',   grade:'eco',    dist:'۵۵۰ متر تا حرم',  priceNum:1350000, price:'۱٬۳۵۰٬۰۰۰', features:['وای‌فای','پارکینگ','مناسب خانواده','قیمت اقتصادی']},
+      {name:'هتل العسکری سامرا',   grade:'eco',    dist:'۶۵۰ متر تا حرم',  priceNum:1150000, price:'۱٬۱۵۰٬۰۰۰', features:['وای‌فای','پارکینگ','امکانات پایه','مناسب زیارت']},
+    ],
+    baghdad:[],
+    erbil:[],
+  },
+  /* هتل‌های صفحه عراق (جدا از کاروان و سفر انفرادی) */
+  iraqPageHotels:{
+    karbala:[],
+    najaf:[],
+    kazimiya:[],
+    erbil:[],
+    baghdad:[],
+  },
+  pricing:{
+    profitAir:2500000, profitLand:1800000,
+    hotel:{
+      lux:{karbala:5500000, najaf:4800000, kaz:4100000},
+      mid:{karbala:3200000, najaf:2900000, kaz:2500000},
+      eco:{karbala:1650000, najaf:1450000, kaz:1350000}
+    },
+    transfer:600000, visa:350000, insurance:220000, sim:480000, mgmt:450000, misc:0, miscLabel:''
+  },
+  departures:[
+    {date:'1405/04/20', origin:'تهران',    type:'air',  capacity:40, surcharge:0},
+    {date:'1405/04/22', origin:'مشهد',     type:'air',  capacity:35, surcharge:0},
+    {date:'1405/04/25', origin:'تهران',    type:'land', capacity:45, surcharge:0},
+    {date:'1405/04/27', origin:'اصفهان',   type:'land', capacity:40, surcharge:0},
+    {date:'1405/05/01', origin:'تبریز',    type:'land', capacity:42, surcharge:10},
+    {date:'1405/05/05', origin:'شیراز',    type:'land', capacity:38, surcharge:10},
+    {date:'1405/05/10', origin:'تهران',    type:'air',  capacity:40, surcharge:15},
+    {date:'1405/05/15', origin:'مشهد',     type:'air',  capacity:35, surcharge:15},
+  ],
+  caravans:[
+    {title:'۷ روز | هوایی از تهران',price:24500000,karbala:4,najaf:2,kazTransit:true,kazNights:0,origin:'تهران',type:'air',grad:'#0F4D3A,#CFA13A',sub:'هتل ۴★ · ۲۰۰ متر تا حرم',meta:'اعزام ۲۰ تیر · ظرفیت: ۴۰ نفر'},
+    {title:'۱۰ روز | زمینی (مهران)',price:18800000,karbala:5,najaf:3,kazTransit:false,kazNights:1,origin:'مشهد',type:'land',grad:'#CFA13A,#0F4D3A',sub:'هتل ۳★ · اتوبوس VIP',meta:'اعزام ۲۵ تیر · ظرفیت: ۴۵ نفر'},
+  ]
+};
+let currentHotelCity='karbala';
+
+// ════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════
+function gotoSection(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  // Sync desktop sidebar
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(event && event.currentTarget) event.currentTarget.classList.add('active');
+  // Sync bottom nav
+  document.querySelectorAll('.bn-item').forEach(b=>b.classList.remove('active'));
+  const bnMap={dashboard:'bn-dashboard',origins:'bn-origins',hotels:'bn-hotels',caravans:'bn-caravans',export:'bn-export'};
+  if(bnMap[id]) document.getElementById(bnMap[id])?.classList.add('active');
+  const titles={dashboard:'داشبورد',origins:'شهرهای اعزام',hotels:'هتل‌های کاروان',hihotels:'هتل‌های رزرو مستقیم',pricing:'نرخ‌گذاری',departures:'تاریخ اعزام',caravans:'کاروان‌های گروهی',export:'ذخیره / خروجی'};
+  document.getElementById('page-title').textContent=titles[id]||id;
+  // Scroll to top on mobile
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(id==='origins')renderOrigins();
+  if(id==='hotels'){renderHotels();renderIhpHotels();}
+  if(id==='hihotels')renderHiHotels();
+  if(id==='pricing')loadPricing();
+  if(id==='departures')renderDepartures();
+  if(id==='caravans')renderCaravans();
+  if(id==='dashboard')updateDashboard();
+}
+
+// ════════════════════════════════════
+// DASHBOARD
+// ════════════════════════════════════
+function updateDashboard(){
+  document.getElementById('d-origins').textContent=fa(state.origins.filter(o=>o.active).length);
+  document.getElementById('d-caravans').textContent=fa(state.caravans.length);
+  document.getElementById('d-departures').textContent=fa(state.departures.length);
+  let h=0;
+  ['karbala','najaf','kazsamarra'].forEach(c=>h+=state.hotels[c].length);
+  document.getElementById('d-hotels').textContent=fa(h);
+}
+
+// ════════════════════════════════════
+// ORIGINS
+// ════════════════════════════════════
+function renderOrigins(){
+  const list=document.getElementById('origins-list');
+  list.innerHTML='';
+  state.origins.forEach((o,i)=>{
+    const row=document.createElement('div');
+    row.className='origin-row';
+    row.innerHTML=`
+      <input type="text" class="or-city" value="${o.city}" placeholder="نام شهر" onchange="state.origins[${i}].city=this.value">
+      <input type="number" class="or-air" value="${o.airPrice}" placeholder="نرخ پرواز" onchange="state.origins[${i}].airPrice=+this.value">
+      <input type="number" class="or-bus" value="${o.busPrice}" placeholder="نرخ اتوبوس" onchange="state.origins[${i}].busPrice=+this.value">
+      <label class="tog"><input type="checkbox" ${o.active?'checked':''} onchange="state.origins[${i}].active=this.checked"><span class="tog-sl"></span></label>
+      <button class="btn btn-err btn-xs" onclick="removeOrigin(${i})">✕</button>
+    `;
+    list.appendChild(row);
+  });
+}
+
+function addOrigin(){
+  state.origins.push({city:'',airPrice:0,busPrice:0,active:true});
+  renderOrigins();
+  toast('شهر جدید اضافه شد');
+}
+
+function removeOrigin(i){
+  state.origins.splice(i,1);
+  renderOrigins();
+}
+
+// ════════════════════════════════════
+// HOTELS
+// ════════════════════════════════════
+function setHotelTab(city,el){
+  document.querySelectorAll('#hotel-tabs .tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  currentHotelCity=city;
+  renderHotels();
+}
+
+function renderHotels(){
+  const panel=document.getElementById('hotel-city-panel');
+  const c=currentHotelCity;
+  const gradeLabels={lux:'لوکس',mid:'متوسط',eco:'اقتصادی'};
+  const list=state.hotels[c];
+  let html='';
+  list.forEach((h,i)=>{
+    if(!h.grade)h.grade='mid';
+    html+=`<div class="ihp-card">
+      <div class="ihp-top">
+        <span class="ihp-num">هتل ${fa(i+1)}</span>
+        <button class="btn btn-err btn-xs" onclick="removeHotel('${c}',${i})">✕ حذف</button>
+      </div>
+      <div class="fg">
+        <label>نام هتل</label>
+        <input type="text" value="${(h.name||'').replace(/"/g,'&quot;')}" placeholder="مثال: هتل بیت‌العباس" onchange="state.hotels['${c}'][${i}].name=this.value">
+      </div>
+      <div class="fg">
+        <label>آدرس هتل</label>
+        <input type="text" value="${(h.address||'').replace(/"/g,'&quot;')}" placeholder="آدرس کامل هتل" onchange="state.hotels['${c}'][${i}].address=this.value">
+      </div>
+      <div class="fg">
+        <label>درجه هتل</label>
+        <div class="ihp-grade">
+          <button type="button" class="${h.grade==='lux'?'active':''}" onclick="setHotelGrade('${c}',${i},'lux')">لوکس</button>
+          <button type="button" class="${h.grade==='mid'?'active':''}" onclick="setHotelGrade('${c}',${i},'mid')">متوسط</button>
+          <button type="button" class="${h.grade==='eco'?'active':''}" onclick="setHotelGrade('${c}',${i},'eco')">اقتصادی</button>
+        </div>
+      </div>
+      <div class="fg">
+        <label>نرخ هر شب (تومان)</label>
+        <div class="ihp-price-wrap">
+          <input type="number" value="${h.priceNum||0}" placeholder="مثال: 3200000" onchange="state.hotels['${c}'][${i}].priceNum=+this.value">
+          <span class="ihp-price-suffix">تومان/شب</span>
+        </div>
+      </div>
+    </div>`;
+  });
+  panel.innerHTML=html||'<div style="color:var(--is);font-size:12.5px;padding:8px;text-align:center;">هتلی ثبت نشده — از دکمه «+ افزودن هتل جدید» استفاده کنید</div>';
+}
+
+function setHotelGrade(city,i,grade){
+  state.hotels[city][i].grade=grade;
+  renderHotels();
+}
+
+function addHotel(){
+  const c=currentHotelCity;
+  state.hotels[c].push({name:'',address:'',grade:'mid',priceNum:0});
+  renderHotels();
+  toast('هتل جدید اضافه شد');
+}
+
+function removeHotel(city,i){
+  state.hotels[city].splice(i,1);
+  renderHotels();
+}
+
+// ════════════════════════════════════
+// IRAQ-PAGE HOTELS (متفاوت از کاروان و سفر انفرادی) — mobile card entry
+// ════════════════════════════════════
+let currentIhpCity='karbala';
+
+function setIhpTab(city,el){
+  document.querySelectorAll('#ihp-tabs .tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  currentIhpCity=city;
+  renderIhpHotels();
+}
+
+function renderIhpHotels(){
+  const panel=document.getElementById('ihp-city-panel');
+  if(!panel)return;
+  const c=currentIhpCity;
+  if(!state.iraqPageHotels[c])state.iraqPageHotels[c]=[];
+  const list=state.iraqPageHotels[c];
+
+  let html='';
+  list.forEach((h,i)=>{
+    if(!h.grade)h.grade=4;
+    html+=`<div class="ihp-card">
+      <div class="ihp-top">
+        <span class="ihp-num">هتل ${fa(i+1)}</span>
+        <button class="btn btn-err btn-xs" onclick="removeIhpHotel('${c}',${i})">✕ حذف</button>
+      </div>
+      <div class="fg">
+        <label>نام هتل</label>
+        <input type="text" value="${(h.name||'').replace(/"/g,'&quot;')}" placeholder="مثال: هتل بیت‌العباس" onchange="state.iraqPageHotels['${c}'][${i}].name=this.value">
+      </div>
+      <div class="fg">
+        <label>آدرس هتل</label>
+        <input type="text" value="${(h.address||'').replace(/"/g,'&quot;')}" placeholder="آدرس کامل هتل" onchange="state.iraqPageHotels['${c}'][${i}].address=this.value">
+      </div>
+      <div class="fg">
+        <label>درجه هتل</label>
+        <div class="ihp-grade">
+          <button type="button" class="${h.grade===3?'active':''}" onclick="setIhpGrade('${c}',${i},3)">۳ ★</button>
+          <button type="button" class="${h.grade===4?'active':''}" onclick="setIhpGrade('${c}',${i},4)">۴ ★</button>
+          <button type="button" class="${h.grade===5?'active':''}" onclick="setIhpGrade('${c}',${i},5)">۵ ★</button>
+        </div>
+      </div>
+      <div class="fg">
+        <label>نرخ هر شب (تومان)</label>
+        <div class="ihp-price-wrap">
+          <input type="number" value="${h.priceNum||0}" placeholder="مثال: 3200000" onchange="state.iraqPageHotels['${c}'][${i}].priceNum=+this.value">
+          <span class="ihp-price-suffix">تومان/شب</span>
+        </div>
+      </div>
+    </div>`;
+  });
+  panel.innerHTML=html||'<div style="color:var(--is);font-size:12.5px;padding:8px;text-align:center;">هتلی ثبت نشده — از دکمه «+ افزودن هتل جدید» استفاده کنید</div>';
+}
+
+function setIhpGrade(city,i,grade){
+  state.iraqPageHotels[city][i].grade=grade;
+  renderIhpHotels();
+}
+
+function addIhpHotel(){
+  const c=currentIhpCity;
+  if(!state.iraqPageHotels[c])state.iraqPageHotels[c]=[];
+  state.iraqPageHotels[c].push({name:'',address:'',grade:4,priceNum:0});
+  renderIhpHotels();
+  toast('هتل جدید اضافه شد');
+}
+
+function removeIhpHotel(city,i){
+  state.iraqPageHotels[city].splice(i,1);
+  renderIhpHotels();
+}
+
+// ════════════════════════════════════
+// PRICING
+// ════════════════════════════════════
+function loadPricing(){
+  const p=state.pricing;
+  v('p-profit-air',p.profitAir);v('p-profit-land',p.profitLand);
+  v('p-lux-karbala',p.hotel.lux.karbala);v('p-mid-karbala',p.hotel.mid.karbala);v('p-eco-karbala',p.hotel.eco.karbala);
+  v('p-lux-najaf',p.hotel.lux.najaf);v('p-mid-najaf',p.hotel.mid.najaf);v('p-eco-najaf',p.hotel.eco.najaf);
+  v('p-lux-kaz',p.hotel.lux.kaz);v('p-mid-kaz',p.hotel.mid.kaz);v('p-eco-kaz',p.hotel.eco.kaz);
+  v('p-transfer',p.transfer);v('p-visa',p.visa);v('p-insurance',p.insurance);
+  v('p-sim',p.sim);v('p-mgmt',p.mgmt);v('p-misc',p.misc);v('p-misc-label',p.miscLabel);
+}
+
+function savePricing(){
+  const p=state.pricing;
+  p.profitAir=n('p-profit-air');p.profitLand=n('p-profit-land');
+  p.hotel.lux.karbala=n('p-lux-karbala');p.hotel.mid.karbala=n('p-mid-karbala');p.hotel.eco.karbala=n('p-eco-karbala');
+  p.hotel.lux.najaf=n('p-lux-najaf');p.hotel.mid.najaf=n('p-mid-najaf');p.hotel.eco.najaf=n('p-eco-najaf');
+  p.hotel.lux.kaz=n('p-lux-kaz');p.hotel.mid.kaz=n('p-mid-kaz');p.hotel.eco.kaz=n('p-eco-kaz');
+  p.transfer=n('p-transfer');p.visa=n('p-visa');p.insurance=n('p-insurance');
+  p.sim=n('p-sim');p.mgmt=n('p-mgmt');p.misc=n('p-misc');
+  p.miscLabel=g('p-misc-label');
+  toast('✦ نرخ‌ها ذخیره شد');
+}
+
+// ════════════════════════════════════
+// DEPARTURES
+// ════════════════════════════════════
+function renderDepartures(){
+  const list=document.getElementById('departures-list');
+  list.innerHTML='';
+  const originOpts=state.origins.map(o=>`<option>${o.city}</option>`).join('');
+  state.departures.forEach((d,i)=>{
+    const row=document.createElement('div');
+    row.className='dep-row';
+    row.innerHTML=`
+      <input type="text" value="${d.date}" placeholder="1404/05/15" dir="ltr" onchange="state.departures[${i}].date=this.value">
+      <select onchange="state.departures[${i}].origin=this.value">
+        ${state.origins.map(o=>`<option ${o.city===d.origin?'selected':''}>${o.city}</option>`).join('')}
+      </select>
+      <select onchange="state.departures[${i}].type=this.value">
+        <option value="air" ${d.type==='air'?'selected':''}>✈ هوایی</option>
+        <option value="land" ${d.type==='land'?'selected':''}>🚌 زمینی</option>
+        <option value="mixed" ${d.type==='mixed'?'selected':''}>✦ ترکیبی</option>
+      </select>
+      <input type="number" value="${d.capacity}" placeholder="ظرفیت" onchange="state.departures[${i}].capacity=+this.value">
+      <input type="number" class="dep-surcharge" value="${d.surcharge}" placeholder="۰" onchange="state.departures[${i}].surcharge=+this.value">
+      <button class="btn btn-err btn-xs" onclick="removeDeparture(${i})">✕</button>
+    `;
+    list.appendChild(row);
+  });
+}
+
+function addDeparture(){
+  const firstOrigin=state.origins[0]?.city||'تهران';
+  state.departures.push({date:'',origin:firstOrigin,type:'air',capacity:40,surcharge:0});
+  renderDepartures();
+}
+
+function removeDeparture(i){
+  state.departures.splice(i,1);
+  renderDepartures();
+}
+
+// ════════════════════════════════════
+// CARAVANS
+// ════════════════════════════════════
+function renderCaravans(){
+  const list=document.getElementById('caravans-list');
+  list.innerHTML='';
+  state.caravans.forEach((c,i)=>list.appendChild(buildCaravanEntry(c,i)));
+}
+
+function buildCaravanEntry(c,i){
+  const div=document.createElement('div');
+  div.className='caravan-entry';
+  const catBadge = c._category==='hajj'
+    ? `<span style="background:#fdf3e3;color:#8a6520;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;">🕋 حج</span>`
+    : (c._category==='ziyarat' ? `<span style="background:#e8f5ee;color:var(--ok);border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;">🕌 زیارت</span>` : '');
+  const extraInfo = (c._company || c._agent) ? `
+    <div style="background:var(--gs);border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:11.5px;color:var(--is);display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+      ${catBadge}
+      ${c._company?`<span>🏢 ${c._company}</span>`:''}
+      ${c._agent?`<span>👤 ${c._agent}</span>`:''}
+      ${c._group?`<span>گروه: ${c._group}</span>`:''}
+      ${c._date?`<span>📅 ${c._date}</span>`:''}
+    </div>` : '';
+  div.innerHTML=`
+    <div class="caravan-entry-head">
+      <span class="caravan-entry-num">کاروان ${fa(i+1)} ${!c._company&&!c._agent&&catBadge?catBadge:''}</span>
+      <button class="btn btn-err btn-xs" onclick="removeCaravan(${i})">✕ حذف</button>
+    </div>
+    ${extraInfo}
+    <div class="row">
+      <div class="fg"><label>عنوان کاروان</label><input type="text" value="${c.title}" onchange="state.caravans[${i}].title=this.value" placeholder="مثال: ۷ روز | هوایی از تهران"></div>
+      <div class="fg"><label>قیمت هر نفر (تومان)</label><input type="number" value="${c.price}" onchange="state.caravans[${i}].price=+this.value"></div>
+    </div>
+    <div class="row3">
+      <div class="fg"><label>شب کربلا</label><input type="number" value="${c.karbala}" min="0" max="14" onchange="state.caravans[${i}].karbala=+this.value"></div>
+      <div class="fg"><label>شب نجف</label><input type="number" value="${c.najaf}" min="0" max="14" onchange="state.caravans[${i}].najaf=+this.value"></div>
+      <div class="fg"><label>شب کاظمین/سامرا</label><input type="number" value="${c.kazNights}" min="0" max="7" onchange="state.caravans[${i}].kazNights=+this.value" ${c.kazTransit?'disabled':''}></div>
+    </div>
+    <div class="row">
+      <div class="fg"><label>شهر مبدأ</label>
+        <select onchange="state.caravans[${i}].origin=this.value">
+          ${state.origins.length ? state.origins.map(o=>`<option ${o.city===c.origin?'selected':''}>${o.city}</option>`).join('') : `<option selected>${c.origin||'تهران'}</option>`}
+        </select>
+      </div>
+      <div class="fg"><label>نوع حمل‌ونقل</label>
+        <select onchange="state.caravans[${i}].type=this.value">
+          <option value="air" ${c.type==='air'?'selected':''}>✈ هوایی</option>
+          <option value="land" ${c.type==='land'?'selected':''}>🚌 زمینی</option>
+          <option value="mixed" ${c.type==='mixed'?'selected':''}>✦ ترکیبی</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="fg"><label>توضیح کوتاه</label><input type="text" value="${c.sub}" onchange="state.caravans[${i}].sub=this.value" placeholder="هتل ۴★ · ۲۰۰ متر تا حرم"></div>
+      <div class="fg"><label>متا (تاریخ + ظرفیت)</label><input type="text" value="${c.meta}" onchange="state.caravans[${i}].meta=this.value" placeholder="اعزام ۲۰ تیر · ظرفیت: ۴۰ نفر"></div>
+    </div>
+    <div class="fg"><label>رنگ گرادیان (مثال: #0F4D3A,#CFA13A)</label><input type="text" value="${c.grad}" onchange="state.caravans[${i}].grad=this.value" dir="ltr"></div>
+    <div class="tog-row" style="margin-top:6px;">
+      <label class="tog"><input type="checkbox" ${c.kazTransit?'checked':''} onchange="state.caravans[${i}].kazTransit=this.checked;renderCaravans()"><span class="tog-sl"></span></label>
+      <span style="font-size:12.5px;">کاظمین/سامرا فقط عبوری (بدون اقامت)</span>
+    </div>
+  `;
+  return div;
+}
+
+// ════════════════════════════════════
+// IMPORT FROM HAJ.IR HTML
+// ════════════════════════════════════
+
+// Map Persian day names to transport type guess
+function guessType(typeStr){
+  if(!typeStr) return 'land';
+  const s = typeStr.trim();
+  if(/خسروي|مهران|شلمچه|چذابه|بسره|زرباطیه/.test(s)) return 'land';
+  if(/هوایی|پرواز|فلایت/.test(s)) return 'air';
+  return 'land';
+}
+
+// Parse nights from type description like "نجف2 کربلا3"
+function parseNights(typeStr){
+  const result = {karbala:0, najaf:0, kazNights:0, kazTransit:true};
+  if(!typeStr) return result;
+  const najafM = typeStr.match(/نجف\s*(\d+)/);
+  if(najafM) result.najaf = parseInt(najafM[1]);
+  const karbalaM = typeStr.match(/کربلا\s*(\d+)/);
+  if(karbalaM) result.karbala = parseInt(karbalaM[1]);
+  const kazM = typeStr.match(/کاظمين\s*(\d+)|کاظمین\s*(\d+)/);
+  if(kazM){ result.kazNights = parseInt(kazM[1]||kazM[2]); result.kazTransit = false; }
+  if(/کاظمين عبوري|کاظمین عبوری/.test(typeStr)) { result.kazNights = 0; result.kazTransit = true; }
+  return result;
+}
+
+// Convert Jalali date like "05/04/01" to readable Persian
+function jalaliToDisplay(d){
+  if(!d) return '';
+  const parts = d.split('/');
+  if(parts.length < 3) return d;
+  const months=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+  const y = parseInt(parts[0]) + 1400; // offset: data uses 2-digit century
+  const m = parseInt(parts[1]);
+  const day = parseInt(parts[2]);
+  return `اعزام ${day} ${months[m-1]} ۱${y.toString().slice(1)}`;
+}
+
+function formatPrice(rawPrice){
+  if(!rawPrice) return 0;
+  // Remove commas, spaces
+  const n = parseInt(rawPrice.replace(/[,،\s]/g,''));
+  // haj.ir prices are in Rials — convert to Tomans
+  return isNaN(n) ? 0 : Math.round(n / 10);
+}
+
+function parseHajTable(htmlText, category){
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlText, 'text/html');
+  const table = doc.getElementById('ctl00_cp1_grdKargroup');
+  if(!table) return [];
+  
+  const rows = table.querySelectorAll('tr');
+  const caravans = [];
+  
+  rows.forEach((row, idx) => {
+    if(idx === 0) return; // skip header
+    const cells = row.querySelectorAll('td');
+    if(cells.length < 10) return;
+    
+    const dayName    = cells[0]?.textContent?.trim() || '';
+    const date       = cells[1]?.textContent?.trim() || '';
+    const capacity   = cells[2]?.textContent?.trim() || '';
+    const typeDesc   = cells[3]?.textContent?.trim() || '';
+    const priceRaw   = cells[4]?.textContent?.trim() || '0';
+    const cityFrom   = cells[5]?.textContent?.trim() || '';
+    const city       = cells[6]?.textContent?.trim() || '';
+    const agent      = cells[7]?.textContent?.trim() || '';
+    const groupNum   = cells[8]?.textContent?.trim() || '';
+    const company    = cells[9]?.textContent?.trim() || '';
+    const hotelNajaf = cells[10]?.textContent?.trim() || '';
+    const hotelKarb  = cells[11]?.textContent?.trim() || '';
+    const hotelKaz   = cells[12]?.textContent?.trim() || '';
+
+    const nights = parseNights(typeDesc);
+    const totalNights = nights.najaf + nights.karbala + (nights.kazTransit ? 0 : nights.kazNights);
+    const type = guessType(typeDesc);
+    const price = formatPrice(priceRaw);
+    
+    // Build title
+    const title = `${totalNights} روز | ${type==='air'?'هوایی':'زمینی'} از ${city||cityFrom}`;
+    
+    // Build sub
+    const hotels = [hotelNajaf, hotelKarb, hotelKaz].filter(h=>h && h!=='&nbsp;' && h.trim()!='').join(' · ');
+    const sub = hotels || typeDesc.substring(0,40);
+    
+    // Build meta
+    const dispDate = jalaliToDisplay(date);
+    const meta = `${dispDate} · ظرفیت: ${capacity} نفر`;
+
+    caravans.push({
+      title,
+      price,
+      karbala: nights.karbala,
+      najaf: nights.najaf,
+      kazTransit: nights.kazTransit,
+      kazNights: nights.kazNights,
+      origin: city || cityFrom,
+      type,
+      grad: '#0F4D3A,#CFA13A',
+      sub,
+      meta,
+      // extra info stored for display
+      _category: category || 'ziyarat',
+      _company: company,
+      _agent: agent,
+      _group: groupNum,
+      _date: date,
+      _typeDesc: typeDesc
+    });
+  });
+  return caravans;
+}
+
+async function importHajHTML(event, category){
+  category = category || 'ziyarat';
+  const categoryLabel = category==='hajj' ? 'حج' : 'زیارت';
+  const files = Array.from(event.target.files);
+  if(!files.length) return;
+  
+  const statusEl = document.getElementById('import-status');
+  statusEl.style.display = '';
+  statusEl.style.background = 'var(--ap)';
+  statusEl.style.color = '#8a6520';
+  statusEl.innerHTML = `⏳ در حال پردازش ${files.length} فایل (${categoryLabel})...`;
+  
+  let totalAdded = 0;
+  const errors = [];
+  
+  for(const file of files){
+    try{
+      const text = await file.text();
+      const parsed = parseHajTable(text, category);
+      if(parsed.length === 0){
+        errors.push(`${file.name}: جدول کاروان یافت نشد`);
+      } else {
+        state.caravans.push(...parsed);
+        totalAdded += parsed.length;
+      }
+    } catch(e){
+      errors.push(`${file.name}: خطا در خواندن`);
+    }
+  }
+  
+  renderCaravans();
+  updateDashboard();
+  event.target.value = '';
+  
+  if(totalAdded > 0){
+    statusEl.style.background = '#e8f5e9';
+    statusEl.style.color = 'var(--ok)';
+    statusEl.innerHTML = `✅ <b>${fa(totalAdded)} کاروان (${categoryLabel})</b> با موفقیت وارد شدند.` +
+      (errors.length ? `<br>⚠ ${errors.join('<br>')}` : '');
+    toast(`✦ ${fa(totalAdded)} کاروان ${categoryLabel} وارد شد`);
+  } else {
+    statusEl.style.background = '#fdf3f2';
+    statusEl.style.color = 'var(--err)';
+    statusEl.innerHTML = '❌ هیچ کاروانی استخراج نشد.<br>' + errors.join('<br>') +
+      '<br><span style="color:var(--is);">اگر ساختار جدول فایل حج با فایل زیارت متفاوت است، لطفاً یک نمونه فایل بفرستید تا تجزیه‌گر مطابق آن تنظیم شود.</span>';
+  }
+}
+
+
+function addCaravan(){
+  const firstOrigin=state.origins[0]?.city||'تهران';
+  state.caravans.push({title:'',price:0,karbala:3,najaf:2,kazTransit:true,kazNights:0,origin:firstOrigin,type:'air',grad:'#0F4D3A,#CFA13A',sub:'',meta:''});
+  renderCaravans();
+  toast('کاروان جدید اضافه شد');
+}
+
+function removeCaravan(i){
+  state.caravans.splice(i,1);
+  renderCaravans();
+}
+
+// ════════════════════════════════════
+// JSON EXPORT / IMPORT
+// ════════════════════════════════════
+// ════════════════════════════════════
+// HI-HOTELS (رزرو مستقیم)
+// ════════════════════════════════════
+let currentHiHotelCity='najaf';
+const HI_PAGE_SIZE=6;
+let hiHotelPage={najaf:0,karbala:0,kazimiya:0,baghdad:0,erbil:0};
+
+function setHiHotelTab(city,el){
+  document.querySelectorAll('#hihotel-tabs .tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  currentHiHotelCity=city;
+  renderHiHotels();
+}
+
+function toggleExtractorBox(){
+  const box=document.getElementById('extractor-box');
+  const btn=document.getElementById('extractor-toggle-btn');
+  const open=box.style.display!=='none';
+  box.style.display=open?'none':'';
+  btn.textContent=open?'باز کردن ▾':'بستن ▴';
+}
+
+function renderHiHotels(){
+  const panel=document.getElementById('hihotel-city-panel');
+  if(!panel)return;
+  const c=currentHiHotelCity;
+  if(!state.hiHotels[c])state.hiHotels[c]=[];
+  const list=state.hiHotels[c];
+  const gradeLabels={luxury:'✦ لوکس ۵★',mid:'⬥ متوسط ۴★',eco:'◇ اقتصادی ۳★'};
+
+  if(hiHotelPage[c]===undefined)hiHotelPage[c]=0;
+  const totalPages=Math.max(1,Math.ceil(list.length/HI_PAGE_SIZE));
+  if(hiHotelPage[c]>totalPages-1)hiHotelPage[c]=totalPages-1;
+  const startIdx=hiHotelPage[c]*HI_PAGE_SIZE;
+  const pageItems=list.slice(startIdx,startIdx+HI_PAGE_SIZE);
+
+  let html='';
+  pageItems.forEach((h,localI)=>{
+    const i=startIdx+localI;
+    if(!h.images)h.images=['','','',''];
+    const imgInputs=[0,1,2,3].map(k=>`
+      <div style="display:flex;align-items:center;gap:6px;">
+        <input type="text" value="${(h.images[k]||'').replace(/"/g,'&quot;')}" placeholder="لینک عکس ${fa(k+1)}" style="flex:1;font-size:11px;" onchange="state.hiHotels['${c}'][${i}].images[${k}]=this.value;renderHiHotels();">
+        ${h.images[k]?`<img src="${h.images[k]}" style="width:32px;height:32px;object-fit:cover;border-radius:6px;flex-shrink:0;" onerror="this.style.display='none'">`:''}
+      </div>`).join('');
+    html+=`<div class="hotel-item" style="flex-direction:column;align-items:stretch;gap:8px;margin-bottom:10px;">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <select style="width:140px;" onchange="state.hiHotels['${c}'][${i}].grade=this.value">
+          ${Object.keys(gradeLabels).map(g=>`<option value="${g}" ${h.grade===g?'selected':''}>${gradeLabels[g]}</option>`).join('')}
+        </select>
+        <input type="text" value="${(h.name||'').replace(/"/g,'&quot;')}" placeholder="نام هتل" style="flex:1;min-width:160px;font-weight:700;" onchange="state.hiHotels['${c}'][${i}].name=this.value">
+        <input type="number" value="${h.priceNum||0}" placeholder="قیمت شبانه (تومان)" class="hi-price" style="width:150px;" onchange="state.hiHotels['${c}'][${i}].priceNum=+this.value;state.hiHotels['${c}'][${i}].price=formatPersianNum(+this.value);">
+        <button class="btn btn-err btn-xs" onclick="removeHiHotel('${c}',${i})">✕ حذف</button>
+      </div>
+      <input type="text" value="${(h.address||'').replace(/"/g,'&quot;')}" placeholder="آدرس کامل هتل" style="font-size:12px;" onchange="state.hiHotels['${c}'][${i}].address=this.value">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">${imgInputs}</div>
+    </div>`;
+  });
+  panel.innerHTML=html||'<div style="color:var(--is);font-size:12.5px;padding:8px;">هتلی تعریف نشده — از ابزار «افزودن از صفحه سایت» یا دکمه «+ هتل جدید» استفاده کنید</div>';
+
+  const pager=document.getElementById('hihotel-pager');
+  if(pager){
+    if(list.length<=HI_PAGE_SIZE){pager.innerHTML='';}
+    else{
+      pager.innerHTML=`
+        <button class="btn btn-o btn-xs" onclick="changeHiPage(-1)" ${hiHotelPage[c]===0?'disabled':''}>‹ قبلی</button>
+        <span style="font-size:11.5px;color:var(--is);">صفحه ${fa(hiHotelPage[c]+1)} از ${fa(totalPages)} &nbsp;(${fa(list.length)} هتل)</span>
+        <button class="btn btn-o btn-xs" onclick="changeHiPage(1)" ${hiHotelPage[c]>=totalPages-1?'disabled':''}>بعدی ›</button>`;
+    }
+  }
+}
+
+function changeHiPage(d){
+  const c=currentHiHotelCity;
+  hiHotelPage[c]=(hiHotelPage[c]||0)+d;
+  renderHiHotels();
+}
+
+function addHiHotel(){
+  const c=currentHiHotelCity;
+  if(!state.hiHotels[c])state.hiHotels[c]=[];
+  state.hiHotels[c].push({name:'',grade:'mid',dist:'',priceNum:0,price:'۰',address:'',images:['','','',''],source:'',features:['وای‌فای']});
+  hiHotelPage[c]=Math.max(0,Math.ceil(state.hiHotels[c].length/HI_PAGE_SIZE)-1);
+  renderHiHotels();
+  toast('هتل جدید اضافه شد');
+}
+
+function removeHiHotel(city,i){
+  state.hiHotels[city].splice(i,1);
+  renderHiHotels();
+}
+
+// ════════════════════════════════════
+// EXTRACTOR — paste page source → auto-fill name/address/images
+// ════════════════════════════════════
+let extractedImages=[];
+
+function resolveUrl(u){
+  if(!u)return'';
+  u=u.trim();
+  if(u.startsWith('//'))return'https:'+u;
+  if(u.startsWith('/'))return'https://golgashthotel.ir'+u;
+  return u;
+}
+
+function runExtract(){
+  const htmlStr=document.getElementById('extract-html').value;
+  if(!htmlStr.trim()){toast('کد HTML را پیست کنید');return;}
+  const url=document.getElementById('extract-url').value.trim();
+
+  let doc;
+  try{
+    const parser=new DOMParser();
+    doc=parser.parseFromString(htmlStr,'text/html');
+  }catch(e){toast('خطا در خواندن کد HTML');return;}
+
+  // ── Name ──
+  let name='';
+  const ogTitle=doc.querySelector('meta[property="og:title"]');
+  if(ogTitle&&ogTitle.getAttribute('content'))name=ogTitle.getAttribute('content').trim();
+  if(!name){const h1=doc.querySelector('h1');if(h1)name=h1.textContent.trim();}
+  if(!name){const t=doc.querySelector('title');if(t)name=t.textContent.split('|')[0].split(' - ')[0].trim();}
+
+  // ── Address ──
+  let address='';
+  const addrEl=doc.querySelector('[itemprop="streetAddress"],[itemprop="address"],.address,.hotel-address,.gds-address');
+  if(addrEl)address=addrEl.textContent.trim().replace(/\s+/g,' ');
+  if(!address){
+    const bodyText=doc.body?doc.body.textContent:'';
+    const m=bodyText.match(/[A-Z0-9]{4,8}[+\-]?[A-Z0-9]{0,4},?\s*[A-Za-z\u0600-\u06FF][A-Za-z\u0600-\u06FF\s,]{3,80}?,?\s*Iraq/);
+    if(m)address=m[0].trim().replace(/\s+/g,' ');
+  }
+
+  // ── Images ──
+  const found=new Set();
+  doc.querySelectorAll('img').forEach(img=>{
+    let src=img.getAttribute('data-src')||img.getAttribute('data-lazy')||img.getAttribute('src')||'';
+    src=resolveUrl(src);
+    if(src&&/^https?:\/\//.test(src)&&!/logo|icon|sprite|favicon|placeholder|\.svg(\?|$)/i.test(src))found.add(src);
+  });
+  doc.querySelectorAll('meta[property="og:image"]').forEach(m=>{
+    const src=resolveUrl(m.getAttribute('content')||'');
+    if(src)found.add(src);
+  });
+  extractedImages=Array.from(found).map(u=>({url:u,selected:false}));
+
+  document.getElementById('extract-name').value=name;
+  document.getElementById('extract-address').value=address;
+  document.getElementById('extract-source').value=url;
+  renderExtractedImages();
+  document.getElementById('extract-results').style.display='';
+  toast(extractedImages.length?`${fa(extractedImages.length)} عکس پیدا شد — ۴ مورد را انتخاب کنید`:'عکسی پیدا نشد — می‌توانید لینک‌ها را دستی در لیست پایین اضافه کنید');
+}
+
+function renderExtractedImages(){
+  const wrap=document.getElementById('extract-images');
+  if(extractedImages.length===0){wrap.innerHTML='<div style="color:var(--is);font-size:12px;">عکسی پیدا نشد</div>';return;}
+  wrap.innerHTML=extractedImages.map((im,i)=>{
+    const order=extractedImages.filter(x=>x.selected).indexOf(im);
+    return `<div style="position:relative;cursor:pointer;border:2px solid ${im.selected?'var(--au)':'transparent'};border-radius:8px;overflow:hidden;height:70px;" onclick="toggleExtractImg(${i})">
+      <img src="${im.url}" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.parentElement.style.opacity='.25'">
+      ${im.selected?`<div style="position:absolute;top:3px;right:3px;background:var(--au);color:#1a0f00;font-size:10px;font-weight:800;border-radius:50%;width:17px;height:17px;display:flex;align-items:center;justify-content:center;">${fa(order+1)}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+function toggleExtractImg(i){
+  const im=extractedImages[i];
+  const selectedCount=extractedImages.filter(x=>x.selected).length;
+  if(im.selected){im.selected=false;}
+  else{
+    if(selectedCount>=4){toast('فقط ۴ عکس قابل انتخاب است');return;}
+    im.selected=true;
+  }
+  renderExtractedImages();
+}
+
+function confirmAddExtracted(){
+  const name=document.getElementById('extract-name').value.trim();
+  const address=document.getElementById('extract-address').value.trim();
+  const source=document.getElementById('extract-source').value.trim();
+  const images=extractedImages.filter(x=>x.selected).map(x=>x.url);
+  while(images.length<4)images.push('');
+  if(!name){toast('نام هتل خالی است');return;}
+
+  const c=currentHiHotelCity;
+  if(!state.hiHotels[c])state.hiHotels[c]=[];
+  state.hiHotels[c].push({name,grade:'mid',dist:'',priceNum:0,price:'۰',address,images,source,features:[]});
+
+  document.getElementById('extract-html').value='';
+  document.getElementById('extract-url').value='';
+  document.getElementById('extract-results').style.display='none';
+  extractedImages=[];
+  hiHotelPage[c]=Math.max(0,Math.ceil(state.hiHotels[c].length/HI_PAGE_SIZE)-1);
+  renderHiHotels();
+  toast(`✦ «${name}» به لیست ${c} اضافه شد`);
+}
+
+function formatPersianNum(n){
+  return n.toLocaleString('fa-IR');
+}
+
+function buildJSON(){
+  // Sync pricing from DOM if on that tab
+  return {
+    _version:2,
+    _updated:new Date().toISOString(),
+    origins:state.origins,
+    hotels:state.hotels,
+    hiHotels:state.hiHotels,
+    iraqPageHotels:state.iraqPageHotels,
+    pricing:state.pricing,
+    departures:state.departures,
+    caravans:state.caravans
+  };
+}
+
+function downloadJSON(){
+  const data=buildJSON();
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='avan-data.json';
+  a.click();
+  toast('✦ avan-data.json دانلود شد');
+}
+
+function previewJSON(){
+  const data=buildJSON();
+  const pre=document.getElementById('json-preview-code');
+  pre.textContent=JSON.stringify(data,null,2);
+  document.getElementById('json-preview-card').style.display='';
+}
+
+function loadJSON(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      if(data.origins)state.origins=data.origins;
+      if(data.hotels)state.hotels=data.hotels;
+      if(data.hiHotels)state.hiHotels=data.hiHotels;
+      if(data.iraqPageHotels)state.iraqPageHotels=data.iraqPageHotels;
+      if(data.pricing)state.pricing=data.pricing;
+      if(data.departures)state.departures=data.departures;
+      if(data.caravans)state.caravans=data.caravans;
+      updateDashboard();
+      toast('✦ فایل JSON بارگذاری شد');
+    }catch(err){toast('خطا در خواندن فایل JSON');}
+  };
+  reader.readAsText(file);
+  event.target.value='';
+}
+
+// ════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════
+function fa(n){return String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);}
+function v(id,val){const el=document.getElementById(id);if(el)el.value=val;}
+function g(id){return document.getElementById(id)?.value||'';}
+function n(id){return parseFloat(document.getElementById(id)?.value)||0;}
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+// INIT
+updateDashboard();
+</script>
+
+<!-- BOTTOM NAV (mobile only) -->
+<nav class="bottom-nav" id="bottom-nav">
+  <div class="bn-item active" onclick="gotoSection('dashboard')" id="bn-dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    داشبورد
+  </div>
+  <div class="bn-item" onclick="gotoSection('origins')" id="bn-origins">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+    اعزام
+  </div>
+  <div class="bn-item" onclick="gotoSection('hotels')" id="bn-hotels">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+    هتل‌ها
+  </div>
+  <div class="bn-item" onclick="gotoSection('caravans')" id="bn-caravans">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    کاروان‌ها
+  </div>
+  <div class="bn-item" onclick="gotoSection('export')" id="bn-export">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    ذخیره
+  </div>
+</nav>
+</body>
+</html>
