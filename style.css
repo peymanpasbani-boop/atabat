@@ -201,7 +201,7 @@ img,svg,.loading.active,.pi-zaer.active .pi-zaer-body,#inline-results.show {
   align-items:center;
   justify-content:space-between;
   width:100%;
-  padding:max(env(safe-area-inset-top, 0px), 20px) 24px 14px;
+  padding:max(env(safe-area-inset-top, 0px), 20px) 24px 24px;
   min-height:68px;
 }
 .h-nav-actions {
