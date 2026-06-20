@@ -1410,7 +1410,7 @@ return m?m[1]:'';
 function sortCaravansByDate(arr){
 return [...arr].sort((a,b)=>parseCaravanDate(a.meta)-parseCaravanDate(b.meta));
 }
-const MINI_LIMIT=3;
+const MINI_LIMIT=2;
 const GROUP_PAGE_SIZE=10;
 let groupPage=1;
 let groupFullList=caravans;
@@ -2895,6 +2895,17 @@ window.openPanel=function(id){
         note.innerHTML=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="flex-shrink:0;"><path d="M9 12l2 2 4-4M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0z"/></svg> این کاروان به ارزون‌ترین پلکان رسیده ✦ هر زائری که بیاری، جاش رو با همین قیمت نگه می‌داریم`;
       }
     }
+
+    const dropEl=document.getElementById('gbxPriceDrop');
+    if(dropEl) dropEl.style.display = tIdx<3 ? 'flex' : 'none';
+
+    const inviteEl=document.getElementById('gbxInviteLink');
+    if(inviteEl) inviteEl.textContent=`avankarvan.ir/g/${c.key}`;
+    const copyBtn=document.getElementById('gbxInviteCopy');
+    if(copyBtn){
+      copyBtn.classList.remove('copied');
+      copyBtn.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> کپی`;
+    }
   }
   window.gbxSelect=gbxSelect;
   window.gbxToggle=function(){
@@ -2904,6 +2915,74 @@ window.openPanel=function(id){
     const open=wrap.classList.toggle('open');
     if(btn) btn.setAttribute('aria-expanded', open?'true':'false');
   };
+
+  window.gbxCopyInvite=function(){
+    const c=GBX_CARAVANS.find(x=>x.key===gbxActiveKey);
+    if(!c) return;
+    const url=`https://avankarvan.ir/g/${c.key}`;
+    const btn=document.getElementById('gbxInviteCopy');
+    const done=()=>{
+      if(!btn) return;
+      btn.classList.add('copied');
+      btn.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> کپی شد`;
+      setTimeout(()=>{
+        if(!btn) return;
+        btn.classList.remove('copied');
+        btn.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> کپی`;
+      },1800);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(done).catch(done);
+    } else {
+      const ta=document.createElement('textarea');
+      ta.value=url; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta);
+      done();
+    }
+  };
+
+  window.gbxShareInvite=function(){
+    const c=GBX_CARAVANS.find(x=>x.key===gbxActiveKey);
+    if(!c) return;
+    const url=`https://avankarvan.ir/g/${c.key}`;
+    const text=`بیا با هم تو کاروان ${c.city} (${c.date}) ثبت‌نام کنیم؛ هرچی بیشتر باشیم قیمت ارزون‌تر می‌شه ✦`;
+    if(navigator.share){
+      navigator.share({title:'دعوت به کاروان گروهی', text, url}).catch(()=>{});
+    } else {
+      gbxCopyInvite();
+    }
+  };
+
+  function gbxOpenRegister(){
+    const c=GBX_CARAVANS.find(x=>x.key===gbxActiveKey);
+    if(!c) return;
+    const tIdx=gbxTierIndex(c.people);
+    const price=c.prices[tIdx];
+    openSheet({
+      tag:'🚌 قیمت گروهی زنده',
+      title:`کاروان ${c.city} — اعزام ${c.date}`,
+      grad:'#0F4D3A,#CFA13A',
+      price,
+      origin:c.city,
+      transport:'land',
+      stops:['کربلا','نجف'],
+      hotels:[
+        {city:'کربلا',name:'هتل کربلا',stars:'۳★',dist:'۳۰۰ متر'},
+        {city:'نجف',name:'هتل الصادق',stars:'۳★',dist:'۳۰۰ متر'},
+      ],
+      chips:[
+        {svgKey:'date',lbl:'تاریخ اعزام',val:c.date},
+        {svgKey:'capacity',lbl:'ثبت‌نام شده',val:toFarsiNum(c.people)+' نفر'},
+        {svgKey:'land',lbl:'نوع سفر',val:'زمینی'},
+      ],
+      days:[],
+      sub:`قیمت پلکانی گروهی — هرچی این کاروان پرتر بشه، قیمت برای همه پایین‌تر میاد.`,
+    });
+  }
+  window.gbxOpenRegister=gbxOpenRegister;
+
   document.addEventListener('DOMContentLoaded', function(){
     gbxRenderChips();
     gbxRenderDetails();
