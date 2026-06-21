@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>دیار | رزرو اقامت زیارتی</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Lalezar&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F7F3EC;
+    --card: #FFFFFF;
+    --ink: #211F1A;
+    --ink-soft: #6B6657;
+    --olive: #2C3320;
+    --olive-deep: #1B2014;
+    --olive-soft: #E8EDD9;
+    --gold: #B68D40;
+    --gold-light: #E9D5A8;
+    --gold-bright: #D4A847;
+    --line: #E5E0D4;
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --radius-sm: 12px;
+    --shadow-card: 0 18px 40px -12px rgba(43,39,20,0.18);
+    --shadow-soft: 0 8px 20px -8px rgba(43,39,20,0.12);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html, body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Vazirmatn', sans-serif;
+    direction: rtl;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 28px 14px 50px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  .phone{
+    width: 100%;
+    max-width: 430px;
+    background: var(--bg);
+    border-radius: 38px;
+    border: 1px solid rgba(43,39,20,0.06);
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--shadow-card);
+    padding-bottom: 92px; /* space for bottom nav */
+  }
+
+  /* ===== Status bar ===== */
+  .statusbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 16px 22px 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    direction: ltr;
+  }
+  .statusbar .icons{ display:flex; align-items:center; gap:5px; }
+
+  /* ===== Header ===== */
+  .header{
+    padding: 18px 20px 0;
+  }
+  .brand-row{
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    display:flex; align-items:center; gap:9px;
+  }
+  .brand .logo-mark{
+    width: 38px; height:38px;
+    border-radius: 11px;
+    background: var(--olive-deep);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .brand .logo-mark svg{ width:20px; height:20px; stroke:var(--gold-bright); }
+  .brand .logo-text{ display:flex; flex-direction:column; line-height:1.15; }
+  .brand .logo-text .name{ font-size:17px; font-weight:800; color:var(--olive-deep); letter-spacing:0.01em; }
+  .brand .logo-text .sub{
+    font-family: 'Lalezar', 'Vazirmatn', sans-serif;
+    font-size: 13px; font-weight:400;
+    background: linear-gradient(90deg, var(--gold-bright), var(--gold));
+    -webkit-background-clip: text; background-clip:text; color: transparent;
+    letter-spacing:0.03em; margin-top:2px;
+  }
+
+  .header-actions{ display:flex; align-items:center; gap:8px; }
+  .about-btn{
+    display:flex; align-items:center; gap:6px;
+    height: 38px; padding: 0 13px;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    cursor:pointer;
+  }
+  .about-btn svg{ width:15px; height:15px; stroke: var(--olive-deep); flex-shrink:0; }
+  .about-btn span{ font-size: 12px; font-weight:700; color: var(--olive-deep); }
+  .contact-btn{
+    width: 38px; height:38px; border-radius:50%;
+    background: var(--olive-deep);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; cursor:pointer;
+    box-shadow: 0 6px 14px -6px rgba(27,32,20,0.5);
+  }
+  .contact-btn svg{ width:16px; height:16px; stroke:#fff; }
+
+  .greeting{
+    margin-top: 20px;
+  }
+  .greeting .hi{ font-size: 14px; color: var(--ink-soft); font-weight:600; display:flex; align-items:center; gap:6px; }
+  .greeting h1{
+    font-size: 22px; font-weight:800; color: var(--olive-deep);
+    margin-top: 4px; line-height:1.3;
+  }
+
+  /* Search */
+  .search-row{
+    margin-top: 16px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .search-box{
+    flex:1;
+    display:flex; align-items:center; gap:8px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 13px 16px;
+  }
+  .search-box svg{ width:17px; height:17px; stroke: var(--ink-soft); flex-shrink:0; }
+  .search-box .search-display{
+    font-family:'Vazirmatn',sans-serif;
+    font-size: 13.5px; color: var(--ink-soft); font-weight:500;
+    width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .search-box.filled .search-display{ color: var(--ink); font-weight:600; }
+  .filter-btn{
+    width: 46px; height:46px; flex-shrink:0;
+    border-radius: 999px;
+    background: var(--olive-deep);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+  }
+  .filter-btn svg{ width:18px; height:18px; stroke:#fff; }
+
+  /* Tabs */
+  .tabs{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .tab{
+    display:flex; flex-direction:column; align-items:center; gap:7px;
+    padding: 13px 4px;
+    border-radius: var(--radius-sm);
+    background: var(--card);
+    border: 1px solid var(--line);
+    cursor:pointer;
+    transition: all .2s ease;
+  }
+  .tab svg{ width:18px; height:18px; stroke: var(--olive-deep); }
+  .tab span{ font-size: 11px; font-weight:700; color: var(--ink-soft); }
+  .tab.active{
+    background: var(--olive-deep);
+    border-color: var(--olive-deep);
+  }
+  .tab.active svg{ stroke:#fff; }
+  .tab.active span{ color:#fff; }
+
+  /* Featured card */
+  .featured-wrap{ margin-top: 20px; padding: 0 20px; }
+  .section-label-row{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom: 10px;
+  }
+  .section-label-row h2{ font-size: 14.5px; font-weight:800; color: var(--olive-deep); }
+  .section-label-row .view-all{ font-size:12.5px; font-weight:700; color: var(--gold-bright); cursor:pointer; }
+
+  .featured-card{
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow:hidden;
+    height: 240px;
+    box-shadow: var(--shadow-soft);
+  }
+  .featured-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .featured-card::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(20,18,10,0.05) 0%, rgba(20,18,10,0.15) 40%, rgba(15,14,8,0.82) 100%);
+  }
+  .dome-arc-mini{
+    position:absolute; top:14px; left:50%; transform: translateX(-50%);
+    width: 130px; height:54px; z-index:2; opacity:0.85; pointer-events:none;
+  }
+  .featured-tag{
+    position:absolute; top:14px; right:14px; z-index:2;
+    background: var(--gold);
+    color:#2A1E08; font-size:11px; font-weight:800;
+    padding: 5px 12px; border-radius:999px;
+    display:flex; align-items:center; gap:4px;
+  }
+  .featured-heart{
+    position:absolute; top:14px; left:14px; z-index:2;
+    width:34px; height:34px; border-radius:50%;
+    background: rgba(255,255,255,0.92);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .featured-heart svg{ width:16px; height:16px; stroke: var(--olive-deep); }
+  .featured-info{
+    position:absolute; bottom:0; right:0; left:0; z-index:2;
+    padding: 16px;
+  }
+  .featured-info .top-line{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap: 10px;
+  }
+  .featured-info h3{ color:#fff; font-size:16px; font-weight:800; }
+  .featured-info .loc{ color: rgba(255,255,255,0.7); font-size:12px; font-weight:500; margin-top:3px; }
+  .featured-info .price{ color: var(--gold-light); font-size:15px; font-weight:800; white-space:nowrap; }
+  .featured-info .price small{ color: rgba(255,255,255,0.55); font-size:10px; font-weight:600; display:block; text-align:left; margin-top:1px; }
+  .featured-meta{
+    display:flex; align-items:center; gap:14px;
+    margin-top:12px;
+  }
+  .featured-meta .m{
+    display:flex; align-items:center; gap:5px;
+    color: rgba(255,255,255,0.82); font-size:11.5px; font-weight:600;
+  }
+  .featured-meta .m svg{ width:13px; height:13px; stroke: var(--gold-light); }
+
+  .dots-row{
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    margin-top: 12px;
+  }
+  .dots-row span{ width:6px; height:6px; border-radius:50%; background: var(--line); }
+  .dots-row span.active{ width:18px; border-radius:999px; background: var(--olive-deep); }
+
+  /* Popular locations */
+  .popular-wrap{ margin-top: 24px; padding: 0 20px; }
+  .loc-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 9px;
+  }
+  .loc-card{
+    position:relative;
+    border-radius: 16px;
+    overflow:hidden;
+    height: 96px;
+    cursor:pointer;
+  }
+  .loc-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .loc-card::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(20,18,10,0.05), rgba(15,14,8,0.78));
+  }
+  .loc-card .loc-txt{
+    position:absolute; bottom:8px; right:0; left:0; z-index:1;
+    text-align:center; padding: 0 4px;
+  }
+  .loc-card .loc-txt .city{ color:#fff; font-size:11.5px; font-weight:800; }
+  .loc-card .loc-txt .country{ color: rgba(255,255,255,0.65); font-size:9px; font-weight:600; margin-top:1px; }
+
+  /* Bottom nav */
+  .bottom-nav{
+    position:absolute; bottom:0; right:0; left:0;
+    background: var(--card);
+    border-top: 1px solid var(--line);
+    border-radius: 26px 26px 0 0;
+    padding: 14px 18px 22px;
+    display:flex; align-items:center; justify-content:space-between;
+    box-shadow: 0 -10px 24px -16px rgba(43,39,20,0.2);
+  }
+  .nav-item{
+    display:flex; flex-direction:column; align-items:center; gap:5px;
+    cursor:pointer;
+    flex:1;
+  }
+  .nav-item svg{ width:19px; height:19px; stroke: var(--ink-soft); }
+  .nav-item span{ font-size: 10.5px; font-weight:700; color: var(--ink-soft); }
+  .nav-item.active-nav{
+    color: var(--olive-deep);
+  }
+  .nav-item.active-nav .icon-pill{
+    background: var(--olive-deep);
+    width: 42px; height:32px; border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .nav-item.active-nav .icon-pill svg{ stroke:#fff; }
+  .nav-item.active-nav span{ color: var(--olive-deep); }
+
+  .home-indicator{
+    position:absolute; bottom: 8px; right:50%; transform: translateX(50%);
+    width: 130px; height:4px; background: rgba(33,31,26,0.18);
+    border-radius:999px;
+  }
+
+  /* entrance animation */
+  .header, .featured-wrap, .popular-wrap{ animation: rise .55s cubic-bezier(.19,1,.22,1) both; }
+  .popular-wrap{ animation-delay: .08s; }
+  @keyframes rise{ from{ opacity:0; transform: translateY(14px); } to{ opacity:1; transform:none; } }
+
+  /* ===== Search Drawer ===== */
+  .overlay{
+    position:absolute; inset:0; z-index: 50;
+    background: rgba(20,18,10,0.5);
+    opacity:0; visibility:hidden;
+    transition: opacity .3s ease, visibility .3s ease;
+  }
+  .overlay.open{ opacity:1; visibility:visible; }
+
+  .drawer{
+    position:absolute; right:0; left:0; bottom:0; z-index:51;
+    background: var(--bg);
+    border-radius: 26px 26px 0 0;
+    padding: 10px 20px 26px;
+    transform: translateY(100%);
+    transition: transform .38s cubic-bezier(.19,1,.22,1);
+    max-height: 88%;
+    overflow-y: auto;
+  }
+  .drawer.open{ transform: translateY(0); }
+
+  .drawer-handle{
+    width: 40px; height:5px; border-radius:999px;
+    background: var(--line);
+    margin: 0 auto 14px;
+  }
+  .drawer-title-row{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom: 16px;
+  }
+  .drawer-title-row h3{ font-size:16px; font-weight:800; color:var(--olive-deep); }
+  .drawer-close{
+    width:32px; height:32px; border-radius:50%;
+    background: var(--card); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+  }
+  .drawer-close svg{ width:14px; height:14px; stroke: var(--ink-soft); }
+
+  .drawer-field-label{
+    font-size: 12.5px; font-weight:700; color: var(--ink-soft);
+    margin: 18px 2px 9px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .drawer-field-label svg{ width:14px; height:14px; stroke: var(--gold-bright); }
+  .drawer-field-label:first-of-type{ margin-top:0; }
+
+  .city-options{
+    display:grid; grid-template-columns: repeat(2,1fr); gap:9px;
+  }
+  .city-opt{
+    display:flex; align-items:center; gap:9px;
+    background: var(--card);
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    padding: 11px 12px;
+    cursor:pointer;
+    transition: all .18s ease;
+  }
+  .city-opt img{ width:34px; height:34px; border-radius:9px; object-fit:cover; flex-shrink:0; }
+  .city-opt span{ font-size:13px; font-weight:700; color: var(--ink); }
+  .city-opt.selected{ border-color: var(--gold); background: var(--olive-soft); }
+
+  .date-fields{ display:grid; grid-template-columns: 1fr 1fr; gap:9px; }
+  .date-field{
+    background: var(--card); border:1.5px solid var(--line); border-radius:14px;
+    padding: 11px 13px; cursor:pointer;
+  }
+  .date-field .lbl{ font-size:11px; color: var(--ink-soft); font-weight:600; }
+  .date-field .val{ font-size:14px; color: var(--olive-deep); font-weight:800; margin-top:4px; }
+  .date-field input[type="date"]{
+    border:none; outline:none; background:none; width:100%;
+    font-family:'Vazirmatn',sans-serif; font-size:14px; font-weight:800;
+    color: var(--olive-deep); margin-top:4px; padding:0; direction:ltr; text-align:right;
+  }
+
+  .stepper-row{
+    display:flex; align-items:center; justify-content:space-between;
+    background: var(--card); border:1.5px solid var(--line); border-radius:14px;
+    padding: 12px 14px;
+  }
+  .stepper-row .lbl-block .t{ font-size:13.5px; font-weight:700; color:var(--ink); }
+  .stepper-row .lbl-block .s{ font-size:11px; color:var(--ink-soft); margin-top:2px; }
+  .stepper{ display:flex; align-items:center; gap:12px; }
+  .stepper button{
+    width:28px; height:28px; border-radius:50%;
+    border: 1.5px solid var(--olive-deep); background:none;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; color: var(--olive-deep); font-size:16px; font-weight:700;
+    font-family:'Vazirmatn',sans-serif;
+  }
+  .stepper .count{ font-size:15px; font-weight:800; color:var(--olive-deep); min-width:18px; text-align:center; }
+
+  .drawer-submit{
+    width:100%; margin-top:22px;
+    background: var(--olive-deep); color:#fff; border:none;
+    border-radius:999px; padding:15px;
+    font-family:'Vazirmatn',sans-serif; font-weight:800; font-size:14.5px;
+    cursor:pointer; box-shadow: 0 12px 24px -10px rgba(27,32,20,0.5);
+  }
+</style>
+</head>
+<body>
+
+<div class="phone">
+
+  <div class="statusbar">
+    <span>23:29</span>
+    <div class="icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M1 9h2v2H1V9zm4-3h2v5H5V6zm4-3h2v8H9V3zm4-2h2v10h-2V1z" fill="currentColor"/></svg>
+      <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><rect x="1" y="1" width="14" height="10" rx="2" stroke="currentColor"/><rect x="2.5" y="2.5" width="9" height="7" fill="currentColor"/></svg>
+    </div>
+  </div>
+
+  <div class="header">
+    <div class="brand-row">
+      <div class="brand">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V9l7-6 7 6v12"/><circle cx="12" cy="6.2" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <div class="logo-text">
+          <span class="name">دیار</span>
+          <span class="sub">اقامت زیارتی</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="about-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <span>درباره ما</span>
+        </button>
+        <button class="contact-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.12.9.32 1.78.59 2.62a2 2 0 01-.45 2.11L8.09 9.61a16 16 0 006.3 6.3l1.16-1.16a2 2 0 012.11-.45c.84.27 1.72.47 2.62.59A2 2 0 0122 16.92z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="greeting">
+      <div class="hi">سلام، علی 👋</div>
+      <h1>اقامت زیارتی‌ات را پیدا کن</h1>
+    </div>
+
+    <div class="search-row">
+      <div class="search-box" id="searchTrigger">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <span class="search-display" id="searchDisplay">جستجوی شهر، هتل یا کاروان</span>
+      </div>
+      <div class="filter-btn" id="filterTrigger">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><circle cx="9" cy="6" r="2" fill="#1B2014"/><line x1="4" y1="12" x2="20" y2="12"/><circle cx="16" cy="12" r="2" fill="#1B2014"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="11" cy="18" r="2" fill="#1B2014"/></svg>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" data-city="karbala">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>کربلا</span>
+      </div>
+      <div class="tab" data-city="najaf">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>نجف</span>
+      </div>
+      <div class="tab" data-city="kadhimiya">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>کاظمین</span>
+      </div>
+      <div class="tab" data-city="baghdad">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>بغداد</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="featured-wrap">
+    <div class="section-label-row">
+      <h2>پیشنهاد ویژه</h2>
+      <span class="view-all">مشاهده همه</span>
+    </div>
+    <div class="featured-card">
+      <svg class="dome-arc-mini" viewBox="0 0 130 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 50 Q6 16 65 10 Q124 16 124 50" stroke="#D4A847" stroke-width="2" stroke-opacity="0.6" fill="none"/>
+        <circle cx="65" cy="7" r="3" fill="#D4A847" fill-opacity="0.7"/>
+      </svg>
+      <div class="featured-heart">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+      </div>
+      <div class="featured-tag" id="featuredTag">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="#2A1E08"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2z"/></svg>
+        <span id="featuredTagText">نزدیک حرم</span>
+      </div>
+      <img id="featuredImg" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80" alt="هتل دیار کربلا">
+      <div class="featured-info">
+        <div class="top-line">
+          <div>
+            <h3 id="featuredName">هتل دیار کربلا</h3>
+            <div class="loc" id="featuredLoc">کربلای معلی، عراق</div>
+          </div>
+          <div class="price" id="featuredPrice">۸۵۰,۰۰۰<small>تومان / شب</small></div>
+        </div>
+        <div class="featured-meta">
+          <div class="m">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-7a2 2 0 012-2h14a2 2 0 012 2v7"/><path d="M3 11V7a2 2 0 012-2h4a2 2 0 012 2v4"/></svg>
+            ۲ تخته
+          </div>
+          <div class="m">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span id="featuredDist">۴۵۰ متر تا حرم</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dots-row">
+      <span class="active"></span><span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <div class="popular-wrap">
+    <div class="section-label-row">
+      <h2>مقاصد محبوب زیارتی</h2>
+      <span class="view-all">مشاهده همه</span>
+    </div>
+    <div class="loc-grid">
+      <div class="loc-card" data-city="karbala">
+        <img src="https://images.unsplash.com/photo-1591608971362-f08b2a75731a?w=300&q=80" alt="کربلا">
+        <div class="loc-txt"><div class="city">کربلا</div><div class="country">عراق</div></div>
+      </div>
+      <div class="loc-card" data-city="najaf">
+        <img src="https://images.unsplash.com/photo-1564769662749-2d105ca72e60?w=300&q=80" alt="نجف">
+        <div class="loc-txt"><div class="city">نجف</div><div class="country">عراق</div></div>
+      </div>
+      <div class="loc-card" data-city="kadhimiya">
+        <img src="https://images.unsplash.com/photo-1591267990532-201d6346da93?w=300&q=80" alt="کاظمین">
+        <div class="loc-txt"><div class="city">کاظمین</div><div class="country">عراق</div></div>
+      </div>
+      <div class="loc-card" data-city="baghdad">
+        <img src="https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=300&q=80" alt="بغداد">
+        <div class="loc-txt"><div class="city">بغداد</div><div class="country">عراق</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="nav-item active-nav">
+      <div class="icon-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V9l7-6 7 6v12"/><path d="M9 21v-6h6v6"/></svg>
+      </div>
+      <span>خانه</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <span>جستجو</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 9h18"/></svg>
+      <span>رزروها</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      <span>پروفایل</span>
+    </div>
+    <div class="home-indicator"></div>
+  </div>
+
+  <!-- Search Drawer -->
+  <div class="overlay" id="overlay"></div>
+  <div class="drawer" id="drawer">
+  <div class="drawer-handle"></div>
+  <div class="drawer-title-row">
+    <h3>جستجوی اقامت زیارتی</h3>
+    <div class="drawer-close" id="drawerClose">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </div>
+  </div>
+
+  <div class="drawer-field-label">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    مقصد زیارتی
+  </div>
+  <div class="city-options" id="cityOptions">
+    <div class="city-opt selected" data-city="karbala">
+      <img src="https://images.unsplash.com/photo-1591608971362-f08b2a75731a?w=120&q=80" alt="کربلا">
+      <span>کربلا</span>
+    </div>
+    <div class="city-opt" data-city="najaf">
+      <img src="https://images.unsplash.com/photo-1564769662749-2d105ca72e60?w=120&q=80" alt="نجف">
+      <span>نجف</span>
+    </div>
+    <div class="city-opt" data-city="kadhimiya">
+      <img src="https://images.unsplash.com/photo-1591267990532-201d6346da93?w=120&q=80" alt="کاظمین">
+      <span>کاظمین</span>
+    </div>
+    <div class="city-opt" data-city="baghdad">
+      <img src="https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=120&q=80" alt="بغداد">
+      <span>بغداد</span>
+    </div>
+  </div>
+
+  <div class="drawer-field-label">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 9h18"/></svg>
+    تاریخ ورود و خروج
+  </div>
+  <div class="date-fields">
+    <div class="date-field">
+      <div class="lbl">ورود</div>
+      <input type="date" id="checkinDate">
+    </div>
+    <div class="date-field">
+      <div class="lbl">خروج</div>
+      <input type="date" id="checkoutDate">
+    </div>
+  </div>
+
+  <div class="drawer-field-label">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/><path d="M16 4.2a3.5 3.5 0 010 6.6M19.5 20c0-2.8-1.7-5.2-4.2-6.2"/></svg>
+    تعداد زائرین
+  </div>
+  <div class="stepper-row">
+    <div class="lbl-block">
+      <div class="t">زائرین</div>
+      <div class="s">تعداد نفرات این سفر</div>
+    </div>
+    <div class="stepper">
+      <button id="decGuests">−</button>
+      <span class="count" id="guestCount">۲</span>
+      <button id="incGuests">+</button>
+    </div>
+  </div>
+
+  <button class="drawer-submit" id="drawerSubmit">جستجوی اقامت</button>
+</div>
+
+</div>
+
+<script>
+  const cityData = {
+    karbala: {
+      name: "هتل دیار کربلا",
+      loc: "کربلای معلی، عراق",
+      price: "۸۵۰,۰۰۰",
+      dist: "۴۵۰ متر تا حرم",
+      tag: "نزدیک حرم امام حسین",
+      img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80"
+    },
+    najaf: {
+      name: "هتل بهشت نجف",
+      loc: "نجف اشرف، عراق",
+      price: "۷۲۰,۰۰۰",
+      dist: "۳۰۰ متر تا حرم",
+      tag: "نزدیک حرم امام علی",
+      img: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80"
+    },
+    kadhimiya: {
+      name: "هتل گلدن کاظمین",
+      loc: "کاظمین، بغداد، عراق",
+      price: "۶۵۰,۰۰۰",
+      dist: "۵۲۰ متر تا حرم",
+      tag: "نزدیک حرم کاظمین",
+      img: "https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=900&q=80"
+    },
+    baghdad: {
+      name: "هتل مرکزی بغداد",
+      loc: "بغداد، عراق",
+      price: "۵۸۰,۰۰۰",
+      dist: "نزدیک فرودگاه و مرکز شهر",
+      tag: "اقامت ترانزیت",
+      img: "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=900&q=80"
+    }
+  };
+
+  function setFeatured(city){
+    const d = cityData[city];
+    if(!d) return;
+    document.getElementById('featuredImg').src = d.img;
+    document.getElementById('featuredName').textContent = d.name;
+    document.getElementById('featuredLoc').textContent = d.loc;
+    document.getElementById('featuredPrice').innerHTML = d.price + '<small>تومان / شب</small>';
+    document.getElementById('featuredDist').textContent = d.dist;
+    document.getElementById('featuredTagText').textContent = d.tag;
+  }
+
+  // City tabs in header
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      setFeatured(tab.dataset.city);
+      document.querySelectorAll('.city-opt').forEach(o => o.classList.toggle('selected', o.dataset.city === tab.dataset.city));
+    });
+  });
+
+  // Popular location cards
+  document.querySelectorAll('.loc-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const city = card.dataset.city;
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.city === city));
+      document.querySelectorAll('.city-opt').forEach(o => o.classList.toggle('selected', o.dataset.city === city));
+      setFeatured(city);
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  // Drawer open/close
+  const overlay = document.getElementById('overlay');
+  const drawer = document.getElementById('drawer');
+  function openDrawer(){ overlay.classList.add('open'); drawer.classList.add('open'); }
+  function closeDrawer(){ overlay.classList.remove('open'); drawer.classList.remove('open'); }
+  document.getElementById('searchTrigger').addEventListener('click', openDrawer);
+  document.getElementById('filterTrigger').addEventListener('click', openDrawer);
+  document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+
+  // City selection inside drawer
+  document.querySelectorAll('.city-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.city-opt').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+    });
+  });
+
+  // Guest stepper
+  let guests = 2;
+  const guestCountEl = document.getElementById('guestCount');
+  const faDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+  function toFa(n){ return String(n).split('').map(d => faDigits[+d]).join(''); }
+  document.getElementById('incGuests').addEventListener('click', () => {
+    if(guests < 12){ guests++; guestCountEl.textContent = toFa(guests); }
+  });
+  document.getElementById('decGuests').addEventListener('click', () => {
+    if(guests > 1){ guests--; guestCountEl.textContent = toFa(guests); }
+  });
+
+  // Submit search
+  document.getElementById('drawerSubmit').addEventListener('click', () => {
+    const selected = document.querySelector('.city-opt.selected');
+    const cityName = selected ? selected.querySelector('span').textContent : 'کربلا';
+    const checkin = document.getElementById('checkinDate').value;
+    const checkout = document.getElementById('checkoutDate').value;
+    const display = document.getElementById('searchDisplay');
+    const searchBox = document.getElementById('searchTrigger');
+    let text = cityName;
+    if(checkin && checkout){ text += ` · ${checkin} تا ${checkout}`; }
+    text += ` · ${toFa(guests)} نفر`;
+    display.textContent = text;
+    searchBox.classList.add('filled');
+    if(selected){
+      const city = selected.dataset.city;
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.city === city));
+      setFeatured(city);
+    }
+    closeDrawer();
+  });
+</script>
+
+</body>
+</html>
