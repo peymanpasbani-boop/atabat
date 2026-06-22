@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پرواز حق — غرامت پرواز ایران</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0A0A0F;
+    --sky: #1A1E3C;
+    --electric: #4F7FFF;
+    --gold: #F5C842;
+    --mist: #F0F2FA;
+    --white: #FFFFFF;
+    --soft: #8B90A8;
+    --success: #22C55E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Vazirmatn', sans-serif;
+    background: var(--ink);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(79,127,255,0.15);
+  }
+  .logo {
+    font-size: 22px; font-weight: 900; letter-spacing: -0.5px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-dot { width: 10px; height: 10px; background: var(--electric); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+  .nav-cta {
+    background: var(--electric); color: var(--white);
+    border: none; padding: 10px 24px; border-radius: 8px;
+    font-family: 'Vazirmatn', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all .2s;
+  }
+  .nav-cta:hover { background: #3a6aff; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* animated background */
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 20%, rgba(79,127,255,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 80%, rgba(245,200,66,0.08) 0%, transparent 60%);
+  }
+
+  /* runway lines */
+  .runway {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--electric), transparent);
+    opacity: 0.4;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(79,127,255,0.12);
+    border: 1px solid rgba(79,127,255,0.3);
+    border-radius: 100px; padding: 6px 16px;
+    font-size: 13px; color: #9DB5FF; font-weight: 500;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--electric); border-radius: 50%;
+  }
+
+  .hero-title {
+    font-size: clamp(44px, 8vw, 96px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .hero-title .accent { color: var(--electric); }
+  .hero-title .gold { color: var(--gold); }
+
+  .hero-sub {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--soft);
+    font-weight: 400;
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+
+  /* CLAIM WIDGET */
+  .claim-widget {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 32px 36px;
+    width: 100%; max-width: 560px;
+    backdrop-filter: blur(20px);
+    position: relative;
+  }
+  .claim-widget::before {
+    content: '';
+    position: absolute; inset: -1px; border-radius: 21px;
+    background: linear-gradient(135deg, rgba(79,127,255,0.4), transparent 50%, rgba(245,200,66,0.2));
+    z-index: -1;
+  }
+  .widget-label {
+    font-size: 13px; color: var(--soft);
+    text-align: right; margin-bottom: 8px; font-weight: 500;
+  }
+  .widget-input {
+    width: 100%; background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px; padding: 14px 16px;
+    color: var(--white); font-family: 'Vazirmatn', sans-serif;
+    font-size: 15px; margin-bottom: 16px;
+    transition: border .2s;
+    outline: none;
+  }
+  .widget-input:focus { border-color: var(--electric); background: rgba(79,127,255,0.08); }
+  .widget-input::placeholder { color: var(--soft); }
+  .widget-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .btn-primary {
+    width: 100%; padding: 16px;
+    background: var(--electric);
+    border: none; border-radius: 12px;
+    color: var(--white); font-family: 'Vazirmatn', sans-serif;
+    font-size: 16px; font-weight: 700;
+    cursor: pointer; transition: all .2s;
+    margin-top: 8px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .btn-primary:hover { background: #3a6aff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,127,255,0.4); }
+  .btn-arrow { font-size: 20px; }
+
+  .widget-note {
+    text-align: center; font-size: 12px; color: var(--soft); margin-top: 14px;
+  }
+  .widget-note span { color: var(--success); }
+
+  /* STATS BAR */
+  .stats {
+    background: rgba(255,255,255,0.03);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 32px 48px;
+    display: flex; justify-content: center; gap: 0;
+  }
+  .stat-item {
+    text-align: center; padding: 0 48px;
+    position: relative;
+  }
+  .stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+    width: 1px; height: 40px;
+    background: rgba(255,255,255,0.1);
+  }
+  .stat-num {
+    font-size: 40px; font-weight: 900;
+    color: var(--gold); letter-spacing: -1px;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 13px; color: var(--soft); margin-top: 6px; font-weight: 400;
+  }
+
+  /* HOW IT WORKS */
+  .section {
+    padding: 100px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    color: var(--electric); text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 900; letter-spacing: -1px;
+    margin-bottom: 64px;
+    line-height: 1.1;
+  }
+
+  .steps {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .step {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px; padding: 32px 28px;
+    position: relative; overflow: hidden;
+    transition: all .3s;
+  }
+  .step:hover {
+    background: rgba(79,127,255,0.07);
+    border-color: rgba(79,127,255,0.3);
+    transform: translateY(-4px);
+  }
+  .step-num {
+    font-size: 64px; font-weight: 900;
+    color: rgba(255,255,255,0.04);
+    position: absolute; left: 20px; bottom: -10px;
+    line-height: 1; letter-spacing: -4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .step-icon {
+    width: 48px; height: 48px;
+    background: rgba(79,127,255,0.15);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 20px;
+  }
+  .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+  .step p { font-size: 14px; color: var(--soft); line-height: 1.7; }
+
+  /* COMPENSATION TABLE */
+  .comp-section {
+    background: rgba(255,255,255,0.02);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 100px 48px;
+  }
+  .comp-inner { max-width: 1100px; margin: 0 auto; }
+
+  .comp-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .comp-card {
+    border-radius: 16px; padding: 28px 24px;
+    position: relative; overflow: hidden;
+  }
+  .comp-card.tier-1 { background: rgba(79,127,255,0.1); border: 1px solid rgba(79,127,255,0.25); }
+  .comp-card.tier-2 { background: rgba(245,200,66,0.08); border: 1px solid rgba(245,200,66,0.25); }
+  .comp-card.tier-3 { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25); }
+  .comp-delay {
+    font-size: 13px; font-weight: 600;
+    color: var(--soft); margin-bottom: 12px;
+  }
+  .comp-amount {
+    font-size: 32px; font-weight: 900; letter-spacing: -1px;
+    margin-bottom: 6px;
+  }
+  .tier-1 .comp-amount { color: #7AA5FF; }
+  .tier-2 .comp-amount { color: var(--gold); }
+  .tier-3 .comp-amount { color: var(--success); }
+  .comp-desc { font-size: 13px; color: var(--soft); line-height: 1.6; }
+  .comp-badge {
+    position: absolute; top: 16px; left: 16px;
+    font-size: 11px; font-weight: 700; padding: 3px 10px;
+    border-radius: 100px;
+  }
+  .tier-3 .comp-badge { background: rgba(34,197,94,0.2); color: var(--success); }
+
+  /* TRUST */
+  .trust-section { padding: 80px 48px; max-width: 1100px; margin: 0 auto; }
+  .trust-grid {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 16px;
+  }
+  .trust-item {
+    text-align: center; padding: 28px 16px;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+  }
+  .trust-icon { font-size: 32px; margin-bottom: 12px; }
+  .trust-item h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .trust-item p { font-size: 12px; color: var(--soft); line-height: 1.6; }
+
+  /* CTA SECTION */
+  .cta-section {
+    text-align: center; padding: 120px 24px;
+    position: relative; overflow: hidden;
+  }
+  .cta-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 100%, rgba(79,127,255,0.2) 0%, transparent 70%);
+  }
+  .cta-title {
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 900; letter-spacing: -2px;
+    line-height: 1.05; margin-bottom: 20px;
+    position: relative;
+  }
+  .cta-sub {
+    color: var(--soft); font-size: 18px; margin-bottom: 40px;
+    position: relative;
+  }
+  .btn-cta-large {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--gold); color: var(--ink);
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 18px; font-weight: 900;
+    padding: 18px 48px; border-radius: 14px;
+    border: none; cursor: pointer; transition: all .25s;
+    position: relative;
+  }
+  .btn-cta-large:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(245,200,66,0.35); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 40px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    color: var(--soft); font-size: 13px;
+  }
+
+  /* PLANE ANIMATION */
+  .plane-trail {
+    position: absolute;
+    top: 15%; right: -80px;
+    font-size: 36px;
+    animation: flyAcross 12s linear infinite;
+    opacity: 0.6;
+  }
+  @keyframes flyAcross {
+    0% { right: -80px; opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% { right: 110%; opacity: 0; }
+  }
+
+  /* RESULT PREVIEW */
+  .result-preview {
+    margin-top: 20px;
+    background: rgba(34,197,94,0.1);
+    border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 12px; padding: 16px 20px;
+    display: none; /* shown via JS */
+    text-align: right;
+  }
+  .result-preview.visible { display: block; animation: fadeIn .4s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  .result-amount { font-size: 28px; font-weight: 900; color: var(--success); }
+  .result-label { font-size: 13px; color: var(--soft); margin-top: 2px; }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .stats { padding: 24px 20px; gap: 0; flex-wrap: wrap; }
+    .stat-item { padding: 12px 20px; }
+    .steps, .comp-grid { grid-template-columns: 1fr; }
+    .trust-grid { grid-template-columns: 1fr 1fr; }
+    .section, .trust-section { padding: 60px 20px; }
+    .comp-section { padding: 60px 20px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-dot"></div>
+    پرواز حق
+  </div>
+  <button class="nav-cta" onclick="document.querySelector('.claim-widget').scrollIntoView({behavior:'smooth'})">
+    استعلام رایگان
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="plane-trail">✈</div>
+  <div class="runway"></div>
+
+  <div class="hero-eyebrow">اولین سامانه حقوق مسافران هوایی ایران</div>
+
+  <h1 class="hero-title">
+    پروازت تأخیر داشت؟<br>
+    <span class="gold">غرامتت</span> رو <span class="accent">بگیر.</span>
+  </h1>
+
+  <p class="hero-sub">
+    اگر پروازت لغو شده، تأخیر داشته یا از پرواز جا موندی — حق قانونی داری.
+    ما پیگیری می‌کنیم، تو پول می‌گیری.
+  </p>
+
+  <!-- CLAIM WIDGET -->
+  <div class="claim-widget">
+    <div class="widget-label">شماره پرواز یا مسیر</div>
+    <input class="widget-input" type="text" placeholder="مثلاً W5 105 یا تهران ← مشهد" id="flightInput">
+
+    <div class="widget-row">
+      <div>
+        <div class="widget-label">تاریخ پرواز</div>
+        <input class="widget-input" type="text" placeholder="۱۴۰۳/۰۵/۱۲" id="dateInput">
+      </div>
+      <div>
+        <div class="widget-label">مدت تأخیر (ساعت)</div>
+        <input class="widget-input" type="number" placeholder="مثلاً ۳" id="delayInput" min="0" max="24">
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="calcCompensation()">
+      <span>محاسبه غرامت من</span>
+      <span class="btn-arrow">←</span>
+    </button>
+
+    <div class="result-preview" id="resultBox">
+      <div class="result-amount" id="resultAmount"></div>
+      <div class="result-label" id="resultLabel"></div>
+    </div>
+
+    <div class="widget-note">
+      <span>✓</span> رایگان · بدون تعهد · در کمتر از ۲ دقیقه
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-num">+۱۲k</div>
+    <div class="stat-label">مسافر موفق</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">۹۴٪</div>
+    <div class="stat-label">نرخ موفقیت ادعاها</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">صفر</div>
+    <div class="stat-label">هزینه تا دریافت</div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="section-eyebrow">چطور کار می‌کند</div>
+  <h2 class="section-title">سه قدم تا<br>دریافت غرامت</h2>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-icon">🔍</div>
+      <h3>اطلاعات پرواز</h3>
+      <p>شماره پرواز، تاریخ و مدت تأخیر را وارد کن. ما بلافاصله واجد شرایط بودن رو بررسی می‌کنیم.</p>
+      <div class="step-num">۱</div>
+    </div>
+    <div class="step">
+      <div class="step-icon">📋</div>
+      <h3>پرونده‌ات رو می‌سازیم</h3>
+      <p>تیم ما همه مستندات را آماده می‌کند و با ایرلاین وارد مذاکره می‌شود. تو هیچ کاری نداری.</p>
+      <div class="step-num">۲</div>
+    </div>
+    <div class="step">
+      <div class="step-icon">💰</div>
+      <h3>پول به حسابت</h3>
+      <p>پس از دریافت غرامت از ایرلاین، مبلغ رو مستقیم به حسابت واریز می‌کنیم. تنها در صورت موفقیت کارمزد می‌گیریم.</p>
+      <div class="step-num">۳</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPENSATION TABLE -->
+<div class="comp-section">
+  <div class="comp-inner">
+    <div class="section-eyebrow">جدول غرامت</div>
+    <h2 class="section-title" style="margin-bottom:40px">چقدر حقت هست؟</h2>
+    <div class="comp-grid">
+      <div class="comp-card tier-1">
+        <div class="comp-delay">تأخیر ۲ تا ۵ ساعت</div>
+        <div class="comp-amount">۳۰٪</div>
+        <div class="comp-desc">معادل ۳۰ درصد قیمت بلیت + وعده غذایی و خدمات رفاهی در فرودگاه</div>
+      </div>
+      <div class="comp-card tier-2">
+        <div class="comp-delay">تأخیر بیش از ۵ ساعت</div>
+        <div class="comp-amount">۱۰۰٪</div>
+        <div class="comp-desc">معادل کامل قیمت بلیت به عنوان غرامت + اسکان هتل در صورت لزوم</div>
+      </div>
+      <div class="comp-card tier-3">
+        <div class="comp-badge">بیشترین شکایت</div>
+        <div class="comp-delay">لغو پرواز</div>
+        <div class="comp-amount">۱۰۰٪+</div>
+        <div class="comp-desc">استرداد کامل بلیت + غرامت یک‌برابری + حمل‌ونقل و اسکان رایگان</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST -->
+<div class="trust-section">
+  <div class="section-eyebrow" style="text-align:center">چرا پرواز حق</div>
+  <h2 class="section-title" style="text-align:center; margin-bottom:40px">بدون ریسک برای تو</h2>
+  <div class="trust-grid">
+    <div class="trust-item">
+      <div class="trust-icon">🛡️</div>
+      <h4>اگر نبردیم، پرداختی نیست</h4>
+      <p>کارمزد فقط در صورت موفقیت از غرامت دریافتی کسر می‌شود</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">⚡</div>
+      <h4>پیگیری سریع</h4>
+      <p>تیم حقوقی ما ظرف ۴۸ ساعت پرونده را بررسی می‌کند</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">⚖️</div>
+      <h4>پشتیبانی قضایی</h4>
+      <p>در صورت رد درخواست، وکلای ما در دادگاه پیگیری می‌کنند</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🔔</div>
+      <h4>اطلاع‌رسانی مداوم</h4>
+      <p>در هر مرحله وضعیت پرونده‌ات را از طریق پیامک دنبال کن</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <h2 class="cta-title" style="position:relative">
+    پرواز تأخیری داشتی؟<br>
+    <span style="color: var(--electric)">وقتش شده.</span>
+  </h2>
+  <p class="cta-sub" style="position:relative">
+    استعلام رایگان · بدون کاغذبازی · ۶ ماه فرصت داری
+  </p>
+  <button class="btn-cta-large" onclick="document.querySelector('.claim-widget').scrollIntoView({behavior:'smooth'})">
+    ✈ همین الان شروع کن
+  </button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="font-weight:700; color: var(--white)">پرواز حق</div>
+  <div>سامانه حقوق مسافران هوایی ایران · ۱۴۰۳</div>
+  <div>با قوانین سازمان هواپیمایی کشوری</div>
+</footer>
+
+<script>
+function calcCompensation() {
+  const delay = parseFloat(document.getElementById('delayInput').value);
+  const flight = document.getElementById('flightInput').value.trim();
+  const resultBox = document.getElementById('resultBox');
+  const resultAmount = document.getElementById('resultAmount');
+  const resultLabel = document.getElementById('resultLabel');
+
+  if (!flight) {
+    document.getElementById('flightInput').focus();
+    document.getElementById('flightInput').style.borderColor = '#FF6B6B';
+    setTimeout(() => document.getElementById('flightInput').style.borderColor = '', 2000);
+    return;
+  }
+
+  if (isNaN(delay) || delay <= 0) {
+    resultAmount.textContent = '✓ واجد بررسی هستی';
+    resultLabel.textContent = 'برای لغو پرواز یا جا ماندن، تیم ما پرونده‌ات را رایگان بررسی می‌کند';
+    resultBox.classList.add('visible');
+    return;
+  }
+
+  let amount, label;
+  if (delay >= 2 && delay < 5) {
+    amount = '۳۰٪ قیمت بلیت';
+    label = `تأخیر ${delay} ساعته — حق داری غرامت ۳۰ درصدی بگیری + پذیرایی در فرودگاه`;
+  } else if (delay >= 5) {
+    amount = '۱۰۰٪ قیمت بلیت';
+    label = `تأخیر ${delay} ساعته — حق داری غرامت کامل + اسکان هتل دریافت کنی`;
+  } else {
+    amount = 'بررسی می‌کنیم';
+    label = 'تأخیر کمتر از ۲ ساعت — ممکن است مستحق خدمات رفاهی باشی';
+  }
+
+  resultAmount.textContent = amount;
+  resultLabel.textContent = label;
+  resultBox.classList.add('visible');
+}
+
+// enter key support
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') calcCompensation();
+});
+</script>
+</body>
+</html>
