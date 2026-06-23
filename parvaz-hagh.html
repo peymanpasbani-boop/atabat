@@ -5,492 +5,711 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>آسمانه — حق پرواز شماست</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #06070F;
-  --surface: #0D0F1C;
-  --border: rgba(255,255,255,0.07);
-  --border-accent: rgba(100,149,255,0.3);
-  --blue: #6495FF;
-  --blue-dim: rgba(100,149,255,0.1);
-  --gold: #F0C060;
-  --gold-dim: rgba(240,192,96,0.1);
-  --green: #34D98A;
-  --green-dim: rgba(52,217,138,0.1);
-  --red: #FF6B6B;
-  --white: #FFFFFF;
-  --gray: #6B7280;
-  --gray-light: #9CA3AF;
+  --bg: #F4F6FA;
+  --surface: #FFFFFF;
+  --surface-2: #F0F2F7;
+  --border: #E2E6EF;
+  --border-strong: #CDD3E0;
+  --blue: #1B3FCC;
+  --blue-mid: #2E52E0;
+  --blue-light: #EEF1FB;
+  --blue-subtle: #F5F6FF;
+  --ink: #0D1421;
+  --ink-2: #3A4560;
+  --ink-3: #7A85A0;
+  --gold: #B07C10;
+  --gold-bg: #FDF8EE;
+  --gold-border: #EDD89A;
+  --green: #1A7A4A;
+  --green-bg: #EDFAF4;
+  --green-border: #A3DFC0;
+  --red: #C0303A;
+  --red-bg: #FEF2F3;
+  --red-border: #F4B8BB;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 2px 12px rgba(13,20,60,0.07);
+  --shadow-md: 0 6px 28px rgba(13,20,60,0.10);
+  --shadow-lg: 0 16px 48px rgba(27,63,204,0.13);
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body {
-  font-family:'Vazirmatn',sans-serif;
+  font-family:'Vazirmatn', sans-serif;
   background:var(--bg);
-  color:var(--white);
+  color:var(--ink);
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
-}
-
-/* NAV */
-nav {
-  position:fixed; top:0; width:100%; z-index:200;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:0 48px; height:60px;
-  background:rgba(6,7,15,0.85);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-}
-.logo {
-  display:flex; align-items:center; gap:8px;
-  text-decoration:none; color:var(--white);
-}
-.logo-icon {
-  width:30px; height:30px;
-  background:var(--blue);
-  border-radius:8px;
-  display:flex; align-items:center; justify-content:center;
   font-size:14px;
 }
-.logo-name { font-size:17px; font-weight:900; letter-spacing:-0.5px; }
-.logo-name em { color:var(--blue); font-style:normal; }
 
-.nav-r { display:flex; align-items:center; gap:24px; }
-.nav-link {
-  font-size:13px; color:var(--gray-light); text-decoration:none;
-  font-weight:500; transition:color .2s;
-}
-.nav-link:hover { color:var(--white); }
-.nav-btn {
-  height:34px; padding:0 18px;
-  background:var(--blue-dim);
-  border:1px solid var(--border-accent);
-  border-radius:8px;
-  color:var(--blue); font-family:'Vazirmatn',sans-serif;
-  font-size:13px; font-weight:600; cursor:pointer;
-  transition:all .2s;
-}
-.nav-btn:hover { background:var(--blue); color:#fff; }
-
-/* HERO */
-.hero {
-  min-height:100vh;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  padding:80px 24px 48px;
-  position:relative;
-  text-align:center;
-}
-
-/* subtle dot grid */
-.hero::before {
-  content:'';
-  position:absolute; inset:0; pointer-events:none;
-  background-image:radial-gradient(rgba(100,149,255,0.12) 1px, transparent 1px);
-  background-size:32px 32px;
-  mask-image:radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 75%);
-}
-
-.hero-glow {
-  position:absolute; inset:0; pointer-events:none;
-  background:
-    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(100,149,255,0.13) 0%, transparent 60%),
-    radial-gradient(ellipse 30% 30% at 80% 80%, rgba(240,192,96,0.05) 0%, transparent 50%);
-}
-
-.chip {
-  display:inline-flex; align-items:center; gap:7px;
-  background:rgba(52,217,138,0.08);
-  border:1px solid rgba(52,217,138,0.2);
-  border-radius:100px; padding:5px 14px;
-  font-size:11.5px; color:var(--green); font-weight:600;
-  margin-bottom:28px; position:relative;
-  letter-spacing:0.3px;
-}
-.chip-dot {
-  width:5px; height:5px; border-radius:50%;
-  background:var(--green);
-  animation:pulse 2s ease-in-out infinite;
-}
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
-
-.hero-h1 {
-  font-size:clamp(40px,7vw,86px);
-  font-weight:900; line-height:1.04;
-  letter-spacing:-2.5px; margin-bottom:18px;
-  position:relative;
-}
-.hero-h1 .muted { color:rgba(255,255,255,0.4); font-weight:300; }
-.hero-h1 .accent-b { color:var(--blue); }
-.hero-h1 .accent-g { color:var(--gold); }
-
-.hero-sub {
-  font-size:clamp(14px,1.6vw,16px);
-  color:var(--gray); line-height:1.9;
-  max-width:420px; margin-bottom:48px;
-  position:relative;
-}
-
-/* STEPPER CARD */
-.card {
-  background:rgba(255,255,255,0.03);
-  border:1px solid var(--border);
-  border-radius:20px;
-  width:100%; max-width:520px;
-  overflow:hidden;
-  position:relative;
-  box-shadow:0 0 0 1px rgba(100,149,255,0.08), 0 24px 64px rgba(0,0,0,0.4);
-}
-
-/* Step progress bar */
-.step-bar {
-  display:flex; align-items:center;
-  padding:16px 22px;
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; width:100%; z-index:200;
+  height:56px;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border);
+  display:flex; align-items:center;
+  padding:0 40px;
   gap:0;
 }
-.step-pill {
-  flex:1; display:flex; align-items:center; gap:7px;
-  font-size:11px; font-weight:600; color:var(--gray);
-  transition:color .3s;
+.nav-logo {
+  display:flex; align-items:center; gap:9px;
+  text-decoration:none; color:var(--ink);
+  margin-left:auto;
 }
-.step-pill.active { color:var(--white); }
+.nav-logo-mark {
+  width:32px; height:32px;
+  background:var(--blue);
+  border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:15px; font-weight:900;
+  letter-spacing:-1px;
+  flex-shrink:0;
+}
+.nav-logo-text {
+  font-size:16px; font-weight:900;
+  letter-spacing:-0.5px; color:var(--ink);
+}
+.nav-logo-text em { color:var(--blue); font-style:normal; }
+
+.nav-links {
+  display:flex; align-items:center; gap:28px;
+  margin-right:36px;
+}
+.nav-link {
+  font-size:13px; font-weight:500;
+  color:var(--ink-3); text-decoration:none;
+  transition:color .15s;
+}
+.nav-link:hover { color:var(--ink); }
+
+.nav-cta {
+  height:34px; padding:0 18px;
+  background:var(--blue); color:#fff;
+  border:none; border-radius:var(--radius-sm);
+  font-family:'Vazirmatn',sans-serif;
+  font-size:13px; font-weight:700;
+  cursor:pointer; transition:background .15s;
+  white-space:nowrap;
+}
+.nav-cta:hover { background:var(--blue-mid); }
+
+/* ── HERO ── */
+.hero {
+  min-height:100dvh;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:88px 20px 56px;
+  position:relative;
+}
+
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:7px;
+  background:#fff; border:1px solid var(--border);
+  border-radius:100px; padding:5px 14px 5px 10px;
+  font-size:11.5px; font-weight:600; color:var(--ink-2);
+  margin-bottom:26px;
+  box-shadow:var(--shadow);
+}
+.eyebrow-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--green); flex-shrink:0;
+}
+
+.hero-h1 {
+  font-size:clamp(36px,6.5vw,76px);
+  font-weight:900; line-height:1.05;
+  letter-spacing:-2.5px;
+  text-align:center;
+  margin-bottom:16px;
+  color:var(--ink);
+  max-width:640px;
+}
+.hero-h1 .dim { color:var(--ink-3); font-weight:300; }
+.hero-h1 .accent { color:var(--blue); }
+
+.hero-sub {
+  font-size:15px; color:var(--ink-3);
+  line-height:1.75; text-align:center;
+  max-width:380px; margin-bottom:44px;
+  font-weight:400;
+}
+
+/* ── MAIN CARD ── */
+.card {
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:20px;
+  width:100%; max-width:500px;
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;
+}
+
+/* Step bar */
+.step-bar {
+  display:flex; align-items:center;
+  padding:0 20px;
+  height:50px;
+  border-bottom:1px solid var(--border);
+  background:var(--surface-2);
+}
+.step-pill {
+  flex:1; display:flex; align-items:center;
+  gap:6px; font-size:11.5px; font-weight:600;
+  color:var(--ink-3); transition:color .25s;
+  white-space:nowrap;
+}
+.step-pill.active { color:var(--blue); }
 .step-pill.done { color:var(--green); }
 .step-n {
   width:20px; height:20px; border-radius:50%;
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.1);
+  border:1.5px solid var(--border-strong);
+  background:#fff;
   display:flex; align-items:center; justify-content:center;
-  font-size:10px; font-weight:700; flex-shrink:0;
-  transition:all .3s;
+  font-size:10px; font-weight:800; flex-shrink:0;
+  transition:all .25s; color:var(--ink-3);
 }
 .step-pill.active .step-n {
-  background:var(--blue); border-color:var(--blue); color:#fff;
+  background:var(--blue); border-color:var(--blue);
+  color:#fff;
 }
 .step-pill.done .step-n {
-  background:var(--green); border-color:var(--green); color:#fff;
-  font-size:9px;
+  background:var(--green); border-color:var(--green);
+  color:#fff;
 }
-.step-divider {
-  width:24px; height:1px; background:var(--border); flex-shrink:0;
-  margin:0 4px;
+.step-div {
+  flex:0 0 20px; height:1px;
+  background:var(--border-strong);
+  margin:0 2px;
 }
 
-/* Steps panels */
-.steps-wrap { position:relative; overflow:hidden; }
+/* Step panels */
+.steps-wrap { position:relative; }
 .step-panel {
   display:none;
-  padding:26px 28px 24px;
-  animation:slideIn .3s ease;
+  padding:24px 24px 20px;
+  animation:fadeSlide .25s ease;
 }
 .step-panel.active { display:block; }
-@keyframes slideIn { from{opacity:0;transform:translateX(-16px)} to{opacity:1;transform:translateX(0)} }
+@keyframes fadeSlide {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
 
 .panel-title {
-  font-size:14px; font-weight:700; margin-bottom:18px;
-  display:flex; align-items:center; gap:8px;
+  font-size:15px; font-weight:800;
+  color:var(--ink); margin-bottom:18px;
+  letter-spacing:-0.3px;
 }
-.panel-title .sub { color:var(--gray); font-weight:400; font-size:12px; }
-
-/* Inputs */
-.field { margin-bottom:14px; }
-.field-label {
-  font-size:11.5px; color:var(--gray-light); font-weight:500;
-  margin-bottom:6px; display:block; text-align:right;
-}
-.inp {
-  width:100%;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.09);
-  border-radius:10px; padding:11px 14px;
-  color:var(--white); font-family:'Vazirmatn',sans-serif;
-  font-size:13.5px; outline:none;
-  transition:border-color .2s, background .2s;
-  -webkit-appearance:none;
-}
-.inp:focus {
-  border-color:var(--border-accent);
-  background:rgba(100,149,255,0.06);
-}
-.inp::placeholder { color:rgba(107,114,128,0.7); }
-select.inp { cursor:pointer; }
-option { background:#1a1c2e; }
-
-.row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-
-/* Airline logos row */
-.airline-row {
-  display:flex; gap:8px; flex-wrap:wrap; margin-bottom:6px;
-}
-.airline-chip {
-  display:flex; align-items:center; gap:5px;
-  padding:5px 10px;
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:8px; font-size:11.5px; color:var(--gray-light);
-  cursor:pointer; transition:all .2s; font-family:'Vazirmatn',sans-serif;
-  white-space:nowrap;
-}
-.airline-chip:hover, .airline-chip.selected {
-  background:var(--blue-dim); border-color:var(--border-accent);
-  color:var(--blue);
-}
-
-/* CTA Buttons */
-.btn {
-  width:100%; padding:13px;
-  border-radius:10px; border:none;
-  font-family:'Vazirmatn',sans-serif;
-  font-size:14px; font-weight:700;
-  cursor:pointer; transition:all .22s;
-  display:flex; align-items:center; justify-content:center; gap:8px;
-}
-.btn-blue {
-  background:var(--blue); color:#fff;
-}
-.btn-blue:hover { background:#7aaaff; transform:translateY(-1px); }
-.btn-outline {
-  background:transparent;
+.panel-title .tag {
+  font-size:11px; font-weight:500;
+  color:var(--ink-3); background:var(--surface-2);
   border:1px solid var(--border);
-  color:var(--gray-light); font-size:13px;
-  padding:10px; margin-top:8px;
+  border-radius:100px; padding:2px 8px;
+  margin-right:6px; vertical-align:middle;
 }
-.btn-outline:hover { border-color:rgba(255,255,255,0.2); color:var(--white); }
 
-/* FLIGHT RESULT CARD (step 2) */
-.flight-found {
-  background:rgba(100,149,255,0.06);
-  border:1px solid rgba(100,149,255,0.18);
-  border-radius:12px;
-  padding:16px;
+/* Airline chips */
+.section-label {
+  font-size:11px; font-weight:700;
+  letter-spacing:0.5px; color:var(--ink-3);
+  text-transform:uppercase; margin-bottom:8px;
+  display:block;
+}
+.airline-row {
+  display:flex; flex-wrap:wrap; gap:6px;
   margin-bottom:16px;
 }
-.flight-row-top {
+.airline-chip {
+  display:inline-flex; align-items:center; gap:4px;
+  padding:5px 11px;
+  background:#fff; border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  font-size:12px; font-weight:600; color:var(--ink-2);
+  cursor:pointer; font-family:'Vazirmatn',sans-serif;
+  transition:all .15s; white-space:nowrap;
+}
+.airline-chip:hover {
+  border-color:var(--blue); color:var(--blue);
+  background:var(--blue-subtle);
+}
+.airline-chip.selected {
+  background:var(--blue); color:#fff;
+  border-color:var(--blue);
+}
+
+/* Field */
+.field { margin-bottom:12px; }
+.field-label {
+  display:block; font-size:11.5px; font-weight:600;
+  color:var(--ink-2); margin-bottom:5px;
+}
+.inp {
+  width:100%; padding:10px 13px;
+  background:#fff; border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  font-family:'Vazirmatn',sans-serif;
+  font-size:13.5px; color:var(--ink);
+  outline:none; transition:border-color .15s, box-shadow .15s;
+  -webkit-appearance:none; appearance:none;
+}
+.inp:focus {
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(27,63,204,0.08);
+}
+.inp.error { border-color:var(--red) !important; }
+.inp::placeholder { color:var(--ink-3); font-size:13px; }
+select.inp { cursor:pointer; }
+option { background:#fff; color:var(--ink); }
+
+.row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+
+/* Buttons */
+.btn {
+  width:100%; padding:12px;
+  border:none; border-radius:var(--radius-sm);
+  font-family:'Vazirmatn',sans-serif;
+  font-size:14px; font-weight:700;
+  cursor:pointer; transition:all .15s;
+  display:flex; align-items:center; justify-content:center; gap:7px;
+}
+.btn-primary {
+  background:var(--blue); color:#fff;
+}
+.btn-primary:hover { background:var(--blue-mid); transform:translateY(-1px); }
+.btn-ghost {
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--ink-3);
+  font-size:13px; padding:10px;
+  margin-top:8px;
+}
+.btn-ghost:hover { border-color:var(--border-strong); color:var(--ink); }
+.btn-success {
+  background:var(--green); color:#fff;
+}
+.btn-success:hover { opacity:0.9; transform:translateY(-1px); }
+
+/* Loading */
+.loading {
+  display:flex; flex-direction:column;
+  align-items:center; padding:32px 0 28px; gap:12px;
+}
+.spinner {
+  width:26px; height:26px;
+  border:2px solid var(--border);
+  border-top-color:var(--blue);
+  border-radius:50%;
+  animation:spin .65s linear infinite;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+.loading-text { font-size:13px; color:var(--ink-3); font-weight:500; }
+
+/* ── BOARDING PASS (step 2) ── */
+.boarding-pass {
+  background:var(--blue-subtle);
+  border:1px solid #C9D3F7;
+  border-radius:var(--radius);
+  overflow:hidden;
+  margin-bottom:16px;
+  position:relative;
+}
+.bp-header {
+  background:var(--blue);
+  padding:11px 16px;
   display:flex; align-items:center; justify-content:space-between;
-  margin-bottom:12px;
 }
-.fl-airline { font-size:11px; color:var(--gray); font-weight:500; }
-.fl-status-badge {
-  font-size:10.5px; font-weight:700; padding:3px 10px; border-radius:100px;
+.bp-airline-name {
+  font-size:12px; font-weight:700; color:rgba(255,255,255,0.8);
 }
-.badge-delay { background:rgba(240,192,96,0.15); color:var(--gold); border:1px solid rgba(240,192,96,0.25); }
-.badge-cancel { background:rgba(255,107,107,0.12); color:var(--red); border:1px solid rgba(255,107,107,0.2); }
-.badge-ok { background:var(--green-dim); color:var(--green); border:1px solid rgba(52,217,138,0.2); }
-
-.fl-route {
+.bp-flight-num {
+  font-size:13px; font-weight:800; color:#fff;
+  letter-spacing:0.5px;
+}
+.bp-status {
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:11px; font-weight:700; padding:3px 10px;
+  border-radius:100px;
+}
+.bp-status.delay {
+  background:rgba(255,255,255,0.15); color:#FFE5A0;
+}
+.bp-status.cancel {
+  background:rgba(255,80,80,0.25); color:#FFB8B8;
+}
+.bp-body {
+  padding:16px;
+}
+.bp-route {
   display:flex; align-items:center; gap:10px;
-  font-size:22px; font-weight:900; letter-spacing:-1px;
-  margin-bottom:10px;
+  margin-bottom:14px;
 }
-.fl-arrow { color:var(--gray); font-size:14px; font-weight:300; }
-.fl-meta {
-  display:flex; gap:16px;
+.bp-iata {
+  font-size:34px; font-weight:900;
+  color:var(--blue); letter-spacing:-2px; line-height:1;
 }
-.fl-meta-item { font-size:11.5px; color:var(--gray); }
-.fl-meta-item strong { color:var(--gray-light); font-weight:600; }
+.bp-arrow-wrap {
+  flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
+}
+.bp-line {
+  width:100%; height:1px;
+  background:repeating-linear-gradient(90deg, #B0BFEE 0, #B0BFEE 4px, transparent 4px, transparent 8px);
+}
+.bp-plane { font-size:14px; color:var(--blue-mid); }
+.bp-meta {
+  display:flex; gap:0;
+  border-top:1px dashed #C9D3F7;
+  padding-top:12px;
+}
+.bp-meta-item {
+  flex:1; text-align:center;
+  border-left:1px dashed #C9D3F7;
+  padding:0 8px;
+}
+.bp-meta-item:last-child { border-left:none; }
+.bp-meta-label { font-size:10px; color:var(--ink-3); font-weight:600; text-transform:uppercase; margin-bottom:3px; }
+.bp-meta-val { font-size:13px; font-weight:700; color:var(--ink); }
 
-.confirm-note {
-  font-size:12px; color:var(--gray); text-align:center;
-  margin-top:10px;
+/* punch holes */
+.boarding-pass::before,
+.boarding-pass::after {
+  content:'';
+  position:absolute;
+  width:14px; height:14px; border-radius:50%;
+  background:var(--bg);
+  border:1px solid #C9D3F7;
+  bottom:-7px;
+}
+.boarding-pass::before { right:-7px; }
+.boarding-pass::after { left:-7px; }
+
+.confirm-q {
+  font-size:12.5px; color:var(--ink-3);
+  text-align:center; margin-bottom:14px;
+  font-weight:500;
 }
 
-/* Reason choices (step 3) */
+/* ── REASON GRID (step 3) ── */
 .reason-grid {
   display:grid; grid-template-columns:1fr 1fr; gap:8px;
   margin-bottom:16px;
 }
 .reason-btn {
-  padding:14px 12px;
-  background:rgba(255,255,255,0.03);
-  border:1px solid var(--border);
-  border-radius:10px; font-family:'Vazirmatn',sans-serif;
-  font-size:12.5px; color:var(--gray-light); cursor:pointer;
-  transition:all .2s; text-align:center; line-height:1.5;
+  padding:14px 10px;
+  background:#fff; border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  font-family:'Vazirmatn',sans-serif;
+  font-size:12.5px; font-weight:600;
+  color:var(--ink-2); cursor:pointer;
+  transition:all .15s; text-align:center; line-height:1.6;
 }
-.reason-btn:hover, .reason-btn.sel {
-  background:var(--blue-dim);
-  border-color:var(--border-accent);
-  color:var(--blue);
+.reason-btn:hover {
+  border-color:var(--blue); color:var(--blue);
+  background:var(--blue-subtle);
 }
-.reason-icon { font-size:20px; display:block; margin-bottom:5px; }
+.reason-btn.sel {
+  background:var(--blue-light);
+  border-color:var(--blue); color:var(--blue);
+  box-shadow:0 0 0 3px rgba(27,63,204,0.07);
+}
+.reason-icon { font-size:18px; display:block; margin-bottom:5px; }
 
-/* RESULT (step 4) */
+/* ── RESULT (step 4) ── */
+.result-badge {
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:11px; font-weight:700; padding:4px 12px;
+  border-radius:100px; margin-bottom:14px;
+}
+.result-badge.eligible {
+  background:var(--green-bg); color:var(--green);
+  border:1px solid var(--green-border);
+}
+.result-badge.review {
+  background:#FFF8EC; color:var(--gold);
+  border:1px solid var(--gold-border);
+}
+
 .result-hero {
-  text-align:center; padding:8px 0 20px;
-}
-.result-eligible {
-  display:inline-flex; align-items:center; gap:6px;
-  font-size:11px; font-weight:700; letter-spacing:0.5px;
-  color:var(--green); background:var(--green-dim);
-  border:1px solid rgba(52,217,138,0.2);
-  border-radius:100px; padding:4px 12px; margin-bottom:14px;
-}
-.result-not-eligible {
-  display:inline-flex; align-items:center; gap:6px;
-  font-size:11px; font-weight:700;
-  color:var(--red); background:rgba(255,107,107,0.08);
-  border:1px solid rgba(255,107,107,0.15);
-  border-radius:100px; padding:4px 12px; margin-bottom:14px;
+  text-align:center;
+  padding:4px 0 18px;
 }
 .result-amount {
-  font-size:52px; font-weight:900;
-  letter-spacing:-2.5px; line-height:1;
-  color:var(--green); margin-bottom:6px;
+  font-size:58px; font-weight:900;
+  letter-spacing:-3px; line-height:1;
+  color:var(--blue); margin-bottom:8px;
 }
-.result-amount.zero { color:var(--gray); }
+.result-amount.gray { color:var(--ink-3); }
 .result-desc {
-  font-size:12.5px; color:var(--gray); line-height:1.7;
-  margin-bottom:18px;
+  font-size:12.5px; color:var(--ink-3);
+  line-height:1.75; margin-bottom:18px;
+  max-width:340px; margin-left:auto; margin-right:auto;
 }
 
 .breakdown {
-  background:rgba(255,255,255,0.03);
   border:1px solid var(--border);
-  border-radius:10px; overflow:hidden;
-  margin-bottom:16px;
+  border-radius:var(--radius-sm);
+  overflow:hidden; margin-bottom:14px;
 }
-.breakdown-row {
+.brow {
   display:flex; justify-content:space-between; align-items:center;
-  padding:10px 14px; border-bottom:1px solid var(--border);
+  padding:9px 14px;
+  border-bottom:1px solid var(--border);
   font-size:12.5px;
 }
-.breakdown-row:last-child { border-bottom:none; }
-.breakdown-row .lbl { color:var(--gray); }
-.breakdown-row .val { font-weight:600; color:var(--gray-light); }
-.breakdown-row .val.green { color:var(--green); }
+.brow:last-child { border-bottom:none; }
+.brow .lbl { color:var(--ink-3); font-weight:500; }
+.brow .val { font-weight:700; color:var(--ink-2); }
+.brow .val.green { color:var(--green); }
+.brow .val.blue { color:var(--blue); }
 
-.btn-gold {
-  width:100%; padding:14px;
-  background:var(--gold); color:#1A1200;
-  border:none; border-radius:10px;
-  font-family:'Vazirmatn',sans-serif;
-  font-size:14px; font-weight:900;
-  cursor:pointer; transition:all .22s;
-  display:flex; align-items:center; justify-content:center; gap:8px;
+/* ── SUCCESS ── */
+.success-wrap {
+  text-align:center; padding:20px 0 24px;
 }
-.btn-gold:hover { transform:translateY(-1px); box-shadow:0 10px 28px rgba(240,192,96,0.25); }
-
-/* Loading spinner */
-.loading {
-  display:flex; flex-direction:column; align-items:center;
-  padding:28px 0; gap:12px;
-}
-.spinner {
-  width:28px; height:28px;
-  border:2px solid rgba(100,149,255,0.2);
-  border-top-color:var(--blue);
+.success-icon {
+  width:56px; height:56px;
+  background:var(--green-bg); border:2px solid var(--green-border);
   border-radius:50%;
-  animation:spin .7s linear infinite;
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px; margin:0 auto 14px;
 }
-@keyframes spin { to{transform:rotate(360deg)} }
-.loading-text { font-size:13px; color:var(--gray); font-weight:500; }
+.success-title {
+  font-size:17px; font-weight:900; color:var(--ink);
+  margin-bottom:8px; letter-spacing:-0.3px;
+}
+.success-desc {
+  font-size:13px; color:var(--ink-3);
+  line-height:1.8; margin-bottom:20px;
+}
+.track-box {
+  background:var(--blue-subtle);
+  border:1px solid #C9D3F7;
+  border-radius:var(--radius-sm);
+  padding:12px 16px; margin-bottom:16px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.track-label { font-size:11px; color:var(--ink-3); font-weight:600; }
+.track-code { font-size:15px; font-weight:800; color:var(--blue); letter-spacing:1px; }
 
-/* Card footer note */
+/* Card footer */
 .card-foot {
-  padding:12px 22px;
+  padding:11px 20px;
   border-top:1px solid var(--border);
-  display:flex; align-items:center; justify-content:center; gap:18px;
+  background:var(--surface-2);
+  display:flex; align-items:center; justify-content:center; gap:16px;
 }
 .foot-item {
-  display:flex; align-items:center; gap:5px;
-  font-size:11px; color:rgba(107,114,128,0.7);
+  display:flex; align-items:center; gap:4px;
+  font-size:11px; color:var(--ink-3); font-weight:500;
 }
-.foot-dot {
-  width:4px; height:4px; border-radius:50%;
-  background:rgba(107,114,128,0.4);
-}
+.foot-icon { color:var(--green); font-size:10px; font-weight:800; }
+.sep { width:3px; height:3px; border-radius:50%; background:var(--border-strong); }
 
-/* STATS */
-.stats {
-  width:100%; max-width:520px;
-  display:flex; justify-content:space-between;
-  margin-top:28px; position:relative;
+/* ── STATS ── */
+.stats-row {
+  width:100%; max-width:500px;
+  display:flex; margin-top:20px;
+  background:#fff; border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden; box-shadow:var(--shadow);
 }
-.stat {
-  text-align:center; flex:1;
-  padding:0 16px;
-  border-right:1px solid var(--border);
+.stat-item {
+  flex:1; text-align:center;
+  padding:14px 8px;
+  border-left:1px solid var(--border);
 }
-.stat:first-child { border-right:none; }
+.stat-item:last-child { border-left:none; }
 .stat-n {
-  font-size:26px; font-weight:900;
-  color:var(--gold); letter-spacing:-1px; line-height:1;
+  font-size:22px; font-weight:900;
+  color:var(--blue); letter-spacing:-1px; line-height:1;
 }
-.stat-l { font-size:11px; color:var(--gray); margin-top:4px; }
+.stat-l {
+  font-size:10.5px; color:var(--ink-3);
+  margin-top:3px; font-weight:500;
+}
 
-/* FOOTER */
-footer {
-  text-align:center; padding:40px 24px;
+/* ── HOW SECTION ── */
+.section {
+  padding:80px 40px;
+  max-width:1080px; margin:0 auto;
+}
+.section-eyebrow {
+  font-size:10.5px; font-weight:800;
+  letter-spacing:2px; color:var(--blue);
+  text-transform:uppercase; margin-bottom:10px;
+}
+.section-h2 {
+  font-size:clamp(24px,4vw,42px);
+  font-weight:900; letter-spacing:-1.5px;
+  line-height:1.1; margin-bottom:40px;
+}
+.section-h2 .dim { color:var(--ink-3); font-weight:300; }
+
+.how-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
+}
+.how-card {
+  padding:26px 22px;
+  background:#fff; border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+.how-num {
+  font-size:11px; font-weight:800;
+  color:var(--blue); letter-spacing:1px;
+  margin-bottom:14px;
+  display:flex; align-items:center; gap:8px;
+}
+.how-num::after {
+  content:''; flex:1; height:1px;
+  background:var(--border);
+}
+.how-title {
+  font-size:14px; font-weight:800;
+  margin-bottom:8px; color:var(--ink);
+}
+.how-text {
+  font-size:12.5px; color:var(--ink-3);
+  line-height:1.75;
+}
+
+/* ── COMP TABLE ── */
+.comp-section {
+  padding:70px 40px;
+  background:#fff;
   border-top:1px solid var(--border);
-  color:var(--gray); font-size:12px; line-height:2;
+  border-bottom:1px solid var(--border);
 }
-footer a { color:var(--gray-light); text-decoration:none; }
-footer a:hover { color:var(--white); }
+.comp-inner { max-width:1080px; margin:0 auto; }
+.comp-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:12px;
+}
+.comp-card {
+  padding:24px 20px;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+}
+.comp-card.blue {
+  background:var(--blue-subtle); border-color:#C9D3F7;
+}
+.comp-card.gold {
+  background:var(--gold-bg); border-color:var(--gold-border);
+}
+.comp-card.green {
+  background:var(--green-bg); border-color:var(--green-border);
+}
+.comp-label {
+  display:inline-block;
+  font-size:10.5px; font-weight:700;
+  padding:3px 10px; border-radius:100px;
+  margin-bottom:14px;
+}
+.comp-card.blue .comp-label { background:rgba(27,63,204,0.1); color:var(--blue); }
+.comp-card.gold .comp-label { background:rgba(176,124,16,0.12); color:var(--gold); }
+.comp-card.green .comp-label { background:rgba(26,122,74,0.12); color:var(--green); }
 
-/* MOBILE */
+.comp-amount {
+  font-size:44px; font-weight:900;
+  letter-spacing:-2.5px; line-height:1;
+  margin-bottom:10px;
+}
+.comp-card.blue .comp-amount { color:var(--blue); }
+.comp-card.gold .comp-amount { color:var(--gold); }
+.comp-card.green .comp-amount { color:var(--green); }
+
+.comp-text {
+  font-size:12.5px; color:var(--ink-3); line-height:1.7;
+}
+
+/* ── FOOTER ── */
+footer {
+  text-align:center; padding:36px 24px;
+  border-top:1px solid var(--border);
+  background:var(--surface);
+}
+.footer-logo {
+  font-size:16px; font-weight:900;
+  color:var(--ink); margin-bottom:6px;
+}
+.footer-logo em { color:var(--blue); font-style:normal; }
+.footer-sub {
+  font-size:12px; color:var(--ink-3);
+  line-height:2;
+}
+footer a { color:var(--ink-3); text-decoration:none; }
+footer a:hover { color:var(--ink); }
+
+/* ── MOBILE ── */
 @media (max-width:640px) {
-  nav { padding:0 20px; }
-  .nav-link { display:none; }
-  .row2 { grid-template-columns:1fr; }
-  .reason-grid { grid-template-columns:1fr 1fr; }
-  .step-panel { padding:20px 18px 18px; }
-  .step-bar { padding:14px 16px; }
-  .stats { max-width:100%; }
+  nav { padding:0 16px; }
+  .nav-links { display:none; }
+  .hero { padding:76px 16px 48px; }
+  .hero-h1 { letter-spacing:-1.5px; }
+  .row2 { grid-template-columns:1fr; gap:8px; }
+  .how-grid, .comp-grid { grid-template-columns:1fr; }
+  .section, .comp-section { padding:60px 20px; }
+  .step-panel { padding:18px 16px 14px; }
+  .stats-row { max-width:100%; }
+  .step-bar { padding:0 14px; }
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <a class="logo" href="#">
-    <div class="logo-icon">✈</div>
-    <div class="logo-name">آسما<em>نه</em></div>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-mark">آ</div>
+    <div class="nav-logo-text">آسما<em>نه</em></div>
   </a>
-  <div class="nav-r">
-    <a class="nav-link" href="#how">چطور کار می‌کند؟</a>
+  <div class="nav-links">
+    <a class="nav-link" href="#how">چطور کار می‌کند</a>
     <a class="nav-link" href="#comp">جدول غرامت</a>
-    <button class="nav-btn" onclick="scrollToCard()">بررسی رایگان</button>
   </div>
+  <button class="nav-cta" onclick="scrollToCard()">بررسی رایگان</button>
 </nav>
 
 <section class="hero">
-  <div class="hero-glow"></div>
 
-  <div class="chip">
-    <div class="chip-dot"></div>
+  <div class="hero-eyebrow">
+    <div class="eyebrow-dot"></div>
     سامانه احقاق حقوق مسافران هوایی ایران
   </div>
 
   <h1 class="hero-h1">
-    <span class="muted">پروازتان مشکل داشت؟</span><br>
-    <span class="accent-g">حقتان</span> را <span class="accent-b">بگیرید.</span>
+    <span class="dim">پروازتان</span><br>مشکل داشت؟<br>
+    <span class="accent">خسارتتان را</span><br>
+    <span class="dim">بگیرید.</span>
   </h1>
 
   <p class="hero-sub">
-    اطلاعات پرواز را وارد کنید. ما در چند ثانیه میزان خسارت قانونی‌تان را محاسبه می‌کنیم.
+    اطلاعات پرواز را وارد کنید.<br>در چند ثانیه میزان غرامت قانونی‌تان را محاسبه می‌کنیم.
   </p>
 
-  <!-- ── MAIN CARD ── -->
+  <!-- CARD -->
   <div class="card" id="mainCard">
 
-    <!-- Step bar -->
     <div class="step-bar" id="stepBar">
       <div class="step-pill active" id="sp1">
         <div class="step-n">۱</div>
         <span>پرواز</span>
       </div>
-      <div class="step-divider"></div>
+      <div class="step-div"></div>
       <div class="step-pill" id="sp2">
         <div class="step-n">۲</div>
         <span>تأیید</span>
       </div>
-      <div class="step-divider"></div>
+      <div class="step-div"></div>
       <div class="step-pill" id="sp3">
         <div class="step-n">۳</div>
         <span>دلیل</span>
       </div>
-      <div class="step-divider"></div>
+      <div class="step-div"></div>
       <div class="step-pill" id="sp4">
         <div class="step-n">۴</div>
         <span>نتیجه</span>
@@ -499,18 +718,18 @@ footer a:hover { color:var(--white); }
 
     <div class="steps-wrap">
 
-      <!-- STEP 1: Flight info -->
+      <!-- STEP 1 -->
       <div class="step-panel active" id="panel1">
-        <div class="panel-title">اطلاعات پرواز <span class="sub">· رایگان · بدون تعهد</span></div>
+        <div class="panel-title">اطلاعات پرواز <span class="tag">رایگان · بدون تعهد</span></div>
 
-        <label class="field-label">ایرلاین</label>
+        <span class="section-label">ایرلاین</span>
         <div class="airline-row" id="airlineRow">
-          <button class="airline-chip" onclick="selectAirline(this,'ماهان')">✈ ماهان</button>
-          <button class="airline-chip" onclick="selectAirline(this,'ایران‌ایر')">✈ ایران‌ایر</button>
-          <button class="airline-chip" onclick="selectAirline(this,'آسمان')">✈ آسمان</button>
-          <button class="airline-chip" onclick="selectAirline(this,'کاسپین')">✈ کاسپین</button>
-          <button class="airline-chip" onclick="selectAirline(this,'زاگرس')">✈ زاگرس</button>
-          <button class="airline-chip" onclick="selectAirline(this,'قشم‌ایر')">✈ قشم‌ایر</button>
+          <button class="airline-chip" onclick="selectAirline(this,'ماهان')">ماهان</button>
+          <button class="airline-chip" onclick="selectAirline(this,'ایران‌ایر')">ایران‌ایر</button>
+          <button class="airline-chip" onclick="selectAirline(this,'آسمان')">آسمان</button>
+          <button class="airline-chip" onclick="selectAirline(this,'کاسپین')">کاسپین</button>
+          <button class="airline-chip" onclick="selectAirline(this,'زاگرس')">زاگرس</button>
+          <button class="airline-chip" onclick="selectAirline(this,'قشم‌ایر')">قشم‌ایر</button>
         </div>
 
         <div class="row2">
@@ -552,18 +771,17 @@ footer a:hover { color:var(--white); }
             <input class="inp" type="text" placeholder="۱۴۰۳/۱۲/۱۵" id="flightDate" maxlength="12">
           </div>
           <div class="field">
-            <label class="field-label">شماره پرواز (اختیاری)</label>
-            <input class="inp" type="text" placeholder="مثلاً W۵ ۱۰۵۱" id="flightNum">
+            <label class="field-label">شماره پرواز <span style="font-weight:400;color:var(--ink-3)">(اختیاری)</span></label>
+            <input class="inp" type="text" placeholder="W5 1051" id="flightNum">
           </div>
         </div>
 
-        <button class="btn btn-blue" onclick="doSearch()">
-          <span>جستجوی پرواز</span>
-          <span>←</span>
+        <button class="btn btn-primary" onclick="doSearch()">
+          جستجوی پرواز ←
         </button>
       </div>
 
-      <!-- STEP 1b: Loading -->
+      <!-- LOADING -->
       <div class="step-panel" id="panelLoad">
         <div class="loading">
           <div class="spinner"></div>
@@ -571,45 +789,57 @@ footer a:hover { color:var(--white); }
         </div>
       </div>
 
-      <!-- STEP 2: Confirm flight -->
+      <!-- STEP 2 -->
       <div class="step-panel" id="panel2">
-        <div class="panel-title">پرواز شما پیدا شد</div>
+        <div class="panel-title">پرواز پیدا شد</div>
 
-        <div class="flight-found" id="flightCard">
-          <div class="flight-row-top">
-            <div class="fl-airline" id="flAirline">ماهان ایر — W5 1051</div>
-            <div class="fl-status-badge badge-delay" id="flBadge">تأخیر ۶ ساعت</div>
+        <div class="boarding-pass" id="boardingPass">
+          <div class="bp-header">
+            <div>
+              <div class="bp-airline-name" id="bpAirline">ماهان ایر</div>
+              <div class="bp-flight-num" id="bpFlNum">W5 1051</div>
+            </div>
+            <div class="bp-status delay" id="bpStatus">تأخیر ۶ ساعت</div>
           </div>
-          <div class="fl-route">
-            <span id="flFrom">THR</span>
-            <span class="fl-arrow">←</span>
-            <span id="flTo">DXB</span>
-          </div>
-          <div class="fl-meta">
-            <div class="fl-meta-item">تاریخ: <strong id="flDate">۱۴۰۳/۱۲/۱۵</strong></div>
-            <div class="fl-meta-item">ساعت برنامه: <strong>۱۴:۳۰</strong></div>
-            <div class="fl-meta-item">وضعیت: <strong id="flStatus" style="color:var(--gold)">تأخیر</strong></div>
+          <div class="bp-body">
+            <div class="bp-route">
+              <div class="bp-iata" id="bpFrom">THR</div>
+              <div class="bp-arrow-wrap">
+                <div class="bp-line"></div>
+                <div class="bp-plane">✈</div>
+                <div class="bp-line"></div>
+              </div>
+              <div class="bp-iata" id="bpTo">DXB</div>
+            </div>
+            <div class="bp-meta">
+              <div class="bp-meta-item">
+                <div class="bp-meta-label">تاریخ</div>
+                <div class="bp-meta-val" id="bpDate">۱۴۰۳/۱۲/۱۵</div>
+              </div>
+              <div class="bp-meta-item">
+                <div class="bp-meta-label">ساعت</div>
+                <div class="bp-meta-val">۱۴:۳۰</div>
+              </div>
+              <div class="bp-meta-item">
+                <div class="bp-meta-label">وضعیت</div>
+                <div class="bp-meta-val" id="bpStatusText" style="color:var(--gold)">تأخیر</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <p class="confirm-note">آیا این پرواز شماست؟</p>
-
-        <button class="btn btn-blue" style="margin-top:14px" onclick="confirmFlight()">
-          بله، این پروازم است ←
-        </button>
-        <button class="btn btn-outline" onclick="goBack(1)">
-          برگشت و ویرایش
-        </button>
+        <p class="confirm-q">آیا این پرواز شماست؟</p>
+        <button class="btn btn-primary" onclick="confirmFlight()">بله، این پروازم است ←</button>
+        <button class="btn btn-ghost" onclick="goBack(1)">برگشت و ویرایش</button>
       </div>
 
-      <!-- STEP 3: Reason -->
+      <!-- STEP 3 -->
       <div class="step-panel" id="panel3">
         <div class="panel-title">دلیل درخواست خسارت</div>
-
         <div class="reason-grid" id="reasonGrid">
           <button class="reason-btn" onclick="selectReason(this,'delay-2-5')">
             <span class="reason-icon">⏱</span>
-            تأخیر ۲ تا ۵ ساعت
+            تأخیر ۲–۵ ساعت
           </button>
           <button class="reason-btn" onclick="selectReason(this,'delay-5+')">
             <span class="reason-icon">🕐</span>
@@ -625,92 +855,90 @@ footer a:hover { color:var(--white); }
           </button>
           <button class="reason-btn" onclick="selectReason(this,'overbook')">
             <span class="reason-icon">👥</span>
-            اووربوکینگ / ازپرواز‌افتادن
+            اووربوکینگ
           </button>
           <button class="reason-btn" onclick="selectReason(this,'luggage')">
             <span class="reason-icon">🧳</span>
             مشکل چمدان
           </button>
         </div>
-
-        <button class="btn btn-blue" id="reasonBtn" onclick="calcResult()" disabled style="opacity:.4">
+        <button class="btn btn-primary" id="reasonBtn" onclick="calcResult()" disabled style="opacity:.4">
           محاسبه خسارت قانونی ←
         </button>
       </div>
 
-      <!-- STEP 4: Result -->
+      <!-- STEP 4 -->
       <div class="step-panel" id="panel4">
         <div class="result-hero">
-          <div id="eligibleBadge" class="result-eligible">✓ مستحق خسارت هستید</div>
+          <div id="eligibleBadge" class="result-badge eligible">✓ مستحق خسارت هستید</div>
           <div class="result-amount" id="resAmount">۱۰۰٪</div>
           <div class="result-desc" id="resDesc">معادل کامل قیمت بلیت به عنوان غرامت نقدی، به علاوه اسکان هتل در صورت ماندن شبانه در فرودگاه.</div>
         </div>
 
         <div class="breakdown">
-          <div class="breakdown-row">
+          <div class="brow">
             <span class="lbl">مبنای قانونی</span>
-            <span class="val" id="resLaw">منشور حقوق مسافر ایران — ماده ۱۳</span>
+            <span class="val" id="resLaw">منشور حقوق مسافر — ماده ۱۳</span>
           </div>
-          <div class="breakdown-row">
+          <div class="brow">
             <span class="lbl">نوع غرامت</span>
             <span class="val green" id="resType">نقدی + اسکان</span>
           </div>
-          <div class="breakdown-row">
-            <span class="lbl">مهلت پیگیری قانونی</span>
-            <span class="val">۶ ماه از تاریخ پرواز</span>
+          <div class="brow">
+            <span class="lbl">مهلت پیگیری</span>
+            <span class="val blue">۶ ماه از تاریخ پرواز</span>
           </div>
-          <div class="breakdown-row">
+          <div class="brow">
             <span class="lbl">هزینه آسمانه</span>
-            <span class="val" style="color:var(--green)">صفر تا دریافت — ۲۰٪ از غرامت</span>
+            <span class="val green">صفر تا دریافت — ۲۰٪ از غرامت</span>
           </div>
         </div>
 
-        <button class="btn-gold" onclick="submitCase()">
-          ✈ ثبت پرونده و شروع پیگیری
+        <button class="btn btn-success" onclick="submitCase()">
+          ثبت پرونده و شروع پیگیری ←
         </button>
-        <button class="btn btn-outline" onclick="goBack(3)">
-          بررسی مجدد
-        </button>
+        <button class="btn btn-ghost" onclick="goBack(3)">بررسی مجدد</button>
       </div>
 
-      <!-- STEP 5: Submitted -->
+      <!-- STEP 5 -->
       <div class="step-panel" id="panel5">
-        <div style="text-align:center; padding:16px 0 20px;">
-          <div style="font-size:44px; margin-bottom:14px;">🎉</div>
-          <div style="font-size:17px; font-weight:900; margin-bottom:10px;">پرونده ثبت شد!</div>
-          <div style="font-size:13px; color:var(--gray); line-height:1.8; margin-bottom:20px;">
-            تیم حقوقی آسمانه ظرف ۴۸ ساعت پرونده شما را بررسی می‌کند.<br>
-            وضعیت پرونده از طریق پیامک اطلاع داده خواهد شد.
+        <div class="success-wrap">
+          <div class="success-icon">✓</div>
+          <div class="success-title">پرونده ثبت شد</div>
+          <div class="success-desc">
+            تیم حقوقی آسمانه ظرف ۴۸ ساعت پرونده را بررسی می‌کند.<br>
+            وضعیت از طریق پیامک اطلاع داده می‌شود.
           </div>
-          <div style="background:var(--blue-dim); border:1px solid var(--border-accent); border-radius:10px; padding:14px; font-size:13px; color:var(--gray-light); margin-bottom:16px;">
-            کد پیگیری: <strong style="color:var(--white); font-size:15px; letter-spacing:1px;" id="trackCode"></strong>
+          <div class="track-box">
+            <span class="track-label">کد پیگیری</span>
+            <span class="track-code" id="trackCode">ASM-XXXX-0000</span>
           </div>
-          <button class="btn btn-outline" onclick="resetAll()">ثبت پرونده جدید</button>
+          <button class="btn btn-ghost" onclick="resetAll()">ثبت پرونده جدید</button>
         </div>
       </div>
 
     </div><!-- /steps-wrap -->
 
     <div class="card-foot">
-      <span class="foot-item">✓ رایگان</span>
-      <span class="foot-dot"></span>
-      <span class="foot-item">✓ بدون کاغذبازی</span>
-      <span class="foot-dot"></span>
-      <span class="foot-item">✓ پرداخت فقط پس از موفقیت</span>
+      <span class="foot-item"><span class="foot-icon">✓</span> رایگان</span>
+      <span class="sep"></span>
+      <span class="foot-item"><span class="foot-icon">✓</span> بدون کاغذبازی</span>
+      <span class="sep"></span>
+      <span class="foot-item"><span class="foot-icon">✓</span> پرداخت فقط در صورت موفقیت</span>
     </div>
 
   </div><!-- /card -->
 
-  <div class="stats">
-    <div class="stat">
+  <div class="stats-row">
+    <div class="stat-item">
       <div class="stat-n">+۱۸K</div>
       <div class="stat-l">پرونده موفق</div>
     </div>
-    <div class="stat">
+    <div class="stat-item">
       <div class="stat-n">۹۴٪</div>
       <div class="stat-l">نرخ احقاق</div>
     </div>
-    <div class="stat">
+    <div class="stat-item">
       <div class="stat-n">صفر</div>
       <div class="stat-l">هزینه اولیه</div>
     </div>
@@ -719,66 +947,62 @@ footer a:hover { color:var(--white); }
 </section>
 
 <!-- HOW -->
-<section id="how" style="padding:100px 52px; max-width:1100px; margin:0 auto;">
-  <div style="font-size:11px; font-weight:700; letter-spacing:2.5px; color:var(--blue); text-transform:uppercase; margin-bottom:12px;">فرآیند</div>
-  <h2 style="font-size:clamp(26px,4vw,46px); font-weight:900; letter-spacing:-1.5px; margin-bottom:48px; line-height:1.1;">
-    سه قدم تا<br><span style="color:rgba(255,255,255,0.35); font-weight:300;">دریافت غرامت</span>
-  </h2>
-  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
-    <div style="padding:28px 24px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:16px; position:relative; overflow:hidden;">
-      <div style="font-size:10px; font-weight:700; letter-spacing:1.5px; color:var(--blue); margin-bottom:16px;">۰۱</div>
-      <h3 style="font-size:15px; font-weight:700; margin-bottom:10px;">اطلاعات پرواز</h3>
-      <p style="font-size:13px; color:var(--gray); line-height:1.75;">مبدأ، مقصد، ایرلاین و تاریخ پرواز را وارد کنید. سیستم در چند ثانیه پرواز را پیدا و وضعیت آن را تأیید می‌کند.</p>
+<section class="section" id="how">
+  <div class="section-eyebrow">فرآیند</div>
+  <h2 class="section-h2">سه قدم تا<br><span class="dim">دریافت غرامت</span></h2>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">۰۱</div>
+      <div class="how-title">اطلاعات پرواز</div>
+      <p class="how-text">مبدأ، مقصد، ایرلاین و تاریخ پرواز را وارد کنید. سیستم در چند ثانیه پرواز را شناسایی و وضعیت آن را تأیید می‌کند.</p>
     </div>
-    <div style="padding:28px 24px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:16px;">
-      <div style="font-size:10px; font-weight:700; letter-spacing:1.5px; color:var(--blue); margin-bottom:16px;">۰۲</div>
-      <h3 style="font-size:15px; font-weight:700; margin-bottom:10px;">پرونده‌سازی توسط آسمانه</h3>
-      <p style="font-size:13px; color:var(--gray); line-height:1.75;">تیم حقوقی ما تمام مستندات را آماده می‌کند و مستقیم با ایرلاین وارد مذاکره می‌شود. هیچ اقدامی از طرف شما لازم نیست.</p>
+    <div class="how-card">
+      <div class="how-num">۰۲</div>
+      <div class="how-title">پرونده‌سازی توسط آسمانه</div>
+      <p class="how-text">تیم حقوقی ما تمام مستندات را آماده می‌کند و مستقیم با ایرلاین وارد مذاکره می‌شود. هیچ اقدامی از طرف شما لازم نیست.</p>
     </div>
-    <div style="padding:28px 24px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:16px;">
-      <div style="font-size:10px; font-weight:700; letter-spacing:1.5px; color:var(--blue); margin-bottom:16px;">۰۳</div>
-      <h3 style="font-size:15px; font-weight:700; margin-bottom:10px;">غرامت به حساب شما</h3>
-      <p style="font-size:13px; color:var(--gray); line-height:1.75;">پس از وصول، مبلغ مستقیم به حسابتان واریز می‌شود. کارمزد ما فقط در صورت موفقیت از همین غرامت کسر می‌شود.</p>
+    <div class="how-card">
+      <div class="how-num">۰۳</div>
+      <div class="how-title">غرامت به حساب شما</div>
+      <p class="how-text">پس از وصول، مبلغ مستقیم به حسابتان واریز می‌شود. کارمزد ما فقط در صورت موفقیت از همین غرامت کسر می‌شود.</p>
     </div>
   </div>
 </section>
 
-<!-- COMP TABLE -->
-<section id="comp" style="padding:80px 52px; background:rgba(255,255,255,0.015); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
-  <div style="max-width:1100px; margin:0 auto;">
-    <div style="font-size:11px; font-weight:700; letter-spacing:2.5px; color:var(--blue); text-transform:uppercase; margin-bottom:12px;">جدول غرامت قانونی</div>
-    <h2 style="font-size:clamp(24px,4vw,44px); font-weight:900; letter-spacing:-1.5px; margin-bottom:40px; line-height:1.1;">
-      چقدر<br><span style="color:rgba(255,255,255,0.35); font-weight:300;">به شما تعلق می‌گیرد؟</span>
-    </h2>
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;">
-      <div style="padding:26px 22px; background:rgba(100,149,255,0.06); border:1px solid rgba(100,149,255,0.2); border-radius:16px;">
-        <div style="font-size:10px; font-weight:700; color:#7AA5FF; background:rgba(100,149,255,0.12); display:inline-block; padding:3px 10px; border-radius:100px; margin-bottom:14px;">تأخیر ۲–۵ ساعت</div>
-        <div style="font-size:42px; font-weight:900; color:#7AA5FF; letter-spacing:-2px; line-height:1; margin-bottom:10px;">۳۰٪</div>
-        <p style="font-size:12.5px; color:var(--gray); line-height:1.7;">سی درصد قیمت بلیت به علاوه پذیرایی در فرودگاه</p>
+<!-- COMP -->
+<section class="comp-section" id="comp">
+  <div class="comp-inner">
+    <div class="section-eyebrow">جدول غرامت قانونی</div>
+    <h2 class="section-h2">چقدر<br><span class="dim">به شما تعلق می‌گیرد؟</span></h2>
+    <div class="comp-grid">
+      <div class="comp-card blue">
+        <div class="comp-label">تأخیر ۲–۵ ساعت</div>
+        <div class="comp-amount">۳۰٪</div>
+        <p class="comp-text">سی درصد قیمت پایه بلیت به علاوه پذیرایی در فرودگاه</p>
       </div>
-      <div style="padding:26px 22px; background:var(--gold-dim); border:1px solid rgba(240,192,96,0.2); border-radius:16px;">
-        <div style="font-size:10px; font-weight:700; color:var(--gold); background:rgba(240,192,96,0.12); display:inline-block; padding:3px 10px; border-radius:100px; margin-bottom:14px;">تأخیر بیش از ۵ ساعت</div>
-        <div style="font-size:42px; font-weight:900; color:var(--gold); letter-spacing:-2px; line-height:1; margin-bottom:10px;">۱۰۰٪</div>
-        <p style="font-size:12.5px; color:var(--gray); line-height:1.7;">معادل کامل قیمت بلیت + اسکان شبانه در صورت نیاز</p>
+      <div class="comp-card gold">
+        <div class="comp-label">تأخیر بیش از ۵ ساعت</div>
+        <div class="comp-amount">۱۰۰٪</div>
+        <p class="comp-text">معادل کامل قیمت بلیت به علاوه اسکان شبانه در صورت نیاز</p>
       </div>
-      <div style="padding:26px 22px; background:var(--green-dim); border:1px solid rgba(52,217,138,0.2); border-radius:16px;">
-        <div style="font-size:10px; font-weight:700; color:var(--green); background:rgba(52,217,138,0.12); display:inline-block; padding:3px 10px; border-radius:100px; margin-bottom:14px;">لغو پرواز</div>
-        <div style="font-size:42px; font-weight:900; color:var(--green); letter-spacing:-2px; line-height:1; margin-bottom:10px;">۱۰۰٪+</div>
-        <p style="font-size:12.5px; color:var(--gray); line-height:1.7;">استرداد کامل + غرامت برابر قیمت پایه + حمل‌ونقل رایگان</p>
+      <div class="comp-card green">
+        <div class="comp-label">لغو پرواز</div>
+        <div class="comp-amount">۱۰۰٪+</div>
+        <p class="comp-text">استرداد کامل بلیت به علاوه غرامت برابر قیمت پایه و حمل‌ونقل رایگان</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div style="font-size:16px; font-weight:900; color:var(--white); margin-bottom:8px;">آسما<span style="color:var(--blue)">نه</span></div>
-  <div>سامانه استیفای حقوق مسافران هوایی · مبتنی بر قوانین سازمان هواپیمایی کشوری ایران</div>
-  <div style="margin-top:6px; color:rgba(107,114,128,0.5)">۱۴۰۳ · <a href="#">شرایط استفاده</a> · <a href="#">حریم خصوصی</a></div>
+  <div class="footer-logo">آسما<em>نه</em></div>
+  <div class="footer-sub">
+    سامانه استیفای حقوق مسافران هوایی · مبتنی بر قوانین سازمان هواپیمایی کشوری<br>
+    <span style="color:var(--ink-3);font-size:11px">۱۴۰۳ · <a href="#">شرایط استفاده</a> · <a href="#">حریم خصوصی</a></span>
+  </div>
 </footer>
 
 <script>
-// ── STATE ──
 let selectedAirline = '';
 let selectedReason = '';
 let flightData = {};
@@ -787,105 +1011,99 @@ function scrollToCard() {
   document.getElementById('mainCard').scrollIntoView({ behavior:'smooth', block:'center' });
 }
 
-// ── AIRLINE SELECTION ──
 function selectAirline(el, name) {
   document.querySelectorAll('.airline-chip').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
   selectedAirline = name;
 }
 
-// ── STEP MANAGEMENT ──
 function showStep(n) {
-  // Hide all
   document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
-  // Show target
   document.getElementById('panel' + n).classList.add('active');
-  // Update step bar
   ['1','2','3','4'].forEach(i => {
     const sp = document.getElementById('sp' + i);
     sp.classList.remove('active','done');
     const ni = parseInt(i);
-    if (ni < n) sp.classList.add('done');
-    else if (ni === n) sp.classList.add('active');
-    // Mark checkmark for done
     const num = sp.querySelector('.step-n');
-    if (ni < n) num.textContent = '✓';
-    else num.textContent = '۱۲۳۴'[ni-1];
+    if (ni < n) { sp.classList.add('done'); num.textContent = '✓'; }
+    else if (ni === n) { sp.classList.add('active'); num.textContent = ['۱','۲','۳','۴'][ni-1]; }
+    else { num.textContent = ['۱','۲','۳','۴'][ni-1]; }
   });
 }
 
-// ── STEP 1 → SEARCH ──
 function doSearch() {
   const origin = document.getElementById('origin').value;
-  const dest = document.getElementById('dest').value;
-  const date = document.getElementById('flightDate').value;
+  const dest   = document.getElementById('dest').value;
+  const date   = document.getElementById('flightDate').value;
+  let valid = true;
 
-  if (!origin || !dest || !date || !selectedAirline) {
-    // Highlight missing
-    if (!origin) document.getElementById('origin').style.borderColor = 'rgba(255,107,107,0.6)';
-    if (!dest) document.getElementById('dest').style.borderColor = 'rgba(255,107,107,0.6)';
-    if (!date) { document.getElementById('flightDate').style.borderColor = 'rgba(255,107,107,0.6)'; }
-    if (!selectedAirline) {
-      document.querySelectorAll('.airline-chip').forEach(c => c.style.borderColor = 'rgba(255,107,107,0.4)');
-    }
+  [document.getElementById('origin'), document.getElementById('dest'), document.getElementById('flightDate')].forEach(el => el.classList.remove('error'));
+  document.querySelectorAll('.airline-chip').forEach(c => c.style.outline = '');
+
+  if (!origin) { document.getElementById('origin').classList.add('error'); valid = false; }
+  if (!dest)   { document.getElementById('dest').classList.add('error'); valid = false; }
+  if (!date)   { document.getElementById('flightDate').classList.add('error'); valid = false; }
+  if (!selectedAirline) {
+    document.querySelectorAll('.airline-chip').forEach(c => c.style.outline = '1.5px solid var(--red)');
+    valid = false;
+  }
+  if (!valid) {
     setTimeout(() => {
-      document.querySelectorAll('.inp,.airline-chip').forEach(el => el.style.borderColor = '');
-    }, 2000);
+      document.querySelectorAll('.inp').forEach(el => el.classList.remove('error'));
+      document.querySelectorAll('.airline-chip').forEach(c => c.style.outline = '');
+    }, 2200);
     return;
   }
 
-  // Build simulated flight data
   const fromCode = origin.match(/\(([^)]+)\)/)?.[1] || origin.substring(0,3).toUpperCase();
-  const toCode = dest.match(/\(([^)]+)\)/)?.[1] || dest.substring(0,3).toUpperCase();
+  const toCode   = dest.match(/\(([^)]+)\)/)?.[1]   || dest.substring(0,3).toUpperCase();
   const flNum = document.getElementById('flightNum').value || (selectedAirline === 'ماهان' ? 'W5 1051' : selectedAirline === 'ایران‌ایر' ? 'IR 741' : 'ZV 234');
 
-  // Randomly generate delay scenario for demo
   const scenarios = [
-    { status:'delay-5+', label:'تأخیر ۶ ساعت', statusText:'تأخیر ۶h', color:'var(--gold)', badgeClass:'badge-delay' },
-    { status:'delay-2-5', label:'تأخیر ۳ ساعت', statusText:'تأخیر ۳h', color:'var(--gold)', badgeClass:'badge-delay' },
-    { status:'cancel', label:'لغو شده', statusText:'لغو', color:'var(--red)', badgeClass:'badge-cancel' },
+    { status:'delay-5+', label:'تأخیر ۶ ساعت', statusText:'تأخیر', statusClass:'delay', statusColor:'var(--gold)' },
+    { status:'delay-2-5', label:'تأخیر ۳ ساعت', statusText:'تأخیر', statusClass:'delay', statusColor:'var(--gold)' },
+    { status:'cancel', label:'لغو شده', statusText:'لغو', statusClass:'cancel', statusColor:'var(--red)' },
   ];
   const s = scenarios[Math.floor(Math.random() * scenarios.length)];
 
-  flightData = { airline:selectedAirline, from:fromCode, to:toCode, num:flNum, date, status:s.status, statusLabel:s.label, color:s.color, badgeClass:s.badgeClass, statusText:s.statusText };
+  flightData = { airline:selectedAirline, from:fromCode, to:toCode, num:flNum, date, ...s };
 
-  // Show loading
   document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panelLoad').classList.add('active');
 
   setTimeout(() => {
-    // Populate flight card
-    document.getElementById('flAirline').textContent = selectedAirline + ' — ' + flNum;
-    document.getElementById('flBadge').textContent = s.label;
-    document.getElementById('flBadge').className = 'fl-status-badge ' + s.badgeClass;
-    document.getElementById('flFrom').textContent = fromCode;
-    document.getElementById('flTo').textContent = toCode;
-    document.getElementById('flDate').textContent = date;
-    document.getElementById('flStatus').textContent = s.statusText;
-    document.getElementById('flStatus').style.color = s.color;
+    document.getElementById('bpAirline').textContent = selectedAirline;
+    document.getElementById('bpFlNum').textContent = flNum;
+    document.getElementById('bpStatus').textContent = s.label;
+    document.getElementById('bpStatus').className = 'bp-status ' + s.statusClass;
+    document.getElementById('bpFrom').textContent = fromCode;
+    document.getElementById('bpTo').textContent = toCode;
+    document.getElementById('bpDate').textContent = date;
+    document.getElementById('bpStatusText').textContent = s.statusText;
+    document.getElementById('bpStatusText').style.color = s.statusColor;
     showStep(2);
   }, 1400);
 }
 
-// ── STEP 2 → CONFIRM ──
 function confirmFlight() {
   showStep(3);
-  // Pre-select reason if obvious
-  if (flightData.status === 'cancel') {
-    const btns = document.querySelectorAll('.reason-btn');
-    btns.forEach(b => { if (b.getAttribute('onclick').includes("'cancel'")) { b.classList.add('sel'); selectedReason = 'cancel'; enableReasonBtn(); } });
-  } else if (flightData.status === 'delay-5+') {
-    const btns = document.querySelectorAll('.reason-btn');
-    btns.forEach(b => { if (b.getAttribute('onclick').includes("'delay-5+'")) { b.classList.add('sel'); selectedReason = 'delay-5+'; enableReasonBtn(); } });
-  } else if (flightData.status === 'delay-2-5') {
-    const btns = document.querySelectorAll('.reason-btn');
-    btns.forEach(b => { if (b.getAttribute('onclick').includes("'delay-2-5'")) { b.classList.add('sel'); selectedReason = 'delay-2-5'; enableReasonBtn(); } });
-  }
+  if (flightData.status === 'cancel') autoSelectReason("'cancel'");
+  else if (flightData.status === 'delay-5+') autoSelectReason("'delay-5+'");
+  else if (flightData.status === 'delay-2-5') autoSelectReason("'delay-2-5'");
+}
+
+function autoSelectReason(match) {
+  document.querySelectorAll('.reason-btn').forEach(b => {
+    if (b.getAttribute('onclick').includes(match)) {
+      b.classList.add('sel');
+      selectedReason = match.replace(/'/g,'');
+      enableReasonBtn();
+    }
+  });
 }
 
 function goBack(n) { showStep(n); }
 
-// ── STEP 3: REASON ──
 function selectReason(el, val) {
   document.querySelectorAll('.reason-btn').forEach(b => b.classList.remove('sel'));
   el.classList.add('sel');
@@ -899,100 +1117,49 @@ function enableReasonBtn() {
   btn.style.opacity = '1';
 }
 
-// ── STEP 4: RESULT ──
 function calcResult() {
   const results = {
-    'delay-2-5': {
-      eligible: true,
-      amount: '۳۰٪',
-      desc: 'طبق منشور حقوق مسافر، در تأخیر ۲ تا ۵ ساعته ۳۰ درصد قیمت پایه بلیت به علاوه پذیرایی در فرودگاه به شما تعلق می‌گیرد.',
-      law: 'منشور حقوق مسافر — ماده ۱۱',
-      type: 'نقدی + پذیرایی'
-    },
-    'delay-5+': {
-      eligible: true,
-      amount: '۱۰۰٪',
-      desc: 'تأخیر بیش از ۵ ساعت موجب استحقاق غرامت کامل برابر قیمت بلیت می‌شود. در صورت ماندن شبانه، اسکان هتل نیز بر عهده ایرلاین است.',
-      law: 'منشور حقوق مسافر — ماده ۱۳',
-      type: 'نقدی + اسکان'
-    },
-    'cancel': {
-      eligible: true,
-      amount: '۱۰۰٪+',
-      desc: 'در لغو پرواز، علاوه بر استرداد کامل بلیت، غرامت برابر قیمت پایه به شما تعلق می‌گیرد. حمل‌ونقل جایگزین و اسکان نیز الزامی است.',
-      law: 'آیین‌نامه حمل مسافر — ماده ۱۸',
-      type: 'نقدی + استرداد + اسکان'
-    },
-    'missed': {
-      eligible: false,
-      amount: 'بررسی می‌شود',
-      desc: 'جا ماندن از پرواز معمولاً مشمول غرامت نمی‌شود، مگر خطای ایرلاین در اطلاع‌رسانی تغییر گیت یا تایم ثابت شود. پرونده شما ارزیابی می‌گردد.',
-      law: 'آیین‌نامه حمل مسافر — ماده ۹',
-      type: 'نیازمند بررسی'
-    },
-    'overbook': {
-      eligible: true,
-      amount: '۱۰۰٪+',
-      desc: 'در صورت ازپرواز‌افتادن به دلیل اووربوکینگ، ایرلاین موظف به پرداخت غرامت کامل، ارائه پرواز جایگزین فوری و پذیرایی است.',
-      law: 'آیین‌نامه حمل مسافر — ماده ۲۱',
-      type: 'نقدی + پرواز جایگزین'
-    },
-    'luggage': {
-      eligible: true,
-      amount: 'تا ۱۰۰۰ SDR',
-      desc: 'بر اساس کنوانسیون مونترال، در صورت آسیب، تأخیر یا گم شدن چمدان، ایرلاین مسئول جبران خسارت تا سقف تعیین‌شده است.',
-      law: 'کنوانسیون مونترال ۱۹۹۹',
-      type: 'نقدی یا جایگزینی'
-    }
+    'delay-2-5': { eligible:true, amount:'۳۰٪', desc:'طبق منشور حقوق مسافر، در تأخیر ۲ تا ۵ ساعته ۳۰ درصد قیمت پایه بلیت به علاوه پذیرایی در فرودگاه به شما تعلق می‌گیرد.', law:'منشور حقوق مسافر — ماده ۱۱', type:'نقدی + پذیرایی' },
+    'delay-5+':  { eligible:true, amount:'۱۰۰٪', desc:'تأخیر بیش از ۵ ساعت موجب استحقاق غرامت کامل برابر قیمت بلیت می‌شود. در صورت ماندن شبانه، اسکان هتل نیز بر عهده ایرلاین است.', law:'منشور حقوق مسافر — ماده ۱۳', type:'نقدی + اسکان' },
+    'cancel':    { eligible:true, amount:'۱۰۰٪+', desc:'در لغو پرواز، علاوه بر استرداد کامل بلیت، غرامت برابر قیمت پایه به شما تعلق می‌گیرد. حمل‌ونقل جایگزین و اسکان نیز الزامی است.', law:'آیین‌نامه حمل مسافر — ماده ۱۸', type:'نقدی + استرداد + اسکان' },
+    'missed':    { eligible:false, amount:'بررسی می‌شود', desc:'جا ماندن از پرواز معمولاً مشمول غرامت نمی‌شود، مگر خطای ایرلاین در اطلاع‌رسانی ثابت شود. پرونده شما ارزیابی می‌گردد.', law:'آیین‌نامه حمل مسافر — ماده ۹', type:'نیازمند بررسی' },
+    'overbook':  { eligible:true, amount:'۱۰۰٪+', desc:'در صورت ازپرواز‌افتادن به دلیل اووربوکینگ، ایرلاین موظف به پرداخت غرامت کامل، پرواز جایگزین فوری و پذیرایی است.', law:'آیین‌نامه حمل مسافر — ماده ۲۱', type:'نقدی + پرواز جایگزین' },
+    'luggage':   { eligible:true, amount:'تا ۱۰۰۰ SDR', desc:'بر اساس کنوانسیون مونترال، در صورت آسیب، تأخیر یا گم شدن چمدان، ایرلاین مسئول جبران خسارت تا سقف تعیین‌شده است.', law:'کنوانسیون مونترال ۱۹۹۹', type:'نقدی یا جایگزینی' },
   };
-
   const r = results[selectedReason] || results['delay-5+'];
-
   document.getElementById('resAmount').textContent = r.amount;
-  document.getElementById('resAmount').className = 'result-amount' + (r.eligible ? '' : ' zero');
+  document.getElementById('resAmount').className = 'result-amount' + (r.eligible ? '' : ' gray');
   document.getElementById('resDesc').textContent = r.desc;
   document.getElementById('resLaw').textContent = r.law;
   document.getElementById('resType').textContent = r.type;
-
   const badge = document.getElementById('eligibleBadge');
-  if (r.eligible) {
-    badge.className = 'result-eligible';
-    badge.textContent = '✓ مستحق خسارت هستید';
-  } else {
-    badge.className = 'result-not-eligible';
-    badge.textContent = '⚠ نیازمند بررسی بیشتر';
-  }
-
+  badge.className = 'result-badge ' + (r.eligible ? 'eligible' : 'review');
+  badge.textContent = r.eligible ? '✓ مستحق خسارت هستید' : '⚠ نیازمند بررسی بیشتر';
   showStep(4);
 }
 
-// ── STEP 5: SUBMIT ──
 function submitCase() {
   const code = 'ASM-' + Math.random().toString(36).substring(2,6).toUpperCase() + '-' + Date.now().toString().slice(-4);
   document.getElementById('trackCode').textContent = code;
   document.getElementById('panel4').classList.remove('active');
   document.getElementById('panel5').classList.add('active');
-  // Update step bar all done
   ['1','2','3','4'].forEach(i => {
     const sp = document.getElementById('sp' + i);
-    sp.classList.add('done');
-    sp.classList.remove('active');
+    sp.className = 'step-pill done';
     sp.querySelector('.step-n').textContent = '✓';
   });
 }
 
 function resetAll() {
-  selectedAirline = '';
-  selectedReason = '';
-  flightData = {};
+  selectedAirline = ''; selectedReason = ''; flightData = {};
   document.querySelectorAll('.airline-chip').forEach(c => c.classList.remove('selected'));
   document.querySelectorAll('.reason-btn').forEach(b => b.classList.remove('sel'));
   document.getElementById('origin').value = '';
   document.getElementById('dest').value = '';
   document.getElementById('flightDate').value = '';
   document.getElementById('flightNum').value = '';
-  document.getElementById('reasonBtn').disabled = true;
-  document.getElementById('reasonBtn').style.opacity = '0.4';
+  const rb = document.getElementById('reasonBtn');
+  rb.disabled = true; rb.style.opacity = '0.4';
   showStep(1);
 }
 </script>
