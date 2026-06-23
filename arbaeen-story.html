@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>استوری | بلیت اربعین ۱۴۰۴</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap');
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Vazirmatn', sans-serif;
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 32px 16px;
+}
+
+/* ── SLIDE WRAPPER ── */
+.slide {
+  width: 390px;
+  height: 692px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── SLIDE 1: COVER ── */
+.s1 {
+  background: #0A0A0A;
+}
+
+.s1 .top-bar {
+  background: #C8001A;
+  padding: 18px 24px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.s1 .top-bar .label {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  font-weight: 700;
+}
+
+.s1 .top-bar .date {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  font-weight: 300;
+}
+
+.s1 .body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px 28px;
+}
+
+.s1 .big-route {
+  font-size: 15px;
+  color: #C8001A;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.s1 .headline {
+  font-size: 52px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+}
+
+.s1 .headline em {
+  font-style: normal;
+  color: #C8001A;
+}
+
+.s1 .sub {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.8;
+}
+
+.s1 .sub strong { color: #AAA; }
+
+.s1 .bottom {
+  padding: 20px 28px;
+  border-top: 1px solid #1E1E1E;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.s1 .bottom .source {
+  font-size: 10px;
+  color: #444;
+  letter-spacing: 2px;
+}
+
+.s1 .stat-chip {
+  background: #C8001A;
+  color: white;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 6px 16px;
+  border-radius: 2px;
+  letter-spacing: 1px;
+}
+
+/* ── SLIDES 2–5: FLIGHT SLIDES ── */
+.flight-slide {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HEADER BAR ── */
+.slide-header {
+  padding: 16px 22px 14px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.slide-header .route-pill {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.slide-header .route-dir {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.slide-header .route-day {
+  font-size: 13px;
+  font-weight: 300;
+  opacity: 0.6;
+}
+
+.slide-header .slide-num {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.3;
+  letter-spacing: 2px;
+}
+
+/* ── DIVIDER ── */
+.h-rule {
+  height: 1px;
+  margin: 0 22px;
+  flex-shrink: 0;
+}
+
+/* ── ROW ── */
+.rows-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0 0;
+  overflow: hidden;
+}
+
+.flight-row {
+  display: flex;
+  align-items: stretch;
+  padding: 0 22px;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.row-rank {
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 900;
+  flex-shrink: 0;
+  border-radius: 2px 0 0 2px;
+}
+
+.row-body {
+  flex: 1;
+  padding: 11px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0 2px 2px 0;
+  gap: 10px;
+  min-width: 0;
+}
+
+.row-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+
+.airline-name {
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.flight-code {
+  font-size: 10px;
+  font-weight: 300;
+  opacity: 0.5;
+  letter-spacing: 1px;
+  direction: ltr;
+  text-align: right;
+}
+
+/* SELLER — THE STAR */
+.seller-name {
+  font-size: 15px;
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 2px;
+  padding: 2px 8px;
+}
+
+.row-price {
+  text-align: left;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+}
+
+.price-num {
+  font-size: 17px;
+  font-weight: 900;
+  direction: ltr;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.price-m {
+  font-size: 10px;
+  font-weight: 400;
+  opacity: 0.5;
+  letter-spacing: 1px;
+}
+
+.biz-tag {
+  font-size: 8px;
+  font-weight: 900;
+  background: #FFD700;
+  color: #000;
+  padding: 1px 5px;
+  border-radius: 2px;
+  letter-spacing: 1px;
+}
+
+/* gap between rows */
+.row-gap { height: 6px; flex-shrink: 0; }
+
+/* ── BOTTOM NOTE ── */
+.slide-footer {
+  padding: 14px 22px 18px;
+  flex-shrink: 0;
+}
+
+.footer-note {
+  font-size: 11px;
+  font-weight: 400;
+  opacity: 0.4;
+  letter-spacing: 1px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 10px;
+  text-align: center;
+}
+
+/* ══════════════════════════════════
+   LIGHT THEME: slides 2 & 3 (رفت)
+   ══════════════════════════════════ */
+.theme-light {
+  background: #F5F0E8;
+  color: #0F0F0F;
+}
+
+.theme-light .slide-header .route-dir { color: #C8001A; }
+.theme-light .h-rule { background: #DDD8CE; }
+
+/* rank colors light */
+.theme-light .r1 { background:#C8001A; color:#fff; }
+.theme-light .r2 { background:#E07B00; color:#fff; }
+.theme-light .r3 { background:#C4A200; color:#fff; }
+.theme-light .r4 { background:#0F0F0F; color:#F5F0E8; }
+.theme-light .rlast { background:#1A7A3A; color:#fff; }
+
+/* row body light */
+.theme-light .row-body { background: #FDFAF4; }
+.theme-light .r1 + .row-body { border: 1.5px solid #C8001A; border-right: none; }
+.theme-light .rlast + .row-body { border: 1.5px solid #1A7A3A; border-right: none; }
+
+.theme-light .seller-name { background: #0F0F0F; color: #F5F0E8; }
+.theme-light .r1 + .row-body .seller-name { background: #C8001A; color: #fff; }
+.theme-light .rlast + .row-body .seller-name { background: #1A7A3A; color: #fff; }
+.theme-light .r1 + .row-body .price-num { color: #C8001A; }
+.theme-light .rlast + .row-body .price-num { color: #1A7A3A; }
+.theme-light .footer-note { color: #0F0F0F; }
+.theme-light .slide-header .slide-num { color: #0F0F0F; }
+.theme-light .slide-header .route-day { color: #0F0F0F; }
+
+/* ══════════════════════════════════
+   DARK THEME: slides 4 & 5 (برگشت)
+   ══════════════════════════════════ */
+.theme-dark {
+  background: #0D0D0D;
+  color: #F0EDE8;
+}
+
+.theme-dark .slide-header .route-dir { color: #FF9500; }
+.theme-dark .h-rule { background: #2A2A2A; }
+
+.theme-dark .r1 { background:#C8001A; color:#fff; }
+.theme-dark .r2 { background:#E07B00; color:#fff; }
+.theme-dark .r3 { background:#C4A200; color:#fff; }
+.theme-dark .r4 { background:#444; color:#fff; }
+.theme-dark .rlast { background:#1A7A3A; color:#fff; }
+
+.theme-dark .row-body { background: #1A1A1A; }
+.theme-dark .r1 + .row-body { border: 1.5px solid #C8001A; border-right: none; }
+.theme-dark .rlast + .row-body { border: 1.5px solid #1A7A3A; border-right: none; }
+
+.theme-dark .seller-name { background: #F0EDE8; color: #0D0D0D; }
+.theme-dark .r1 + .row-body .seller-name { background: #C8001A; color: #fff; }
+.theme-dark .rlast + .row-body .seller-name { background: #1A7A3A; color: #fff; }
+.theme-dark .r1 + .row-body .price-num { color: #FF4444; }
+.theme-dark .rlast + .row-body .price-num { color: #2ECC71; }
+
+/* ══════════
+   WARNING BOX
+   ══════════ */
+.warn-box {
+  margin: 8px 22px 0;
+  background: #FFF3CD;
+  border-right: 4px solid #E07B00;
+  padding: 10px 12px;
+  font-size: 11px;
+  color: #7A4000;
+  font-weight: 700;
+  line-height: 1.6;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+.warn-box.dark {
+  background: #2A1800;
+  color: #FFB347;
+  border-color: #E07B00;
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     SLIDE 1 — COVER
+══════════════════════════════ -->
+<div class="slide s1">
+  <div class="top-bar">
+    <span class="label">تحلیل بازار بلیت · اربعین ۱۴۰۴</span>
+    <span class="date">تیر ۱۴۰۴</span>
+  </div>
+
+  <div class="body">
+    <div class="big-route">تهران ↔ نجف</div>
+    <div class="headline">وقتی<br>عزا<br><em>گران</em><br>می‌شود</div>
+    <div class="sub">
+      بررسی نرخ پروازها در<br>
+      <strong>تاسوعا و عاشورای ۱۴۰۴</strong><br>
+      ایرلاین‌ها · فروشندگان · نرخ‌ها
+    </div>
+  </div>
+
+  <div class="bottom">
+    <span class="source">منبع: SEPEHR360.IR</span>
+    <span class="stat-chip">۴ روز · ۲ مسیر</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     SLIDE 2 — رفت ۳ تیر
+══════════════════════════════ -->
+<div class="slide flight-slide theme-light">
+  <div class="slide-header">
+    <div class="route-pill">
+      <span class="route-dir">تهران ← نجف</span>
+      <span class="route-day">سه‌شنبه ۳ تیر · ۲۴ Jun</span>
+    </div>
+    <span class="slide-num">۰۲ / ۰۵</span>
+  </div>
+  <div class="h-rule"></div>
+
+  <div class="rows-area">
+
+    <div class="flight-row">
+      <div class="row-rank r1">۱</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">کاسپین ایر</div>
+          <div class="seller-name">گلفام سفر</div>
+          <div class="flight-code">W5-7900 · 05:30</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۴۵,۰۰۰,۰۰۰</div>
+          <div class="biz-tag">BUSINESS</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-gap"></div>
+
+    <div class="flight-row">
+      <div class="row-rank r2">۲</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">کاسپین ایر</div>
+          <div class="seller-name">گلفام سفر</div>
+          <div class="flight-code">W5-7900 · 05:30</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۲۲,۰۰۰,۰۰۰</div>
+          <div class="price-m">تومان</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-gap"></div>
+
+    <div class="flight-row">
+      <div class="row-rank r3">۳</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">سپهران</div>
+          <div class="seller-name">۱ فروشنده</div>
+          <div class="flight-code">SP-7302 · 07:45</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۲۰,۰۰۰,۰۰۰</div>
+          <div class="price-m">تومان</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-gap"></div>
+
+    <div class="flight-row">
+      <div class="row-rank r4">۴</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">زاگرس</div>
+          <div class="seller-name">امید پرواز اوج</div>
+          <div class="flight-code">Z4-3026 · 06:30</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۲۰,۰۰۰,۰۰۰</div>
+          <div class="price-m">تومان</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-gap"></div>
+
+    <div class="flight-row">
+      <div class="row-rank rlast">↓</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">تابان ایر</div>
+          <div class="seller-name">آب و آتش پارس</div>
+          <div class="flight-code">HH-7259 · 06:30</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۱۹,۹۰۰,۰۰۰</div>
+          <div class="price-m">کمترین</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-footer">
+    <div class="footer-note">sepehr360.ir · رتبه بر اساس بالاترین نرخ</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     SLIDE 3 — رفت ۴ تیر (تاسوعا)
+══════════════════════════════ -->
+<div class="slide flight-slide theme-light">
+  <div class="slide-header">
+    <div class="route-pill">
+      <span class="route-dir" style="color:#C8001A;">تهران ← نجف · تاسوعا 🔴</span>
+      <span class="route-day">پنجشنبه ۴ تیر · ۲۵ Jun</span>
+    </div>
+    <span class="slide-num">۰۳ / ۰۵</span>
+  </div>
+  <div class="h-rule"></div>
+
+  <div class="rows-area">
+
+    <div class="flight-row">
+      <div class="row-rank r1">۱</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">کاسپین ایر</div>
+          <div class="seller-name">گلفام سفر</div>
+          <div class="flight-code">W5-7900 · 05:30</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۴۵,۰۰۰,۰۰۰</div>
+          <div class="biz-tag">BUSINESS</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-gap"></div>
+
+    <div class="flight-row">
+      <div class="row-rank r2">۲</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">زاگرس</div>
+          <div class="seller-name">امید پرواز اوج</div>
+          <div class="flight-code">Z4-3026 · 06:30</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۲۰,۰۰۰,۰۰۰</div>
+          <div class="price-m">تومان</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-gap"></div>
+
+    <div class="flight-row">
+      <div class="row-rank r3">۳</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">سپهران</div>
+          <div class="seller-name">۱ فروشنده</div>
+          <div class="flight-code">SP-7302 · 07:45</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۲۰,۰۰۰,۰۰۰</div>
+          <div class="price-m">تومان</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-gap"></div>
+
+    <div class="flight-row">
+      <div class="row-rank rlast">↓</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">تابان ایر</div>
+          <div class="seller-name">آب و آتش پارس</div>
+          <div class="flight-code">HH-7259 · 06:30</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۱۸,۶۹۰,۰۰۰</div>
+          <div class="price-m">کمترین</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-footer">
+    <div class="footer-note">sepehr360.ir · رتبه بر اساس بالاترین نرخ</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     SLIDE 4 — برگشت ۶ تیر
+══════════════════════════════ -->
+<div class="slide flight-slide theme-dark">
+  <div class="slide-header">
+    <div class="route-pill">
+      <span class="route-dir">نجف ← تهران</span>
+      <span class="route-day">شنبه ۶ تیر · ۲۷ Jun</span>
+    </div>
+    <span class="slide-num" style="color:#F0EDE8;">۰۴ / ۰۵</span>
+  </div>
+  <div class="h-rule"></div>
+
+  <div class="warn-box dark">⚠️ همه فروشنده‌ها روی این روز دقیقاً یک رقم گذاشتن — هماهنگی قیمتی!</div>
+
+  <div class="rows-area" style="padding-top:6px;">
+
+    <div class="flight-row">
+      <div class="row-rank r1">۱</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">وارش (ایران ایر)</div>
+          <div class="seller-name">خیام گشت ایران</div>
+          <div class="flight-code">IR-6825 · 13:00</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۲۶,۰۰۰,۰۰۰</div>
+          <div class="price-m">تومان</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-gap"></div>
+
+    <div class="flight-row">
+      <div class="row-rank r2">۲</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">وارش (ایران ایر)</div>
+          <div class="seller-name">ریحان پرواز امین</div>
+          <div class="flight-code">IR-6825 · 13:00</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۲۵,۰۰۰,۰۰۰</div>
+          <div class="price-m">تومان</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-gap"></div>
+
+    <div class="flight-row">
+      <div class="row-rank r3">۳</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">فلای کیش</div>
+          <div class="seller-name">آسمان پرستاره</div>
+          <div class="flight-code">FK-3291 · 12:40</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۲۵,۰۰۰,۰۰۰</div>
+          <div class="price-m">تومان</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-gap"></div>
+
+    <div class="flight-row">
+      <div class="row-rank r4">۴</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">فلای کیش</div>
+          <div class="seller-name">مهر آگین سیر</div>
+          <div class="flight-code">FK-3291 · 12:39</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۲۵,۰۰۰,۰۰۰</div>
+          <div class="price-m">تومان</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-gap"></div>
+
+    <div class="flight-row">
+      <div class="row-rank rlast">↓</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">وارش (ایران ایر)</div>
+          <div class="seller-name">ریحان پرواز امین</div>
+          <div class="flight-code">IR-6814 · 08:00</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۲۵,۰۰۰,۰۰۰</div>
+          <div class="price-m">همه یکسان!</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-footer">
+    <div class="footer-note" style="color:#F0EDE8;">sepehr360.ir · رتبه بر اساس بالاترین نرخ</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     SLIDE 5 — برگشت ۷ تیر
+══════════════════════════════ -->
+<div class="slide flight-slide theme-dark">
+  <div class="slide-header">
+    <div class="route-pill">
+      <span class="route-dir">نجف ← تهران</span>
+      <span class="route-day">یکشنبه ۷ تیر · ۲۸ Jun</span>
+    </div>
+    <span class="slide-num" style="color:#F0EDE8;">۰۵ / ۰۵</span>
+  </div>
+  <div class="h-rule"></div>
+
+  <div class="rows-area">
+
+    <div class="flight-row">
+      <div class="row-rank r1">۱</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">قشم ایر</div>
+          <div class="seller-name">پینگو تریپ</div>
+          <div class="flight-code">QB-2236 · 17:10</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۲۵,۰۰۰,۰۰۰</div>
+          <div class="price-m">تومان</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-gap"></div>
+
+    <div class="flight-row">
+      <div class="row-rank r2">۲</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">زاگرس</div>
+          <div class="seller-name">امید پرواز اوج</div>
+          <div class="flight-code">Z4-3029 · 17:45</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۲۳,۰۰۰,۰۰۰</div>
+          <div class="price-m">تومان</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-gap"></div>
+
+    <div class="flight-row">
+      <div class="row-rank r3">۳</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">معراج ایرلاینز</div>
+          <div class="seller-name">۳۳ فروشنده</div>
+          <div class="flight-code">V5-4802 · 13:15</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۲۳,۸۲۷,۸۰۰</div>
+          <div class="price-m">تومان</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-gap"></div>
+
+    <div class="flight-row">
+      <div class="row-rank r4">۴</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">معراج ایرلاینز</div>
+          <div class="seller-name">شهران گشت معراج</div>
+          <div class="flight-code">V5-4802 · 13:15</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۲۳,۶۲۷,۸۰۰</div>
+          <div class="price-m">تومان</div>
+        </div>
+      </div>
+    </div>
+    <div class="row-gap"></div>
+
+    <div class="flight-row">
+      <div class="row-rank rlast">↓</div>
+      <div class="row-body">
+        <div class="row-left">
+          <div class="airline-name">معراج ایرلاینز</div>
+          <div class="seller-name">شهران گشت معراج</div>
+          <div class="flight-code">V5-4802 · 13:15</div>
+        </div>
+        <div class="row-price">
+          <div class="price-num">۲۲,۵۴۴,۶۰۰</div>
+          <div class="price-m">کمترین</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-footer">
+    <div class="footer-note" style="color:#F0EDE8;">sepehr360.ir · رتبه بر اساس بالاترین نرخ</div>
+  </div>
+</div>
+
+</body>
+</html>
