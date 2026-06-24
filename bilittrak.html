@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بیلی‌تراک — پیش‌بینی ۱۰ روزه</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#060B14;
+  --surface:#0B1525;
+  --card:#0E1E35;
+  --card2:#112240;
+  --border:#1A3050;
+  --border2:#243B55;
+  --blue:#00D4FF;
+  --blue-dim:rgba(0,212,255,.1);
+  --blue-glow:rgba(0,212,255,.2);
+  --purple:#A78BFA;
+  --purple-dim:rgba(167,139,250,.1);
+  --green:#34D399;
+  --green-dim:rgba(52,211,153,.1);
+  --amber:#F59E0B;
+  --amber-dim:rgba(245,158,11,.1);
+  --red:#F87171;
+  --red-dim:rgba(248,113,113,.1);
+  --text:#D8E8F8;
+  --text-muted:#5A7A9A;
+  --text-dim:#3A5270;
+}
+html{font-family:'Vazirmatn',sans-serif;font-size:15px}
+body{background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+
+/* ── NAV ── */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 32px;
+  background:rgba(6,11,20,.9);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:200;
+}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{
+  width:32px;height:32px;
+  background:linear-gradient(135deg,var(--blue),#0066FF);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-size:15px;box-shadow:0 0 16px var(--blue-glow);
+}
+.logo-name{font-size:17px;font-weight:900;letter-spacing:-0.5px}
+.logo-name em{font-style:normal;color:var(--blue)}
+.nav-meta{display:flex;align-items:center;gap:20px}
+.nav-tag{
+  font-size:11px;font-weight:600;color:var(--text-muted);
+  border:1px solid var(--border2);border-radius:20px;
+  padding:4px 12px;letter-spacing:.3px;
+}
+.live-dot{
+  display:flex;align-items:center;gap:6px;
+  font-size:11px;color:var(--green);font-weight:600;
+}
+.live-dot::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--green);
+  animation:livepulse 2s infinite;
+}
+@keyframes livepulse{0%,100%{opacity:1;box-shadow:0 0 0 0 var(--green)}50%{opacity:.6;box-shadow:0 0 0 4px transparent}}
+
+/* ── ROUTE BAR ── */
+.route-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 32px;
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+}
+.route-main{display:flex;align-items:center;gap:16px}
+.city-code{font-size:28px;font-weight:900;letter-spacing:-1px}
+.route-arrow{
+  display:flex;align-items:center;gap:6px;
+  color:var(--text-muted);font-size:12px;
+}
+.route-arrow svg{width:40px;opacity:.4}
+.route-sub{font-size:11px;color:var(--text-muted);font-weight:500}
+.route-change{
+  display:flex;align-items:center;gap:8px;
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:8px;padding:8px 14px;
+  cursor:pointer;font-size:12px;color:var(--text-muted);
+  transition:border-color .2s,color .2s;
+}
+.route-change:hover{border-color:var(--blue);color:var(--blue)}
+.verdict-pill{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 20px;border-radius:10px;
+  font-size:13px;font-weight:700;
+}
+.verdict-pill.buy{background:var(--green-dim);border:1px solid rgba(52,211,153,.25);color:var(--green)}
+.verdict-pill.wait{background:var(--amber-dim);border:1px solid rgba(245,158,11,.25);color:var(--amber)}
+.verdict-pill.urgent{background:var(--red-dim);border:1px solid rgba(248,113,113,.25);color:var(--red)}
+
+/* ── LAYOUT ── */
+.shell{display:grid;grid-template-columns:1fr 320px;gap:0;min-height:calc(100vh - 120px)}
+.main-col{padding:28px 32px;border-left:1px solid var(--border)}
+.side-col{padding:24px 20px;background:var(--surface)}
+
+/* ── SECTION HEADER ── */
+.sec-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:18px;
+}
+.sec-title{font-size:13px;font-weight:700;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase}
+.sec-actions{display:flex;gap:6px}
+.toggle-btn{
+  padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;
+  border:1px solid var(--border2);background:transparent;
+  color:var(--text-muted);cursor:pointer;
+  font-family:'Vazirmatn',sans-serif;
+  transition:all .2s;
+}
+.toggle-btn.active{background:var(--card2);border-color:var(--blue);color:var(--blue)}
+.toggle-btn:hover:not(.active){color:var(--text);border-color:var(--border2)}
+
+/* ── RADAR — 10-day strip ── */
+.radar{
+  display:grid;grid-template-columns:repeat(10,1fr);
+  gap:6px;margin-bottom:28px;
+}
+.radar-day{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:10px 6px 12px;
+  text-align:center;cursor:pointer;
+  transition:border-color .18s,background .18s,transform .18s;
+  position:relative;overflow:hidden;
+}
+.radar-day:hover,.radar-day.active{
+  border-color:var(--blue);background:var(--card2);
+  transform:translateY(-2px);
+}
+.radar-day.best{border-color:var(--green)!important;background:rgba(52,211,153,.06)!important}
+.radar-day.hot{border-color:var(--red);background:var(--red-dim)}
+.radar-day-name{font-size:10px;color:var(--text-muted);font-weight:600;margin-bottom:6px}
+.radar-day-date{font-size:12px;font-weight:800;margin-bottom:8px}
+.radar-bar-wrap{height:48px;display:flex;align-items:flex-end;justify-content:center;gap:2px;margin-bottom:6px}
+.radar-bar{
+  width:10px;border-radius:2px 2px 0 0;
+  transition:height .6s cubic-bezier(.34,1.56,.64,1);
+}
+.bar-charter{background:var(--purple)}
+.bar-system{background:var(--blue)}
+.radar-price{font-size:11px;font-weight:800;margin-bottom:2px}
+.radar-flights{font-size:9px;color:var(--text-muted)}
+.radar-day-badge{
+  position:absolute;top:5px;left:5px;
+  font-size:8px;font-weight:700;
+  padding:2px 5px;border-radius:4px;
+}
+.badge-best{background:var(--green);color:#000}
+.badge-hot{background:var(--red);color:#fff}
+
+/* ── DETAIL PANEL ── */
+.detail-panel{
+  background:var(--card);border:1px solid var(--border2);
+  border-radius:14px;padding:24px;margin-bottom:24px;
+  display:none;
+  animation:fadeSlide .25s ease;
+}
+.detail-panel.open{display:block}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.dp-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px}
+.dp-date{font-size:20px;font-weight:900}
+.dp-day-name{font-size:12px;color:var(--text-muted);margin-top:2px}
+.dp-verdict{
+  text-align:left;
+  font-size:12px;font-weight:700;
+  padding:6px 14px;border-radius:8px;
+}
+.dp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.dp-stat{background:var(--card2);border-radius:10px;padding:14px}
+.dp-stat-label{font-size:10px;color:var(--text-muted);font-weight:600;margin-bottom:6px;letter-spacing:.3px}
+.dp-stat-val{font-size:18px;font-weight:900}
+.dp-stat-sub{font-size:10px;color:var(--text-muted);margin-top:3px}
+
+/* ── MINI BREAKDOWN ── */
+.breakdown{display:flex;gap:10px;margin-bottom:20px}
+.breakdown-item{
+  flex:1;background:var(--card2);border-radius:10px;
+  padding:12px 14px;
+  border-right:3px solid transparent;
+}
+.breakdown-item.charter-item{border-color:var(--purple)}
+.breakdown-item.system-item{border-color:var(--blue)}
+.bi-label{font-size:10px;color:var(--text-muted);font-weight:600;margin-bottom:4px}
+.bi-val{font-size:16px;font-weight:900}
+.bi-sub{font-size:10px;margin-top:2px}
+
+/* ── INSIGHT ROW ── */
+.insight-rows{display:flex;flex-direction:column;gap:8px}
+.ins-row{
+  display:flex;align-items:center;gap:12px;
+  background:var(--card2);border-radius:8px;padding:10px 14px;
+}
+.ins-icon{font-size:14px;width:24px;flex-shrink:0}
+.ins-text{font-size:11px;color:var(--text-muted);line-height:1.5}
+.ins-text strong{color:var(--text);font-weight:700}
+
+/* ── PRICE TREND CHART ── */
+.trend-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:24px;margin-bottom:24px;
+}
+.trend-svg-wrap{position:relative;height:180px}
+svg.trend-svg{width:100%;height:100%;overflow:visible}
+
+/* ── FACTOR MATRIX ── */
+.matrix-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:24px;margin-bottom:24px;
+}
+.matrix-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.matrix-cell{
+  background:var(--card2);border-radius:8px;
+  padding:12px 8px;text-align:center;
+  border:1px solid var(--border);
+  transition:border-color .2s;cursor:default;
+}
+.matrix-cell:hover{border-color:var(--blue)}
+.mc-icon{font-size:18px;margin-bottom:6px}
+.mc-label{font-size:10px;color:var(--text-muted);margin-bottom:4px;font-weight:600}
+.mc-val{font-size:13px;font-weight:800}
+.mc-dir{font-size:9px;margin-top:2px}
+.dir-up{color:var(--red)}
+.dir-down{color:var(--green)}
+.dir-flat{color:var(--amber)}
+
+/* ── SIDE COLUMN ── */
+.verdict-card-side{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:20px;margin-bottom:16px;
+}
+.vcs-tag{font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:.5px;margin-bottom:10px;text-transform:uppercase}
+.vcs-main{font-size:22px;font-weight:900;line-height:1.2;margin-bottom:6px}
+.vcs-sub{font-size:12px;color:var(--text-muted);line-height:1.6}
+.confidence-bar{
+  height:4px;background:var(--border2);border-radius:2px;
+  margin:14px 0 6px;overflow:hidden;
+}
+.confidence-fill{
+  height:100%;border-radius:2px;
+  background:linear-gradient(90deg,var(--green),var(--blue));
+  transition:width 1.2s cubic-bezier(.34,1,.64,1);
+}
+.conf-label{display:flex;justify-content:space-between;font-size:10px;color:var(--text-muted)}
+
+.alert-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.alert-item{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:12px 14px;
+  display:flex;gap:10px;align-items:flex-start;
+}
+.alert-dot{
+  width:6px;height:6px;border-radius:50%;
+  margin-top:4px;flex-shrink:0;
+}
+.alert-dot.red{background:var(--red)}
+.alert-dot.amber{background:var(--amber)}
+.alert-dot.green{background:var(--green)}
+.alert-text{font-size:11px;color:var(--text-muted);line-height:1.6}
+.alert-text strong{color:var(--text)}
+
+.schedule-list{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;margin-bottom:16px;
+}
+.sched-header{
+  padding:12px 14px;
+  background:var(--card2);
+  font-size:11px;font-weight:700;color:var(--text-muted);
+  border-bottom:1px solid var(--border);
+  display:grid;grid-template-columns:1fr 60px 60px 60px;
+  text-align:left;
+  letter-spacing:.3px;
+}
+.sched-row{
+  padding:10px 14px;
+  display:grid;grid-template-columns:1fr 60px 60px 60px;
+  border-bottom:1px solid var(--border);
+  font-size:11px;
+  transition:background .15s;cursor:pointer;
+}
+.sched-row:last-child{border-bottom:none}
+.sched-row:hover{background:var(--card2)}
+.sched-airline{font-weight:700}
+.sched-type{
+  font-size:9px;font-weight:700;
+  padding:2px 6px;border-radius:4px;
+  display:inline-flex;align-items:center;
+}
+.type-charter{background:var(--purple-dim);color:var(--purple)}
+.type-system{background:var(--blue-dim);color:var(--blue)}
+.sched-cap{color:var(--text-muted)}
+.sched-price{font-weight:800}
+
+/* ── FOOTER ── */
+.page-footer{
+  border-top:1px solid var(--border);
+  padding:16px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:11px;color:var(--text-dim);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes barGrow{from{height:0}to{height:var(--h)}}
+.animated .radar-bar{animation:barGrow .5s ease forwards}
+
+/* ── TOOLTIP ── */
+.tooltip{
+  position:absolute;
+  background:var(--card2);border:1px solid var(--border2);
+  border-radius:8px;padding:8px 12px;
+  font-size:11px;pointer-events:none;
+  white-space:nowrap;z-index:300;
+  opacity:0;transition:opacity .15s;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);
+}
+.tooltip.show{opacity:1}
+
+@media(max-width:900px){
+  .shell{grid-template-columns:1fr}
+  .side-col{border-top:1px solid var(--border)}
+  .main-col{border-left:none}
+  .dp-grid{grid-template-columns:repeat(2,1fr)}
+  .matrix-grid{grid-template-columns:repeat(3,1fr)}
+  nav .nav-tag:nth-child(2){display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-mark">✈</div>
+    <div class="logo-name">بیلی<em>تراک</em></div>
+  </div>
+  <div class="nav-meta">
+    <div class="live-dot">داده‌های زنده</div>
+    <div class="nav-tag">نسخه ۱.۴ بتا</div>
+    <div class="nav-tag">Sepehr · Moghim · Charter</div>
+  </div>
+</nav>
+
+<!-- ROUTE BAR -->
+<div class="route-bar">
+  <div class="route-main">
+    <div>
+      <div class="city-code">THR</div>
+      <div class="route-sub">تهران</div>
+    </div>
+    <div class="route-arrow">
+      <svg viewBox="0 0 40 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="6" x2="32" y2="6" stroke="#5A7A9A" stroke-width="1.5"/>
+        <polyline points="26,1 32,6 26,11" stroke="#5A7A9A" stroke-width="1.5" fill="none"/>
+      </svg>
+      <span>یک‌طرفه</span>
+    </div>
+    <div>
+      <div class="city-code">MHD</div>
+      <div class="route-sub">مشهد</div>
+    </div>
+    <div style="margin-right:20px">
+      <div style="font-size:11px;color:var(--text-muted)">دوره تحلیل</div>
+      <div style="font-size:14px;font-weight:800">۱۵ – ۲۴ اسفند ۱۴۰۳</div>
+    </div>
+    <div class="route-change" onclick="alert('انتخاب مسیر — به‌زودی')">
+      <span>✦</span><span>تغییر مسیر</span>
+    </div>
+  </div>
+  <div class="verdict-pill buy" id="mainVerdict">
+    ✓ &nbsp;الان بخر · ۱۸ اسفند بهترین روز
+  </div>
+</div>
+
+<!-- SHELL -->
+<div class="shell">
+
+<!-- ── MAIN COL ── -->
+<div class="main-col">
+
+  <!-- RADAR STRIP -->
+  <div class="sec-hd">
+    <div class="sec-title">رادار ۱۰ روزه</div>
+    <div class="sec-actions">
+      <button class="toggle-btn active" onclick="setView('chart',this)">نمودار</button>
+      <button class="toggle-btn" onclick="setView('table',this)">جدول</button>
+    </div>
+  </div>
+
+  <div class="radar animated" id="radarStrip"></div>
+
+  <!-- DETAIL PANEL -->
+  <div class="detail-panel" id="detailPanel">
+    <div class="dp-header">
+      <div>
+        <div class="dp-date" id="dpDate">—</div>
+        <div class="dp-day-name" id="dpDayName">—</div>
+      </div>
+      <div class="dp-verdict buy" id="dpVerdict">—</div>
+    </div>
+    <div class="dp-grid" id="dpGrid"></div>
+    <div class="breakdown" id="dpBreakdown"></div>
+    <div class="insight-rows" id="dpInsights"></div>
+  </div>
+
+  <!-- PRICE TREND -->
+  <div class="trend-card">
+    <div class="sec-hd">
+      <div class="sec-title">روند قیمت ۱۰ روزه</div>
+      <div style="display:flex;gap:16px;font-size:11px">
+        <span style="display:flex;align-items:center;gap:5px;color:var(--purple)"><span style="width:12px;height:2px;background:var(--purple);display:inline-block;border-radius:1px"></span>چارتر</span>
+        <span style="display:flex;align-items:center;gap:5px;color:var(--blue)"><span style="width:12px;height:2px;background:var(--blue);display:inline-block;border-radius:1px"></span>سیستمی</span>
+      </div>
+    </div>
+    <div class="trend-svg-wrap">
+      <svg class="trend-svg" id="trendSvg" viewBox="0 0 700 160" preserveAspectRatio="none"></svg>
+    </div>
+  </div>
+
+  <!-- FACTOR MATRIX -->
+  <div class="matrix-card">
+    <div class="sec-hd" style="margin-bottom:16px">
+      <div class="sec-title">عوامل موثر بر قیمت</div>
+    </div>
+    <div class="matrix-grid" id="factorMatrix"></div>
+  </div>
+
+</div>
+
+<!-- ── SIDE COL ── -->
+<div class="side-col">
+
+  <!-- MAIN VERDICT -->
+  <div class="verdict-card-side" style="border-color:rgba(52,211,153,.2)">
+    <div class="vcs-tag">حکم سیستم</div>
+    <div class="vcs-main" style="color:var(--green)">الان بخر</div>
+    <div class="vcs-sub">قیمت در ۵ روز آینده <strong>۲۴–۳۲٪</strong> افزایش می‌یابد. پنجره طلایی در حال بسته شدن است.</div>
+    <div class="confidence-bar"><div class="confidence-fill" style="width:84%"></div></div>
+    <div class="conf-label"><span>سطح اطمینان</span><span style="color:var(--green);font-weight:700">۸۴٪</span></div>
+  </div>
+
+  <!-- ALERTS -->
+  <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px">هشدارهای بازار</div>
+  <div class="alert-list">
+    <div class="alert-item">
+      <div class="alert-dot red"></div>
+      <div class="alert-text"><strong>ظرفیت چارتر ۲۲ اسفند صفر شد</strong> — فقط سیستمی باقی است (+۴۵٪ قیمت)</div>
+    </div>
+    <div class="alert-item">
+      <div class="alert-dot amber"></div>
+      <div class="alert-text"><strong>نرخ ارز +۳.۲٪</strong> در ۴۸ ساعت — فشار قیمتی متوسط روی سیستمی</div>
+    </div>
+    <div class="alert-item">
+      <div class="alert-dot green"></div>
+      <div class="alert-text"><strong>۱۸ اسفند:</strong> ۳ چارتر جدید وارد بازار — رقابت بالا، قیمت پایین‌تر</div>
+    </div>
+    <div class="alert-item">
+      <div class="alert-dot amber"></div>
+      <div class="alert-text"><strong>۲۱ اسفند تعطیل رسمی</strong> — تقاضا اوج می‌گیرد، توصیه: ۲ روز قبل بخرید</div>
+    </div>
+  </div>
+
+  <!-- SCHEDULE -->
+  <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px">پروازهای امروز — ۱۵ اسفند</div>
+  <div class="schedule-list">
+    <div class="sched-header">
+      <span>ایرلاین</span>
+      <span>نوع</span>
+      <span>ظرفیت</span>
+      <span>قیمت</span>
+    </div>
+    <div class="sched-row">
+      <div><div class="sched-airline">ماهان</div><div style="font-size:9px;color:var(--text-muted)">۰۸:۳۰</div></div>
+      <div><span class="sched-type type-charter">چارتر</span></div>
+      <div class="sched-cap">۱۴/۱۸۰</div>
+      <div class="sched-price" style="color:var(--green)">۱.۸M</div>
+    </div>
+    <div class="sched-row">
+      <div><div class="sched-airline">ایران‌ایر</div><div style="font-size:9px;color:var(--text-muted)">۱۰:۰۰</div></div>
+      <div><span class="sched-type type-system">سیستمی</span></div>
+      <div class="sched-cap">۶۲/۱۴۰</div>
+      <div class="sched-price" style="color:var(--amber)">۲.۱M</div>
+    </div>
+    <div class="sched-row">
+      <div><div class="sched-airline">آسمان</div><div style="font-size:9px;color:var(--text-muted)">۱۳:۴۵</div></div>
+      <div><span class="sched-type type-charter">چارتر</span></div>
+      <div class="sched-cap">۸/۱۶۸</div>
+      <div class="sched-price" style="color:var(--green)">۱.۷M</div>
+    </div>
+    <div class="sched-row">
+      <div><div class="sched-airline">قشم‌ایر</div><div style="font-size:9px;color:var(--text-muted)">۱۶:۲۰</div></div>
+      <div><span class="sched-type type-system">سیستمی</span></div>
+      <div class="sched-cap">۹۸/۱۸۰</div>
+      <div class="sched-price" style="color:var(--red)">۲.۴M</div>
+    </div>
+    <div class="sched-row">
+      <div><div class="sched-airline">کیش‌ایر</div><div style="font-size:9px;color:var(--text-muted)">۱۹:۵۵</div></div>
+      <div><span class="sched-type type-charter">چارتر</span></div>
+      <div class="sched-cap">۳۱/۱۵۲</div>
+      <div class="sched-price" style="color:var(--green)">۱.۷۵M</div>
+    </div>
+  </div>
+
+  <!-- PRICE SCALE -->
+  <div class="verdict-card-side">
+    <div class="vcs-tag">مقیاس قیمت</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:10px;height:10px;border-radius:2px;background:var(--green)"></div>
+        <span style="font-size:11px;color:var(--text-muted);flex:1">ارزان</span>
+        <span style="font-size:12px;font-weight:700;color:var(--green)">زیر ۱.۸M</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:10px;height:10px;border-radius:2px;background:var(--amber)"></div>
+        <span style="font-size:11px;color:var(--text-muted);flex:1">متوسط</span>
+        <span style="font-size:12px;font-weight:700;color:var(--amber)">۱.۸–۲.۵M</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:10px;height:10px;border-radius:2px;background:var(--red)"></div>
+        <span style="font-size:11px;color:var(--text-muted);flex:1">گران</span>
+        <span style="font-size:12px;font-weight:700;color:var(--red)">بالای ۲.۵M</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /side-col -->
+</div><!-- /shell -->
+
+<div class="page-footer">
+  <span>بیلی‌تراک · داده‌ها تحلیلی هستند و تضمین قیمت نیستند</span>
+  <span>آخرین بروزرسانی: ۱۵ اسفند ۱۴۰۳ · ۱۴:۳۲</span>
+</div>
+
+<script>
+// ── DATA ──
+const days = [
+  { d:'۱۵',n:'شنبه', charter:1850000, system:2100000, charterFlights:3, systemFlights:2, charterCap:66, verdict:'buy', priceDir:'down', insight:['۳ چارتر با ظرفیت خوب','سیستمی ۲۱۵K گران‌تر از چارتر','توصیه: چارتر ماهان یا آسمان'] },
+  { d:'۱۶',n:'یکشنبه', charter:1920000, system:2150000, charterFlights:2, systemFlights:3, charterCap:45, verdict:'buy', priceDir:'flat', insight:['چارتر کاهش یافته','ظرفیت سیستمی خوب','قیمت تقریباً ثابت است'] },
+  { d:'۱۷',n:'دوشنبه', charter:1780000, system:2080000, charterFlights:4, systemFlights:2, charterCap:82, verdict:'best', priceDir:'down', insight:['۴ چارتر — بالاترین رقابت هفته','قیمت‌های چارتر کف ۱۰ روزه','بهترین فرصت خرید'] },
+  { d:'۱۸',n:'سه‌شنبه', charter:1810000, system:2200000, charterFlights:3, systemFlights:2, charterCap:74, verdict:'buy', priceDir:'flat', insight:['چارتر در رنج خوب','سیستمی رشد داشته','هنوز مناسب'] },
+  { d:'۱۹',n:'چهارشنبه', charter:2050000, system:2380000, charterFlights:2, systemFlights:2, charterCap:38, verdict:'wait', priceDir:'up', insight:['ظرفیت چارتر کاهش شدید','قیمت اوج گرفته','توصیه: دیروز می‌خریدید'] },
+  { d:'۲۰',n:'پنجشنبه', charter:2180000, system:2520000, charterFlights:2, systemFlights:2, charterCap:22, verdict:'wait', priceDir:'up', insight:['آخرین چارترها دارند می‌روند','سیستمی هم گران شده','بازار داغ است'] },
+  { d:'۲۱',n:'جمعه', charter:null, system:2780000, charterFlights:0, systemFlights:3, charterCap:0, verdict:'hot', priceDir:'up', insight:['تعطیل رسمی — ظرفیت چارتر صفر','فقط سیستمی موجود است','گران‌ترین روز هفته'] },
+  { d:'۲۲',n:'شنبه', charter:null, system:2900000, charterFlights:0, systemFlights:2, charterCap:0, verdict:'hot', priceDir:'up', insight:['چارتر صفر','سیستمی سقف ۱۰ روزه','اگر مجبورید: سریع بخرید'] },
+  { d:'۲۳',n:'یکشنبه', charter:2100000, system:2600000, charterFlights:1, systemFlights:2, charterCap:18, verdict:'wait', priceDir:'flat', insight:['یک چارتر برگشته','ظرفیت خیلی محدود','قیمت بالاست'] },
+  { d:'۲۴',n:'دوشنبه', charter:1980000, system:2450000, charterFlights:2, systemFlights:3, charterCap:35, verdict:'buy', priceDir:'down', insight:['بازار نسبتاً آرام‌تر شده','چارتر برگشته','گزینه بهتر نسبت به ۲۱-۲۲'] },
+];
+
+const fmt = n => n ? (n/1000000).toFixed(2)+'M' : '—';
+const fmtK = n => n >= 1000000 ? (n/1000000).toFixed(2)+'M' : (n/1000).toFixed(0)+'K';
+
+const verdictLabel = {'buy':'✓ بخر','best':'★ بهترین','wait':'⏳ صبر کن','hot':'⚠ خیلی گران'};
+const verdictClass = {'buy':'buy','best':'buy','wait':'wait','hot':'urgent'};
+const verdictColor = {'buy':'var(--green)','best':'var(--green)','wait':'var(--amber)','hot':'var(--red)'};
+
+// ── BUILD RADAR ──
+const radar = document.getElementById('radarStrip');
+const maxPrice = Math.max(...days.map(d => d.system));
+const maxCap = 82;
+
+days.forEach((day, i) => {
+  const charterH = day.charter ? Math.round((1 - (day.charter / maxPrice)) * 42 + 6) : 0;
+  const systemH = Math.round((1 - (day.system / maxPrice)) * 42 + 6);
+  const isBest = day.verdict === 'best';
+  const isHot = day.verdict === 'hot';
+
+  const el = document.createElement('div');
+  el.className = 'radar-day' + (isBest?' best':'') + (isHot?' hot':'');
+  el.dataset.idx = i;
+  el.innerHTML = `
+    ${isBest ? '<div class="radar-day-badge badge-best">★ بهترین</div>' : ''}
+    ${isHot ? '<div class="radar-day-badge badge-hot">⚠</div>' : ''}
+    <div class="radar-day-name">${day.n}</div>
+    <div class="radar-day-date">${day.d}</div>
+    <div class="radar-bar-wrap">
+      ${day.charter ? `<div class="radar-bar bar-charter" style="height:${charterH}px"></div>` : ''}
+      <div class="radar-bar bar-system" style="height:${systemH}px"></div>
+    </div>
+    <div class="radar-price" style="color:${verdictColor[day.verdict]}">${fmt(day.charter || day.system)}</div>
+    <div class="radar-flights">${day.charterFlights + day.systemFlights} پرواز</div>
+  `;
+  el.addEventListener('click', () => openDetail(i, el));
+  radar.appendChild(el);
+});
+
+// ── DETAIL PANEL ──
+let activeDay = null;
+function openDetail(i, el) {
+  const panel = document.getElementById('detailPanel');
+  const day = days[i];
+
+  // toggle
+  if (activeDay === i) {
+    panel.classList.remove('open');
+    el.classList.remove('active');
+    activeDay = null;
+    return;
+  }
+  // deactivate all
+  document.querySelectorAll('.radar-day').forEach(d => d.classList.remove('active'));
+  el.classList.add('active');
+  activeDay = i;
+
+  document.getElementById('dpDate').textContent = day.d + ' اسفند ۱۴۰۳';
+  document.getElementById('dpDayName').textContent = day.n;
+  const dv = document.getElementById('dpVerdict');
+  dv.textContent = verdictLabel[day.verdict];
+  dv.className = 'dp-verdict ' + verdictClass[day.verdict];
+  dv.style.background = verdictColor[day.verdict] === 'var(--green)' ? 'var(--green-dim)' :
+    verdictColor[day.verdict] === 'var(--amber)' ? 'var(--amber-dim)' : 'var(--red-dim)';
+  dv.style.color = verdictColor[day.verdict];
+  dv.style.border = '1px solid ' + (verdictColor[day.verdict] === 'var(--green)' ? 'rgba(52,211,153,.25)' :
+    verdictColor[day.verdict] === 'var(--amber)' ? 'rgba(245,158,11,.25)' : 'rgba(248,113,113,.25)');
+
+  document.getElementById('dpGrid').innerHTML = `
+    <div class="dp-stat">
+      <div class="dp-stat-label">پرواز چارتر</div>
+      <div class="dp-stat-val" style="color:var(--purple)">${day.charterFlights}</div>
+      <div class="dp-stat-sub">پرواز</div>
+    </div>
+    <div class="dp-stat">
+      <div class="dp-stat-label">پرواز سیستمی</div>
+      <div class="dp-stat-val" style="color:var(--blue)">${day.systemFlights}</div>
+      <div class="dp-stat-sub">پرواز</div>
+    </div>
+    <div class="dp-stat">
+      <div class="dp-stat-label">ظرفیت چارتر</div>
+      <div class="dp-stat-val" style="color:${day.charterCap > 50 ? 'var(--green)' : day.charterCap > 20 ? 'var(--amber)' : 'var(--red)'}">${day.charterCap}٪</div>
+      <div class="dp-stat-sub">صندلی خالی</div>
+    </div>
+    <div class="dp-stat">
+      <div class="dp-stat-label">اختلاف قیمت</div>
+      <div class="dp-stat-val" style="color:var(--green)">${day.charter ? fmtK(day.system - day.charter) : '—'}</div>
+      <div class="dp-stat-sub">چارتر ارزان‌تر</div>
+    </div>
+  `;
+
+  document.getElementById('dpBreakdown').innerHTML = `
+    <div class="breakdown-item charter-item">
+      <div class="bi-label">قیمت چارتر</div>
+      <div class="bi-val" style="color:var(--purple)">${fmt(day.charter)}</div>
+      <div class="bi-sub" style="color:var(--text-muted)">${day.charterFlights} پرواز · ${day.charterCap}٪ خالی</div>
+    </div>
+    <div class="breakdown-item system-item">
+      <div class="bi-label">قیمت سیستمی</div>
+      <div class="bi-val" style="color:var(--blue)">${fmt(day.system)}</div>
+      <div class="bi-sub" style="color:var(--text-muted)">${day.systemFlights} پرواز · GDS</div>
+    </div>
+  `;
+
+  document.getElementById('dpInsights').innerHTML = day.insight.map(t => `
+    <div class="ins-row">
+      <div class="ins-icon">◈</div>
+      <div class="ins-text">${t}</div>
+    </div>
+  `).join('');
+
+  panel.classList.add('open');
+}
+
+// ── TREND SVG ──
+function buildTrendSvg() {
+  const svg = document.getElementById('trendSvg');
+  const W = 700, H = 160;
+  const pad = {l:8, r:8, t:16, b:28};
+  const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b;
+
+  const vals = days.map(d => ({c: d.charter || d.system * 0.85, s: d.system}));
+  const allVals = vals.flatMap(v => [v.c, v.s]);
+  const minV = Math.min(...allVals) * 0.97;
+  const maxV = Math.max(...allVals) * 1.03;
+
+  const px = i => pad.l + (i / (days.length - 1)) * iw;
+  const py = v => pad.t + ih - ((v - minV) / (maxV - minV)) * ih;
+
+  // grid
+  let grid = '';
+  [0.25, 0.5, 0.75].forEach(t => {
+    const y = pad.t + ih * (1 - t);
+    const val = minV + (maxV - minV) * t;
+    grid += `<line x1="${pad.l}" y1="${y}" x2="${W - pad.r}" y2="${y}" stroke="#1A3050" stroke-width="1"/>`;
+    grid += `<text x="${W - pad.r + 2}" y="${y + 4}" fill="#3A5270" font-size="9" font-family="Vazirmatn">${(val/1000000).toFixed(1)}M</text>`;
+  });
+
+  // areas + lines
+  const charterPts = vals.map((v, i) => `${px(i)},${py(v.c)}`).join(' ');
+  const systemPts  = vals.map((v, i) => `${px(i)},${py(v.s)}`).join(' ');
+  const charterArea = `${px(0)},${pad.t + ih} ` + charterPts + ` ${px(days.length-1)},${pad.t + ih}`;
+  const systemArea  = `${px(0)},${pad.t + ih} ` + systemPts  + ` ${px(days.length-1)},${pad.t + ih}`;
+
+  // dots
+  let dots = '';
+  vals.forEach((v, i) => {
+    const day = days[i];
+    const col = day.verdict === 'best' ? '#34D399' : day.verdict === 'hot' ? '#F87171' : '#A78BFA';
+    dots += `<circle cx="${px(i)}" cy="${py(v.c)}" r="3.5" fill="${col}" stroke="#060B14" stroke-width="1.5"/>`;
+    dots += `<circle cx="${px(i)}" cy="${py(v.s)}" r="3" fill="#00D4FF" stroke="#060B14" stroke-width="1.5"/>`;
+    // day label
+    dots += `<text x="${px(i)}" y="${H - 2}" fill="#3A5270" font-size="9" font-family="Vazirmatn" text-anchor="middle">${day.d}</text>`;
+  });
+
+  svg.innerHTML = `
+    <defs>
+      <linearGradient id="cgr" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#A78BFA" stop-opacity=".25"/>
+        <stop offset="100%" stop-color="#A78BFA" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="sgr" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#00D4FF" stop-opacity=".18"/>
+        <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    ${grid}
+    <polygon points="${systemArea}" fill="url(#sgr)"/>
+    <polyline points="${systemPts}" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="${charterArea}" fill="url(#cgr)"/>
+    <polyline points="${charterPts}" fill="none" stroke="#A78BFA" stroke-width="2" stroke-linejoin="round"/>
+    ${dots}
+  `;
+}
+buildTrendSvg();
+
+// ── FACTOR MATRIX ──
+const factors = [
+  {icon:'💱', label:'نرخ ارز', val:'+۳.۲٪', dir:'up', note:'فشار متوسط'},
+  {icon:'🪑', label:'ظرفیت چارتر', val:'▼ ۴۸٪', dir:'down', note:'کاهش تدریجی'},
+  {icon:'✈', label:'تعداد پرواز', val:'۳۱ پرواز', dir:'flat', note:'۱۰ روز آینده'},
+  {icon:'📅', label:'تعطیلات', val:'۲۱ اسفند', dir:'up', note:'اوج تقاضا'},
+  {icon:'🏷', label:'رقابت آژانس', val:'متوسط', dir:'flat', note:'تهران–مشهد'},
+  {icon:'⚡', label:'فروش آنی', val:'+۱۲٪', dir:'up', note:'سرعت فروش بالا'},
+  {icon:'🔁', label:'نرخ کنسلی', val:'۸٪', dir:'down', note:'پایین است'},
+  {icon:'📊', label:'شاخص تقاضا', val:'بالا', dir:'up', note:'اسفند اوج فروش'},
+  {icon:'🌐', label:'سیستم Sepehr', val:'فعال', dir:'flat', note:'بدون اختلال'},
+  {icon:'📡', label:'Moghim GDS', val:'فعال', dir:'flat', note:'موجودی آنلاین'},
+];
+
+const matrix = document.getElementById('factorMatrix');
+factors.forEach(f => {
+  const el = document.createElement('div');
+  el.className = 'matrix-cell';
+  const dc = f.dir === 'up' ? 'dir-up' : f.dir === 'down' ? 'dir-down' : 'dir-flat';
+  const ds = f.dir === 'up' ? '↑' : f.dir === 'down' ? '↓' : '→';
+  el.innerHTML = `
+    <div class="mc-icon">${f.icon}</div>
+    <div class="mc-label">${f.label}</div>
+    <div class="mc-val">${f.val}</div>
+    <div class="mc-dir ${dc}">${ds} ${f.note}</div>
+  `;
+  matrix.appendChild(el);
+});
+
+// ── VIEW TOGGLE ──
+function setView(v, btn) {
+  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
