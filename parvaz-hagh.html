@@ -1,0 +1,2072 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>آسمانه — حق پرواز شماست</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F4F6FA;
+  --surface: #FFFFFF;
+  --surface-2: #F0F2F7;
+  --border: #E2E6EF;
+  --border-strong: #CDD3E0;
+  --blue: #1B3FCC;
+  --blue-mid: #2E52E0;
+  --blue-light: #EEF1FB;
+  --blue-subtle: #F5F6FF;
+  --ink: #0D1421;
+  --ink-2: #3A4560;
+  --ink-3: #7A85A0;
+  --gold: #B07C10;
+  --gold-bg: #FDF8EE;
+  --gold-border: #EDD89A;
+  --green: #1A7A4A;
+  --green-bg: #EDFAF4;
+  --green-border: #A3DFC0;
+  --red: #C0303A;
+  --red-bg: #FEF2F3;
+  --red-border: #F4B8BB;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 2px 12px rgba(13,20,60,0.07);
+  --shadow-md: 0 6px 28px rgba(13,20,60,0.10);
+  --shadow-lg: 0 16px 48px rgba(27,63,204,0.13);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Vazirmatn', sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  font-size:14px;
+}
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; width:100%; z-index:200;
+  height:56px;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center;
+  padding:0 40px;
+}
+.nav-logo {
+  display:flex; align-items:center; gap:9px;
+  text-decoration:none; color:var(--ink);
+  margin-left:auto;
+}
+.nav-logo-mark {
+  width:32px; height:32px;
+  background:var(--blue);
+  border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:15px; font-weight:900;
+  letter-spacing:-1px; flex-shrink:0;
+}
+.nav-logo-text { font-size:16px; font-weight:900; letter-spacing:-0.5px; }
+.nav-logo-text em { color:var(--blue); font-style:normal; }
+.nav-links { display:flex; align-items:center; gap:28px; margin-right:36px; }
+.nav-link { font-size:13px; font-weight:500; color:var(--ink-3); text-decoration:none; transition:color .15s; }
+.nav-link:hover { color:var(--ink); }
+.nav-cta {
+  height:34px; padding:0 18px;
+  background:var(--blue); color:#fff;
+  border:none; border-radius:var(--radius-sm);
+  font-family:'Vazirmatn',sans-serif;
+  font-size:13px; font-weight:700;
+  cursor:pointer; transition:background .15s;
+}
+.nav-cta:hover { background:var(--blue-mid); }
+
+/* ── NAV PILL BUTTONS ── */
+.nav-pill-btn {
+  display:inline-flex; align-items:center; gap:6px;
+  height:34px; padding:0 14px;
+  background:transparent;
+  border:1.5px solid var(--border);
+  border-radius:100px;
+  font-family:'Vazirmatn',sans-serif;
+  font-size:12.5px; font-weight:600;
+  color:var(--ink-2);
+  cursor:pointer;
+  transition:all .2s ease;
+  white-space:nowrap;
+}
+.nav-pill-btn svg { flex-shrink:0; transition:transform .2s ease; }
+.nav-pill-btn:hover {
+  border-color:var(--blue);
+  color:var(--blue);
+  background:var(--blue-subtle);
+  transform:translateY(-1px);
+  box-shadow:0 3px 12px rgba(27,63,204,0.12);
+}
+.nav-pill-btn:hover svg { transform:scale(1.15); }
+.nav-pill-btn:active { transform:scale(0.96); }
+.nav-pill-accent {
+  background:var(--blue);
+  border-color:var(--blue);
+  color:#fff;
+}
+.nav-pill-accent:hover {
+  background:var(--blue-mid);
+  border-color:var(--blue-mid);
+  color:#fff;
+  box-shadow:0 4px 16px rgba(27,63,204,0.28);
+}
+
+/* ── DRAWER ── */
+.drawer {
+  position:fixed; bottom:0; left:0; right:0;
+  max-height:0; overflow:hidden;
+  background:#fff; border-radius:24px 24px 0 0;
+  box-shadow:var(--shadow-lg);
+  transition:max-height .4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index:300;
+}
+.drawer::before {
+  content:'';
+  position:fixed; inset:0;
+  background:rgba(13,20,60,0.2);
+  opacity:0;
+  pointer-events:none;
+  z-index:-1;
+  transition:opacity .4s ease;
+  backdrop-filter:blur(2px);
+  animation:backdropFade .4s ease;
+}
+
+@keyframes backdropFade {
+  from { opacity:0; }
+  to { opacity:0; }
+}
+.drawer.open {
+  max-height:80dvh;
+  overflow-y:auto;
+  animation:drawerSlideUp .4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.drawer.open::before {
+  opacity:1;
+  pointer-events:auto;
+}
+
+@keyframes drawerSlideUp {
+  from {
+    max-height:0;
+    transform:translateY(20px);
+  }
+  to {
+    max-height:80dvh;
+    transform:translateY(0);
+  }
+}
+
+.drawer-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px 24px; border-bottom:1px solid var(--border);
+  position:sticky; top:0; background:#fff;
+  animation:fadeInDown .4s ease .1s both;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity:0;
+    transform:translateY(-10px);
+  }
+  to {
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.drawer-title {
+  font-size:16px; font-weight:800; color:var(--ink);
+  background:linear-gradient(135deg, var(--blue), var(--blue-mid));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.drawer-close {
+  width:32px; height:32px;
+  background:transparent; border:none;
+  cursor:pointer; color:var(--ink-3);
+  display:flex; align-items:center; justify-content:center;
+  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius:8px;
+}
+.drawer-close:hover {
+  color:var(--red);
+  background:var(--red-bg);
+  transform:rotate(90deg);
+}
+.drawer-content {
+  padding:24px;
+  line-height:1.7;
+  animation:fadeInUp .4s ease .2s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to {
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+.drawer-content p {
+  margin-bottom:16px; color:var(--ink-2); font-size:14px;
+  transition:transform .2s ease;
+}
+
+.drawer-content p strong {
+  color:var(--blue);
+  font-weight:700;
+  position:relative;
+  display:inline-block;
+}
+
+.drawer-content p strong::after {
+  content:'';
+  position:absolute;
+  bottom:-2px;
+  left:0;
+  width:0;
+  height:2px;
+  background:linear-gradient(90deg, var(--blue), var(--blue-mid));
+  border-radius:1px;
+  transition:width .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.drawer-content p:hover strong::after {
+  width:100%;
+}
+
+.drawer-content .info-item {
+  display:flex; align-items:center; gap:12px;
+  padding:13px 14px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:13px;
+  transition:all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration:none; color:inherit;
+}
+
+.drawer-content .info-item:hover {
+  border-color:var(--blue);
+  background:var(--blue-subtle);
+  transform:translateY(-1px);
+  box-shadow:0 4px 14px rgba(27,63,204,0.1);
+}
+.drawer-content .info-item.no-link:hover {
+  border-color:var(--border); background:var(--surface-2);
+  transform:none; box-shadow:none;
+}
+
+.drawer-content .info-icon {
+  width:36px; height:36px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg, var(--blue), var(--blue-mid));
+  color:#fff; border-radius:10px;
+  box-shadow:0 4px 10px rgba(27,63,204,0.22);
+}
+.drawer-content .info-icon svg { width:16px; height:16px; }
+
+.drawer-content .info-text { display:flex; flex-direction:column; gap:1px; min-width:0; }
+
+.drawer-content .info-label {
+  font-weight:700; color:var(--ink-3);
+  font-size:10.5px; letter-spacing:.02em;
+}
+.drawer-content .info-value {
+  color:var(--ink); font-weight:700;
+  font-family:'Vazirmatn', sans-serif;
+  font-size:13.5px;
+}
+
+/* ── INFO DRAWER (about + contact, merged) ── */
+.info-hero {
+  display:flex; align-items:flex-start; gap:13px;
+  padding:18px; margin:0 0 16px;
+  background:linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 100%);
+  border-radius:16px;
+}
+.info-hero-mark {
+  width:38px; height:38px; border-radius:11px;
+  background:rgba(255,255,255,0.16);
+  border:1.5px solid rgba(255,255,255,0.28);
+  display:flex; align-items:center; justify-content:center;
+  font-size:17px; font-weight:900; color:#fff;
+  flex-shrink:0;
+}
+.info-hero-text {
+  font-size:13px; color:rgba(255,255,255,0.92);
+  line-height:1.75; margin:0;
+}
+.info-hero-text strong { color:#fff; font-weight:800; }
+
+.info-mission {
+  display:flex; align-items:center; gap:10px;
+  padding:12px 14px; margin-bottom:16px;
+  border-radius:13px;
+  background:var(--gold-bg); border:1px solid var(--gold-border);
+}
+.info-mission svg { width:16px; height:16px; color:var(--gold); flex-shrink:0; }
+.info-mission p { margin:0; font-size:12.5px; color:var(--ink-2); line-height:1.6; font-weight:500; }
+
+.info-grid { display:flex; flex-direction:column; gap:9px; margin-bottom:14px; }
+
+.info-hours {
+  display:flex; align-items:center; gap:7px;
+  font-size:11.5px; color:var(--ink-3); font-weight:600;
+  padding:2px 2px 0;
+}
+.info-hours svg { width:14px; height:14px; color:var(--green); flex-shrink:0; }
+
+
+/* ── HERO BACKGROUND CIRCLE ── */
+.hero-bg-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -62%);
+  width: 340px;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hbc-outer-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: hbcOuterSpin 10s linear infinite;
+  background-image: conic-gradient(
+    from 0deg,
+    transparent 55%,
+    rgba(27, 63, 204, 0.15) 75%,
+    rgba(46, 82, 224, 0.35) 93%,
+    transparent 100%
+  );
+}
+
+.hbc-mid-ring {
+  position: absolute;
+  inset: 28px;
+  border-radius: 50%;
+  border: 1px dashed rgba(27, 63, 204, 0.14);
+  animation: hbcOuterSpin 16s linear infinite reverse;
+}
+
+.hbc-inner {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #1B3FCC 0%, #2E52E0 50%, #4A6BF5 100%);
+  box-shadow:
+    0 0 0 2px rgba(27, 63, 204, 0.08),
+    0 12px 60px rgba(27, 63, 204, 0.28),
+    0 4px 20px rgba(27, 63, 204, 0.2),
+    inset 0 2px 0 rgba(255,255,255,0.22),
+    inset 0 -2px 0 rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: hbcPulse 3.5s ease-in-out infinite;
+}
+
+.hbc-glow {
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.14);
+  filter: blur(10px);
+}
+
+.hbc-shimmer {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.18) 0%,
+    transparent 45%,
+    rgba(255,255,255,0.04) 100%
+  );
+  animation: hbcShimmer 5s ease-in-out infinite;
+}
+
+.hbc-plane {
+  width: 90px;
+  height: 90px;
+  position: relative;
+  z-index: 2;
+  animation: hbcFly 3s ease-in-out infinite;
+  filter: drop-shadow(0 3px 10px rgba(0,0,0,0.2));
+}
+
+.hbc-orbit-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4A6BF5, #1B3FCC);
+  box-shadow: 0 0 14px rgba(27,63,204,0.75), 0 0 5px rgba(27,63,204,0.5);
+  top: 50%;
+  left: 50%;
+  margin: -5px 0 0 -5px;
+  animation: hbcOrbit 5s linear infinite;
+}
+
+.hbc-orbit-dot-2 {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: linear-gradient(135deg, #7A9BFF, #2E52E0);
+  box-shadow: 0 0 10px rgba(74,107,245,0.85);
+  animation: hbcOrbit 5s linear infinite;
+  animation-delay: -2.5s;
+}
+
+@keyframes hbcOuterSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes hbcPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 2px rgba(27,63,204,0.08),
+      0 12px 60px rgba(27,63,204,0.28),
+      0 4px 20px rgba(27,63,204,0.2),
+      inset 0 2px 0 rgba(255,255,255,0.22);
+  }
+  50% {
+    box-shadow:
+      0 0 0 8px rgba(27,63,204,0.05),
+      0 16px 80px rgba(27,63,204,0.42),
+      0 6px 28px rgba(27,63,204,0.32),
+      inset 0 2px 0 rgba(255,255,255,0.22);
+  }
+}
+
+@keyframes hbcFly {
+  0%   { transform: translate(-4px, 4px) rotate(-10deg); }
+  30%  { transform: translate(2px, -5px) rotate(6deg); }
+  65%  { transform: translate(4px, -3px) rotate(4deg); }
+  85%  { transform: translate(-1px, 3px) rotate(-5deg); }
+  100% { transform: translate(-4px, 4px) rotate(-10deg); }
+}
+
+@keyframes hbcShimmer {
+  0%, 100% { opacity: 0.9; transform: rotate(0deg); }
+  50% { opacity: 0.4; transform: rotate(180deg); }
+}
+
+@keyframes hbcOrbit {
+  0%   { transform: rotate(0deg)   translateX(155px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(155px) rotate(-360deg); }
+}
+
+/* ── HERO ── */
+.hero {
+  min-height:100dvh;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:88px 20px 56px;
+  position:relative;
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:7px;
+  background:#fff; border:1px solid var(--border);
+  border-radius:100px; padding:5px 14px 5px 10px;
+  font-size:11.5px; font-weight:600; color:var(--ink-2);
+  margin-bottom:26px; box-shadow:var(--shadow);
+  position:relative; z-index:1;
+}
+.eyebrow-dot { width:6px; height:6px; border-radius:50%; background:var(--green); flex-shrink:0; }
+.hero-h1 {
+  font-size:clamp(36px,6.5vw,76px);
+  font-weight:900; line-height:1.05;
+  letter-spacing:-2.5px; text-align:center;
+  margin-bottom:16px; color:var(--ink); max-width:640px;
+  position:relative; z-index:1;
+}
+.hero-h1 .dim { color:var(--ink-3); font-weight:300; }
+.hero-h1 .accent { color:var(--blue); }
+.hero-sub {
+  font-size:15px; color:var(--ink-3);
+  position:relative; z-index:1;
+  line-height:1.75; text-align:center;
+  max-width:380px; margin-bottom:44px; font-weight:400;
+}
+
+/* ── MAIN CARD ── */
+.card {
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:20px;
+  width:100%; max-width:520px;
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;
+}
+
+/* Step bar */
+.step-bar {
+  display:flex; align-items:center;
+  padding:0 20px; height:50px;
+  border-bottom:1px solid var(--border);
+  background:var(--surface-2);
+}
+.step-pill {
+  flex:1; display:flex; align-items:center;
+  gap:6px; font-size:11.5px; font-weight:600;
+  color:var(--ink-3); transition:color .25s; white-space:nowrap;
+}
+.step-pill.active { color:var(--blue); }
+.step-pill.done { color:var(--green); }
+.step-n {
+  width:20px; height:20px; border-radius:50%;
+  border:1.5px solid var(--border-strong); background:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-size:10px; font-weight:800; flex-shrink:0;
+  transition:all .25s; color:var(--ink-3);
+}
+.step-pill.active .step-n { background:var(--blue); border-color:var(--blue); color:#fff; }
+.step-pill.done .step-n { background:var(--green); border-color:var(--green); color:#fff; }
+.step-div { flex:0 0 20px; height:1px; background:var(--border-strong); margin:0 2px; }
+
+/* Step panels */
+.steps-wrap { position:relative; }
+.step-panel { display:none; padding:24px 24px 20px; animation:fadeSlide .25s ease; }
+.step-panel.active { display:block; }
+@keyframes fadeSlide {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.panel-title {
+  font-size:15px; font-weight:800;
+  color:var(--ink); margin-bottom:20px; letter-spacing:-0.3px;
+}
+.panel-title .tag {
+  font-size:11px; font-weight:500; color:var(--ink-3);
+  background:var(--surface-2); border:1px solid var(--border);
+  border-radius:100px; padding:2px 8px; margin-right:6px; vertical-align:middle;
+}
+
+/* ── STEP 1 Modern Fields ── */
+.fields-stack { display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
+
+.route-row {
+  display:flex; align-items:stretch; gap:0;
+  background:#fff; border:1.5px solid var(--border);
+  border-radius:12px; overflow:hidden;
+  transition:border-color .2s, box-shadow .2s;
+  position:relative;
+}
+.route-row:focus-within {
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(27,63,204,0.08);
+}
+
+.route-field {
+  flex:1; display:flex; flex-direction:column;
+  padding:12px 14px; cursor:pointer; position:relative;
+}
+.route-field-label {
+  font-size:10.5px; font-weight:700;
+  color:var(--ink-3); letter-spacing:0.3px;
+  text-transform:uppercase; margin-bottom:4px;
+  display:flex; align-items:center; gap:5px;
+}
+.route-field-label svg { opacity:0.6; }
+.route-field-val {
+  font-size:14px; font-weight:700; color:var(--ink);
+  line-height:1.2;
+}
+.route-field-val.placeholder { color:var(--ink-3); font-weight:400; font-size:13px; }
+.route-field select {
+  position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%;
+}
+
+.route-divider {
+  display:flex; align-items:center; justify-content:center;
+  width:36px; flex-shrink:0;
+  border-right:1px solid var(--border);
+  border-left:1px solid var(--border);
+  background:var(--surface-2);
+  color:var(--ink-3);
+}
+.route-divider svg { width:14px; height:14px; opacity:0.5; }
+
+.date-field {
+  background:#fff; border:1.5px solid var(--border);
+  border-radius:12px; overflow:hidden;
+  transition:border-color .2s, box-shadow .2s;
+  cursor:pointer;
+}
+.date-field:focus-within, .date-field.open {
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(27,63,204,0.08);
+}
+.date-field-head {
+  display:flex; align-items:center;
+  padding:12px 14px; gap:10px;
+}
+.date-field-icon {
+  width:34px; height:34px; border-radius:8px;
+  background:var(--blue-subtle); border:1px solid #C9D3F7;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; color:var(--blue);
+}
+.date-field-icon svg { width:16px; height:16px; }
+.date-field-info { flex:1; }
+.date-field-info .lbl {
+  font-size:10.5px; font-weight:700;
+  color:var(--ink-3); letter-spacing:0.3px;
+  text-transform:uppercase; margin-bottom:3px;
+}
+.date-field-info .val {
+  font-size:14px; font-weight:700; color:var(--ink);
+}
+.date-field-info .val.placeholder { color:var(--ink-3); font-weight:400; font-size:13px; }
+.date-field-arrow {
+  color:var(--ink-3); transition:transform .2s;
+}
+.date-field-arrow svg { width:14px; height:14px; }
+.date-field.open .date-field-arrow { transform:rotate(180deg); }
+
+/* ── JALALI CALENDAR ── */
+.jcal {
+  border-top:1px solid var(--border);
+  overflow:hidden;
+  max-height:0;
+  transition:max-height .3s cubic-bezier(0.4,0,0.2,1);
+}
+.jcal.open { max-height:320px; }
+.jcal-inner { padding:12px 14px 14px; }
+.jcal-nav {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:10px;
+}
+.jcal-nav-btn {
+  width:28px; height:28px; border-radius:6px;
+  background:var(--surface-2); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; color:var(--ink-2); transition:all .15s;
+  font-size:11px;
+}
+.jcal-nav-btn:hover { background:var(--blue-light); border-color:#C9D3F7; color:var(--blue); }
+.jcal-month-label {
+  font-size:13px; font-weight:800; color:var(--ink); letter-spacing:-0.3px;
+}
+.jcal-dow {
+  display:grid; grid-template-columns:repeat(7,1fr);
+  gap:2px; margin-bottom:4px;
+}
+.jcal-dow span {
+  text-align:center; font-size:10px; font-weight:700;
+  color:var(--ink-3); padding:3px 0;
+}
+.jcal-days {
+  display:grid; grid-template-columns:repeat(7,1fr); gap:2px;
+}
+.jcal-day {
+  aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+  border-radius:6px; font-size:12px; font-weight:600; color:var(--ink-2);
+  cursor:pointer; transition:all .12s; position:relative;
+}
+.jcal-day:hover { background:var(--blue-light); color:var(--blue); }
+.jcal-day.today { font-weight:800; color:var(--blue); }
+.jcal-day.today::after {
+  content:''; position:absolute; bottom:2px;
+  width:4px; height:4px; border-radius:50%;
+  background:var(--blue);
+}
+.jcal-day.selected {
+  background:var(--blue); color:#fff;
+}
+.jcal-day.selected::after { background:#fff; }
+.jcal-day.empty { pointer-events:none; }
+.jcal-day.past { opacity:0.35; pointer-events:none; }
+
+/* ── STEP 1 FLIGHT NUM ── */
+.flnum-field {
+  background:#fff; border:1.5px solid var(--border);
+  border-radius:12px; overflow:hidden;
+  transition:border-color .2s;
+  display:flex; align-items:center; padding:10px 14px; gap:10px;
+}
+.flnum-field:focus-within {
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(27,63,204,0.08);
+}
+.flnum-icon {
+  width:34px; height:34px; border-radius:8px;
+  background:var(--surface-2); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; color:var(--ink-3);
+}
+.flnum-icon svg { width:16px; height:16px; }
+.flnum-field-wrap { flex:1; }
+.flnum-field-wrap .lbl {
+  font-size:10.5px; font-weight:700; color:var(--ink-3);
+  letter-spacing:0.3px; text-transform:uppercase; margin-bottom:3px;
+}
+.flnum-inp {
+  background:transparent; border:none; outline:none;
+  font-family:'Vazirmatn',sans-serif;
+  font-size:13.5px; font-weight:600; color:var(--ink);
+  width:100%; padding:0;
+}
+.flnum-inp::placeholder { color:var(--ink-3); font-weight:400; font-size:13px; }
+.flnum-opt {
+  font-size:10px; font-weight:600; color:var(--ink-3);
+  background:var(--surface-2); border:1px solid var(--border);
+  border-radius:100px; padding:2px 7px; white-space:nowrap;
+}
+
+/* Buttons */
+.btn {
+  width:100%; padding:12px;
+  border:none; border-radius:var(--radius-sm);
+  font-family:'Vazirmatn',sans-serif;
+  font-size:14px; font-weight:700;
+  cursor:pointer; transition:all .15s;
+  display:flex; align-items:center; justify-content:center; gap:7px;
+}
+.btn svg { width:16px; height:16px; flex-shrink:0; }
+.btn-primary { background:var(--blue); color:#fff; }
+.btn-primary:hover { background:var(--blue-mid); transform:translateY(-1px); }
+.btn-ghost {
+  background:transparent; border:1px solid var(--border);
+  color:var(--ink-3); font-size:13px; padding:10px; margin-top:8px;
+}
+.btn-ghost:hover { border-color:var(--border-strong); color:var(--ink); }
+.btn-success { background:var(--green); color:#fff; }
+.btn-success:hover { opacity:0.9; transform:translateY(-1px); }
+
+/* Loading */
+.loading {
+  display:flex; flex-direction:column;
+  align-items:center; padding:32px 0 28px; gap:12px;
+}
+.spinner {
+  width:26px; height:26px;
+  border:2px solid var(--border);
+  border-top-color:var(--blue);
+  border-radius:50%;
+  animation:spin .65s linear infinite;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+.loading-text { font-size:13px; color:var(--ink-3); font-weight:500; }
+
+/* ── BOARDING PASS ── */
+.boarding-pass {
+  background:var(--blue-subtle);
+  border:1px solid #C9D3F7;
+  border-radius:var(--radius);
+  overflow:hidden;
+  margin-bottom:16px;
+  position:relative;
+}
+.bp-header {
+  background:var(--blue);
+  padding:11px 16px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.bp-airline-name { font-size:12px; font-weight:700; color:rgba(255,255,255,0.8); }
+.bp-flight-num { font-size:13px; font-weight:800; color:#fff; letter-spacing:0.5px; }
+.bp-status {
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:11px; font-weight:700; padding:3px 10px;
+  border-radius:100px;
+}
+.bp-status.delay { background:rgba(255,255,255,0.15); color:#FFE5A0; }
+.bp-status.cancel { background:rgba(255,80,80,0.25); color:#FFB8B8; }
+.bp-body { padding:16px; }
+.bp-route { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.bp-iata { font-size:34px; font-weight:900; color:var(--blue); letter-spacing:-2px; line-height:1; }
+.bp-arrow-wrap { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; }
+.bp-line {
+  width:100%; height:1px;
+  background:repeating-linear-gradient(90deg, #B0BFEE 0, #B0BFEE 4px, transparent 4px, transparent 8px);
+}
+.bp-plane { font-size:14px; color:var(--blue-mid); }
+.bp-meta { display:flex; gap:0; border-top:1px dashed #C9D3F7; padding-top:12px; }
+.bp-meta-item { flex:1; text-align:center; border-left:1px dashed #C9D3F7; padding:0 8px; }
+.bp-meta-item:last-child { border-left:none; }
+.bp-meta-label { font-size:10px; color:var(--ink-3); font-weight:600; text-transform:uppercase; margin-bottom:3px; }
+.bp-meta-val { font-size:13px; font-weight:700; color:var(--ink); }
+.boarding-pass::before, .boarding-pass::after {
+  content:''; position:absolute;
+  width:14px; height:14px; border-radius:50%;
+  background:var(--bg); border:1px solid #C9D3F7; bottom:-7px;
+}
+.boarding-pass::before { right:-7px; }
+.boarding-pass::after { left:-7px; }
+.confirm-q { font-size:12.5px; color:var(--ink-3); text-align:center; margin-bottom:14px; font-weight:500; }
+
+/* ── AIRLINE FILTER SCROLL (step 2) ── */
+.filter-label-row {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:8px;
+}
+.filter-lbl {
+  font-size:11px; font-weight:700; letter-spacing:0.5px;
+  color:var(--ink-3); text-transform:uppercase;
+}
+.filter-hint {
+  font-size:10.5px; color:var(--ink-3); font-weight:500;
+  display:flex; align-items:center; gap:3px;
+}
+.airline-scroll-wrap {
+  position:relative; margin-bottom:16px;
+}
+.airline-scroll-wrap::after {
+  content:'';
+  position:absolute; left:0; top:0; bottom:0; width:28px;
+  background:linear-gradient(to left, transparent, #fff);
+  pointer-events:none; z-index:1;
+}
+.airline-scroll {
+  display:flex; gap:6px;
+  overflow-x:auto; padding:2px 2px 6px;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.airline-scroll::-webkit-scrollbar { display:none; }
+.airline-chip {
+  display:inline-flex; align-items:center; gap:5px;
+  padding:7px 13px;
+  background:#fff; border:1.5px solid var(--border);
+  border-radius:100px;
+  font-size:12.5px; font-weight:600; color:var(--ink-2);
+  cursor:pointer; font-family:'Vazirmatn',sans-serif;
+  transition:all .15s; white-space:nowrap; flex-shrink:0;
+}
+.airline-chip:hover { border-color:var(--blue); color:var(--blue); background:var(--blue-subtle); }
+.airline-chip.selected { background:var(--blue); color:#fff; border-color:var(--blue); }
+.airline-chip.all-chip { border-style:dashed; }
+.airline-chip.all-chip.selected { border-style:solid; }
+
+/* ── REASON GRID (step 3) ── */
+.reason-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:16px; }
+.reason-btn {
+  padding:14px 10px;
+  background:#fff; border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  font-family:'Vazirmatn',sans-serif;
+  font-size:12.5px; font-weight:600;
+  color:var(--ink-2); cursor:pointer;
+  transition:all .15s; text-align:center; line-height:1.6;
+}
+.reason-btn:hover { border-color:var(--blue); color:var(--blue); background:var(--blue-subtle); }
+.reason-btn.sel { background:var(--blue-light); border-color:var(--blue); color:var(--blue); box-shadow:0 0 0 3px rgba(27,63,204,0.07); }
+.reason-icon {
+  display:block; margin-bottom:6px;
+  display:flex; align-items:center; justify-content:center;
+}
+.reason-icon svg { width:20px; height:20px; }
+
+/* ── RESULT (step 4) ── */
+.result-badge {
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:11px; font-weight:700; padding:4px 12px;
+  border-radius:100px; margin-bottom:14px;
+}
+.result-badge.eligible { background:var(--green-bg); color:var(--green); border:1px solid var(--green-border); }
+.result-badge.review { background:#FFF8EC; color:var(--gold); border:1px solid var(--gold-border); }
+.result-hero { text-align:center; padding:4px 0 18px; }
+.result-amount { font-size:58px; font-weight:900; letter-spacing:-3px; line-height:1; color:var(--blue); margin-bottom:8px; }
+.result-amount.gray { color:var(--ink-3); }
+.result-desc { font-size:12.5px; color:var(--ink-3); line-height:1.75; margin-bottom:18px; max-width:340px; margin-left:auto; margin-right:auto; }
+.breakdown { border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; margin-bottom:14px; }
+.brow { display:flex; justify-content:space-between; align-items:center; padding:9px 14px; border-bottom:1px solid var(--border); font-size:12.5px; }
+.brow:last-child { border-bottom:none; }
+.brow .lbl { color:var(--ink-3); font-weight:500; }
+.brow .val { font-weight:700; color:var(--ink-2); }
+.brow .val.green { color:var(--green); }
+.brow .val.blue { color:var(--blue); }
+
+/* ── SUCCESS ── */
+.success-wrap { text-align:center; padding:20px 0 24px; }
+.success-icon {
+  width:56px; height:56px;
+  background:var(--green-bg); border:2px solid var(--green-border);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 14px; color:var(--green);
+}
+.success-icon svg { width:24px; height:24px; }
+.success-title { font-size:17px; font-weight:900; color:var(--ink); margin-bottom:8px; letter-spacing:-0.3px; }
+.success-desc { font-size:13px; color:var(--ink-3); line-height:1.8; margin-bottom:20px; }
+.track-box {
+  background:var(--blue-subtle); border:1px solid #C9D3F7;
+  border-radius:var(--radius-sm);
+  padding:12px 16px; margin-bottom:16px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.track-label { font-size:11px; color:var(--ink-3); font-weight:600; }
+.track-code { font-size:15px; font-weight:800; color:var(--blue); letter-spacing:1px; }
+
+/* Card footer */
+.card-foot {
+  padding:11px 20px;
+  border-top:1px solid var(--border);
+  background:var(--surface-2);
+  display:flex; align-items:center; justify-content:center; gap:16px;
+}
+.foot-item { display:flex; align-items:center; gap:4px; font-size:11px; color:var(--ink-3); font-weight:500; }
+.foot-icon { color:var(--green); }
+.foot-icon svg { width:11px; height:11px; }
+.sep { width:3px; height:3px; border-radius:50%; background:var(--border-strong); }
+
+/* ── STATS ── */
+.stats-row {
+  width:100%; max-width:520px;
+  display:flex; margin-top:20px;
+  background:#fff; border:1px solid var(--border);
+  border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
+}
+.stat-item { flex:1; text-align:center; padding:14px 8px; border-left:1px solid var(--border); }
+.stat-item:last-child { border-left:none; }
+.stat-n { font-size:22px; font-weight:900; color:var(--blue); letter-spacing:-1px; line-height:1; }
+.stat-l { font-size:10.5px; color:var(--ink-3); margin-top:3px; font-weight:500; }
+
+/* ── LIVE BOARD ── */
+.board {
+  width:100%; max-width:520px;
+  margin-top:18px;
+  background:var(--ink);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-md);
+  overflow:hidden;
+  position:relative;
+}
+.board::before {
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(27,63,204,0.18), transparent 55%);
+  pointer-events:none;
+}
+.board-head {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:13px 18px 11px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.board-head-l { display:flex; align-items:center; gap:8px; }
+.live-dot-wrap { position:relative; width:8px; height:8px; }
+.live-dot-wrap .core { position:absolute; inset:0; border-radius:50%; background:#3DDC84; }
+.live-dot-wrap .ring {
+  position:absolute; inset:-4px; border-radius:50%;
+  border:1.5px solid #3DDC84;
+  animation:liveRing 1.8s ease-out infinite;
+}
+@keyframes liveRing {
+  0% { transform:scale(0.6); opacity:0.9; }
+  100% { transform:scale(2.1); opacity:0; }
+}
+.board-title { font-size:12px; font-weight:700; color:#fff; letter-spacing:0.2px; }
+.board-clock { font-size:10.5px; color:rgba(255,255,255,0.45); font-weight:500; }
+.board-rows { padding:6px 8px 10px; }
+.board-row {
+  display:flex; align-items:center; gap:10px;
+  padding:9px 10px;
+  border-radius:9px;
+  transition:background .2s;
+}
+.board-row:hover { background:rgba(255,255,255,0.04); }
+.board-flight { font-size:11.5px; font-weight:800; color:rgba(255,255,255,0.5); width:46px; flex-shrink:0; letter-spacing:0.3px; }
+.board-route { display:flex; align-items:center; gap:5px; flex:1; min-width:0; }
+.board-city { font-size:12.5px; font-weight:700; color:#fff; }
+.board-arrow { color:rgba(255,255,255,0.3); flex-shrink:0; }
+.board-arrow svg { width:10px; height:10px; transform:scaleX(-1); }
+.board-time { font-size:11px; color:rgba(255,255,255,0.4); font-weight:500; width:48px; flex-shrink:0; text-align:left; direction:ltr; }
+.board-status {
+  font-size:10.5px; font-weight:800;
+  padding:4px 10px; border-radius:100px;
+  flex-shrink:0; white-space:nowrap;
+  display:flex; align-items:center; gap:4px;
+}
+.board-status svg { width:9px; height:9px; }
+.board-status.delayed { background:rgba(176,124,16,0.18); color:#E8B84B; }
+.board-status.cancelled { background:rgba(192,48,58,0.2); color:#F08891; }
+.board-status.ontime { background:rgba(26,122,74,0.18); color:#4FD697; }
+.board-foot {
+  padding:11px 18px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  display:flex; align-items:center; justify-content:space-between;
+  background:rgba(255,255,255,0.02);
+}
+.board-foot-text { font-size:11px; color:rgba(255,255,255,0.55); font-weight:500; }
+.board-foot-cta {
+  font-size:11.5px; font-weight:700; color:#fff;
+  display:flex; align-items:center; gap:4px;
+  cursor:pointer; background:none; border:none;
+  font-family:'Vazirmatn',sans-serif;
+}
+.board-foot-cta svg { width:11px; height:11px; transition:transform .2s; }
+.board-foot-cta:hover svg { transform:translateX(-3px); }
+@media (max-width:640px) {
+  .board { max-width:100%; }
+  .board-city { font-size:11.5px; }
+}
+
+
+/* ── HOW ── */
+.section { padding:80px 40px; max-width:1080px; margin:0 auto; }
+.section-eyebrow { font-size:10.5px; font-weight:800; letter-spacing:2px; color:var(--blue); text-transform:uppercase; margin-bottom:10px; }
+.section-h2 { font-size:clamp(24px,4vw,42px); font-weight:900; letter-spacing:-1.5px; line-height:1.1; margin-bottom:40px; }
+.section-h2 .dim { color:var(--ink-3); font-weight:300; }
+.how-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.how-card { padding:26px 22px; background:#fff; border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); }
+.how-num { font-size:11px; font-weight:800; color:var(--blue); letter-spacing:1px; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+.how-num::after { content:''; flex:1; height:1px; background:var(--border); }
+.how-title { font-size:14px; font-weight:800; margin-bottom:8px; color:var(--ink); }
+.how-text { font-size:12.5px; color:var(--ink-3); line-height:1.75; }
+
+/* ── COMP TABLE ── */
+.comp-section { padding:70px 40px; background:#fff; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.comp-inner { max-width:1080px; margin:0 auto; }
+.comp-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.comp-card { padding:24px 20px; border-radius:var(--radius); border:1px solid var(--border); }
+.comp-card.blue { background:var(--blue-subtle); border-color:#C9D3F7; }
+.comp-card.gold { background:var(--gold-bg); border-color:var(--gold-border); }
+.comp-card.green { background:var(--green-bg); border-color:var(--green-border); }
+.comp-label { display:inline-block; font-size:10.5px; font-weight:700; padding:3px 10px; border-radius:100px; margin-bottom:14px; }
+.comp-card.blue .comp-label { background:rgba(27,63,204,0.1); color:var(--blue); }
+.comp-card.gold .comp-label { background:rgba(176,124,16,0.12); color:var(--gold); }
+.comp-card.green .comp-label { background:rgba(26,122,74,0.12); color:var(--green); }
+.comp-amount { font-size:44px; font-weight:900; letter-spacing:-2.5px; line-height:1; margin-bottom:10px; }
+.comp-card.blue .comp-amount { color:var(--blue); }
+.comp-card.gold .comp-amount { color:var(--gold); }
+.comp-card.green .comp-amount { color:var(--green); }
+.comp-text { font-size:12.5px; color:var(--ink-3); line-height:1.7; }
+
+/* ── FOOTER ── */
+footer { text-align:center; padding:36px 24px; border-top:1px solid var(--border); background:var(--surface); }
+.footer-logo { font-size:16px; font-weight:900; color:var(--ink); margin-bottom:6px; }
+.footer-logo em { color:var(--blue); font-style:normal; }
+.footer-sub { font-size:12px; color:var(--ink-3); line-height:2; }
+footer a { color:var(--ink-3); text-decoration:none; }
+footer a:hover { color:var(--ink); }
+
+/* ── MOBILE ── */
+@media (max-width:640px) {
+  nav { padding:0 16px; }
+  .nav-links { display:none; }
+  .hero { padding:76px 16px 48px; }
+  .hero-h1 { letter-spacing:-1.5px; }
+  .how-grid, .comp-grid { grid-template-columns:1fr; }
+  .section, .comp-section { padding:60px 20px; }
+  .step-panel { padding:18px 16px 14px; }
+  .stats-row { max-width:100%; }
+  .step-bar { padding:0 14px; }
+}
+
+/* ── ABOUT DRAWER ── */
+.about-hero {
+  display:flex; align-items:center; gap:14px;
+  padding:18px 20px; margin:-24px -24px 20px;
+  background:linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 100%);
+  border-radius:0;
+}
+.about-logo-mark {
+  width:44px; height:44px; border-radius:12px;
+  background:rgba(255,255,255,0.15);
+  border:1.5px solid rgba(255,255,255,0.25);
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; font-weight:900; color:#fff;
+  flex-shrink:0;
+}
+.about-tagline {
+  font-size:15px; font-weight:700; color:#fff;
+  letter-spacing:-0.3px;
+}
+.about-block {
+  display:flex; gap:14px; align-items:flex-start;
+  padding:16px 0; border-bottom:1px solid var(--border);
+}
+.about-block:last-of-type { border-bottom:none; }
+.about-block-icon {
+  width:36px; height:36px; border-radius:10px;
+  background:var(--blue-subtle); border:1px solid #C9D3F7;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--blue); flex-shrink:0;
+}
+.about-block-icon.warning {
+  background:var(--gold-bg); border-color:var(--gold-border); color:var(--gold);
+}
+.about-block-icon.success {
+  background:var(--green-bg); border-color:var(--green-border); color:var(--green);
+}
+.about-block-title {
+  font-size:13px; font-weight:800; color:var(--ink);
+  margin-bottom:5px; letter-spacing:-0.2px;
+}
+.about-block-body p {
+  font-size:13px; color:var(--ink-2); line-height:1.75; margin:0;
+}
+.about-meta {
+  display:flex; gap:16px; flex-wrap:wrap;
+  padding:16px 0 0; margin-top:4px;
+}
+.about-meta-item {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:12px; color:var(--ink-3); font-weight:500;
+}
+.about-meta-item svg { color:var(--blue); flex-shrink:0; }
+
+/* ── CONTACT DRAWER ── */
+.contact-intro {
+  font-size:13.5px; color:var(--ink-2); line-height:1.75;
+  margin-bottom:20px !important;
+}
+.contact-cards { display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
+.contact-card {
+  display:flex; align-items:center; gap:14px;
+  padding:14px 16px; border-radius:12px;
+  background:var(--surface-2); border:1.5px solid var(--border);
+  text-decoration:none; color:inherit;
+  transition:all .18s ease; cursor:pointer;
+}
+.contact-card:hover {
+  border-color:var(--blue);
+  background:var(--blue-subtle);
+  transform:translateY(-1px);
+  box-shadow:0 4px 14px rgba(27,63,204,0.1);
+}
+.contact-card.no-link { cursor:default; }
+.contact-card.no-link:hover {
+  border-color:var(--border); background:var(--surface-2);
+  transform:none; box-shadow:none;
+}
+.contact-card-icon {
+  width:40px; height:40px; border-radius:10px;
+  background:#fff; border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--blue); flex-shrink:0;
+}
+.contact-card-body { flex:1; min-width:0; }
+.contact-card-label { font-size:11px; color:var(--ink-3); font-weight:600; margin-bottom:2px; }
+.contact-card-val { font-size:14px; font-weight:700; color:var(--ink); }
+.contact-card-arrow { color:var(--ink-3); flex-shrink:0; }
+.contact-hours {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:12px; color:var(--ink-3); font-weight:500;
+  background:var(--surface-2); border:1px solid var(--border);
+  border-radius:100px; padding:6px 12px;
+}
+.contact-hours svg { color:var(--blue); }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-mark">آ</div>
+    <div class="nav-logo-text">آسما<em>نه</em></div>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="#how">چطور کار می‌کند</a>
+    <a class="nav-link" href="#comp">جدول غرامت</a>
+  </div>
+  <button class="nav-pill-btn nav-pill-accent" onclick="openDrawer('info')">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M12 16v-4.5"/>
+      <circle cx="12" cy="8" r="0.5" fill="currentColor"/>
+    </svg>
+    درباره ما و تماس
+  </button>
+</nav>
+
+<section class="hero">
+
+  <!-- BACKGROUND CIRCLE -->
+  <div class="hero-bg-circle" aria-hidden="true">
+    <div class="hbc-outer-ring"></div>
+    <div class="hbc-mid-ring"></div>
+    <div class="hbc-inner">
+      <div class="hbc-glow"></div>
+      <svg class="hbc-plane" viewBox="0 0 48 48" fill="none">
+        <path d="M6 24L20 14L18 8L22 9L26 18L36 14L38 16L30 22L34 36L30 37L24 28L14 32L15 28Z" fill="white" fill-opacity="0.9"/>
+      </svg>
+      <div class="hbc-shimmer"></div>
+    </div>
+    <div class="hbc-orbit-dot"></div>
+    <div class="hbc-orbit-dot hbc-orbit-dot-2"></div>
+  </div>
+
+  <div class="hero-eyebrow">
+    <div class="eyebrow-dot"></div>
+    سامانه احقاق حقوق مسافران هوایی ایران
+  </div>
+
+  <h1 class="hero-h1">
+    <span class="dim">پروازتان</span><br>مشکل داشت؟<br>
+    <span class="accent">خسارتتان را</span><br>
+    <span class="dim">بگیرید.</span>
+  </h1>
+
+  <p class="hero-sub">
+    اطلاعات پرواز را وارد کنید.<br>در چند ثانیه میزان غرامت قانونی‌تان را محاسبه می‌کنیم.
+  </p>
+
+  <!-- CARD -->
+  <div class="card" id="mainCard">
+
+    <div class="step-bar" id="stepBar">
+      <div class="step-pill active" id="sp1">
+        <div class="step-n">۱</div><span>پرواز</span>
+      </div>
+      <div class="step-div"></div>
+      <div class="step-pill" id="sp2">
+        <div class="step-n">۲</div><span>تأیید</span>
+      </div>
+      <div class="step-div"></div>
+      <div class="step-pill" id="sp3">
+        <div class="step-n">۳</div><span>دلیل</span>
+      </div>
+      <div class="step-div"></div>
+      <div class="step-pill" id="sp4">
+        <div class="step-n">۴</div><span>نتیجه</span>
+      </div>
+    </div>
+
+    <div class="steps-wrap">
+
+      <!-- STEP 1 -->
+      <div class="step-panel active" id="panel1">
+        <div class="panel-title">اطلاعات پرواز <span class="tag">رایگان · بدون تعهد</span></div>
+
+        <div class="fields-stack">
+
+          <!-- Route row -->
+          <div class="route-row" id="routeRow">
+            <div class="route-field">
+              <div class="route-field-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                مبدأ
+              </div>
+              <div class="route-field-val placeholder" id="originVal">شهر مبدأ</div>
+              <select id="origin" onchange="updateRouteVal('origin')">
+                <option value="">انتخاب کنید</option>
+                <option value="تهران|IKA">تهران (IKA)</option>
+                <option value="مشهد|MHD">مشهد (MHD)</option>
+                <option value="اصفهان|IFN">اصفهان (IFN)</option>
+                <option value="شیراز|SYZ">شیراز (SYZ)</option>
+                <option value="اهواز|AWZ">اهواز (AWZ)</option>
+                <option value="تبریز|TBZ">تبریز (TBZ)</option>
+                <option value="کرمانشاه|KSH">کرمانشاه (KSH)</option>
+                <option value="کیش|KIH">کیش (KIH)</option>
+              </select>
+            </div>
+            <div class="route-divider">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <div class="route-field">
+              <div class="route-field-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                مقصد
+              </div>
+              <div class="route-field-val placeholder" id="destVal">شهر مقصد</div>
+              <select id="dest" onchange="updateRouteVal('dest')">
+                <option value="">انتخاب کنید</option>
+                <option value="تهران|IKA">تهران (IKA)</option>
+                <option value="مشهد|MHD">مشهد (MHD)</option>
+                <option value="اصفهان|IFN">اصفهان (IFN)</option>
+                <option value="شیراز|SYZ">شیراز (SYZ)</option>
+                <option value="اهواز|AWZ">اهواز (AWZ)</option>
+                <option value="تبریز|TBZ">تبریز (TBZ)</option>
+                <option value="کرمانشاه|KSH">کرمانشاه (KSH)</option>
+                <option value="کیش|KIH">کیش (KIH)</option>
+                <option value="دبی|DXB">دبی (DXB)</option>
+                <option value="استانبول|IST">استانبول (IST)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Date field -->
+          <div class="date-field" id="dateField">
+            <div class="date-field-head" onclick="toggleCal()">
+              <div class="date-field-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              </div>
+              <div class="date-field-info">
+                <div class="lbl">تاریخ پرواز</div>
+                <div class="val placeholder" id="dateDisplay">انتخاب تاریخ</div>
+              </div>
+              <div class="date-field-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="jcal" id="jcal">
+              <div class="jcal-inner">
+                <div class="jcal-nav">
+                  <button class="jcal-nav-btn" onclick="calNav(-1)">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+                  </button>
+                  <div class="jcal-month-label" id="calLabel"></div>
+                  <button class="jcal-nav-btn" onclick="calNav(1)">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                  </button>
+                </div>
+                <div class="jcal-dow">
+                  <span>ش</span><span>ی</span><span>د</span><span>س</span><span>چ</span><span>پ</span><span>ج</span>
+                </div>
+                <div class="jcal-days" id="calDays"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flight number -->
+          <div class="flnum-field">
+            <div class="flnum-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19 4c-1.4 0-1.7.6-3.5 1.5L8 4l-.6 1.6 7 3.4-3.8 3.8L9 12l-2-.5L5.5 13l4.5 2 2 4.5L13.5 18l-.5-1.5 3.8-3.8 3.4 7L22 19l-4.2-3.8z"/></svg>
+            </div>
+            <div class="flnum-field-wrap">
+              <div class="lbl">شماره پرواز</div>
+              <input class="flnum-inp" type="text" placeholder="مثلاً W5 1051" id="flightNum">
+            </div>
+            <span class="flnum-opt">اختیاری</span>
+          </div>
+
+        </div>
+
+        <button class="btn btn-primary" onclick="doSearch()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          جستجوی پرواز
+        </button>
+      </div>
+
+      <!-- LOADING -->
+      <div class="step-panel" id="panelLoad">
+        <div class="loading">
+          <div class="spinner"></div>
+          <div class="loading-text">در حال دریافت اطلاعات پرواز...</div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-panel" id="panel2">
+        <div class="panel-title">پرواز پیدا شد</div>
+
+        <div class="filter-label-row">
+          <span class="filter-lbl">فیلتر ایرلاین</span>
+          <span class="filter-hint">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            اسکرول کنید
+          </span>
+        </div>
+        <div class="airline-scroll-wrap">
+          <div class="airline-scroll" id="airlineScroll">
+            <button class="airline-chip all-chip selected" onclick="filterAirline(this,'همه')">همه</button>
+            <button class="airline-chip" onclick="filterAirline(this,'ماهان')">ماهان</button>
+            <button class="airline-chip" onclick="filterAirline(this,'ایران‌ایر')">ایران‌ایر</button>
+            <button class="airline-chip" onclick="filterAirline(this,'آسمان')">آسمان</button>
+            <button class="airline-chip" onclick="filterAirline(this,'کاسپین')">کاسپین</button>
+            <button class="airline-chip" onclick="filterAirline(this,'زاگرس')">زاگرس</button>
+            <button class="airline-chip" onclick="filterAirline(this,'قشم‌ایر')">قشم‌ایر</button>
+          </div>
+        </div>
+
+        <div class="boarding-pass" id="boardingPass">
+          <div class="bp-header">
+            <div>
+              <div class="bp-airline-name" id="bpAirline">ماهان ایر</div>
+              <div class="bp-flight-num" id="bpFlNum">W5 1051</div>
+            </div>
+            <div class="bp-status delay" id="bpStatus">تأخیر ۶ ساعت</div>
+          </div>
+          <div class="bp-body">
+            <div class="bp-route">
+              <div class="bp-iata" id="bpFrom">THR</div>
+              <div class="bp-arrow-wrap">
+                <div class="bp-line"></div>
+                <div class="bp-plane">✈</div>
+                <div class="bp-line"></div>
+              </div>
+              <div class="bp-iata" id="bpTo">DXB</div>
+            </div>
+            <div class="bp-meta">
+              <div class="bp-meta-item">
+                <div class="bp-meta-label">تاریخ</div>
+                <div class="bp-meta-val" id="bpDate">—</div>
+              </div>
+              <div class="bp-meta-item">
+                <div class="bp-meta-label">ساعت</div>
+                <div class="bp-meta-val">۱۴:۳۰</div>
+              </div>
+              <div class="bp-meta-item">
+                <div class="bp-meta-label">وضعیت</div>
+                <div class="bp-meta-val" id="bpStatusText" style="color:var(--gold)">تأخیر</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="confirm-q">آیا این پرواز شماست؟</p>
+        <button class="btn btn-primary" onclick="confirmFlight()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          بله، این پروازم است
+        </button>
+        <button class="btn btn-ghost" onclick="goBack(1)">برگشت و ویرایش</button>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-panel" id="panel3">
+        <div class="panel-title">دلیل درخواست خسارت</div>
+        <div class="reason-grid" id="reasonGrid">
+          <button class="reason-btn" onclick="selectReason(this,'delay-2-5')">
+            <span class="reason-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </span>
+            تأخیر ۲–۵ ساعت
+          </button>
+          <button class="reason-btn" onclick="selectReason(this,'delay-5+')">
+            <span class="reason-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/><path d="M16.24 7.76A6 6 0 0116.24 16.24"/></svg>
+            </span>
+            تأخیر بیش از ۵ ساعت
+          </button>
+          <button class="reason-btn" onclick="selectReason(this,'cancel')">
+            <span class="reason-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+            </span>
+            لغو پرواز
+          </button>
+          <button class="reason-btn" onclick="selectReason(this,'missed')">
+            <span class="reason-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19 4c-1.4 0-1.7.6-3.5 1.5L8 4l-.6 1.6 7 3.4-3.8 3.8L9 12l-2-.5L5.5 13l4.5 2 2 4.5L13.5 18l-.5-1.5 3.8-3.8 3.4 7L22 19l-4.2-3.8z"/><line x1="3" y1="3" x2="21" y2="21"/></svg>
+            </span>
+            جا ماندن از پرواز
+          </button>
+          <button class="reason-btn" onclick="selectReason(this,'overbook')">
+            <span class="reason-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </span>
+            اووربوکینگ
+          </button>
+          <button class="reason-btn" onclick="selectReason(this,'luggage')">
+            <span class="reason-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+            </span>
+            مشکل چمدان
+          </button>
+        </div>
+        <button class="btn btn-primary" id="reasonBtn" onclick="calcResult()" disabled style="opacity:.4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 7H6a2 2 0 00-2 2v9a2 2 0 002 2h9a2 2 0 002-2v-3"/><path d="M9 15h3l8.5-8.5a1.5 1.5 0 00-3-3L9 12v3"/><line x1="16" y1="5" x2="19" y2="8"/></svg>
+          محاسبه خسارت قانونی
+        </button>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-panel" id="panel4">
+        <div class="result-hero">
+          <div id="eligibleBadge" class="result-badge eligible">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+            مستحق خسارت هستید
+          </div>
+          <div class="result-amount" id="resAmount">۱۰۰٪</div>
+          <div class="result-desc" id="resDesc">معادل کامل قیمت بلیت به عنوان غرامت نقدی، به علاوه اسکان هتل در صورت ماندن شبانه در فرودگاه.</div>
+        </div>
+        <div class="breakdown">
+          <div class="brow"><span class="lbl">مبنای قانونی</span><span class="val" id="resLaw">منشور حقوق مسافر — ماده ۱۳</span></div>
+          <div class="brow"><span class="lbl">نوع غرامت</span><span class="val green" id="resType">نقدی + اسکان</span></div>
+          <div class="brow"><span class="lbl">مهلت پیگیری</span><span class="val blue">۶ ماه از تاریخ پرواز</span></div>
+          <div class="brow"><span class="lbl">هزینه آسمانه</span><span class="val green">صفر تا دریافت — ۲۰٪ از غرامت</span></div>
+        </div>
+        <button class="btn btn-success" onclick="submitCase()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+          ثبت پرونده و شروع پیگیری
+        </button>
+        <button class="btn btn-ghost" onclick="goBack(3)">بررسی مجدد</button>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step-panel" id="panel5">
+        <div class="success-wrap">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <div class="success-title">پرونده ثبت شد</div>
+          <div class="success-desc">
+            تیم حقوقی آسمانه ظرف ۴۸ ساعت پرونده را بررسی می‌کند.<br>
+            وضعیت از طریق پیامک اطلاع داده می‌شود.
+          </div>
+          <div class="track-box">
+            <span class="track-label">کد پیگیری</span>
+            <span class="track-code" id="trackCode">ASM-XXXX-0000</span>
+          </div>
+          <button class="btn btn-ghost" onclick="resetAll()">ثبت پرونده جدید</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card-foot">
+      <span class="foot-item">
+        <span class="foot-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+        </span>
+        رایگان
+      </span>
+      <span class="sep"></span>
+      <span class="foot-item">
+        <span class="foot-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+        </span>
+        بدون کاغذبازی
+      </span>
+      <span class="sep"></span>
+      <span class="foot-item">
+        <span class="foot-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+        </span>
+        پرداخت فقط در صورت موفقیت
+      </span>
+    </div>
+
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-item"><div class="stat-n">+۱۸K</div><div class="stat-l">پرونده موفق</div></div>
+    <div class="stat-item"><div class="stat-n">۹۴٪</div><div class="stat-l">نرخ احقاق</div></div>
+    <div class="stat-item"><div class="stat-n">صفر</div><div class="stat-l">هزینه اولیه</div></div>
+  </div>
+
+  <!-- LIVE FLIGHT STATUS BOARD -->
+  <div class="board" id="liveBoard">
+    <div class="board-head">
+      <div class="board-head-l">
+        <div class="live-dot-wrap"><div class="ring"></div><div class="core"></div></div>
+        <div class="board-title">وضعیت لحظه‌ای پروازها</div>
+      </div>
+      <div class="board-clock" id="boardClock">—</div>
+    </div>
+    <div class="board-rows">
+      <div class="board-row">
+        <div class="board-flight">IR۷۳۲</div>
+        <div class="board-route">
+          <span class="board-city">تهران</span>
+          <span class="board-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="board-city">مشهد</span>
+        </div>
+        <div class="board-time">۱۴:۲۰</div>
+        <div class="board-status delayed">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10"/><path d="M12 7v5l3 2"/></svg>
+          ۹۰ دقیقه تأخیر
+        </div>
+      </div>
+      <div class="board-row">
+        <div class="board-flight">W۵۱۱۸۴</div>
+        <div class="board-route">
+          <span class="board-city">تهران</span>
+          <span class="board-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="board-city">استانبول</span>
+        </div>
+        <div class="board-time">۰۹:۴۵</div>
+        <div class="board-status cancelled">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+          لغو شده
+        </div>
+      </div>
+      <div class="board-row">
+        <div class="board-flight">EP۲۲۰۹</div>
+        <div class="board-route">
+          <span class="board-city">شیراز</span>
+          <span class="board-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="board-city">تهران</span>
+        </div>
+        <div class="board-time">۱۸:۱۰</div>
+        <div class="board-status ontime">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          به‌موقع
+        </div>
+      </div>
+      <div class="board-row">
+        <div class="board-flight">IR۰۴۴</div>
+        <div class="board-route">
+          <span class="board-city">تهران</span>
+          <span class="board-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="board-city">دبی</span>
+        </div>
+        <div class="board-time">۲۲:۰۰</div>
+        <div class="board-status delayed">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10"/><path d="M12 7v5l3 2"/></svg>
+          ۳ ساعت تأخیر
+        </div>
+      </div>
+    </div>
+    <div class="board-foot">
+      <div class="board-foot-text">پرواز شما تأخیر یا لغو شده؟ همین حالا چک کنید</div>
+      <button class="board-foot-cta" onclick="document.getElementById('mainCard').scrollIntoView({behavior:'smooth'})">
+        بررسی غرامت
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="section" id="how">
+  <div class="section-eyebrow">فرآیند</div>
+  <h2 class="section-h2">سه قدم تا<br><span class="dim">دریافت غرامت</span></h2>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">۰۱</div>
+      <div class="how-title">اطلاعات پرواز</div>
+      <p class="how-text">مبدأ، مقصد و تاریخ پرواز را وارد کنید. سیستم در چند ثانیه پرواز را شناسایی و وضعیت آن را تأیید می‌کند.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">۰۲</div>
+      <div class="how-title">پرونده‌سازی توسط آسمانه</div>
+      <p class="how-text">تیم حقوقی ما تمام مستندات را آماده می‌کند و مستقیم با ایرلاین وارد مذاکره می‌شود. هیچ اقدامی از طرف شما لازم نیست.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">۰۳</div>
+      <div class="how-title">غرامت به حساب شما</div>
+      <p class="how-text">پس از وصول، مبلغ مستقیم به حسابتان واریز می‌شود. کارمزد ما فقط در صورت موفقیت از همین غرامت کسر می‌شود.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMP -->
+<section class="comp-section" id="comp">
+  <div class="comp-inner">
+    <div class="section-eyebrow">جدول غرامت قانونی</div>
+    <h2 class="section-h2">چقدر<br><span class="dim">به شما تعلق می‌گیرد؟</span></h2>
+    <div class="comp-grid">
+      <div class="comp-card blue">
+        <div class="comp-label">تأخیر ۲–۵ ساعت</div>
+        <div class="comp-amount">۳۰٪</div>
+        <p class="comp-text">سی درصد قیمت پایه بلیت به علاوه پذیرایی در فرودگاه</p>
+      </div>
+      <div class="comp-card gold">
+        <div class="comp-label">تأخیر بیش از ۵ ساعت</div>
+        <div class="comp-amount">۱۰۰٪</div>
+        <p class="comp-text">معادل کامل قیمت بلیت به علاوه اسکان شبانه در صورت نیاز</p>
+      </div>
+      <div class="comp-card green">
+        <div class="comp-label">لغو پرواز</div>
+        <div class="comp-amount">۱۰۰٪+</div>
+        <p class="comp-text">استرداد کامل بلیت به علاوه غرامت برابر قیمت پایه و حمل‌ونقل رایگان</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">آسما<em>نه</em></div>
+  <div class="footer-sub">
+    سامانه استیفای حقوق مسافران هوایی · مبتنی بر قوانین سازمان هواپیمایی کشوری<br>
+    <span style="color:var(--ink-3);font-size:11px">۱۴۰۳ · <a href="#">شرایط استفاده</a> · <a href="#">حریم خصوصی</a></span>
+  </div>
+</footer>
+
+<script>
+/* ── Jalali Calendar ── */
+const jMonths = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+const jDaysInMonth = (y,m) => {
+  if (m <= 6) return 31;
+  if (m <= 11) return 30;
+  return (y % 4 === 3) ? 30 : 29;
+};
+function gregorianToJalali(gy, gm, gd) {
+  const g_d_no = [0,31,(gy%4===0&&gy%100!==0||gy%400===0)?29:28,31,30,31,30,31,31,30,31,30,31];
+  let jy = gy <= 1600 ? 0 : 979;
+  gy -= gy <= 1600 ? 621 : 1600;
+  const gy2 = gm > 2 ? gy + 1 : gy;
+  let g_day_no = 365*gy + Math.floor((gy2+3)/4) - Math.floor((gy2+99)/100) + Math.floor((gy2+399)/400);
+  for (let i=0; i<gm-1; i++) g_day_no += g_d_no[i+1];
+  g_day_no += gd - 1;
+  let j_day_no = g_day_no - 79;
+  const j_np = Math.floor(j_day_no / 12053);
+  j_day_no %= 12053;
+  jy += 33*j_np + 4*Math.floor(j_day_no/1461);
+  j_day_no %= 1461;
+  if (j_day_no >= 366) { jy += Math.floor((j_day_no-1)/365); j_day_no = (j_day_no-1)%365; }
+  let jm, jd;
+  for (let i=0; i<11&&j_day_no>=(i<6?31:30); i++) { j_day_no -= i<6?31:30; jm=i+2; }
+  if (jm === undefined) jm = 1;
+  jd = j_day_no + 1;
+  return [jy, jm, jd];
+}
+function jalaliToGregorian(jy,jm,jd) {
+  jy += 1595; let days = -355779 + 365*jy + Math.floor(jy/33)*8 + Math.floor((jy%33+3)/4) + 78 + jd + (jm<7?(jm-1)*31:(jm-7)*30+186);
+  let gy = 400*Math.floor(days/146097); days %= 146097;
+  if (days > 36524) { gy += 100*Math.floor(--days/36524); days %= 36524; if (days >= 365) days++; }
+  gy += 4*Math.floor(days/1461); days %= 1461;
+  if (days > 365) { gy += Math.floor((days-1)/365); days = (days-1)%365; }
+  const gd = days + 1;
+  const sal_a = [0,31,(gy%4===0&&gy%100!==0||gy%400===0)?29:28,31,30,31,30,31,31,30,31,30,31];
+  let gm = 0; let rem = gd;
+  for (let i=1;i<=12;i++) { if (rem<=sal_a[i]) { gm=i; break; } rem-=sal_a[i]; }
+  return [gy,gm,rem];
+}
+
+const today = new Date();
+const [tjy, tjm, tjd] = gregorianToJalali(today.getFullYear(), today.getMonth()+1, today.getDate());
+let calYear = tjy, calMonth = tjm;
+let selectedJDate = null;
+
+function toFarsiNum(n) {
+  return String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+}
+
+function renderCal() {
+  document.getElementById('calLabel').textContent = jMonths[calMonth-1] + ' ' + toFarsiNum(calYear);
+  const daysEl = document.getElementById('calDays');
+  daysEl.innerHTML = '';
+  const dim = jDaysInMonth(calYear, calMonth);
+  const [fy,fm,fd] = jalaliToGregorian(calYear, calMonth, 1);
+  const firstDate = new Date(fy, fm-1, fd);
+  let dow = firstDate.getDay(); // 0=sun
+  // Convert to Sat-start (Sat=0 in Persian week)
+  // Persian week: Sat=0,Sun=1,Mon=2,Tue=3,Wed=4,Thu=5,Fri=6
+  // JS: Sun=0,Mon=1,...,Sat=6
+  const persianDow = (dow + 1) % 7; // Sat offset
+  for (let i=0; i<persianDow; i++) {
+    const e = document.createElement('div');
+    e.className = 'jcal-day empty';
+    daysEl.appendChild(e);
+  }
+  for (let d=1; d<=dim; d++) {
+    const e = document.createElement('div');
+    e.className = 'jcal-day';
+    e.textContent = toFarsiNum(d);
+    const isPast = (calYear < tjy) || (calYear===tjy && calMonth<tjm) || (calYear===tjy && calMonth===tjm && d<tjd);
+    if (isPast) e.classList.add('past');
+    if (calYear===tjy && calMonth===tjm && d===tjd) e.classList.add('today');
+    if (selectedJDate && selectedJDate[0]===calYear && selectedJDate[1]===calMonth && selectedJDate[2]===d) e.classList.add('selected');
+    if (!isPast) e.onclick = () => pickDay(d);
+    daysEl.appendChild(e);
+  }
+}
+
+function calNav(dir) {
+  calMonth += dir;
+  if (calMonth > 12) { calMonth=1; calYear++; }
+  if (calMonth < 1) { calMonth=12; calYear--; }
+  renderCal();
+}
+
+function toggleCal() {
+  const jcal = document.getElementById('jcal');
+  const df = document.getElementById('dateField');
+  const isOpen = jcal.classList.contains('open');
+  if (isOpen) { jcal.classList.remove('open'); df.classList.remove('open'); }
+  else { jcal.classList.add('open'); df.classList.add('open'); renderCal(); }
+}
+
+function pickDay(d) {
+  selectedJDate = [calYear, calMonth, d];
+  const disp = toFarsiNum(calYear) + '/' + toFarsiNum(String(calMonth).padStart(2,'0')) + '/' + toFarsiNum(String(d).padStart(2,'0'));
+  const dd = document.getElementById('dateDisplay');
+  dd.textContent = disp;
+  dd.classList.remove('placeholder');
+  renderCal();
+  setTimeout(() => {
+    document.getElementById('jcal').classList.remove('open');
+    document.getElementById('dateField').classList.remove('open');
+  }, 150);
+}
+
+renderCal();
+
+/* ── Route field update ── */
+function updateRouteVal(field) {
+  const sel = document.getElementById(field);
+  const val = sel.value;
+  const display = document.getElementById(field + 'Val');
+  if (!val) { display.textContent = field==='origin' ? 'شهر مبدأ' : 'شهر مقصد'; display.classList.add('placeholder'); return; }
+  const parts = val.split('|');
+  display.innerHTML = parts[0] + ' <span style="font-size:11px;color:var(--ink-3);font-weight:500">(' + parts[1] + ')</span>';
+  display.classList.remove('placeholder');
+}
+
+/* ── Core state ── */
+let selectedAirlineFilter = 'همه';
+let selectedReason = '';
+let flightData = {};
+
+/* ── LIVE BOARD CLOCK ── */
+function toPersianDigits(str) {
+  const fa = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+  return String(str).replace(/[0-9]/g, d => fa[d]);
+}
+function updateBoardClock() {
+  const el = document.getElementById('boardClock');
+  if (!el) return;
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  el.textContent = 'به‌روزرسانی ' + toPersianDigits(h + ':' + m);
+}
+updateBoardClock();
+setInterval(updateBoardClock, 30000);
+
+function scrollToCard() {
+  document.getElementById('mainCard').scrollIntoView({ behavior:'smooth', block:'center' });
+}
+
+function filterAirline(el, name) {
+  document.querySelectorAll('.airline-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedAirlineFilter = name;
+}
+
+function showStep(n) {
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel' + n).classList.add('active');
+  ['1','2','3','4'].forEach(i => {
+    const sp = document.getElementById('sp' + i);
+    sp.classList.remove('active','done');
+    const ni = parseInt(i);
+    const num = sp.querySelector('.step-n');
+    if (ni < n) { sp.classList.add('done'); num.textContent = '✓'; }
+    else if (ni === n) { sp.classList.add('active'); num.textContent = ['۱','۲','۳','۴'][ni-1]; }
+    else { num.textContent = ['۱','۲','۳','۴'][ni-1]; }
+  });
+}
+
+function doSearch() {
+  const origin = document.getElementById('origin').value;
+  const dest = document.getElementById('dest').value;
+  let valid = true;
+
+  document.getElementById('routeRow').style.borderColor = '';
+  document.getElementById('dateField').style.borderColor = '';
+
+  if (!origin || !dest) { document.getElementById('routeRow').style.borderColor = 'var(--red)'; valid = false; }
+  if (!selectedJDate) { document.getElementById('dateField').style.borderColor = 'var(--red)'; valid = false; }
+
+  if (!valid) {
+    setTimeout(() => {
+      document.getElementById('routeRow').style.borderColor = '';
+      document.getElementById('dateField').style.borderColor = '';
+    }, 2200);
+    return;
+  }
+
+  const oparts = origin.split('|');
+  const dparts = dest.split('|');
+  const fromCode = oparts[1] || origin.substring(0,3).toUpperCase();
+  const toCode = dparts[1] || dest.substring(0,3).toUpperCase();
+  const flNum = document.getElementById('flightNum').value || 'W5 1051';
+  const dateStr = toFarsiNum(selectedJDate[0]) + '/' + toFarsiNum(String(selectedJDate[1]).padStart(2,'0')) + '/' + toFarsiNum(String(selectedJDate[2]).padStart(2,'0'));
+
+  const scenarios = [
+    { status:'delay-5+', label:'تأخیر ۶ ساعت', statusText:'تأخیر', statusClass:'delay', statusColor:'var(--gold)' },
+    { status:'delay-2-5', label:'تأخیر ۳ ساعت', statusText:'تأخیر', statusClass:'delay', statusColor:'var(--gold)' },
+    { status:'cancel', label:'لغو شده', statusText:'لغو', statusClass:'cancel', statusColor:'var(--red)' },
+  ];
+  const s = scenarios[Math.floor(Math.random() * scenarios.length)];
+  const airlines = ['ماهان','ایران‌ایر','آسمان','کاسپین','زاگرس','قشم‌ایر'];
+  const airline = airlines[Math.floor(Math.random() * airlines.length)];
+
+  flightData = { airline, from:fromCode, to:toCode, num:flNum, date:dateStr, ...s };
+
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panelLoad').classList.add('active');
+
+  setTimeout(() => {
+    document.getElementById('bpAirline').textContent = airline;
+    document.getElementById('bpFlNum').textContent = flNum;
+    document.getElementById('bpStatus').textContent = s.label;
+    document.getElementById('bpStatus').className = 'bp-status ' + s.statusClass;
+    document.getElementById('bpFrom').textContent = fromCode;
+    document.getElementById('bpTo').textContent = toCode;
+    document.getElementById('bpDate').textContent = dateStr;
+    document.getElementById('bpStatusText').textContent = s.statusText;
+    document.getElementById('bpStatusText').style.color = s.statusColor;
+    showStep(2);
+  }, 1400);
+}
+
+function confirmFlight() {
+  showStep(3);
+  if (flightData.status === 'cancel') autoSelectReason('cancel');
+  else if (flightData.status === 'delay-5+') autoSelectReason('delay-5+');
+  else if (flightData.status === 'delay-2-5') autoSelectReason('delay-2-5');
+}
+
+function autoSelectReason(val) {
+  document.querySelectorAll('.reason-btn').forEach(b => {
+    if (b.getAttribute('onclick').includes("'" + val + "'")) {
+      b.classList.add('sel');
+      selectedReason = val;
+      enableReasonBtn();
+    }
+  });
+}
+
+function goBack(n) { showStep(n); }
+
+function selectReason(el, val) {
+  document.querySelectorAll('.reason-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  selectedReason = val;
+  enableReasonBtn();
+}
+
+function enableReasonBtn() {
+  const btn = document.getElementById('reasonBtn');
+  btn.disabled = false; btn.style.opacity = '1';
+}
+
+function calcResult() {
+  const results = {
+    'delay-2-5': { eligible:true, amount:'۳۰٪', desc:'طبق منشور حقوق مسافر، در تأخیر ۲ تا ۵ ساعته ۳۰ درصد قیمت پایه بلیت به علاوه پذیرایی در فرودگاه به شما تعلق می‌گیرد.', law:'منشور حقوق مسافر — ماده ۱۱', type:'نقدی + پذیرایی' },
+    'delay-5+':  { eligible:true, amount:'۱۰۰٪', desc:'تأخیر بیش از ۵ ساعت موجب استحقاق غرامت کامل برابر قیمت بلیت می‌شود. در صورت ماندن شبانه، اسکان هتل نیز بر عهده ایرلاین است.', law:'منشور حقوق مسافر — ماده ۱۳', type:'نقدی + اسکان' },
+    'cancel':    { eligible:true, amount:'۱۰۰٪+', desc:'در لغو پرواز، علاوه بر استرداد کامل بلیت، غرامت برابر قیمت پایه به شما تعلق می‌گیرد. حمل‌ونقل جایگزین و اسکان نیز الزامی است.', law:'آیین‌نامه حمل مسافر — ماده ۱۸', type:'نقدی + استرداد + اسکان' },
+    'missed':    { eligible:false, amount:'بررسی می‌شود', desc:'جا ماندن از پرواز معمولاً مشمول غرامت نمی‌شود، مگر خطای ایرلاین در اطلاع‌رسانی ثابت شود. پرونده شما ارزیابی می‌گردد.', law:'آیین‌نامه حمل مسافر — ماده ۹', type:'نیازمند بررسی' },
+    'overbook':  { eligible:true, amount:'۱۰۰٪+', desc:'در صورت ازپرواز‌افتادن به دلیل اووربوکینگ، ایرلاین موظف به پرداخت غرامت کامل، پرواز جایگزین فوری و پذیرایی است.', law:'آیین‌نامه حمل مسافر — ماده ۲۱', type:'نقدی + پرواز جایگزین' },
+    'luggage':   { eligible:true, amount:'تا ۱۰۰۰ SDR', desc:'بر اساس کنوانسیون مونترال، در صورت آسیب، تأخیر یا گم شدن چمدان، ایرلاین مسئول جبران خسارت تا سقف تعیین‌شده است.', law:'کنوانسیون مونترال ۱۹۹۹', type:'نقدی یا جایگزینی' },
+  };
+  const r = results[selectedReason] || results['delay-5+'];
+  document.getElementById('resAmount').textContent = r.amount;
+  document.getElementById('resAmount').className = 'result-amount' + (r.eligible ? '' : ' gray');
+  document.getElementById('resDesc').textContent = r.desc;
+  document.getElementById('resLaw').textContent = r.law;
+  document.getElementById('resType').textContent = r.type;
+  const badge = document.getElementById('eligibleBadge');
+  badge.className = 'result-badge ' + (r.eligible ? 'eligible' : 'review');
+  badge.innerHTML = r.eligible
+    ? '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg> مستحق خسارت هستید'
+    : '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg> نیازمند بررسی بیشتر';
+  showStep(4);
+}
+
+function submitCase() {
+  const code = 'ASM-' + Math.random().toString(36).substring(2,6).toUpperCase() + '-' + Date.now().toString().slice(-4);
+  document.getElementById('trackCode').textContent = code;
+  document.getElementById('panel4').classList.remove('active');
+  document.getElementById('panel5').classList.add('active');
+  ['1','2','3','4'].forEach(i => {
+    const sp = document.getElementById('sp' + i);
+    sp.className = 'step-pill done';
+    sp.querySelector('.step-n').textContent = '✓';
+  });
+}
+
+/* ── DRAWER FUNCTIONS ── */
+function openDrawer(type) {
+  closeDrawer(); // بستن درایور قبلی اگر باز بود
+  if (type === 'info') {
+    document.getElementById('infoDrawer').classList.add('open');
+  }
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDrawer() {
+  document.getElementById('infoDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function resetAll() {
+  selectedAirlineFilter = 'همه'; selectedReason = ''; flightData = {}; selectedJDate = null;
+  calYear = tjy; calMonth = tjm;
+  document.querySelectorAll('.airline-chip').forEach(c => c.classList.remove('selected'));
+  document.querySelector('.all-chip').classList.add('selected');
+  document.querySelectorAll('.reason-btn').forEach(b => b.classList.remove('sel'));
+  document.getElementById('origin').value = '';
+  document.getElementById('dest').value = '';
+  document.getElementById('flightNum').value = '';
+  document.getElementById('originVal').textContent = 'شهر مبدأ';
+  document.getElementById('originVal').classList.add('placeholder');
+  document.getElementById('destVal').textContent = 'شهر مقصد';
+  document.getElementById('destVal').classList.add('placeholder');
+  document.getElementById('dateDisplay').textContent = 'انتخاب تاریخ';
+  document.getElementById('dateDisplay').classList.add('placeholder');
+  document.getElementById('jcal').classList.remove('open');
+  document.getElementById('dateField').classList.remove('open');
+  const rb = document.getElementById('reasonBtn');
+  rb.disabled = true; rb.style.opacity = '0.4';
+  showStep(1);
+}
+</script>
+
+<!-- DRAWER: درباره ما و تماس با ما -->
+<div class="drawer" id="infoDrawer">
+  <div class="drawer-header">
+    <h2 class="drawer-title">درباره ما و تماس</h2>
+    <button class="drawer-close" onclick="closeDrawer()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  <div class="drawer-content">
+
+    <div class="info-hero">
+      <div class="info-hero-mark">آ</div>
+      <p class="info-hero-text">
+        <strong>آسمانه</strong> طبق منشور حقوق مسافر، حق قانونی شما را محاسبه و پیگیری می‌کند — رایگان و بدون پیچیدگی.
+      </p>
+    </div>
+
+    <div class="info-mission">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-4z"/>
+      </svg>
+      <p>ایستادگی در برابر فشار ایرلاین‌ها برای احقاق حقوق مسافران.</p>
+    </div>
+
+    <div class="info-grid">
+      <a class="info-item" href="tel:+982191500" dir="ltr">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <div class="info-text">
+          <div class="info-label">تلفن</div>
+          <div class="info-value">+98 21 9150</div>
+        </div>
+      </a>
+      <div class="info-item no-link">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div class="info-text">
+          <div class="info-label">آدرس</div>
+          <div class="info-value" dir="rtl">تهران، خیابان ولیعصر</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-hours">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+      </svg>
+      پاسخ‌گویی سریع، هر روز هفته
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
