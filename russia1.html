@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مرجع تور روسیه | از ایران</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red:        #C8102E;
+    --red-deep:   #8B0000;
+    --red-light:  #E8314A;
+    --gold:       #C9A84C;
+    --navy:       #0D1B2A;
+    --navy-mid:   #162233;
+    --off-white:  #F5F1EC;
+    --text-muted: #8A8A8A;
+    --border:     rgba(201,168,76,0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Vazirmatn', sans-serif;
+    background: var(--navy);
+    color: var(--off-white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(13,27,42,0.96);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 4rem;
+    height: 72px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .logo-icon {
+    width: 42px; height: 42px;
+    background: var(--red);
+    border-radius: 6px;
+    display: grid; place-items: center;
+    font-size: 1.3rem;
+  }
+  .logo-text { line-height: 1.2; }
+  .logo-text strong { display: block; font-size: .95rem; font-weight: 700; letter-spacing: .04em; color: #fff; }
+  .logo-text span   { font-size: .7rem; color: var(--gold); letter-spacing: .1em; text-transform: uppercase; }
+
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: .85rem; font-weight: 500;
+    color: rgba(255,255,255,.7); letter-spacing: .03em;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--red);
+    color: #fff !important;
+    padding: .5rem 1.3rem;
+    border-radius: 4px;
+    font-weight: 600 !important;
+    transition: background .2s !important;
+  }
+  .nav-cta:hover { background: var(--red-light) !important; color: #fff !important; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    padding-top: 72px;
+  }
+
+  /* Kremlin SVG silhouette background */
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(13,27,42,0.0) 0%, rgba(13,27,42,0.6) 50%, rgba(13,27,42,1) 100%),
+      linear-gradient(135deg, #0D1B2A 0%, #1a0a0a 50%, #0D1B2A 100%);
+  }
+
+  /* Decorative onion domes */
+  .domes-svg {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    width: 100%; opacity: .12;
+  }
+
+  /* Red accent line */
+  .hero::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--red), var(--gold), var(--red), transparent);
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center; max-width: 820px; padding: 0 2rem;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(200,16,46,0.15);
+    border: 1px solid rgba(200,16,46,0.4);
+    color: var(--gold);
+    font-size: .75rem; letter-spacing: .15em; text-transform: uppercase;
+    padding: .4rem 1.2rem; border-radius: 2px;
+    margin-bottom: 2rem;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '✦'; font-size: .6rem; color: var(--red);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -.01em;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--red);
+    position: relative;
+  }
+  .hero h1 em::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0; height: 2px;
+    background: var(--gold); border-radius: 1px;
+  }
+
+  .hero p {
+    font-size: 1.1rem; line-height: 1.8; color: rgba(245,241,236,.75);
+    max-width: 600px; margin: 0 auto 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--red);
+    color: #fff;
+    border: none; cursor: pointer;
+    padding: .85rem 2.2rem; font-family: inherit; font-size: .95rem; font-weight: 700;
+    border-radius: 4px; letter-spacing: .04em;
+    transition: background .2s, transform .15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--red-light); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--off-white);
+    border: 1px solid rgba(245,241,236,.3);
+    cursor: pointer;
+    padding: .85rem 2.2rem; font-family: inherit; font-size: .95rem; font-weight: 500;
+    border-radius: 4px; letter-spacing: .04em;
+    transition: border-color .2s, color .2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; justify-content: center; margin-top: 4rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-number { font-size: 2rem; font-weight: 800; color: var(--red); line-height: 1; }
+  .stat-label { font-size: .75rem; color: var(--gold); letter-spacing: .1em; text-transform: uppercase; margin-top: .4rem; }
+
+  /* ── SEARCH BAR ── */
+  .search-section {
+    background: var(--navy-mid);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 4rem;
+  }
+  .search-bar {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+  }
+  .search-field {
+    background: rgba(255,255,255,.04);
+    padding: 1rem 1.4rem;
+    display: flex; flex-direction: column; gap: .3rem;
+  }
+  .search-field label { font-size: .7rem; color: var(--gold); letter-spacing: .1em; text-transform: uppercase; }
+  .search-field select, .search-field input {
+    background: none; border: none; outline: none;
+    color: var(--off-white); font-family: inherit; font-size: .9rem;
+    cursor: pointer;
+  }
+  .search-field select option { background: var(--navy-mid); }
+  .search-btn {
+    background: var(--red); color: #fff; border: none;
+    padding: 1rem 2rem; font-family: inherit; font-weight: 700;
+    font-size: .9rem; cursor: pointer; letter-spacing: .05em;
+    transition: background .2s;
+  }
+  .search-btn:hover { background: var(--red-light); }
+
+  /* ── SECTION HEADER ── */
+  .section { padding: 6rem 4rem; }
+  .section-header { text-align: center; margin-bottom: 3.5rem; }
+  .section-eyebrow {
+    font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: .8rem; display: block;
+  }
+  .section-header h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700; line-height: 1.2;
+  }
+  .section-header h2 span { color: var(--red); }
+  .section-divider {
+    display: block; width: 48px; height: 2px;
+    background: linear-gradient(90deg, var(--red), var(--gold));
+    margin: 1.2rem auto 0;
+  }
+
+  /* ── TOUR CARDS ── */
+  .tours-grid {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .tour-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+    transition: transform .2s, border-color .2s;
+    cursor: pointer;
+  }
+  .tour-card:hover { transform: translateY(-4px); border-color: rgba(200,16,46,.5); }
+
+  .tour-img {
+    height: 200px;
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+  }
+  .tour-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(13,27,42,.1) 0%, rgba(13,27,42,.7) 100%);
+  }
+  .tour-tag {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--red); color: #fff;
+    font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    padding: .25rem .7rem; border-radius: 2px;
+  }
+  .tour-duration {
+    position: absolute; bottom: 12px; left: 12px;
+    color: rgba(255,255,255,.8); font-size: .78rem;
+    display: flex; align-items: center; gap: 5px;
+  }
+
+  .card-body { padding: 1.4rem; }
+  .city-name {
+    font-size: .7rem; color: var(--gold); letter-spacing: .1em;
+    text-transform: uppercase; margin-bottom: .5rem;
+  }
+  .card-body h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: .6rem; }
+  .card-body p { font-size: .82rem; color: rgba(245,241,236,.6); line-height: 1.6; margin-bottom: 1rem; }
+
+  .card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 1rem; border-top: 1px solid var(--border);
+  }
+  .price { font-size: 1.1rem; font-weight: 700; color: #fff; }
+  .price small { font-size: .7rem; color: var(--text-muted); font-weight: 400; margin-right: 4px; }
+  .card-btn {
+    background: none; border: 1px solid var(--red);
+    color: var(--red); font-family: inherit; font-size: .8rem; font-weight: 600;
+    padding: .4rem 1rem; border-radius: 3px; cursor: pointer;
+    transition: background .2s, color .2s; letter-spacing: .05em;
+  }
+  .card-btn:hover { background: var(--red); color: #fff; }
+
+  /* ── WHY US ── */
+  .why-section {
+    background: var(--navy-mid);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .why-grid {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+  }
+  .why-item { text-align: center; }
+  .why-icon {
+    width: 56px; height: 56px;
+    background: rgba(200,16,46,.1);
+    border: 1px solid rgba(200,16,46,.3);
+    border-radius: 6px;
+    display: grid; place-items: center;
+    font-size: 1.5rem; margin: 0 auto 1rem;
+  }
+  .why-item h4 { font-size: .95rem; font-weight: 600; margin-bottom: .5rem; }
+  .why-item p { font-size: .8rem; color: rgba(245,241,236,.55); line-height: 1.6; }
+
+  /* ── CITIES ── */
+  .cities-grid {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+  }
+  .city-card {
+    border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+    height: 200px;
+    position: relative; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    background: var(--navy-mid);
+    transition: transform .2s, border-color .2s;
+  }
+  .city-card:hover { transform: scale(1.02); border-color: var(--red); }
+  .city-card:first-child { grid-column: span 2; height: 300px; font-size: 5rem; }
+  .city-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(13,27,42,.95));
+    padding: 1.5rem 1.2rem .8rem;
+  }
+  .city-info strong { display: block; font-weight: 700; font-size: 1rem; }
+  .city-info span { font-size: .72rem; color: var(--gold); letter-spacing: .05em; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--navy); }
+  .testimonials-grid {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .testimonial {
+    background: var(--navy-mid); border: 1px solid var(--border);
+    border-radius: 6px; padding: 1.8rem;
+  }
+  .stars { color: var(--gold); font-size: .9rem; margin-bottom: 1rem; letter-spacing: 2px; }
+  .testimonial q { font-size: .88rem; line-height: 1.7; color: rgba(245,241,236,.8); font-style: normal; }
+  .testimonial-author {
+    margin-top: 1.2rem; padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: .8rem;
+  }
+  .avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--red); display: grid; place-items: center;
+    font-size: .8rem; font-weight: 700; flex-shrink: 0;
+  }
+  .author-name { font-size: .82rem; font-weight: 600; }
+  .author-city { font-size: .72rem; color: var(--text-muted); }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: linear-gradient(135deg, var(--red-deep) 0%, var(--red) 50%, var(--red-deep) 100%);
+    padding: 5rem 4rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-banner::before {
+    content: '🏛';
+    position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+    font-size: 8rem; opacity: .08;
+  }
+  .cta-banner::after {
+    content: '⛪';
+    position: absolute; left: 5%; top: 50%; transform: translateY(-50%);
+    font-size: 8rem; opacity: .08;
+  }
+  .cta-banner h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; margin-bottom: .8rem; }
+  .cta-banner p { font-size: 1rem; color: rgba(255,255,255,.8); margin-bottom: 2rem; font-weight: 300; }
+  .cta-banner .btn-white {
+    background: #fff; color: var(--red);
+    border: none; cursor: pointer;
+    padding: .9rem 2.5rem; font-family: inherit; font-size: 1rem; font-weight: 700;
+    border-radius: 4px; transition: opacity .2s; letter-spacing: .04em;
+    text-decoration: none; display: inline-block;
+  }
+  .cta-banner .btn-white:hover { opacity: .9; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #070E17;
+    border-top: 1px solid var(--border);
+    padding: 4rem 4rem 2rem;
+  }
+  .footer-grid {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand p { font-size: .83rem; color: rgba(245,241,236,.5); line-height: 1.7; margin-top: 1rem; }
+  .footer-contact {
+    margin-top: 1.5rem; display: flex; flex-direction: column; gap: .5rem;
+  }
+  .footer-contact a {
+    font-size: .82rem; color: var(--gold); text-decoration: none;
+    display: flex; align-items: center; gap: .5rem;
+  }
+  footer h5 {
+    font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem; font-weight: 600;
+  }
+  footer ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+  footer ul a {
+    font-size: .83rem; color: rgba(245,241,236,.55); text-decoration: none;
+    transition: color .2s;
+  }
+  footer ul a:hover { color: var(--off-white); }
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto;
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: .75rem; color: rgba(245,241,236,.3);
+  }
+  .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+  /* ── BG COLORS FOR TOUR IMG ── */
+  .bg-moscow { background: linear-gradient(135deg, #1a0a0a, #2d1015); }
+  .bg-spb    { background: linear-gradient(135deg, #0a1220, #1a2540); }
+  .bg-kazan  { background: linear-gradient(135deg, #0a150a, #1a2d1a); }
+
+  .bg-city1 { background: linear-gradient(135deg, #1a0a0a, #330d15); }
+  .bg-city2 { background: linear-gradient(135deg, #0a0f1a, #15213d); }
+  .bg-city3 { background: linear-gradient(135deg, #1a1500, #332b00); }
+  .bg-city4 { background: linear-gradient(135deg, #0a1a0a, #15331a); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon">🦅</div>
+    <div class="logo-text">
+      <strong>مرجع تور روسیه</strong>
+      <span>Russia Exclusive Tours</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#">تورها</a></li>
+    <li><a href="#">مقصدها</a></li>
+    <li><a href="#">ویزا</a></li>
+    <li><a href="#">راهنما</a></li>
+    <li><a href="#">درباره ما</a></li>
+    <li><a href="#" class="nav-cta">مشاوره رایگان</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <svg class="domes-svg" viewBox="0 0 1440 300" xmlns="http://www.w3.org/2000/svg" fill="white">
+    <!-- simplified kremlin/onion dome silhouette -->
+    <rect x="0" y="250" width="1440" height="50"/>
+    <rect x="100" y="180" width="40" height="70"/><ellipse cx="120" cy="175" rx="22" ry="35"/>
+    <rect x="160" y="200" width="30" height="50"/><ellipse cx="175" cy="194" rx="16" ry="28"/>
+    <rect x="200" y="170" width="50" height="80"/><ellipse cx="225" cy="163" rx="28" ry="42"/>
+    <rect x="260" y="195" width="28" height="55"/><ellipse cx="274" cy="189" rx="15" ry="26"/>
+    <rect x="300" y="215" width="25" height="35"/>
+    <rect x="580" y="160" width="60" height="90"/><ellipse cx="610" cy="151" rx="32" ry="52"/>
+    <rect x="650" y="185" width="35" height="65"/><ellipse cx="668" cy="178" rx="20" ry="34"/>
+    <rect x="695" y="175" width="50" height="75"/><ellipse cx="720" cy="166" rx="28" ry="46"/>
+    <rect x="755" y="190" width="32" height="60"/><ellipse cx="771" cy="183" rx="18" ry="30"/>
+    <rect x="795" y="210" width="24" height="40"/>
+    <rect x="1100" y="185" width="45" height="65"/><ellipse cx="1122" cy="177" rx="25" ry="40"/>
+    <rect x="1155" y="205" width="32" height="45"/><ellipse cx="1171" cy="198" rx="18" ry="30"/>
+    <rect x="1200" y="175" width="55" height="75"/><ellipse cx="1228" cy="166" rx="30" ry="48"/>
+    <rect x="1265" y="200" width="28" height="50"/><ellipse cx="1279" cy="193" rx="16" ry="27"/>
+    <rect x="1300" y="220" width="22" height="30"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">تنها متخصص تور روسیه از ایران</div>
+    <h1>سفر به <em>روسیه</em><br>با اطمینان کامل</h1>
+    <p>از مسکو تا سنت پترزبورگ، از بایکال تا قازان — ما تنها آژانسی هستیم که صرفاً تخصص خود را به روسیه اختصاص داده‌ایم. بیش از ۱۵ سال تجربه، هزاران مسافر راضی.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">مشاهده تورها</a>
+      <a href="#" class="btn-outline">مشاوره رایگان</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-number">+۱۵</div>
+        <div class="stat-label">سال تجربه</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">+۸۰۰۰</div>
+        <div class="stat-label">مسافر راضی</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">+۲۰</div>
+        <div class="stat-label">مقصد در روسیه</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">۱۰۰٪</div>
+        <div class="stat-label">تخصصی روسیه</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<div class="search-section">
+  <div class="search-bar">
+    <div class="search-field">
+      <label>مقصد</label>
+      <select>
+        <option>همه مقصدها</option>
+        <option>مسکو</option>
+        <option>سنت پترزبورگ</option>
+        <option>قازان</option>
+        <option>سوچی</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label>تعداد روز</label>
+      <select>
+        <option>۵ تا ۷ روز</option>
+        <option>۸ تا ۱۰ روز</option>
+        <option>۱۱ تا ۱۴ روز</option>
+        <option>بیشتر</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label>تاریخ سفر</label>
+      <input type="text" placeholder="ماه مورد نظر را وارد کنید">
+    </div>
+    <button class="search-btn">جستجو</button>
+  </div>
+</div>
+
+<!-- TOURS -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-eyebrow">پکیج‌های ویژه</span>
+    <h2>تورهای <span>برتر روسیه</span></h2>
+    <span class="section-divider"></span>
+  </div>
+  <div class="tours-grid">
+
+    <div class="tour-card">
+      <div class="tour-img bg-moscow">
+        🏛
+        <div class="tour-img-overlay"></div>
+        <div class="tour-tag">پرفروش</div>
+        <div class="tour-duration">🕐 ۷ شب و ۸ روز</div>
+      </div>
+      <div class="card-body">
+        <div class="city-name">مسکو · روسیه</div>
+        <h3>مسکو کلاسیک</h3>
+        <p>کرملین، میدان سرخ، آرامگاه لنین و بهترین موزه‌های مسکو در یک تور جامع.</p>
+        <div class="card-footer">
+          <div class="price"><small>از</small> ۱۴,۵۰۰,۰۰۰</div>
+          <button class="card-btn">جزئیات</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tour-card">
+      <div class="tour-img bg-spb">
+        ⛪
+        <div class="tour-img-overlay"></div>
+        <div class="tour-tag">محبوب</div>
+        <div class="tour-duration">🕐 ۶ شب و ۷ روز</div>
+      </div>
+      <div class="card-body">
+        <div class="city-name">سنت پترزبورگ · روسیه</div>
+        <h3>پترزبورگ شاهانه</h3>
+        <p>کاخ ارمیتاژ، کلیسای اسحق قدیس، قصر پترهوف و شب‌های سفید افسانه‌ای.</p>
+        <div class="card-footer">
+          <div class="price"><small>از</small> ۱۲,۸۰۰,۰۰۰</div>
+          <button class="card-btn">جزئیات</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tour-card">
+      <div class="tour-img bg-kazan">
+        🕌
+        <div class="tour-img-overlay"></div>
+        <div class="tour-tag">ویژه</div>
+        <div class="tour-duration">🕐 ۱۰ شب و ۱۱ روز</div>
+      </div>
+      <div class="card-body">
+        <div class="city-name">مسکو + پترزبورگ + قازان</div>
+        <h3>گردشگری جامع روسیه</h3>
+        <p>بهترین انتخاب برای اولین سفر به روسیه؛ هر سه شهر اصلی در یک تور.</p>
+        <div class="card-footer">
+          <div class="price"><small>از</small> ۲۳,۹۰۰,۰۰۰</div>
+          <button class="card-btn">جزئیات</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section why-section">
+  <div class="section-header">
+    <span class="section-eyebrow">چرا ما؟</span>
+    <h2>مزایای <span>تخصصی بودن</span></h2>
+    <span class="section-divider"></span>
+  </div>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-icon">🎯</div>
+      <h4>فقط روسیه</h4>
+      <p>تمام تیم، انرژی و منابع ما صرفاً به روسیه اختصاص دارد. تخصص عمیق، نه گسترده.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">📋</div>
+      <h4>ویزا بدون دردسر</h4>
+      <p>اخذ ویزای روسیه با راهنمایی کامل تیم ما — صفر تا صد همراه شما هستیم.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">🗣</div>
+      <h4>راهنمای فارسی‌زبان</h4>
+      <p>در تمام مقاصد، راهنمای فارسی‌زبان مسلط و با تجربه در کنار شماست.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">🛡</div>
+      <h4>پشتیبانی ۲۴/۷</h4>
+      <p>از لحظه ثبت‌نام تا بازگشت، تیم پشتیبانی ما همیشه در دسترس است.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CITIES -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-eyebrow">مقصدهای ما</span>
+    <h2>کجا می‌خواهید <span>بروید؟</span></h2>
+    <span class="section-divider"></span>
+  </div>
+  <div class="cities-grid">
+    <div class="city-card bg-city1">
+      🏛
+      <div class="city-info">
+        <strong>مسکو</strong>
+        <span>پایتخت روسیه · ۱۲ تور</span>
+      </div>
+    </div>
+    <div class="city-card bg-city2">
+      ⛪
+      <div class="city-info">
+        <strong>سنت پترزبورگ</strong>
+        <span>شهر تزارها · ۹ تور</span>
+      </div>
+    </div>
+    <div class="city-card bg-city3">
+      🕌
+      <div class="city-info">
+        <strong>قازان</strong>
+        <span>پایتخت تاتارها · ۵ تور</span>
+      </div>
+    </div>
+    <div class="city-card bg-city4">
+      🌲
+      <div class="city-info">
+        <strong>سوچی</strong>
+        <span>ساحل دریای سیاه · ۴ تور</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials">
+  <div class="section-header">
+    <span class="section-eyebrow">نظرات مسافران</span>
+    <h2>آن‌ها <span>تجربه کردند</span></h2>
+    <span class="section-divider"></span>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <q>تور مسکو و پترزبورگ فراتر از انتظارم بود. راهنمای فارسی‌زبان بسیار مسلط، هتل‌ها عالی و برنامه‌ریزی بی‌نقص. قطعاً دوباره با همین آژانس سفر می‌کنم.</q>
+      <div class="testimonial-author">
+        <div class="avatar">ع.ر</div>
+        <div>
+          <div class="author-name">علی رضایی</div>
+          <div class="author-city">تهران — مسکو</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <q>تنها آژانسی که واقعاً روسیه می‌شناسد. ویزا را خودشان اخذ کردند، راهنما فوق‌العاده بود و هیچ مشکلی نداشتیم. شب‌های سفید پترزبورگ را هرگز فراموش نمی‌کنم.</q>
+      <div class="testimonial-author">
+        <div class="avatar">م.ک</div>
+        <div>
+          <div class="author-name">مریم کریمی</div>
+          <div class="author-city">اصفهان — سنت پترزبورگ</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <q>خانواده‌ای ۶ نفره بودیم. همه چیز از هتل تا ترانسفر و راهنما کامل بود. بچه‌ها عاشق کرملین شدند. مطمئناً سفر بعدی‌مان هم به روسیه است.</q>
+      <div class="testimonial-author">
+        <div class="avatar">ح.م</div>
+        <div>
+          <div class="author-name">حامد محمدی</div>
+          <div class="author-city">مشهد — قازان + مسکو</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-banner">
+  <h2>آماده سفر به روسیه هستید؟</h2>
+  <p>همین الان با کارشناسان ما مشورت رایگان بگیرید و تور رویایی‌تان را طراحی کنید.</p>
+  <a href="#" class="btn-white">مشاوره رایگان — همین الان</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-icon">🦅</div>
+        <div class="logo-text">
+          <strong>مرجع تور روسیه</strong>
+          <span>Russia Exclusive Tours</span>
+        </div>
+      </div>
+      <p>تنها آژانس تخصصی تور روسیه در ایران. بیش از ۱۵ سال تجربه در برگزاری تورهای اختصاصی، گروهی و خانوادگی به سراسر روسیه.</p>
+      <div class="footer-contact">
+        <a href="tel:02100000000">📞 ۰۲۱–۰۰۰۰۰۰۰۰</a>
+        <a href="mailto:info@russiatours.ir">✉️ info@russiatours.ir</a>
+        <a href="#">📍 تهران، خیابان ولیعصر</a>
+      </div>
+    </div>
+    <div>
+      <h5>تورها</h5>
+      <ul>
+        <li><a href="#">تور مسکو</a></li>
+        <li><a href="#">تور سنت پترزبورگ</a></li>
+        <li><a href="#">تور قازان</a></li>
+        <li><a href="#">تور سوچی</a></li>
+        <li><a href="#">تور جامع روسیه</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>خدمات</h5>
+      <ul>
+        <li><a href="#">اخذ ویزا</a></li>
+        <li><a href="#">هتل‌های روسیه</a></li>
+        <li><a href="#">بلیط هواپیما</a></li>
+        <li><a href="#">بیمه سفر</a></li>
+        <li><a href="#">راهنمای فارسی</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>اطلاعات</h5>
+      <ul>
+        <li><a href="#">درباره ما</a></li>
+        <li><a href="#">گالری تصاویر</a></li>
+        <li><a href="#">نظرات مسافران</a></li>
+        <li><a href="#">راهنمای سفر</a></li>
+        <li><a href="#">تماس با ما</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© ۱۴۰۳ مرجع تور روسیه — تمامی حقوق محفوظ است</span>
+    <span><a href="#">حریم خصوصی</a> · <a href="#">شرایط و قوانین</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
