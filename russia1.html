@@ -284,6 +284,34 @@ body {
   content:''; position:absolute; inset:0;
   background: linear-gradient(to bottom, transparent 50%, rgba(255,255,255,0.85) 100%);
 }
+
+/* ── PHOTO CARDS ── */
+.photo-card {
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+.photo-card::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.08) 0%,
+    rgba(0,0,0,0.0) 40%,
+    rgba(255,255,255,0.88) 100%
+  ) !important;
+}
+.photo-card .img-city-overlay {
+  color: var(--text) !important;
+  text-shadow: 0 1px 10px rgba(255,255,255,0.95) !important;
+}
+.full-img.photo-card::after {
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.1) 0%,
+    rgba(0,0,0,0.0) 35%,
+    rgba(255,255,255,0.92) 100%
+  ) !important;
+}
 .city-icon {
   width: 52px; height: 52px; position: relative; z-index: 1;
 }
@@ -495,14 +523,14 @@ body {
 
   <div class="slide-wrap">
     <div class="slide">
-      <div class="slide-art art-moscow"><span class="city-icon"><svg viewBox="0 0 24 24"><path d="M4 21V10l2-2 2 2v11M16 21V10l2-2 2 2v11M9 21V7l3-3 3 3v14"/><path d="M2 21h20"/><circle cx="6" cy="5" r="1"/><circle cx="18" cy="5" r="1"/></svg></span></div>
+      <div class="slide-art photo-card" style="background-image:url('https://i.ibb.co/r21dWvXh/IMG-4554.jpg'); background-size:cover; background-position:center;"></div>
       <div class="slide-body">
         <h2>همیشه دنبال بهترین قیمت‌ها هستیم</h2>
         <p>افت قیمت‌های لحظه‌ای تورهای روسیه، هر روز، فقط برای شما.</p>
       </div>
     </div>
     <div class="slide slide-peek">
-      <div class="slide-art art-spb" style="height:100%"><span class="city-icon"><svg viewBox="0 0 24 24"><path d="M12 2v4M9 4h6M7 22V11l5-4 5 4v11"/><path d="M3 22h18M10 22v-5h4v5"/><circle cx="12" cy="8" r="1.5"/></svg></span></div>
+      <div class="slide-art photo-card" style="background-image:url('https://i.ibb.co/j9FXgNcX/IMG-4564.jpg'); background-size:cover; background-position:center; height:100%;"></div>
     </div>
   </div>
 
@@ -587,8 +615,7 @@ body {
 
     <!-- Card 1: Moscow -->
     <div class="card">
-      <div class="card-img art-moscow">
-        <span class="city-icon"><svg viewBox="0 0 24 24"><path d="M4 21V10l2-2 2 2v11M16 21V10l2-2 2 2v11M9 21V7l3-3 3 3v14"/><path d="M2 21h20"/><circle cx="6" cy="5" r="1"/><circle cx="18" cy="5" r="1"/></svg></span>
+      <div class="card-img photo-card" style="background-image:url('https://i.ibb.co/r21dWvXh/IMG-4554.jpg')">
         <div class="badge">
           <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
           صرفه‌جویی $45
@@ -616,8 +643,7 @@ body {
 
     <!-- Card 2: SPB -->
     <div class="card">
-      <div class="card-img art-spb">
-        <span class="city-icon"><svg viewBox="0 0 24 24"><path d="M12 2v4M9 4h6M7 22V11l5-4 5 4v11"/><path d="M3 22h18M10 22v-5h4v5"/><circle cx="12" cy="8" r="1.5"/></svg></span>
+      <div class="card-img photo-card" style="background-image:url('https://i.ibb.co/j9FXgNcX/IMG-4564.jpg')">
         <div class="badge">
           <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
           صرفه‌جویی $38
@@ -645,8 +671,7 @@ body {
 
     <!-- Card 3: Sochi -->
     <div class="card">
-      <div class="card-img art-sochi">
-        <span class="city-icon"><svg viewBox="0 0 24 24"><path d="M2 18c1.5 1.5 3 1.5 4.5 0s3-1.5 4.5 0 3 1.5 4.5 0 3-1.5 4.5 0"/><path d="M2 13c1.5 1.5 3 1.5 4.5 0s3-1.5 4.5 0 3 1.5 4.5 0 3-1.5 4.5 0"/><circle cx="17" cy="6" r="3"/></svg></span>
+      <div class="card-img photo-card" style="background-image:url('https://i.ibb.co/pvyHctkC/IMG-4562.jpg')">
         <div class="badge">
           <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
           صرفه‌جویی $29
@@ -684,8 +709,7 @@ body {
 
   <!-- Full card: Baikal -->
   <div class="full-card">
-    <div class="full-img" style="background: radial-gradient(ellipse at 40% 55%, #c8e8f8 0%, #eef4fa 100%);">
-      <span class="city-icon"><svg viewBox="0 0 24 24"><path d="M2 17c1.8 1.8 3.6 1.8 5.4 0s3.6-1.8 5.4 0 3.6 1.8 5.4 0 3.6-1.8 5.4 0"/><path d="M2 12c1.8 1.8 3.6 1.8 5.4 0s3.6-1.8 5.4 0 3.6 1.8 5.4 0 3.6-1.8 5.4 0"/><path d="M12 9V4M12 4l-2.5 2M12 4l2.5 2"/></svg></span>
+    <div class="full-img photo-card" style="background-image:url('https://i.ibb.co/HpMTwW7D/IMG-4561.jpg')">
       <div class="badge" style="right:auto;left:12px;top:12px;">
         <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
         تا $78 افت قیمت
@@ -715,8 +739,7 @@ body {
 
   <!-- Full card: Kazan -->
   <div class="full-card">
-    <div class="full-img" style="background: radial-gradient(ellipse at 55% 40%, #fde8d8 0%, #faf4ee 100%);">
-      <span class="city-icon"><svg viewBox="0 0 24 24"><path d="M5 21V14a7 7 0 0 1 14 0v7"/><path d="M3 21h18M12 7V3M12 3l-1.8 1.8M12 3l1.8 1.8"/><circle cx="12" cy="10" r="1.5"/></svg></span>
+    <div class="full-img photo-card" style="background-image:url('https://i.ibb.co/QFqgWKgt/IMG-4527.jpg')">
       <div class="badge">
         <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
         تا $52 افت قیمت
@@ -746,8 +769,7 @@ body {
 
   <!-- Full card: Murmansk -->
   <div class="full-card">
-    <div class="full-img" style="background: radial-gradient(ellipse at 50% 30%, #d8e8f8 0%, #eef2fa 100%);">
-      <span class="city-icon"><svg viewBox="0 0 24 24"><path d="M3 16c3-4 5-2 7-5s4-1 6-5"/><path d="M3 20c3-4 5-2 7-5s4-1 6-5"/><circle cx="12" cy="6" r="1.2" opacity="0.6"/><circle cx="18" cy="9" r="0.9" opacity="0.6"/><circle cx="6" cy="10" r="0.9" opacity="0.6"/></svg></span>
+    <div class="full-img photo-card" style="background-image:url('https://i.ibb.co/pvyHctkC/IMG-4562.jpg')">
       <div class="badge">
         <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
         تا $110 افت قیمت
