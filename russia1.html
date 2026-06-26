@@ -41,36 +41,45 @@ body {
 
 /* ══════════ HERO INTRO ══════════ */
 .hero-intro {
-  padding: 28px 22px 20px;
-  border-bottom: 1px solid var(--border);
+  background: var(--text);
+  padding: 32px 22px 28px;
+  position: relative;
+  overflow: hidden;
 }
-.hero-tag {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 2.5px;
-  color: var(--accent);
+.hero-intro::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #fff 33.33%, var(--accent2) 33.33% 66.66%, var(--accent) 66.66%);
+}
+.hero-eyebrow {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.4);
   text-transform: uppercase;
-  margin-bottom: 10px;
-  opacity: 0.85;
+  margin-bottom: 14px;
 }
 .hero-title {
-  font-size: 28px;
-  font-weight: 800;
-  line-height: 1.25;
-  color: var(--text);
-  margin-bottom: 12px;
-  letter-spacing: -0.3px;
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.15;
+  color: #fff;
+  letter-spacing: -0.5px;
+  margin-bottom: 14px;
 }
-.hero-title em {
-  font-style: normal;
-  color: var(--accent2);
+.hero-title span {
+  color: var(--accent);
 }
 .hero-sub {
   font-size: 13px;
   font-weight: 400;
-  line-height: 1.8;
-  color: var(--muted);
-  max-width: 340px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.55);
+  border-right: 2px solid var(--accent);
+  padding-right: 12px;
 }
 
 /* ══════════ SVG LOGO MARK ══════════ */
@@ -492,9 +501,9 @@ body {
 
   <!-- Hero intro -->
   <div class="hero-intro">
-    <div class="hero-tag">تخصصی · فقط روسیه</div>
-    <h1 class="hero-title">یک مقصد.<br>تمام روسیه.</h1>
-    <p class="hero-sub">مسکو، سن‌پترزبورگ، سوچی — هتل انتخاب کن، تاریخ بذار، بقیه‌اش با ماست.<br>هر تور که می‌بینی، یک نفر از تیم ما همان مسیر را رفته.</p>
+    <div class="hero-eyebrow">RUSSIA TRAVEL PLATFORM · SINCE 2018</div>
+    <h1 class="hero-title">یک مقصد.<br><span>تمام روسیه.</span></h1>
+    <p class="hero-sub">تنها پلتفرم تخصصی تور روسیه — هتل، مسیر و راهنما از یک جا، با تیمی که خودش آنجا بوده.</p>
   </div>
 
   <div class="filter-row">
