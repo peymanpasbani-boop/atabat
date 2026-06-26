@@ -295,21 +295,17 @@ body {
   content:''; position:absolute; inset:0;
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0.08) 0%,
-    rgba(0,0,0,0.0) 40%,
-    rgba(255,255,255,0.88) 100%
+    rgba(0,0,0,0.05) 0%,
+    rgba(0,0,0,0.0) 30%,
+    rgba(0,0,0,0.55) 100%
   ) !important;
-}
-.photo-card .img-city-overlay {
-  color: var(--text) !important;
-  text-shadow: 0 1px 10px rgba(255,255,255,0.95) !important;
 }
 .full-img.photo-card::after {
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0.1) 0%,
-    rgba(0,0,0,0.0) 35%,
-    rgba(255,255,255,0.92) 100%
+    rgba(0,0,0,0.05) 0%,
+    rgba(0,0,0,0.0) 25%,
+    rgba(0,0,0,0.6) 100%
   ) !important;
 }
 .city-icon {
@@ -323,18 +319,29 @@ body {
 }
 .full-img .city-icon { width: 60px; height: 60px; }
 
-/* drop badge */
+/* drop badge → departure date badge */
 .badge {
   position:absolute; top:10px; right:10px; z-index:2;
-  background: rgba(200,0,28,0.90);
-  backdrop-filter: blur(6px);
+  background: rgba(18,25,58,0.82);
+  backdrop-filter: blur(8px);
   color:#fff; font-size:11px; font-weight:700;
-  padding: 5px 9px; border-radius: 8px;
-  display:flex; align-items:center; gap:4px;
-  border: 1px solid rgba(255,100,100,0.25);
+  padding: 6px 10px; border-radius: 8px;
+  display:flex; align-items:center; gap:5px;
+  border: 1px solid rgba(255,255,255,0.18);
   font-family: 'Vazirmatn', sans-serif;
+  line-height: 1.3;
 }
-.badge svg { width:10px; height:10px; fill:#fff; flex-shrink:0; }
+.badge svg { width:11px; height:11px; fill:none; stroke:#fff; stroke-width:2; flex-shrink:0; }
+.badge .badge-label {
+  font-size: 8.5px; font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  display: block; letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.badge .badge-date {
+  font-size: 12px; font-weight: 800;
+  display: block; color: #fff;
+}
 
 .card-body { padding: 13px 14px 16px; }
 .card-city  { font-size:15px; font-weight:800; color: var(--text); }
@@ -451,13 +458,24 @@ body {
 .full-img .badge { right: auto; left:12px; top:12px; }
 
 .img-city-overlay {
-  position:absolute; bottom:14px; right:16px; z-index:2;
-  font-size:19px; font-weight:800; letter-spacing:0.5px;
-  color: var(--text);
-  text-shadow: 0 1px 8px rgba(255,255,255,0.9);
+  position:absolute; bottom:0; right:0; left:0; z-index:2;
+  padding: 28px 16px 14px;
+  background: linear-gradient(to top, rgba(10,15,40,0.75) 0%, transparent 100%);
+  font-size:22px; font-weight:900; letter-spacing:0.3px;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
   font-family: 'Vazirmatn', sans-serif;
 }
-.img-city-overlay small { display:block; font-size:11px; font-weight:500; color:var(--muted); margin-top:2px; letter-spacing:0; font-family: 'Vazirmatn', sans-serif; }
+.img-city-overlay small {
+  display:block; font-size:10.5px; font-weight:500;
+  color: rgba(255,255,255,0.70); margin-top:2px;
+  letter-spacing:0.5px; font-family: 'Vazirmatn', sans-serif;
+}
+/* override the white text shadow for photo cards - text is now on dark bg */
+.photo-card .img-city-overlay {
+  color: #fff !important;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5) !important;
+}
 
 .full-body { padding: 16px; }
 .full-meta { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
@@ -617,8 +635,8 @@ body {
     <div class="card">
       <div class="card-img photo-card" style="background-image:url('https://i.ibb.co/r21dWvXh/IMG-4554.jpg')">
         <div class="badge">
-          <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
-          صرفه‌جویی $45
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+          <div><span class="badge-label">اعزام</span><span class="badge-date">۱۰ مرداد</span></div>
         </div>
         <div class="img-city-overlay">مسکو<small>Moscow · RU</small></div>
       </div>
@@ -645,8 +663,8 @@ body {
     <div class="card">
       <div class="card-img photo-card" style="background-image:url('https://i.ibb.co/j9FXgNcX/IMG-4564.jpg')">
         <div class="badge">
-          <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
-          صرفه‌جویی $38
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+          <div><span class="badge-label">اعزام</span><span class="badge-date">۲۰ مرداد</span></div>
         </div>
         <div class="img-city-overlay">سن‌پترزبورگ<small>St. Petersburg · RU</small></div>
       </div>
@@ -673,8 +691,8 @@ body {
     <div class="card">
       <div class="card-img photo-card" style="background-image:url('https://i.ibb.co/pvyHctkC/IMG-4562.jpg')">
         <div class="badge">
-          <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
-          صرفه‌جویی $29
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+          <div><span class="badge-label">اعزام</span><span class="badge-date">۱ شهریور</span></div>
         </div>
         <div class="img-city-overlay">سوچی<small>Sochi · RU</small></div>
       </div>
@@ -711,8 +729,8 @@ body {
   <div class="full-card">
     <div class="full-img photo-card" style="background-image:url('https://i.ibb.co/HpMTwW7D/IMG-4561.jpg')">
       <div class="badge" style="right:auto;left:12px;top:12px;">
-        <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
-        تا $78 افت قیمت
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+        <div><span class="badge-label">اعزام</span><span class="badge-date">۱۵ شهریور</span></div>
       </div>
       <div class="img-city-overlay" style="right:auto;left:16px;">دریاچه بایکال<small>Lake Baikal · Irkutsk</small></div>
     </div>
@@ -741,8 +759,8 @@ body {
   <div class="full-card">
     <div class="full-img photo-card" style="background-image:url('https://i.ibb.co/QFqgWKgt/IMG-4527.jpg')">
       <div class="badge">
-        <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
-        تا $52 افت قیمت
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+        <div><span class="badge-label">اعزام</span><span class="badge-date">۵ مهر</span></div>
       </div>
       <div class="img-city-overlay">قازان<small>Kazan · Tatarstan</small></div>
     </div>
@@ -771,8 +789,8 @@ body {
   <div class="full-card">
     <div class="full-img photo-card" style="background-image:url('https://i.ibb.co/pvyHctkC/IMG-4562.jpg')">
       <div class="badge">
-        <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
-        تا $110 افت قیمت
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+        <div><span class="badge-label">اعزام</span><span class="badge-date">۱۰ دی</span></div>
       </div>
       <div class="img-city-overlay">مورمانسک<small>Murmansk · Arctic</small></div>
     </div>
