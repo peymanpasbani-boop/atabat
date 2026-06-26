@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>DROPS — تورهای روسیه</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+:root {
+  --bg:       #080810;
+  --surface:  #10101c;
+  --card:     #141422;
+  --card2:    #1c1c2e;
+  --border:   rgba(255,255,255,0.07);
+  --accent:   #d01030;
+  --gold:     #e0b84a;
+  --gold-dim: rgba(224,184,74,0.15);
+  --green:    #22c55e;
+  --text:     #f0f0ff;
+  --muted:    #6060a0;
+  --muted2:   #9090b8;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  max-width: 430px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ══════════ ONBOARDING ══════════ */
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(8,8,16,0.96);
+  z-index: 200;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 52px 24px 36px;
+  backdrop-filter: blur(8px);
+}
+.overlay-close {
+  position: absolute; top: 20px; right: 20px;
+  background: rgba(255,255,255,0.08);
+  border: none; border-radius: 50%;
+  width: 36px; height: 36px;
+  color: #fff; font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.logo-big {
+  font-size: 44px; font-weight: 900; letter-spacing: 8px;
+  display: flex; align-items: center;
+}
+.logo-o {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px;
+  border: 3px solid #fff; border-radius: 50%;
+  position: relative; top: 1px;
+}
+.logo-o svg { width:18px; height:18px; fill:#fff; }
+
+.slide-wrap {
+  margin-top: 32px; width: 100%;
+  display: flex; gap: 12px; overflow: hidden;
+}
+.slide {
+  min-width: 84%; border-radius: 20px;
+  background: var(--card2); overflow: hidden; flex-shrink: 0;
+}
+.slide-peek { min-width: 10%; opacity: 0.4; border-radius: 16px; overflow:hidden; }
+
+.slide-art {
+  height: 240px; display: flex; align-items: center; justify-content: center;
+  font-size: 72px; position: relative;
+}
+.art-moscow  { background: radial-gradient(ellipse at 60% 40%, #3a0a14 0%, #0a0814 100%); }
+.art-spb     { background: radial-gradient(ellipse at 40% 50%, #0a1838 0%, #080812 100%); }
+.art-sochi   { background: radial-gradient(ellipse at 50% 60%, #0a2018 0%, #080810 100%); }
+
+.slide-body { padding: 18px 20px 24px; }
+.slide-body h2 { font-size: 20px; font-weight: 700; line-height: 1.4; }
+.slide-body p  { font-size: 13px; color: var(--muted2); margin-top: 8px; line-height: 1.6; }
+
+.dots { display:flex; gap:6px; margin-top:20px; }
+.dot  { width:7px; height:7px; border-radius:50%; background:#333; transition: all .3s; }
+.dot.on { width:22px; border-radius:4px; background: var(--accent); }
+
+.cta-big {
+  margin-top: 32px; width: 100%;
+  padding: 18px; border: none; border-radius: 14px;
+  background: linear-gradient(135deg, #d01030 0%, #7a0018 100%);
+  color: #fff; font-size: 16px; font-weight: 700;
+  letter-spacing: 0.3px; cursor: pointer;
+  box-shadow: 0 8px 32px rgba(208,16,48,0.35);
+  transition: transform .15s, box-shadow .15s;
+}
+.cta-big:active { transform: scale(0.98); box-shadow: 0 4px 16px rgba(208,16,48,0.25); }
+
+/* ══════════ MAIN ══════════ */
+.main { padding: 54px 18px 110px; }
+
+/* header */
+.logo-sm {
+  font-size: 30px; font-weight: 900; letter-spacing: 5px;
+  display: flex; align-items: center;
+}
+.logo-sm .logo-o { width:28px; height:28px; border-width:2.5px; }
+.logo-sm .logo-o svg { width:13px; height:13px; }
+
+/* filter */
+.filter-row { display:flex; gap:10px; margin: 18px 0 28px; }
+.filter-origin {
+  flex:1; background: var(--surface); border:1px solid var(--border);
+  border-radius: 14px; padding: 12px 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.filter-origin .fi { font-size:18px; }
+.filter-origin .fl { display:flex; flex-direction:column; }
+.filter-origin .lbl { font-size: 10px; color: var(--muted); text-transform:uppercase; letter-spacing:.8px; }
+.filter-origin .val { font-size: 15px; font-weight: 600; margin-top: 2px; }
+.filter-pax {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 12px 14px;
+  display:flex; align-items:center; gap:6px;
+  font-size:14px; font-weight:600;
+}
+
+/* section titles */
+.sec { margin-top: 28px; }
+.sec h2 { font-size: 19px; font-weight: 700; }
+.sec p  { font-size: 12px; color: var(--muted2); margin-top: 4px; }
+
+/* ── HORIZONTAL SCROLL ── */
+.hscroll {
+  display:flex; gap:14px; overflow-x:auto;
+  padding: 16px 0 8px; scrollbar-width:none; margin: 0 -4px; padding-left:4px;
+}
+.hscroll::-webkit-scrollbar { display:none; }
+
+/* ── CARD ── */
+.card {
+  min-width: 230px; border-radius: 18px; overflow:hidden;
+  background: var(--card); border:1px solid var(--border);
+  flex-shrink:0; position:relative;
+}
+.card-img {
+  height: 155px; display:flex; align-items:center; justify-content:center;
+  font-size:52px; position:relative; overflow:hidden;
+}
+.card-img::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(20,20,34,0.85) 100%);
+}
+
+/* drop badge */
+.badge {
+  position:absolute; top:10px; right:10px; z-index:2;
+  background: rgba(208,16,48,0.92);
+  backdrop-filter: blur(6px);
+  color:#fff; font-size:11px; font-weight:700;
+  padding: 5px 9px; border-radius: 8px;
+  display:flex; align-items:center; gap:4px;
+  border: 1px solid rgba(255,100,100,0.3);
+}
+.badge svg { width:10px; height:10px; fill:#fff; flex-shrink:0; }
+
+.card-body { padding: 13px 14px 16px; }
+.card-city  { font-size:15px; font-weight:700; }
+.card-country { font-size:11px; color: var(--muted); margin-top:2px; }
+
+/* ── DATE PILL ── */
+.date-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(224,184,74,0.25);
+  border-radius: 8px;
+  padding: 5px 10px; margin-top: 10px;
+}
+.date-pill .cal-icon { font-size:12px; }
+.date-pill .date-text {
+  font-size: 11.5px; font-weight: 600;
+  color: var(--gold); letter-spacing: 0.2px;
+}
+.nights-tag {
+  display:inline-block;
+  background: rgba(255,255,255,0.07);
+  border-radius:6px; padding: 3px 7px;
+  font-size: 10px; font-weight:600; color: var(--muted2);
+  margin-right: 6px; margin-top: 2px;
+}
+
+/* ── PRICE BLOCK ── */
+.price-block {
+  display:flex; align-items:baseline; gap:10px; margin-top: 10px;
+}
+.price-new {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 22px; font-weight: 700; color: #fff;
+  letter-spacing: -0.5px;
+}
+.price-new .curr { font-size:13px; color: var(--muted2); font-weight:500; }
+.price-old {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 13px; font-weight: 500;
+  color: var(--muted); text-decoration: line-through;
+}
+.price-save {
+  margin-top: 4px;
+  font-size: 11px; font-weight: 700;
+  color: var(--green); letter-spacing: 0.2px;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px; margin: 28px 0;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--gold), var(--accent), transparent);
+  opacity: 0.5;
+}
+
+/* ── FULL CARD ── */
+.full-card {
+  border-radius: 18px; overflow:hidden;
+  background: var(--card); border:1px solid var(--border);
+  margin-top: 14px; position:relative;
+}
+.full-img {
+  height: 190px; display:flex; align-items:center; justify-content:center;
+  font-size:64px; position:relative; overflow:hidden;
+}
+.full-img::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(20,20,34,0.9) 100%);
+}
+.full-img .badge { right: auto; left:12px; top:12px; }
+
+/* city overlay text on image */
+.img-city-overlay {
+  position:absolute; bottom:14px; right:16px; z-index:2;
+  font-size:20px; font-weight:800; letter-spacing:0.5px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+}
+.img-city-overlay small { display:block; font-size:11px; font-weight:500; color:rgba(255,255,255,0.6); margin-top:2px; letter-spacing:0; }
+
+.full-body { padding: 16px; }
+.full-meta { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+
+.full-price-row {
+  display:flex; justify-content:space-between; align-items:flex-end;
+  margin-top: 14px;
+}
+
+/* ── NAV ── */
+.nav {
+  position:fixed; bottom:0; left:50%; transform:translateX(-50%);
+  width:100%; max-width:430px;
+  background: var(--surface); border-top:1px solid var(--border);
+  display:flex; justify-content:space-around;
+  padding: 10px 0 28px; z-index:50;
+}
+.nav-item { display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; }
+.nav-label { font-size:10px; color:var(--muted); font-weight:500; }
+.nav-item.on .nav-label { color:var(--accent); }
+.nav-icon-wrap {
+  width:26px; height:26px; display:flex; align-items:center; justify-content:center;
+}
+.nav-icon-wrap svg { width:22px; height:22px; stroke:var(--muted); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.nav-item.on .nav-icon-wrap svg { stroke:var(--accent); }
+.nav-drop-icon {
+  width:22px; height:22px; display:flex; align-items:center; justify-content:center;
+  border:2px solid var(--accent); border-radius:50%;
+}
+.nav-drop-icon svg { width:11px; height:11px; fill:var(--accent); }
+
+</style>
+</head>
+<body>
+
+<!-- ══════════ ONBOARDING ══════════ -->
+<div class="overlay" id="ov">
+  <button class="overlay-close" onclick="document.getElementById('ov').style.display='none'">✕</button>
+
+  <div class="logo-big">
+    DR<span class="logo-o"><svg viewBox="0 0 14 14"><path d="M7 2v6M4 5l3 4 3-4"/></svg></span>PS
+  </div>
+
+  <div class="slide-wrap">
+    <div class="slide">
+      <div class="slide-art art-moscow">🏰</div>
+      <div class="slide-body">
+        <h2>همیشه دنبال بهترین قیمت‌ها هستیم</h2>
+        <p>افت قیمت‌های لحظه‌ای تورهای روسیه، هر روز، فقط برای شما.</p>
+      </div>
+    </div>
+    <div class="slide slide-peek">
+      <div class="slide-art art-spb" style="height:100%">⛪</div>
+    </div>
+  </div>
+
+  <div class="dots">
+    <div class="dot on"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+  <button class="cta-big" onclick="document.getElementById('ov').style.display='none'">
+    مشاهده Drops
+  </button>
+</div>
+
+<!-- ══════════ MAIN ══════════ -->
+<div class="main">
+
+  <div class="logo-sm">
+    DR<span class="logo-o"><svg viewBox="0 0 14 14"><path d="M7 2v6M4 5l3 4 3-4"/></svg></span>PS
+  </div>
+
+  <div class="filter-row">
+    <div class="filter-origin">
+      <span class="fi">📍</span>
+      <div class="fl">
+        <span class="lbl">نمایش Drops از</span>
+        <span class="val">تهران</span>
+      </div>
+    </div>
+    <div class="filter-pax">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      ۱
+    </div>
+  </div>
+
+  <!-- TOP PICKS -->
+  <div class="sec">
+    <h2>انتخاب‌های برتر برای شما</h2>
+    <p>متناسب با سلیقه و بودجه شما انتخاب شده</p>
+  </div>
+
+  <div class="hscroll">
+
+    <!-- Card 1: Moscow -->
+    <div class="card">
+      <div class="card-img art-moscow">
+        🏛️
+        <div class="badge">
+          <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
+          صرفه‌جویی $45
+        </div>
+        <div class="img-city-overlay">مسکو<small>Moscow · RU</small></div>
+      </div>
+      <div class="card-body">
+        <div class="date-pill">
+          <span class="cal-icon">📅</span>
+          <span class="date-text">۱۰ مرداد &nbsp;→&nbsp; ۱۵ مرداد</span>
+        </div>
+        <div style="margin-top:6px;">
+          <span class="nights-tag">۵ شب</span>
+          <span style="font-size:10px;color:var(--muted);">Aug 1 – Aug 6</span>
+        </div>
+        <div class="price-block">
+          <div>
+            <div class="price-new">$489 <span class="curr">/ نفر</span></div>
+            <div class="price-old">$534</div>
+            <div class="price-save">↓ ۸٪ کمتر از دیروز</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: SPB -->
+    <div class="card">
+      <div class="card-img art-spb">
+        ⛪
+        <div class="badge">
+          <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
+          صرفه‌جویی $38
+        </div>
+        <div class="img-city-overlay">سن‌پترزبورگ<small>St. Petersburg · RU</small></div>
+      </div>
+      <div class="card-body">
+        <div class="date-pill">
+          <span class="cal-icon">📅</span>
+          <span class="date-text">۲۰ مرداد &nbsp;→&nbsp; ۲۵ مرداد</span>
+        </div>
+        <div style="margin-top:6px;">
+          <span class="nights-tag">۵ شب</span>
+          <span style="font-size:10px;color:var(--muted);">Aug 11 – Aug 16</span>
+        </div>
+        <div class="price-block">
+          <div>
+            <div class="price-new">$412 <span class="curr">/ نفر</span></div>
+            <div class="price-old">$450</div>
+            <div class="price-save">↓ ۱۲٪ کمتر از هفته گذشته</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Sochi -->
+    <div class="card">
+      <div class="card-img art-sochi">
+        🏖️
+        <div class="badge">
+          <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
+          صرفه‌جویی $29
+        </div>
+        <div class="img-city-overlay">سوچی<small>Sochi · RU</small></div>
+      </div>
+      <div class="card-body">
+        <div class="date-pill">
+          <span class="cal-icon">📅</span>
+          <span class="date-text">۱ شهریور &nbsp;→&nbsp; ۷ شهریور</span>
+        </div>
+        <div style="margin-top:6px;">
+          <span class="nights-tag">۶ شب</span>
+          <span style="font-size:10px;color:var(--muted);">Aug 23 – Aug 29</span>
+        </div>
+        <div class="price-block">
+          <div>
+            <div class="price-new">$318 <span class="curr">/ نفر</span></div>
+            <div class="price-old">$347</div>
+            <div class="price-save">↓ ۹٪ کمتر از دیروز</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /hscroll -->
+
+  <div class="divider"></div>
+
+  <!-- TODAY'S DROPS -->
+  <div class="sec" style="margin-top:0">
+    <h2>قیمت‌های همین امروز</h2>
+    <p>تورهایی که حداقل ۲۰٪ کاهش قیمت داشته‌اند</p>
+  </div>
+
+  <!-- Full card: Baikal -->
+  <div class="full-card">
+    <div class="full-img" style="background: radial-gradient(ellipse at 40% 55%, #082038 0%, #06060e 100%);">
+      🌊
+      <div class="badge">
+        <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
+        تا $78 افت قیمت
+      </div>
+      <div class="img-city-overlay" style="right:auto;left:16px;">دریاچه بایکال<small>Lake Baikal · Irkutsk</small></div>
+    </div>
+    <div class="full-body">
+      <div class="full-meta">
+        <div class="date-pill">
+          <span class="cal-icon">📅</span>
+          <span class="date-text">۱۵ شهریور &nbsp;→&nbsp; ۲۱ شهریور</span>
+        </div>
+        <span class="nights-tag" style="margin:0;">۶ شب</span>
+      </div>
+      <div style="margin-top:4px;font-size:10px;color:var(--muted);">Sep 6 – Sep 12 · Irkutsk</div>
+      <div class="full-price-row">
+        <div>
+          <div class="price-save" style="font-size:12px;">↓ ۲۲٪ کاهش قیمت نسبت به هفته گذشته</div>
+        </div>
+        <div style="text-align:left;">
+          <div class="price-old" style="font-size:14px;display:block;">$897</div>
+          <div class="price-new" style="font-size:26px;">$699 <span class="curr">/ نفر</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full card: Kazan -->
+  <div class="full-card">
+    <div class="full-img" style="background: radial-gradient(ellipse at 55% 40%, #241408 0%, #06060e 100%);">
+      🕌
+      <div class="badge">
+        <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
+        تا $52 افت قیمت
+      </div>
+      <div class="img-city-overlay">قازان<small>Kazan · Tatarstan</small></div>
+    </div>
+    <div class="full-body">
+      <div class="full-meta">
+        <div class="date-pill">
+          <span class="cal-icon">📅</span>
+          <span class="date-text">۵ مهر &nbsp;→&nbsp; ۱۱ مهر</span>
+        </div>
+        <span class="nights-tag" style="margin:0;">۶ شب</span>
+      </div>
+      <div style="margin-top:4px;font-size:10px;color:var(--muted);">Sep 27 – Oct 3 · Kazan</div>
+      <div class="full-price-row">
+        <div>
+          <div class="price-save" style="font-size:12px;">↓ ۱۸٪ کاهش قیمت نسبت به ماه گذشته</div>
+        </div>
+        <div style="text-align:left;">
+          <div class="price-old" style="font-size:14px;display:block;">$620</div>
+          <div class="price-new" style="font-size:26px;">$508 <span class="curr">/ نفر</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full card: Murmansk -->
+  <div class="full-card">
+    <div class="full-img" style="background: radial-gradient(ellipse at 50% 30%, #080828 0%, #04040c 100%);">
+      🌌
+      <div class="badge">
+        <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
+        تا $110 افت قیمت
+      </div>
+      <div class="img-city-overlay">مورمانسک<small>Murmansk · Arctic</small></div>
+    </div>
+    <div class="full-body">
+      <div class="full-meta">
+        <div class="date-pill">
+          <span class="cal-icon">📅</span>
+          <span class="date-text">۱۰ دی &nbsp;→&nbsp; ۱۷ دی</span>
+        </div>
+        <span class="nights-tag" style="margin:0;">۷ شب</span>
+      </div>
+      <div style="margin-top:4px;font-size:10px;color:var(--muted);">Dec 31 – Jan 7 · Northern Lights Season</div>
+      <div class="full-price-row">
+        <div>
+          <div class="price-save" style="font-size:12px;">↓ ۲۵٪ کمترین قیمت فصل</div>
+        </div>
+        <div style="text-align:left;">
+          <div class="price-old" style="font-size:14px;display:block;">$1,150</div>
+          <div class="price-new" style="font-size:26px;">$860 <span class="curr">/ نفر</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- ══════════ BOTTOM NAV ══════════ -->
+<nav class="nav">
+  <div class="nav-item">
+    <div class="nav-icon-wrap">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+    </div>
+    <span class="nav-label">جستجو</span>
+  </div>
+  <div class="nav-item on">
+    <div class="nav-icon-wrap">
+      <div class="nav-drop-icon">
+        <svg viewBox="0 0 14 14" fill="var(--accent)"><path d="M7 1v8M3.5 5.5 7 10l3.5-4.5"/></svg>
+      </div>
+    </div>
+    <span class="nav-label" style="color:var(--accent);">Drops</span>
+  </div>
+  <div class="nav-item">
+    <div class="nav-icon-wrap">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </div>
+    <span class="nav-label">ذخیره‌شده</span>
+  </div>
+  <div class="nav-item">
+    <div class="nav-icon-wrap">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </div>
+    <span class="nav-label">پروفایل</span>
+  </div>
+</nav>
+
+</body>
+</html>
