@@ -6,7 +6,7 @@
 <title>مسکووا — تورهای روسیه</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&family=Roboto+Mono:wght@500;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
@@ -158,6 +158,8 @@ body {
   height: 200px; display: flex; align-items: center; justify-content: center;
   font-size: 72px; position: relative;
 }
+.slide-art .city-icon { width: 72px; height: 72px; }
+.slide-art .city-icon svg { stroke: var(--accent2); stroke-width: 1.3; opacity: 0.8; }
 .art-moscow  { background: radial-gradient(ellipse at 60% 40%, #fde8ec 0%, #e8eef8 100%); }
 .art-spb     { background: radial-gradient(ellipse at 40% 50%, #dde8f8 0%, #eef2fa 100%); }
 .art-sochi   { background: radial-gradient(ellipse at 50% 60%, #d8f0e8 0%, #eef4fa 100%); }
@@ -232,7 +234,15 @@ body {
   display: flex; align-items: center; gap: 10px;
   box-shadow: 0 8px 24px rgba(18,25,58,0.18);
 }
-.filter-origin .fi { font-size:18px; }
+.filter-origin .fi {
+  width: 18px; height: 18px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.filter-origin .fi svg {
+  width: 100%; height: 100%;
+  stroke: var(--accent2); fill: none;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
 .filter-origin .fl { display:flex; flex-direction:column; }
 .filter-origin .lbl { font-size: 9.5px; color: var(--muted); text-transform:uppercase; letter-spacing:1.2px; font-weight: 600; }
 .filter-origin .val { font-size: 15px; font-weight: 800; margin-top: 2px; color: var(--text); }
@@ -274,6 +284,16 @@ body {
   content:''; position:absolute; inset:0;
   background: linear-gradient(to bottom, transparent 50%, rgba(255,255,255,0.85) 100%);
 }
+.city-icon {
+  width: 52px; height: 52px; position: relative; z-index: 1;
+}
+.city-icon svg {
+  width: 100%; height: 100%;
+  stroke: var(--accent2); fill: none;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+  opacity: 0.85;
+}
+.full-img .city-icon { width: 60px; height: 60px; }
 
 /* drop badge */
 .badge {
@@ -294,25 +314,50 @@ body {
 
 /* ── DATE PILL ── */
 .date-pill {
-  display: inline-flex; align-items: center; gap: 6px;
+  display: inline-flex; align-items: center; gap: 7px;
   background: var(--gold-dim);
-  border: 1px solid rgba(184,134,11,0.20);
-  border-radius: 8px;
-  padding: 5px 10px; margin-top: 10px;
+  border: 1px solid rgba(184,134,11,0.22);
+  border-radius: 9px;
+  padding: 6px 11px 6px 9px; margin-top: 10px;
 }
-.date-pill .cal-icon { font-size:12px; }
+.date-pill .cal-icon {
+  width: 13px; height: 13px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.date-pill .cal-icon svg {
+  width: 100%; height: 100%;
+  stroke: var(--gold); fill: none;
+  stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round;
+}
 .date-pill .date-text {
-  font-size: 11.5px; font-weight: 600;
-  color: var(--gold); letter-spacing: 0.2px;
+  font-size: 12px; font-weight: 700;
+  color: var(--gold); letter-spacing: 0.1px;
   font-family: 'Vazirmatn', sans-serif;
 }
+
+/* ── NIGHTS BADGE (international hotel-shorthand style) ── */
 .nights-tag {
-  display:inline-block;
-  background: rgba(0,56,130,0.08);
-  border-radius:6px; padding: 3px 7px;
-  font-size: 10px; font-weight:600; color: var(--accent2);
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--accent2);
+  border-radius: 7px; padding: 4px 5px 4px 8px;
   margin-right: 6px; margin-top: 2px;
-  font-family: 'Vazirmatn', sans-serif;
+  vertical-align: middle;
+}
+.nights-tag .nt-num {
+  font-family: 'Fraunces', serif;
+  font-size: 13px; font-weight: 700;
+  color: #fff; line-height: 1;
+  font-variant-numeric: oldstyle-nums;
+}
+.nights-tag .nt-unit {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 0.5px;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.14);
+  border-radius: 4px; padding: 2px 4px;
+  line-height: 1;
 }
 
 /* ── PRICE BLOCK ── */
@@ -320,18 +365,27 @@ body {
   display:flex; align-items:baseline; gap:10px; margin-top: 10px;
 }
 .price-new {
-  font-family: 'Roboto Mono', monospace;
-  font-size: 22px; font-weight: 700; color: var(--text);
-  letter-spacing: -0.5px;
+  font-family: 'Fraunces', serif;
+  font-optical-sizing: auto;
+  font-size: 25px; font-weight: 600; color: var(--text);
+  letter-spacing: -0.3px;
+  font-variant-numeric: lining-nums;
+}
+.price-new .price-sym {
+  font-size: 0.62em; font-weight: 500;
+  color: var(--muted2);
+  margin-left: 1px;
 }
 .price-new .curr {
-  font-size:12px; color: var(--muted); font-weight:500;
+  font-size:11px; color: var(--muted); font-weight:500;
   font-family: 'Vazirmatn', sans-serif;
+  letter-spacing: 0;
 }
 .price-old {
-  font-family: 'Roboto Mono', monospace;
-  font-size: 13px; font-weight: 500;
+  font-family: 'Fraunces', serif;
+  font-size: 13.5px; font-weight: 500;
   color: var(--muted); text-decoration: line-through;
+  text-decoration-color: rgba(112,128,168,0.5);
 }
 .price-save {
   margin-top: 4px;
@@ -339,8 +393,10 @@ body {
   color: var(--green); letter-spacing: 0.2px;
   font-family: 'Vazirmatn', sans-serif;
   background: var(--save-bg);
-  display: inline-block; padding: 2px 6px; border-radius: 5px;
+  display: inline-flex; align-items: center; gap: 3px;
+  padding: 2px 7px 2px 6px; border-radius: 5px;
 }
+.price-save svg { width: 9px; height: 9px; stroke: var(--green); stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ── DIVIDER ── */
 .divider {
@@ -439,14 +495,14 @@ body {
 
   <div class="slide-wrap">
     <div class="slide">
-      <div class="slide-art art-moscow">🏰</div>
+      <div class="slide-art art-moscow"><span class="city-icon"><svg viewBox="0 0 24 24"><path d="M4 21V10l2-2 2 2v11M16 21V10l2-2 2 2v11M9 21V7l3-3 3 3v14"/><path d="M2 21h20"/><circle cx="6" cy="5" r="1"/><circle cx="18" cy="5" r="1"/></svg></span></div>
       <div class="slide-body">
         <h2>همیشه دنبال بهترین قیمت‌ها هستیم</h2>
         <p>افت قیمت‌های لحظه‌ای تورهای روسیه، هر روز، فقط برای شما.</p>
       </div>
     </div>
     <div class="slide slide-peek">
-      <div class="slide-art art-spb" style="height:100%">⛪</div>
+      <div class="slide-art art-spb" style="height:100%"><span class="city-icon"><svg viewBox="0 0 24 24"><path d="M12 2v4M9 4h6M7 22V11l5-4 5 4v11"/><path d="M3 22h18M10 22v-5h4v5"/><circle cx="12" cy="8" r="1.5"/></svg></span></div>
     </div>
   </div>
 
@@ -509,7 +565,7 @@ body {
 
   <div class="filter-row">
     <div class="filter-origin">
-      <span class="fi">📍</span>
+      <span class="fi"><svg viewBox="0 0 24 24"><path d="M12 22s7-7.5 7-13a7 7 0 0 0-14 0c0 5.5 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
       <div class="fl">
         <span class="lbl">نمایش تورها از</span>
         <span class="val">تهران</span>
@@ -532,7 +588,7 @@ body {
     <!-- Card 1: Moscow -->
     <div class="card">
       <div class="card-img art-moscow">
-        🏛️
+        <span class="city-icon"><svg viewBox="0 0 24 24"><path d="M4 21V10l2-2 2 2v11M16 21V10l2-2 2 2v11M9 21V7l3-3 3 3v14"/><path d="M2 21h20"/><circle cx="6" cy="5" r="1"/><circle cx="18" cy="5" r="1"/></svg></span>
         <div class="badge">
           <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
           صرفه‌جویی $45
@@ -541,18 +597,18 @@ body {
       </div>
       <div class="card-body">
         <div class="date-pill">
-          <span class="cal-icon">📅</span>
+          <span class="cal-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span>
           <span class="date-text">۱۰ مرداد &nbsp;→&nbsp; ۱۵ مرداد</span>
         </div>
         <div style="margin-top:6px;">
-          <span class="nights-tag">۵ شب</span>
+          <span class="nights-tag"><span class="nt-num">۵</span><span class="nt-unit">شب</span></span>
           <span style="font-size:10px;color:var(--muted);">Aug 1 – Aug 6</span>
         </div>
         <div class="price-block">
           <div>
-            <div class="price-new">$489 <span class="curr">/ نفر</span></div>
+            <div class="price-new"><span class="price-sym">$</span>489 <span class="curr">/ نفر</span></div>
             <div class="price-old">$534</div>
-            <div class="price-save">↓ ۸٪ کمتر از دیروز</div>
+            <div class="price-save"><svg viewBox="0 0 10 10"><path d="M5 9V3M2 5.5 5 9l3-3.5"/></svg> ۸٪ کمتر از دیروز</div>
           </div>
         </div>
       </div>
@@ -561,7 +617,7 @@ body {
     <!-- Card 2: SPB -->
     <div class="card">
       <div class="card-img art-spb">
-        ⛪
+        <span class="city-icon"><svg viewBox="0 0 24 24"><path d="M12 2v4M9 4h6M7 22V11l5-4 5 4v11"/><path d="M3 22h18M10 22v-5h4v5"/><circle cx="12" cy="8" r="1.5"/></svg></span>
         <div class="badge">
           <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
           صرفه‌جویی $38
@@ -570,18 +626,18 @@ body {
       </div>
       <div class="card-body">
         <div class="date-pill">
-          <span class="cal-icon">📅</span>
+          <span class="cal-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span>
           <span class="date-text">۲۰ مرداد &nbsp;→&nbsp; ۲۵ مرداد</span>
         </div>
         <div style="margin-top:6px;">
-          <span class="nights-tag">۵ شب</span>
+          <span class="nights-tag"><span class="nt-num">۵</span><span class="nt-unit">شب</span></span>
           <span style="font-size:10px;color:var(--muted);">Aug 11 – Aug 16</span>
         </div>
         <div class="price-block">
           <div>
-            <div class="price-new">$412 <span class="curr">/ نفر</span></div>
+            <div class="price-new"><span class="price-sym">$</span>412 <span class="curr">/ نفر</span></div>
             <div class="price-old">$450</div>
-            <div class="price-save">↓ ۱۲٪ کمتر از هفته گذشته</div>
+            <div class="price-save"><svg viewBox="0 0 10 10"><path d="M5 9V3M2 5.5 5 9l3-3.5"/></svg> ۱۲٪ کمتر از هفته گذشته</div>
           </div>
         </div>
       </div>
@@ -590,7 +646,7 @@ body {
     <!-- Card 3: Sochi -->
     <div class="card">
       <div class="card-img art-sochi">
-        🏖️
+        <span class="city-icon"><svg viewBox="0 0 24 24"><path d="M2 18c1.5 1.5 3 1.5 4.5 0s3-1.5 4.5 0 3 1.5 4.5 0 3-1.5 4.5 0"/><path d="M2 13c1.5 1.5 3 1.5 4.5 0s3-1.5 4.5 0 3 1.5 4.5 0 3-1.5 4.5 0"/><circle cx="17" cy="6" r="3"/></svg></span>
         <div class="badge">
           <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
           صرفه‌جویی $29
@@ -599,18 +655,18 @@ body {
       </div>
       <div class="card-body">
         <div class="date-pill">
-          <span class="cal-icon">📅</span>
+          <span class="cal-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span>
           <span class="date-text">۱ شهریور &nbsp;→&nbsp; ۷ شهریور</span>
         </div>
         <div style="margin-top:6px;">
-          <span class="nights-tag">۶ شب</span>
+          <span class="nights-tag"><span class="nt-num">۶</span><span class="nt-unit">شب</span></span>
           <span style="font-size:10px;color:var(--muted);">Aug 23 – Aug 29</span>
         </div>
         <div class="price-block">
           <div>
-            <div class="price-new">$318 <span class="curr">/ نفر</span></div>
+            <div class="price-new"><span class="price-sym">$</span>318 <span class="curr">/ نفر</span></div>
             <div class="price-old">$347</div>
-            <div class="price-save">↓ ۹٪ کمتر از دیروز</div>
+            <div class="price-save"><svg viewBox="0 0 10 10"><path d="M5 9V3M2 5.5 5 9l3-3.5"/></svg> ۹٪ کمتر از دیروز</div>
           </div>
         </div>
       </div>
@@ -629,7 +685,7 @@ body {
   <!-- Full card: Baikal -->
   <div class="full-card">
     <div class="full-img" style="background: radial-gradient(ellipse at 40% 55%, #c8e8f8 0%, #eef4fa 100%);">
-      🌊
+      <span class="city-icon"><svg viewBox="0 0 24 24"><path d="M2 17c1.8 1.8 3.6 1.8 5.4 0s3.6-1.8 5.4 0 3.6 1.8 5.4 0 3.6-1.8 5.4 0"/><path d="M2 12c1.8 1.8 3.6 1.8 5.4 0s3.6-1.8 5.4 0 3.6 1.8 5.4 0 3.6-1.8 5.4 0"/><path d="M12 9V4M12 4l-2.5 2M12 4l2.5 2"/></svg></span>
       <div class="badge" style="right:auto;left:12px;top:12px;">
         <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
         تا $78 افت قیمت
@@ -639,19 +695,19 @@ body {
     <div class="full-body">
       <div class="full-meta">
         <div class="date-pill">
-          <span class="cal-icon">📅</span>
+          <span class="cal-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span>
           <span class="date-text">۱۵ شهریور &nbsp;→&nbsp; ۲۱ شهریور</span>
         </div>
-        <span class="nights-tag" style="margin:0;">۶ شب</span>
+        <span class="nights-tag" style="margin:0;"><span class="nt-num">۶</span><span class="nt-unit">شب</span></span>
       </div>
       <div style="margin-top:4px;font-size:10px;color:var(--muted);">Sep 6 – Sep 12 · Irkutsk</div>
       <div class="full-price-row">
         <div>
-          <div class="price-save" style="font-size:12px;">↓ ۲۲٪ کاهش نسبت به هفته گذشته</div>
+          <div class="price-save" style="font-size:12px;"><svg viewBox="0 0 10 10"><path d="M5 9V3M2 5.5 5 9l3-3.5"/></svg> ۲۲٪ کاهش نسبت به هفته گذشته</div>
         </div>
         <div style="text-align:left;">
           <div class="price-old" style="font-size:14px;display:block;">$897</div>
-          <div class="price-new" style="font-size:26px;">$699 <span class="curr">/ نفر</span></div>
+          <div class="price-new" style="font-size:28px;"><span class="price-sym">$</span>699 <span class="curr">/ نفر</span></div>
         </div>
       </div>
     </div>
@@ -660,7 +716,7 @@ body {
   <!-- Full card: Kazan -->
   <div class="full-card">
     <div class="full-img" style="background: radial-gradient(ellipse at 55% 40%, #fde8d8 0%, #faf4ee 100%);">
-      🕌
+      <span class="city-icon"><svg viewBox="0 0 24 24"><path d="M5 21V14a7 7 0 0 1 14 0v7"/><path d="M3 21h18M12 7V3M12 3l-1.8 1.8M12 3l1.8 1.8"/><circle cx="12" cy="10" r="1.5"/></svg></span>
       <div class="badge">
         <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
         تا $52 افت قیمت
@@ -670,19 +726,19 @@ body {
     <div class="full-body">
       <div class="full-meta">
         <div class="date-pill">
-          <span class="cal-icon">📅</span>
+          <span class="cal-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span>
           <span class="date-text">۵ مهر &nbsp;→&nbsp; ۱۱ مهر</span>
         </div>
-        <span class="nights-tag" style="margin:0;">۶ شب</span>
+        <span class="nights-tag" style="margin:0;"><span class="nt-num">۶</span><span class="nt-unit">شب</span></span>
       </div>
       <div style="margin-top:4px;font-size:10px;color:var(--muted);">Sep 27 – Oct 3 · Kazan</div>
       <div class="full-price-row">
         <div>
-          <div class="price-save" style="font-size:12px;">↓ ۱۸٪ کاهش نسبت به ماه گذشته</div>
+          <div class="price-save" style="font-size:12px;"><svg viewBox="0 0 10 10"><path d="M5 9V3M2 5.5 5 9l3-3.5"/></svg> ۱۸٪ کاهش نسبت به ماه گذشته</div>
         </div>
         <div style="text-align:left;">
           <div class="price-old" style="font-size:14px;display:block;">$620</div>
-          <div class="price-new" style="font-size:26px;">$508 <span class="curr">/ نفر</span></div>
+          <div class="price-new" style="font-size:28px;"><span class="price-sym">$</span>508 <span class="curr">/ نفر</span></div>
         </div>
       </div>
     </div>
@@ -691,7 +747,7 @@ body {
   <!-- Full card: Murmansk -->
   <div class="full-card">
     <div class="full-img" style="background: radial-gradient(ellipse at 50% 30%, #d8e8f8 0%, #eef2fa 100%);">
-      🌌
+      <span class="city-icon"><svg viewBox="0 0 24 24"><path d="M3 16c3-4 5-2 7-5s4-1 6-5"/><path d="M3 20c3-4 5-2 7-5s4-1 6-5"/><circle cx="12" cy="6" r="1.2" opacity="0.6"/><circle cx="18" cy="9" r="0.9" opacity="0.6"/><circle cx="6" cy="10" r="0.9" opacity="0.6"/></svg></span>
       <div class="badge">
         <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
         تا $110 افت قیمت
@@ -701,19 +757,19 @@ body {
     <div class="full-body">
       <div class="full-meta">
         <div class="date-pill">
-          <span class="cal-icon">📅</span>
+          <span class="cal-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span>
           <span class="date-text">۱۰ دی &nbsp;→&nbsp; ۱۷ دی</span>
         </div>
-        <span class="nights-tag" style="margin:0;">۷ شب</span>
+        <span class="nights-tag" style="margin:0;"><span class="nt-num">۷</span><span class="nt-unit">شب</span></span>
       </div>
       <div style="margin-top:4px;font-size:10px;color:var(--muted);">Dec 31 – Jan 7 · Northern Lights Season</div>
       <div class="full-price-row">
         <div>
-          <div class="price-save" style="font-size:12px;">↓ ۲۵٪ کمترین قیمت فصل</div>
+          <div class="price-save" style="font-size:12px;"><svg viewBox="0 0 10 10"><path d="M5 9V3M2 5.5 5 9l3-3.5"/></svg> ۲۵٪ کمترین قیمت فصل</div>
         </div>
         <div style="text-align:left;">
           <div class="price-old" style="font-size:14px;display:block;">$1,150</div>
-          <div class="price-new" style="font-size:26px;">$860 <span class="curr">/ نفر</span></div>
+          <div class="price-new" style="font-size:28px;"><span class="price-sym">$</span>860 <span class="curr">/ نفر</span></div>
         </div>
       </div>
     </div>
