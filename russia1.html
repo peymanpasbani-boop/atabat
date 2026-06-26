@@ -11,18 +11,21 @@
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
 :root {
-  --bg:       #080810;
-  --surface:  #10101c;
-  --card:     #141422;
-  --card2:    #1c1c2e;
-  --border:   rgba(255,255,255,0.07);
-  --accent:   #d01030;
-  --gold:     #e0b84a;
-  --gold-dim: rgba(224,184,74,0.15);
-  --green:    #22c55e;
-  --text:     #f0f0ff;
-  --muted:    #6060a0;
-  --muted2:   #9090b8;
+  /* Russia flag palette — light */
+  --bg:       #f0f4fa;        /* very light blue-white */
+  --surface:  #ffffff;        /* pure white */
+  --card:     #ffffff;
+  --card2:    #eef2f9;
+  --border:   rgba(0,60,150,0.10);
+  --accent:   #c8001c;        /* Russian red */
+  --accent2:  #003882;        /* Russian blue */
+  --gold:     #b8860b;
+  --gold-dim: rgba(184,134,11,0.10);
+  --green:    #157a38;
+  --text:     #12193a;        /* deep navy */
+  --muted:    #7080a8;
+  --muted2:   #3a4a7a;
+  --save-bg:  rgba(21,122,56,0.10);
 }
 
 body {
@@ -36,22 +39,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ══════════ LOGO ══════════ */
-.logo-text {
-  font-family: 'Vazirmatn', sans-serif;
-  font-weight: 900;
-  letter-spacing: -1px;
-  line-height: 1;
-  background: linear-gradient(135deg, #ffffff 0%, #c0b8ff 60%, #d01030 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+/* ══════════ SVG LOGO MARK ══════════ */
+.logo-mark-svg { display:block; }
 
 /* ══════════ ONBOARDING ══════════ */
 .overlay {
   position: fixed; inset: 0;
-  background: rgba(8,8,16,0.96);
+  background: rgba(240,244,250,0.97);
   z-index: 200;
   display: flex; flex-direction: column; align-items: center;
   padding: 52px 24px 36px;
@@ -59,25 +53,49 @@ body {
 }
 .overlay-close {
   position: absolute; top: 20px; right: 20px;
-  background: rgba(255,255,255,0.08);
+  background: rgba(0,56,130,0.09);
   border: none; border-radius: 50%;
   width: 36px; height: 36px;
-  color: #fff; font-size: 18px; cursor: pointer;
+  color: var(--accent2); font-size: 18px; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   font-family: 'Vazirmatn', sans-serif;
 }
 
-.logo-big {
-  font-size: 52px;
-  display: flex; align-items: center;
+/* Onboarding logo block */
+.logo-hero {
+  display:flex; flex-direction:column; align-items:center; gap:0;
 }
-.logo-big .logo-text { font-size: 52px; }
+.logo-hero .wordmark-ov {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 22px; font-weight: 800; letter-spacing: 9px;
+  color: var(--text); padding-left: 9px;
+  margin-top: 10px;
+}
+.logo-hero .divline-ov {
+  width: 120px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin: 7px auto; opacity: 0.7;
+}
+.logo-hero .tagline-ov {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 8px; font-weight: 500; letter-spacing: 4px;
+  color: var(--muted2); text-transform: uppercase;
+}
 
-/* subtitle under logo */
-.logo-sub {
-  font-size: 11px; font-weight: 500;
+/* Persian logo on main */
+.logo-persian {
+  font-family: 'Vazirmatn', sans-serif;
+  font-weight: 900; font-size: 30px;
+  background: linear-gradient(135deg, var(--accent2) 0%, var(--accent) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.logo-sub-ov {
+  font-size: 12px; font-weight: 500;
   color: var(--muted2); letter-spacing: 3px;
-  text-transform: uppercase; margin-top: 6px;
+  text-transform: uppercase; margin-top: 8px;
   text-align: center;
 }
 
@@ -88,71 +106,112 @@ body {
 .slide {
   min-width: 84%; border-radius: 20px;
   background: var(--card2); overflow: hidden; flex-shrink: 0;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 24px rgba(0,56,130,0.07);
 }
 .slide-peek { min-width: 10%; opacity: 0.4; border-radius: 16px; overflow:hidden; }
 
 .slide-art {
-  height: 220px; display: flex; align-items: center; justify-content: center;
+  height: 200px; display: flex; align-items: center; justify-content: center;
   font-size: 72px; position: relative;
 }
-.art-moscow  { background: radial-gradient(ellipse at 60% 40%, #3a0a14 0%, #0a0814 100%); }
-.art-spb     { background: radial-gradient(ellipse at 40% 50%, #0a1838 0%, #080812 100%); }
-.art-sochi   { background: radial-gradient(ellipse at 50% 60%, #0a2018 0%, #080810 100%); }
+.art-moscow  { background: radial-gradient(ellipse at 60% 40%, #fde8ec 0%, #e8eef8 100%); }
+.art-spb     { background: radial-gradient(ellipse at 40% 50%, #dde8f8 0%, #eef2fa 100%); }
+.art-sochi   { background: radial-gradient(ellipse at 50% 60%, #d8f0e8 0%, #eef4fa 100%); }
 
 .slide-body { padding: 18px 20px 24px; }
-.slide-body h2 { font-size: 18px; font-weight: 700; line-height: 1.6; }
+.slide-body h2 { font-size: 17px; font-weight: 700; line-height: 1.7; color: var(--text); }
 .slide-body p  { font-size: 13px; color: var(--muted2); margin-top: 8px; line-height: 1.8; }
 
 .dots { display:flex; gap:6px; margin-top:20px; }
-.dot  { width:7px; height:7px; border-radius:50%; background:#333; transition: all .3s; }
+.dot  { width:7px; height:7px; border-radius:50%; background: rgba(0,56,130,0.15); transition: all .3s; }
 .dot.on { width:22px; border-radius:4px; background: var(--accent); }
 
 .cta-big {
   margin-top: 28px; width: 100%;
   padding: 18px; border: none; border-radius: 14px;
-  background: linear-gradient(135deg, #d01030 0%, #7a0018 100%);
+  background: linear-gradient(135deg, #c8001c 0%, #8a000f 100%);
   color: #fff; font-size: 16px; font-weight: 700;
   font-family: 'Vazirmatn', sans-serif;
   letter-spacing: 0.3px; cursor: pointer;
-  box-shadow: 0 8px 32px rgba(208,16,48,0.35);
+  box-shadow: 0 8px 28px rgba(200,0,28,0.25);
   transition: transform .15s, box-shadow .15s;
 }
-.cta-big:active { transform: scale(0.98); box-shadow: 0 4px 16px rgba(208,16,48,0.25); }
+.cta-big:active { transform: scale(0.98); box-shadow: 0 4px 14px rgba(200,0,28,0.18); }
 
 /* ══════════ MAIN ══════════ */
-.main { padding: 54px 18px 110px; }
+.main { padding: 52px 18px 110px; }
 
-/* header */
-.logo-sm .logo-text { font-size: 34px; }
+/* ── HEADER ROW ── */
+.header-row {
+  display: flex; align-items: center; gap: 12px;
+  padding-bottom: 18px;
+  border-bottom: 1.5px solid var(--border);
+}
+.header-logo-wrap {
+  display: flex; align-items: center; gap: 10px;
+}
+.header-wordmark {
+  display: flex; flex-direction: column; gap: 0;
+}
+.header-wm-text {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px; font-weight: 800; letter-spacing: 5px;
+  color: var(--text); padding-left: 5px;
+  line-height: 1;
+}
+.header-divline {
+  width: 80px; height: 0.8px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin: 4px 0; opacity: 0.6;
+}
+.header-tagline {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 7px; font-weight: 500; letter-spacing: 3px;
+  color: var(--muted); text-transform: uppercase;
+}
+.header-persian { margin-right: auto; }
+
+/* ── RUSSIA FLAG STRIPE ── */
+.flag-stripe {
+  display: flex; height: 4px; border-radius: 2px; overflow: hidden;
+  margin-bottom: 20px; margin-top: 16px;
+}
+.flag-stripe .s1 { flex:1; background: #ffffff; border: 1px solid rgba(0,56,130,0.12); }
+.flag-stripe .s2 { flex:1; background: #003882; }
+.flag-stripe .s3 { flex:1; background: #c8001c; }
 
 /* filter */
-.filter-row { display:flex; gap:10px; margin: 18px 0 28px; }
+.filter-row { display:flex; gap:10px; margin: 0 0 24px; }
 .filter-origin {
   flex:1; background: var(--surface); border:1px solid var(--border);
   border-radius: 14px; padding: 12px 16px;
   display: flex; align-items: center; gap: 10px;
+  box-shadow: 0 2px 12px rgba(0,56,130,0.06);
 }
 .filter-origin .fi { font-size:18px; }
 .filter-origin .fl { display:flex; flex-direction:column; }
 .filter-origin .lbl { font-size: 10px; color: var(--muted); text-transform:uppercase; letter-spacing:.8px; font-weight: 600; }
-.filter-origin .val { font-size: 15px; font-weight: 700; margin-top: 2px; }
+.filter-origin .val { font-size: 15px; font-weight: 700; margin-top: 2px; color: var(--text); }
 .filter-pax {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 14px; padding: 12px 14px;
   display:flex; align-items:center; gap:6px;
   font-size:14px; font-weight:700;
   font-family: 'Vazirmatn', sans-serif;
+  color: var(--text);
+  box-shadow: 0 2px 12px rgba(0,56,130,0.06);
 }
 
 /* section titles */
-.sec { margin-top: 28px; }
-.sec h2 { font-size: 19px; font-weight: 800; }
-.sec p  { font-size: 12px; color: var(--muted2); margin-top: 4px; font-weight: 400; line-height: 1.7; }
+.sec { margin-top: 24px; }
+.sec h2 { font-size: 19px; font-weight: 800; color: var(--text); }
+.sec p  { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 400; line-height: 1.7; }
 
 /* ── HORIZONTAL SCROLL ── */
 .hscroll {
   display:flex; gap:14px; overflow-x:auto;
-  padding: 16px 0 8px; scrollbar-width:none; margin: 0 -4px; padding-left:4px;
+  padding: 14px 0 8px; scrollbar-width:none; margin: 0 -4px; padding-left:4px;
 }
 .hscroll::-webkit-scrollbar { display:none; }
 
@@ -161,6 +220,7 @@ body {
   min-width: 230px; border-radius: 18px; overflow:hidden;
   background: var(--card); border:1px solid var(--border);
   flex-shrink:0; position:relative;
+  box-shadow: 0 4px 20px rgba(0,56,130,0.08);
 }
 .card-img {
   height: 155px; display:flex; align-items:center; justify-content:center;
@@ -168,31 +228,31 @@ body {
 }
 .card-img::after {
   content:''; position:absolute; inset:0;
-  background: linear-gradient(to bottom, transparent 50%, rgba(20,20,34,0.85) 100%);
+  background: linear-gradient(to bottom, transparent 50%, rgba(255,255,255,0.85) 100%);
 }
 
 /* drop badge */
 .badge {
   position:absolute; top:10px; right:10px; z-index:2;
-  background: rgba(208,16,48,0.92);
+  background: rgba(200,0,28,0.90);
   backdrop-filter: blur(6px);
   color:#fff; font-size:11px; font-weight:700;
   padding: 5px 9px; border-radius: 8px;
   display:flex; align-items:center; gap:4px;
-  border: 1px solid rgba(255,100,100,0.3);
+  border: 1px solid rgba(255,100,100,0.25);
   font-family: 'Vazirmatn', sans-serif;
 }
 .badge svg { width:10px; height:10px; fill:#fff; flex-shrink:0; }
 
 .card-body { padding: 13px 14px 16px; }
-.card-city  { font-size:15px; font-weight:800; }
+.card-city  { font-size:15px; font-weight:800; color: var(--text); }
 .card-country { font-size:11px; color: var(--muted); margin-top:2px; }
 
 /* ── DATE PILL ── */
 .date-pill {
   display: inline-flex; align-items: center; gap: 6px;
   background: var(--gold-dim);
-  border: 1px solid rgba(224,184,74,0.25);
+  border: 1px solid rgba(184,134,11,0.20);
   border-radius: 8px;
   padding: 5px 10px; margin-top: 10px;
 }
@@ -204,9 +264,9 @@ body {
 }
 .nights-tag {
   display:inline-block;
-  background: rgba(255,255,255,0.07);
+  background: rgba(0,56,130,0.08);
   border-radius:6px; padding: 3px 7px;
-  font-size: 10px; font-weight:600; color: var(--muted2);
+  font-size: 10px; font-weight:600; color: var(--accent2);
   margin-right: 6px; margin-top: 2px;
   font-family: 'Vazirmatn', sans-serif;
 }
@@ -217,11 +277,11 @@ body {
 }
 .price-new {
   font-family: 'Roboto Mono', monospace;
-  font-size: 22px; font-weight: 700; color: #fff;
+  font-size: 22px; font-weight: 700; color: var(--text);
   letter-spacing: -0.5px;
 }
 .price-new .curr {
-  font-size:12px; color: var(--muted2); font-weight:500;
+  font-size:12px; color: var(--muted); font-weight:500;
   font-family: 'Vazirmatn', sans-serif;
 }
 .price-old {
@@ -234,13 +294,15 @@ body {
   font-size: 11px; font-weight: 700;
   color: var(--green); letter-spacing: 0.2px;
   font-family: 'Vazirmatn', sans-serif;
+  background: var(--save-bg);
+  display: inline-block; padding: 2px 6px; border-radius: 5px;
 }
 
 /* ── DIVIDER ── */
 .divider {
   height: 1px; margin: 28px 0;
-  background: linear-gradient(90deg, transparent, var(--accent), var(--gold), var(--accent), transparent);
-  opacity: 0.5;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), var(--accent), transparent);
+  opacity: 0.3;
 }
 
 /* ── FULL CARD ── */
@@ -248,6 +310,7 @@ body {
   border-radius: 18px; overflow:hidden;
   background: var(--card); border:1px solid var(--border);
   margin-top: 14px; position:relative;
+  box-shadow: 0 4px 20px rgba(0,56,130,0.08);
 }
 .full-img {
   height: 190px; display:flex; align-items:center; justify-content:center;
@@ -255,18 +318,18 @@ body {
 }
 .full-img::after {
   content:''; position:absolute; inset:0;
-  background: linear-gradient(to bottom, transparent 40%, rgba(20,20,34,0.9) 100%);
+  background: linear-gradient(to bottom, transparent 40%, rgba(255,255,255,0.92) 100%);
 }
 .full-img .badge { right: auto; left:12px; top:12px; }
 
-/* city overlay text on image */
 .img-city-overlay {
   position:absolute; bottom:14px; right:16px; z-index:2;
-  font-size:20px; font-weight:800; letter-spacing:0.5px;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+  font-size:19px; font-weight:800; letter-spacing:0.5px;
+  color: var(--text);
+  text-shadow: 0 1px 8px rgba(255,255,255,0.9);
   font-family: 'Vazirmatn', sans-serif;
 }
-.img-city-overlay small { display:block; font-size:11px; font-weight:500; color:rgba(255,255,255,0.6); margin-top:2px; letter-spacing:0; font-family: 'Vazirmatn', sans-serif; }
+.img-city-overlay small { display:block; font-size:11px; font-weight:500; color:var(--muted); margin-top:2px; letter-spacing:0; font-family: 'Vazirmatn', sans-serif; }
 
 .full-body { padding: 16px; }
 .full-meta { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
@@ -283,6 +346,7 @@ body {
   background: var(--surface); border-top:1px solid var(--border);
   display:flex; justify-content:space-around;
   padding: 10px 0 28px; z-index:50;
+  box-shadow: 0 -4px 24px rgba(0,56,130,0.08);
 }
 .nav-item { display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; }
 .nav-label { font-size:10px; color:var(--muted); font-weight:600; font-family: 'Vazirmatn', sans-serif; }
@@ -297,10 +361,6 @@ body {
   border:2px solid var(--accent); border-radius:50%;
 }
 .nav-drop-icon svg { width:11px; height:11px; fill:var(--accent); }
-
-/* ── MOSKOVVA WORDMARK accent ── */
-.moskovva-accent { color: var(--accent); -webkit-text-fill-color: var(--accent); }
-
 </style>
 </head>
 <body>
@@ -309,10 +369,29 @@ body {
 <div class="overlay" id="ov">
   <button class="overlay-close" onclick="document.getElementById('ov').style.display='none'">✕</button>
 
-  <div class="logo-big">
-    <span class="logo-text">مسکووا</span>
+  <!-- SVG Logo Mark -->
+  <div class="logo-hero">
+    <svg width="72" height="86" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="logo-g1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#003882"/>
+          <stop offset="100%" stop-color="#c8001c"/>
+        </linearGradient>
+      </defs>
+      <rect x="2" y="42" width="11" height="70" fill="url(#logo-g1)" rx="2.5"/>
+      <rect x="87" y="42" width="11" height="70" fill="url(#logo-g1)" rx="2.5"/>
+      <rect x="44.5" y="0" width="7" height="28" fill="url(#logo-g1)" rx="2"/>
+      <path d="M13 78 L13 48 Q13 8 50 8 Q87 8 87 48 L87 78"
+            stroke="url(#logo-g1)" stroke-width="11" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+      <ellipse cx="48" cy="5" rx="7" ry="8" fill="url(#logo-g1)"/>
+      <rect x="2" y="112" width="96" height="2.5" fill="url(#logo-g1)" rx="1.5" opacity="0.3"/>
+    </svg>
+    <div class="wordmark-ov">MOSKOVVA</div>
+    <div class="divline-ov"></div>
+    <div class="tagline-ov">Russia Travel</div>
   </div>
-  <div class="logo-sub">تورهای روسیه</div>
+
+  <div class="logo-sub-ov">تورهای روسیه</div>
 
   <div class="slide-wrap">
     <div class="slide">
@@ -341,8 +420,40 @@ body {
 <!-- ══════════ MAIN ══════════ -->
 <div class="main">
 
-  <div class="logo-sm">
-    <span class="logo-text">مسکووا</span>
+  <!-- Header with logo -->
+  <div class="header-row">
+    <div class="header-logo-wrap">
+      <!-- Small SVG mark -->
+      <svg width="36" height="43" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="logo-g2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#003882"/>
+            <stop offset="100%" stop-color="#c8001c"/>
+          </linearGradient>
+        </defs>
+        <rect x="2" y="42" width="11" height="70" fill="url(#logo-g2)" rx="2.5"/>
+        <rect x="87" y="42" width="11" height="70" fill="url(#logo-g2)" rx="2.5"/>
+        <rect x="44.5" y="0" width="7" height="28" fill="url(#logo-g2)" rx="2"/>
+        <path d="M13 78 L13 48 Q13 8 50 8 Q87 8 87 48 L87 78"
+              stroke="url(#logo-g2)" stroke-width="11" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+        <ellipse cx="48" cy="5" rx="7" ry="8" fill="url(#logo-g2)"/>
+      </svg>
+      <div class="header-wordmark">
+        <div class="header-wm-text">MOSKOVVA</div>
+        <div class="header-divline"></div>
+        <div class="header-tagline">Russia Travel</div>
+      </div>
+    </div>
+    <div class="header-persian" style="margin-right:auto;">
+      <span class="logo-persian">مسکووا</span>
+    </div>
+  </div>
+
+  <!-- Russia flag stripe -->
+  <div class="flag-stripe">
+    <div class="s1"></div>
+    <div class="s2"></div>
+    <div class="s3"></div>
   </div>
 
   <div class="filter-row">
@@ -466,9 +577,9 @@ body {
 
   <!-- Full card: Baikal -->
   <div class="full-card">
-    <div class="full-img" style="background: radial-gradient(ellipse at 40% 55%, #082038 0%, #06060e 100%);">
+    <div class="full-img" style="background: radial-gradient(ellipse at 40% 55%, #c8e8f8 0%, #eef4fa 100%);">
       🌊
-      <div class="badge">
+      <div class="badge" style="right:auto;left:12px;top:12px;">
         <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
         تا $78 افت قیمت
       </div>
@@ -485,7 +596,7 @@ body {
       <div style="margin-top:4px;font-size:10px;color:var(--muted);">Sep 6 – Sep 12 · Irkutsk</div>
       <div class="full-price-row">
         <div>
-          <div class="price-save" style="font-size:12px;">↓ ۲۲٪ کاهش قیمت نسبت به هفته گذشته</div>
+          <div class="price-save" style="font-size:12px;">↓ ۲۲٪ کاهش نسبت به هفته گذشته</div>
         </div>
         <div style="text-align:left;">
           <div class="price-old" style="font-size:14px;display:block;">$897</div>
@@ -497,7 +608,7 @@ body {
 
   <!-- Full card: Kazan -->
   <div class="full-card">
-    <div class="full-img" style="background: radial-gradient(ellipse at 55% 40%, #241408 0%, #06060e 100%);">
+    <div class="full-img" style="background: radial-gradient(ellipse at 55% 40%, #fde8d8 0%, #faf4ee 100%);">
       🕌
       <div class="badge">
         <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
@@ -516,7 +627,7 @@ body {
       <div style="margin-top:4px;font-size:10px;color:var(--muted);">Sep 27 – Oct 3 · Kazan</div>
       <div class="full-price-row">
         <div>
-          <div class="price-save" style="font-size:12px;">↓ ۱۸٪ کاهش قیمت نسبت به ماه گذشته</div>
+          <div class="price-save" style="font-size:12px;">↓ ۱۸٪ کاهش نسبت به ماه گذشته</div>
         </div>
         <div style="text-align:left;">
           <div class="price-old" style="font-size:14px;display:block;">$620</div>
@@ -528,7 +639,7 @@ body {
 
   <!-- Full card: Murmansk -->
   <div class="full-card">
-    <div class="full-img" style="background: radial-gradient(ellipse at 50% 30%, #080828 0%, #04040c 100%);">
+    <div class="full-img" style="background: radial-gradient(ellipse at 50% 30%, #d8e8f8 0%, #eef2fa 100%);">
       🌌
       <div class="badge">
         <svg viewBox="0 0 10 10"><path d="M5 1v6M2 4.5 5 8l3-3.5"/></svg>
