@@ -145,7 +145,7 @@ body {
 .cta-big:active { transform: scale(0.98); box-shadow: 0 4px 14px rgba(200,0,28,0.18); }
 
 /* ══════════ MAIN ══════════ */
-.main { padding: 52px 18px 122px; }
+.main { padding: 52px 18px 110px; }
 
 /* ── HEADER ROW ── */
 .header-row {
@@ -371,74 +371,27 @@ body {
 }
 
 /* ── NAV ── */
-.nav-dock {
+.nav {
   position:fixed; bottom:0; left:50%; transform:translateX(-50%);
   width:100%; max-width:430px;
-  z-index:50; pointer-events:none;
-  padding: 0 14px calc(16px + env(safe-area-inset-bottom, 0px));
+  background: var(--surface); border-top:1px solid var(--border);
+  display:flex; justify-content:space-around;
+  padding: 10px 0 28px; z-index:50;
+  box-shadow: 0 -4px 24px rgba(0,56,130,0.08);
 }
-.nav {
-  pointer-events:all;
-  position:relative;
-  display:flex; align-items:center; justify-content:space-between;
-  gap: 2px;
-  background: linear-gradient(180deg, #161d3f 0%, #0d1228 100%);
-  border-radius: 22px;
-  padding: 8px;
-  box-shadow:
-    0 18px 38px rgba(8,12,32,0.38),
-    0 2px 0 rgba(255,255,255,0.04) inset,
-    0 0 0 1px rgba(255,255,255,0.05) inset;
-}
-.nav::before {
-  content:'';
-  position:absolute; top:0; left:14px; right:14px; height:1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
-}
-.nav-item {
-  position:relative;
-  flex:1;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:3px; cursor:pointer;
-  padding: 9px 4px 8px;
-  border-radius:16px;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform .18s cubic-bezier(.34,1.56,.64,1);
-}
-.nav-item:active { transform: scale(0.92); }
-.nav-label {
-  font-size:10.5px; color: rgba(255,255,255,0.42); font-weight:600;
-  font-family: 'Vazirmatn', sans-serif; letter-spacing:0.1px;
-  transition: color .25s, opacity .25s; position:relative; z-index:2;
-}
-.nav-item.on .nav-label { color:#fff; }
+.nav-item { display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; }
+.nav-label { font-size:10px; color:var(--muted); font-weight:600; font-family: 'Vazirmatn', sans-serif; }
+.nav-item.on .nav-label { color:var(--accent); }
 .nav-icon-wrap {
-  width:30px; height:30px; display:flex; align-items:center; justify-content:center;
-  position:relative; z-index:2;
-  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  width:26px; height:26px; display:flex; align-items:center; justify-content:center;
 }
-.nav-icon-wrap svg { width:21px; height:21px; stroke: rgba(255,255,255,0.42); fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; transition: stroke .25s; }
-.nav-item.on .nav-icon-wrap svg { stroke:#fff; }
-.nav-item.on .nav-icon-wrap { transform: translateY(-1px); }
-/* active pill: rises behind the active tab like a stamped seal */
-.nav-pill {
-  position:absolute; inset:0;
-  border-radius:16px;
-  background: linear-gradient(135deg, var(--accent) 0%, #8a000f 100%);
-  box-shadow: 0 8px 18px rgba(200,0,28,0.45);
-  opacity:0; transform: scale(0.7);
-  transition: opacity .3s, transform .35s cubic-bezier(.34,1.56,.64,1);
-  z-index:1;
+.nav-icon-wrap svg { width:22px; height:22px; stroke:var(--muted); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.nav-item.on .nav-icon-wrap svg { stroke:var(--accent); }
+.nav-drop-icon {
+  width:22px; height:22px; display:flex; align-items:center; justify-content:center;
+  border:2px solid var(--accent); border-radius:50%;
 }
-.nav-item.on .nav-pill { opacity:1; transform: scale(1); }
-/* tiny gold tick under the active label, a deliberate signature mark */
-.nav-item.on .nav-dot {
-  content:'';
-  position:absolute; bottom:2px; left:50%; transform:translateX(-50%);
-  width:3px; height:3px; border-radius:50%;
-  background: var(--gold);
-  box-shadow: 0 0 0 3px rgba(184,134,11,0.18);
-}
+.nav-drop-icon svg { width:11px; height:11px; fill:var(--accent); }
 
 /* ══════════ DETAIL PANEL ══════════ */
 .detail-panel {
@@ -1106,52 +1059,34 @@ body {
 </div><!-- /main -->
 
 <!-- ══════════ BOTTOM NAV ══════════ -->
-<div class="nav-dock">
 <nav class="nav">
-  <div class="nav-item on" onclick="setNav(this)">
-    <div class="nav-pill"></div>
+  <div class="nav-item">
     <div class="nav-icon-wrap">
-      <svg class="nav-icon-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9"/></svg>
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
     </div>
-    <span class="nav-label">خانه</span>
-    <div class="nav-dot"></div>
+    <span class="nav-label">جستجو</span>
   </div>
-
-  <div class="nav-item" onclick="setNav(this)">
-    <div class="nav-pill"></div>
+  <div class="nav-item on">
     <div class="nav-icon-wrap">
-      <svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S15 1 14 2.5L10.5 6 2.5 4.2a1 1 0 0 0-.9.3l-1.4 1.4a1 1 0 0 0 0 1.4l4.5 4.5-1.4 3.5 3.5-1.4 4.5 4.5a1 1 0 0 0 1.4 0l1.4-1.4a1 1 0 0 0 .2-.9z"/></svg>
+      <div class="nav-drop-icon">
+        <svg viewBox="0 0 14 14" fill="var(--accent)"><path d="M7 1v8M3.5 5.5 7 10l3.5-4.5"/></svg>
+      </div>
     </div>
-    <span class="nav-label">تور</span>
-    <div class="nav-dot"></div>
+    <span class="nav-label" style="color:var(--accent);">تورها</span>
   </div>
-
-  <div class="nav-item" onclick="setNav(this)">
-    <div class="nav-pill"></div>
+  <div class="nav-item">
     <div class="nav-icon-wrap">
-      <svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V9a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v12"/><path d="M9 21v-5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5"/><path d="M9 8V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
     </div>
-    <span class="nav-label">هتل</span>
-    <div class="nav-dot"></div>
+    <span class="nav-label">ذخیره‌شده</span>
   </div>
-
-  <div class="nav-item" onclick="setNav(this)">
-    <div class="nav-pill"></div>
+  <div class="nav-item">
     <div class="nav-icon-wrap">
-      <svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 0 1 2-2h2.3a1 1 0 0 1 1 .8l1 4a1 1 0 0 1-.3 1L7.1 10.6a14 14 0 0 0 6.3 6.3l1.8-1.9a1 1 0 0 1 1-.3l4 1a1 1 0 0 1 .8 1V19a2 2 0 0 1-2 2h-1C9.8 21 3 14.2 3 6V5z"/></svg>
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
     </div>
-    <span class="nav-label">تماس با ما</span>
-    <div class="nav-dot"></div>
+    <span class="nav-label">پروفایل</span>
   </div>
 </nav>
-</div>
-
-<script>
-function setNav(el){
-  document.querySelectorAll('.nav .nav-item').forEach(i => i.classList.remove('on'));
-  el.classList.add('on');
-}
-</script>
 
 <!-- ══════════ DETAIL PANEL ══════════ -->
 <div class="dp-scrim" id="dp-scrim" onclick="closeDetail()"></div>
@@ -1180,9 +1115,9 @@ function setNav(el){
     <svg viewBox="0 0 430 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="wave-fade" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%25" stop-color="rgba(10,15,40,0)" />
-          <stop offset="60%25" stop-color="rgba(10,15,40,0.2)" />
-          <stop offset="100%25" stop-color="rgba(240,244,250,0)" />
+          <stop offset="0%" stop-color="rgba(10,15,40,0)" />
+          <stop offset="60%" stop-color="rgba(10,15,40,0.2)" />
+          <stop offset="100%" stop-color="rgba(240,244,250,0)" />
         </linearGradient>
       </defs>
       <rect x="0" y="0" width="430" height="58" fill="url(#wave-fade)" />
@@ -1511,7 +1446,6 @@ function openDetail(id) {
   document.getElementById('dp-date-to').textContent = t.dateTo;
   document.getElementById('dp-date-to-en').textContent = t.dateToEn;
   document.getElementById('dp-nights-num').textContent = t.nights;
-  document.getElementById('dp-dates-en').textContent = t.datesEn;
 
   // Highlights
   const hl = document.getElementById('dp-highlights');
