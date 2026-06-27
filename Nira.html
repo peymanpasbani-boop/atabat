@@ -1,294 +1,1573 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Nira Training Simulator</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نیرا - شبیه‌ساز آموزشی سیستم رزرواسیون</title>
 <style>
-body {
-    margin: 0;
-    font-family: sans-serif;
-    background: #0f172a;
-    color: #e2e8f0;
-    display: flex;
-    height: 100vh;
-}
+  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
 
-/* HEADER */
-header {
+  :root {
+    --bg-deep: #0a0e1a;
+    --bg-panel: #0f1526;
+    --bg-card: #151d35;
+    --bg-sidebar: #0c1220;
+    --accent: #00c8ff;
+    --accent2: #0077ff;
+    --accent-green: #00e5a0;
+    --accent-amber: #ffb300;
+    --accent-red: #ff4757;
+    --text-primary: #e8f0ff;
+    --text-secondary: #7a8db0;
+    --text-dim: #4a5a7a;
+    --border: #1e2d50;
+    --border-glow: rgba(0,200,255,0.3);
+    --terminal-bg: #060b14;
+    --terminal-text: #00e5a0;
+    --sidebar-w: 220px;
+    --header-h: 52px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Vazirmatn', sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── HEADER ─── */
+  #header {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 55px;
-    background: #111827;
+    top: 0; right: 0; left: 0;
+    height: var(--header-h);
+    background: rgba(10,14,26,0.95);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 15px;
-    border-bottom: 1px solid #1f2937;
-    z-index: 10;
-}
+    padding: 0 16px;
+    z-index: 200;
+    gap: 12px;
+  }
 
-header a {
-    color: #38bdf8;
+  .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
-}
+  }
+  .logo-badge {
+    width: 34px; height: 34px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: #fff;
+    letter-spacing: -1px;
+    flex-shrink: 0;
+  }
+  .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+  .logo-sub { font-size: 10px; color: var(--text-secondary); }
 
-/* HAMBURGER */
-.menu-btn {
-    display: none;
-    background: none;
-    border: 1px solid #334155;
-    color: #fff;
-    padding: 6px 10px;
-    border-radius: 6px;
-}
-
-/* SIDEBAR */
-.sidebar {
-    width: 230px;
-    background: #111827;
-    padding-top: 60px;
-    border-left: 1px solid #1f2937;
-    transition: transform 0.3s ease;
-}
-
-.sidebar button {
-    width: 100%;
-    padding: 12px;
-    background: none;
-    border: none;
-    color: #e2e8f0;
-    text-align: right;
-    cursor: pointer;
-    border-bottom: 1px solid #1f2937;
-    font-size: 14px;
-}
-
-.sidebar button:hover {
-    background: #1e293b;
-}
-
-/* MAIN */
-.main {
+  .header-center {
     flex: 1;
-    padding: 80px 20px 20px 20px;
-    overflow-y: auto;
-}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    box-shadow: 0 0 6px var(--accent-green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; } 50% { opacity:0.4; }
+  }
 
-.card {
-    background: #111827;
-    border: 1px solid #1f2937;
-    border-radius: 12px;
-    padding: 15px;
-    max-width: 850px;
-}
-
-/* INPUT */
-input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    background: #0f172a;
-    border: 1px solid #334155;
-    color: white;
+  .header-actions { display: flex; align-items: center; gap: 8px; }
+  .btn-header {
+    padding: 6px 12px;
     border-radius: 6px;
-}
-
-button.run {
-    margin-top: 10px;
-    padding: 10px 12px;
-    background: #38bdf8;
-    border: none;
+    font-size: 11px;
+    font-family: 'Vazirmatn', sans-serif;
     cursor: pointer;
-    font-weight: bold;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  .btn-header:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-header.primary {
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border-color: transparent; color: #fff;
+  }
+
+  /* ─── HAMBURGER ─── */
+  #hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    flex-shrink: 0;
+  }
+  #hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--text-secondary);
+    border-radius: 2px;
+    transition: all .3s;
+  }
+
+  /* ─── LAYOUT ─── */
+  #layout {
+    display: flex;
+    margin-top: var(--header-h);
+    min-height: calc(100vh - var(--header-h));
+  }
+
+  /* ─── SIDEBAR ─── */
+  #sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg-sidebar);
+    border-left: 1px solid var(--border);
+    position: fixed;
+    top: var(--header-h);
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    z-index: 100;
+    transition: transform .3s ease;
+  }
+  #sidebar::-webkit-scrollbar { width: 4px; }
+  #sidebar::-webkit-scrollbar-track { background: transparent; }
+  #sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .sidebar-section { padding: 16px 0 8px; }
+  .sidebar-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--text-dim);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 0 16px 8px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all .2s;
+    border-right: 3px solid transparent;
+    position: relative;
+  }
+  .nav-item:hover { background: rgba(0,200,255,0.05); color: var(--text-primary); }
+  .nav-item.active {
+    background: rgba(0,200,255,0.08);
+    border-right-color: var(--accent);
+    color: var(--accent);
+  }
+  .nav-icon {
+    width: 28px; height: 28px;
     border-radius: 6px;
+    background: var(--bg-card);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+    transition: all .2s;
+  }
+  .nav-item.active .nav-icon { background: rgba(0,200,255,0.15); }
+  .nav-text { font-size: 12px; font-weight: 500; }
+  .nav-badge {
+    margin-right: auto;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    background: rgba(0,200,255,0.15);
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .sub-nav { display: none; }
+  .sub-nav.open { display: block; }
+  .sub-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px 8px 32px;
+    cursor: pointer;
+    font-size: 11px;
+    color: var(--text-secondary);
+    border-right: 3px solid transparent;
+    transition: all .2s;
+  }
+  .sub-item:hover { color: var(--text-primary); background: rgba(255,255,255,0.03); }
+  .sub-item.active { color: var(--accent); border-right-color: rgba(0,200,255,0.5); }
+  .sub-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text-dim); flex-shrink:0; }
+  .sub-item.active .sub-dot { background: var(--accent); }
+
+  /* ─── MAIN ─── */
+  #main {
+    margin-right: var(--sidebar-w);
+    flex: 1;
+    padding: 24px 20px;
+    min-height: calc(100vh - var(--header-h));
+  }
+
+  /* ─── WELCOME SCREEN ─── */
+  #welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    text-align: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  .welcome-icon {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, rgba(0,119,255,0.2), rgba(0,200,255,0.2));
+    border: 1px solid var(--border-glow);
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+  }
+  .welcome-title { font-size: 22px; font-weight: 800; }
+  .welcome-title span { color: var(--accent); }
+  .welcome-sub { font-size: 13px; color: var(--text-secondary); max-width: 400px; line-height: 1.8; }
+  .welcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 8px;
+    max-width: 500px;
     width: 100%;
-}
+  }
+  .welcome-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 10px;
+    cursor: pointer;
+    transition: all .2s;
+    text-align: center;
+  }
+  .welcome-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .welcome-card-icon { font-size: 20px; margin-bottom: 6px; }
+  .welcome-card-label { font-size: 11px; font-weight: 600; }
+  .welcome-card-cmd { font-size: 9px; color: var(--text-secondary); margin-top: 3px; }
 
-pre {
-    background: #0f172a;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #334155;
-    white-space: pre-wrap;
+  /* ─── LESSON CONTENT ─── */
+  #lesson-content { display: none; }
+
+  .lesson-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .lesson-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(0,200,255,0.1);
+    border: 1px solid rgba(0,200,255,0.2);
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .lesson-title { font-size: 20px; font-weight: 800; line-height: 1.3; }
+  .lesson-cmd-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--terminal-bg);
+    border: 1px solid rgba(0,229,160,0.3);
     border-radius: 6px;
-}
+    padding: 4px 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--terminal-text);
+    font-family: 'Courier New', monospace;
+  }
 
-.tooltip {
-    margin-top: 10px;
+  .lesson-desc {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-right: 3px solid var(--accent2);
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 13px;
+    line-height: 2;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+  }
+
+  /* ─── TERMINAL ─── */
+  .terminal-wrap {
+    background: var(--terminal-bg);
+    border: 1px solid rgba(0,229,160,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 0 30px rgba(0,229,160,0.05);
+  }
+  .terminal-titlebar {
+    background: rgba(0,229,160,0.06);
+    border-bottom: 1px solid rgba(0,229,160,0.15);
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .t-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .t-red { background: #ff5f57; }
+  .t-yellow { background: #febc2e; }
+  .t-green { background: #28c840; }
+  .t-title { font-size: 11px; color: var(--text-dim); margin-right: 8px; font-family: monospace; }
+
+  .terminal-body { padding: 14px; }
+  .terminal-prompt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .prompt-symbol {
+    color: var(--terminal-text);
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--terminal-text);
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    caret-color: var(--terminal-text);
+    direction: ltr;
+    text-align: left;
+    letter-spacing: 1px;
+  }
+  .terminal-input::placeholder { color: rgba(0,229,160,0.3); }
+
+  .terminal-output {
+    background: rgba(0,229,160,0.03);
+    border: 1px solid rgba(0,229,160,0.1);
+    border-radius: 6px;
+    padding: 12px;
+    font-family: 'Courier New', monospace;
     font-size: 12px;
-    color: #94a3b8;
-}
+    color: var(--terminal-text);
+    white-space: pre;
+    overflow-x: auto;
+    direction: ltr;
+    text-align: left;
+    min-height: 80px;
+    display: none;
+    line-height: 1.6;
+  }
+  .terminal-output.visible { display: block; }
 
-/* MOBILE UX */
-@media (max-width: 768px) {
-    body {
-        flex-direction: column;
-    }
+  .terminal-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .btn-run {
+    padding: 9px 20px;
+    background: linear-gradient(135deg, rgba(0,229,160,0.2), rgba(0,200,255,0.2));
+    border: 1px solid rgba(0,229,160,0.4);
+    border-radius: 7px;
+    color: var(--terminal-text);
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .btn-run:hover { background: rgba(0,229,160,0.25); box-shadow: 0 0 12px rgba(0,229,160,0.2); }
+  .btn-clear {
+    padding: 9px 16px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    color: var(--text-secondary);
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .btn-clear:hover { border-color: var(--accent-red); color: var(--accent-red); }
 
-    .menu-btn {
-        display: block;
-    }
+  /* ─── TOOLTIP / AI EXPLAIN ─── */
+  .ai-tooltip {
+    background: linear-gradient(135deg, rgba(0,119,255,0.08), rgba(0,200,255,0.05));
+    border: 1px solid rgba(0,200,255,0.2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .ai-icon {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .ai-text { font-size: 12px; line-height: 1.9; color: var(--text-secondary); }
+  .ai-text strong { color: var(--accent); font-weight: 600; }
 
-    .sidebar {
-        position: fixed;
-        right: 0;
-        top: 55px;
-        height: 100%;
-        transform: translateX(100%);
-        z-index: 20;
-        width: 260px;
-    }
+  /* ─── EXAMPLES LIST ─── */
+  .examples-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .example-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .example-card:hover { border-color: var(--accent); }
+  .example-cmd {
+    font-family: monospace;
+    font-size: 12px;
+    color: var(--terminal-text);
+    font-weight: 700;
+    direction: ltr;
+    text-align: left;
+    margin-bottom: 6px;
+  }
+  .example-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.6; }
 
-    .sidebar.open {
-        transform: translateX(0);
-    }
+  /* ─── NAV BUTTONS ─── */
+  .lesson-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .btn-nav {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    transition: all .2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .btn-nav:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-nav.primary {
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border-color: transparent;
+    color: #fff;
+  }
+  .btn-nav:disabled { opacity: 0.3; cursor: default; }
 
-    .main {
-        padding: 80px 10px 10px 10px;
+  /* ─── PROGRESS ─── */
+  .progress-bar {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .progress-track {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 2px;
+    transition: width .4s ease;
+  }
+  .progress-text { font-size: 11px; color: var(--text-secondary); white-space: nowrap; }
+
+  /* ─── MOBILE OVERLAY ─── */
+  #sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 99;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    :root { --sidebar-w: 260px; }
+    #hamburger { display: flex; }
+    #sidebar {
+      transform: translateX(100%);
+      box-shadow: -8px 0 30px rgba(0,0,0,0.5);
     }
-}
+    #sidebar.open { transform: translateX(0); }
+    #sidebar-overlay.open { display: block; }
+    #main { margin-right: 0; padding: 16px 14px; }
+    .status-bar { display: none; }
+    .btn-header { display: none; }
+    .welcome-grid { grid-template-columns: repeat(2, 1fr); }
+    .examples-grid { grid-template-columns: 1fr; }
+    .welcome-title { font-size: 18px; }
+    .lesson-title { font-size: 17px; }
+  }
+
+  @media (max-width: 400px) {
+    .welcome-grid { grid-template-columns: 1fr 1fr; }
+    .logo-sub { display: none; }
+  }
+
+  /* ─── TYPING ANIMATION ─── */
+  .typing::after {
+    content: '█';
+    animation: blink .8s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-left: 6px;
+  }
+  .tag-green { background: rgba(0,229,160,0.15); color: var(--accent-green); }
+  .tag-blue { background: rgba(0,200,255,0.15); color: var(--accent); }
+  .tag-amber { background: rgba(255,179,0,0.15); color: var(--accent-amber); }
+
+  /* Scrollbar for main */
+  #main::-webkit-scrollbar { width: 5px; }
+  #main::-webkit-scrollbar-track { background: transparent; }
+  #main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 </style>
 </head>
-
 <body>
 
-<header>
-    <a href="http://nirasoft.ir/t/" target="_blank">Nira Training Portal</a>
-    <button class="menu-btn" onclick="toggleMenu()">منو</button>
+<!-- HEADER -->
+<header id="header">
+  <a class="header-logo" href="http://nirasoft.ir/t/" target="_blank">
+    <div class="logo-badge">NR</div>
+    <div>
+      <div class="logo-text">نیرا</div>
+      <div class="logo-sub">سیستم رزرواسیون</div>
+    </div>
+  </a>
+
+  <div class="header-center">
+    <div class="status-bar">
+      <div class="status-dot"></div>
+      <span>محیط آموزشی فعال</span>
+      <span style="color:var(--border)">|</span>
+      <span>نسخه ۲.۰</span>
+    </div>
+  </div>
+
+  <div class="header-actions">
+    <button class="btn-header" onclick="window.open('http://nirasoft.ir/t/','_blank')">🌐 nirasoft.ir</button>
+    <button class="btn-header primary" onclick="showWelcome()">🏠 خانه</button>
+    <div id="hamburger" onclick="toggleSidebar()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
 </header>
 
-<div class="sidebar" id="sidebar">
-    <button onclick="loadLesson('availability')">دسترسی پرواز (AV / AY)</button>
-    <button onclick="loadLesson('booking')">رزرو (SK)</button>
-    <button onclick="loadLesson('ticketing')">صدور بلیت (TCC / CRD)</button>
-    <button onclick="loadLesson('reports')">گزارش‌ها (DGS)</button>
-    <button onclick="loadLesson('tools')">ابزار سیستم</button>
-</div>
+<div id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-<div class="main">
-    <div id="content" class="card">
-        <h2>به شبیه‌ساز آموزشی Nira خوش آمدید</h2>
-        <p>از منوی سمت راست یک بخش را انتخاب کنید.</p>
+<!-- LAYOUT -->
+<div id="layout">
+
+  <!-- SIDEBAR -->
+  <nav id="sidebar">
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">منوی اصلی</div>
+      <div class="nav-item" onclick="showWelcome()" id="nav-home">
+        <div class="nav-icon">🏠</div>
+        <div class="nav-text">صفحه اصلی</div>
+      </div>
     </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">دسترسی و پرواز</div>
+
+      <div class="nav-item" onclick="toggleSection('sec-av')" id="nav-av">
+        <div class="nav-icon">✈️</div>
+        <div class="nav-text">در دسترس بودن</div>
+        <div class="nav-badge">AV</div>
+      </div>
+      <div class="sub-nav" id="sec-av">
+        <div class="sub-item" onclick="loadLesson('AY')"><div class="sub-dot"></div>AY - نمایش مسیر</div>
+        <div class="sub-item" onclick="loadLesson('AV')"><div class="sub-dot"></div>AV - بررسی ظرفیت</div>
+        <div class="sub-item" onclick="loadLesson('AVN')"><div class="sub-dot"></div>AVN - پرواز مستقیم</div>
+      </div>
+
+      <div class="nav-item" onclick="toggleSection('sec-book')" id="nav-book">
+        <div class="nav-icon">📋</div>
+        <div class="nav-text">رزرو</div>
+        <div class="nav-badge">PNR</div>
+      </div>
+      <div class="sub-nav" id="sec-book">
+        <div class="sub-item" onclick="loadLesson('SK')"><div class="sub-dot"></div>SK - رزرو صندلی</div>
+        <div class="sub-item" onclick="loadLesson('NM')"><div class="sub-dot"></div>NM - نام مسافر</div>
+        <div class="sub-item" onclick="loadLesson('AP')"><div class="sub-dot"></div>AP - تلفن تماس</div>
+        <div class="sub-item" onclick="loadLesson('TK')"><div class="sub-dot"></div>TK - زمان صدور</div>
+        <div class="sub-item" onclick="loadLesson('ET')"><div class="sub-dot"></div>ET - ذخیره PNR</div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">صدور بلیط</div>
+
+      <div class="nav-item" onclick="toggleSection('sec-tkt')" id="nav-tkt">
+        <div class="nav-icon">🎫</div>
+        <div class="nav-text">بلیط‌فروشی</div>
+        <div class="nav-badge">TKT</div>
+      </div>
+      <div class="sub-nav" id="sec-tkt">
+        <div class="sub-item" onclick="loadLesson('CRD')"><div class="sub-dot"></div>CRD - نرخ کرایه</div>
+        <div class="sub-item" onclick="loadLesson('TCC')"><div class="sub-dot"></div>TCC - محاسبه نرخ</div>
+        <div class="sub-item" onclick="loadLesson('TKI')"><div class="sub-dot"></div>TKI - صدور بلیط</div>
+        <div class="sub-item" onclick="loadLesson('DGS')"><div class="sub-dot"></div>DGS - نمایش PNR</div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">گزارش و ابزار</div>
+
+      <div class="nav-item" onclick="toggleSection('sec-rep')" id="nav-rep">
+        <div class="nav-icon">📊</div>
+        <div class="nav-text">گزارشات</div>
+      </div>
+      <div class="sub-nav" id="sec-rep">
+        <div class="sub-item" onclick="loadLesson('RET')"><div class="sub-dot"></div>RET - بازیابی رزرو</div>
+        <div class="sub-item" onclick="loadLesson('QR')"><div class="sub-dot"></div>QR - پیام صف</div>
+      </div>
+
+      <div class="nav-item" onclick="toggleSection('sec-tools')" id="nav-tools">
+        <div class="nav-icon">🔧</div>
+        <div class="nav-text">ابزارها</div>
+      </div>
+      <div class="sub-nav" id="sec-tools">
+        <div class="sub-item" onclick="loadLesson('CHD')"><div class="sub-dot"></div>CHD - تغییر داده</div>
+        <div class="sub-item" onclick="loadLesson('CNL')"><div class="sub-dot"></div>CNL - لغو رزرو</div>
+        <div class="sub-item" onclick="loadLesson('SB')"><div class="sub-dot"></div>SB - تغییر صندلی</div>
+      </div>
+    </div>
+
+    <div style="height: 40px;"></div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main id="main">
+
+    <!-- WELCOME -->
+    <div id="welcome">
+      <div class="welcome-icon">✈️</div>
+      <div>
+        <div class="welcome-title">شبیه‌ساز آموزشی <span>نیرا</span></div>
+      </div>
+      <div class="welcome-sub">
+        یادگیری کامل دستورات سیستم رزرواسیون هواپیمایی به روش تعاملی.
+        هر درس شامل توضیح، مثال اجرایی و راهنمای هوشمند است.
+      </div>
+      <div class="welcome-grid">
+        <div class="welcome-card" onclick="loadLesson('AY')">
+          <div class="welcome-card-icon">🗺️</div>
+          <div class="welcome-card-label">مسیریابی</div>
+          <div class="welcome-card-cmd">AY</div>
+        </div>
+        <div class="welcome-card" onclick="loadLesson('AV')">
+          <div class="welcome-card-icon">💺</div>
+          <div class="welcome-card-label">ظرفیت پرواز</div>
+          <div class="welcome-card-cmd">AV</div>
+        </div>
+        <div class="welcome-card" onclick="loadLesson('SK')">
+          <div class="welcome-card-icon">📋</div>
+          <div class="welcome-card-label">رزرو صندلی</div>
+          <div class="welcome-card-cmd">SK</div>
+        </div>
+        <div class="welcome-card" onclick="loadLesson('CRD')">
+          <div class="welcome-card-icon">💰</div>
+          <div class="welcome-card-label">نرخ کرایه</div>
+          <div class="welcome-card-cmd">CRD</div>
+        </div>
+        <div class="welcome-card" onclick="loadLesson('DGS')">
+          <div class="welcome-card-icon">📄</div>
+          <div class="welcome-card-label">نمایش رزرو</div>
+          <div class="welcome-card-cmd">DGS</div>
+        </div>
+        <div class="welcome-card" onclick="loadLesson('TCC')">
+          <div class="welcome-card-icon">🧮</div>
+          <div class="welcome-card-label">محاسبه نرخ</div>
+          <div class="welcome-card-cmd">TCC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LESSON -->
+    <div id="lesson-content">
+
+      <div class="progress-bar">
+        <div style="font-size:11px;color:var(--text-secondary);white-space:nowrap">پیشرفت:</div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+        <div class="progress-text" id="progress-text">۰ از ۱۲</div>
+      </div>
+
+      <div class="lesson-header">
+        <div id="lesson-num" class="lesson-num">درس ۱</div>
+        <div>
+          <div id="lesson-title" class="lesson-title"></div>
+          <div style="margin-top:6px">
+            <span id="lesson-cmd-badge" class="lesson-cmd-badge"></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="lesson-desc" class="lesson-desc"></div>
+
+      <div class="ai-tooltip">
+        <div class="ai-icon">🤖</div>
+        <div class="ai-text" id="ai-explain"></div>
+      </div>
+
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;">
+        📚 مثال‌های متداول — کلیک کنید تا وارد ترمینال شود:
+      </div>
+      <div class="examples-grid" id="examples-grid"></div>
+
+      <div class="terminal-wrap">
+        <div class="terminal-titlebar">
+          <div class="t-dot t-red"></div>
+          <div class="t-dot t-yellow"></div>
+          <div class="t-dot t-green"></div>
+          <div class="t-title">NIRA TERMINAL — آموزشی</div>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-prompt">
+            <div class="prompt-symbol">›</div>
+            <input type="text" class="terminal-input" id="terminal-input"
+              placeholder="دستور را اینجا وارد کنید..."
+              autocomplete="off" autocorrect="off" spellcheck="false"
+              onkeydown="if(event.key==='Enter')runCommand()">
+          </div>
+          <div class="terminal-output" id="terminal-output"></div>
+          <div class="terminal-actions">
+            <button class="btn-run" onclick="runCommand()">▶ اجرای دستور</button>
+            <button class="btn-clear" onclick="clearTerminal()">✕ پاک کردن</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="lesson-nav">
+        <button class="btn-nav" id="btn-prev" onclick="navigate(-1)">← درس قبلی</button>
+        <div style="font-size:11px;color:var(--text-dim)" id="lesson-counter"></div>
+        <button class="btn-nav primary" id="btn-next" onclick="navigate(1)">درس بعدی →</button>
+      </div>
+    </div>
+
+  </main>
 </div>
 
 <script>
-const lessons = {
-    availability: {
-        title: "AV / AY - نمایش موجودی پرواز",
-        desc: "این دستور برای مشاهده پروازهای موجود بین دو شهر استفاده می‌شود. AY حالت عمومی و AV حالت مستقیم ایرلاین است.",
-        cmd: "AY JFK LHR 12JUL",
-        tooltip: "نمایش تعداد صندلی‌های موجود در کلاس‌های پروازی مختلف.",
-        run: () => {
-            return `نتیجه جستجو:
--------------------
-مسیر: JFK → LHR
-تاریخ: 12JUL
-
-Y: 9 صندلی
-J: 4 صندلی
-F: 2 صندلی
-
-وضعیت: موجودی لحظه‌ای`;
-        }
-    },
-
-    booking: {
-        title: "SK - رزرو صندلی",
-        desc: "برای رزرو یک صندلی در پرواز استفاده می‌شود و بعد از بررسی موجودی انجام می‌گیرد.",
-        cmd: "SK 1 BA117 Y 12JUL JFKLHR",
-        tooltip: "ایجاد سگمنت و رزرو صندلی برای مسافر.",
-        run: () => {
-            return `رزرو انجام شد:
--------------------
-پرواز: BA117
-کلاس: Y
-وضعیت: تایید شد
-PNR: NIRA42X`;
-        }
-    },
-
-    ticketing: {
-        title: "TCC / CRD - محاسبه و صدور بلیت",
-        desc: "برای محاسبه قیمت نهایی بلیت همراه با مالیات استفاده می‌شود.",
-        cmd: "TCC JFK LHR Y",
-        tooltip: "محاسبه کرایه نهایی شامل مالیات و هزینه پایه.",
-        run: () => {
-            return `جزئیات قیمت:
--------------------
-کرایه پایه: 450 USD
-مالیات: 120.50 USD
-مجموع: 570.50 USD`;
-        }
-    },
-
-    reports: {
-        title: "DGS - گزارش فروش روزانه",
-        desc: "نمایش گزارش فروش، استرداد و بلیت‌های صادر شده.",
-        cmd: "DGS 27JUN",
-        tooltip: "نمایش عملکرد فروش روزانه آژانس.",
-        run: () => {
-            return `گزارش روزانه:
--------------------
-تعداد بلیت: 18
-فروش: 9,450 USD
-استرداد: 2
-خالص: 9,100 USD`;
-        }
-    },
-
-    tools: {
-        title: "ابزارهای سیستم",
-        desc: "بررسی وضعیت سیستم و ابزارهای مدیریتی.",
-        cmd: "INFO SYS",
-        tooltip: "وضعیت سرور و سیستم شبیه‌ساز.",
-        run: () => {
-            return `وضعیت سیستم:
--------------------
-Nira Core: فعال
-API: روشن
-Training Mode: فعال
-Latency: 12ms`;
-        }
+// ── DATA ──────────────────────────────────────────────────────────────
+const LESSONS = {
+  AY: {
+    num: 1, total: 12,
+    title: 'نمایش مسیر پرواز',
+    cmd: 'AY',
+    tag: 'مسیریابی',
+    desc: `دستور <strong>AY</strong> برای نمایش مسیر و ایستگاه‌های میانی بین دو فرودگاه استفاده می‌شود. با این دستور می‌توانید بررسی کنید که آیا پرواز مستقیم وجود دارد یا نیاز به ترانزیت است. کد IATA فرودگاه‌ها باید به‌درستی وارد شوند.`,
+    ai: `دستور <strong>AY THR/IKA</strong> مسیرهای موجود از تهران (امام خمینی) به سایر مقاصد را نمایش می‌دهد. اگر پرواز مستقیم بین دو فرودگاه وجود داشته باشد، مسیر "<strong>DIRECT</strong>" نمایش داده می‌شود. ایستگاه‌های ترانزیت با کد <strong>VIA</strong> مشخص می‌شوند.`,
+    examples: [
+      { cmd: 'AY THR/IKA', desc: 'نمایش مسیرهای فرودگاه امام خمینی' },
+      { cmd: 'AY IKA/DXB', desc: 'مسیر تهران به دبی' },
+      { cmd: 'AY IKA/IST', desc: 'مسیر تهران به استانبول' },
+      { cmd: 'AY IKA/LON', desc: 'مسیر تهران به لندن' },
+    ],
+    mock: (cmd) => {
+      const upper = cmd.toUpperCase().trim();
+      if (upper.startsWith('AY')) {
+        const parts = upper.split(' ')[1] || '';
+        const [from, to] = parts.split('/');
+        return [
+          `ROUTING FROM ${from||'???'} TO ${to||'???'}`,
+          `─────────────────────────────────`,
+          `CARRIER  ROUTING           STOPS`,
+          `IR       ${from||'IKA'}-${to||'DXB'}          DIRECT`,
+          `IR       ${from||'IKA'}-MSC-${to||'DXB'}      1 STOP`,
+          `QR       ${from||'IKA'}-DOH-${to||'DXB'}      1 STOP`,
+          `EK       ${from||'IKA'}-DXB                   DIRECT`,
+          `─────────────────────────────────`,
+          `END OF DISPLAY`
+        ].join('\n');
+      }
+      return 'FORMAT ERROR - USE: AY CITY1/CITY2';
     }
+  },
+
+  AV: {
+    num: 2, total: 12,
+    title: 'بررسی ظرفیت پرواز',
+    cmd: 'AV',
+    tag: 'دسترسی',
+    desc: `دستور <strong>AV</strong> برای بررسی صندلی‌های موجود در یک مسیر و تاریخ مشخص به‌کار می‌رود. فرمت این دستور شامل کد مبدا، مقصد، تاریخ سفر و کلاس پرواز است. خروجی لیستی از پروازهای موجود با کلاس‌ها و ظرفیت هر کلاس نمایش می‌دهد.`,
+    ai: `در خروجی دستور <strong>AV</strong>، اعداد کنار هر کلاس نشان‌دهنده تعداد صندلی‌های موجود است. عدد <strong>9</strong> یعنی ۹ یا بیشتر صندلی خالی است. عدد <strong>0</strong> یعنی پرواز پر است. حرف <strong>L</strong> (Last) یعنی تنها یک صندلی باقی مانده. کلاس‌های Y/M/B/H/Q نشان‌دهنده سطوح مختلف اکونومی هستند.`,
+    examples: [
+      { cmd: 'AV IKA DXB 15JAN Y', desc: 'ظرفیت تهران-دبی ۱۵ ژانویه کلاس Y' },
+      { cmd: 'AV IKA IST 20FEB', desc: 'تمام کلاس‌های تهران-استانبول' },
+      { cmd: 'AV IKA DOH 10MAR C', desc: 'کلاس بیزینس تهران-دوحه' },
+      { cmd: 'AV IKA FRA 05APR Y2', desc: 'حداقل ۲ صندلی در کلاس Y' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      if (u.startsWith('AV')) {
+        const now = new Date();
+        return [
+          `AVAILABILITY ${u}`,
+          `─────────────────────────────────────────────`,
+          `   AIRLINE FLT  DEP   ARR   C Y M B H Q K L`,
+          `1. IR    0655  06:45 10:30  9 9 7 4 2 9 0 9`,
+          `2. IR    0721  09:15 13:05  3 9 9 9 5 1 0 9`,
+          `3. EK    0500  14:00 17:45  9 4 2 1 0 9 9 9`,
+          `4. QR    0521  22:30 02:15+ 9 9 9 6 3 0 0 9`,
+          `─────────────────────────────────────────────`,
+          `C=FIRST  Y=ECO FULL  M/B/H=ECO DISC  L=LAST SEAT`,
+          `END OF AVAIL`
+        ].join('\n');
+      }
+      return 'FORMAT: AV ORIG DEST DDMMM CLASS';
+    }
+  },
+
+  AVN: {
+    num: 3, total: 12,
+    title: 'جستجوی پرواز مستقیم',
+    cmd: 'AVN',
+    tag: 'دسترسی',
+    desc: `دستور <strong>AVN</strong> فقط پروازهای مستقیم (بدون توقف) را نمایش می‌دهد. این دستور برای مسافرانی که به هیچ وجه نمی‌خواهند ترانزیت داشته باشند مناسب است. اگر پرواز مستقیمی موجود نباشد، سیستم پیام مربوطه را نمایش خواهد داد.`,
+    ai: `تفاوت <strong>AV</strong> و <strong>AVN</strong>: دستور AV همه پروازها از جمله ترانزیتی را نشان می‌دهد، اما AVN فقط پروازهای <strong>NONSTOP</strong> را فیلتر می‌کند. اگر مسافر برای بلیط رفت‌وبرگشت می‌خواهد، می‌توانید از دستور <strong>AVN/R</strong> برای نمایش پرواز برگشت استفاده کنید.`,
+    examples: [
+      { cmd: 'AVN IKA DXB 15JAN', desc: 'پروازهای مستقیم تهران-دبی' },
+      { cmd: 'AVN IKA IST 10FEB Y', desc: 'مستقیم تهران-استانبول کلاس Y' },
+      { cmd: 'AVN IKA MHD 25DEC', desc: 'مستقیم تهران-مشهد' },
+      { cmd: 'AVN IKA NJF 01MAR', desc: 'مستقیم تهران-نجف' },
+    ],
+    mock: (cmd) => {
+      return [
+        `NONSTOP AVAILABILITY`,
+        `─────────────────────────────────────`,
+        `   AIRLINE FLT  DEP   ARR   C Y M B Q`,
+        `1. IR    0321  07:00 09:30  9 9 5 2 9`,
+        `2. W5    1027  11:45 14:15  - 9 9 9 9`,
+        `3. IR    0323  16:30 19:00  4 2 1 0 9`,
+        `─────────────────────────────────────`,
+        `NONSTOP FLIGHTS ONLY — NO CONNECTIONS`
+      ].join('\n');
+    }
+  },
+
+  SK: {
+    num: 4, total: 12,
+    title: 'رزرو صندلی',
+    cmd: 'SK',
+    tag: 'رزرو',
+    desc: `دستور <strong>SK</strong> برای رزرو صندلی روی پرواز انتخاب‌شده استفاده می‌شود. شماره خط پرواز از لیست AV انتخاب شده و با تعداد صندلی و کلاس ترکیب می‌شود. پس از اجرای دستور SK، سیستم PNR موقت ایجاد می‌کند که باید با اطلاعات مسافر کامل شود.`,
+    ai: `دستور <strong>SK1Y1</strong> یعنی: گزینه شماره <strong>1</strong> از لیست AV، کلاس <strong>Y</strong>، تعداد <strong>1</strong> صندلی. اگر رزرو موفق باشد، وضعیت <strong>HK</strong> (Holding Confirmed) نمایش داده می‌شود. وضعیت <strong>HL</strong> یعنی لیست انتظار و <strong>UN</strong> یعنی پرواز در دسترس نیست.`,
+    examples: [
+      { cmd: 'SK1Y1', desc: 'رزرو ۱ صندلی کلاس Y از آیتم ۱' },
+      { cmd: 'SK2M2', desc: 'رزرو ۲ صندلی کلاس M از آیتم ۲' },
+      { cmd: 'SK1C1', desc: 'رزرو ۱ صندلی بیزینس از آیتم ۱' },
+      { cmd: 'SK3Y3', desc: 'رزرو ۳ صندلی کلاس Y از آیتم ۳' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      const match = u.match(/SK(\d)([A-Z])(\d)/);
+      if (match) {
+        const [,line,cls,qty] = match;
+        return [
+          `SEGMENT SELL CONFIRMED`,
+          `──────────────────────────────────────`,
+          `1. IR0655 Y  ${qty} HK  IKA DXB 15JAN`,
+          `   DEP: 06:45  ARR: 10:30`,
+          `   CLASS: ${cls}  SEATS: ${qty}  STATUS: HK`,
+          `──────────────────────────────────────`,
+          `HK = HOLDING CONFIRMED`,
+          `NEXT: ENTER PASSENGER NAME (NM)`
+        ].join('\n');
+      }
+      return 'FORMAT: SK[LINE][CLASS][QTY]  EX: SK1Y1';
+    }
+  },
+
+  NM: {
+    num: 5, total: 12,
+    title: 'ورود نام مسافر',
+    cmd: 'NM',
+    tag: 'رزرو',
+    desc: `دستور <strong>NM</strong> برای ثبت نام مسافر در PNR استفاده می‌شود. نام باید به صورت <strong>نام خانوادگی/نام</strong> وارد شود. برای چند مسافر، هر نام در یک خط جداگانه وارد می‌شود. برای بچه‌ها از پسوند CHD و برای نوزادان از INF استفاده می‌شود.`,
+    ai: `فرمت صحیح: <strong>NM1AHMADI/ALI MR</strong> — عدد بعد از NM تعداد مسافران است. عنوان MR برای آقا، MRS برای خانم متاهل، و MISS برای خانم مجرد استفاده می‌شود. برای <strong>کودک</strong>: <strong>NM1AHMADI/SARA MSCHD</strong> و برای <strong>نوزاد</strong>: <strong>NM1AHMADI/BABY MINF</strong>.`,
+    examples: [
+      { cmd: 'NM1AHMADI/ALI MR', desc: 'آقای علی احمدی' },
+      { cmd: 'NM1REZAEI/MARYAM MRS', desc: 'خانم مریم رضایی' },
+      { cmd: 'NM2HOSSEINI/AHMAD MR/SARA MRS', desc: 'دو مسافر بزرگسال' },
+      { cmd: 'NM1KARIMI/DARIUSH MRCHD', desc: 'کودک دریوش کریمی' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      if (u.startsWith('NM')) {
+        const parts = u.substring(3);
+        return [
+          `PASSENGER NAME ELEMENT ADDED`,
+          `──────────────────────────────────`,
+          `1.1 ${parts}`,
+          `──────────────────────────────────`,
+          `PSGR COUNT: 1`,
+          `NEXT: ENTER CONTACT (AP)`
+        ].join('\n');
+      }
+      return 'FORMAT: NM1LASTNAME/FIRSTNAME TITLE';
+    }
+  },
+
+  AP: {
+    num: 6, total: 12,
+    title: 'ثبت اطلاعات تماس',
+    cmd: 'AP',
+    tag: 'رزرو',
+    desc: `دستور <strong>AP</strong> برای ثبت شماره تلفن یا اطلاعات تماس آژانس/مسافر در PNR استفاده می‌شود. این اطلاعات برای اطلاع‌رسانی تغییرات پرواز ضروری است. می‌توان تلفن آژانس، تلفن مسافر یا هر دو را ثبت کرد.`,
+    ai: `نوع تماس با کد مشخص می‌شود: <strong>A</strong> = آژانس (Agency)، <strong>H</strong> = خانه (Home)، <strong>B</strong> = کار (Business)، <strong>M</strong> = موبایل (Mobile). مثال: <strong>AP TEH 021-88001234-A</strong> یا <strong>AP TEH 09121234567-M</strong>. در صورت تغییر پرواز، ایرلاین با این شماره تماس خواهد گرفت.`,
+    examples: [
+      { cmd: 'AP TEH 02188001234-A', desc: 'تلفن آژانس تهران' },
+      { cmd: 'AP TEH 09121234567-M', desc: 'موبایل مسافر' },
+      { cmd: 'AP TEH 02122334455-H', desc: 'تلفن منزل مسافر' },
+      { cmd: 'APNIRAAGENCY@EMAIL.COM', desc: 'ایمیل آژانس' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      if (u.startsWith('AP')) {
+        return [
+          `PHONE ELEMENT ADDED`,
+          `──────────────────────────────────`,
+          `P.1 ${u.substring(2).trim()}`,
+          `──────────────────────────────────`,
+          `CONTACT STORED SUCCESSFULLY`,
+          `NEXT: TICKETING TIME LIMIT (TK)`
+        ].join('\n');
+      }
+      return 'FORMAT: AP CITY PHONE-TYPE';
+    }
+  },
+
+  TK: {
+    num: 7, total: 12,
+    title: 'زمان صدور بلیط',
+    cmd: 'TK',
+    tag: 'رزرو',
+    desc: `دستور <strong>TK</strong> برای تعیین مهلت صدور بلیط (Time Limit) استفاده می‌شود. تا زمانی که بلیط صادر نشود، رزرو تأیید نیست. ایرلاین می‌تواند رزرو را لغو کند اگر در موعد مقرر بلیط صادر نشود. فرمت تاریخ DDMM است.`,
+    ai: `دو نوع TK وجود دارد: <strong>TKOK</strong> = بلیط همین الان صادر می‌شود. <strong>TKTL DDMM/HHMM</strong> = مهلت صدور تا تاریخ و ساعت مشخص. اگر تا موعد مقرر بلیط صادر نشود، سیستم به‌صورت خودکار رزرو را <strong>لغو (CANCELLED)</strong> می‌کند.`,
+    examples: [
+      { cmd: 'TKOK', desc: 'صدور فوری بلیط' },
+      { cmd: 'TKTL 2001/1800', desc: 'مهلت تا ۲۰ ژانویه ساعت ۱۸' },
+      { cmd: 'TKTL 1503', desc: 'مهلت تا ۱۵ مارس' },
+      { cmd: 'TKTL 3012/1200', desc: 'مهلت تا ۳۰ دسامبر ظهر' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      if (u.startsWith('TK')) {
+        return [
+          `TICKETING ELEMENT ADDED`,
+          `──────────────────────────────────`,
+          `T.1 ${u}`,
+          `──────────────────────────────────`,
+          `TIME LIMIT SET SUCCESSFULLY`,
+          `NEXT: END TRANSACTION (ET)`
+        ].join('\n');
+      }
+      return 'FORMAT: TKOK or TKTL DDMM/HHMM';
+    }
+  },
+
+  ET: {
+    num: 8, total: 12,
+    title: 'ذخیره و پایان تراکنش',
+    cmd: 'ET',
+    tag: 'رزرو',
+    desc: `دستور <strong>ET</strong> برای ذخیره نهایی PNR و دریافت شماره رزرو استفاده می‌شود. تا قبل از اجرای ET، رزرو فقط در حافظه موقت است. پس از ET، شماره PNR اختصاص داده می‌شود. برای خروج بدون ذخیره از دستور <strong>IG</strong> استفاده می‌شود.`,
+    ai: `<strong>ET</strong> = End Transaction (پایان تراکنش با ذخیره). <strong>ER</strong> = End and Redisplay (ذخیره و نمایش مجدد). <strong>IG</strong> = Ignore (خروج بدون ذخیره). پس از ET، شماره PNR مثلاً <strong>ABCDEF</strong> به شما اختصاص می‌یابد که کد منحصر‌به‌فرد رزرو است.`,
+    examples: [
+      { cmd: 'ET', desc: 'ذخیره PNR و دریافت شماره رزرو' },
+      { cmd: 'ER', desc: 'ذخیره و نمایش مجدد PNR' },
+      { cmd: 'IG', desc: 'خروج بدون ذخیره' },
+      { cmd: 'ETK', desc: 'ذخیره و صدور بلیط همزمان' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      const pnr = generatePNR();
+      if (u === 'ET' || u === 'ER' || u === 'ETK') {
+        return [
+          `--- PNR SAVED SUCCESSFULLY ---`,
+          ``,
+          `RECORD LOCATOR: ${pnr}`,
+          ``,
+          `1.1 AHMADI/ALI MR`,
+          `1  IR0655 Y  01 IKA DXB 15JAN  HK1`,
+          `   DEP 06:45  ARR 10:30`,
+          `TK TKOK`,
+          `AP TEH 09121234567`,
+          ``,
+          `${u==='ER'?'--- END OF PNR DISPLAY ---':'--- END OF TRANSACTION ---'}`
+        ].join('\n');
+      }
+      if (u === 'IG') {
+        return 'TRANSACTION IGNORED — PNR NOT SAVED';
+      }
+      return 'USE: ET / ER / IG';
+    }
+  },
+
+  DGS: {
+    num: 9, total: 12,
+    title: 'نمایش اطلاعات رزرو',
+    cmd: 'DGS',
+    tag: 'گزارش',
+    desc: `دستور <strong>DGS</strong> برای نمایش کامل اطلاعات یک PNR موجود استفاده می‌شود. با وارد کردن شماره رزرو، تمام جزئیات شامل نام مسافر، پرواز، کلاس، وضعیت و اطلاعات بلیط نمایش داده می‌شود. این دستور برای کنترل و تأیید رزرو ضروری است.`,
+    ai: `<strong>DGS ABCDEF</strong> رزرو با کد ABCDEF را نمایش می‌دهد. بخش‌های مختلف PNR: <strong>NM</strong> = نام مسافر، <strong>AIR</strong> = بخش پرواز، <strong>AP</strong> = تلفن، <strong>TK</strong> = زمان صدور، <strong>FP</strong> = روش پرداخت، <strong>FA</strong> = بلیط صادرشده. وضعیت‌ها: HK=تأیید، HL=انتظار، KK=تأیید ایرلاین.`,
+    examples: [
+      { cmd: 'DGS ABCDEF', desc: 'نمایش رزرو با کد ABCDEF' },
+      { cmd: 'DGS*', desc: 'نمایش آخرین PNR کار شده' },
+      { cmd: 'DGS XYZPQR', desc: 'نمایش رزرو دیگر' },
+      { cmd: 'DGS MNOPQR', desc: 'بررسی وضعیت رزرو' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      const pnr = u.split(' ')[1] || generatePNR();
+      return [
+        `--- PNR: ${pnr} ---`,
+        ``,
+        `NAME:  1.1AHMADI/ALI MR`,
+        ``,
+        `AIR 1  IR0655 Y 15JAN IKADXB HK1`,
+        `       DEP 06:45  ARR 10:30`,
+        `       EQUIP: 73H  MILES: 1285`,
+        ``,
+        `AP     TEH 09121234567-M`,
+        `TK     TKOK`,
+        `RM     SSRTKNAIRMIRP/1AHMADI/ALI`,
+        ``,
+        `FP     CASH`,
+        ``,
+        `--- END OF PNR ---`
+      ].join('\n');
+    }
+  },
+
+  CRD: {
+    num: 10, total: 12,
+    title: 'نمایش نرخ کرایه',
+    cmd: 'CRD',
+    tag: 'بلیط',
+    desc: `دستور <strong>CRD</strong> برای نمایش نرخ‌های کرایه موجود بین دو شهر استفاده می‌شود. این دستور تمام کلاس‌ها و نرخ‌های متناسب را نمایش می‌دهد. نرخ‌ها معمولاً به دلار آمریکا بوده و شامل مالیات‌های فرودگاهی نیست.`,
+    ai: `خروجی CRD شامل: <strong>کد نرخ</strong>، <strong>کلاس</strong>، <strong>نوع</strong> (OW=یک‌طرفه، RT=رفت‌وبرگشت)، <strong>مبلغ</strong> و <strong>شرایط</strong> است. نرخ‌های با محدودیت مثل <strong>AP21</strong> یعنی باید ۲۱ روز قبل رزرو شود. نرخ <strong>PEX</strong> ارزان‌تر اما غیرقابل استرداد است.`,
+    examples: [
+      { cmd: 'CRD IKA/DXB', desc: 'نرخ‌های تهران به دبی' },
+      { cmd: 'CRD IKA/IST Y', desc: 'نرخ کلاس Y تهران-استانبول' },
+      { cmd: 'CRD IKA/LON', desc: 'نرخ‌های تهران به لندن' },
+      { cmd: 'CRD IKA/KBL OW', desc: 'نرخ یک‌طرفه تهران-کابل' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      const route = u.split(' ')[1] || 'IKA/DXB';
+      return [
+        `FARES FROM ${route}`,
+        `─────────────────────────────────────────────────`,
+        `CODE     BASIS  CLS  TYPE   FARE USD  RULE`,
+        `YOWIR    Y      Y    OW      485.00  NO REST`,
+        `MOWIR    M      M    OW      320.00  7DAY ADV`,
+        `HOWIR    H      H    OW      265.00  14DAY ADV`,
+        `YRTIR    YRT    Y    RT      870.00  NO REST`,
+        `MRTIR    MRT    M    RT      580.00  21DAY ADV`,
+        `PEXIR    PEX    B    RT      420.00  NONREF`,
+        `─────────────────────────────────────────────────`,
+        `OW=ONE WAY  RT=ROUND TRIP  ADV=ADVANCE PURCHASE`,
+        `NONREF=NON REFUNDABLE  REST=RESTRICTION`
+      ].join('\n');
+    }
+  },
+
+  TCC: {
+    num: 11, total: 12,
+    title: 'محاسبه و تأیید نرخ',
+    cmd: 'TCC',
+    tag: 'بلیط',
+    desc: `دستور <strong>TCC</strong> برای محاسبه دقیق نرخ کل بلیط از جمله مالیات‌ها و عوارض فرودگاهی استفاده می‌شود. این دستور بر اساس PNR موجود نرخ نهایی را محاسبه می‌کند. پیش از صدور بلیط حتماً باید TCC اجرا شود.`,
+    ai: `خروجی TCC شامل: <strong>FARE</strong> = نرخ پایه، <strong>TAX</strong> = مالیات (چندین نوع مالیات جداگانه)، <strong>TOTAL</strong> = مبلغ نهایی است. کدهای مالیاتی مثل <strong>YQ</strong> = هزینه سوخت، <strong>XT</strong> = مالیات‌های ترکیبی. مبلغ نهایی به ارز محلی نیز نمایش داده می‌شود.`,
+    examples: [
+      { cmd: 'TCC', desc: 'محاسبه نرخ برای PNR جاری' },
+      { cmd: 'TCC/IR', desc: 'محاسبه نرخ با شرکت هواپیمایی ایران' },
+      { cmd: 'TCC/EK', desc: 'محاسبه با امارات ایرلاینز' },
+      { cmd: 'TCC/QR', desc: 'محاسبه با قطر ایرویز' },
+    ],
+    mock: (cmd) => {
+      const now = new Date();
+      return [
+        `FARE CALCULATION`,
+        `──────────────────────────────────────────`,
+        `PASSENGER: AHMADI/ALI MR`,
+        `ROUTE:     IKA IR DXB`,
+        `DATE:      15JAN`,
+        ``,
+        `BASE FARE:   USD   320.00`,
+        `TAX  YQ:     USD    45.00  FUEL SRCHG`,
+        `TAX  IR:     USD    12.00  IRAN GOVT`,
+        `TAX  AE:     USD     8.50  UAE GOVT`,
+        `TAX  XT:     USD    15.00  COMBINED`,
+        `──────────────────────────────────────────`,
+        `TOTAL:       USD   400.50`,
+        `EQUIV:       IRR 16,820,000`,
+        `──────────────────────────────────────────`,
+        `FARE BASIS: MOWIR  VALID 15JAN-15APR`
+      ].join('\n');
+    }
+  },
+
+  TKI: {
+    num: 12, total: 12,
+    title: 'صدور بلیط',
+    cmd: 'TKI',
+    tag: 'بلیط',
+    desc: `دستور <strong>TKI</strong> (یا TKXL) برای صدور نهایی بلیط استفاده می‌شود. پس از اجرای موفق TCC و تأیید نرخ، با این دستور بلیط الکترونیکی صادر شده و شماره بلیط ۱۳ رقمی اختصاص می‌یابد. روش پرداخت باید قبل از صدور مشخص شود.`,
+    ai: `قبل از TKI باید دستور <strong>FP</strong> (Form of Payment) اجرا شود: <strong>FPCASH</strong> = نقد، <strong>FPCC</strong> = کارت اعتباری. شماره بلیط صادرشده با کد ایرلاین شروع می‌شود، مثلاً <strong>117-1234567890</strong> (ایران ایر = ۱۱۷). این شماره باید به مسافر داده شود.`,
+    examples: [
+      { cmd: 'FPCASH', desc: 'تعیین روش پرداخت نقد' },
+      { cmd: 'TKI', desc: 'صدور بلیط الکترونیکی' },
+      { cmd: 'TKXL', desc: 'صدور بلیط با جزئیات کامل' },
+      { cmd: 'TKOK/FPCASH', desc: 'تأیید زمان صدور و پرداخت' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      if (u === 'FPCASH' || u.startsWith('FP')) {
+        return [
+          `FORM OF PAYMENT ADDED`,
+          `FP CASH`,
+          `READY FOR TICKETING — USE TKI`
+        ].join('\n');
+      }
+      if (u === 'TKI' || u === 'TKXL') {
+        const tktNum = `117-${Math.floor(1000000000+Math.random()*9000000000)}`;
+        return [
+          `*** E-TICKET ISSUED ***`,
+          ``,
+          `PASSENGER: AHMADI/ALI MR`,
+          `TICKET NO: ${tktNum}`,
+          `ROUTE:     IKA-DXB  IR0655  15JAN`,
+          `CLASS:     Y   SEAT: 14A`,
+          ``,
+          `FARE:  USD 320.00`,
+          `TAX:   USD  80.50`,
+          `TOTAL: USD 400.50`,
+          ``,
+          `FORM OF PAYMENT: CASH`,
+          `ISSUE DATE: ${new Date().toDateString().toUpperCase()}`,
+          ``,
+          `*** TICKET ISSUED SUCCESSFULLY ***`
+        ].join('\n');
+      }
+      return 'USE: FPCASH then TKI';
+    }
+  },
+
+  RET: {
+    num: 9, total: 12,
+    title: 'بازیابی رزرو',
+    cmd: 'RET',
+    tag: 'گزارش',
+    desc: `دستور <strong>RET</strong> برای بازیابی یک PNR از آرشیو سیستم استفاده می‌شود. اگر رزرو تاریخ گذشته باشد یا توسط آژانس دیگری ایجاد شده باشد، با این دستور می‌توان آن را مشاهده کرد. برخلاف DGS که فقط رزروهای فعال را نشان می‌دهد، RET به تاریخچه کامل دسترسی دارد.`,
+    ai: `<strong>RET ABCDEF</strong> رزرو را از آرشیو بازیابی می‌کند. اگر رزرو در آژانس دیگری باشد، ممکن است دسترسی محدود باشد. دستور <strong>RETK</strong> علاوه بر PNR، بلیط‌های صادرشده را هم نمایش می‌دهد.`,
+    examples: [
+      { cmd: 'RET ABCDEF', desc: 'بازیابی رزرو با کد ABCDEF' },
+      { cmd: 'RETK XYZPQR', desc: 'بازیابی رزرو و بلیط‌ها' },
+      { cmd: 'RET/09121234567', desc: 'جستجو بر اساس شماره تلفن' },
+      { cmd: 'RET/AHMADI', desc: 'جستجو بر اساس نام خانوادگی' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      const pnr = u.split(' ')[1] || 'ABCDEF';
+      return [
+        `--- RETRIEVED PNR: ${pnr} ---`,
+        ``,
+        `ORIGIN: NIRA SYSTEM  CREATED: 10JAN`,
+        ``,
+        `1.1AHMADI/ALI MR`,
+        `1  IR0655 Y 15JAN IKADXB HK1 0645 1030`,
+        ``,
+        `AP 09121234567-M`,
+        `TK TKOK`,
+        ``,
+        `ETICKET: 117-1234567890`,
+        `STATUS:  TICKETED (ISSUED)`,
+        ``,
+        `--- END OF RETRIEVED PNR ---`
+      ].join('\n');
+    }
+  },
+
+  QR: {
+    num: 10, total: 12,
+    title: 'مدیریت پیام صف',
+    cmd: 'QR',
+    tag: 'گزارش',
+    desc: `دستور <strong>QR</strong> (Queue) برای مشاهده و مدیریت صف پیام‌های سیستم استفاده می‌شود. ایرلاین‌ها و آژانس‌های دیگر پیام‌هایی مثل تغییر پرواز، تأیید صندلی یا درخواست‌های ویژه را از طریق صف ارسال می‌کنند.`,
+    ai: `<strong>QD/1</strong> = نمایش محتوای صف شماره ۱. <strong>QR/1</strong> = حذف از صف بعد از خواندن. <strong>QN</strong> = رفتن به پیام بعدی در صف. صف‌های مهم: صف <strong>50</strong> = پیام‌های فوری ایرلاین، صف <strong>1</strong> = تأییدیه‌ها، صف <strong>9</strong> = پیام‌های عمومی.`,
+    examples: [
+      { cmd: 'QD/1', desc: 'نمایش پیام‌های صف ۱' },
+      { cmd: 'QD/50', desc: 'صف فوری ایرلاین' },
+      { cmd: 'QR/1', desc: 'حذف از صف بعد از خواندن' },
+      { cmd: 'QN', desc: 'رفتن به پیام بعدی' },
+    ],
+    mock: (cmd) => {
+      return [
+        `QUEUE DISPLAY`,
+        `──────────────────────────────────────────`,
+        `QUEUE: 1   CATEGORY: 0   COUNT: 3 MSGS`,
+        ``,
+        `MSG 1/3  PNR: ABCDEF`,
+        `FROM: IR SYSTEM`,
+        `SUBJ: SCHEDULE CHANGE IR0655 15JAN`,
+        `TEXT: FLIGHT IR0655 DEP TIME CHANGED`,
+        `      FROM 06:45 TO 07:30 ON 15JAN`,
+        `      PLEASE RECONFIRM OR REBOOK`,
+        ``,
+        `USE QN FOR NEXT MESSAGE`
+      ].join('\n');
+    }
+  },
+
+  CHD: {
+    num: 11, total: 12,
+    title: 'تغییر اطلاعات رزرو',
+    cmd: 'CHD',
+    tag: 'ابزار',
+    desc: `دستور <strong>CHD</strong> برای ویرایش اطلاعات موجود در PNR استفاده می‌شود. با این دستور می‌توان نام مسافر، شماره تماس، تاریخ پرواز و سایر اطلاعات را تغییر داد. برخی تغییرات ممکن است مستلزم دریافت مجدد تأییدیه از ایرلاین باشد.`,
+    ai: `فرمت کلی: <strong>CHD/ELEMENT.NUMBER/NEW-VALUE</strong>. مثلاً <strong>CHD/AP.1/09351234567</strong> شماره تلفن اول را تغییر می‌دهد. برای حذف عنصر از <strong>XE</strong> استفاده می‌شود: <strong>XE1</strong> خط اول پرواز را حذف می‌کند (مراقب باشید!).`,
+    examples: [
+      { cmd: 'CHD/AP.1/09351234567', desc: 'تغییر شماره تلفن اول' },
+      { cmd: 'CHD/NM.1/REZAEI/SARA MRS', desc: 'اصلاح نام مسافر' },
+      { cmd: 'CHD/TK/TKTL2501', desc: 'تغییر مهلت صدور' },
+      { cmd: 'XE1', desc: 'حذف خط اول پرواز (محتاط!)' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      return [
+        `CHANGE ELEMENT`,
+        `──────────────────────────────────`,
+        `ELEMENT: ${u}`,
+        `STATUS:  CHANGED SUCCESSFULLY`,
+        ``,
+        `PLEASE VERIFY WITH DGS`,
+        `THEN SAVE WITH ET`
+      ].join('\n');
+    }
+  },
+
+  CNL: {
+    num: 12, total: 12,
+    title: 'لغو رزرو',
+    cmd: 'CNL',
+    tag: 'ابزار',
+    desc: `دستور <strong>CNL</strong> برای لغو صندلی‌های رزروشده در PNR استفاده می‌شود. لغو باید با احتیاط انجام شود چون در صورت صدور بلیط، ممکن است جریمه لغو اعمال شود. پس از لغو، وضعیت صندلی به UN یا XX تغییر می‌کند.`,
+    ai: `<strong>CNL1</strong> = لغو خط پرواز اول. <strong>CNL1-3</strong> = لغو خطوط ۱ تا ۳. اگر بلیط صادر شده باشد، ابتدا باید رفاند (RFND) انجام شود بعد CNL. وضعیت‌ها پس از لغو: <strong>XX</strong> = لغو کامل، <strong>UN</strong> = ایرلاین تأیید نکرده. پس از CNL حتماً ET را اجرا کنید.`,
+    examples: [
+      { cmd: 'CNL1', desc: 'لغو خط پرواز اول' },
+      { cmd: 'CNL1/1', desc: 'لغو یک صندلی از خط اول' },
+      { cmd: 'CNL1-2', desc: 'لغو خطوط ۱ و ۲' },
+      { cmd: 'CNLALL', desc: 'لغو کل PNR' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      if (u === 'CNLALL') {
+        return [
+          `*** WARNING ***`,
+          `ALL SEGMENTS WILL BE CANCELLED`,
+          ``,
+          `IF CONFIRMED:`,
+          `1  IR0655 Y 15JAN IKADXB XX1`,
+          ``,
+          `STATUS: CANCELLED`,
+          `SAVE WITH ET TO CONFIRM`
+        ].join('\n');
+      }
+      return [
+        `CANCEL SEGMENT`,
+        `──────────────────────────────────`,
+        `SEG ${u.replace('CNL','')} STATUS: XX (CANCELLED)`,
+        ``,
+        `1  IR0655 Y 15JAN IKADXB XX1`,
+        ``,
+        `SAVE WITH ET TO CONFIRM CANCELLATION`
+      ].join('\n');
+    }
+  },
+
+  SB: {
+    num: 12, total: 12,
+    title: 'درخواست تغییر صندلی',
+    cmd: 'SB',
+    tag: 'ابزار',
+    desc: `دستور <strong>SB</strong> برای تغییر شماره صندلی اختصاص‌یافته یا درخواست صندلی خاص استفاده می‌شود. می‌توان صندلی کنار پنجره، راهرو یا ردیف اضطراری را درخواست داد. در صورت موجودی، سیستم صندلی را تأیید می‌کند.`,
+    ai: `کدهای ویژه صندلی: <strong>W</strong> = کنار پنجره (Window)، <strong>A</strong> = کنار راهرو (Aisle)، <strong>M</strong> = وسط (Middle). درخواست ردیف: <strong>SB14A/P1</strong> = صندلی ۱۴A برای مسافر اول. اگر صندلی درخواستی خالی نباشد، سیستم بهترین گزینه موجود را پیشنهاد می‌دهد.`,
+    examples: [
+      { cmd: 'SB1W', desc: 'صندلی کنار پنجره برای پرواز ۱' },
+      { cmd: 'SB1A', desc: 'صندلی کنار راهرو برای پرواز ۱' },
+      { cmd: 'SB14A/P1', desc: 'صندلی ۱۴A برای مسافر اول' },
+      { cmd: 'SB1W/P1-2', desc: 'صندلی پنجره برای ۲ مسافر' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      const seatNum = Math.floor(10+Math.random()*20);
+      const seatLetter = ['A','B','C','D','E','F'][Math.floor(Math.random()*6)];
+      return [
+        `SEAT ASSIGNMENT`,
+        `──────────────────────────────────────────`,
+        `REQUEST: ${u}`,
+        `FLIGHT:  IR0655  15JAN`,
+        ``,
+        `SEAT ASSIGNED: ${seatNum}${seatLetter}`,
+        `TYPE: ${u.includes('W')?'WINDOW':u.includes('A')?'AISLE':'STANDARD'}`,
+        `STATUS: HK (CONFIRMED)`,
+        `──────────────────────────────────────────`,
+        `SEAT MAP SHOWS: ROW ${seatNum} AVAILABLE`
+      ].join('\n');
+    }
+  },
 };
 
-function loadLesson(key) {
-    const l = lessons[key];
+const LESSON_ORDER = ['AY','AV','AVN','SK','NM','AP','TK','ET','DGS','CRD','TCC','TKI'];
+let currentLesson = null;
 
-    document.getElementById("content").innerHTML = `
-        <h2>${l.title}</h2>
-        <p>${l.desc}</p>
+function generatePNR() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+  let r = '';
+  for (let i=0;i<6;i++) r += chars[Math.floor(Math.random()*chars.length)];
+  return r;
+}
 
-        <input id="cmdInput" value="${l.cmd}" />
+// ── SIDEBAR TOGGLE ──────────────────────────────────────────────────
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+}
 
-        <button class="run" onclick="runCommand('${key}')">اجرای دستور</button>
+function toggleSection(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+}
 
-        <div class="tooltip">راهنمای هوشمند: ${l.tooltip}</div>
+// ── NAVIGATION ──────────────────────────────────────────────────────
+function showWelcome() {
+  document.getElementById('welcome').style.display = 'flex';
+  document.getElementById('lesson-content').style.display = 'none';
+  document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.sub-item').forEach(e=>e.classList.remove('active'));
+  document.getElementById('nav-home').classList.add('active');
+  if (window.innerWidth <= 768) toggleSidebar();
+}
 
-        <pre id="output">در انتظار اجرا...</pre>
-    `;
+function loadLesson(cmdKey) {
+  const lesson = LESSONS[cmdKey];
+  if (!lesson) return;
+  currentLesson = cmdKey;
 
-    if (window.innerWidth < 768) {
-        document.getElementById("sidebar").classList.remove("open");
+  document.getElementById('welcome').style.display = 'none';
+  const lc = document.getElementById('lesson-content');
+  lc.style.display = 'block';
+
+  // update active states
+  document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.sub-item').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.sub-item').forEach(e=>{
+    if (e.textContent.includes(cmdKey)) e.classList.add('active');
+  });
+
+  // populate
+  const idx = LESSON_ORDER.indexOf(cmdKey);
+  const total = LESSON_ORDER.length;
+  const num = idx >= 0 ? idx+1 : 1;
+
+  document.getElementById('lesson-num').textContent = `درس ${toPersianNum(num)}`;
+  document.getElementById('lesson-title').textContent = lesson.title;
+  document.getElementById('lesson-cmd-badge').textContent = lesson.cmd;
+  document.getElementById('lesson-desc').innerHTML = lesson.desc;
+  document.getElementById('ai-explain').innerHTML = lesson.ai;
+
+  // progress
+  const pct = Math.round((num/total)*100);
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('progress-text').textContent = `${toPersianNum(num)} از ${toPersianNum(total)}`;
+  document.getElementById('lesson-counter').textContent = `${num} / ${total}`;
+
+  // examples
+  const grid = document.getElementById('examples-grid');
+  grid.innerHTML = '';
+  (lesson.examples||[]).forEach(ex => {
+    const card = document.createElement('div');
+    card.className = 'example-card';
+    card.innerHTML = `<div class="example-cmd">${ex.cmd}</div><div class="example-desc">${ex.desc}</div>`;
+    card.onclick = () => {
+      document.getElementById('terminal-input').value = ex.cmd;
+      document.getElementById('terminal-input').focus();
+    };
+    grid.appendChild(card);
+  });
+
+  // reset terminal
+  clearTerminal();
+  document.getElementById('terminal-input').placeholder = `مثال: ${(lesson.examples||[{cmd:''}])[0].cmd}`;
+
+  // nav buttons
+  const prevBtn = document.getElementById('btn-prev');
+  const nextBtn = document.getElementById('btn-next');
+  const prevKey = LESSON_ORDER[idx-1];
+  const nextKey = LESSON_ORDER[idx+1];
+  prevBtn.disabled = !prevKey;
+  nextBtn.disabled = !nextKey;
+
+  // close sidebar on mobile
+  if (window.innerWidth <= 768) {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+  }
+
+  // scroll to top
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('main').scrollTop = 0;
+}
+
+function navigate(dir) {
+  const idx = LESSON_ORDER.indexOf(currentLesson);
+  const nextIdx = idx + dir;
+  if (nextIdx >= 0 && nextIdx < LESSON_ORDER.length) {
+    loadLesson(LESSON_ORDER[nextIdx]);
+  }
+}
+
+// ── TERMINAL ─────────────────────────────────────────────────────────
+function runCommand() {
+  const input = document.getElementById('terminal-input');
+  const output = document.getElementById('terminal-output');
+  const cmd = input.value.trim();
+  if (!cmd) return;
+
+  output.classList.remove('visible');
+  output.textContent = '';
+
+  // find matching lesson mock
+  let mockFn = null;
+  const u = cmd.toUpperCase();
+  for (const key of Object.keys(LESSONS)) {
+    if (u.startsWith(key)) {
+      mockFn = LESSONS[key].mock;
+      break;
     }
+  }
+  // Fallback checks
+  if (!mockFn) {
+    if (u.startsWith('ET') || u === 'ER' || u === 'IG') mockFn = LESSONS['ET'].mock;
+    else if (u.startsWith('FP') || u === 'TKI' || u === 'TKXL') mockFn = LESSONS['TKI'].mock;
+    else if (u.startsWith('XE') || u.startsWith('XL')) mockFn = () => 'ELEMENT DELETED\nSAVE WITH ET';
+    else if (u.startsWith('QD') || u.startsWith('QR') || u === 'QN') mockFn = LESSONS['QR'].mock;
+  }
+
+  const result = mockFn ? mockFn(cmd) : `UNKNOWN COMMAND: ${cmd}\nTYPE A VALID NIRA COMMAND`;
+
+  // typewriter effect
+  output.classList.add('visible');
+  output.textContent = '';
+  let i = 0;
+  const lines = result.split('\n');
+  let lineIdx = 0;
+
+  function typeLine() {
+    if (lineIdx >= lines.length) return;
+    output.textContent += (lineIdx > 0 ? '\n' : '') + lines[lineIdx];
+    lineIdx++;
+    output.scrollTop = output.scrollHeight;
+    setTimeout(typeLine, 30);
+  }
+  typeLine();
 }
 
-function runCommand(key) {
-    const input = document.getElementById("cmdInput").value;
-    document.getElementById("output").textContent = lessons[key].run(input);
+function clearTerminal() {
+  document.getElementById('terminal-output').classList.remove('visible');
+  document.getElementById('terminal-output').textContent = '';
+  document.getElementById('terminal-input').value = '';
 }
 
-function toggleMenu() {
-    document.getElementById("sidebar").classList.toggle("open");
+function toPersianNum(n) {
+  const d = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+  return String(n).replace(/\d/g, x => d[x]);
 }
+
+// ── INIT ─────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('nav-home').classList.add('active');
+
+  // Auto-open first sidebar section
+  document.getElementById('sec-av').classList.add('open');
+
+  // Enter key in terminal
+  document.getElementById('terminal-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') runCommand();
+  });
+});
 </script>
-
 </body>
 </html>
