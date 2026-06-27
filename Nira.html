@@ -1,0 +1,3182 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نیرا - شبیه‌ساز آموزشی سیستم رزرواسیون</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --bg-deep: #0a0d16;
+    --bg-panel: #0f1320;
+    --bg-card: #131829;
+    --bg-sidebar: #0c0f1a;
+    --accent: #5fb8d6;
+    --accent2: #4a8fb0;
+    --accent-soft: rgba(95,184,214,0.10);
+    --accent-green: #4fcfa0;
+    --accent-amber: #d9a64e;
+    --accent-red: #d96666;
+    --text-primary: #d4ddec;
+    --text-secondary: #6c7993;
+    --text-dim: #424c63;
+    --border: #1b2030;
+    --border-glow: rgba(95,184,214,0.18);
+    --terminal-bg: #07090f;
+    --terminal-text: #4fcfa0;
+    --sidebar-w: 220px;
+    --header-h: 52px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  body {
+    font-family: 'Vazirmatn', sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* ─── HEADER ─── */
+  #header {
+    position: fixed;
+    top: 0; right: 0; left: 0;
+    height: var(--header-h);
+    background: rgba(10,14,26,0.95);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    z-index: 200;
+    gap: 12px;
+  }
+
+  .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-badge {
+    width: 34px; height: 34px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: #fff;
+    letter-spacing: -1px;
+    flex-shrink: 0;
+  }
+  .logo-text { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+  .logo-sub { font-size: 10px; color: var(--text-secondary); }
+
+  .header-center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    box-shadow: 0 0 6px var(--accent-green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; } 50% { opacity:0.4; }
+  }
+
+  .header-actions { display: flex; align-items: center; gap: 8px; }
+  .btn-header {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-family: 'Vazirmatn', sans-serif;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  .btn-header:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-header.primary {
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border-color: transparent; color: #fff;
+  }
+
+  /* دکمه آیکونی «درباره ما» — همیشه نمایش داده می‌شود، کنار همبرگر منو */
+  .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .btn-icon svg { width: 16px; height: 16px; }
+  .btn-icon:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  /* ─── HAMBURGER ─── */
+  #hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    flex-shrink: 0;
+  }
+  #hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--text-secondary);
+    border-radius: 2px;
+    transition: all .3s;
+  }
+
+  /* ─── LAYOUT ─── */
+  #layout {
+    display: flex;
+    margin-top: var(--header-h);
+    min-height: calc(100vh - var(--header-h));
+    min-width: 0;
+    max-width: 100vw;
+  }
+
+  /* ─── SIDEBAR ─── */
+  #sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg-sidebar);
+    border-left: 1px solid var(--border);
+    position: fixed;
+    top: var(--header-h);
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    z-index: 100;
+    transition: transform .3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  #sidebar::-webkit-scrollbar { width: 4px; }
+  #sidebar::-webkit-scrollbar-track { background: transparent; }
+  #sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  /* ─── SEARCH BOX ─── */
+  .sidebar-search-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--bg-sidebar);
+    padding: 12px 14px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .sidebar-search svg {
+    position: absolute;
+    right: 10px;
+    width: 14px; height: 14px;
+    color: var(--text-dim);
+    pointer-events: none;
+  }
+  .sidebar-search input {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 32px 8px 10px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 12px;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color .2s;
+  }
+
+  /* ─── SIDEBAR SECTION TABS ─── */
+  .sidebar-tabs {
+    position: sticky;
+    top: 53px;
+    z-index: 5;
+    display: flex;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--bg-sidebar);
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-tab {
+    flex: 1;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 7px 4px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .sidebar-tab:hover { color: var(--text-primary); }
+  .sidebar-tab.res.active {
+    background: rgba(79,207,160,0.12);
+    border-color: rgba(79,207,160,0.45);
+    color: var(--accent-green);
+  }
+  .sidebar-tab.ctrl.active {
+    background: rgba(217,166,78,0.12);
+    border-color: rgba(217,166,78,0.45);
+    color: var(--accent-amber);
+  }
+  .sidebar-search input::placeholder { color: var(--text-dim); }
+  .sidebar-search input:focus { border-color: var(--accent); }
+  .search-clear {
+    position: absolute;
+    left: 8px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--border);
+    color: var(--text-secondary);
+    font-size: 11px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .search-clear.visible { display: flex; }
+  .search-no-results {
+    display: none;
+    padding: 24px 16px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .search-no-results.visible { display: block; }
+
+  .sidebar-scroll {
+    flex: 1;
+    overflow-y: auto;
+  }
+  .sidebar-scroll::-webkit-scrollbar { width: 4px; }
+  .sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
+  .sidebar-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .sidebar-section { padding: 10px 0 4px; }
+  .sidebar-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--text-dim);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 16px 6px;
+  }
+  .sidebar-label .lbl-count {
+    font-size: 8px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1px 6px;
+    color: var(--text-secondary);
+    letter-spacing: 0;
+    font-weight: 600;
+  }
+
+  .group-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .group-header:hover .group-title { color: var(--text-primary); }
+  .group-chevron {
+    width: 14px; height: 14px;
+    color: var(--text-dim);
+    transition: transform .2s;
+    flex-shrink: 0;
+  }
+  .group-chevron.open { transform: rotate(90deg); }
+  .group-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    flex: 1;
+  }
+  .group-progress {
+    font-size: 9px;
+    color: var(--text-dim);
+    background: var(--bg-card);
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .group-items { display: none; }
+  .group-items.open { display: block; }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 16px 8px 10px;
+    cursor: pointer;
+    transition: all .15s;
+    border-right: 3px solid transparent;
+    position: relative;
+    font-size: 11.5px;
+  }
+  .nav-item:hover { background: rgba(95,184,214,0.05); color: var(--text-primary); }
+  .nav-item.active {
+    background: rgba(95,184,214,0.08);
+    border-right-color: var(--accent);
+    color: var(--accent);
+  }
+  .nav-item.disabled {
+    cursor: default;
+    opacity: 0.45;
+  }
+  .nav-item.disabled:hover { background: transparent; color: inherit; }
+
+  .nav-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--text-dim);
+    flex-shrink: 0;
+    margin: 0 2px;
+  }
+  .nav-item.active .nav-dot { background: var(--accent); box-shadow: 0 0 5px var(--accent); }
+
+  .nav-text { font-size: 11.5px; font-weight: 500; flex: 1; line-height: 1.5; }
+  .nav-cmd-chip {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(95,184,214,0.1);
+    padding: 1px 6px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .nav-soon-chip {
+    font-size: 8.5px;
+    font-weight: 700;
+    color: var(--text-dim);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  mark.search-hit {
+    background: rgba(95,184,214,0.25);
+    color: var(--text-primary);
+    border-radius: 2px;
+    padding: 0 1px;
+  }
+
+  /* ─── MAIN ─── */
+  #main {
+    margin-right: var(--sidebar-w);
+    flex: 1;
+    padding: 24px 20px;
+    min-height: calc(100vh - var(--header-h));
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ─── WELCOME SCREEN ─── */
+  #welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 70vh;
+    padding: 20px 10px 30px;
+    gap: 14px;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* ① Brand header (HERO) */
+  .wlc-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 640px;
+    position: relative;
+    padding: 6px 0;
+  }
+  .wlc-brand-icon {
+    width: 54px; height: 54px;
+    background: linear-gradient(135deg, #163826, #1f4f37 45%, #2e7a55);
+    border: 1px solid rgba(79,207,160,0.35);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Courier New', monospace;
+    font-size: 24px;
+    font-weight: 900;
+    color: #6fe8b8;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 0 rgba(79,207,160,0.35), 0 6px 22px rgba(79,207,160,0.18);
+    position: relative;
+    animation: wlcIconGlow 3.2s ease-in-out infinite;
+  }
+  .wlc-brand-icon::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 14px;
+    border: 1px solid rgba(79,207,160,0.4);
+    animation: wlcRing 3.2s ease-out infinite;
+  }
+  @keyframes wlcIconGlow {
+    0%,100% { box-shadow: 0 0 0 0 rgba(79,207,160,0.25), 0 6px 22px rgba(79,207,160,0.18); }
+    50% { box-shadow: 0 0 0 6px rgba(79,207,160,0.06), 0 6px 26px rgba(79,207,160,0.3); }
+  }
+  @keyframes wlcRing {
+    0% { opacity: .9; transform: scale(1); }
+    80%,100% { opacity: 0; transform: scale(1.35); }
+  }
+  .wlc-brand-title {
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.35;
+    letter-spacing: .2px;
+  }
+  .wlc-brand-sub {
+    font-size: 11.5px;
+    color: var(--accent-green);
+    margin-top: 4px;
+    opacity: .85;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .wlc-brand-sub::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    box-shadow: 0 0 6px var(--accent-green);
+    animation: pulse 2s infinite;
+    flex-shrink: 0;
+  }
+
+  /* brand title span — gradient highlight on "نیرا" */
+  .wlc-brand-title span {
+    background: linear-gradient(90deg, #4fcfa0, #5fb8d6 60%, #4fcfa0);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 900;
+    animation: wlcShine 4s linear infinite;
+  }
+  @keyframes wlcShine {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  /* ─── CTA BUTTON (دکمه ورود به آموزش‌ها) ─── */
+  .wlc-cta-wrap {
+    width: 100%;
+    max-width: 640px;
+    display: flex;
+    justify-content: center;
+    margin: 2px 0 4px;
+  }
+  .wlc-cta-wrap.two {
+    max-width: 680px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .wlc-cta-wrap.two .wlc-cta-btn {
+    flex: 1 1 280px;
+    justify-content: center;
+  }
+  .wlc-cta-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #06231a;
+    background: linear-gradient(120deg, #4fcfa0, #5fb8d6, #4fcfa0);
+    background-size: 220% auto;
+    background-position: 0% 50%;
+    box-shadow: 0 10px 28px rgba(79,207,160,0.28), 0 0 0 1px rgba(79,207,160,0.25) inset;
+    transition: background-position .6s ease, transform .2s ease, box-shadow .2s ease;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .wlc-cta-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.45) 50%, transparent 80%);
+    transform: translateX(-120%);
+    transition: transform .7s ease;
+    z-index: 1;
+  }
+  .wlc-cta-btn:hover {
+    background-position: 100% 50%;
+    transform: translateY(-3px);
+    box-shadow: 0 14px 34px rgba(79,207,160,0.4), 0 0 0 1px rgba(79,207,160,0.35) inset;
+  }
+  .wlc-cta-btn:hover::before { transform: translateX(120%); }
+  .wlc-cta-btn:active { transform: translateY(-1px) scale(.98); }
+  .wlc-cta-btn span.cta-txt { position: relative; z-index: 2; }
+
+  /* نسخه‌ی «کنترل نیرا» — پالت متفاوت (کهربایی) برای تمایز بصری */
+  .wlc-cta-btn.ctrl {
+    color: #2a1c06;
+    background: linear-gradient(120deg, #d9a64e, #e0b766, #d9a64e);
+    background-size: 220% auto;
+    background-position: 0% 50%;
+    box-shadow: 0 10px 28px rgba(217,166,78,0.28), 0 0 0 1px rgba(217,166,78,0.3) inset;
+  }
+  .wlc-cta-btn.ctrl:hover {
+    background-position: 100% 50%;
+    box-shadow: 0 14px 34px rgba(217,166,78,0.4), 0 0 0 1px rgba(217,166,78,0.4) inset;
+  }
+
+  .wlc-cta-btn .cta-icon {
+    position: relative;
+    z-index: 2;
+    width: 18px; height: 18px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    animation: ctaBounce 1.8s ease-in-out infinite;
+  }
+  .wlc-cta-btn .cta-icon svg { width: 16px; height: 16px; }
+  @keyframes ctaBounce {
+    0%,100% { transform: translateX(0); }
+    50% { transform: translateX(-3px); }
+  }
+  .wlc-cta-btn .wlc-cta-icon {
+    position: relative;
+    z-index: 2;
+    width: 18px; height: 18px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    animation: ctaBounce 1.8s ease-in-out infinite;
+  }
+  .wlc-cta-btn .wlc-cta-icon svg { width: 16px; height: 16px; }
+  .wlc-cta-btn .wlc-cta-sub {
+    position: relative;
+    z-index: 2;
+    font-size: 11px;
+    font-weight: 600;
+    opacity: .75;
+  }
+
+  /* ② روایت (کشویی) */
+  .wlc-story {
+    width: 100%;
+    max-width: 640px;
+    background: linear-gradient(135deg, rgba(19,24,41,0.9), rgba(15,19,32,0.95));
+    border: 1px solid var(--border);
+    border-right: 3px solid rgba(79,207,160,0.5);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    transition: border-color .25s;
+  }
+  .wlc-story:hover { border-color: rgba(79,207,160,0.3); }
+  .wlc-story-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .wlc-story-quote {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--accent-green);
+    letter-spacing: .3px;
+    opacity: .9;
+  }
+  .wlc-story-chevron {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-secondary);
+    transition: transform .3s ease, color .2s;
+  }
+  .wlc-story-chevron svg { width: 12px; height: 12px; }
+  .wlc-story.open .wlc-story-chevron { transform: rotate(180deg); color: var(--accent-green); }
+  .wlc-story-head-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .wlc-story-toggle-icon {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-secondary);
+    transition: transform .3s ease, color .2s;
+  }
+  .wlc-story-toggle-icon svg { width: 12px; height: 12px; }
+  .wlc-story.open .wlc-story-toggle-icon { transform: rotate(180deg); color: var(--accent-green); }
+  .wlc-story-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease, opacity .3s ease, margin-top .3s ease;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 0;
+  }
+  .wlc-story.open .wlc-story-body {
+    max-height: 600px;
+    opacity: 1;
+    margin-top: 10px;
+  }
+  .wlc-story p {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 2;
+    margin: 0;
+  }
+  .wlc-story p:first-of-type {
+    color: var(--text-primary);
+    font-size: 13px;
+  }
+  .wlc-story-tribute {
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+    line-height: 1.8;
+  }
+  .wlc-story-tribute strong {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ─── TELEGRAM PROMO (باکس جسورانه معرفی کانال) ─── */
+  .telegram-promo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+    padding: 13px 16px;
+    border-radius: 16px;
+    text-decoration: none;
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform .25s ease;
+  }
+  .telegram-promo::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 19px;
+    background: conic-gradient(from 0deg, #229ED9, #4fcfa0, #5fb8d6, #229ED9);
+    animation: telegramSpin 5s linear infinite;
+    z-index: -2;
+  }
+  .telegram-promo::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: 14px;
+    background: var(--bg-card);
+    z-index: -1;
+  }
+  @keyframes telegramSpin { to { transform: rotate(360deg); } }
+  .telegram-promo:hover { transform: translateY(-2px); }
+
+  .telegram-promo-icon {
+    flex-shrink: 0;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #34b3e6, #1d8fc1);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 0 0 rgba(34,158,217,0.55);
+    animation: telegramPulse 2.4s ease-in-out infinite;
+  }
+  .telegram-promo-icon svg { width: 19px; height: 19px; }
+  @keyframes telegramPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(34,158,217,0.55); }
+    70%  { box-shadow: 0 0 0 9px rgba(34,158,217,0); }
+    100% { box-shadow: 0 0 0 0 rgba(34,158,217,0); }
+  }
+
+  .telegram-promo-text { flex: 1; min-width: 0; }
+  .telegram-promo-title {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+  .telegram-promo-handle {
+    font-size: 11.5px;
+    color: #34b3e6;
+    font-weight: 700;
+    direction: ltr;
+    text-align: right;
+    margin-top: 1px;
+  }
+
+  .telegram-promo-cta {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #06231a;
+    background: linear-gradient(120deg, #4fcfa0, #5fb8d6);
+    padding: 7px 12px;
+    border-radius: 10px;
+    animation: telegramBounce 1.8s ease-in-out infinite;
+  }
+  .telegram-promo-cta svg { width: 13px; height: 13px; }
+  @keyframes telegramBounce {
+    0%,100% { transform: translateX(0); }
+    50% { transform: translateX(-3px); }
+  }
+
+  .telegram-promo-praise {
+    margin-top: 10px;
+    font-size: 11.5px;
+    line-height: 1.9;
+    color: var(--text-secondary);
+  }
+  .wlc-story-hint {
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  /* ─── ABOUT MODAL ─── */
+  .about-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5,7,12,0.72);
+    backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 600;
+    padding: 20px;
+  }
+  .about-overlay.open { display: flex; }
+  .about-box {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    background: linear-gradient(160deg, var(--bg-card), var(--bg-panel));
+    border: 1px solid var(--border-glow);
+    border-radius: 18px;
+    padding: 26px 24px 22px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(95,184,214,0.08) inset;
+    animation: aboutPop .25s ease;
+  }
+  @keyframes aboutPop {
+    from { opacity: 0; transform: translateY(8px) scale(.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .about-close {
+    position: absolute;
+    top: 12px; left: 12px;
+    width: 26px; height: 26px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .15s;
+  }
+  .about-close:hover { color: var(--accent); border-color: var(--accent); }
+  .about-typer-line {
+    direction: ltr;
+    font-family: 'Courier New', monospace;
+    font-size: 11.5px;
+    color: var(--accent-green);
+    background: var(--terminal-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 10px;
+    margin-bottom: 16px;
+    text-align: left;
+    min-height: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .about-typer-prompt { color: var(--text-dim); margin-left: 6px; }
+  .about-typer-cursor {
+    animation: aboutBlink 1s steps(1) infinite;
+    color: var(--accent-green);
+  }
+  @keyframes aboutBlink { 50% { opacity: 0; } }
+  .about-icon {
+    width: 50px; height: 50px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    border: 1px solid var(--border-glow);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent);
+  }
+  .about-icon svg { width: 24px; height: 24px; }
+  .about-title {
+    font-size: 15.5px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+  }
+  .about-text {
+    font-size: 12.5px;
+    line-height: 1.9;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+  .about-sign {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-top: 8px;
+  }
+  #sidebar.cta-highlight {
+    box-shadow: inset 0 0 0 2px rgba(79,207,160,0.5);
+  }
+
+  /* NRS Terminal Window */
+  .nrs-window {
+    width: 100%;
+    max-width: 620px;
+    min-width: 0;
+    background: #000;
+    border: 1px solid #2a3a2a;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(79,207,160,0.08), 0 8px 32px rgba(0,0,0,0.6);
+    font-family: 'Courier New', monospace;
+    direction: ltr;
+  }
+  .nrs-titlebar {
+    background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .nrs-titlebar-icon {
+    width: 16px; height: 16px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%234a6a4a'/%3E%3Ctext x='2' y='12' font-size='10' fill='%234fcfa0' font-family='monospace' font-weight='bold'%3EN%3C/text%3E%3C/svg%3E") center/contain no-repeat;
+    flex-shrink: 0;
+  }
+  .nrs-titlebar-text {
+    font-size: 11px;
+    color: #ccc;
+    flex: 1;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .nrs-win-btns {
+    display: flex;
+    gap: 2px;
+  }
+  .nrs-win-btn {
+    width: 18px; height: 14px;
+    background: #4a4a4a;
+    border: 1px solid #3a3a3a;
+    border-radius: 1px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: default;
+  }
+  .nrs-win-btn svg { width: 8px; height: 8px; stroke: #aaa; }
+  .nrs-win-btn.close { background: #c0392b; }
+  .nrs-win-btn.close svg { stroke: #fff; }
+
+  /* Menu bar */
+  .nrs-menubar {
+    background: #1a1a1a;
+    border-bottom: 1px solid #111;
+    display: flex;
+    gap: 0;
+  }
+  .nrs-menu-item {
+    padding: 3px 12px;
+    font-size: 11px;
+    color: #bbb;
+    cursor: default;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .nrs-menu-item:hover { background: #2a4a7a; color: #fff; }
+
+  /* Terminal body */
+  .nrs-body {
+    background: #000;
+    padding: 12px 14px;
+    min-height: 180px;
+    position: relative;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  .nrs-body::-webkit-scrollbar { height: 4px; }
+  .nrs-body::-webkit-scrollbar-thumb { background: #2a3a2a; border-radius: 4px; }
+  .nrs-line {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #c0c0c0;
+    white-space: pre;
+  }
+  .nrs-line.green { color: #4fcfa0; }
+  .nrs-line.yellow { color: #d9a64e; }
+  .nrs-line.white { color: #ffffff; }
+  .nrs-line.dim { color: #666; }
+  .nrs-cmd {
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    display: block;
+    margin: 4px 0;
+    letter-spacing: 1px;
+  }
+  .nrs-cursor {
+    display: inline-block;
+    width: 9px; height: 14px;
+    background: #4fcfa0;
+    vertical-align: middle;
+    animation: blink .8s infinite;
+    margin-left: 2px;
+  }
+
+  /* Status bar bottom (NRS style) */
+  .nrs-statusbar {
+    background: #1a1a1a;
+    border-top: 1px solid #111;
+    display: flex;
+    align-items: stretch;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+  }
+  .nrs-sb-item {
+    padding: 4px 10px;
+    border-left: 1px solid #2a2a2a;
+    color: #888;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .nrs-sb-item:first-child { border-left: none; }
+  .nrs-sb-item.connected { color: #4fcfa0; }
+  .nrs-sb-item.flex { flex: 1; justify-content: center; }
+  .nrs-sb-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #4fcfa0;
+    box-shadow: 0 0 4px #4fcfa0;
+    flex-shrink: 0;
+  }
+
+  /* فیلد ورودی داخل terminal برای welcome */
+  .nrs-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 8px;
+  }
+  .nrs-prompt-sym {
+    color: #4fcfa0;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 6px;
+    flex-shrink: 0;
+  }
+  .nrs-live-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    flex: 1;
+    caret-color: #4fcfa0;
+    direction: ltr;
+  }
+  .nrs-live-input::placeholder { color: rgba(79,207,160,0.25); }
+
+  /* Quick cards */
+  .welcome-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    width: 100%;
+    max-width: 620px;
+    text-align: right;
+    margin-bottom: -4px;
+  }
+  .welcome-title span { color: var(--accent-green); }
+  .welcome-sub { display: none; }
+  .welcome-stats {
+    display: flex;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    width: 100%;
+    max-width: 620px;
+  }
+  .welcome-stat {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .welcome-stat b { color: var(--accent); font-size: 12.5px; font-weight: 700; }
+  .welcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 100%;
+    max-width: 620px;
+  }
+  .welcome-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 8px 10px;
+    cursor: pointer;
+    transition: border-color .2s, transform .2s;
+    text-align: center;
+  }
+  .welcome-card:hover { border-color: var(--accent-green); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(79,207,160,0.1); }
+  .welcome-card-icon {
+    width: 28px; height: 28px;
+    margin: 0 auto 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-dim);
+    transition: color .2s;
+  }
+  .welcome-card-icon svg { width: 16px; height: 16px; }
+  .welcome-card:hover .welcome-card-icon { color: var(--accent-green); }
+  .welcome-card-label { font-size: 10px; font-weight: 600; color: var(--text-primary); }
+  .welcome-card-cmd {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    color: var(--accent-green);
+    margin-top: 3px;
+    letter-spacing: .5px;
+    opacity: .7;
+  }
+
+  /* ─── TERMINAL-STYLE STATUS STRIP (welcome footer) ─── */
+  .welcome-statusbar { display: none; }
+
+
+  /* ─── LESSON CONTENT ─── */
+  #lesson-content { display: none; }
+
+  .lesson-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .lesson-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(95,184,214,0.1);
+    border: 1px solid rgba(95,184,214,0.2);
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .lesson-title { font-size: 20px; font-weight: 800; line-height: 1.3; }
+  .lesson-cmd-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--terminal-bg);
+    border: 1px solid rgba(79,207,160,0.3);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--terminal-text);
+    font-family: 'Courier New', monospace;
+  }
+
+  .lesson-desc {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-right: 3px solid var(--accent2);
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 13px;
+    line-height: 2;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+  }
+
+  /* ─── TERMINAL ─── */
+  .terminal-wrap {
+    background: var(--terminal-bg);
+    border: 1px solid rgba(79,207,160,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 0 30px rgba(79,207,160,0.05);
+  }
+  .terminal-titlebar {
+    background: rgba(79,207,160,0.06);
+    border-bottom: 1px solid rgba(79,207,160,0.15);
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .t-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .t-red { background: #ff5f57; }
+  .t-yellow { background: #febc2e; }
+  .t-green { background: #28c840; }
+  .t-title { font-size: 11px; color: var(--text-dim); margin-right: 8px; font-family: monospace; }
+
+  .terminal-body { padding: 14px; }
+  .terminal-prompt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .prompt-symbol {
+    color: var(--terminal-text);
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--terminal-text);
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    caret-color: var(--terminal-text);
+    direction: ltr;
+    text-align: left;
+    letter-spacing: 1px;
+  }
+  .terminal-input::placeholder { color: rgba(79,207,160,0.3); }
+
+  .terminal-output {
+    background: rgba(79,207,160,0.03);
+    border: 1px solid rgba(79,207,160,0.1);
+    border-radius: 6px;
+    padding: 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--terminal-text);
+    white-space: pre;
+    overflow-x: auto;
+    direction: ltr;
+    text-align: left;
+    min-height: 80px;
+    display: none;
+    line-height: 1.6;
+  }
+  .terminal-output.visible { display: block; }
+
+  .terminal-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .btn-run {
+    padding: 9px 20px;
+    background: linear-gradient(135deg, rgba(79,207,160,0.2), rgba(95,184,214,0.2));
+    border: 1px solid rgba(79,207,160,0.4);
+    border-radius: 7px;
+    color: var(--terminal-text);
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .btn-run:hover { background: rgba(79,207,160,0.25); box-shadow: 0 0 12px rgba(79,207,160,0.2); }
+  .btn-clear {
+    padding: 9px 16px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    color: var(--text-secondary);
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .btn-clear:hover { border-color: var(--accent-red); color: var(--accent-red); }
+
+  /* ─── TOOLTIP / AI EXPLAIN ─── */
+  .ai-tooltip {
+    background: linear-gradient(135deg, rgba(74,143,176,0.08), rgba(95,184,214,0.05));
+    border: 1px solid rgba(95,184,214,0.2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .ai-icon {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .ai-text { font-size: 12px; line-height: 1.9; color: var(--text-secondary); }
+  .ai-text strong { color: var(--accent); font-weight: 600; }
+
+  /* ─── EXAMPLES LIST ─── */
+  .examples-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .example-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .example-card:hover { border-color: var(--accent); }
+  .example-cmd {
+    font-family: monospace;
+    font-size: 12px;
+    color: var(--terminal-text);
+    font-weight: 700;
+    direction: ltr;
+    text-align: left;
+    margin-bottom: 6px;
+  }
+  .example-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* ─── NAV BUTTONS ─── */
+  .lesson-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .btn-nav {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    transition: all .2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .btn-nav:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-nav.primary {
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    border-color: transparent;
+    color: #fff;
+  }
+  .btn-nav:disabled { opacity: 0.3; cursor: default; }
+
+  /* ─── COMING SOON PANEL ─── */
+  #soon-content { display: none; }
+  .soon-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+    gap: 16px;
+    padding: 20px;
+  }
+  .soon-icon {
+    width: 64px; height: 64px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    color: var(--text-dim);
+  }
+  .soon-cmd-badge {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 6px;
+  }
+  .soon-title { font-size: 18px; font-weight: 800; max-width: 420px; line-height: 1.5; }
+  .soon-sub { font-size: 12px; color: var(--text-secondary); max-width: 380px; line-height: 1.9; }
+  .soon-tag {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent-amber);
+    background: rgba(217,166,78,0.1);
+    border: 1px solid rgba(217,166,78,0.25);
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: .5px;
+  }
+  .soon-back {
+    margin-top: 6px;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-family: 'Vazirmatn', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    transition: all .2s;
+  }
+  .soon-back:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ─── PROGRESS ─── */
+  .progress-bar {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .progress-track {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 2px;
+    transition: width .4s ease;
+  }
+  .progress-text { font-size: 11px; color: var(--text-secondary); white-space: nowrap; }
+
+  /* ─── MOBILE OVERLAY ─── */
+  #sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 99;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    :root { --sidebar-w: 270px; }
+    #hamburger { display: flex; }
+    #sidebar {
+      transform: translateX(100%);
+      box-shadow: -8px 0 30px rgba(0,0,0,0.5);
+    }
+    #sidebar.open { transform: translateX(0); }
+    #sidebar-overlay.open { display: block; }
+    #main { margin-right: 0; padding: 14px 12px; }
+    .status-bar { display: none; }
+    .btn-header { display: none; }
+    .welcome-grid { grid-template-columns: repeat(2, 1fr); }
+    .examples-grid { grid-template-columns: 1fr; }
+    .lesson-title { font-size: 17px; }
+
+    /* brand mobile */
+    .wlc-brand-title { font-size: 15px; }
+    .wlc-brand-icon { width: 36px; height: 36px; font-size: 17px; }
+    .wlc-desc { font-size: 12px; }
+
+    /* NRS terminal mobile */
+    .nrs-line { font-size: 10.5px; }
+    .nrs-body { padding: 10px 10px; min-height: 130px; }
+    .nrs-live-input { font-size: 11px; }
+    .nrs-sb-item { font-size: 8.5px; padding: 4px 6px; }
+    /* روی موبایل آیتم‌های کمتری نشون بده */
+    #nrs-sb-gdate { display: none; }
+    #welcome { padding: 12px 8px 24px; gap: 12px; }
+  }
+
+  @media (max-width: 400px) {
+    .welcome-grid { grid-template-columns: 1fr 1fr; }
+    .logo-sub { display: none; }
+  }
+
+  /* ─── TYPING ANIMATION ─── */
+  .typing::after {
+    content: '█';
+    animation: blink .8s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-left: 6px;
+  }
+  .tag-green { background: rgba(79,207,160,0.15); color: var(--accent-green); }
+  .tag-blue { background: rgba(95,184,214,0.15); color: var(--accent); }
+  .tag-amber { background: rgba(217,166,78,0.15); color: var(--accent-amber); }
+
+  /* Scrollbar for main */
+  #main::-webkit-scrollbar { width: 5px; }
+  #main::-webkit-scrollbar-track { background: transparent; }
+  #main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="header-logo" onclick="showWelcome()" role="button" style="cursor:pointer">
+    <div class="logo-badge">NR</div>
+    <div>
+      <div class="logo-text">نیرا</div>
+      <div class="logo-sub">آموزش تعاملی سیستم رزرواسیون</div>
+    </div>
+  </div>
+
+  <div class="header-center">
+    <div class="status-bar">
+      <div class="status-dot"></div>
+      <span>محیط آموزشی فعال</span>
+      <span style="color:var(--border)">|</span>
+      <span>نسخه ۲.۰</span>
+    </div>
+  </div>
+
+  <div class="header-actions">
+    <button class="btn-header" onclick="window.open('http://nirasoft.ir/t/','_blank')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;vertical-align:-2px;margin-left:4px"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>nirasoft.ir</button>
+    <button class="btn-header primary" onclick="showWelcome()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;vertical-align:-2px;margin-left:4px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>خانه</button>
+    <button class="btn-icon" id="btn-about" onclick="openAbout()" title="درباره ما" aria-label="درباره ما">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7v.5"></path><circle cx="12" cy="16.7" r=".4" fill="currentColor" stroke="none"></circle></svg>
+    </button>
+    <div id="hamburger" onclick="toggleSidebar()">
+      <span></span><span></span><span></span>
+    </div>
+</header>
+
+<!-- ABOUT MODAL -->
+<div id="about-overlay" class="about-overlay" onclick="if(event.target===this) closeAbout()">
+  <div class="about-box">
+    <button class="about-close" onclick="closeAbout()">✕</button>
+    <div class="about-typer-line"><span class="about-typer-prompt">&gt;</span><span id="about-typer"></span><span class="about-typer-cursor">▌</span></div>
+    <div class="about-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="4"></circle>
+        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"></path>
+      </svg>
+    </div>
+    <div class="about-title">درباره‌ی این سامانه</div>
+    <p class="about-text">
+      این سامانه برای آموزش سیستم رزرواسیون نیرا و کنترل پرواز ساخته شده است.
+      ممکن است در میان آموزش‌ها، ایراد یا دستوری اشتباه هم دیده شود؛
+      این مجموعه صرفاً برای کمک به یادگیری دوستانی‌ست که تازه با این سیستم آشنا می‌شوند،
+      تا کم‌کم بر آن مسلط شوند.
+    </p>
+    <p class="about-text">
+      من «پیمان» هستم، در حال یادگیری فناوری سفر،
+      و دوست دارم آنچه آموخته‌ام را با دوستان دیگر هم به اشتراک بگذارم.
+    </p>
+    <div class="about-sign">امیدوارم برایتان مفید باشد 🌿</div>
+  </div>
+</div>
+
+
+<div id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<!-- LAYOUT -->
+<div id="layout">
+
+  <!-- SIDEBAR -->
+  <nav id="sidebar">
+
+    <div class="sidebar-search-wrap">
+      <div class="sidebar-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="sidebar-search-input" placeholder="جستجوی درس یا دستور..." autocomplete="off" oninput="onSearchInput(this.value)">
+        <div class="search-clear" id="search-clear-btn" onclick="clearSearch()">✕</div>
+      </div>
+    </div>
+
+    <div class="sidebar-tabs" id="sidebar-tabs">
+      <button class="sidebar-tab res active" data-section="res" onclick="switchSection('res')">رزرواسیون نیرا</button>
+      <button class="sidebar-tab ctrl" data-section="ctrl" onclick="switchSection('ctrl')">کنترل نیرا</button>
+    </div>
+
+    <div class="sidebar-scroll" id="sidebar-scroll">
+      <div class="sidebar-section">
+        <div class="nav-item" onclick="showWelcome()" id="nav-home">
+          <div class="nav-dot" style="background:var(--accent)"></div>
+          <div class="nav-text" style="font-weight:700">صفحه اصلی</div>
+        </div>
+      </div>
+
+      <div id="nav-groups"></div>
+
+      <div class="search-no-results" id="search-no-results">
+        نتیجه‌ای برای جستجوی شما پیدا نشد
+      </div>
+
+      <div style="height: 30px;"></div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main id="main">
+
+    <!-- WELCOME -->
+    <div id="welcome">
+
+      <!-- ① اسم سایت -->
+      <div class="wlc-brand">
+        <div class="wlc-brand-icon">N</div>
+        <div>
+          <div class="wlc-brand-title">شبیه‌ساز نرم‌افزار رزرواسیون <span>نیرا</span></div>
+          <div class="wlc-brand-sub">آموزش تعاملی · نسخه ۲.۰ · رایگان و بدون نصب</div>
+        </div>
+      </div>
+
+      <!-- دکمه ورود به آموزش‌ها -->
+      <div class="wlc-cta-wrap two">
+        <button class="wlc-cta-btn res" onclick="openSection('res')">
+          <span class="wlc-cta-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          </span>
+          رزرواسیون نیرا
+          <span class="wlc-cta-sub">· فهرست دروس رزرو و صدور بلیط</span>
+        </button>
+        <button class="wlc-cta-btn ctrl" onclick="openSection('ctrl')">
+          <span class="wlc-cta-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          </span>
+          کنترل نیرا
+          <span class="wlc-cta-sub">· فهرست دروس کنترل و مدیریت پرواز</span>
+        </button>
+      </div>
+
+      <!-- ② روایت + توضیح (کشویی) -->
+      <div class="wlc-story open" id="wlc-story">
+        <div class="wlc-story-head" onclick="toggleStory()">
+          <div class="wlc-story-head-left">
+            <div class="wlc-story-toggle-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="wlc-story-quote">«دانستن نباید انحصاری باشد»</div>
+          </div>
+          <div class="wlc-story-hint">درباره‌ی این سایت</div>
+        </div>
+        <div class="wlc-story-body">
+          <p>
+            روزی از همکارم خواستم نیرا یادم بدهد — نخواست.
+            شاید می‌ترسید جایش تنگ شود.
+            دو روز بعد خودم یاد گرفتم.
+          </p>
+          <p>
+            این سایت برای همه‌ی کسانی‌ست که دوست دارند یاد بگیرند
+            و هیچ‌کس دانستن را از آن‌ها دریغ نکرده.
+            با مثال‌های واقعی، مستقیم در ترمینال تایپ کنید و ببینید.
+          </p>
+          <div class="wlc-story-tribute">
+            با سپاس از <strong>امیرحسین وثوق</strong> — پیشگام آموزش آزاد نیرا،
+            که ندیده‌ام اما قدردانش هستم.
+            این سایت تقدیم اوست.
+          </div>
+
+          <a class="telegram-promo" href="https://t.me/niratraining" target="_blank" rel="noopener">
+            <div class="telegram-promo-icon">
+              <svg viewBox="0 0 240 240" fill="none"><path fill="currentColor" d="M120 0C53.7 0 0 53.7 0 120s53.7 120 120 120 120-53.7 120-120S186.3 0 120 0zm55.5 81.7-19.8 93.4c-1.5 6.6-5.4 8.3-11 5.1l-30.4-22.4-14.7 14.1c-1.6 1.6-3 3-6.1 3l2.2-31 56.4-51c2.5-2.2-.5-3.4-3.8-1.2L82 124.1l-30-9.4c-6.5-2-6.6-6.5 1.4-9.6l117.3-45.2c5.4-2 10.1 1.3 8.8 9.8z"></path></svg>
+            </div>
+            <div class="telegram-promo-text">
+              <div class="telegram-promo-title">کانال آموزشی امیرحسین وثوق</div>
+              <div class="telegram-promo-handle">@niratraining</div>
+            </div>
+            <div class="telegram-promo-cta">
+              عضویت
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg>
+            </div>
+          </a>
+          <div class="telegram-promo-praise">
+            یادگیریِ این مسیر را او بی‌منت و رایگان در اختیار همه گذاشته؛
+            اگر دوست دارید عمیق‌تر و حرفه‌ای‌تر نیرا را یاد بگیرید،
+            همین حالا به کانالش بپیوندید — قدردانی از این سخاوت، با یک عضویت شروع می‌شود.
+          </div>
+        </div>
+      </div>
+
+      <!-- ③ NRS Terminal Simulation -->
+      <div class="nrs-window">
+        <!-- Title bar -->
+        <div class="nrs-titlebar">
+          <div class="nrs-titlebar-icon"></div>
+          <div class="nrs-titlebar-text">NRS Terminal...</div>
+          <div class="nrs-win-btns">
+            <div class="nrs-win-btn"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="2" y1="5" x2="8" y2="5"/></svg></div>
+            <div class="nrs-win-btn"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="6" height="6"/></svg></div>
+            <div class="nrs-win-btn close"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="2" y1="2" x2="8" y2="8"/><line x1="8" y1="2" x2="2" y2="8"/></svg></div>
+          </div>
+        </div>
+        <!-- Menu bar -->
+        <div class="nrs-menubar">
+          <div class="nrs-menu-item">File</div>
+          <div class="nrs-menu-item">Macros</div>
+          <div class="nrs-menu-item">Help</div>
+        </div>
+        <!-- Terminal body -->
+        <div class="nrs-body">
+          <div class="nrs-line white" id="nrs-da-line" style="display:none">DA</div>
+          <div class="nrs-line" style="margin-top:6px" id="nrs-resp-block" style="display:none">
+            <span class="nrs-line white">A*&nbsp;&nbsp;&nbsp;THR001.TEST01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="nrs-time">09:22</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YY&nbsp;&nbsp;THR001</span><br>
+            <br>
+            <span class="nrs-line green">CURRENCY: IRR</span><br>
+            <span class="nrs-line">CHANNEL: 0</span><br>
+            <br>
+            <span class="nrs-line">SYSTEM&nbsp;&nbsp;PSA&nbsp;&nbsp;ONLINE&nbsp;&nbsp;&nbsp;<span id="nrs-gdate">2025-01-01</span>&nbsp;(<span id="nrs-jdate">1403-10-11</span>)</span>
+          </div>
+          <!-- live input row -->
+          <div class="nrs-input-row" style="margin-top:12px">
+            <span class="nrs-prompt-sym">&gt;</span>
+            <input class="nrs-live-input" id="nrs-home-input" placeholder="دستور وارد کنید..." autocomplete="off" spellcheck="false"
+              onkeydown="handleNrsHomeInput(event)">
+            <span class="nrs-cursor" id="nrs-cursor-home"></span>
+          </div>
+        </div>
+        <!-- Status bar -->
+        <div class="nrs-statusbar">
+          <div class="nrs-sb-item connected"><span class="nrs-sb-dot"></span>Connected</div>
+          <div class="nrs-sb-item">THR001.TEST01</div>
+          <div class="nrs-sb-item flex" id="nrs-sb-time">--:--:--</div>
+          <div class="nrs-sb-item" id="nrs-sb-jdate">----/--/--</div>
+          <div class="nrs-sb-item" id="nrs-sb-gdate">-/-/----</div>
+        </div>
+      </div>
+
+      <!-- ④ Stats + عنوان دروس -->
+      <div class="welcome-stats" style="justify-content:center">
+        <div class="welcome-stat"><b id="stat-ready">۰</b> درس فعال</div>
+        <div class="welcome-stat"><b id="stat-total">۰</b> عنوان آموزشی</div>
+      </div>
+
+      <div class="welcome-title">دروس پرکاربرد</div>
+
+      <!-- Quick cards -->
+      <div class="welcome-grid">
+        <div class="welcome-card" onclick="loadLesson('AY')">
+          <div class="welcome-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+          </div>
+          <div class="welcome-card-label">مسیریابی</div>
+          <div class="welcome-card-cmd">AY</div>
+        </div>
+        <div class="welcome-card" onclick="loadLesson('AV')">
+          <div class="welcome-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"></rect><path d="M3 10h18"></path></svg>
+          </div>
+          <div class="welcome-card-label">ظرفیت پرواز</div>
+          <div class="welcome-card-cmd">AV</div>
+        </div>
+        <div class="welcome-card" onclick="loadLesson('SK')">
+          <div class="welcome-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+          </div>
+          <div class="welcome-card-label">رزرو صندلی</div>
+          <div class="welcome-card-cmd">SK</div>
+        </div>
+        <div class="welcome-card" onclick="loadLesson('CRD')">
+          <div class="welcome-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+          <div class="welcome-card-label">نرخ کرایه</div>
+          <div class="welcome-card-cmd">CRD</div>
+        </div>
+        <div class="welcome-card" onclick="loadLesson('DGS')">
+          <div class="welcome-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="16" y2="17"></line></svg>
+          </div>
+          <div class="welcome-card-label">نمایش رزرو</div>
+          <div class="welcome-card-cmd">DGS</div>
+        </div>
+        <div class="welcome-card" onclick="loadLesson('TCC')">
+          <div class="welcome-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="8" y1="7" x2="16" y2="7"></line><line x1="8" y1="11" x2="10" y2="11"></line><line x1="13" y1="11" x2="15" y2="11"></line></svg>
+          </div>
+          <div class="welcome-card-label">محاسبه نرخ</div>
+          <div class="welcome-card-cmd">TCC</div>
+        </div>
+      </div>
+
+      <!-- hidden legacy elements -->
+      <div class="welcome-statusbar" style="display:none">
+        <div class="ws-item ws-connected"><span class="ws-dot"></span>Connected</div>
+        <div class="ws-item ws-flex" id="ws-clock">--:--:--</div>
+        <div class="ws-item" id="ws-date">----/--/--</div>
+      </div>
+    </div>
+
+
+    <!-- LESSON -->
+    <div id="lesson-content">
+
+      <div class="progress-bar">
+        <div style="font-size:11px;color:var(--text-secondary);white-space:nowrap">پیشرفت:</div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+        <div class="progress-text" id="progress-text">۰ از ۱۲</div>
+      </div>
+
+      <div class="lesson-header">
+        <div id="lesson-num" class="lesson-num">درس ۱</div>
+        <div>
+          <div id="lesson-title" class="lesson-title"></div>
+          <div style="margin-top:6px">
+            <span id="lesson-cmd-badge" class="lesson-cmd-badge"></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="lesson-desc" class="lesson-desc"></div>
+
+      <div class="ai-tooltip">
+        <div class="ai-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"></path><circle cx="12" cy="12" r="4"></circle></svg></div>
+        <div class="ai-text" id="ai-explain"></div>
+      </div>
+
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;vertical-align:-1px;margin-left:4px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>مثال‌های متداول — کلیک کنید تا وارد ترمینال شود:
+      </div>
+      <div class="examples-grid" id="examples-grid"></div>
+
+      <div class="terminal-wrap">
+        <div class="terminal-titlebar">
+          <div class="t-dot t-red"></div>
+          <div class="t-dot t-yellow"></div>
+          <div class="t-dot t-green"></div>
+          <div class="t-title">NIRA TERMINAL — آموزشی</div>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-prompt">
+            <div class="prompt-symbol">›</div>
+            <input type="text" class="terminal-input" id="terminal-input"
+              placeholder="دستور را اینجا وارد کنید..."
+              autocomplete="off" autocorrect="off" spellcheck="false"
+              onkeydown="if(event.key==='Enter')runCommand()">
+          </div>
+          <div class="terminal-output" id="terminal-output"></div>
+          <div class="terminal-actions">
+            <button class="btn-run" onclick="runCommand()"><svg viewBox="0 0 24 24" fill="currentColor" style="width:10px;height:10px"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>اجرای دستور</button>
+            <button class="btn-clear" onclick="clearTerminal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:10px;height:10px"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>پاک کردن</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="lesson-nav">
+        <button class="btn-nav" id="btn-prev" onclick="navigate(-1)">← درس قبلی</button>
+        <div style="font-size:11px;color:var(--text-dim)" id="lesson-counter"></div>
+        <button class="btn-nav primary" id="btn-next" onclick="navigate(1)">درس بعدی →</button>
+      </div>
+    </div>
+
+    <!-- COMING SOON -->
+    <div id="soon-content">
+      <div class="soon-wrap">
+        <div class="soon-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></div>
+        <div class="soon-tag">به‌زودی</div>
+        <div class="soon-cmd-badge" id="soon-cmd-badge"></div>
+        <div class="soon-title" id="soon-title"></div>
+        <div class="soon-sub">
+          محتوای آموزشی این بخش (توضیح کامل، فرمت دقیق دستور و مثال‌های اجرایی) در حال آماده‌سازی است و به‌زودی اضافه می‌شود.
+        </div>
+        <div class="soon-back" onclick="showWelcome()">بازگشت به صفحه اصلی</div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ── DATA: READY LESSONS (full content) ─────────────────────────────
+const LESSONS = {
+  AY: {
+    title: 'نمایش مسیر پرواز',
+    cmd: 'AY',
+    desc: `دستور <strong>AY</strong> برای نمایش مسیر و ایستگاه‌های میانی بین دو فرودگاه استفاده می‌شود. با این دستور می‌توانید بررسی کنید که آیا پرواز مستقیم وجود دارد یا نیاز به ترانزیت است. کد IATA فرودگاه‌ها باید به‌درستی وارد شوند.`,
+    ai: `دستور <strong>AY THR/IKA</strong> مسیرهای موجود از تهران (امام خمینی) به سایر مقاصد را نمایش می‌دهد. اگر پرواز مستقیم بین دو فرودگاه وجود داشته باشد، مسیر "<strong>DIRECT</strong>" نمایش داده می‌شود. ایستگاه‌های ترانزیت با کد <strong>VIA</strong> مشخص می‌شوند.`,
+    examples: [
+      { cmd: 'AY THR/IKA', desc: 'نمایش مسیرهای فرودگاه امام خمینی' },
+      { cmd: 'AY IKA/DXB', desc: 'مسیر تهران به دبی' },
+      { cmd: 'AY IKA/IST', desc: 'مسیر تهران به استانبول' },
+      { cmd: 'AY IKA/LON', desc: 'مسیر تهران به لندن' },
+    ],
+    mock: (cmd) => {
+      const upper = cmd.toUpperCase().trim();
+      if (upper.startsWith('AY')) {
+        const parts = upper.split(' ')[1] || '';
+        const [from, to] = parts.split('/');
+        return [
+          `ROUTING FROM ${from||'???'} TO ${to||'???'}`,
+          `─────────────────────────────────`,
+          `CARRIER  ROUTING           STOPS`,
+          `IR       ${from||'IKA'}-${to||'DXB'}          DIRECT`,
+          `IR       ${from||'IKA'}-MSC-${to||'DXB'}      1 STOP`,
+          `QR       ${from||'IKA'}-DOH-${to||'DXB'}      1 STOP`,
+          `EK       ${from||'IKA'}-DXB                   DIRECT`,
+          `─────────────────────────────────`,
+          `END OF DISPLAY`
+        ].join('\n');
+      }
+      return 'FORMAT ERROR - USE: AY CITY1/CITY2';
+    }
+  },
+
+  AV: {
+    title: 'بررسی ظرفیت پرواز',
+    cmd: 'AV',
+    desc: `دستور <strong>AV</strong> برای بررسی صندلی‌های موجود در یک مسیر و تاریخ مشخص به‌کار می‌رود. فرمت این دستور شامل کد مبدا، مقصد، تاریخ سفر و کلاس پرواز است. خروجی لیستی از پروازهای موجود با کلاس‌ها و ظرفیت هر کلاس نمایش می‌دهد.`,
+    ai: `در خروجی دستور <strong>AV</strong>، اعداد کنار هر کلاس نشان‌دهنده تعداد صندلی‌های موجود است. عدد <strong>9</strong> یعنی ۹ یا بیشتر صندلی خالی است. عدد <strong>0</strong> یعنی پرواز پر است. حرف <strong>L</strong> (Last) یعنی تنها یک صندلی باقی مانده. کلاس‌های Y/M/B/H/Q نشان‌دهنده سطوح مختلف اکونومی هستند.`,
+    examples: [
+      { cmd: 'AV IKA DXB 15JAN Y', desc: 'ظرفیت تهران-دبی ۱۵ ژانویه کلاس Y' },
+      { cmd: 'AV IKA IST 20FEB', desc: 'تمام کلاس‌های تهران-استانبول' },
+      { cmd: 'AV IKA DOH 10MAR C', desc: 'کلاس بیزینس تهران-دوحه' },
+      { cmd: 'AV IKA FRA 05APR Y2', desc: 'حداقل ۲ صندلی در کلاس Y' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      if (u.startsWith('AV')) {
+        return [
+          `AVAILABILITY ${u}`,
+          `─────────────────────────────────────────────`,
+          `   AIRLINE FLT  DEP   ARR   C Y M B H Q K L`,
+          `1. IR    0655  06:45 10:30  9 9 7 4 2 9 0 9`,
+          `2. IR    0721  09:15 13:05  3 9 9 9 5 1 0 9`,
+          `3. EK    0500  14:00 17:45  9 4 2 1 0 9 9 9`,
+          `4. QR    0521  22:30 02:15+ 9 9 9 6 3 0 0 9`,
+          `─────────────────────────────────────────────`,
+          `C=FIRST  Y=ECO FULL  M/B/H=ECO DISC  L=LAST SEAT`,
+          `END OF AVAIL`
+        ].join('\n');
+      }
+      return 'FORMAT: AV ORIG DEST DDMMM CLASS';
+    }
+  },
+
+  AVN: {
+    title: 'جستجوی پرواز مستقیم',
+    cmd: 'AVN',
+    desc: `دستور <strong>AVN</strong> فقط پروازهای مستقیم (بدون توقف) را نمایش می‌دهد. این دستور برای مسافرانی که به هیچ وجه نمی‌خواهند ترانزیت داشته باشند مناسب است. اگر پرواز مستقیمی موجود نباشد، سیستم پیام مربوطه را نمایش خواهد داد.`,
+    ai: `تفاوت <strong>AV</strong> و <strong>AVN</strong>: دستور AV همه پروازها از جمله ترانزیتی را نشان می‌دهد، اما AVN فقط پروازهای <strong>NONSTOP</strong> را فیلتر می‌کند. اگر مسافر برای بلیط رفت‌وبرگشت می‌خواهد، می‌توانید از دستور <strong>AVN/R</strong> برای نمایش پرواز برگشت استفاده کنید.`,
+    examples: [
+      { cmd: 'AVN IKA DXB 15JAN', desc: 'پروازهای مستقیم تهران-دبی' },
+      { cmd: 'AVN IKA IST 10FEB Y', desc: 'مستقیم تهران-استانبول کلاس Y' },
+      { cmd: 'AVN IKA MHD 25DEC', desc: 'مستقیم تهران-مشهد' },
+      { cmd: 'AVN IKA NJF 01MAR', desc: 'مستقیم تهران-نجف' },
+    ],
+    mock: (cmd) => {
+      return [
+        `NONSTOP AVAILABILITY`,
+        `─────────────────────────────────────`,
+        `   AIRLINE FLT  DEP   ARR   C Y M B Q`,
+        `1. IR    0321  07:00 09:30  9 9 5 2 9`,
+        `2. W5    1027  11:45 14:15  - 9 9 9 9`,
+        `3. IR    0323  16:30 19:00  4 2 1 0 9`,
+        `─────────────────────────────────────`,
+        `NONSTOP FLIGHTS ONLY — NO CONNECTIONS`
+      ].join('\n');
+    }
+  },
+
+  SK: {
+    title: 'رزرو صندلی',
+    cmd: 'SK',
+    desc: `دستور <strong>SK</strong> برای رزرو صندلی روی پرواز انتخاب‌شده استفاده می‌شود. شماره خط پرواز از لیست AV انتخاب شده و با تعداد صندلی و کلاس ترکیب می‌شود. پس از اجرای دستور SK، سیستم PNR موقت ایجاد می‌کند که باید با اطلاعات مسافر کامل شود.`,
+    ai: `دستور <strong>SK1Y1</strong> یعنی: گزینه شماره <strong>1</strong> از لیست AV، کلاس <strong>Y</strong>، تعداد <strong>1</strong> صندلی. اگر رزرو موفق باشد، وضعیت <strong>HK</strong> (Holding Confirmed) نمایش داده می‌شود. وضعیت <strong>HL</strong> یعنی لیست انتظار و <strong>UN</strong> یعنی پرواز در دسترس نیست.`,
+    examples: [
+      { cmd: 'SK1Y1', desc: 'رزرو ۱ صندلی کلاس Y از آیتم ۱' },
+      { cmd: 'SK2M2', desc: 'رزرو ۲ صندلی کلاس M از آیتم ۲' },
+      { cmd: 'SK1C1', desc: 'رزرو ۱ صندلی بیزینس از آیتم ۱' },
+      { cmd: 'SK3Y3', desc: 'رزرو ۳ صندلی کلاس Y از آیتم ۳' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      const match = u.match(/SK(\d)([A-Z])(\d)/);
+      if (match) {
+        const [,line,cls,qty] = match;
+        return [
+          `SEGMENT SELL CONFIRMED`,
+          `──────────────────────────────────────`,
+          `1. IR0655 Y  ${qty} HK  IKA DXB 15JAN`,
+          `   DEP: 06:45  ARR: 10:30`,
+          `   CLASS: ${cls}  SEATS: ${qty}  STATUS: HK`,
+          `──────────────────────────────────────`,
+          `HK = HOLDING CONFIRMED`,
+          `NEXT: ENTER PASSENGER NAME (NM)`
+        ].join('\n');
+      }
+      return 'FORMAT: SK[LINE][CLASS][QTY]  EX: SK1Y1';
+    }
+  },
+
+  NM: {
+    title: 'وارد کردن نام مسافر',
+    cmd: 'NM',
+    desc: `دستور <strong>NM</strong> برای ثبت نام مسافر در PNR استفاده می‌شود. نام باید به صورت <strong>نام خانوادگی/نام</strong> وارد شود. برای چند مسافر، هر نام در یک خط جداگانه وارد می‌شود. برای بچه‌ها از پسوند CHD و برای نوزادان از INF استفاده می‌شود.`,
+    ai: `فرمت صحیح: <strong>NM1AHMADI/ALI MR</strong> — عدد بعد از NM تعداد مسافران است. عنوان MR برای آقا، MRS برای خانم متاهل، و MISS برای خانم مجرد استفاده می‌شود. برای <strong>کودک</strong>: <strong>NM1AHMADI/SARA MSCHD</strong> و برای <strong>نوزاد</strong>: <strong>NM1AHMADI/BABY MINF</strong>.`,
+    examples: [
+      { cmd: 'NM1AHMADI/ALI MR', desc: 'آقای علی احمدی' },
+      { cmd: 'NM1REZAEI/MARYAM MRS', desc: 'خانم مریم رضایی' },
+      { cmd: 'NM2HOSSEINI/AHMAD MR/SARA MRS', desc: 'دو مسافر بزرگسال' },
+      { cmd: 'NM1KARIMI/DARIUSH MRCHD', desc: 'کودک دریوش کریمی' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      if (u.startsWith('NM')) {
+        const parts = u.substring(3);
+        return [
+          `PASSENGER NAME ELEMENT ADDED`,
+          `──────────────────────────────────`,
+          `1.1 ${parts}`,
+          `──────────────────────────────────`,
+          `PSGR COUNT: 1`,
+          `NEXT: ENTER CONTACT (AP)`
+        ].join('\n');
+      }
+      return 'FORMAT: NM1LASTNAME/FIRSTNAME TITLE';
+    }
+  },
+
+  AP: {
+    title: 'وارد کردن Contact',
+    cmd: 'AP',
+    desc: `دستور <strong>AP</strong> برای ثبت شماره تلفن یا اطلاعات تماس آژانس/مسافر در PNR استفاده می‌شود. این اطلاعات برای اطلاع‌رسانی تغییرات پرواز ضروری است. می‌توان تلفن آژانس، تلفن مسافر یا هر دو را ثبت کرد.`,
+    ai: `نوع تماس با کد مشخص می‌شود: <strong>A</strong> = آژانس (Agency)، <strong>H</strong> = خانه (Home)، <strong>B</strong> = کار (Business)، <strong>M</strong> = موبایل (Mobile). مثال: <strong>AP TEH 021-88001234-A</strong> یا <strong>AP TEH 09121234567-M</strong>. در صورت تغییر پرواز، ایرلاین با این شماره تماس خواهد گرفت.`,
+    examples: [
+      { cmd: 'AP TEH 02188001234-A', desc: 'تلفن آژانس تهران' },
+      { cmd: 'AP TEH 09121234567-M', desc: 'موبایل مسافر' },
+      { cmd: 'AP TEH 02122334455-H', desc: 'تلفن منزل مسافر' },
+      { cmd: 'APNIRAAGENCY@EMAIL.COM', desc: 'ایمیل آژانس' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      if (u.startsWith('AP')) {
+        return [
+          `PHONE ELEMENT ADDED`,
+          `──────────────────────────────────`,
+          `P.1 ${u.substring(2).trim()}`,
+          `──────────────────────────────────`,
+          `CONTACT STORED SUCCESSFULLY`,
+          `NEXT: TICKETING TIME LIMIT (TK)`
+        ].join('\n');
+      }
+      return 'FORMAT: AP CITY PHONE-TYPE';
+    }
+  },
+
+  TK: {
+    title: 'محدودیت زمانی برای تشکیل رزرو (Time Limit)',
+    cmd: 'TK',
+    desc: `دستور <strong>TK</strong> برای تعیین مهلت صدور بلیط (Time Limit) استفاده می‌شود. تا زمانی که بلیط صادر نشود، رزرو تأیید نیست. ایرلاین می‌تواند رزرو را لغو کند اگر در موعد مقرر بلیط صادر نشود. فرمت تاریخ DDMM است.`,
+    ai: `دو نوع TK وجود دارد: <strong>TKOK</strong> = بلیط همین الان صادر می‌شود. <strong>TKTL DDMM/HHMM</strong> = مهلت صدور تا تاریخ و ساعت مشخص. اگر تا موعد مقرر بلیط صادر نشود، سیستم به‌صورت خودکار رزرو را <strong>لغو (CANCELLED)</strong> می‌کند.`,
+    examples: [
+      { cmd: 'TKOK', desc: 'صدور فوری بلیط' },
+      { cmd: 'TKTL 2001/1800', desc: 'مهلت تا ۲۰ ژانویه ساعت ۱۸' },
+      { cmd: 'TKTL 1503', desc: 'مهلت تا ۱۵ مارس' },
+      { cmd: 'TKTL 3012/1200', desc: 'مهلت تا ۳۰ دسامبر ظهر' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      if (u.startsWith('TK')) {
+        return [
+          `TICKETING ELEMENT ADDED`,
+          `──────────────────────────────────`,
+          `T.1 ${u}`,
+          `──────────────────────────────────`,
+          `TIME LIMIT SET SUCCESSFULLY`,
+          `NEXT: END TRANSACTION (ET)`
+        ].join('\n');
+      }
+      return 'FORMAT: TKOK or TKTL DDMM/HHMM';
+    }
+  },
+
+  ET: {
+    title: 'تولید رفرنس PNR (EOT)',
+    cmd: 'ET',
+    desc: `دستور <strong>ET</strong> برای ذخیره نهایی PNR و دریافت شماره رزرو استفاده می‌شود. تا قبل از اجرای ET، رزرو فقط در حافظه موقت است. پس از ET، شماره PNR اختصاص داده می‌شود. برای خروج بدون ذخیره از دستور <strong>IG</strong> استفاده می‌شود.`,
+    ai: `<strong>ET</strong> = End Transaction (پایان تراکنش با ذخیره). <strong>ER</strong> = End and Redisplay (ذخیره و نمایش مجدد). <strong>IG</strong> = Ignore (خروج بدون ذخیره). پس از ET، شماره PNR مثلاً <strong>ABCDEF</strong> به شما اختصاص می‌یابد که کد منحصر‌به‌فرد رزرو است.`,
+    examples: [
+      { cmd: 'ET', desc: 'ذخیره PNR و دریافت شماره رزرو' },
+      { cmd: 'ER', desc: 'ذخیره و نمایش مجدد PNR' },
+      { cmd: 'IG', desc: 'خروج بدون ذخیره' },
+      { cmd: 'ETK', desc: 'ذخیره و صدور بلیط همزمان' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      const pnr = generatePNR();
+      if (u === 'ET' || u === 'ER' || u === 'ETK') {
+        return [
+          `--- PNR SAVED SUCCESSFULLY ---`,
+          ``,
+          `RECORD LOCATOR: ${pnr}`,
+          ``,
+          `1.1 AHMADI/ALI MR`,
+          `1  IR0655 Y  01 IKA DXB 15JAN  HK1`,
+          `   DEP 06:45  ARR 10:30`,
+          `TK TKOK`,
+          `AP TEH 09121234567`,
+          ``,
+          `${u==='ER'?'--- END OF PNR DISPLAY ---':'--- END OF TRANSACTION ---'}`
+        ].join('\n');
+      }
+      if (u === 'IG') {
+        return 'TRANSACTION IGNORED — PNR NOT SAVED';
+      }
+      return 'USE: ET / ER / IG';
+    }
+  },
+
+  DGS: {
+    title: 'مشاهده پنجره PNR Information',
+    cmd: 'DGS',
+    desc: `دستور <strong>DGS</strong> برای نمایش کامل اطلاعات یک PNR موجود استفاده می‌شود. با وارد کردن شماره رزرو، تمام جزئیات شامل نام مسافر، پرواز، کلاس، وضعیت و اطلاعات بلیط نمایش داده می‌شود. این دستور برای کنترل و تأیید رزرو ضروری است.`,
+    ai: `<strong>DGS ABCDEF</strong> رزرو با کد ABCDEF را نمایش می‌دهد. بخش‌های مختلف PNR: <strong>NM</strong> = نام مسافر، <strong>AIR</strong> = بخش پرواز، <strong>AP</strong> = تلفن، <strong>TK</strong> = زمان صدور، <strong>FP</strong> = روش پرداخت، <strong>FA</strong> = بلیط صادرشده. وضعیت‌ها: HK=تأیید، HL=انتظار، KK=تأیید ایرلاین.`,
+    examples: [
+      { cmd: 'DGS ABCDEF', desc: 'نمایش رزرو با کد ABCDEF' },
+      { cmd: 'DGS*', desc: 'نمایش آخرین PNR کار شده' },
+      { cmd: 'DGS XYZPQR', desc: 'نمایش رزرو دیگر' },
+      { cmd: 'DGS MNOPQR', desc: 'بررسی وضعیت رزرو' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      const pnr = u.split(' ')[1] || generatePNR();
+      return [
+        `--- PNR: ${pnr} ---`,
+        ``,
+        `NAME:  1.1AHMADI/ALI MR`,
+        ``,
+        `AIR 1  IR0655 Y 15JAN IKADXB HK1`,
+        `       DEP 06:45  ARR 10:30`,
+        `       EQUIP: 73H  MILES: 1285`,
+        ``,
+        `AP     TEH 09121234567-M`,
+        `TK     TKOK`,
+        `RM     SSRTKNAIRMIRP/1AHMADI/ALI`,
+        ``,
+        `FP     CASH`,
+        ``,
+        `--- END OF PNR ---`
+      ].join('\n');
+    }
+  },
+
+  CRD: {
+    title: 'مشاهده نرخ در رفرنس',
+    cmd: 'CRD',
+    desc: `دستور <strong>CRD</strong> برای نمایش نرخ‌های کرایه موجود بین دو شهر استفاده می‌شود. این دستور تمام کلاس‌ها و نرخ‌های متناسب را نمایش می‌دهد. نرخ‌ها معمولاً به دلار آمریکا بوده و شامل مالیات‌های فرودگاهی نیست.`,
+    ai: `خروجی CRD شامل: <strong>کد نرخ</strong>، <strong>کلاس</strong>، <strong>نوع</strong> (OW=یک‌طرفه، RT=رفت‌وبرگشت)، <strong>مبلغ</strong> و <strong>شرایط</strong> است. نرخ‌های با محدودیت مثل <strong>AP21</strong> یعنی باید ۲۱ روز قبل رزرو شود. نرخ <strong>PEX</strong> ارزان‌تر اما غیرقابل استرداد است.`,
+    examples: [
+      { cmd: 'CRD IKA/DXB', desc: 'نرخ‌های تهران به دبی' },
+      { cmd: 'CRD IKA/IST Y', desc: 'نرخ کلاس Y تهران-استانبول' },
+      { cmd: 'CRD IKA/LON', desc: 'نرخ‌های تهران به لندن' },
+      { cmd: 'CRD IKA/KBL OW', desc: 'نرخ یک‌طرفه تهران-کابل' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      const route = u.split(' ')[1] || 'IKA/DXB';
+      return [
+        `FARES FROM ${route}`,
+        `─────────────────────────────────────────────────`,
+        `CODE     BASIS  CLS  TYPE   FARE USD  RULE`,
+        `YOWIR    Y      Y    OW      485.00  NO REST`,
+        `MOWIR    M      M    OW      320.00  7DAY ADV`,
+        `HOWIR    H      H    OW      265.00  14DAY ADV`,
+        `YRTIR    YRT    Y    RT      870.00  NO REST`,
+        `MRTIR    MRT    M    RT      580.00  21DAY ADV`,
+        `PEXIR    PEX    B    RT      420.00  NONREF`,
+        `─────────────────────────────────────────────────`,
+        `OW=ONE WAY  RT=ROUND TRIP  ADV=ADVANCE PURCHASE`,
+        `NONREF=NON REFUNDABLE  REST=RESTRICTION`
+      ].join('\n');
+    }
+  },
+
+  TCC: {
+    title: 'نرخ گیری در سیستم',
+    cmd: 'TCC',
+    desc: `دستور <strong>TCC</strong> برای محاسبه دقیق نرخ کل بلیط از جمله مالیات‌ها و عوارض فرودگاهی استفاده می‌شود. این دستور بر اساس PNR موجود نرخ نهایی را محاسبه می‌کند. پیش از صدور بلیط حتماً باید TCC اجرا شود.`,
+    ai: `خروجی TCC شامل: <strong>FARE</strong> = نرخ پایه، <strong>TAX</strong> = مالیات (چندین نوع مالیات جداگانه)، <strong>TOTAL</strong> = مبلغ نهایی است. کدهای مالیاتی مثل <strong>YQ</strong> = هزینه سوخت، <strong>XT</strong> = مالیات‌های ترکیبی. مبلغ نهایی به ارز محلی نیز نمایش داده می‌شود.`,
+    examples: [
+      { cmd: 'TCC', desc: 'محاسبه نرخ برای PNR جاری' },
+      { cmd: 'TCC/IR', desc: 'محاسبه نرخ با شرکت هواپیمایی ایران' },
+      { cmd: 'TCC/EK', desc: 'محاسبه با امارات ایرلاینز' },
+      { cmd: 'TCC/QR', desc: 'محاسبه با قطر ایرویز' },
+    ],
+    mock: (cmd) => {
+      return [
+        `FARE CALCULATION`,
+        `──────────────────────────────────────────`,
+        `PASSENGER: AHMADI/ALI MR`,
+        `ROUTE:     IKA IR DXB`,
+        `DATE:      15JAN`,
+        ``,
+        `BASE FARE:   USD   320.00`,
+        `TAX  YQ:     USD    45.00  FUEL SRCHG`,
+        `TAX  IR:     USD    12.00  IRAN GOVT`,
+        `TAX  AE:     USD     8.50  UAE GOVT`,
+        `TAX  XT:     USD    15.00  COMBINED`,
+        `──────────────────────────────────────────`,
+        `TOTAL:       USD   400.50`,
+        `EQUIV:       IRR 16,820,000`,
+        `──────────────────────────────────────────`,
+        `FARE BASIS: MOWIR  VALID 15JAN-15APR`
+      ].join('\n');
+    }
+  },
+
+  TKI: {
+    title: 'صدور بلیت ETK',
+    cmd: 'TKI',
+    desc: `دستور <strong>TKI</strong> (یا TKXL) برای صدور نهایی بلیط استفاده می‌شود. پس از اجرای موفق TCC و تأیید نرخ، با این دستور بلیط الکترونیکی صادر شده و شماره بلیط ۱۳ رقمی اختصاص می‌یابد. روش پرداخت باید قبل از صدور مشخص شود.`,
+    ai: `قبل از TKI باید دستور <strong>FP</strong> (Form of Payment) اجرا شود: <strong>FPCASH</strong> = نقد، <strong>FPCC</strong> = کارت اعتباری. شماره بلیط صادرشده با کد ایرلاین شروع می‌شود، مثلاً <strong>117-1234567890</strong> (ایران ایر = ۱۱۷). این شماره باید به مسافر داده شود.`,
+    examples: [
+      { cmd: 'FPCASH', desc: 'تعیین روش پرداخت نقد' },
+      { cmd: 'TKI', desc: 'صدور بلیط الکترونیکی' },
+      { cmd: 'TKXL', desc: 'صدور بلیط با جزئیات کامل' },
+      { cmd: 'TKOK/FPCASH', desc: 'تأیید زمان صدور و پرداخت' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      if (u === 'FPCASH' || u.startsWith('FP')) {
+        return [
+          `FORM OF PAYMENT ADDED`,
+          `FP CASH`,
+          `READY FOR TICKETING — USE TKI`
+        ].join('\n');
+      }
+      if (u === 'TKI' || u === 'TKXL') {
+        const tktNum = `117-${Math.floor(1000000000+Math.random()*9000000000)}`;
+        return [
+          `*** E-TICKET ISSUED ***`,
+          ``,
+          `PASSENGER: AHMADI/ALI MR`,
+          `TICKET NO: ${tktNum}`,
+          `ROUTE:     IKA-DXB  IR0655  15JAN`,
+          `CLASS:     Y   SEAT: 14A`,
+          ``,
+          `FARE:  USD 320.00`,
+          `TAX:   USD  80.50`,
+          `TOTAL: USD 400.50`,
+          ``,
+          `FORM OF PAYMENT: CASH`,
+          `ISSUE DATE: ${new Date().toDateString().toUpperCase()}`,
+          ``,
+          `*** TICKET ISSUED SUCCESSFULLY ***`
+        ].join('\n');
+      }
+      return 'USE: FPCASH then TKI';
+    }
+  },
+
+  RET: {
+    title: 'مشاهده تاریخچه PNR',
+    cmd: 'RET',
+    desc: `دستور <strong>RET</strong> برای بازیابی یک PNR از آرشیو سیستم استفاده می‌شود. اگر رزرو تاریخ گذشته باشد یا توسط آژانس دیگری ایجاد شده باشد، با این دستور می‌توان آن را مشاهده کرد. برخلاف DGS که فقط رزروهای فعال را نشان می‌دهد، RET به تاریخچه کامل دسترسی دارد.`,
+    ai: `<strong>RET ABCDEF</strong> رزرو را از آرشیو بازیابی می‌کند. اگر رزرو در آژانس دیگری باشد، ممکن است دسترسی محدود باشد. دستور <strong>RETK</strong> علاوه بر PNR، بلیط‌های صادرشده را هم نمایش می‌دهد.`,
+    examples: [
+      { cmd: 'RET ABCDEF', desc: 'بازیابی رزرو با کد ABCDEF' },
+      { cmd: 'RETK XYZPQR', desc: 'بازیابی رزرو و بلیط‌ها' },
+      { cmd: 'RET/09121234567', desc: 'جستجو بر اساس شماره تلفن' },
+      { cmd: 'RET/AHMADI', desc: 'جستجو بر اساس نام خانوادگی' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      const pnr = u.split(' ')[1] || 'ABCDEF';
+      return [
+        `--- RETRIEVED PNR: ${pnr} ---`,
+        ``,
+        `ORIGIN: NIRA SYSTEM  CREATED: 10JAN`,
+        ``,
+        `1.1AHMADI/ALI MR`,
+        `1  IR0655 Y 15JAN IKADXB HK1 0645 1030`,
+        ``,
+        `AP 09121234567-M`,
+        `TK TKOK`,
+        ``,
+        `ETICKET: 117-1234567890`,
+        `STATUS:  TICKETED (ISSUED)`,
+        ``,
+        `--- END OF RETRIEVED PNR ---`
+      ].join('\n');
+    }
+  },
+
+  QR: {
+    title: 'مشاهده درخواست های ارسال شده (Queue)',
+    cmd: 'QR',
+    desc: `دستور <strong>QR</strong> (Queue) برای مشاهده و مدیریت صف پیام‌های سیستم استفاده می‌شود. ایرلاین‌ها و آژانس‌های دیگر پیام‌هایی مثل تغییر پرواز، تأیید صندلی یا درخواست‌های ویژه را از طریق صف ارسال می‌کنند.`,
+    ai: `<strong>QD/1</strong> = نمایش محتوای صف شماره ۱. <strong>QR/1</strong> = حذف از صف بعد از خواندن. <strong>QN</strong> = رفتن به پیام بعدی در صف. صف‌های مهم: صف <strong>50</strong> = پیام‌های فوری ایرلاین، صف <strong>1</strong> = تأییدیه‌ها، صف <strong>9</strong> = پیام‌های عمومی.`,
+    examples: [
+      { cmd: 'QD/1', desc: 'نمایش پیام‌های صف ۱' },
+      { cmd: 'QD/50', desc: 'صف فوری ایرلاین' },
+      { cmd: 'QR/1', desc: 'حذف از صف بعد از خواندن' },
+      { cmd: 'QN', desc: 'رفتن به پیام بعدی' },
+    ],
+    mock: (cmd) => {
+      return [
+        `QUEUE DISPLAY`,
+        `──────────────────────────────────────────`,
+        `QUEUE: 1   CATEGORY: 0   COUNT: 3 MSGS`,
+        ``,
+        `MSG 1/3  PNR: ABCDEF`,
+        `FROM: IR SYSTEM`,
+        `SUBJ: SCHEDULE CHANGE IR0655 15JAN`,
+        `TEXT: FLIGHT IR0655 DEP TIME CHANGED`,
+        `      FROM 06:45 TO 07:30 ON 15JAN`,
+        `      PLEASE RECONFIRM OR REBOOK`,
+        ``,
+        `USE QN FOR NEXT MESSAGE`
+      ].join('\n');
+    }
+  },
+
+  CHD: {
+    title: 'اعمال تغییر بر روی بلیت',
+    cmd: 'CHD',
+    desc: `دستور <strong>CHD</strong> برای ویرایش اطلاعات موجود در PNR استفاده می‌شود. با این دستور می‌توان نام مسافر، شماره تماس، تاریخ پرواز و سایر اطلاعات را تغییر داد. برخی تغییرات ممکن است مستلزم دریافت مجدد تأییدیه از ایرلاین باشد.`,
+    ai: `فرمت کلی: <strong>CHD/ELEMENT.NUMBER/NEW-VALUE</strong>. مثلاً <strong>CHD/AP.1/09351234567</strong> شماره تلفن اول را تغییر می‌دهد. برای حذف عنصر از <strong>XE</strong> استفاده می‌شود: <strong>XE1</strong> خط اول پرواز را حذف می‌کند (مراقب باشید!).`,
+    examples: [
+      { cmd: 'CHD/AP.1/09351234567', desc: 'تغییر شماره تلفن اول' },
+      { cmd: 'CHD/NM.1/REZAEI/SARA MRS', desc: 'اصلاح نام مسافر' },
+      { cmd: 'CHD/TK/TKTL2501', desc: 'تغییر مهلت صدور' },
+      { cmd: 'XE1', desc: 'حذف خط اول پرواز (محتاط!)' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      return [
+        `CHANGE ELEMENT`,
+        `──────────────────────────────────`,
+        `ELEMENT: ${u}`,
+        `STATUS:  CHANGED SUCCESSFULLY`,
+        ``,
+        `PLEASE VERIFY WITH DGS`,
+        `THEN SAVE WITH ET`
+      ].join('\n');
+    }
+  },
+
+  CNL: {
+    title: 'استرداد بلیت (Refund)',
+    cmd: 'CNL',
+    desc: `دستور <strong>CNL</strong> برای لغو صندلی‌های رزروشده در PNR استفاده می‌شود. لغو باید با احتیاط انجام شود چون در صورت صدور بلیط، ممکن است جریمه لغو اعمال شود. پس از لغو، وضعیت صندلی به UN یا XX تغییر می‌کند.`,
+    ai: `<strong>CNL1</strong> = لغو خط پرواز اول. <strong>CNL1-3</strong> = لغو خطوط ۱ تا ۳. اگر بلیط صادر شده باشد، ابتدا باید رفاند (RFND) انجام شود بعد CNL. وضعیت‌ها پس از لغو: <strong>XX</strong> = لغو کامل، <strong>UN</strong> = ایرلاین تأیید نکرده. پس از CNL حتماً ET را اجرا کنید.`,
+    examples: [
+      { cmd: 'CNL1', desc: 'لغو خط پرواز اول' },
+      { cmd: 'CNL1/1', desc: 'لغو یک صندلی از خط اول' },
+      { cmd: 'CNL1-2', desc: 'لغو خطوط ۱ و ۲' },
+      { cmd: 'CNLALL', desc: 'لغو کل PNR' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      if (u === 'CNLALL') {
+        return [
+          `*** WARNING ***`,
+          `ALL SEGMENTS WILL BE CANCELLED`,
+          ``,
+          `IF CONFIRMED:`,
+          `1  IR0655 Y 15JAN IKADXB XX1`,
+          ``,
+          `STATUS: CANCELLED`,
+          `SAVE WITH ET TO CONFIRM`
+        ].join('\n');
+      }
+      return [
+        `CANCEL SEGMENT`,
+        `──────────────────────────────────`,
+        `SEG ${u.replace('CNL','')} STATUS: XX (CANCELLED)`,
+        ``,
+        `1  IR0655 Y 15JAN IKADXB XX1`,
+        ``,
+        `SAVE WITH ET TO CONFIRM CANCELLATION`
+      ].join('\n');
+    }
+  },
+
+  SB: {
+    title: 'صدور صندلی اضافه برای مسافر (Extra)',
+    cmd: 'SB',
+    desc: `دستور <strong>SB</strong> برای تغییر شماره صندلی اختصاص‌یافته یا درخواست صندلی خاص استفاده می‌شود. می‌توان صندلی کنار پنجره، راهرو یا ردیف اضطراری را درخواست داد. در صورت موجودی، سیستم صندلی را تأیید می‌کند.`,
+    ai: `کدهای ویژه صندلی: <strong>W</strong> = کنار پنجره (Window)، <strong>A</strong> = کنار راهرو (Aisle)، <strong>M</strong> = وسط (Middle). درخواست ردیف: <strong>SB14A/P1</strong> = صندلی ۱۴A برای مسافر اول. اگر صندلی درخواستی خالی نباشد، سیستم بهترین گزینه موجود را پیشنهاد می‌دهد.`,
+    examples: [
+      { cmd: 'SB1W', desc: 'صندلی کنار پنجره برای پرواز ۱' },
+      { cmd: 'SB1A', desc: 'صندلی کنار راهرو برای پرواز ۱' },
+      { cmd: 'SB14A/P1', desc: 'صندلی ۱۴A برای مسافر اول' },
+      { cmd: 'SB1W/P1-2', desc: 'صندلی پنجره برای ۲ مسافر' },
+    ],
+    mock: (cmd) => {
+      const u = cmd.toUpperCase().trim();
+      const seatNum = Math.floor(10+Math.random()*20);
+      const seatLetter = ['A','B','C','D','E','F'][Math.floor(Math.random()*6)];
+      return [
+        `SEAT ASSIGNMENT`,
+        `──────────────────────────────────────────`,
+        `REQUEST: ${u}`,
+        `FLIGHT:  IR0655  15JAN`,
+        ``,
+        `SEAT ASSIGNED: ${seatNum}${seatLetter}`,
+        `TYPE: ${u.includes('W')?'WINDOW':u.includes('A')?'AISLE':'STANDARD'}`,
+        `STATUS: HK (CONFIRMED)`,
+        `──────────────────────────────────────────`,
+        `SEAT MAP SHOWS: ROW ${seatNum} AVAILABLE`
+      ].join('\n');
+    }
+  },
+};
+
+// ── DATA: FULL CURRICULUM STRUCTURE (70 official topics) ────────────
+// readyKey: maps to a key in LESSONS above (full interactive content)
+// no readyKey => "coming soon" placeholder panel
+const CURRICULUM_RES = [
+  {
+    id: 'intro',
+    label: 'مقدمه و آشنایی با نیرا',
+    items: [
+      { title: 'مقدمه', cmd: '' },
+      { title: 'دانلود برنامه نیرا', cmd: '' },
+      { title: 'مشاهده اطلاعات حساب', cmd: '' },
+      { title: 'مشاهده STOCK یوزر نیرا', cmd: 'STOCK' },
+      { title: 'مشاهده موجودی ساین (Sign)', cmd: 'SIGN' },
+      { title: 'گزارش فروش', cmd: '' },
+      { title: 'مشاهده ظرفیت فروخته‌شده', cmd: '' },
+      { title: 'مشاهده اختلاف ساعت کشورها', cmd: '' },
+      { title: 'مشاهده نام و اختصار ایرلاین‌ها و شهرها', cmd: '' },
+      { title: 'مشاهده برنامه پروازی', cmd: '' },
+    ]
+  },
+  {
+    id: 'avail',
+    label: 'دسترسی و پرواز (Availability)',
+    items: [
+      { title: 'نحوه دریافت Availability پرواز', cmd: 'AV', readyKey: 'AV' },
+      { title: 'اضافه کردن سگمنت پرواز', cmd: '' },
+      { title: 'رزرو به‌صورت KK', cmd: 'KK' },
+      { title: 'رزرو به‌صورت SA', cmd: 'SA' },
+      { title: 'رزرو به‌صورت LL', cmd: 'LL' },
+      { title: 'رزرو به‌صورت ON', cmd: 'ON' },
+      { title: 'نحوه تأیید یا عدم تأیید درخواست رزرو', cmd: '' },
+      { title: 'رزرو پرواز به‌صورت مستقیم (Direct)', cmd: 'AVN', readyKey: 'AVN' },
+    ]
+  },
+  {
+    id: 'booking',
+    label: 'تشکیل رزرو (PNR)',
+    items: [
+      { title: 'وارد کردن نام مسافر', cmd: 'NM', readyKey: 'NM' },
+      { title: 'اصلاح نام مسافر', cmd: '' },
+      { title: 'وارد کردن Contact', cmd: 'AP', readyKey: 'AP' },
+      { title: 'پنجره PNR Information', cmd: 'DGS', readyKey: 'DGS' },
+    ]
+  },
+  {
+    id: 'ssr',
+    label: 'کدهای SSR و خدمات ویژه',
+    items: [
+      { title: 'کدهای SSR', cmd: 'SSR' },
+      { title: 'وارد کردن SSR کد ملی', cmd: 'SSR' },
+      { title: 'وارد کردن SSR کد ملی نوزاد (INFANT)', cmd: 'SSR' },
+      { title: 'وارد کردن SSR پاسپورت', cmd: 'SSR' },
+      { title: 'وارد کردن SSR برای کودک (Child)', cmd: 'SSR' },
+      { title: 'وارد کردن SSR برای نوزاد (Infant)', cmd: 'SSR' },
+      { title: 'صدور بلیت نوزاد یا کودک فقط برای یک مسیر از رفت‌و‌برگشت', cmd: '' },
+      { title: 'وارد کردن SSR مسافرین خدمات ویژه (ویلچر و...)', cmd: 'SSR' },
+    ]
+  },
+  {
+    id: 'finalize',
+    label: 'تکمیل و ذخیره رزرو',
+    items: [
+      { title: 'محدودیت زمانی برای تشکیل رزرو (Time Limit)', cmd: 'TK', readyKey: 'TK' },
+      { title: 'تولید رفرنس PNR (EOT)', cmd: 'ET', readyKey: 'ET' },
+      { title: 'ارتباط دادن دو رفرنس PNR', cmd: '' },
+      { title: 'تغییر آژانس صادرکننده', cmd: '' },
+      { title: 'جدا کردن مسافر از PNR', cmd: '' },
+    ]
+  },
+  {
+    id: 'fare',
+    label: 'نرخ‌گیری',
+    items: [
+      { title: 'مشاهده نرخ در رفرنس', cmd: 'CRD', readyKey: 'CRD' },
+      { title: 'نرخ‌گیری در سیستم', cmd: 'TCC', readyKey: 'TCC' },
+      { title: 'نرخ‌گیری بر اساس تاریخ آینده یا گذشته', cmd: '' },
+      { title: 'مشاهده نرخ پایه در سیستم (Fare)', cmd: '' },
+      { title: 'مشاهده درصد نرخ کلاس', cmd: '' },
+    ]
+  },
+  {
+    id: 'ticketing',
+    label: 'صدور بلیط',
+    items: [
+      { title: 'صدور بلیت (ETK)', cmd: 'TKI', readyKey: 'TKI' },
+      { title: 'جمع‌بندی مراحل صدور بلیت به‌صورت خلاصه', cmd: '' },
+      { title: 'صدور بلیت کودک بدون همراه (UM)', cmd: 'UM' },
+      { title: 'صدور گروهی مسافر بر روی پرواز (Group)', cmd: '' },
+      { title: 'صدور رزرو به‌صورت بدون تاریخ (OPEN)', cmd: 'OPEN' },
+      { title: 'نحوه تاریخ‌دار کردن بلیت OPEN', cmd: '' },
+      { title: 'صدور صندلی اضافه برای مسافر (EXTRA)', cmd: 'SB', readyKey: 'SB' },
+      { title: 'صدور بلیت به‌صورت دستی (MANUAL)', cmd: '' },
+    ]
+  },
+  {
+    id: 'maintenance',
+    label: 'مدیریت و ویرایش PNR',
+    items: [
+      { title: 'حذف خط از PNR', cmd: 'XE' },
+      { title: 'قراردادن توضیحات اختیاری (Remark) بر روی PNR', cmd: 'RM' },
+      { title: 'مشاهده درخواست‌های ارسال‌شده (Queue)', cmd: 'QR', readyKey: 'QR' },
+      { title: 'باطل کردن فرایندهای انجام‌شده (IG)', cmd: 'IG' },
+      { title: 'مشاهده تاریخچه PNR', cmd: 'RET', readyKey: 'RET' },
+    ]
+  },
+  {
+    id: 'refund-exchange',
+    label: 'استرداد، ابطال و تغییر بلیط',
+    items: [
+      { title: 'استرداد بلیت (REFUND)', cmd: 'CNL', readyKey: 'CNL' },
+      { title: 'صدور مجدد بلیت (REVALID)', cmd: '' },
+      { title: 'نحوه Exchange یا Re-Issue', cmd: '' },
+      { title: 'نحوه باطل کردن بلیت (VOID TICKET - VT)', cmd: 'VT' },
+      { title: 'خلاصه فرایندهای مهم در صدور بلیت', cmd: '' },
+      { title: 'تبدیل بلیت OPEN به تاریخ‌دار', cmd: '' },
+      { title: 'تغییر تاریخ و ساعت پرواز بدون جریمه', cmd: '' },
+      { title: 'تغییر تاریخ، ساعت و کلاس پرواز همراه با جریمه', cmd: '' },
+      { title: 'تغییر تاریخ، ساعت و کلاس پرواز بدون جریمه', cmd: '' },
+      { title: 'تغییر مسیر پرواز', cmd: '' },
+      { title: 'استرداد بلیت', cmd: '' },
+    ]
+  },
+  {
+    id: 'eticket',
+    label: 'مدیریت بلیط الکترونیکی',
+    items: [
+      { title: 'مشاهده اطلاعات بلیت (DT — Display E-Ticket Details)', cmd: 'DT' },
+      { title: 'مشاهده تاریخچه فعالیت‌های بلیت (DH — Display E-Ticket History)', cmd: 'DH' },
+      { title: 'پرینت یا ایمیل مجدد بلیت (IR — Itinerary Receipt)', cmd: 'IR' },
+      { title: 'وضعیت‌های مختلف یک بلیت', cmd: '' },
+    ]
+  },
+  {
+    id: 'passenger-mgmt',
+    label: 'مدیریت لیست مسافرین',
+    items: [
+      { title: 'تغییر وضعیت مسافر (Change Status)', cmd: '' },
+      { title: 'مشاهده لیست مسافرین پرواز', cmd: '' },
+      { title: 'مشاهده اسامی تکراری در لیست مسافرین پرواز', cmd: '' },
+      { title: 'جستجوی مسافر در لیست پرواز', cmd: '' },
+    ]
+  },
+  {
+    id: 'baggage',
+    label: 'اضافه بار',
+    items: [
+      { title: 'نرخ اضافه بار', cmd: '' },
+      { title: 'صدور اضافه بار', cmd: '' },
+      { title: 'استرداد اضافه بار', cmd: '' },
+    ]
+  },
+  {
+    id: 'account',
+    label: 'تنظیمات حساب',
+    items: [
+      { title: 'تغییر رمز ساین نیرا و صفحه وب برنامه', cmd: '' },
+    ]
+  },
+];
+
+// ── CURRICULUM: بخش کنترل نیرا (مخصوص کاربران کنترل/ادمین) ──────────
+const CURRICULUM_CTRL = [
+  {
+    id: 'ctrl-intro',
+    label: 'مقدمه',
+    items: [
+      { title: 'مقدمه', cmd: '' },
+      { title: 'مشاهده نسخه وب نیرا', cmd: '' },
+    ]
+  },
+  {
+    id: 'ctrl-ro',
+    label: 'دستور RO (Read Out)',
+    items: [
+      { title: 'دستور RO (Read Out)', cmd: 'RO' },
+      { title: 'معرفی اجزای اصلی RO', cmd: 'RO' },
+      { title: 'مشاهده یک یا همه RO پروازها', cmd: 'RO' },
+      { title: 'ستون Point Of Sales (POS)', cmd: '' },
+      { title: 'اضافه کردن کلاس پروازی', cmd: '' },
+      { title: 'مد در نیرا (MODE)', cmd: '' },
+      { title: 'تنظیم زمان‌های ارسال Manifest به DCS', cmd: '' },
+      { title: 'مشاهده PNL', cmd: 'PNL' },
+      { title: 'مشاهده تاریخچه یک پرواز', cmd: '' },
+    ]
+  },
+  {
+    id: 'ctrl-queue',
+    label: 'درخواست‌ها و Q ها',
+    items: [
+      { title: 'فرایند تایید درخواست رزرو گروهی', cmd: '' },
+      { title: 'مشاهده و بررسی Q های ارسالی (درخواست‌ها)', cmd: '' },
+      { title: 'ارسال پیام اختیاری در Q به‌نام OPTION', cmd: '' },
+      { title: 'ارسال درخواست به Q اکانت دیگر', cmd: '' },
+      { title: 'ارسال لیست به داخل Q', cmd: '' },
+      { title: 'TAX های بلیط', cmd: '' },
+      { title: 'تغییر اکانت صدور بلیط', cmd: '' },
+    ]
+  },
+  {
+    id: 'ctrl-sc',
+    label: 'دستور SC (Schedule Change)',
+    items: [
+      { title: 'دستور SC (Schedule Change)', cmd: 'SC' },
+      { title: 'تغییر پرواز', cmd: 'SC' },
+      { title: 'مشاهده وضعیت پروازها', cmd: '' },
+      { title: 'تغییر ظرفیت کلاس‌های پرواز', cmd: '' },
+      { title: 'اضافه کردن ظرفیت لیست انتظار بر روی کلاس', cmd: '' },
+      { title: 'باز و بستن پرواز', cmd: '' },
+      { title: 'کنسل کردن یک پرواز', cmd: '' },
+      { title: 'مشاهده تاریخچه SC', cmd: '' },
+      { title: 'تغییر ساعت پرواز (Time Change)', cmd: '' },
+      { title: 'انتقال کلیه مسافرین یک پرواز به پرواز دیگر (ReBook)', cmd: '' },
+    ]
+  },
+  {
+    id: 'ctrl-admin',
+    label: 'تعاریف و مدیریت سیستم',
+    items: [
+      { title: 'تعریف تایپ هواپیما در نیرا', cmd: '' },
+      { title: 'تعریف دفتر فروش در نیرا', cmd: '' },
+      { title: 'تعریف کاربر جدید (ساین Sign)', cmd: '' },
+      { title: 'تعریف دسترسی برای هر ساین (Roles)', cmd: '' },
+      { title: 'ایجاد پرواز (Flight Schedule List)', cmd: '' },
+      { title: 'مدیریت و ارسال پیامک', cmd: '' },
+    ]
+  },
+];
+
+// ── مدیریت بخش فعال (رزرواسیون نیرا / کنترل نیرا) ────────────────────
+const SECTIONS = {
+  res:  { label: 'رزرواسیون نیرا', data: CURRICULUM_RES },
+  ctrl: { label: 'کنترل نیرا',     data: CURRICULUM_CTRL },
+};
+let currentSection = 'res';
+function activeCurriculum() {
+  return SECTIONS[currentSection].data;
+}
+
+let currentLesson = null;
+let currentMode = null; // 'lesson' | 'soon'
+let FLAT_ITEMS = []; // flattened for navigation + search
+let openGroups = new Set();
+
+function generatePNR() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+  let r = '';
+  for (let i=0;i<6;i++) r += chars[Math.floor(Math.random()*chars.length)];
+  return r;
+}
+function toPersianNum(n) {
+  const d = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+  return String(n).replace(/\d/g, x => d[x]);
+}
+
+// ── BUILD SIDEBAR ─────────────────────────────────────────────────
+function buildSidebar() {
+  FLAT_ITEMS = [];
+  let uid = 0;
+  activeCurriculum().forEach(group => {
+    group.items.forEach(item => {
+      uid++;
+      const id = 'item-' + uid;
+      const ready = !!item.readyKey;
+      FLAT_ITEMS.push({ id, groupId: group.id, title: item.title, cmd: item.cmd, ready, readyKey: item.readyKey || null });
+      item._id = id;
+    });
+  });
+
+  const readyCount = FLAT_ITEMS.filter(i=>i.ready).length;
+  const totalCount = FLAT_ITEMS.length;
+  document.getElementById('stat-ready').textContent = toPersianNum(readyCount);
+  document.getElementById('stat-total').textContent = toPersianNum(totalCount);
+
+  const container = document.getElementById('nav-groups');
+  container.innerHTML = '';
+
+  activeCurriculum().forEach(group => {
+    const readyInGroup = group.items.filter(i=>i.readyKey).length;
+    const sec = document.createElement('div');
+    sec.className = 'sidebar-section';
+    sec.dataset.groupId = group.id;
+
+    const header = document.createElement('div');
+    header.className = 'group-header';
+    header.onclick = () => toggleGroup(group.id);
+    header.innerHTML = `
+      <svg class="group-chevron" id="chev-${group.id}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      <div class="group-title">${group.label}</div>
+      <div class="group-progress">${toPersianNum(readyInGroup)}/${toPersianNum(group.items.length)}</div>
+    `;
+    sec.appendChild(header);
+
+    const itemsWrap = document.createElement('div');
+    itemsWrap.className = 'group-items';
+    itemsWrap.id = 'items-' + group.id;
+
+    group.items.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'nav-item' + (item.readyKey ? '' : ' disabled');
+      row.id = item._id;
+      row.dataset.title = item.title;
+      row.dataset.cmd = item.cmd || '';
+      row.onclick = () => {
+        if (item.readyKey) loadLesson(item.readyKey);
+        else showSoon(item.title, item.cmd);
+      };
+      const cmdChip = item.cmd
+        ? `<div class="${item.readyKey ? 'nav-cmd-chip' : 'nav-soon-chip'}">${item.cmd}</div>`
+        : (item.readyKey ? '' : `<div class="nav-soon-chip">به‌زودی</div>`);
+      row.innerHTML = `
+        <div class="nav-dot"></div>
+        <div class="nav-text">${item.title}</div>
+        ${cmdChip}
+      `;
+      itemsWrap.appendChild(row);
+    });
+
+    sec.appendChild(itemsWrap);
+    container.appendChild(sec);
+  });
+}
+
+function toggleGroup(groupId, forceOpen) {
+  const itemsEl = document.getElementById('items-' + groupId);
+  const chevEl = document.getElementById('chev-' + groupId);
+  const isOpen = itemsEl.classList.contains('open');
+  const willOpen = forceOpen !== undefined ? forceOpen : !isOpen;
+  itemsEl.classList.toggle('open', willOpen);
+  chevEl.classList.toggle('open', willOpen);
+  if (willOpen) openGroups.add(groupId); else openGroups.delete(groupId);
+}
+
+// ── SEARCH ─────────────────────────────────────────────────────────
+function onSearchInput(value) {
+  const q = value.trim();
+  document.getElementById('search-clear-btn').classList.toggle('visible', q.length > 0);
+
+  if (!q) {
+    // restore default state: collapse all groups, clear highlights
+    document.querySelectorAll('.sidebar-section').forEach(s => s.style.display = '');
+    document.querySelectorAll('.nav-item').forEach(el => {
+      el.style.display = '';
+      const textEl = el.querySelector('.nav-text');
+      if (textEl) textEl.innerHTML = textEl.textContent;
+    });
+    activeCurriculum().forEach(g => toggleGroup(g.id, false));
+    document.getElementById('search-no-results').classList.remove('visible');
+    return;
+  }
+
+  const qLower = q.toLowerCase();
+  let anyMatch = false;
+
+  activeCurriculum().forEach(group => {
+    const sectionEl = document.querySelector(`.sidebar-section[data-group-id="${group.id}"]`);
+    let groupHasMatch = false;
+
+    group.items.forEach(item => {
+      const el = document.getElementById(item._id);
+      const titleLower = item.title.toLowerCase();
+      const cmdLower = (item.cmd || '').toLowerCase();
+      const matches = titleLower.includes(qLower) || (cmdLower && cmdLower.includes(qLower));
+      el.style.display = matches ? '' : 'none';
+      if (matches) {
+        groupHasMatch = true;
+        anyMatch = true;
+        const textEl = el.querySelector('.nav-text');
+        if (textEl) textEl.innerHTML = highlightMatch(item.title, q);
+      }
+    });
+
+    sectionEl.style.display = groupHasMatch ? '' : 'none';
+    if (groupHasMatch) toggleGroup(group.id, true);
+  });
+
+  document.getElementById('search-no-results').classList.toggle('visible', !anyMatch);
+}
+
+function highlightMatch(text, query) {
+  const idx = text.toLowerCase().indexOf(query.toLowerCase());
+  if (idx === -1) return text;
+  return text.substring(0, idx) + '<mark class="search-hit">' + text.substring(idx, idx+query.length) + '</mark>' + text.substring(idx+query.length);
+}
+
+function clearSearch() {
+  const input = document.getElementById('sidebar-search-input');
+  input.value = '';
+  onSearchInput('');
+  input.focus();
+}
+
+// ── ABOUT MODAL (با افکت تایپ کدهای نمادین) ──────────────────────────
+const ABOUT_CODES = ['NM/PEYMAN', 'AVN  YY1402  15JUL', 'RO  THR001', 'ET  END OF TRANSACTION', 'SC  YY1402'];
+let aboutTyperTimer = null;
+let aboutTyperIdx = 0;
+
+function aboutTypeLoop() {
+  const el = document.getElementById('about-typer');
+  const code = ABOUT_CODES[aboutTyperIdx % ABOUT_CODES.length];
+  let pos = 0;
+  let phase = 'typing'; // typing -> pause -> erasing -> next
+
+  clearInterval(aboutTyperTimer);
+  aboutTyperTimer = setInterval(() => {
+    if (phase === 'typing') {
+      pos++;
+      el.textContent = code.slice(0, pos);
+      if (pos >= code.length) { phase = 'pause'; pos = 18; }
+    } else if (phase === 'pause') {
+      pos--;
+      if (pos <= 0) phase = 'erasing';
+    } else if (phase === 'erasing') {
+      pos--;
+      el.textContent = code.slice(0, Math.max(pos,0));
+      if (pos <= 0) {
+        aboutTyperIdx++;
+        clearInterval(aboutTyperTimer);
+        aboutTypeLoop();
+      }
+    }
+  }, 70);
+}
+
+function openAbout() {
+  document.getElementById('about-overlay').classList.add('open');
+  aboutTyperIdx = 0;
+  aboutTypeLoop();
+}
+
+function closeAbout() {
+  document.getElementById('about-overlay').classList.remove('open');
+  clearInterval(aboutTyperTimer);
+  document.getElementById('about-typer').textContent = '';
+}
+
+// ── SIDEBAR TOGGLE (mobile) ─────────────────────────────────────────
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+}
+
+// ── SECTION SWITCH (رزرواسیون نیرا / کنترل نیرا) ─────────────────────
+function setSectionTabsUI(key) {
+  document.querySelectorAll('.sidebar-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.section === key);
+  });
+  document.getElementById('sidebar-scroll').dataset.section = key;
+}
+
+function switchSection(key) {
+  if (currentSection === key) return;
+  currentSection = key;
+  setSectionTabsUI(key);
+  buildSidebar();
+  const input = document.getElementById('sidebar-search-input');
+  if (input) input.value = '';
+  document.getElementById('search-clear-btn').classList.remove('visible');
+}
+
+// فراخوانی از دکمه‌های صفحه اصلی
+function openSection(key) {
+  currentSection = key;
+  setSectionTabsUI(key);
+  buildSidebar();
+  const input = document.getElementById('sidebar-search-input');
+  if (input) input.value = '';
+  document.getElementById('search-clear-btn').classList.remove('visible');
+  if (window.innerWidth <= 768) toggleSidebar();
+}
+
+// ── NAVIGATION ──────────────────────────────────────────────────────
+function clearActiveStates() {
+  document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('active'));
+}
+
+function showWelcome() {
+  document.getElementById('welcome').style.display = 'flex';
+  document.getElementById('lesson-content').style.display = 'none';
+  document.getElementById('soon-content').style.display = 'none';
+  clearActiveStates();
+  document.getElementById('nav-home').classList.add('active');
+  currentMode = null;
+  currentLesson = null;
+  if (window.innerWidth <= 768) closeSidebarMobile();
+}
+
+function showSoon(title, cmd) {
+  document.getElementById('welcome').style.display = 'none';
+  document.getElementById('lesson-content').style.display = 'none';
+  const soon = document.getElementById('soon-content');
+  soon.style.display = 'block';
+
+  clearActiveStates();
+  const match = FLAT_ITEMS.find(i => i.title === title);
+  if (match) document.getElementById(match.id).classList.add('active');
+
+  document.getElementById('soon-title').textContent = title;
+  document.getElementById('soon-cmd-badge').textContent = cmd ? cmd : '—';
+  document.getElementById('soon-cmd-badge').style.display = cmd ? 'inline-flex' : 'none';
+
+  currentMode = 'soon';
+  currentLesson = null;
+
+  if (window.innerWidth <= 768) closeSidebarMobile();
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('main').scrollTop = 0;
+}
+
+function loadLesson(cmdKey) {
+  const lesson = LESSONS[cmdKey];
+  if (!lesson) return;
+  currentLesson = cmdKey;
+  currentMode = 'lesson';
+
+  document.getElementById('welcome').style.display = 'none';
+  document.getElementById('soon-content').style.display = 'none';
+  const lc = document.getElementById('lesson-content');
+  lc.style.display = 'block';
+
+  clearActiveStates();
+  const match = FLAT_ITEMS.find(i => i.readyKey === cmdKey);
+  if (match) document.getElementById(match.id).classList.add('active');
+
+  const readyKeys = FLAT_ITEMS.filter(i=>i.ready).map(i=>i.readyKey);
+  const idx = readyKeys.indexOf(cmdKey);
+  const total = readyKeys.length;
+  const num = idx >= 0 ? idx+1 : 1;
+
+  document.getElementById('lesson-num').textContent = `درس ${toPersianNum(num)}`;
+  document.getElementById('lesson-title').textContent = lesson.title;
+  document.getElementById('lesson-cmd-badge').textContent = lesson.cmd;
+  document.getElementById('lesson-desc').innerHTML = lesson.desc;
+  document.getElementById('ai-explain').innerHTML = lesson.ai;
+
+  const pct = Math.round((num/total)*100);
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('progress-text').textContent = `${toPersianNum(num)} از ${toPersianNum(total)}`;
+  document.getElementById('lesson-counter').textContent = `${num} / ${total}`;
+
+  const grid = document.getElementById('examples-grid');
+  grid.innerHTML = '';
+  (lesson.examples||[]).forEach(ex => {
+    const card = document.createElement('div');
+    card.className = 'example-card';
+    card.innerHTML = `<div class="example-cmd">${ex.cmd}</div><div class="example-desc">${ex.desc}</div>`;
+    card.onclick = () => {
+      document.getElementById('terminal-input').value = ex.cmd;
+      document.getElementById('terminal-input').focus();
+    };
+    grid.appendChild(card);
+  });
+
+  clearTerminal();
+  document.getElementById('terminal-input').placeholder = `مثال: ${(lesson.examples||[{cmd:''}])[0].cmd}`;
+
+  const prevBtn = document.getElementById('btn-prev');
+  const nextBtn = document.getElementById('btn-next');
+  prevBtn.disabled = idx <= 0;
+  nextBtn.disabled = idx === -1 || idx >= total-1;
+
+  if (window.innerWidth <= 768) closeSidebarMobile();
+
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('main').scrollTop = 0;
+}
+
+function navigate(dir) {
+  const readyKeys = FLAT_ITEMS.filter(i=>i.ready).map(i=>i.readyKey);
+  const idx = readyKeys.indexOf(currentLesson);
+  const nextIdx = idx + dir;
+  if (nextIdx >= 0 && nextIdx < readyKeys.length) {
+    loadLesson(readyKeys[nextIdx]);
+  }
+}
+
+function closeSidebarMobile() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+}
+
+// ── کشویی‌کردن توضیحات سایت ──
+function toggleStory() {
+  document.getElementById('wlc-story').classList.toggle('open');
+}
+
+// ── TERMINAL ─────────────────────────────────────────────────────────
+function runCommand() {
+  const input = document.getElementById('terminal-input');
+  const output = document.getElementById('terminal-output');
+  const cmd = input.value.trim();
+  if (!cmd) return;
+
+  output.classList.remove('visible');
+  output.textContent = '';
+
+  let mockFn = null;
+  const u = cmd.toUpperCase();
+  for (const key of Object.keys(LESSONS)) {
+    if (u.startsWith(key)) {
+      mockFn = LESSONS[key].mock;
+      break;
+    }
+  }
+  if (!mockFn) {
+    if (u.startsWith('ET') || u === 'ER' || u === 'IG') mockFn = LESSONS['ET'].mock;
+    else if (u.startsWith('FP') || u === 'TKI' || u === 'TKXL') mockFn = LESSONS['TKI'].mock;
+    else if (u.startsWith('XE') || u.startsWith('XL')) mockFn = () => 'ELEMENT DELETED\nSAVE WITH ET';
+    else if (u.startsWith('QD') || u.startsWith('QR') || u === 'QN') mockFn = LESSONS['QR'].mock;
+  }
+
+  const result = mockFn ? mockFn(cmd) : `UNKNOWN COMMAND: ${cmd}\nTYPE A VALID NIRA COMMAND`;
+
+  output.classList.add('visible');
+  output.textContent = '';
+  const lines = result.split('\n');
+  let lineIdx = 0;
+
+  function typeLine() {
+    if (lineIdx >= lines.length) return;
+    output.textContent += (lineIdx > 0 ? '\n' : '') + lines[lineIdx];
+    lineIdx++;
+    output.scrollTop = output.scrollHeight;
+    setTimeout(typeLine, 30);
+  }
+  typeLine();
+}
+
+function clearTerminal() {
+  document.getElementById('terminal-output').classList.remove('visible');
+  document.getElementById('terminal-output').textContent = '';
+  document.getElementById('terminal-input').value = '';
+}
+
+// ── NRS HOME INPUT ──────────────────────────────────────────────────
+function handleNrsHomeInput(e) {
+  if (e.key === 'Enter') {
+    const val = e.target.value.trim().toUpperCase();
+    e.target.value = '';
+    if (!val) return;
+    // Check if it's a valid lesson or run it in terminal
+    const lesson = FLAT_ITEMS.find(i => i.ready && i.readyKey === val);
+    if (lesson) { loadLesson(val); return; }
+    const anyItem = FLAT_ITEMS.find(i => (i.cmd||'').toUpperCase() === val);
+    if (anyItem && anyItem.ready) { loadLesson(anyItem.readyKey); return; }
+    // Otherwise try to run as terminal command
+    const u = val;
+    let mockFn = null;
+    for (const key of Object.keys(LESSONS)) {
+      if (u.startsWith(key)) { mockFn = LESSONS[key].mock; break; }
+    }
+    if (mockFn) {
+      // Show result briefly in terminal body
+      const body = document.querySelector('.nrs-body');
+      let out = document.getElementById('nrs-quick-out');
+      if (!out) {
+        out = document.createElement('div');
+        out.id = 'nrs-quick-out';
+        out.style.cssText = 'font-family:Courier New,monospace;font-size:12px;color:#4fcfa0;white-space:pre;margin-top:8px;border-top:1px solid #1a2a1a;padding-top:8px;direction:ltr;line-height:1.6;';
+        body.appendChild(out);
+      }
+      out.textContent = '> ' + val + '\n' + mockFn(val);
+    }
+  }
+}
+
+// ── WELCOME STATUS CLOCK (mirrors real NRS Terminal status bar) ─────
+function toJalali(gy, gm, gd) {
+  const g_d_no = [0,31,59,90,120,151,181,212,243,273,304,334];
+  let jy, jm, jd, gy2, days;
+  gy2 = (gm > 2) ? (gy + 1) : gy;
+  days = 355666 + (365 * gy) + ~~((gy2 + 3) / 4) - ~~((gy2 + 99) / 100) + ~~((gy2 + 399) / 400) + gd + g_d_no[gm - 1];
+  jy = -1595 + (33 * ~~(days / 12053));
+  days %= 12053;
+  jy += 4 * ~~(days / 1461);
+  days %= 1461;
+  if (days > 365) { jy += ~~((days - 1) / 365); days = (days - 1) % 365; }
+  if (days < 186) { jm = 1 + ~~(days / 31); jd = 1 + (days % 31); }
+  else { days -= 186; jm = 7 + ~~(days / 30); jd = 1 + (days % 30); }
+  return [jy, jm, jd];
+}
+
+function updateWelcomeClock() {
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2,'0');
+  const mm = String(now.getMinutes()).padStart(2,'0');
+  const ss = String(now.getSeconds()).padStart(2,'0');
+  const timeStr = `${hh}:${mm}:${ss}`;
+
+  const yyyy = now.getFullYear();
+  const gm = now.getMonth()+1;
+  const gd = now.getDate();
+  const gDateStr = `${yyyy}-${String(gm).padStart(2,'0')}-${String(gd).padStart(2,'0')}`;
+  const [jy, jm, jd] = toJalali(yyyy, gm, gd);
+  const jDateStr = `${jy}-${String(jm).padStart(2,'0')}-${String(jd).padStart(2,'0')}`;
+
+  // header status bar (existing)
+  const clockEl = document.getElementById('ws-clock');
+  const dateEl = document.getElementById('ws-date');
+  if (clockEl) clockEl.textContent = timeStr;
+  if (dateEl) dateEl.textContent = gDateStr;
+
+  // NRS terminal statusbar
+  const sbTime = document.getElementById('nrs-sb-time');
+  const sbJdate = document.getElementById('nrs-sb-jdate');
+  const sbGdate = document.getElementById('nrs-sb-gdate');
+  if (sbTime) sbTime.textContent = `YY ${timeStr} PM`;
+  if (sbJdate) sbJdate.textContent = jDateStr;
+  if (sbGdate) sbGdate.textContent = `${gm}/${gd}/${yyyy}`;
+
+  // inline time in terminal body
+  const nrsTime = document.getElementById('nrs-time');
+  if (nrsTime) nrsTime.textContent = `${hh}:${mm}`;
+  const nrsGdate = document.getElementById('nrs-gdate');
+  if (nrsGdate) nrsGdate.textContent = gDateStr;
+  const nrsJdate = document.getElementById('nrs-jdate');
+  if (nrsJdate) nrsJdate.textContent = jDateStr;
+}
+
+function runNrsBootAnimation() {
+  // Show DA line, then response after 600ms
+  setTimeout(() => {
+    const daLine = document.getElementById('nrs-da-line');
+    if (daLine) daLine.style.display = 'block';
+  }, 400);
+  setTimeout(() => {
+    const resp = document.getElementById('nrs-resp-block');
+    if (resp) resp.style.display = 'block';
+  }, 900);
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  buildSidebar();
+  document.getElementById('nav-home').classList.add('active');
+
+  // Auto-open the group containing the first ready lesson
+  toggleGroup('avail', true);
+
+  document.getElementById('terminal-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') runCommand();
+  });
+
+  updateWelcomeClock();
+  setInterval(updateWelcomeClock, 1000);
+  runNrsBootAnimation();
+});
+</script>
+</body>
+</html>
