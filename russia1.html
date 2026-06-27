@@ -1,3 +1,4 @@
+ENDOFFILE'
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -453,7 +454,6 @@ body {
   pointer-events: all;
 }
 
-/* ── HERO IMAGE — rounded bottom corners, clean separation ── */
 .dp-hero {
   position: absolute;
   top: 0; left: 0; right: 0;
@@ -477,7 +477,6 @@ body {
   );
 }
 
-/* Back button overlaid on hero */
 .dp-back {
   position: absolute;
   top: 0; left: 0; right: 0; z-index: 10;
@@ -513,7 +512,6 @@ body {
   font-size: 12.5px; font-weight: 800; color: #fff; display: block;
 }
 
-/* City name overlay — sits at very bottom of hero, inside rounded corners */
 .dp-city-label {
   position: absolute;
   bottom: 54%;
@@ -533,7 +531,6 @@ body {
   text-transform: uppercase;
 }
 
-/* ── Content cards — start just below rounded hero ── */
 .dp-content {
   position: absolute;
   top: calc(46% + 16px);
@@ -546,7 +543,6 @@ body {
 }
 .dp-content::-webkit-scrollbar { display: none; }
 
-/* Drag handle pill */
 .dp-drag-handle {
   width: 36px; height: 4px; border-radius: 2px;
   background: rgba(0,56,130,0.14);
@@ -563,7 +559,6 @@ body {
   flex-shrink: 0;
 }
 
-/* ── Brand card ── */
 .dp-brand-card {
   padding: 0;
   overflow: hidden;
@@ -627,7 +622,6 @@ body {
   padding-right: 10px;
 }
 
-/* ── Dates & Flight card ── */
 .dp-dates-card { padding: 0; overflow: hidden; }
 .dp-section-label {
   font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
@@ -758,7 +752,6 @@ body {
   width: 1px; height: 28px; background: var(--border);
 }
 
-/* ── Highlights card ── */
 .dp-highlights-card { padding: 18px 20px; }
 .dp-highlights-list {
   display: flex; flex-direction: column; gap: 10px;
@@ -784,7 +777,6 @@ body {
   font-size: 11.5px; color: var(--muted2); line-height: 1.5; margin-top: 2px; display: block;
 }
 
-/* ── Itinerary card ── */
 .dp-itinerary-card { padding: 18px 20px; }
 .dp-days-list { margin-top: 12px; display: flex; flex-direction: column; gap: 0; }
 .dp-day-item {
@@ -815,7 +807,6 @@ body {
   font-size: 11.5px; color: var(--muted2); line-height: 1.6; margin-top: 3px; display: block;
 }
 
-/* ── CTA card ── */
 .dp-cta-card { padding: 18px 20px; }
 .dp-cta-btn {
   width: 100%; padding: 17px;
@@ -833,7 +824,6 @@ body {
   margin-top: 10px; line-height: 1.5;
 }
 
-/* ══════════ SCRIM ══════════ */
 .dp-scrim {
   position: fixed; inset: 0; z-index: 99;
   background: rgba(10,15,40,0.5);
@@ -842,6 +832,128 @@ body {
   backdrop-filter: blur(2px);
 }
 .dp-scrim.open { opacity: 1; pointer-events: all; }
+
+/* ══════════ FOOTER ══════════ */
+.site-footer {
+  background: #12193a;
+  position: relative;
+}
+.footer-flag { display:flex; height:2.5px; }
+.footer-flag .f1 { flex:1; background:rgba(255,255,255,0.7); }
+.footer-flag .f2 { flex:1; background:#003882; }
+.footer-flag .f3 { flex:1; background:#c8001c; }
+
+.footer-inner {
+  padding: 20px 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.footer-wordmark {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px; font-weight: 900; letter-spacing: 4px;
+  color: #fff; line-height: 1;
+}
+.footer-sub {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 7.5px; letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.28);
+  text-transform: uppercase; margin-top: 4px;
+}
+.footer-phones {
+  display: flex; flex-direction: column; gap: 3px; align-items: flex-left;
+}
+.footer-phone {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12.5px; font-weight: 700; letter-spacing: 1px;
+  color: #fff; direction: ltr; line-height: 1.4;
+  text-decoration: none; display: block;
+}
+.footer-phone:last-child {
+  font-size: 11px; font-weight: 500;
+  color: rgba(255,255,255,0.42);
+}
+
+.footer-rule {
+  height: 1px;
+  background: rgba(255,255,255,0.07);
+}
+
+.footer-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.footer-messengers {
+  display: flex; gap: 8px;
+}
+.msg-btn {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.09);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; text-decoration: none;
+  transition: background .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.msg-btn:active { background: rgba(255,255,255,0.13); }
+.msg-btn svg {
+  width: 17px; height: 17px;
+  stroke: rgba(255,255,255,0.65); fill: none;
+  stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.footer-address {
+  display: flex; align-items: flex-start; gap: 6px;
+  flex: 1; text-align: right;
+}
+.footer-address svg {
+  width: 13px; height: 13px; flex-shrink: 0;
+  stroke: rgba(255,255,255,0.28); fill: none;
+  stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+  margin-top: 1px;
+}
+.footer-address span {
+  font-size: 10.5px; font-weight: 500;
+  color: rgba(255,255,255,0.32); line-height: 1.65;
+}
+
+.footer-meta {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 2px;
+}
+.footer-enamad {
+  display: flex; align-items: center; gap: 6px;
+}
+.enamad-badge {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 7px; padding: 5px 9px;
+}
+.enamad-badge svg {
+  width: 13px; height: 13px;
+  stroke: rgba(255,255,255,0.4); fill: none;
+  stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+}
+.enamad-badge span {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 8px; font-weight: 700; letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.35); text-transform: uppercase;
+}
+.footer-copy {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 8px; color: rgba(255,255,255,0.18); letter-spacing: 0.5px;
+}
 </style>
 </head>
 <body>
@@ -1078,6 +1190,66 @@ body {
 
 </div>
 
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="site-footer">
+  <div class="footer-flag"><div class="f1"></div><div class="f2"></div><div class="f3"></div></div>
+
+  <div class="footer-inner">
+
+    <div class="footer-top">
+      <div>
+        <div class="footer-wordmark">MOSCOWA</div>
+        <div class="footer-sub">تورهای روسیه · since 2018</div>
+      </div>
+      <div class="footer-phones">
+        <a class="footer-phone" href="tel:+989102198261">0910 219 8261</a>
+        <a class="footer-phone" href="tel:+982156517">021 – 56517</a>
+      </div>
+    </div>
+
+    <div class="footer-rule"></div>
+
+    <div class="footer-bottom-row">
+      <div class="footer-messengers">
+        <a class="msg-btn" href="https://t.me/moscowa" target="_blank" title="تلگرام">
+          <svg viewBox="0 0 24 24">
+            <path d="M22 2 11 13"/>
+            <path d="M22 2 15 22 11 13 2 9l20-7z"/>
+          </svg>
+        </a>
+        <a class="msg-btn" href="https://wa.me/989102198261" target="_blank" title="واتساپ">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2z"/>
+            <path d="M8.5 9c.2-.5.5-.8.9-.9l.8-.1c.2 0 .4.1.5.3l.9 2c.1.2 0 .4-.1.6l-.5.6a6 6 0 0 0 2.5 2.5l.6-.5c.2-.2.4-.2.6-.1l2 .9c.2.1.3.3.3.5v.8c0 .5-.4.9-.9.9A8.5 8.5 0 0 1 8 9.9c0-.3.1-.6.5-.9z" stroke-width="1.4"/>
+          </svg>
+        </a>
+        <a class="msg-btn" href="https://ble.ir/moscowa" target="_blank" title="بله">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            <path d="m9 12 2 2 4-4" stroke-width="1.5"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="footer-address">
+        <svg viewBox="0 0 24 24"><path d="M12 22s7-7.5 7-13a7 7 0 0 0-14 0c0 5.5 7 13 7 13z"/><circle cx="12" cy="9" r="2"/></svg>
+        <span>تهران · ولیعصر · بالاتر از پارک ساعی · پ ۱۳</span>
+      </div>
+    </div>
+
+    <div class="footer-rule"></div>
+
+    <div class="footer-meta">
+      <div class="enamad-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4" stroke-width="1.5"/></svg>
+        <span>اینماد · مجوز رسمی</span>
+      </div>
+      <div class="footer-copy">© 2025 MOSCOWA</div>
+    </div>
+
+  </div>
+</footer>
+
 <!-- ══════════ BOTTOM NAV ══════════ -->
 <div class="nav-dock">
 <nav class="nav">
@@ -1123,7 +1295,6 @@ function setNav(el){
 <div class="dp-scrim" id="dp-scrim" onclick="closeDetail()"></div>
 
 <div class="detail-panel" id="detail-panel">
-
   <div class="dp-hero" id="dp-hero"></div>
 
   <div class="dp-back">
@@ -1145,7 +1316,6 @@ function setNav(el){
   </div>
 
   <div class="dp-content">
-
     <div class="dp-drag-handle"></div>
 
     <div class="dp-card dp-brand-card">
@@ -1256,7 +1426,6 @@ function setNav(el){
       <button class="dp-cta-btn">رزرو این تور</button>
       <div class="dp-cta-note">ثبت‌نام رایگان · بدون پیش‌پرداخت · پشتیبانی ۲۴ ساعته</div>
     </div>
-
   </div>
 </div>
 
