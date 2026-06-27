@@ -145,7 +145,7 @@ body {
 .cta-big:active { transform: scale(0.98); box-shadow: 0 4px 14px rgba(200,0,28,0.18); }
 
 /* ══════════ MAIN ══════════ */
-.main { padding: 52px 18px 110px; }
+.main { padding: 52px 18px 122px; }
 
 /* ── HEADER ROW ── */
 .header-row {
@@ -371,27 +371,74 @@ body {
 }
 
 /* ── NAV ── */
-.nav {
+.nav-dock {
   position:fixed; bottom:0; left:50%; transform:translateX(-50%);
   width:100%; max-width:430px;
-  background: var(--surface); border-top:1px solid var(--border);
-  display:flex; justify-content:space-around;
-  padding: 10px 0 28px; z-index:50;
-  box-shadow: 0 -4px 24px rgba(0,56,130,0.08);
+  z-index:50; pointer-events:none;
+  padding: 0 14px calc(16px + env(safe-area-inset-bottom, 0px));
 }
-.nav-item { display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; }
-.nav-label { font-size:10px; color:var(--muted); font-weight:600; font-family: 'Vazirmatn', sans-serif; }
-.nav-item.on .nav-label { color:var(--accent); }
+.nav {
+  pointer-events:all;
+  position:relative;
+  display:flex; align-items:center; justify-content:space-between;
+  gap: 2px;
+  background: linear-gradient(180deg, #161d3f 0%, #0d1228 100%);
+  border-radius: 22px;
+  padding: 8px;
+  box-shadow:
+    0 18px 38px rgba(8,12,32,0.38),
+    0 2px 0 rgba(255,255,255,0.04) inset,
+    0 0 0 1px rgba(255,255,255,0.05) inset;
+}
+.nav::before {
+  content:'';
+  position:absolute; top:0; left:14px; right:14px; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+}
+.nav-item {
+  position:relative;
+  flex:1;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:3px; cursor:pointer;
+  padding: 9px 4px 8px;
+  border-radius:16px;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .18s cubic-bezier(.34,1.56,.64,1);
+}
+.nav-item:active { transform: scale(0.92); }
+.nav-label {
+  font-size:10.5px; color: rgba(255,255,255,0.42); font-weight:600;
+  font-family: 'Vazirmatn', sans-serif; letter-spacing:0.1px;
+  transition: color .25s, opacity .25s; position:relative; z-index:2;
+}
+.nav-item.on .nav-label { color:#fff; }
 .nav-icon-wrap {
-  width:26px; height:26px; display:flex; align-items:center; justify-content:center;
+  width:30px; height:30px; display:flex; align-items:center; justify-content:center;
+  position:relative; z-index:2;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
 }
-.nav-icon-wrap svg { width:22px; height:22px; stroke:var(--muted); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
-.nav-item.on .nav-icon-wrap svg { stroke:var(--accent); }
-.nav-drop-icon {
-  width:22px; height:22px; display:flex; align-items:center; justify-content:center;
-  border:2px solid var(--accent); border-radius:50%;
+.nav-icon-wrap svg { width:21px; height:21px; stroke: rgba(255,255,255,0.42); fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; transition: stroke .25s; }
+.nav-item.on .nav-icon-wrap svg { stroke:#fff; }
+.nav-item.on .nav-icon-wrap { transform: translateY(-1px); }
+/* active pill: rises behind the active tab like a stamped seal */
+.nav-pill {
+  position:absolute; inset:0;
+  border-radius:16px;
+  background: linear-gradient(135deg, var(--accent) 0%, #8a000f 100%);
+  box-shadow: 0 8px 18px rgba(200,0,28,0.45);
+  opacity:0; transform: scale(0.7);
+  transition: opacity .3s, transform .35s cubic-bezier(.34,1.56,.64,1);
+  z-index:1;
 }
-.nav-drop-icon svg { width:11px; height:11px; fill:var(--accent); }
+.nav-item.on .nav-pill { opacity:1; transform: scale(1); }
+/* tiny gold tick under the active label, a deliberate signature mark */
+.nav-item.on .nav-dot {
+  content:'';
+  position:absolute; bottom:2px; left:50%; transform:translateX(-50%);
+  width:3px; height:3px; border-radius:50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 3px rgba(184,134,11,0.18);
+}
 
 /* ══════════ DETAIL PANEL ══════════ */
 .detail-panel {
@@ -587,53 +634,139 @@ body {
   padding-right: 10px;
 }
 
-/* ── Dates & Duration card ── */
-.dp-dates-card { padding: 18px 20px; }
+/* ── Dates & Flight card ── */
+.dp-dates-card { padding: 0; overflow: hidden; }
 .dp-section-label {
   font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
   color: var(--muted); text-transform: uppercase;
   font-family: 'Roboto Mono', monospace;
   margin-bottom: 12px;
 }
-.dp-dates-row {
-  display: flex; align-items: center; gap: 0;
+
+/* airline strip at top */
+.dp-airline-strip {
+  background: var(--text);
+  padding: 11px 18px;
+  display: flex; align-items: center; justify-content: space-between;
 }
-.dp-date-block { flex: 1; }
-.dp-date-block .date-main {
-  font-size: 17px; font-weight: 800; color: var(--text);
-  font-family: 'Vazirmatn', sans-serif; line-height: 1;
+.dp-airline-name {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  color: rgba(255,255,255,0.55); text-transform: uppercase;
 }
-.dp-date-block .date-sub {
-  font-size: 10.5px; color: var(--muted); margin-top: 4px;
-  font-family: 'Roboto Mono', monospace; letter-spacing: 0.5px;
+.dp-airline-logo {
+  display: flex; align-items: center; gap: 7px;
 }
-.dp-dates-arrow {
-  padding: 0 14px; color: var(--muted); font-size: 18px;
+.dp-airline-logo .al-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+}
+.dp-airline-logo .al-line {
+  width: 28px; height: 1.5px; background: rgba(255,255,255,0.2);
+  position: relative;
+}
+.dp-airline-logo .al-line::after {
+  content: '';
+  position: absolute; right: -1px; top: 50%;
+  transform: translateY(-50%);
+  border-left: 5px solid rgba(255,255,255,0.55);
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+}
+.dp-airline-logo .al-dot2 {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent2);
+}
+.dp-flight-num {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.38);
+}
+
+/* main flight row */
+.dp-flight-row {
+  padding: 18px 18px 0;
+  display: flex; align-items: flex-start; gap: 0;
+}
+.dp-flight-end { flex: 1; }
+.dp-flight-end .fe-time {
+  font-family: 'Fraunces', serif;
+  font-size: 30px; font-weight: 600; color: var(--text);
+  line-height: 1; letter-spacing: -0.5px;
+}
+.dp-flight-end .fe-date-fa {
+  font-size: 13px; font-weight: 700; color: var(--text);
+  margin-top: 5px; display: block;
+}
+.dp-flight-end .fe-date-en {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 9.5px; color: var(--muted); letter-spacing: 1px;
+  margin-top: 2px; display: block;
+}
+
+/* center: plane + duration */
+.dp-flight-mid {
+  flex: 0 0 auto; padding: 6px 12px 0;
   display: flex; flex-direction: column; align-items: center; gap: 4px;
 }
-.dp-nights-badge {
-  display: inline-flex; align-items: center; gap: 4px;
-  background: var(--accent2); border-radius: 8px;
-  padding: 5px 8px 5px 10px;
+.dp-flight-mid .fm-duration {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 8.5px; font-weight: 700; letter-spacing: 1px;
+  color: var(--muted); text-transform: uppercase;
 }
-.dp-nights-badge .n-num {
-  font-family: 'Fraunces', serif; font-size: 15px;
+.dp-flight-track {
+  display: flex; align-items: center; gap: 0; width: 80px;
+}
+.dp-flight-track .ft-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  opacity: 0.35;
+}
+.dp-flight-track .ft-plane {
+  width: 20px; height: 20px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.dp-flight-track .ft-plane svg {
+  width: 18px; height: 18px; fill: var(--accent2); opacity: 0.7;
+  transform: rotate(180deg);
+}
+.dp-flight-mid .fm-nights {
+  display: inline-flex; align-items: center; gap: 3px;
+  background: var(--accent2); border-radius: 6px;
+  padding: 3px 7px 3px 8px; margin-top: 2px;
+}
+.dp-flight-mid .fm-nights .n-num {
+  font-family: 'Fraunces', serif; font-size: 13px;
   font-weight: 700; color: #fff; line-height: 1;
 }
-.dp-nights-badge .n-unit {
-  font-family: 'Roboto Mono', monospace; font-size: 8.5px;
-  font-weight: 700; letter-spacing: 0.5px;
-  color: rgba(255,255,255,0.55); text-transform: uppercase;
-  background: rgba(255,255,255,0.14);
-  border-radius: 4px; padding: 2px 5px; line-height: 1;
+.dp-flight-mid .fm-nights .n-unit {
+  font-family: 'Roboto Mono', monospace; font-size: 8px;
+  font-weight: 700; color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.14); border-radius: 3px;
+  padding: 1px 4px; line-height: 1;
 }
-.dp-dates-divider {
-  height: 1px; background: var(--border); margin: 14px 0;
+
+/* bottom detail strip */
+.dp-flight-detail {
+  margin: 14px 18px 0;
+  padding: 11px 14px;
+  background: var(--card2); border-radius: 12px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
 }
-.dp-dates-en {
-  font-size: 11px; font-weight: 500; color: var(--muted);
-  font-family: 'Roboto Mono', monospace; letter-spacing: 0.5px;
-  direction: ltr; text-align: left; display: block;
+.dp-flight-detail .fd-item {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+.dp-flight-detail .fd-label {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 8px; font-weight: 600; letter-spacing: 1.5px;
+  color: var(--muted); text-transform: uppercase;
+}
+.dp-flight-detail .fd-val {
+  font-size: 12.5px; font-weight: 800; color: var(--text);
+  font-family: 'Vazirmatn', sans-serif;
+}
+.dp-flight-detail .fd-sep {
+  width: 1px; height: 28px; background: var(--border);
 }
 
 /* ── Highlights card ── */
@@ -973,34 +1106,52 @@ body {
 </div><!-- /main -->
 
 <!-- ══════════ BOTTOM NAV ══════════ -->
+<div class="nav-dock">
 <nav class="nav">
-  <div class="nav-item">
+  <div class="nav-item on" onclick="setNav(this)">
+    <div class="nav-pill"></div>
     <div class="nav-icon-wrap">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+      <svg class="nav-icon-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9"/></svg>
     </div>
-    <span class="nav-label">جستجو</span>
+    <span class="nav-label">خانه</span>
+    <div class="nav-dot"></div>
   </div>
-  <div class="nav-item on">
+
+  <div class="nav-item" onclick="setNav(this)">
+    <div class="nav-pill"></div>
     <div class="nav-icon-wrap">
-      <div class="nav-drop-icon">
-        <svg viewBox="0 0 14 14" fill="var(--accent)"><path d="M7 1v8M3.5 5.5 7 10l3.5-4.5"/></svg>
-      </div>
+      <svg viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S15 1 14 2.5L10.5 6 2.5 4.2a1 1 0 0 0-.9.3l-1.4 1.4a1 1 0 0 0 0 1.4l4.5 4.5-1.4 3.5 3.5-1.4 4.5 4.5a1 1 0 0 0 1.4 0l1.4-1.4a1 1 0 0 0 .2-.9z"/></svg>
     </div>
-    <span class="nav-label" style="color:var(--accent);">تورها</span>
+    <span class="nav-label">تور</span>
+    <div class="nav-dot"></div>
   </div>
-  <div class="nav-item">
+
+  <div class="nav-item" onclick="setNav(this)">
+    <div class="nav-pill"></div>
     <div class="nav-icon-wrap">
-      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V9a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v12"/><path d="M9 21v-5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5"/><path d="M9 8V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4"/></svg>
     </div>
-    <span class="nav-label">ذخیره‌شده</span>
+    <span class="nav-label">هتل</span>
+    <div class="nav-dot"></div>
   </div>
-  <div class="nav-item">
+
+  <div class="nav-item" onclick="setNav(this)">
+    <div class="nav-pill"></div>
     <div class="nav-icon-wrap">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 0 1 2-2h2.3a1 1 0 0 1 1 .8l1 4a1 1 0 0 1-.3 1L7.1 10.6a14 14 0 0 0 6.3 6.3l1.8-1.9a1 1 0 0 1 1-.3l4 1a1 1 0 0 1 .8 1V19a2 2 0 0 1-2 2h-1C9.8 21 3 14.2 3 6V5z"/></svg>
     </div>
-    <span class="nav-label">پروفایل</span>
+    <span class="nav-label">تماس با ما</span>
+    <div class="nav-dot"></div>
   </div>
 </nav>
+</div>
+
+<script>
+function setNav(el){
+  document.querySelectorAll('.nav .nav-item').forEach(i => i.classList.remove('on'));
+  el.classList.add('on');
+}
+</script>
 
 <!-- ══════════ DETAIL PANEL ══════════ -->
 <div class="dp-scrim" id="dp-scrim" onclick="closeDetail()"></div>
@@ -1084,30 +1235,78 @@ body {
       </div>
     </div>
 
-    <!-- Dates & Duration card -->
+    <!-- Dates & Flight card -->
     <div class="dp-card dp-dates-card">
-      <div class="dp-section-label">تاریخ سفر</div>
-      <div class="dp-dates-row">
-        <div class="dp-date-block">
-          <div class="date-main" id="dp-date-from"></div>
-          <div class="date-sub" id="dp-date-from-en"></div>
+
+      <!-- Airline strip -->
+      <div class="dp-airline-strip">
+        <div class="dp-airline-name" id="dp-airline-name">Mahan Air</div>
+        <div class="dp-airline-logo">
+          <div class="al-dot"></div>
+          <div class="al-line"></div>
+          <div class="al-dot2"></div>
         </div>
-        <div class="dp-dates-arrow">
-          <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
-            <path d="M1 6h18M13 1l6 5-6 5" stroke="var(--muted)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <div class="dp-nights-badge">
+        <div class="dp-flight-num" id="dp-flight-num">W5 101</div>
+      </div>
+
+      <!-- Departure / Arrival row -->
+      <div class="dp-flight-row">
+        <!-- Departure -->
+        <div class="dp-flight-end">
+          <div class="fe-time" id="dp-time-dep">07:30</div>
+          <span class="fe-date-fa" id="dp-date-from"></span>
+          <span class="fe-date-en" id="dp-date-from-en"></span>
+        </div>
+
+        <!-- Middle: track + nights -->
+        <div class="dp-flight-mid">
+          <div class="fm-duration" id="dp-flight-dur">~3h 20m</div>
+          <div class="dp-flight-track">
+            <div class="ft-line"></div>
+            <div class="ft-plane">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+              </svg>
+            </div>
+            <div class="ft-line"></div>
+          </div>
+          <div class="fm-nights">
             <span class="n-num" id="dp-nights-num"></span>
             <span class="n-unit">شب</span>
           </div>
         </div>
-        <div class="dp-date-block" style="text-align:left;">
-          <div class="date-main" id="dp-date-to"></div>
-          <div class="date-sub" id="dp-date-to-en"></div>
+
+        <!-- Arrival -->
+        <div class="dp-flight-end" style="text-align:left;">
+          <div class="fe-time" id="dp-time-arr">11:50</div>
+          <span class="fe-date-fa" id="dp-date-to"></span>
+          <span class="fe-date-en" id="dp-date-to-en"></span>
         </div>
       </div>
-      <div class="dp-dates-divider"></div>
-      <span class="dp-dates-en" id="dp-dates-en"></span>
+
+      <!-- Detail strip -->
+      <div class="dp-flight-detail">
+        <div class="fd-item">
+          <span class="fd-label">مبدأ</span>
+          <span class="fd-val">THR</span>
+        </div>
+        <div class="fd-sep"></div>
+        <div class="fd-item">
+          <span class="fd-label">مقصد</span>
+          <span class="fd-val" id="dp-dest-code">SVO</span>
+        </div>
+        <div class="fd-sep"></div>
+        <div class="fd-item">
+          <span class="fd-label">کلاس</span>
+          <span class="fd-val">Economy</span>
+        </div>
+        <div class="fd-sep"></div>
+        <div class="fd-item">
+          <span class="fd-label">بار مجاز</span>
+          <span class="fd-val">20kg</span>
+        </div>
+      </div>
+
     </div>
 
     <!-- Highlights card -->
@@ -1142,7 +1341,8 @@ const TOURS = {
     tourSub: 'میدان سرخ، کرملین، متروی هنری',
     dateFrom: '۱۰ مرداد', dateFromEn: 'AUG 01',
     dateTo: '۱۵ مرداد',   dateToEn: 'AUG 06',
-    nights: '۵', datesEn: 'Aug 1 – Aug 6 · Moscow, Russia',
+    nights: '۵',
+    airline: 'Mahan Air', flightNum: 'W5 101', timeDep: '07:30', timeArr: '11:10', duration: '~3h 40m', destCode: 'SVO',
     highlights: [
       { icon: 'hotel',  title: 'اقامت ۴ ستاره', sub: 'هتل در مرکز شهر، نزدیک میدان سرخ' },
       { icon: 'plane',  title: 'پرواز رفت و برگشت', sub: 'از تهران — ماهان ایر یا ایران ایر' },
@@ -1166,7 +1366,8 @@ const TOURS = {
     tourSub: 'ارمیتاژ، قصر پترهوف، شب‌های سفید',
     dateFrom: '۲۰ مرداد', dateFromEn: 'AUG 11',
     dateTo: '۲۵ مرداد',   dateToEn: 'AUG 16',
-    nights: '۵', datesEn: 'Aug 11 – Aug 16 · St. Petersburg',
+    nights: '۵',
+    airline: 'Aeroflot', flightNum: 'SU 214', timeDep: '09:15', timeArr: '13:50', duration: '~4h 35m', destCode: 'LED',
     highlights: [
       { icon: 'hotel',  title: 'هتل تاریخی نوا', sub: 'اقامت در کنار رود نوا، نزدیک ارمیتاژ' },
       { icon: 'plane',  title: 'پرواز مستقیم', sub: 'تهران — سن‌پترزبورگ · Aeroflot' },
@@ -1190,7 +1391,8 @@ const TOURS = {
     tourSub: 'تفریح، کوه و دریا در یک سفر',
     dateFrom: '۱ شهریور', dateFromEn: 'AUG 23',
     dateTo: '۷ شهریور',   dateToEn: 'AUG 29',
-    nights: '۶', datesEn: 'Aug 23 – Aug 29 · Sochi, Russia',
+    nights: '۶',
+    airline: 'Iran Air', flightNum: 'IR 830', timeDep: '06:45', timeArr: '09:55', duration: '~3h 10m', destCode: 'AER',
     highlights: [
       { icon: 'hotel',  title: 'هتل ساحلی ۴ ستاره', sub: 'مستقیم روی ساحل دریای سیاه' },
       { icon: 'plane',  title: 'پرواز رفت و برگشت', sub: 'از تهران · مستقیم' },
@@ -1215,7 +1417,8 @@ const TOURS = {
     tourSub: 'طبیعت خارق‌العاده سیبری · ایرکوتسک',
     dateFrom: '۱۵ شهریور', dateFromEn: 'SEP 06',
     dateTo: '۲۱ شهریور',   dateToEn: 'SEP 12',
-    nights: '۶', datesEn: 'Sep 6 – Sep 12 · Irkutsk & Baikal',
+    nights: '۶',
+    airline: 'Mahan Air', flightNum: 'W5 062', timeDep: '08:00', timeArr: '17:30', duration: '~9h 30m', destCode: 'IKT',
     highlights: [
       { icon: 'hotel',  title: 'لاج کنار دریاچه', sub: 'اقامت سنتی روسی در کابین چوبی' },
       { icon: 'plane',  title: 'پرواز تهران–ایرکوتسک', sub: 'با یک ترانزیت در مسکو' },
@@ -1240,7 +1443,8 @@ const TOURS = {
     tourSub: 'کرملین، مسجد قول شریف، تاتارستان',
     dateFrom: '۵ مهر', dateFromEn: 'SEP 27',
     dateTo: '۱۱ مهر',  dateToEn: 'OCT 03',
-    nights: '۶', datesEn: 'Sep 27 – Oct 3 · Kazan, Tatarstan',
+    nights: '۶',
+    airline: 'Aeroflot', flightNum: 'SU 312', timeDep: '10:20', timeArr: '15:05', duration: '~4h 45m', destCode: 'KZN',
     highlights: [
       { icon: 'hotel',  title: 'هتل نزدیک کرملین', sub: 'اقامت در قلب شهر تاریخی' },
       { icon: 'plane',  title: 'پرواز رفت و برگشت', sub: 'تهران → قازان با ترانزیت' },
@@ -1265,7 +1469,8 @@ const TOURS = {
     tourSub: 'شمالگان، شب‌های قطبی، Northern Lights',
     dateFrom: '۱۰ دی', dateFromEn: 'DEC 31',
     dateTo: '۱۷ دی',   dateToEn: 'JAN 07',
-    nights: '۷', datesEn: 'Dec 31 – Jan 7 · Murmansk, Arctic',
+    nights: '۷',
+    airline: 'Mahan Air', flightNum: 'W5 508', timeDep: '05:50', timeArr: '13:20', duration: '~7h 30m', destCode: 'MMK',
     highlights: [
       { icon: 'hotel',  title: 'لاج قطبی گرم', sub: 'کلبه چوبی با شیشه برای تماشای شفق' },
       { icon: 'plane',  title: 'پرواز تهران–مورمانسک', sub: 'با ترانزیت در مسکو' },
