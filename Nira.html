@@ -1,1 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nira Training Simulator</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+        display: flex;
+        height: 100vh;
+    }
 
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50px;
+        background: #111827;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        border-bottom: 1px solid #1f2937;
+        z-index: 10;
+    }
+
+    header a {
+        color: #38bdf8;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .sidebar {
+        width: 220px;
+        background: #111827;
+        padding-top: 60px;
+        border-right: 1px solid #1f2937;
+    }
+
+    .sidebar button {
+        width: 100%;
+        padding: 12px;
+        background: none;
+        border: none;
+        color: #e2e8f0;
+        text-align: left;
+        cursor: pointer;
+        border-bottom: 1px solid #1f2937;
+    }
+
+    .sidebar button:hover {
+        background: #1e293b;
+    }
+
+    .main {
+        flex: 1;
+        padding: 80px 30px 30px 30px;
+        overflow-y: auto;
+    }
+
+    .card {
+        background: #111827;
+        border: 1px solid #1f2937;
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 800px;
+    }
+
+    h2 {
+        margin-top: 0;
+        color: #38bdf8;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        background: #0f172a;
+        border: 1px solid #334155;
+        color: white;
+    }
+
+    button.run {
+        margin-top: 10px;
+        padding: 10px 15px;
+        background: #38bdf8;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    pre {
+        background: #0f172a;
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid #334155;
+        white-space: pre-wrap;
+    }
+
+    .tooltip {
+        margin-top: 10px;
+        font-size: 12px;
+        color: #94a3b8;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="http://nirasoft.ir/t/" target="_blank">Nira Training Portal</a>
+</header>
+
+<div class="sidebar">
+    <button onclick="loadLesson('availability')">Availability</button>
+    <button onclick="loadLesson('booking')">Booking</button>
+    <button onclick="loadLesson('ticketing')">Ticketing</button>
+    <button onclick="loadLesson('reports')">Reports</button>
+    <button onclick="loadLesson('tools')">Tools</button>
+</div>
+
+<div class="main">
+    <div id="content" class="card">
+        <h2>Welcome to Nira Training Simulator</h2>
+        <p>Select a module from the left to begin training.</p>
+    </div>
+</div>
+
+<script>
+const lessons = {
+    availability: {
+        title: "AY / AV – Flight Availability",
+        desc: "Used to display available flights between two cities. AY shows neutral availability, AV shows airline-specific availability.",
+        cmd: "AY JFK LHR 12JUL",
+        tooltip: "Displays seat availability by class (Y, J, F) for selected route and date.",
+        run: (input) => {
+            return `AVAILABILITY RESULT\n-------------------\nJFK → LHR (12JUL)\nY: 9 seats\nJ: 4 seats\nF: 2 seats\n\nStatus: LIVE INVENTORY SIMULATION`;
+        }
+    },
+
+    booking: {
+        title: "SK – Sell Segment (Booking)",
+        desc: "Creates a flight segment for passenger booking. Used after availability check.",
+        cmd: "SK 1 BA117 Y 12JUL JFKLHR",
+        tooltip: "Books a seat in a specific booking class and creates a PNR segment.",
+        run: (input) => {
+            return `SEGMENT SOLD\n-------------\nFlight: BA117\nClass: Y\nStatus: CONFIRMED\nPNR: NIRA42X\nMessage: Segment successfully created`;
+        }
+    },
+
+    ticketing: {
+        title: "CRD / TCC – Ticketing & Fare Calculation",
+        desc: "CRD displays stored fare pricing. TCC calculates total fare including taxes.",
+        cmd: "TCC JFK LHR Y",
+        tooltip: "Calculates fare breakdown including base fare, taxes, and total amount.",
+        run: (input) => {
+            return `FARE QUOTE\n-----------\nBase Fare: 450.00 USD\nTax: 120.50 USD\nTotal: 570.50 USD\nCurrency: USD\nStatus: PRICED`;
+        }
+    },
+
+    reports: {
+        title: "DGS – Daily Sales Report",
+        desc: "Displays transaction summary for a specific agency or date range.",
+        cmd: "DGS 27JUN",
+        tooltip: "Shows sales, refunds, and issued tickets for reporting purposes.",
+        run: (input) => {
+            return `DAILY REPORT\n-------------\nTickets Issued: 18\nSales: 9,450 USD\nRefunds: 2\nNet: 9,100 USD`;
+        }
+    },
+
+    tools: {
+        title: "System Tools",
+        desc: "Utility commands for system checks and formatting.",
+        cmd: "INFO SYS",
+        tooltip: "Displays system status and configuration info.",
+        run: (input) => {
+            return `SYSTEM STATUS\n--------------\nNira Core: ONLINE\nAPI Emulator: ACTIVE\nTraining Mode: ENABLED\nLatency: 12ms`;
+        }
+    }
+};
+
+function loadLesson(key) {
+    const lesson = lessons[key];
+
+    document.getElementById("content").innerHTML = `
+        <h2>${lesson.title}</h2>
+        <p>${lesson.desc}</p>
+
+        <input id="cmdInput" value="${lesson.cmd}" />
+
+        <button class="run" onclick="runCommand('${key}')">Run Command</button>
+
+        <div class="tooltip">AI Hint: ${lesson.tooltip}</div>
+
+        <pre id="output">Awaiting execution...</pre>
+    `;
+}
+
+function runCommand(key) {
+    const input = document.getElementById("cmdInput").value;
+    const result = lessons[key].run(input);
+    document.getElementById("output").textContent = result;
+}
+</script>
+
+</body>
+</html>
