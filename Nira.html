@@ -8,22 +8,23 @@
   @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
 
   :root {
-    --bg-deep: #0a0e1a;
-    --bg-panel: #0f1526;
-    --bg-card: #151d35;
-    --bg-sidebar: #0c1220;
-    --accent: #00c8ff;
-    --accent2: #0077ff;
-    --accent-green: #00e5a0;
-    --accent-amber: #ffb300;
-    --accent-red: #ff4757;
-    --text-primary: #e8f0ff;
-    --text-secondary: #7a8db0;
-    --text-dim: #4a5a7a;
-    --border: #1e2d50;
-    --border-glow: rgba(0,200,255,0.3);
-    --terminal-bg: #060b14;
-    --terminal-text: #00e5a0;
+    --bg-deep: #0a0d16;
+    --bg-panel: #0f1320;
+    --bg-card: #131829;
+    --bg-sidebar: #0c0f1a;
+    --accent: #5fb8d6;
+    --accent2: #4a8fb0;
+    --accent-soft: rgba(95,184,214,0.10);
+    --accent-green: #4fcfa0;
+    --accent-amber: #d9a64e;
+    --accent-red: #d96666;
+    --text-primary: #d4ddec;
+    --text-secondary: #6c7993;
+    --text-dim: #424c63;
+    --border: #1b2030;
+    --border-glow: rgba(95,184,214,0.18);
+    --terminal-bg: #07090f;
+    --terminal-text: #4fcfa0;
     --sidebar-w: 220px;
     --header-h: 52px;
   }
@@ -293,9 +294,9 @@
     position: relative;
     font-size: 11.5px;
   }
-  .nav-item:hover { background: rgba(0,200,255,0.05); color: var(--text-primary); }
+  .nav-item:hover { background: rgba(95,184,214,0.05); color: var(--text-primary); }
   .nav-item.active {
-    background: rgba(0,200,255,0.08);
+    background: rgba(95,184,214,0.08);
     border-right-color: var(--accent);
     color: var(--accent);
   }
@@ -320,7 +321,7 @@
     font-size: 9px;
     font-weight: 700;
     color: var(--accent);
-    background: rgba(0,200,255,0.1);
+    background: rgba(95,184,214,0.1);
     padding: 1px 6px;
     border-radius: 5px;
     flex-shrink: 0;
@@ -339,7 +340,7 @@
   }
 
   mark.search-hit {
-    background: rgba(0,200,255,0.25);
+    background: rgba(95,184,214,0.25);
     color: var(--text-primary);
     border-radius: 2px;
     padding: 0 1px;
@@ -361,23 +362,24 @@
     justify-content: center;
     min-height: 70vh;
     text-align: center;
-    gap: 20px;
+    gap: 22px;
     padding: 20px;
   }
   .welcome-icon {
-    width: 80px; height: 80px;
-    background: linear-gradient(135deg, rgba(0,119,255,0.2), rgba(0,200,255,0.2));
-    border: 1px solid var(--border-glow);
-    border-radius: 20px;
+    width: 56px; height: 56px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 36px;
+    color: var(--accent);
   }
-  .welcome-title { font-size: 22px; font-weight: 800; }
-  .welcome-title span { color: var(--accent); }
-  .welcome-sub { font-size: 13px; color: var(--text-secondary); max-width: 440px; line-height: 1.8; }
+  .welcome-icon svg { width: 26px; height: 26px; }
+  .welcome-title { font-size: 20px; font-weight: 700; letter-spacing: -.2px; }
+  .welcome-title span { color: var(--accent); font-weight: 800; }
+  .welcome-sub { font-size: 12.5px; color: var(--text-secondary); max-width: 400px; line-height: 1.9; }
   .welcome-stats {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     font-size: 11px;
     color: var(--text-secondary);
   }
@@ -390,28 +392,82 @@
     align-items: center;
     gap: 6px;
   }
-  .welcome-stat b { color: var(--accent); font-size: 13px; }
+  .welcome-stat b { color: var(--accent); font-size: 12.5px; font-weight: 700; }
   .welcome-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-top: 8px;
-    max-width: 520px;
+    gap: 10px;
+    margin-top: 6px;
+    max-width: 480px;
     width: 100%;
   }
   .welcome-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 10px;
+    border-radius: 12px;
+    padding: 16px 8px 12px;
     cursor: pointer;
-    transition: all .2s;
+    transition: border-color .2s, transform .2s;
     text-align: center;
   }
   .welcome-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .welcome-card-icon { font-size: 20px; margin-bottom: 6px; }
-  .welcome-card-label { font-size: 11px; font-weight: 600; }
-  .welcome-card-cmd { font-size: 9px; color: var(--text-secondary); margin-top: 3px; }
+  .welcome-card-icon {
+    width: 30px; height: 30px;
+    margin: 0 auto 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-secondary);
+    transition: color .2s;
+  }
+  .welcome-card-icon svg { width: 18px; height: 18px; }
+  .welcome-card:hover .welcome-card-icon { color: var(--accent); }
+  .welcome-card-label { font-size: 10.5px; font-weight: 600; color: var(--text-primary); }
+  .welcome-card-cmd {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+    margin-top: 4px;
+    letter-spacing: .5px;
+  }
+
+  /* ─── TERMINAL-STYLE STATUS STRIP (welcome footer) ─── */
+  .welcome-statusbar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 4px;
+    background: var(--terminal-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Courier New', monospace;
+    font-size: 9.5px;
+    color: var(--text-dim);
+    max-width: 480px;
+    width: 100%;
+  }
+  .welcome-statusbar .ws-item {
+    padding: 7px 12px;
+    border-left: 1px solid var(--border);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .welcome-statusbar .ws-item:first-child { border-left: none; }
+  .welcome-statusbar .ws-connected {
+    color: var(--accent-green);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .welcome-statusbar .ws-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    box-shadow: 0 0 5px var(--accent-green);
+    flex-shrink: 0;
+  }
+  .welcome-statusbar .ws-flex { flex: 1; text-align: center; }
+
 
   /* ─── LESSON CONTENT ─── */
   #lesson-content { display: none; }
@@ -427,8 +483,8 @@
     font-size: 10px;
     font-weight: 700;
     color: var(--accent);
-    background: rgba(0,200,255,0.1);
-    border: 1px solid rgba(0,200,255,0.2);
+    background: rgba(95,184,214,0.1);
+    border: 1px solid rgba(95,184,214,0.2);
     padding: 3px 10px;
     border-radius: 20px;
     white-space: nowrap;
@@ -439,7 +495,7 @@
     align-items: center;
     gap: 6px;
     background: var(--terminal-bg);
-    border: 1px solid rgba(0,229,160,0.3);
+    border: 1px solid rgba(79,207,160,0.3);
     border-radius: 6px;
     padding: 4px 10px;
     font-size: 13px;
@@ -463,15 +519,15 @@
   /* ─── TERMINAL ─── */
   .terminal-wrap {
     background: var(--terminal-bg);
-    border: 1px solid rgba(0,229,160,0.2);
+    border: 1px solid rgba(79,207,160,0.2);
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: 20px;
-    box-shadow: 0 0 30px rgba(0,229,160,0.05);
+    box-shadow: 0 0 30px rgba(79,207,160,0.05);
   }
   .terminal-titlebar {
-    background: rgba(0,229,160,0.06);
-    border-bottom: 1px solid rgba(0,229,160,0.15);
+    background: rgba(79,207,160,0.06);
+    border-bottom: 1px solid rgba(79,207,160,0.15);
     padding: 8px 14px;
     display: flex;
     align-items: center;
@@ -511,11 +567,11 @@
     text-align: left;
     letter-spacing: 1px;
   }
-  .terminal-input::placeholder { color: rgba(0,229,160,0.3); }
+  .terminal-input::placeholder { color: rgba(79,207,160,0.3); }
 
   .terminal-output {
-    background: rgba(0,229,160,0.03);
-    border: 1px solid rgba(0,229,160,0.1);
+    background: rgba(79,207,160,0.03);
+    border: 1px solid rgba(79,207,160,0.1);
     border-radius: 6px;
     padding: 12px;
     font-family: 'Courier New', monospace;
@@ -539,8 +595,8 @@
   }
   .btn-run {
     padding: 9px 20px;
-    background: linear-gradient(135deg, rgba(0,229,160,0.2), rgba(0,200,255,0.2));
-    border: 1px solid rgba(0,229,160,0.4);
+    background: linear-gradient(135deg, rgba(79,207,160,0.2), rgba(95,184,214,0.2));
+    border: 1px solid rgba(79,207,160,0.4);
     border-radius: 7px;
     color: var(--terminal-text);
     font-family: 'Vazirmatn', sans-serif;
@@ -550,7 +606,7 @@
     transition: all .2s;
     display: flex; align-items: center; gap: 6px;
   }
-  .btn-run:hover { background: rgba(0,229,160,0.25); box-shadow: 0 0 12px rgba(0,229,160,0.2); }
+  .btn-run:hover { background: rgba(79,207,160,0.25); box-shadow: 0 0 12px rgba(79,207,160,0.2); }
   .btn-clear {
     padding: 9px 16px;
     background: transparent;
@@ -566,8 +622,8 @@
 
   /* ─── TOOLTIP / AI EXPLAIN ─── */
   .ai-tooltip {
-    background: linear-gradient(135deg, rgba(0,119,255,0.08), rgba(0,200,255,0.05));
-    border: 1px solid rgba(0,200,255,0.2);
+    background: linear-gradient(135deg, rgba(74,143,176,0.08), rgba(95,184,214,0.05));
+    border: 1px solid rgba(95,184,214,0.2);
     border-radius: 10px;
     padding: 14px 16px;
     margin-bottom: 20px;
@@ -682,8 +738,8 @@
     font-size: 10px;
     font-weight: 700;
     color: var(--accent-amber);
-    background: rgba(255,179,0,0.1);
-    border: 1px solid rgba(255,179,0,0.25);
+    background: rgba(217,166,78,0.1);
+    border: 1px solid rgba(217,166,78,0.25);
     padding: 4px 12px;
     border-radius: 20px;
     letter-spacing: .5px;
@@ -777,9 +833,9 @@
     font-weight: 700;
     margin-left: 6px;
   }
-  .tag-green { background: rgba(0,229,160,0.15); color: var(--accent-green); }
-  .tag-blue { background: rgba(0,200,255,0.15); color: var(--accent); }
-  .tag-amber { background: rgba(255,179,0,0.15); color: var(--accent-amber); }
+  .tag-green { background: rgba(79,207,160,0.15); color: var(--accent-green); }
+  .tag-blue { background: rgba(95,184,214,0.15); color: var(--accent); }
+  .tag-amber { background: rgba(217,166,78,0.15); color: var(--accent-amber); }
 
   /* Scrollbar for main */
   #main::-webkit-scrollbar { width: 5px; }
@@ -809,8 +865,8 @@
   </div>
 
   <div class="header-actions">
-    <button class="btn-header" onclick="window.open('http://nirasoft.ir/t/','_blank')">🌐 nirasoft.ir</button>
-    <button class="btn-header primary" onclick="showWelcome()">🏠 خانه</button>
+    <button class="btn-header" onclick="window.open('http://nirasoft.ir/t/','_blank')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;vertical-align:-2px;margin-left:4px"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>nirasoft.ir</button>
+    <button class="btn-header primary" onclick="showWelcome()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;vertical-align:-2px;margin-left:4px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>خانه</button>
     <div id="hamburger" onclick="toggleSidebar()">
       <span></span><span></span><span></span>
     </div>
@@ -856,7 +912,9 @@
 
     <!-- WELCOME -->
     <div id="welcome">
-      <div class="welcome-icon">✈️</div>
+      <div class="welcome-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2.5 1.5V22l4.5-1 4.5 1v-1.5L13 19v-5.5l8 2.5z"></path></svg>
+      </div>
       <div>
         <div class="welcome-title">شبیه‌ساز آموزشی <span>نیرا</span></div>
       </div>
@@ -870,37 +928,55 @@
       </div>
       <div class="welcome-grid">
         <div class="welcome-card" onclick="loadLesson('AY')">
-          <div class="welcome-card-icon">🗺️</div>
+          <div class="welcome-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+          </div>
           <div class="welcome-card-label">مسیریابی</div>
           <div class="welcome-card-cmd">AY</div>
         </div>
         <div class="welcome-card" onclick="loadLesson('AV')">
-          <div class="welcome-card-icon">💺</div>
+          <div class="welcome-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"></rect><path d="M3 10h18"></path><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"></path></svg>
+          </div>
           <div class="welcome-card-label">ظرفیت پرواز</div>
           <div class="welcome-card-cmd">AV</div>
         </div>
         <div class="welcome-card" onclick="loadLesson('SK')">
-          <div class="welcome-card-icon">📋</div>
+          <div class="welcome-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+          </div>
           <div class="welcome-card-label">رزرو صندلی</div>
           <div class="welcome-card-cmd">SK</div>
         </div>
         <div class="welcome-card" onclick="loadLesson('CRD')">
-          <div class="welcome-card-icon">💰</div>
+          <div class="welcome-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
           <div class="welcome-card-label">نرخ کرایه</div>
           <div class="welcome-card-cmd">CRD</div>
         </div>
         <div class="welcome-card" onclick="loadLesson('DGS')">
-          <div class="welcome-card-icon">📄</div>
+          <div class="welcome-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="16" y2="17"></line></svg>
+          </div>
           <div class="welcome-card-label">نمایش رزرو</div>
           <div class="welcome-card-cmd">DGS</div>
         </div>
         <div class="welcome-card" onclick="loadLesson('TCC')">
-          <div class="welcome-card-icon">🧮</div>
+          <div class="welcome-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="8" y1="7" x2="16" y2="7"></line><line x1="8" y1="11" x2="10" y2="11"></line><line x1="13" y1="11" x2="15" y2="11"></line><line x1="8" y1="15" x2="10" y2="15"></line><line x1="13" y1="15" x2="15" y2="15"></line></svg>
+          </div>
           <div class="welcome-card-label">محاسبه نرخ</div>
           <div class="welcome-card-cmd">TCC</div>
         </div>
       </div>
+      <div class="welcome-statusbar">
+        <div class="ws-item ws-connected"><span class="ws-dot"></span>Connected</div>
+        <div class="ws-item ws-flex" id="ws-clock">--:--:--</div>
+        <div class="ws-item" id="ws-date">----/--/--</div>
+      </div>
     </div>
+
 
     <!-- LESSON -->
     <div id="lesson-content">
@@ -926,12 +1002,12 @@
       <div id="lesson-desc" class="lesson-desc"></div>
 
       <div class="ai-tooltip">
-        <div class="ai-icon">🤖</div>
+        <div class="ai-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"></path><circle cx="12" cy="12" r="4"></circle></svg></div>
         <div class="ai-text" id="ai-explain"></div>
       </div>
 
       <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;">
-        📚 مثال‌های متداول — کلیک کنید تا وارد ترمینال شود:
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;vertical-align:-1px;margin-left:4px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>مثال‌های متداول — کلیک کنید تا وارد ترمینال شود:
       </div>
       <div class="examples-grid" id="examples-grid"></div>
 
@@ -952,8 +1028,8 @@
           </div>
           <div class="terminal-output" id="terminal-output"></div>
           <div class="terminal-actions">
-            <button class="btn-run" onclick="runCommand()">▶ اجرای دستور</button>
-            <button class="btn-clear" onclick="clearTerminal()">✕ پاک کردن</button>
+            <button class="btn-run" onclick="runCommand()"><svg viewBox="0 0 24 24" fill="currentColor" style="width:10px;height:10px"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>اجرای دستور</button>
+            <button class="btn-clear" onclick="clearTerminal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:10px;height:10px"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>پاک کردن</button>
           </div>
         </div>
       </div>
@@ -968,7 +1044,7 @@
     <!-- COMING SOON -->
     <div id="soon-content">
       <div class="soon-wrap">
-        <div class="soon-icon">🛠️</div>
+        <div class="soon-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></div>
         <div class="soon-tag">به‌زودی</div>
         <div class="soon-cmd-badge" id="soon-cmd-badge"></div>
         <div class="soon-title" id="soon-title"></div>
@@ -1996,6 +2072,22 @@ function clearTerminal() {
   document.getElementById('terminal-input').value = '';
 }
 
+// ── WELCOME STATUS CLOCK (mirrors real NRS Terminal status bar) ─────
+function updateWelcomeClock() {
+  const now = new Date();
+  const clockEl = document.getElementById('ws-clock');
+  const dateEl = document.getElementById('ws-date');
+  if (!clockEl || !dateEl) return;
+  const hh = String(now.getHours()).padStart(2,'0');
+  const mm = String(now.getMinutes()).padStart(2,'0');
+  const ss = String(now.getSeconds()).padStart(2,'0');
+  clockEl.textContent = `${hh}:${mm}:${ss}`;
+  const yyyy = now.getFullYear();
+  const MM = String(now.getMonth()+1).padStart(2,'0');
+  const dd = String(now.getDate()).padStart(2,'0');
+  dateEl.textContent = `${yyyy}-${MM}-${dd}`;
+}
+
 // ── INIT ─────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   buildSidebar();
@@ -2007,6 +2099,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('terminal-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') runCommand();
   });
+
+  updateWelcomeClock();
+  setInterval(updateWelcomeClock, 1000);
 });
 </script>
 </body>
