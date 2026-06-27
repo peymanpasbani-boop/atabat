@@ -147,7 +147,6 @@ body {
 /* ══════════ MAIN ══════════ */
 .main { padding: 52px 18px 128px; }
 
-/* ── HEADER ROW ── */
 .header-row {
   display: flex; align-items: center; justify-content: space-between;
   padding-bottom: 18px;
@@ -172,7 +171,6 @@ body {
   background-clip: text; flex: 1; text-align: left;
 }
 
-/* ── RUSSIA FLAG STRIPE ── */
 .flag-stripe {
   display: flex; height: 4px; border-radius: 2px; overflow: hidden;
   margin-bottom: 20px; margin-top: 16px;
@@ -181,7 +179,6 @@ body {
 .flag-stripe .s2 { flex:1; background: #003882; }
 .flag-stripe .s3 { flex:1; background: #c8001c; }
 
-/* filter */
 .filter-row { display:flex; gap:10px; margin:-20px 22px 24px; position:relative; z-index:10; }
 .filter-origin {
   flex:1; background: var(--surface); border:none;
@@ -211,19 +208,16 @@ body {
 }
 .filter-pax svg { stroke: #fff; }
 
-/* section titles */
 .sec { margin-top: 24px; }
 .sec h2 { font-size: 19px; font-weight: 800; color: var(--text); }
 .sec p  { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 400; line-height: 1.7; }
 
-/* ── HORIZONTAL SCROLL ── */
 .hscroll {
   display:flex; gap:14px; overflow-x:auto;
   padding: 14px 0 8px; scrollbar-width:none; margin: 0 -4px; padding-left:4px;
 }
 .hscroll::-webkit-scrollbar { display:none; }
 
-/* ── CARD ── */
 .card {
   min-width: 230px; border-radius: 18px; overflow:hidden;
   background: var(--card); border:1px solid var(--border);
@@ -243,7 +237,6 @@ body {
   background: linear-gradient(to bottom, transparent 50%, rgba(255,255,255,0.85) 100%);
 }
 
-/* ── PHOTO CARDS ── */
 .photo-card {
   background-size: cover !important;
   background-position: center center !important;
@@ -257,7 +250,6 @@ body {
   background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.0) 25%, rgba(0,0,0,0.6) 100%) !important;
 }
 
-/* drop badge */
 .badge {
   position:absolute; top:10px; right:10px; z-index:2;
   background: rgba(18,25,58,0.82);
@@ -278,7 +270,6 @@ body {
 
 .card-body { padding: 13px 14px 16px; }
 
-/* ── DATE PILL ── */
 .date-pill {
   display: inline-flex; align-items: center; gap: 7px;
   background: var(--gold-dim);
@@ -300,7 +291,6 @@ body {
   font-family: 'Vazirmatn', sans-serif;
 }
 
-/* ── NIGHTS BADGE ── */
 .nights-tag {
   display: inline-flex; align-items: center; gap: 5px;
   background: var(--accent2); border-radius: 7px;
@@ -319,14 +309,12 @@ body {
   border-radius: 4px; padding: 2px 4px; line-height: 1;
 }
 
-/* ── DIVIDER ── */
 .divider {
   height: 1px; margin: 28px 0;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), var(--accent), transparent);
   opacity: 0.3;
 }
 
-/* ── FULL CARD ── */
 .full-card {
   border-radius: 18px; overflow:hidden;
   background: var(--card); border:1px solid var(--border);
@@ -370,7 +358,7 @@ body {
   margin-top: 14px;
 }
 
-/* ── NAV · boarding-pass stub ── */
+/* ══════════ BOTTOM NAV ══════════ */
 .nav-dock {
   position:fixed; bottom:0; left:50%; transform:translateX(-50%);
   width:100%; max-width:430px; z-index:50;
@@ -389,7 +377,6 @@ body {
     0 0 0 1px rgba(255,255,255,0.04) inset;
   overflow: hidden;
 }
-/* perforated ticket edge along the top of the dock */
 .nav::before {
   content:'';
   position:absolute; top:0; left:0; right:0; height:9px;
@@ -398,7 +385,6 @@ body {
   background-position: 9px -4.5px;
   background-repeat: repeat-x;
 }
-/* gold stitch line under the perforation */
 .nav::after {
   content:'';
   position:absolute; top:9px; left:14px; right:14px; height:1px;
@@ -413,7 +399,6 @@ body {
   padding: 17px 4px 12px;
   -webkit-tap-highlight-color: transparent;
 }
-/* divider stitches between stubs */
 .nav-item + .nav-item::before {
   content:'';
   position:absolute; right:100%; top:14px; bottom:10px; width:0;
@@ -435,7 +420,6 @@ body {
 .nav-icon-wrap svg { width:21px; height:21px; stroke: rgba(255,255,255,0.42); fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; transition: stroke .2s; }
 .nav-item.on .nav-icon-wrap svg { stroke:#fff; }
 .nav-item.on .nav-icon-wrap { transform: translateY(-1px) scale(1.04); }
-/* the die-cut red stamp seal sitting behind the active stub */
 .nav-stamp {
   position:absolute; left:8px; right:8px; top:6px; bottom:6px;
   border-radius:13px;
@@ -446,7 +430,6 @@ body {
   z-index:1;
 }
 .nav-item.on .nav-stamp { opacity:1; transform: scale(1) rotate(0deg); }
-/* tiny gold rivet, top-right of the active stamp like an embossed seal corner */
 .nav-stamp::after {
   content:'';
   position:absolute; top:5px; left:5px;
@@ -463,30 +446,34 @@ body {
   transform: translateY(100%);
   transition: transform 0.42s cubic-bezier(0.32, 0.72, 0, 1);
   pointer-events: none;
+  background: var(--bg);
 }
 .detail-panel.open {
   transform: translateY(0);
   pointer-events: all;
 }
 
-/* Full-width hero image — takes up top ~52% of screen */
+/* ── HERO IMAGE — rounded bottom corners, clean separation ── */
 .dp-hero {
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 44%;
+  height: 46%;
   background-size: cover;
   background-position: center top;
   background-color: var(--text);
   z-index: 0;
+  border-radius: 0 0 32px 32px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(10,15,40,0.22);
 }
 .dp-hero::after {
   content: '';
   position: absolute; inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(10,15,40,0.25) 0%,
-    rgba(10,15,40,0.0) 40%,
-    rgba(10,15,40,0.55) 100%
+    rgba(10,15,40,0.18) 0%,
+    rgba(10,15,40,0.0) 35%,
+    rgba(10,15,40,0.65) 100%
   );
 }
 
@@ -526,12 +513,12 @@ body {
   font-size: 12.5px; font-weight: 800; color: #fff; display: block;
 }
 
-/* City name overlay on hero image bottom */
+/* City name overlay — sits at very bottom of hero, inside rounded corners */
 .dp-city-label {
   position: absolute;
-  bottom: 58%;
+  bottom: 54%;
   right: 0; left: 0; z-index: 5;
-  padding: 0 22px 14px;
+  padding: 0 22px 20px;
 }
 .dp-city-label .city-name {
   font-size: 34px; font-weight: 900; color: #fff;
@@ -546,22 +533,10 @@ body {
   text-transform: uppercase;
 }
 
-/* Soft wave divider between hero and cards */
-.dp-wave {
-  position: absolute;
-  left: 0; right: 0; z-index: 4;
-  top: calc(44% - 64px);
-  height: 88px;
-  pointer-events: none;
-}
-.dp-wave svg {
-  width: 100%; height: 100%; display: block;
-}
-
-/* Content cards */
+/* ── Content cards — start just below rounded hero ── */
 .dp-content {
   position: absolute;
-  top: calc(44% + 10px);
+  top: calc(46% + 16px);
   left: 0; right: 0; bottom: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -570,6 +545,14 @@ body {
   display: flex; flex-direction: column; gap: 12px;
 }
 .dp-content::-webkit-scrollbar { display: none; }
+
+/* Drag handle pill */
+.dp-drag-handle {
+  width: 36px; height: 4px; border-radius: 2px;
+  background: rgba(0,56,130,0.14);
+  margin: 0 auto 2px;
+  flex-shrink: 0;
+}
 
 .dp-card {
   background: var(--surface);
@@ -580,8 +563,7 @@ body {
   flex-shrink: 0;
 }
 
-/* ── Brand logo accent card ── */
-/* ── Brand card — redesigned ── */
+/* ── Brand card ── */
 .dp-brand-card {
   padding: 0;
   overflow: hidden;
@@ -592,7 +574,6 @@ body {
   display: flex; flex-direction: column; gap: 0;
   position: relative; z-index: 1;
 }
-/* Russia flag stripe at top of card */
 .dp-brand-flag {
   display: flex; height: 3px; width: 100%;
 }
@@ -600,7 +581,6 @@ body {
 .dp-brand-flag .f2 { flex:1; background:#003882; }
 .dp-brand-flag .f3 { flex:1; background:#c8001c; }
 
-/* logo + label row */
 .dp-brand-top {
   display: flex; align-items: center; gap: 12px;
   margin-bottom: 14px; margin-top: 18px;
@@ -627,11 +607,9 @@ body {
   background-clip: text;
   font-family: 'Helvetica Neue', Arial, sans-serif;
 }
-/* divider */
 .dp-brand-divider {
   height: 1px; background: var(--border); margin-bottom: 14px;
 }
-/* tour title block */
 .dp-brand-info .tour-label {
   font-size: 9px; font-weight: 600; letter-spacing: 2px;
   color: var(--muted); text-transform: uppercase;
@@ -658,7 +636,6 @@ body {
   margin-bottom: 12px;
 }
 
-/* airline strip at top */
 .dp-airline-strip {
   background: var(--text);
   padding: 11px 18px;
@@ -697,7 +674,6 @@ body {
   color: rgba(255,255,255,0.38);
 }
 
-/* main flight row */
 .dp-flight-row {
   padding: 18px 18px 0;
   display: flex; align-items: flex-start; gap: 0;
@@ -718,7 +694,6 @@ body {
   margin-top: 2px; display: block;
 }
 
-/* center: plane + duration */
 .dp-flight-mid {
   flex: 0 0 auto; padding: 6px 12px 0;
   display: flex; flex-direction: column; align-items: center; gap: 4px;
@@ -760,7 +735,6 @@ body {
   padding: 1px 4px; line-height: 1;
 }
 
-/* bottom detail strip */
 .dp-flight-detail {
   margin: 14px 18px 0;
   padding: 11px 14px;
@@ -868,7 +842,6 @@ body {
   backdrop-filter: blur(2px);
 }
 .dp-scrim.open { opacity: 1; pointer-events: all; }
-
 </style>
 </head>
 <body>
@@ -887,8 +860,7 @@ body {
       <rect x="2" y="42" width="11" height="70" fill="url(#logo-g1)" rx="2.5"/>
       <rect x="87" y="42" width="11" height="70" fill="url(#logo-g1)" rx="2.5"/>
       <rect x="44.5" y="0" width="7" height="28" fill="url(#logo-g1)" rx="2"/>
-      <path d="M13 78 L13 48 Q13 8 50 8 Q87 8 87 48 L87 78"
-            stroke="url(#logo-g1)" stroke-width="11" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M13 78 L13 48 Q13 8 50 8 Q87 8 87 48 L87 78" stroke="url(#logo-g1)" stroke-width="11" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
       <ellipse cx="48" cy="5" rx="7" ry="8" fill="url(#logo-g1)"/>
       <rect x="2" y="112" width="96" height="2.5" fill="url(#logo-g1)" rx="1.5" opacity="0.3"/>
     </svg>
@@ -919,7 +891,6 @@ body {
 
 <!-- ══════════ MAIN ══════════ -->
 <div class="main">
-
   <div class="header-row">
     <div class="header-persian">
       مسکووا
@@ -936,8 +907,7 @@ body {
         <rect x="2" y="42" width="11" height="70" fill="url(#logo-g2)" rx="2.5"/>
         <rect x="87" y="42" width="11" height="70" fill="url(#logo-g2)" rx="2.5"/>
         <rect x="44.5" y="0" width="7" height="28" fill="url(#logo-g2)" rx="2"/>
-        <path d="M13 78 L13 48 Q13 8 50 8 Q87 8 87 48 L87 78"
-              stroke="url(#logo-g2)" stroke-width="11" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M13 78 L13 48 Q13 8 50 8 Q87 8 87 48 L87 78" stroke="url(#logo-g2)" stroke-width="11" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
         <ellipse cx="48" cy="5" rx="7" ry="8" fill="url(#logo-g2)"/>
         <rect x="2" y="112" width="96" height="2.5" fill="url(#logo-g2)" rx="1.5" opacity="0.3"/>
       </svg>
@@ -949,9 +919,7 @@ body {
   </div>
 
   <div class="flag-stripe">
-    <div class="s1"></div>
-    <div class="s2"></div>
-    <div class="s3"></div>
+    <div class="s1"></div><div class="s2"></div><div class="s3"></div>
   </div>
 
   <div class="hero-intro">
@@ -974,15 +942,12 @@ body {
     </div>
   </div>
 
-  <!-- TOP PICKS -->
   <div class="sec">
     <h2>انتخاب‌های برتر برای شما</h2>
     <p>متناسب با سلیقه و بودجه شما انتخاب شده</p>
   </div>
 
   <div class="hscroll">
-
-    <!-- Card 1: Moscow -->
     <div class="card" onclick="openDetail('moscow')">
       <div class="card-img photo-card" style="background-image:url('https://i.ibb.co/r21dWvXh/IMG-4554.jpg')">
         <div class="badge">
@@ -1003,7 +968,6 @@ body {
       </div>
     </div>
 
-    <!-- Card 2: SPB -->
     <div class="card" onclick="openDetail('spb')">
       <div class="card-img photo-card" style="background-image:url('https://i.ibb.co/j9FXgNcX/IMG-4564.jpg')">
         <div class="badge">
@@ -1024,7 +988,6 @@ body {
       </div>
     </div>
 
-    <!-- Card 3: Sochi -->
     <div class="card" onclick="openDetail('sochi')">
       <div class="card-img photo-card" style="background-image:url('https://i.ibb.co/pvyHctkC/IMG-4562.jpg')">
         <div class="badge">
@@ -1044,18 +1007,15 @@ body {
         </div>
       </div>
     </div>
-
   </div>
 
   <div class="divider"></div>
 
-  <!-- TODAY'S DROPS -->
   <div class="sec" style="margin-top:0">
     <h2>قیمت‌های همین امروز</h2>
     <p>تورهایی که حداقل ۲۰٪ کاهش قیمت داشته‌اند</p>
   </div>
 
-  <!-- Full card: Baikal -->
   <div class="full-card" onclick="openDetail('baikal')">
     <div class="full-img photo-card" style="background-image:url('https://i.ibb.co/HpMTwW7D/IMG-4561.jpg')">
       <div class="badge" style="right:auto;left:12px;top:12px;">
@@ -1076,7 +1036,6 @@ body {
     </div>
   </div>
 
-  <!-- Full card: Kazan -->
   <div class="full-card" onclick="openDetail('kazan')">
     <div class="full-img photo-card" style="background-image:url('https://i.ibb.co/QFqgWKgt/IMG-4527.jpg')">
       <div class="badge">
@@ -1097,7 +1056,6 @@ body {
     </div>
   </div>
 
-  <!-- Full card: Murmansk -->
   <div class="full-card" onclick="openDetail('murmansk')">
     <div class="full-img photo-card" style="background-image:url('https://i.ibb.co/pvyHctkC/IMG-4562.jpg')">
       <div class="badge">
@@ -1118,7 +1076,7 @@ body {
     </div>
   </div>
 
-</div><!-- /main -->
+</div>
 
 <!-- ══════════ BOTTOM NAV ══════════ -->
 <div class="nav-dock">
@@ -1130,7 +1088,6 @@ body {
     </div>
     <span class="nav-label">خانه</span>
   </div>
-
   <div class="nav-item" onclick="setNav(this)">
     <div class="nav-stamp"></div>
     <div class="nav-icon-wrap">
@@ -1138,7 +1095,6 @@ body {
     </div>
     <span class="nav-label">تور</span>
   </div>
-
   <div class="nav-item" onclick="setNav(this)">
     <div class="nav-stamp"></div>
     <div class="nav-icon-wrap">
@@ -1146,7 +1102,6 @@ body {
     </div>
     <span class="nav-label">هتل</span>
   </div>
-
   <div class="nav-item" onclick="setNav(this)">
     <div class="nav-stamp"></div>
     <div class="nav-icon-wrap">
@@ -1169,10 +1124,8 @@ function setNav(el){
 
 <div class="detail-panel" id="detail-panel">
 
-  <!-- Full-width hero image -->
   <div class="dp-hero" id="dp-hero"></div>
 
-  <!-- Top controls overlaid on hero -->
   <div class="dp-back">
     <button class="dp-back-btn" onclick="closeDetail()">
       <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
@@ -1186,32 +1139,15 @@ function setNav(el){
     </div>
   </div>
 
-  <!-- Soft wave transition hero → cards -->
-  <div class="dp-wave">
-    <svg viewBox="0 0 430 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="wave-fade" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="rgba(10,15,40,0)" />
-          <stop offset="60%" stop-color="rgba(10,15,40,0.2)" />
-          <stop offset="100%" stop-color="rgba(240,244,250,0)" />
-        </linearGradient>
-      </defs>
-      <rect x="0" y="0" width="430" height="58" fill="url(#wave-fade)" />
-      <path d="M0 40 Q70 26 150 38 Q220 50 290 32 Q360 16 430 34 L430 88 L0 88 Z" fill="#f0f4fa" opacity="0.88"/>
-      <path d="M0 50 Q90 34 175 46 Q255 58 330 38 Q390 26 430 46 L430 88 L0 88 Z" fill="#f0f4fa"/>
-    </svg>
-  </div>
-
-  <!-- City name at hero bottom -->
   <div class="dp-city-label">
     <div class="city-name" id="dp-city-name"></div>
     <div class="city-sub" id="dp-city-sub"></div>
   </div>
 
-  <!-- Scrollable content cards -->
   <div class="dp-content">
 
-    <!-- Brand identity card -->
+    <div class="dp-drag-handle"></div>
+
     <div class="dp-card dp-brand-card">
       <div class="dp-brand-flag"><div class="f1"></div><div class="f2"></div><div class="f3"></div></div>
       <div class="dp-brand-card-inner">
@@ -1227,8 +1163,7 @@ function setNav(el){
               <rect x="2" y="42" width="11" height="70" fill="url(#dp-logo-g)" rx="2.5"/>
               <rect x="87" y="42" width="11" height="70" fill="url(#dp-logo-g)" rx="2.5"/>
               <rect x="44.5" y="0" width="7" height="28" fill="url(#dp-logo-g)" rx="2"/>
-              <path d="M13 78 L13 48 Q13 8 50 8 Q87 8 87 48 L87 78"
-                    stroke="url(#dp-logo-g)" stroke-width="11" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M13 78 L13 48 Q13 8 50 8 Q87 8 87 48 L87 78" stroke="url(#dp-logo-g)" stroke-width="11" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
               <ellipse cx="48" cy="5" rx="7" ry="8" fill="url(#dp-logo-g)"/>
             </svg>
           </div>
@@ -1246,10 +1181,7 @@ function setNav(el){
       </div>
     </div>
 
-    <!-- Dates & Flight card -->
     <div class="dp-card dp-dates-card">
-
-      <!-- Airline strip -->
       <div class="dp-airline-strip">
         <div class="dp-airline-name" id="dp-airline-name">Mahan Air</div>
         <div class="dp-airline-logo">
@@ -1259,17 +1191,12 @@ function setNav(el){
         </div>
         <div class="dp-flight-num" id="dp-flight-num">W5 101</div>
       </div>
-
-      <!-- Departure / Arrival row -->
       <div class="dp-flight-row">
-        <!-- Departure -->
         <div class="dp-flight-end">
           <div class="fe-time" id="dp-time-dep">07:30</div>
           <span class="fe-date-fa" id="dp-date-from"></span>
           <span class="fe-date-en" id="dp-date-from-en"></span>
         </div>
-
-        <!-- Middle: track + nights -->
         <div class="dp-flight-mid">
           <div class="fm-duration" id="dp-flight-dur">~3h 20m</div>
           <div class="dp-flight-track">
@@ -1286,16 +1213,12 @@ function setNav(el){
             <span class="n-unit">شب</span>
           </div>
         </div>
-
-        <!-- Arrival -->
         <div class="dp-flight-end" style="text-align:left;">
           <div class="fe-time" id="dp-time-arr">11:50</div>
           <span class="fe-date-fa" id="dp-date-to"></span>
           <span class="fe-date-en" id="dp-date-to-en"></span>
         </div>
       </div>
-
-      <!-- Detail strip -->
       <div class="dp-flight-detail">
         <div class="fd-item">
           <span class="fd-label">مبدأ</span>
@@ -1317,48 +1240,39 @@ function setNav(el){
           <span class="fd-val">20kg</span>
         </div>
       </div>
-
     </div>
 
-    <!-- Highlights card -->
     <div class="dp-card dp-highlights-card">
       <div class="dp-section-label">امکانات تور</div>
       <div class="dp-highlights-list" id="dp-highlights"></div>
     </div>
 
-    <!-- Itinerary card -->
     <div class="dp-card dp-itinerary-card">
       <div class="dp-section-label">برنامه سفر</div>
       <div class="dp-days-list" id="dp-days"></div>
     </div>
 
-    <!-- CTA card -->
     <div class="dp-card dp-cta-card">
       <button class="dp-cta-btn">رزرو این تور</button>
       <div class="dp-cta-note">ثبت‌نام رایگان · بدون پیش‌پرداخت · پشتیبانی ۲۴ ساعته</div>
     </div>
 
-  </div><!-- /dp-content -->
-</div><!-- /detail-panel -->
+  </div>
+</div>
 
 <script>
 const TOURS = {
   moscow: {
     image: 'https://i.ibb.co/r21dWvXh/IMG-4554.jpg',
-    city: 'مسکو',
-    cityEn: 'MOSCOW · RUSSIA',
-    departure: '۱۰ مرداد',
-    tourTitle: 'تور مسکو — قلب روسیه',
-    tourSub: 'میدان سرخ، کرملین، متروی هنری',
-    dateFrom: '۱۰ مرداد', dateFromEn: 'AUG 01',
-    dateTo: '۱۵ مرداد',   dateToEn: 'AUG 06',
-    nights: '۵',
+    city: 'مسکو', cityEn: 'MOSCOW · RUSSIA', departure: '۱۰ مرداد',
+    tourTitle: 'تور مسکو — قلب روسیه', tourSub: 'میدان سرخ، کرملین، متروی هنری',
+    dateFrom: '۱۰ مرداد', dateFromEn: 'AUG 01', dateTo: '۱۵ مرداد', dateToEn: 'AUG 06', nights: '۵',
     airline: 'Mahan Air', flightNum: 'W5 101', timeDep: '07:30', timeArr: '11:10', duration: '~3h 40m', destCode: 'SVO',
     highlights: [
-      { icon: 'hotel',  title: 'اقامت ۴ ستاره', sub: 'هتل در مرکز شهر، نزدیک میدان سرخ' },
-      { icon: 'plane',  title: 'پرواز رفت و برگشت', sub: 'از تهران — ماهان ایر یا ایران ایر' },
-      { icon: 'guide',  title: 'راهنمای فارسی‌زبان', sub: 'در تمام طول سفر همراه شماست' },
-      { icon: 'food',   title: 'صبحانه روزانه', sub: 'بوفه کامل در هتل' },
+      { icon: 'hotel', title: 'اقامت ۴ ستاره', sub: 'هتل در مرکز شهر، نزدیک میدان سرخ' },
+      { icon: 'plane', title: 'پرواز رفت و برگشت', sub: 'از تهران — ماهان ایر یا ایران ایر' },
+      { icon: 'guide', title: 'راهنمای فارسی‌زبان', sub: 'در تمام طول سفر همراه شماست' },
+      { icon: 'food',  title: 'صبحانه روزانه', sub: 'بوفه کامل در هتل' },
     ],
     days: [
       { title: 'ورود به مسکو · کرملین', desc: 'استقبال در فرودگاه شروندمتیوو، انتقال به هتل، بازدید از کرملین و میدان سرخ در غروب' },
@@ -1370,20 +1284,15 @@ const TOURS = {
   },
   spb: {
     image: 'https://i.ibb.co/j9FXgNcX/IMG-4564.jpg',
-    city: 'سن‌پترزبورگ',
-    cityEn: 'ST. PETERSBURG · RU',
-    departure: '۲۰ مرداد',
-    tourTitle: 'تور سن‌پترزبورگ — شهر تزارها',
-    tourSub: 'ارمیتاژ، قصر پترهوف، شب‌های سفید',
-    dateFrom: '۲۰ مرداد', dateFromEn: 'AUG 11',
-    dateTo: '۲۵ مرداد',   dateToEn: 'AUG 16',
-    nights: '۵',
+    city: 'سن‌پترزبورگ', cityEn: 'ST. PETERSBURG · RU', departure: '۲۰ مرداد',
+    tourTitle: 'تور سن‌پترزبورگ — شهر تزارها', tourSub: 'ارمیتاژ، قصر پترهوف، شب‌های سفید',
+    dateFrom: '۲۰ مرداد', dateFromEn: 'AUG 11', dateTo: '۲۵ مرداد', dateToEn: 'AUG 16', nights: '۵',
     airline: 'Aeroflot', flightNum: 'SU 214', timeDep: '09:15', timeArr: '13:50', duration: '~4h 35m', destCode: 'LED',
     highlights: [
-      { icon: 'hotel',  title: 'هتل تاریخی نوا', sub: 'اقامت در کنار رود نوا، نزدیک ارمیتاژ' },
-      { icon: 'plane',  title: 'پرواز مستقیم', sub: 'تهران — سن‌پترزبورگ · Aeroflot' },
-      { icon: 'guide',  title: 'راهنمای ایرانی', sub: 'متخصص تاریخ و هنر روسیه' },
-      { icon: 'food',   title: 'صبحانه + یک وعده', sub: 'شام سنتی روسی در یک رستوران ۱۸۰ ساله' },
+      { icon: 'hotel', title: 'هتل تاریخی نوا', sub: 'اقامت در کنار رود نوا، نزدیک ارمیتاژ' },
+      { icon: 'plane', title: 'پرواز مستقیم', sub: 'تهران — سن‌پترزبورگ · Aeroflot' },
+      { icon: 'guide', title: 'راهنمای ایرانی', sub: 'متخصص تاریخ و هنر روسیه' },
+      { icon: 'food',  title: 'صبحانه + یک وعده', sub: 'شام سنتی روسی در یک رستوران ۱۸۰ ساله' },
     ],
     days: [
       { title: 'ورود · نوا · میدان قصر', desc: 'پرواز از تهران، بازدید اول از میدان قصر و کاخ زمستانی از بیرون در غروب' },
@@ -1395,20 +1304,15 @@ const TOURS = {
   },
   sochi: {
     image: 'https://i.ibb.co/pvyHctkC/IMG-4562.jpg',
-    city: 'سوچی',
-    cityEn: 'SOCHI · BLACK SEA',
-    departure: '۱ شهریور',
-    tourTitle: 'تور سوچی — ساحل دریای سیاه',
-    tourSub: 'تفریح، کوه و دریا در یک سفر',
-    dateFrom: '۱ شهریور', dateFromEn: 'AUG 23',
-    dateTo: '۷ شهریور',   dateToEn: 'AUG 29',
-    nights: '۶',
+    city: 'سوچی', cityEn: 'SOCHI · BLACK SEA', departure: '۱ شهریور',
+    tourTitle: 'تور سوچی — ساحل دریای سیاه', tourSub: 'تفریح، کوه و دریا در یک سفر',
+    dateFrom: '۱ شهریور', dateFromEn: 'AUG 23', dateTo: '۷ شهریور', dateToEn: 'AUG 29', nights: '۶',
     airline: 'Iran Air', flightNum: 'IR 830', timeDep: '06:45', timeArr: '09:55', duration: '~3h 10m', destCode: 'AER',
     highlights: [
-      { icon: 'hotel',  title: 'هتل ساحلی ۴ ستاره', sub: 'مستقیم روی ساحل دریای سیاه' },
-      { icon: 'plane',  title: 'پرواز رفت و برگشت', sub: 'از تهران · مستقیم' },
-      { icon: 'guide',  title: 'راهنمای دوزبانه', sub: 'فارسی و روسی' },
-      { icon: 'food',   title: 'صبحانه + نیمه هیئت', sub: 'صبحانه و شام هر روز در هتل' },
+      { icon: 'hotel', title: 'هتل ساحلی ۴ ستاره', sub: 'مستقیم روی ساحل دریای سیاه' },
+      { icon: 'plane', title: 'پرواز رفت و برگشت', sub: 'از تهران · مستقیم' },
+      { icon: 'guide', title: 'راهنمای دوزبانه', sub: 'فارسی و روسی' },
+      { icon: 'food',  title: 'صبحانه + نیمه هیئت', sub: 'صبحانه و شام هر روز در هتل' },
     ],
     days: [
       { title: 'ورود · ساحل اولین', desc: 'استقبال، انتقال به هتل ساحلی، اولین شنا در دریای سیاه' },
@@ -1421,20 +1325,15 @@ const TOURS = {
   },
   baikal: {
     image: 'https://i.ibb.co/HpMTwW7D/IMG-4561.jpg',
-    city: 'دریاچه بایکال',
-    cityEn: 'LAKE BAIKAL · IRKUTSK',
-    departure: '۱۵ شهریور',
-    tourTitle: 'تور بایکال — عمیق‌ترین دریاچه جهان',
-    tourSub: 'طبیعت خارق‌العاده سیبری · ایرکوتسک',
-    dateFrom: '۱۵ شهریور', dateFromEn: 'SEP 06',
-    dateTo: '۲۱ شهریور',   dateToEn: 'SEP 12',
-    nights: '۶',
+    city: 'دریاچه بایکال', cityEn: 'LAKE BAIKAL · IRKUTSK', departure: '۱۵ شهریور',
+    tourTitle: 'تور بایکال — عمیق‌ترین دریاچه جهان', tourSub: 'طبیعت خارق‌العاده سیبری · ایرکوتسک',
+    dateFrom: '۱۵ شهریور', dateFromEn: 'SEP 06', dateTo: '۲۱ شهریور', dateToEn: 'SEP 12', nights: '۶',
     airline: 'Mahan Air', flightNum: 'W5 062', timeDep: '08:00', timeArr: '17:30', duration: '~9h 30m', destCode: 'IKT',
     highlights: [
-      { icon: 'hotel',  title: 'لاج کنار دریاچه', sub: 'اقامت سنتی روسی در کابین چوبی' },
-      { icon: 'plane',  title: 'پرواز تهران–ایرکوتسک', sub: 'با یک ترانزیت در مسکو' },
-      { icon: 'guide',  title: 'راهنمای طبیعت‌گردی', sub: 'متخصص اکوتوریسم بایکال' },
-      { icon: 'food',   title: 'تمام وعده‌ها', sub: 'غذای سنتی بوریاتی در تمام طول سفر' },
+      { icon: 'hotel', title: 'لاج کنار دریاچه', sub: 'اقامت سنتی روسی در کابین چوبی' },
+      { icon: 'plane', title: 'پرواز تهران–ایرکوتسک', sub: 'با یک ترانزیت در مسکو' },
+      { icon: 'guide', title: 'راهنمای طبیعت‌گردی', sub: 'متخصص اکوتوریسم بایکال' },
+      { icon: 'food',  title: 'تمام وعده‌ها', sub: 'غذای سنتی بوریاتی در تمام طول سفر' },
     ],
     days: [
       { title: 'تهران → ایرکوتسک', desc: 'پرواز با ترانزیت مسکو، ورود به ایرکوتسک، شهر گردی در مرکز تاریخی' },
@@ -1447,20 +1346,15 @@ const TOURS = {
   },
   kazan: {
     image: 'https://i.ibb.co/QFqgWKgt/IMG-4527.jpg',
-    city: 'قازان',
-    cityEn: 'KAZAN · TATARSTAN',
-    departure: '۵ مهر',
-    tourTitle: 'تور قازان — شهر مسلمانان روسیه',
-    tourSub: 'کرملین، مسجد قول شریف، تاتارستان',
-    dateFrom: '۵ مهر', dateFromEn: 'SEP 27',
-    dateTo: '۱۱ مهر',  dateToEn: 'OCT 03',
-    nights: '۶',
+    city: 'قازان', cityEn: 'KAZAN · TATARSTAN', departure: '۵ مهر',
+    tourTitle: 'تور قازان — شهر مسلمانان روسیه', tourSub: 'کرملین، مسجد قول شریف، تاتارستان',
+    dateFrom: '۵ مهر', dateFromEn: 'SEP 27', dateTo: '۱۱ مهر', dateToEn: 'OCT 03', nights: '۶',
     airline: 'Aeroflot', flightNum: 'SU 312', timeDep: '10:20', timeArr: '15:05', duration: '~4h 45m', destCode: 'KZN',
     highlights: [
-      { icon: 'hotel',  title: 'هتل نزدیک کرملین', sub: 'اقامت در قلب شهر تاریخی' },
-      { icon: 'plane',  title: 'پرواز رفت و برگشت', sub: 'تهران → قازان با ترانزیت' },
-      { icon: 'guide',  title: 'راهنمای مسلمان', sub: 'آشنا به فرهنگ ایرانی و تاتاری' },
-      { icon: 'food',   title: 'غذای حلال', sub: 'تمام وعده‌ها حلال و آشنا برای ایرانی‌ها' },
+      { icon: 'hotel', title: 'هتل نزدیک کرملین', sub: 'اقامت در قلب شهر تاریخی' },
+      { icon: 'plane', title: 'پرواز رفت و برگشت', sub: 'تهران → قازان با ترانزیت' },
+      { icon: 'guide', title: 'راهنمای مسلمان', sub: 'آشنا به فرهنگ ایرانی و تاتاری' },
+      { icon: 'food',  title: 'غذای حلال', sub: 'تمام وعده‌ها حلال و آشنا برای ایرانی‌ها' },
     ],
     days: [
       { title: 'ورود · کرملین قازان', desc: 'ورود به قازان، بازدید از کرملین یونسکو، مسجد قول شریف در غروب' },
@@ -1473,20 +1367,15 @@ const TOURS = {
   },
   murmansk: {
     image: 'https://i.ibb.co/pvyHctkC/IMG-4562.jpg',
-    city: 'مورمانسک',
-    cityEn: 'MURMANSK · ARCTIC',
-    departure: '۱۰ دی',
-    tourTitle: 'تور مورمانسک — شفق قطبی',
-    tourSub: 'شمالگان، شب‌های قطبی، Northern Lights',
-    dateFrom: '۱۰ دی', dateFromEn: 'DEC 31',
-    dateTo: '۱۷ دی',   dateToEn: 'JAN 07',
-    nights: '۷',
+    city: 'مورمانسک', cityEn: 'MURMANSK · ARCTIC', departure: '۱۰ دی',
+    tourTitle: 'تور مورمانسک — شفق قطبی', tourSub: 'شمالگان، شب‌های قطبی، Northern Lights',
+    dateFrom: '۱۰ دی', dateFromEn: 'DEC 31', dateTo: '۱۷ دی', dateToEn: 'JAN 07', nights: '۷',
     airline: 'Mahan Air', flightNum: 'W5 508', timeDep: '05:50', timeArr: '13:20', duration: '~7h 30m', destCode: 'MMK',
     highlights: [
-      { icon: 'hotel',  title: 'لاج قطبی گرم', sub: 'کلبه چوبی با شیشه برای تماشای شفق' },
-      { icon: 'plane',  title: 'پرواز تهران–مورمانسک', sub: 'با ترانزیت در مسکو' },
-      { icon: 'guide',  title: 'راهنمای شفق‌شناس', sub: 'متخصص پیش‌بینی و عکاسی شفق قطبی' },
-      { icon: 'food',   title: 'تمام وعده‌ها', sub: 'غذاهای گرم قطبی در تمام سفر' },
+      { icon: 'hotel', title: 'لاج قطبی گرم', sub: 'کلبه چوبی با شیشه برای تماشای شفق' },
+      { icon: 'plane', title: 'پرواز تهران–مورمانسک', sub: 'با ترانزیت در مسکو' },
+      { icon: 'guide', title: 'راهنمای شفق‌شناس', sub: 'متخصص پیش‌بینی و عکاسی شفق قطبی' },
+      { icon: 'food',  title: 'تمام وعده‌ها', sub: 'غذاهای گرم قطبی در تمام سفر' },
     ],
     days: [
       { title: 'تهران → مورمانسک', desc: 'پرواز با ترانزیت مسکو، ورود به شهر شبانه‌روزی شمال' },
@@ -1510,7 +1399,6 @@ const ICON_PATHS = {
 function openDetail(id) {
   const t = TOURS[id];
   if (!t) return;
-
   document.getElementById('dp-hero').style.backgroundImage = `url('${t.image}')`;
   document.getElementById('dp-dep-date').textContent = t.departure;
   document.getElementById('dp-city-name').textContent = t.city;
@@ -1522,39 +1410,29 @@ function openDetail(id) {
   document.getElementById('dp-date-to').textContent = t.dateTo;
   document.getElementById('dp-date-to-en').textContent = t.dateToEn;
   document.getElementById('dp-nights-num').textContent = t.nights;
+  document.getElementById('dp-airline-name').textContent = t.airline;
+  document.getElementById('dp-flight-num').textContent = t.flightNum;
+  document.getElementById('dp-time-dep').textContent = t.timeDep;
+  document.getElementById('dp-time-arr').textContent = t.timeArr;
+  document.getElementById('dp-flight-dur').textContent = t.duration;
+  document.getElementById('dp-dest-code').textContent = t.destCode;
 
-  // Highlights
-  const hl = document.getElementById('dp-highlights');
-  hl.innerHTML = t.highlights.map(h => `
+  document.getElementById('dp-highlights').innerHTML = t.highlights.map(h => `
     <div class="dp-highlight-item">
-      <div class="dp-hi-icon">
-        <svg viewBox="0 0 24 24">${ICON_PATHS[h.icon]}</svg>
-      </div>
-      <div class="dp-hi-text">
-        <strong>${h.title}</strong>
-        <span>${h.sub}</span>
-      </div>
-    </div>
-  `).join('');
+      <div class="dp-hi-icon"><svg viewBox="0 0 24 24">${ICON_PATHS[h.icon]}</svg></div>
+      <div class="dp-hi-text"><strong>${h.title}</strong><span>${h.sub}</span></div>
+    </div>`).join('');
 
-  // Days
-  const dl = document.getElementById('dp-days');
-  dl.innerHTML = t.days.map((d, i) => `
+  document.getElementById('dp-days').innerHTML = t.days.map((d, i) => `
     <div class="dp-day-item">
       <div class="dp-day-left">
         <div class="dp-day-num">${i + 1}</div>
         <div class="dp-day-line"></div>
       </div>
-      <div class="dp-day-body">
-        <strong>${d.title}</strong>
-        <span>${d.desc}</span>
-      </div>
-    </div>
-  `).join('');
+      <div class="dp-day-body"><strong>${d.title}</strong><span>${d.desc}</span></div>
+    </div>`).join('');
 
-  // Reset scroll
   document.querySelector('.dp-content').scrollTop = 0;
-
   document.getElementById('dp-scrim').classList.add('open');
   document.getElementById('detail-panel').classList.add('open');
   document.body.style.overflow = 'hidden';
