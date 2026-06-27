@@ -411,9 +411,9 @@ body {
 .dp-hero {
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 58%;
+  height: 44%;
   background-size: cover;
-  background-position: center;
+  background-position: center top;
   background-color: var(--text);
   z-index: 0;
 }
@@ -467,9 +467,9 @@ body {
 /* City name overlay on hero image bottom */
 .dp-city-label {
   position: absolute;
-  bottom: 45%;
+  bottom: 58%;
   right: 0; left: 0; z-index: 5;
-  padding: 0 22px 20px;
+  padding: 0 22px 14px;
 }
 .dp-city-label .city-name {
   font-size: 34px; font-weight: 900; color: #fff;
@@ -484,10 +484,22 @@ body {
   text-transform: uppercase;
 }
 
-/* Content cards floating over hero */
+/* Soft wave divider between hero and cards */
+.dp-wave {
+  position: absolute;
+  left: 0; right: 0; z-index: 4;
+  top: calc(44% - 64px);
+  height: 88px;
+  pointer-events: none;
+}
+.dp-wave svg {
+  width: 100%; height: 100%; display: block;
+}
+
+/* Content cards */
 .dp-content {
   position: absolute;
-  top: 50%;
+  top: calc(44% + 10px);
   left: 0; right: 0; bottom: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -496,14 +508,6 @@ body {
   display: flex; flex-direction: column; gap: 12px;
 }
 .dp-content::-webkit-scrollbar { display: none; }
-
-/* The first card floats up, overlapping the hero */
-.dp-content::before {
-  content: '';
-  display: block;
-  height: 0;
-  margin-top: -48px; /* pulls content cards up over hero */
-}
 
 .dp-card {
   background: var(--surface);
@@ -515,30 +519,72 @@ body {
 }
 
 /* ── Brand logo accent card ── */
+/* ── Brand card — redesigned ── */
 .dp-brand-card {
-  padding: 20px 20px 18px;
-  display: flex; align-items: center; gap: 16px;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
 }
-.dp-logo-accent {
-  width: 52px; height: 52px; flex-shrink: 0;
+.dp-brand-card-inner {
+  padding: 20px 20px 20px;
+  display: flex; flex-direction: column; gap: 0;
+  position: relative; z-index: 1;
+}
+/* Russia flag stripe at top of card */
+.dp-brand-flag {
+  display: flex; height: 3px; width: 100%;
+}
+.dp-brand-flag .f1 { flex:1; background:#ffffff; border-bottom:1px solid rgba(0,56,130,0.15); }
+.dp-brand-flag .f2 { flex:1; background:#003882; }
+.dp-brand-flag .f3 { flex:1; background:#c8001c; }
+
+/* logo + label row */
+.dp-brand-top {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 14px; margin-top: 18px;
+}
+.dp-logo-circle {
+  width: 44px; height: 44px; flex-shrink: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(0,56,130,0.08) 0%, rgba(200,0,28,0.08) 100%);
+  border: 1px solid rgba(200,0,28,0.14);
   display: flex; align-items: center; justify-content: center;
-  background: rgba(200,0,28,0.07);
-  border-radius: 14px;
 }
-.dp-logo-accent svg { display: block; }
-.dp-brand-info { flex: 1; }
+.dp-logo-circle svg { display: block; }
+.dp-brand-meta { flex: 1; }
+.dp-brand-meta .brand-eyebrow {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 8.5px; font-weight: 600; letter-spacing: 2.5px;
+  color: var(--muted); text-transform: uppercase;
+  display: block; margin-bottom: 2px;
+}
+.dp-brand-meta .brand-name {
+  font-size: 13px; font-weight: 800; letter-spacing: 1px;
+  background: linear-gradient(135deg, var(--accent2) 0%, var(--accent) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+/* divider */
+.dp-brand-divider {
+  height: 1px; background: var(--border); margin-bottom: 14px;
+}
+/* tour title block */
 .dp-brand-info .tour-label {
-  font-size: 9.5px; font-weight: 600; letter-spacing: 2px;
+  font-size: 9px; font-weight: 600; letter-spacing: 2px;
   color: var(--muted); text-transform: uppercase;
   font-family: 'Roboto Mono', monospace;
-  margin-bottom: 5px;
+  display: block; margin-bottom: 6px;
 }
 .dp-brand-info .tour-title {
-  font-size: 19px; font-weight: 900; color: var(--text); line-height: 1.2;
+  font-size: 20px; font-weight: 900; color: var(--text);
+  line-height: 1.25; letter-spacing: -0.3px;
 }
 .dp-brand-info .tour-sub {
-  font-size: 11.5px; font-weight: 500; color: var(--muted2);
-  margin-top: 4px; line-height: 1.5;
+  font-size: 12px; font-weight: 500; color: var(--muted2);
+  margin-top: 6px; line-height: 1.6;
+  border-right: 2px solid var(--accent);
+  padding-right: 10px;
 }
 
 /* ── Dates & Duration card ── */
@@ -978,6 +1024,22 @@ body {
     </div>
   </div>
 
+  <!-- Soft wave transition hero → cards -->
+  <div class="dp-wave">
+    <svg viewBox="0 0 430 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="wave-fade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%25" stop-color="rgba(10,15,40,0)" />
+          <stop offset="60%25" stop-color="rgba(10,15,40,0.2)" />
+          <stop offset="100%25" stop-color="rgba(240,244,250,0)" />
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="430" height="58" fill="url(#wave-fade)" />
+      <path d="M0 40 Q70 26 150 38 Q220 50 290 32 Q360 16 430 34 L430 88 L0 88 Z" fill="#f0f4fa" opacity="0.88"/>
+      <path d="M0 50 Q90 34 175 46 Q255 58 330 38 Q390 26 430 46 L430 88 L0 88 Z" fill="#f0f4fa"/>
+    </svg>
+  </div>
+
   <!-- City name at hero bottom -->
   <div class="dp-city-label">
     <div class="city-name" id="dp-city-name"></div>
@@ -989,27 +1051,36 @@ body {
 
     <!-- Brand identity card -->
     <div class="dp-card dp-brand-card">
-      <div class="dp-logo-accent">
-        <!-- "P" brand mark in primary accent color -->
-        <svg width="32" height="40" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="dp-logo-g" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#003882"/>
-              <stop offset="100%" stop-color="#c8001c"/>
-            </linearGradient>
-          </defs>
-          <rect x="2" y="42" width="11" height="70" fill="url(#dp-logo-g)" rx="2.5"/>
-          <rect x="87" y="42" width="11" height="70" fill="url(#dp-logo-g)" rx="2.5"/>
-          <rect x="44.5" y="0" width="7" height="28" fill="url(#dp-logo-g)" rx="2"/>
-          <path d="M13 78 L13 48 Q13 8 50 8 Q87 8 87 48 L87 78"
-                stroke="url(#dp-logo-g)" stroke-width="11" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
-          <ellipse cx="48" cy="5" rx="7" ry="8" fill="url(#dp-logo-g)"/>
-        </svg>
-      </div>
-      <div class="dp-brand-info">
-        <div class="tour-label">مسکووا · Russia Travel</div>
-        <div class="tour-title" id="dp-tour-title"></div>
-        <div class="tour-sub" id="dp-tour-sub"></div>
+      <div class="dp-brand-flag"><div class="f1"></div><div class="f2"></div><div class="f3"></div></div>
+      <div class="dp-brand-card-inner">
+        <div class="dp-brand-top">
+          <div class="dp-logo-circle">
+            <svg width="28" height="34" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="dp-logo-g" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#003882"/>
+                  <stop offset="100%" stop-color="#c8001c"/>
+                </linearGradient>
+              </defs>
+              <rect x="2" y="42" width="11" height="70" fill="url(#dp-logo-g)" rx="2.5"/>
+              <rect x="87" y="42" width="11" height="70" fill="url(#dp-logo-g)" rx="2.5"/>
+              <rect x="44.5" y="0" width="7" height="28" fill="url(#dp-logo-g)" rx="2"/>
+              <path d="M13 78 L13 48 Q13 8 50 8 Q87 8 87 48 L87 78"
+                    stroke="url(#dp-logo-g)" stroke-width="11" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+              <ellipse cx="48" cy="5" rx="7" ry="8" fill="url(#dp-logo-g)"/>
+            </svg>
+          </div>
+          <div class="dp-brand-meta">
+            <span class="brand-eyebrow">Russia Travel Platform</span>
+            <div class="brand-name">MOSCOWA</div>
+          </div>
+        </div>
+        <div class="dp-brand-divider"></div>
+        <div class="dp-brand-info">
+          <span class="tour-label">نام تور</span>
+          <div class="tour-title" id="dp-tour-title"></div>
+          <div class="tour-sub" id="dp-tour-sub"></div>
+        </div>
       </div>
     </div>
 
