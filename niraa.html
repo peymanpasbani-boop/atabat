@@ -5,218 +5,229 @@
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #111; font-family: 'Vazirmatn', sans-serif; display: flex; justify-content: center; }
+  body { background: #060a08; font-family: 'Vazirmatn', sans-serif; display: flex; justify-content: center; }
 
   .story {
     width: 1080px; height: 1920px;
     background: #060a08;
     position: relative; overflow: hidden; direction: rtl;
+    display: flex; flex-direction: column;
   }
 
   .grid {
     position: absolute; inset: 0;
     background-image:
-      linear-gradient(rgba(0,255,140,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,255,140,0.03) 1px, transparent 1px);
-    background-size: 54px 54px;
+      linear-gradient(rgba(0,255,140,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,140,0.025) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
   }
 
   .glow1 {
-    position: absolute; top: -100px; right: -200px;
-    width: 1000px; height: 800px;
-    background: radial-gradient(ellipse, rgba(0,220,130,0.09) 0%, transparent 65%);
+    position: absolute; top: -150px; right: -100px;
+    width: 800px; height: 800px;
+    background: radial-gradient(ellipse, rgba(0,220,130,0.10) 0%, transparent 65%);
+    pointer-events: none;
   }
   .glow2 {
-    position: absolute; bottom: 50px; left: -200px;
-    width: 800px; height: 600px;
-    background: radial-gradient(ellipse, rgba(0,100,255,0.06) 0%, transparent 65%);
+    position: absolute; bottom: -50px; left: -150px;
+    width: 700px; height: 700px;
+    background: radial-gradient(ellipse, rgba(0,80,255,0.07) 0%, transparent 65%);
+    pointer-events: none;
   }
 
-  /* TOP BAR */
+  /* ─── TOP BAR ─── */
   .topbar {
     position: relative; z-index: 10;
-    padding: 60px 68px 0;
+    padding: 58px 64px 0;
     display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
   }
 
-  .logo { display: flex; align-items: center; gap: 16px; }
+  .logo { display: flex; align-items: center; gap: 14px; }
   .logo-box {
-    width: 54px; height: 54px; background: #00dc82;
+    width: 56px; height: 56px; background: #00dc82;
     border-radius: 14px; display: flex; align-items: center; justify-content: center;
-    font-family: monospace; font-weight: 700; font-size: 19px; color: #060a08;
-    direction: ltr;
+    font-family: monospace; font-weight: 800; font-size: 20px; color: #060a08; direction: ltr;
   }
-  .logo-name { font-size: 24px; font-weight: 700; color: #e0f5eb; direction: ltr; }
+  .logo-name { font-size: 28px; font-weight: 800; color: #e0f5eb; direction: ltr; letter-spacing: 2px; }
+
   .pill {
     font-size: 13px; color: #00dc82;
-    border: 1px solid rgba(0,220,130,0.3);
-    border-radius: 100px; padding: 9px 22px;
-    direction: ltr; font-family: monospace;
+    border: 1px solid rgba(0,220,130,0.35);
+    border-radius: 100px; padding: 10px 24px;
+    direction: ltr; font-family: monospace; letter-spacing: 2px;
   }
 
-  /* HERO */
-  .hero { position: relative; z-index: 10; padding: 62px 68px 0; }
+  /* ─── HERO ─── */
+  .hero {
+    position: relative; z-index: 10;
+    padding: 52px 64px 0;
+    flex-shrink: 0;
+  }
 
-  .pre-title {
-    font-size: 15px; font-weight: 400;
-    color: rgba(0,220,130,0.5);
-    margin-bottom: 20px;
-    display: flex; align-items: center; gap: 14px;
+  .eyebrow {
+    font-size: 16px; font-weight: 400;
+    color: rgba(0,220,130,0.55);
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 12px;
   }
-  .pre-title::after {
-    content: ''; flex: 1; height: 1px;
-    background: rgba(0,220,130,0.15);
-  }
+  .eyebrow::after { content: ''; flex: 1; height: 1px; background: rgba(0,220,130,0.15); }
 
   .main-title {
-    font-size: 90px; font-weight: 900;
-    color: #e8f5ee; line-height: 1.05; letter-spacing: -2px;
+    font-size: 108px; font-weight: 900;
+    color: #e8f5ee; line-height: 0.98; letter-spacing: -3px;
   }
-  .main-title .green { color: #00dc82; }
+  .main-title .green { color: #00dc82; display: block; }
 
   .subtitle {
-    margin-top: 28px; font-size: 21px; font-weight: 300;
-    color: rgba(180,220,200,0.45); line-height: 1.85;
+    margin-top: 26px; font-size: 23px; font-weight: 400;
+    color: rgba(180,220,200,0.6); line-height: 1.75;
+  }
+  .subtitle b { color: #c8f0dc; font-weight: 700; }
+
+  /* ─── TERMINAL ─── */
+  .terminal-wrap {
+    position: relative; z-index: 10;
+    margin: 48px 48px 0;
+    flex-shrink: 0;
   }
 
-  /* TERMINAL */
-  .terminal-wrap { position: relative; z-index: 10; margin: 56px 50px 0; }
-
   .terminal {
-    background: #0c1210;
-    border: 1px solid rgba(0,220,130,0.18);
-    border-radius: 22px; overflow: hidden;
-    box-shadow: 0 50px 90px rgba(0,0,0,0.7), 0 0 60px rgba(0,220,130,0.04);
+    background: #0a0f0d;
+    border: 1px solid rgba(0,220,130,0.2);
+    border-radius: 20px; overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.65), 0 0 60px rgba(0,220,130,0.05);
   }
 
   .tbar {
-    background: #101a15; padding: 17px 26px;
-    display: flex; align-items: center; gap: 10px;
+    background: #0f1712; padding: 16px 24px;
+    display: flex; align-items: center;
     border-bottom: 1px solid rgba(0,220,130,0.08);
     direction: ltr;
   }
-  .dots { display: flex; gap: 9px; }
+  .dots { display: flex; gap: 8px; }
   .d { width: 13px; height: 13px; border-radius: 50%; }
-  .d.r { background: #ff5f57; } .d.y { background: #febc2e; } .d.g { background: #28c840; }
-  .tbar-title { flex: 1; text-align: center; font-size: 12px; font-family: monospace; color: rgba(0,220,130,0.3); letter-spacing: 2px; }
-  .online { display: flex; align-items: center; gap: 7px; font-size: 12px; font-family: monospace; color: #00dc82; }
-  .blink { width: 7px; height: 7px; border-radius: 50%; background: #00dc82; animation: bl 1.8s infinite; }
+  .d.r{background:#ff5f57} .d.y{background:#febc2e} .d.g{background:#28c840}
+  .tbar-title { flex:1; text-align:center; font-size:12px; font-family:monospace; color:rgba(0,220,130,0.28); letter-spacing:2px; }
+  .online { display:flex; align-items:center; gap:6px; font-size:12px; font-family:monospace; color:#00dc82; }
+  .blink { width:7px; height:7px; border-radius:50%; background:#00dc82; animation:bl 1.8s infinite; }
   @keyframes bl { 0%,100%{opacity:1} 50%{opacity:.15} }
 
-  .tbody { padding: 26px 28px; font-family: monospace; direction: ltr; }
-  .sys { font-size: 12px; color: rgba(0,220,130,0.22); margin-bottom: 18px; }
+  .tbody { padding: 24px 26px; font-family: monospace; direction: ltr; }
+  .sys { font-size:12px; color:rgba(0,220,130,0.2); margin-bottom:16px; }
 
   .cmdline {
-    display: flex; align-items: baseline; gap: 10px;
-    background: rgba(0,220,130,0.05); border-left: 3px solid #00dc82;
-    border-radius: 8px; padding: 12px 16px; margin-bottom: 16px;
+    display:flex; align-items:baseline; gap:9px;
+    background:rgba(0,220,130,0.05); border-left:3px solid #00dc82;
+    border-radius:8px; padding:11px 15px; margin-bottom:14px;
   }
-  .pr { color: #00dc82; font-weight: 700; font-size: 17px; }
-  .ci { color: #e8f5ee; font-size: 15px; }
-  .cur { display: inline-block; width: 9px; height: 17px; background: #00dc82; margin-right: 2px; vertical-align: middle; animation: bl 1s infinite; }
+  .pr { color:#00dc82; font-weight:700; font-size:17px; }
+  .ci { color:#e8f5ee; font-size:15px; }
+  .cur { display:inline-block; width:9px; height:17px; background:#00dc82; margin-right:2px; vertical-align:middle; animation:bl 1s infinite; }
 
-  .table-out { background: rgba(255,255,255,0.02); border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
-  .th { display: grid; grid-template-columns: 85px 95px 62px 1fr; padding: 9px 16px; font-size: 11px; color: rgba(0,220,130,0.32); letter-spacing: 2px; background: rgba(0,220,130,0.03); border-bottom: 1px solid rgba(0,220,130,0.06); }
-  .tr { display: grid; grid-template-columns: 85px 95px 62px 1fr; padding: 12px 16px; font-size: 14px; border-bottom: 1px solid rgba(0,220,130,0.04); }
-  .tr:last-child { border-bottom: none; }
-  .f { color: #e0f5eb; font-weight: 500; }
-  .dep { color: #79c0ff; }
-  .ok { color: #00dc82; }
-  .cls { color: #6a8a76; font-size: 13px; }
-  .av { color: #00dc82; font-weight: 600; }
-  .no { color: #ff6b6b; }
+  .table-out { background:rgba(255,255,255,0.015); border-radius:10px; overflow:hidden; margin-bottom:13px; }
+  .th { display:grid; grid-template-columns:82px 92px 58px 1fr; padding:9px 15px; font-size:11px; color:rgba(0,220,130,0.3); letter-spacing:2px; background:rgba(0,220,130,0.03); border-bottom:1px solid rgba(0,220,130,0.06); }
+  .tr { display:grid; grid-template-columns:82px 92px 58px 1fr; padding:11px 15px; font-size:14px; border-bottom:1px solid rgba(0,220,130,0.04); }
+  .tr:last-child{border-bottom:none}
+  .f{color:#e0f5eb;font-weight:600} .dep{color:#79c0ff} .ok{color:#00dc82}
+  .cls{color:#5a7a66;font-size:13px} .av{color:#00dc82;font-weight:700} .no{color:#ff6b6b}
 
-  .res { display: flex; align-items: center; gap: 10px; background: rgba(0,220,130,0.07); border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #00dc82; direction: rtl; font-family: 'Vazirmatn', sans-serif; }
+  .res { display:flex; align-items:center; gap:10px; background:rgba(0,220,130,0.07); border-radius:9px; padding:11px 15px; font-size:14px; color:#00dc82; direction:rtl; font-family:'Vazirmatn',sans-serif; }
 
-  /* STATS */
-  .feats { position: relative; z-index: 10; margin: 46px 50px 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
-  .feat { background: rgba(0,220,130,0.03); border: 1px solid rgba(0,220,130,0.1); border-radius: 16px; padding: 24px 16px; text-align: center; }
-  .fval { font-size: 38px; font-weight: 900; color: #00dc82; letter-spacing: -2px; line-height: 1; margin-bottom: 8px; direction: ltr; }
-  .fkey { font-size: 14px; font-weight: 400; color: rgba(0,220,130,0.4); }
-
-  /* الهام گرفته */
-  .tribute {
+  /* ─── STATS ─── */
+  .feats {
     position: relative; z-index: 10;
-    margin: 44px 50px 0;
-    padding: 28px 32px;
-    background: rgba(0,220,130,0.04);
-    border: 1px solid rgba(0,220,130,0.12);
-    border-radius: 18px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  .tribute-icon {
-    font-size: 36px;
+    margin: 40px 48px 0;
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 14px;
     flex-shrink: 0;
   }
-  .tribute-text {
-    font-size: 17px;
-    font-weight: 300;
-    color: rgba(180,220,200,0.55);
-    line-height: 1.7;
+  .feat {
+    background: rgba(0,220,130,0.04);
+    border: 1px solid rgba(0,220,130,0.12);
+    border-radius: 16px; padding: 26px 12px; text-align: center;
   }
-  .tribute-text b {
-    color: #00dc82;
-    font-weight: 700;
-  }
+  .fval { font-size: 42px; font-weight: 900; color: #00dc82; line-height: 1; margin-bottom: 6px; direction: ltr; }
+  .fkey { font-size: 15px; font-weight: 500; color: rgba(0,220,130,0.45); }
 
-  /* CTA - آدرس سایت خیلی برجسته */
-  .cta {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    z-index: 10;
-    padding: 0 50px 72px;
+  /* ─── TRIBUTE ─── */
+  .tribute {
+    position: relative; z-index: 10;
+    margin: 36px 48px 0;
+    padding: 28px 30px;
+    background: rgba(0,220,130,0.05);
+    border: 1px solid rgba(0,220,130,0.15);
+    border-radius: 18px;
+    display: flex; align-items: center; gap: 18px;
+    flex-shrink: 0;
   }
+  .trib-icon { font-size: 38px; flex-shrink: 0; }
+  .trib-body {}
+  .trib-line1 { font-size: 16px; font-weight: 400; color: rgba(180,220,200,0.5); margin-bottom: 6px; }
+  .trib-name { font-size: 26px; font-weight: 900; color: #00dc82; margin-bottom: 4px; }
+  .trib-line2 { font-size: 15px; font-weight: 300; color: rgba(180,220,200,0.4); }
 
-  .sep { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,220,130,0.3), transparent); margin-bottom: 44px; }
+  /* ─── CTA URL ─── */
+  .cta-wrap {
+    position: relative; z-index: 10;
+    margin: 36px 48px 0;
+    flex-shrink: 0;
+  }
 
   .url-block {
-    background: linear-gradient(135deg, #00dc82 0%, #00b568 100%);
-    border-radius: 28px;
-    padding: 36px 52px;
+    background: linear-gradient(135deg, #00dc82, #009e5c);
+    border-radius: 26px;
+    padding: 42px 48px;
     text-align: center;
-    box-shadow: 0 20px 60px rgba(0,220,130,0.35), 0 0 0 1px rgba(0,220,130,0.5);
-    position: relative;
-    overflow: hidden;
+    box-shadow:
+      0 0 0 2px rgba(0,220,130,0.4),
+      0 24px 60px rgba(0,220,130,0.4),
+      0 0 100px rgba(0,220,130,0.15);
+    position: relative; overflow: hidden;
   }
 
   .url-block::before {
     content: '';
-    position: absolute;
-    top: -40px; left: 50%;
-    transform: translateX(-50%);
-    width: 300px; height: 100px;
-    background: rgba(255,255,255,0.12);
-    border-radius: 50%;
-    filter: blur(20px);
+    position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+    width: 500px; height: 150px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%; filter: blur(30px);
   }
 
-  .url-label {
-    font-size: 15px;
-    font-weight: 500;
-    color: rgba(6,10,8,0.6);
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    direction: ltr;
+  .url-hint {
+    font-size: 16px; font-weight: 500;
+    color: rgba(3,20,10,0.6);
+    letter-spacing: 1px;
+    margin-bottom: 14px;
   }
 
   .url-main {
-    font-size: 64px;
-    font-weight: 900;
-    color: #060a08;
-    direction: ltr;
-    letter-spacing: -3px;
-    line-height: 1;
+    font-size: 76px; font-weight: 900;
+    color: #03140a;
+    direction: ltr; letter-spacing: -3px; line-height: 1;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.15);
   }
 
   .url-caption {
-    margin-top: 12px;
-    font-size: 16px;
-    font-weight: 400;
-    color: rgba(6,10,8,0.55);
+    margin-top: 14px;
+    font-size: 17px; font-weight: 500;
+    color: rgba(3,20,10,0.55);
+    letter-spacing: 0.5px;
   }
+
+  /* فضای انعطافی */
+  .spacer { flex: 1; }
+
+  /* خط پایین */
+  .bottom-line {
+    position: relative; z-index: 10;
+    margin: 0 48px 58px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; flex-shrink: 0;
+  }
+  .bl-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(0,220,130,0.3); }
+  .bl-text { font-size: 13px; font-weight: 400; color: rgba(0,220,130,0.3); letter-spacing: 1px; }
+
 </style>
 </head>
 <body>
@@ -225,6 +236,7 @@
   <div class="glow1"></div>
   <div class="glow2"></div>
 
+  <!-- TOP -->
   <div class="topbar">
     <div class="logo">
       <div class="logo-box">NR</div>
@@ -233,18 +245,20 @@
     <div class="pill">v 2.0</div>
   </div>
 
+  <!-- HERO -->
   <div class="hero">
-    <div class="pre-title">شبیه‌ساز آموزش تعاملی رزرواسیون</div>
+    <div class="eyebrow">شبیه‌ساز آموزش تعاملی رزرواسیون</div>
     <div class="main-title">
-      تایپ کن،<br>
+      تایپ کن،
       <span class="green">یاد بگیر.</span>
     </div>
     <div class="subtitle">
-      آموزش نرم‌افزار نیرا با ترمینال واقعی<br>
+      آموزش <b>نرم‌افزار نیرا</b> با <b>ترمینال واقعی</b><br>
       دستور بزن — نتیجه ببین — مسلط شو
     </div>
   </div>
 
+  <!-- TERMINAL -->
   <div class="terminal-wrap">
     <div class="terminal">
       <div class="tbar">
@@ -270,30 +284,41 @@
     </div>
   </div>
 
+  <!-- STATS -->
   <div class="feats">
     <div class="feat"><div class="fval">۲</div><div class="fkey">دوره تخصصی</div></div>
     <div class="feat"><div class="fval">۱۰+</div><div class="fkey">درس رایگان</div></div>
     <div class="feat"><div class="fval">24/7</div><div class="fkey">آنلاین</div></div>
   </div>
 
-  <!-- جمله الهام -->
+  <!-- TRIBUTE -->
   <div class="tribute">
-    <div class="tribute-icon">🌿</div>
-    <div class="tribute-text">
-      الهام گرفته از آموزش‌های رایگان و بی‌دریغ<br>
-      <b>امیرحسین وثوق</b><br>
-      پیشگام آموزش آزاد نیرا
+    <div class="trib-icon">🌿</div>
+    <div class="trib-body">
+      <div class="trib-line1">الهام گرفته از آموزش‌های رایگان و بی‌دریغ</div>
+      <div class="trib-name">امیرحسین وثوق</div>
+      <div class="trib-line2">پیشگام آموزش آزاد نیرا در ایران</div>
     </div>
   </div>
 
-  <!-- آدرس سایت برجسته -->
-  <div class="cta">
-    <div class="sep"></div>
+  <div class="spacer"></div>
+
+  <!-- URL برجسته -->
+  <div class="cta-wrap">
     <div class="url-block">
-      <div class="url-label">همین الان شروع کن · Start Free</div>
+      <div class="url-hint">همین الان شروع کن — رایگان</div>
       <div class="url-main">Nirahelp.ir</div>
-      <div class="url-caption">ترمینال را باز کن · یاد بگیر · پرواز کن</div>
+      <div class="url-caption">ترمینال را باز کن · یاد بگیر · پرواز کن ✈️</div>
     </div>
+  </div>
+
+  <div class="spacer" style="max-height:36px"></div>
+
+  <!-- BOTTOM -->
+  <div class="bottom-line">
+    <div class="bl-dot"></div>
+    <div class="bl-text">niratraining.github.io/Nira</div>
+    <div class="bl-dot"></div>
   </div>
 
 </div>
