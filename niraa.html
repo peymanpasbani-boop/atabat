@@ -2,7 +2,7 @@
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
-<title>NIRA Banner v4</title>
+<title>NIRA Banner</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,476 +28,305 @@
   .bg-gradient {
     position: absolute; inset: 0;
     background:
-      radial-gradient(ellipse 100% 40% at 50% 0%, rgba(0,180,216,0.11) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 35% at 15% 62%, rgba(0,180,216,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 90% 55% at 50% -5%, rgba(0,180,216,0.13) 0%, transparent 65%),
+      radial-gradient(ellipse 60% 40% at 100% 100%, rgba(0,119,182,0.09) 0%, transparent 60%),
       #0d1117;
   }
   .bg-grid {
     position: absolute; inset: 0;
     background-image:
-      linear-gradient(rgba(0,180,216,0.028) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,180,216,0.028) 1px, transparent 1px);
-    background-size: 30px 30px;
+      linear-gradient(rgba(0,180,216,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,180,216,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
   }
-  .glow-line {
+  .glow-top {
     position: absolute; top: 0; left: 0; right: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, #00b4d8 50%, transparent);
-    opacity: 0.5;
+    background: linear-gradient(90deg, transparent 0%, #00b4d8 50%, transparent 100%);
+    opacity: 0.6;
   }
 
-  /* ── LAYOUT ── */
+  /* ── CONTENT ── */
   .content {
     position: relative; z-index: 2;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 44px 24px 32px;
-    gap: 0;
+    display: flex; flex-direction: column;
+    padding: 48px 28px 36px;
   }
 
-  /* ── TOP BAR ── */
-  .top-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 22px;
-  }
-  .brand {
-    display: flex; align-items: center; gap: 9px;
-  }
-  .brand-badge {
-    width: 34px; height: 34px;
-    background: rgba(0,180,216,0.1);
-    border: 1px solid rgba(0,180,216,0.3);
-    border-radius: 9px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 900; color: #00b4d8; letter-spacing: 0.5px;
-  }
-  .brand-name {
-    font-size: 15px; font-weight: 800;
-    color: #fff; letter-spacing: 3px; text-transform: uppercase;
-  }
-  .brand-sub {
-    font-size: 9px; font-weight: 500;
-    color: rgba(0,180,216,0.5); letter-spacing: 1.5px; text-transform: uppercase;
-    display: block; margin-top: 1px;
-  }
-  .live-badge {
-    display: flex; align-items: center; gap: 5px;
-    background: rgba(63,185,80,0.1);
-    border: 1px solid rgba(63,185,80,0.25);
+  /* Status pill */
+  .status-pill {
+    align-self: flex-start;
+    display: flex; align-items: center; gap: 7px;
+    background: rgba(0,180,216,0.08);
+    border: 1px solid rgba(0,180,216,0.2);
     border-radius: 100px;
-    padding: 5px 11px;
+    padding: 6px 14px 6px 10px;
+    margin-bottom: 28px;
   }
-  .live-dot {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: #3fb950;
-    box-shadow: 0 0 5px #3fb950;
-    animation: p 1.8s infinite;
+  .status-dot {
+    width: 6px; height: 6px;
+    background: #00b4d8; border-radius: 50%;
+    box-shadow: 0 0 6px #00b4d8;
+    animation: pulse 2s infinite;
   }
-  @keyframes p { 0%,100%{opacity:1} 50%{opacity:.3} }
-  .live-text {
-    font-size: 9px; font-weight: 700;
-    color: #3fb950; letter-spacing: 1.5px; text-transform: uppercase;
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+  .status-text {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 1.8px; text-transform: uppercase; color: #00b4d8;
   }
 
   /* ── HEADLINE ── */
-  .headline {
-    margin-bottom: 6px;
-    direction: rtl;
+  .headline { margin-bottom: 10px; }
+  .hl-top {
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(255,255,255,0.28);
+    margin-bottom: 7px; display: block;
   }
-  .hl-eyebrow {
-    font-size: 10px; font-weight: 600;
-    letter-spacing: 2.5px; text-transform: uppercase;
-    color: rgba(0,180,216,0.55);
-    display: block; margin-bottom: 7px;
-    direction: ltr;
-  }
-  .hl-big {
-    font-size: 40px; font-weight: 900;
-    line-height: 1.0; letter-spacing: -1.5px;
+  .hl-main {
+    font-size: 56px; font-weight: 900;
+    line-height: 0.95; letter-spacing: -2.5px;
     color: #fff; display: block;
   }
-  .hl-big .accent { color: #00b4d8; }
-  .hl-desc {
-    font-size: 12.5px; font-weight: 400;
-    color: rgba(255,255,255,0.38);
-    line-height: 1.55;
-    margin-top: 8px;
-    display: block;
-    font-family: 'Tahoma', sans-serif;
+  .hl-accent {
+    font-size: 56px; font-weight: 900;
+    line-height: 0.95; letter-spacing: -2.5px;
+    color: #00b4d8; display: block;
   }
-  .hl-desc strong {
-    color: rgba(0,180,216,0.75);
-    font-weight: 600;
+  .hl-light {
+    font-size: 56px; font-weight: 300;
+    line-height: 0.95; letter-spacing: -1px;
+    color: rgba(255,255,255,0.22); display: block; margin-top: 4px;
   }
 
-  /* ── LESSON CARD — the hero ── */
-  .lesson-card {
-    margin-top: 16px;
+  /* Sub */
+  .sub {
+    font-size: 13.5px; font-weight: 400;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6; margin-bottom: 22px;
+    direction: rtl; font-family: 'Tahoma', sans-serif;
+  }
+  .sub span { color: rgba(0,180,216,0.75); font-weight: 600; }
+
+  /* ── TERMINAL CARD ── */
+  .terminal-card {
     background: #161b22;
-    border: 1px solid rgba(0,180,216,0.18);
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow:
-      0 0 0 1px rgba(0,180,216,0.06),
-      0 8px 32px rgba(0,0,0,0.5),
-      0 0 40px rgba(0,180,216,0.05);
-    flex-shrink: 0;
+    border: 1px solid rgba(0,180,216,0.16);
+    border-radius: 18px; overflow: hidden;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 28px rgba(0,0,0,0.45), 0 0 0 0.5px rgba(0,180,216,0.07);
   }
-
-  /* Lesson header */
-  .lesson-header {
-    background: #1c2230;
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .t-bar {
+    background: #1e2430;
+    padding: 11px 14px;
+    display: flex; align-items: center; gap: 7px;
     border-bottom: 1px solid rgba(255,255,255,0.05);
   }
-  .lesson-num {
-    width: 22px; height: 22px;
-    background: rgba(0,180,216,0.15);
-    border: 1px solid rgba(0,180,216,0.3);
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; font-weight: 800; color: #00b4d8;
-    flex-shrink: 0;
-  }
-  .lesson-meta { flex: 1; }
-  .lesson-title {
-    font-size: 11px; font-weight: 700;
-    color: rgba(255,255,255,0.85);
-    letter-spacing: 0.2px;
-  }
-  .lesson-sub {
-    font-size: 9px; font-weight: 400;
-    color: rgba(255,255,255,0.28);
-    letter-spacing: 1px; text-transform: uppercase;
-    margin-top: 1px;
-  }
-  .lesson-step {
+  .td { width: 9px; height: 9px; border-radius: 50%; }
+  .td.r { background: #ff5f57; }
+  .td.y { background: #febc2e; }
+  .td.g { background: #28c840; }
+  .t-label {
+    margin-right: auto;
     font-size: 9px; font-weight: 600;
-    color: rgba(0,180,216,0.6);
-    background: rgba(0,180,216,0.08);
-    padding: 3px 8px; border-radius: 100px;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
   }
+  .t-live { font-size: 9px; font-weight: 700; color: #28c840; letter-spacing: 1px; }
 
-  /* Instruction bar */
-  .instruction {
-    background: rgba(0,180,216,0.06);
+  /* Interactive badge inside terminal */
+  .t-interactive-bar {
+    background: rgba(0,180,216,0.07);
     border-bottom: 1px solid rgba(0,180,216,0.1);
-    padding: 9px 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    padding: 7px 14px;
+    display: flex; align-items: center; gap: 8px;
     direction: rtl;
   }
-  .instr-icon {
-    width: 16px; height: 16px; flex-shrink: 0;
-  }
-  .instr-icon svg {
+  .ti-icon { width: 13px; height: 13px; flex-shrink: 0; }
+  .ti-icon svg {
     width: 100%; height: 100%;
     stroke: #00b4d8; fill: none;
-    stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
   }
-  .instr-text {
-    font-size: 11px; font-weight: 500;
-    color: rgba(255,255,255,0.65);
+  .ti-text {
+    font-size: 10px; font-weight: 600;
+    color: #00b4d8; letter-spacing: 0.5px;
     font-family: 'Tahoma', sans-serif;
-    line-height: 1.4;
   }
-  .instr-text em {
-    color: #00b4d8; font-style: normal; font-weight: 700;
-    font-family: 'SF Mono','Courier New',monospace;
-    font-size: 10.5px;
+  .ti-dot { width: 3px; height: 3px; background: rgba(0,180,216,0.35); border-radius: 50%; }
+  .ti-sub {
+    font-size: 9.5px; font-weight: 400;
+    color: rgba(255,255,255,0.3);
+    font-family: 'Tahoma', sans-serif;
   }
 
-  /* Terminal body */
   .t-body {
     padding: 13px 16px 15px;
-    font-family: 'SF Mono','Fira Code','Courier New',monospace;
-    font-size: 11.5px;
-    line-height: 1.9;
-    background: #0d1117;
+    font-family: 'SF Mono','Fira Code','Courier New', monospace;
+    font-size: 11px; line-height: 1.9;
   }
-  .t-row { display: flex; align-items: baseline; gap: 2px; }
-  .t-prompt { color: rgba(0,180,216,0.4); user-select: none; }
-  .t-output { color: rgba(255,255,255,0.18); font-size: 10.5px; padding-right: 6px; }
-  .t-cmd-blue { color: #79c0ff; }
-  .t-cmd-white { color: rgba(255,255,255,0.9); }
-  .t-ok { color: #3fb950; }
-  .t-warn { color: #ffa657; }
-  .t-highlight {
-    /* The command being typed — highlighted */
-    background: rgba(0,180,216,0.12);
-    border: 1px solid rgba(0,180,216,0.2);
+  .t-dim   { color: rgba(255,255,255,0.18); }
+  .t-cmd   { color: #79c0ff; }
+  .t-ok    { color: #3fb950; }
+  .t-val   { color: #ffa657; }
+  .t-caret { color: rgba(255,255,255,0.2); }
+
+  /* Active typing line */
+  .t-active-row {
+    display: flex; align-items: center;
+    background: rgba(0,180,216,0.05);
     border-radius: 5px;
-    padding: 0 5px;
-    color: #00e5ff;
-    font-weight: 600;
+    padding: 1px 5px;
+    margin: 1px -5px;
   }
+  .t-active-cmd { color: #00e5ff; font-weight: 600; }
 
-  /* Typing animation row */
-  .t-typing {
-    display: flex; align-items: center; gap: 0;
+  .blink {
+    display: inline-block; width: 7px; height: 12px;
+    background: #00b4d8; vertical-align: middle;
+    border-radius: 1px; animation: bl 1s infinite;
   }
-  .typed-text {
-    color: #00e5ff;
-    font-weight: 600;
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 2px solid #00b4d8;
-    animation: type 3s steps(17, end) infinite, blink-cursor 0.75s step-end infinite;
-    width: 0;
-    animation-fill-mode: forwards;
-  }
-  @keyframes type {
-    0% { width: 0; }
-    60% { width: 136px; }
-    80% { width: 136px; }
-    100% { width: 136px; }
-  }
-  @keyframes blink-cursor {
-    0%,100% { border-color: #00b4d8; }
-    50% { border-color: transparent; }
-  }
-
-  /* Tooltip hint */
-  .tooltip-hint {
-    display: flex; align-items: flex-start; gap: 7px;
-    background: rgba(255,166,87,0.07);
-    border: 1px solid rgba(255,166,87,0.18);
-    border-radius: 10px;
-    padding: 10px 12px;
-    margin: 10px 16px 14px;
-    direction: rtl;
-  }
-  .th-icon { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; }
-  .th-icon svg {
-    width: 100%; height: 100%;
-    stroke: #ffa657; fill: none;
-    stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
-  }
-  .th-text {
-    font-size: 10.5px; font-weight: 400;
-    color: rgba(255,166,87,0.8);
-    line-height: 1.5;
-    font-family: 'Tahoma', sans-serif;
-  }
-  .th-text strong {
-    color: #ffa657; font-weight: 700;
-    font-family: 'SF Mono','Courier New',monospace;
-    font-size: 10px;
-  }
-
-  /* Progress row */
-  .progress-row {
-    display: flex; align-items: center; gap: 10px;
-    padding: 10px 16px 14px;
-    border-top: 1px solid rgba(255,255,255,0.04);
-    background: #161b22;
-  }
-  .prog-label {
-    font-size: 9px; font-weight: 600;
-    color: rgba(255,255,255,0.2);
-    letter-spacing: 1.5px; text-transform: uppercase;
-    white-space: nowrap;
-  }
-  .prog-bar {
-    flex: 1; height: 3px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 100px;
-    overflow: hidden;
-  }
-  .prog-fill {
-    width: 33%;
-    height: 100%;
-    background: linear-gradient(90deg, #00b4d8, #0077b6);
-    border-radius: 100px;
-  }
-  .prog-count {
-    font-size: 9px; font-weight: 700;
-    color: rgba(0,180,216,0.6);
-    white-space: nowrap;
-  }
+  @keyframes bl { 0%,49%{opacity:1} 50%,100%{opacity:0} }
 
   /* ── CHIPS ── */
-  .chips {
-    display: flex; gap: 8px;
-    margin-top: 14px;
-    flex-shrink: 0;
-  }
+  .chips { display: flex; gap: 10px; margin-bottom: 18px; }
   .chip {
     flex: 1;
     background: #161b22;
-    border: 1px solid rgba(0,180,216,0.1);
-    border-radius: 12px;
-    padding: 11px 10px;
-    display: flex; flex-direction: column; gap: 6px;
+    border: 1px solid rgba(0,180,216,0.12);
+    border-radius: 14px;
+    padding: 13px 11px;
+    display: flex; flex-direction: column; gap: 7px;
   }
-  .chip-icon { width: 20px; height: 20px; }
+  .chip-icon { width: 24px; height: 24px; }
   .chip-icon svg {
     width: 100%; height: 100%;
     stroke: #00b4d8; fill: none;
     stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
   }
-  .chip-title {
-    font-size: 11px; font-weight: 700; color: #fff; letter-spacing: -0.2px;
-  }
+  .chip-title { font-size: 11.5px; font-weight: 700; color: #fff; letter-spacing: -0.2px; }
   .chip-desc {
     font-size: 9.5px; color: rgba(255,255,255,0.3);
-    font-family: 'Tahoma', sans-serif; direction: rtl; line-height: 1.35;
+    direction: rtl; font-family: 'Tahoma', sans-serif; line-height: 1.4;
   }
 
-  /* ── BOTTOM CTA ── */
-  .bottom {
-    margin-top: auto;
-    padding-top: 14px;
+  /* ── QUOTE ── */
+  .quote {
+    background: rgba(0,180,216,0.05);
+    border-right: 2px solid #00b4d8;
+    border-radius: 0 10px 10px 0;
+    padding: 12px 15px; margin-bottom: 20px;
+    direction: rtl;
   }
+  .quote-text {
+    font-size: 12px; font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.65; font-family: 'Tahoma', sans-serif;
+  }
+  .quote-text em { color: #00b4d8; font-style: normal; font-weight: 700; }
+
+  /* ── CTA ── */
+  .bottom { margin-top: auto; }
   .cta {
     width: 100%;
     background: #00b4d8;
-    border-radius: 14px;
-    padding: 15px 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 14px;
-    box-shadow: 0 6px 24px rgba(0,180,216,0.28);
+    border-radius: 14px; padding: 16px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 15px;
+    box-shadow: 0 8px 28px rgba(0,180,216,0.26);
   }
-  .cta-left { display: flex; flex-direction: column; gap: 2px; direction: rtl; }
+  .cta-left { display: flex; flex-direction: column; gap: 2px; }
   .cta-title { font-size: 13.5px; font-weight: 800; color: #0d1117; letter-spacing: -0.3px; }
-  .cta-sub { font-size: 10px; font-weight: 500; color: rgba(13,17,23,0.55); font-family: 'Tahoma', sans-serif; }
-  .cta-arr {
-    width: 30px; height: 30px;
+  .cta-sub {
+    font-size: 10px; font-weight: 500;
+    color: rgba(13,17,23,0.55);
+    direction: rtl; font-family: 'Tahoma', sans-serif;
+  }
+  .cta-arrow {
+    width: 32px; height: 32px;
     background: rgba(13,17,23,0.12); border-radius: 50%;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
-  .cta-arr svg {
-    width: 14px; height: 14px;
+  .cta-arrow svg {
+    width: 15px; height: 15px;
     stroke: #0d1117; fill: none;
     stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round;
   }
 
-  .footer {
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .footer-l { display: flex; align-items: center; gap: 7px; }
-  .f-nr {
-    width: 26px; height: 26px;
+  .footer { display: flex; align-items: center; justify-content: space-between; }
+  .footer-logo { display: flex; align-items: center; gap: 8px; }
+  .footer-nr {
+    width: 28px; height: 28px;
     background: rgba(0,180,216,0.1);
-    border: 1px solid rgba(0,180,216,0.22);
-    border-radius: 6px;
+    border: 1px solid rgba(0,180,216,0.25);
+    border-radius: 7px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 9px; font-weight: 900; color: #00b4d8;
+    font-size: 10px; font-weight: 900; color: #00b4d8;
   }
-  .f-name { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 2.5px; text-transform: uppercase; }
-  .f-url { font-size: 10px; font-weight: 500; color: rgba(0,180,216,0.45); }
+  .footer-name { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.55); letter-spacing: 2.5px; text-transform: uppercase; }
+  .footer-url { font-size: 11px; font-weight: 500; color: rgba(0,180,216,0.45); }
 </style>
 </head>
 <body>
 <div class="canvas">
   <div class="bg-gradient"></div>
   <div class="bg-grid"></div>
-  <div class="glow-line"></div>
+  <div class="glow-top"></div>
 
   <div class="content">
 
-    <!-- Top bar -->
-    <div class="top-bar">
-      <div class="brand">
-        <div class="brand-badge">NR</div>
-        <div>
-          <span class="brand-name">NIRA</span>
-          <span class="brand-sub">Training Platform</span>
-        </div>
-      </div>
-      <div class="live-badge">
-        <div class="live-dot"></div>
-        <span class="live-text">Simulator On</span>
-      </div>
+    <!-- Status -->
+    <div class="status-pill">
+      <div class="status-dot"></div>
+      <span class="status-text">Coming Soon</span>
     </div>
 
     <!-- Headline -->
     <div class="headline">
-      <span class="hl-eyebrow">Interactive Learning · نسخه ۲.۰</span>
-      <span class="hl-big">یاد بگیر،<br><span class="accent">تایپ کن.</span></span>
-      <span class="hl-desc">
-        آموزش تعاملی <strong>رزرواسیون و کنترل نیرا</strong> —<br>
-        مستقیم در شبیه‌ساز ترمینال واقعی
-      </span>
+      <span class="hl-top">Nira Training Platform</span>
+      <span class="hl-main">Master</span>
+      <span class="hl-accent">NIRA.</span>
+      <span class="hl-light">From Zero.</span>
     </div>
 
-    <!-- LESSON CARD — hero element -->
-    <div class="lesson-card">
+    <!-- Sub -->
+    <p class="sub">
+      آموزش حرفه‌ای <span>رزرواسیون</span> و <span>کنترل نیرا</span> —<br>مستقیم در ترمینال واقعی
+    </p>
 
-      <!-- Header -->
-      <div class="lesson-header">
-        <div class="lesson-num">۰۲</div>
-        <div class="lesson-meta">
-          <div class="lesson-title">ظرفیت پرواز — AV</div>
-          <div class="lesson-sub">Availability Check · Reservation</div>
-        </div>
-        <div class="lesson-step">مرحله ۲ از ۵</div>
+    <!-- Terminal -->
+    <div class="terminal-card">
+      <div class="t-bar">
+        <div class="td r"></div>
+        <div class="td y"></div>
+        <div class="td g"></div>
+        <span class="t-label">NRS Terminal · Educational</span>
+        <span class="t-live">● LIVE</span>
       </div>
 
-      <!-- Instruction -->
-      <div class="instruction">
-        <div class="instr-icon">
+      <!-- آموزش تعاملی badge -->
+      <div class="t-interactive-bar">
+        <div class="ti-icon">
           <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
+            <polygon points="5 3 19 12 5 21 5 3"/>
           </svg>
         </div>
-        <div class="instr-text">
-          دستور <em>AV THRLCD10JAN</em> را تایپ کنید تا ظرفیت پرواز نمایش داده شود
-        </div>
+        <span class="ti-text">آموزش تعاملی</span>
+        <div class="ti-dot"></div>
+        <span class="ti-sub">دستور را تایپ کنید، نتیجه را ببینید</span>
       </div>
 
-      <!-- Terminal -->
       <div class="t-body">
-        <div class="t-row">
-          <span class="t-output">A* THR001 &nbsp; 09:22 YY THR001</span>
+        <div><span class="t-dim">A* THR001 &nbsp; 09:22 YY THR001</span></div>
+        <div><span class="t-caret">&gt; </span><span class="t-cmd">AY THRLCD10JAN</span></div>
+        <div><span class="t-dim">1 IR 101 F4 J9 Y9 &nbsp; THR LCD 0630 0820</span></div>
+        <div class="t-active-row">
+          <span class="t-caret">&gt;&nbsp;</span>
+          <span class="t-active-cmd">SK 2 IR101/10JAN</span>
         </div>
-        <div class="t-row">
-          <span class="t-prompt">&gt; </span>
-          <span class="t-cmd-blue">AY THRLCD10JAN</span>
-        </div>
-        <div class="t-row">
-          <span class="t-output">1 IR 101 F4 J9 C4 Y9 B9 THR LCD 0630 0820</span>
-        </div>
-        <div class="t-row">
-          <span class="t-output">2 IR 275 F2 J4 C2 Y6 B3 THR LCD 1445 1630</span>
-        </div>
-        <div class="t-row" style="margin-top:4px;">
-          <span class="t-prompt">&gt; </span>
-          <span class="typed-text">AV THRLCD10JAN</span>
-        </div>
+        <div><span class="t-ok">✓ RLR — BOOKING CONFIRMED / OK</span></div>
+        <div style="margin-top:3px;"><span class="t-caret">&gt; </span><span class="blink"></span></div>
       </div>
-
-      <!-- Tooltip -->
-      <div class="tooltip-hint">
-        <div class="th-icon">
-          <svg viewBox="0 0 24 24">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-          </svg>
-        </div>
-        <div class="th-text">
-          <strong>AV</strong> = ظرفیت موجود · <strong>THR</strong> = تهران · <strong>LCD</strong> = لارناکا ·<strong> 10JAN</strong> = تاریخ پرواز
-        </div>
-      </div>
-
-      <!-- Progress -->
-      <div class="progress-row">
-        <span class="prog-label">پیشرفت درس</span>
-        <div class="prog-bar"><div class="prog-fill"></div></div>
-        <span class="prog-count">۴ از ۱۲ درس</span>
-      </div>
-
     </div>
 
     <!-- Chips -->
@@ -533,14 +362,22 @@
       </div>
     </div>
 
+    <!-- Quote -->
+    <div class="quote">
+      <p class="quote-text">
+        «دانستن نباید انحصاری باشد» —<br>
+        <em>همه چیز را می‌آموزی، مستقیم در ترمینال.</em>
+      </p>
+    </div>
+
     <!-- Bottom -->
     <div class="bottom">
       <div class="cta">
         <div class="cta-left">
           <span class="cta-title">به‌زودی در دسترس</span>
-          <span class="cta-sub">برای علاقه‌مندان نیرا · nirasoft.ir</span>
+          <span class="cta-sub">برای علاقه‌مندان نیرا</span>
         </div>
-        <div class="cta-arr">
+        <div class="cta-arrow">
           <svg viewBox="0 0 24 24">
             <line x1="5" y1="12" x2="19" y2="12"/>
             <polyline points="12 5 19 12 12 19"/>
@@ -548,11 +385,11 @@
         </div>
       </div>
       <div class="footer">
-        <div class="footer-l">
-          <div class="f-nr">NR</div>
-          <span class="f-name">NIRA</span>
+        <div class="footer-logo">
+          <div class="footer-nr">NR</div>
+          <span class="footer-name">NIRA</span>
         </div>
-        <span class="f-url">nirasoft.ir</span>
+        <span class="footer-url">nirasoft.ir</span>
       </div>
     </div>
 
