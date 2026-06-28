@@ -1,399 +1,301 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>NIRA Banner</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #111; font-family: 'Vazirmatn', sans-serif; display: flex; justify-content: center; }
 
-  body {
-    background: #111;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+  .story {
+    width: 1080px; height: 1920px;
+    background: #060a08;
+    position: relative; overflow: hidden; direction: rtl;
   }
 
-  .canvas {
-    width: 393px;
-    height: 852px;
-    position: relative;
-    overflow: hidden;
-    background: #0d1117;
-    font-family: 'Inter', -apple-system, sans-serif;
-  }
-
-  /* ── BG ── */
-  .bg-gradient {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 90% 55% at 50% -5%, rgba(0,180,216,0.13) 0%, transparent 65%),
-      radial-gradient(ellipse 60% 40% at 100% 100%, rgba(0,119,182,0.09) 0%, transparent 60%),
-      #0d1117;
-  }
-  .bg-grid {
+  .grid {
     position: absolute; inset: 0;
     background-image:
-      linear-gradient(rgba(0,180,216,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,180,216,0.03) 1px, transparent 1px);
-    background-size: 32px 32px;
-  }
-  .glow-top {
-    position: absolute; top: 0; left: 0; right: 0; height: 1px;
-    background: linear-gradient(90deg, transparent 0%, #00b4d8 50%, transparent 100%);
-    opacity: 0.6;
+      linear-gradient(rgba(0,255,140,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,140,0.03) 1px, transparent 1px);
+    background-size: 54px 54px;
   }
 
-  /* ── CONTENT ── */
-  .content {
-    position: relative; z-index: 2;
-    height: 100%;
-    display: flex; flex-direction: column;
-    padding: 48px 28px 36px;
+  .glow1 {
+    position: absolute; top: -100px; right: -200px;
+    width: 1000px; height: 800px;
+    background: radial-gradient(ellipse, rgba(0,220,130,0.09) 0%, transparent 65%);
+  }
+  .glow2 {
+    position: absolute; bottom: 50px; left: -200px;
+    width: 800px; height: 600px;
+    background: radial-gradient(ellipse, rgba(0,100,255,0.06) 0%, transparent 65%);
   }
 
-  /* Status pill */
-  .status-pill {
-    align-self: flex-start;
-    display: flex; align-items: center; gap: 7px;
-    background: rgba(0,180,216,0.08);
-    border: 1px solid rgba(0,180,216,0.2);
-    border-radius: 100px;
-    padding: 6px 14px 6px 10px;
-    margin-bottom: 28px;
-  }
-  .status-dot {
-    width: 6px; height: 6px;
-    background: #00b4d8; border-radius: 50%;
-    box-shadow: 0 0 6px #00b4d8;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-  .status-text {
-    font-size: 10px; font-weight: 600;
-    letter-spacing: 1.8px; text-transform: uppercase; color: #00b4d8;
-  }
-
-  /* ── HEADLINE ── */
-  .headline { margin-bottom: 10px; }
-  .hl-top {
-    font-size: 12px; font-weight: 500;
-    letter-spacing: 3px; text-transform: uppercase;
-    color: rgba(255,255,255,0.28);
-    margin-bottom: 7px; display: block;
-  }
-  .hl-main {
-    font-size: 56px; font-weight: 900;
-    line-height: 0.95; letter-spacing: -2.5px;
-    color: #fff; display: block;
-  }
-  .hl-accent {
-    font-size: 56px; font-weight: 900;
-    line-height: 0.95; letter-spacing: -2.5px;
-    color: #00b4d8; display: block;
-  }
-  .hl-light {
-    font-size: 56px; font-weight: 300;
-    line-height: 0.95; letter-spacing: -1px;
-    color: rgba(255,255,255,0.22); display: block; margin-top: 4px;
-  }
-
-  /* Sub */
-  .sub {
-    font-size: 13.5px; font-weight: 400;
-    color: rgba(255,255,255,0.4);
-    line-height: 1.6; margin-bottom: 22px;
-    direction: rtl; font-family: 'Tahoma', sans-serif;
-  }
-  .sub span { color: rgba(0,180,216,0.75); font-weight: 600; }
-
-  /* ── TERMINAL CARD ── */
-  .terminal-card {
-    background: #161b22;
-    border: 1px solid rgba(0,180,216,0.16);
-    border-radius: 18px; overflow: hidden;
-    margin-bottom: 14px;
-    box-shadow: 0 4px 28px rgba(0,0,0,0.45), 0 0 0 0.5px rgba(0,180,216,0.07);
-  }
-  .t-bar {
-    background: #1e2430;
-    padding: 11px 14px;
-    display: flex; align-items: center; gap: 7px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-  }
-  .td { width: 9px; height: 9px; border-radius: 50%; }
-  .td.r { background: #ff5f57; }
-  .td.y { background: #febc2e; }
-  .td.g { background: #28c840; }
-  .t-label {
-    margin-right: auto;
-    font-size: 9px; font-weight: 600;
-    letter-spacing: 2px; text-transform: uppercase;
-    color: rgba(255,255,255,0.2);
-  }
-  .t-live { font-size: 9px; font-weight: 700; color: #28c840; letter-spacing: 1px; }
-
-  /* Interactive badge inside terminal */
-  .t-interactive-bar {
-    background: rgba(0,180,216,0.07);
-    border-bottom: 1px solid rgba(0,180,216,0.1);
-    padding: 7px 14px;
-    display: flex; align-items: center; gap: 8px;
-    direction: rtl;
-  }
-  .ti-icon { width: 13px; height: 13px; flex-shrink: 0; }
-  .ti-icon svg {
-    width: 100%; height: 100%;
-    stroke: #00b4d8; fill: none;
-    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
-  }
-  .ti-text {
-    font-size: 10px; font-weight: 600;
-    color: #00b4d8; letter-spacing: 0.5px;
-    font-family: 'Tahoma', sans-serif;
-  }
-  .ti-dot { width: 3px; height: 3px; background: rgba(0,180,216,0.35); border-radius: 50%; }
-  .ti-sub {
-    font-size: 9.5px; font-weight: 400;
-    color: rgba(255,255,255,0.3);
-    font-family: 'Tahoma', sans-serif;
-  }
-
-  .t-body {
-    padding: 13px 16px 15px;
-    font-family: 'SF Mono','Fira Code','Courier New', monospace;
-    font-size: 11px; line-height: 1.9;
-  }
-  .t-dim   { color: rgba(255,255,255,0.18); }
-  .t-cmd   { color: #79c0ff; }
-  .t-ok    { color: #3fb950; }
-  .t-val   { color: #ffa657; }
-  .t-caret { color: rgba(255,255,255,0.2); }
-
-  /* Active typing line */
-  .t-active-row {
-    display: flex; align-items: center;
-    background: rgba(0,180,216,0.05);
-    border-radius: 5px;
-    padding: 1px 5px;
-    margin: 1px -5px;
-  }
-  .t-active-cmd { color: #00e5ff; font-weight: 600; }
-
-  .blink {
-    display: inline-block; width: 7px; height: 12px;
-    background: #00b4d8; vertical-align: middle;
-    border-radius: 1px; animation: bl 1s infinite;
-  }
-  @keyframes bl { 0%,49%{opacity:1} 50%,100%{opacity:0} }
-
-  /* ── CHIPS ── */
-  .chips { display: flex; gap: 10px; margin-bottom: 18px; }
-  .chip {
-    flex: 1;
-    background: #161b22;
-    border: 1px solid rgba(0,180,216,0.12);
-    border-radius: 14px;
-    padding: 13px 11px;
-    display: flex; flex-direction: column; gap: 7px;
-  }
-  .chip-icon { width: 24px; height: 24px; }
-  .chip-icon svg {
-    width: 100%; height: 100%;
-    stroke: #00b4d8; fill: none;
-    stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
-  }
-  .chip-title { font-size: 11.5px; font-weight: 700; color: #fff; letter-spacing: -0.2px; }
-  .chip-desc {
-    font-size: 9.5px; color: rgba(255,255,255,0.3);
-    direction: rtl; font-family: 'Tahoma', sans-serif; line-height: 1.4;
-  }
-
-  /* ── QUOTE ── */
-  .quote {
-    background: rgba(0,180,216,0.05);
-    border-right: 2px solid #00b4d8;
-    border-radius: 0 10px 10px 0;
-    padding: 12px 15px; margin-bottom: 20px;
-    direction: rtl;
-  }
-  .quote-text {
-    font-size: 12px; font-weight: 500;
-    color: rgba(255,255,255,0.6);
-    line-height: 1.65; font-family: 'Tahoma', sans-serif;
-  }
-  .quote-text em { color: #00b4d8; font-style: normal; font-weight: 700; }
-
-  /* ── CTA ── */
-  .bottom { margin-top: auto; }
-  .cta {
-    width: 100%;
-    background: #00b4d8;
-    border-radius: 14px; padding: 16px 20px;
+  /* TOP BAR */
+  .topbar {
+    position: relative; z-index: 10;
+    padding: 60px 68px 0;
     display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 15px;
-    box-shadow: 0 8px 28px rgba(0,180,216,0.26);
-  }
-  .cta-left { display: flex; flex-direction: column; gap: 2px; }
-  .cta-title { font-size: 13.5px; font-weight: 800; color: #0d1117; letter-spacing: -0.3px; }
-  .cta-sub {
-    font-size: 10px; font-weight: 500;
-    color: rgba(13,17,23,0.55);
-    direction: rtl; font-family: 'Tahoma', sans-serif;
-  }
-  .cta-arrow {
-    width: 32px; height: 32px;
-    background: rgba(13,17,23,0.12); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  }
-  .cta-arrow svg {
-    width: 15px; height: 15px;
-    stroke: #0d1117; fill: none;
-    stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round;
   }
 
-  .footer { display: flex; align-items: center; justify-content: space-between; }
-  .footer-logo { display: flex; align-items: center; gap: 8px; }
-  .footer-nr {
-    width: 28px; height: 28px;
-    background: rgba(0,180,216,0.1);
-    border: 1px solid rgba(0,180,216,0.25);
-    border-radius: 7px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; font-weight: 900; color: #00b4d8;
+  .logo { display: flex; align-items: center; gap: 16px; }
+  .logo-box {
+    width: 54px; height: 54px; background: #00dc82;
+    border-radius: 14px; display: flex; align-items: center; justify-content: center;
+    font-family: monospace; font-weight: 700; font-size: 19px; color: #060a08;
+    direction: ltr;
   }
-  .footer-name { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.55); letter-spacing: 2.5px; text-transform: uppercase; }
-  .footer-url { font-size: 11px; font-weight: 500; color: rgba(0,180,216,0.45); }
+  .logo-name { font-size: 24px; font-weight: 700; color: #e0f5eb; direction: ltr; }
+  .pill {
+    font-size: 13px; color: #00dc82;
+    border: 1px solid rgba(0,220,130,0.3);
+    border-radius: 100px; padding: 9px 22px;
+    direction: ltr; font-family: monospace;
+  }
+
+  /* HERO */
+  .hero { position: relative; z-index: 10; padding: 62px 68px 0; }
+
+  .pre-title {
+    font-size: 15px; font-weight: 400;
+    color: rgba(0,220,130,0.5);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .pre-title::after {
+    content: ''; flex: 1; height: 1px;
+    background: rgba(0,220,130,0.15);
+  }
+
+  .main-title {
+    font-size: 90px; font-weight: 900;
+    color: #e8f5ee; line-height: 1.05; letter-spacing: -2px;
+  }
+  .main-title .green { color: #00dc82; }
+
+  .subtitle {
+    margin-top: 28px; font-size: 21px; font-weight: 300;
+    color: rgba(180,220,200,0.45); line-height: 1.85;
+  }
+
+  /* TERMINAL */
+  .terminal-wrap { position: relative; z-index: 10; margin: 56px 50px 0; }
+
+  .terminal {
+    background: #0c1210;
+    border: 1px solid rgba(0,220,130,0.18);
+    border-radius: 22px; overflow: hidden;
+    box-shadow: 0 50px 90px rgba(0,0,0,0.7), 0 0 60px rgba(0,220,130,0.04);
+  }
+
+  .tbar {
+    background: #101a15; padding: 17px 26px;
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid rgba(0,220,130,0.08);
+    direction: ltr;
+  }
+  .dots { display: flex; gap: 9px; }
+  .d { width: 13px; height: 13px; border-radius: 50%; }
+  .d.r { background: #ff5f57; } .d.y { background: #febc2e; } .d.g { background: #28c840; }
+  .tbar-title { flex: 1; text-align: center; font-size: 12px; font-family: monospace; color: rgba(0,220,130,0.3); letter-spacing: 2px; }
+  .online { display: flex; align-items: center; gap: 7px; font-size: 12px; font-family: monospace; color: #00dc82; }
+  .blink { width: 7px; height: 7px; border-radius: 50%; background: #00dc82; animation: bl 1.8s infinite; }
+  @keyframes bl { 0%,100%{opacity:1} 50%{opacity:.15} }
+
+  .tbody { padding: 26px 28px; font-family: monospace; direction: ltr; }
+  .sys { font-size: 12px; color: rgba(0,220,130,0.22); margin-bottom: 18px; }
+
+  .cmdline {
+    display: flex; align-items: baseline; gap: 10px;
+    background: rgba(0,220,130,0.05); border-left: 3px solid #00dc82;
+    border-radius: 8px; padding: 12px 16px; margin-bottom: 16px;
+  }
+  .pr { color: #00dc82; font-weight: 700; font-size: 17px; }
+  .ci { color: #e8f5ee; font-size: 15px; }
+  .cur { display: inline-block; width: 9px; height: 17px; background: #00dc82; margin-right: 2px; vertical-align: middle; animation: bl 1s infinite; }
+
+  .table-out { background: rgba(255,255,255,0.02); border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+  .th { display: grid; grid-template-columns: 85px 95px 62px 1fr; padding: 9px 16px; font-size: 11px; color: rgba(0,220,130,0.32); letter-spacing: 2px; background: rgba(0,220,130,0.03); border-bottom: 1px solid rgba(0,220,130,0.06); }
+  .tr { display: grid; grid-template-columns: 85px 95px 62px 1fr; padding: 12px 16px; font-size: 14px; border-bottom: 1px solid rgba(0,220,130,0.04); }
+  .tr:last-child { border-bottom: none; }
+  .f { color: #e0f5eb; font-weight: 500; }
+  .dep { color: #79c0ff; }
+  .ok { color: #00dc82; }
+  .cls { color: #6a8a76; font-size: 13px; }
+  .av { color: #00dc82; font-weight: 600; }
+  .no { color: #ff6b6b; }
+
+  .res { display: flex; align-items: center; gap: 10px; background: rgba(0,220,130,0.07); border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #00dc82; direction: rtl; font-family: 'Vazirmatn', sans-serif; }
+
+  /* STATS */
+  .feats { position: relative; z-index: 10; margin: 46px 50px 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  .feat { background: rgba(0,220,130,0.03); border: 1px solid rgba(0,220,130,0.1); border-radius: 16px; padding: 24px 16px; text-align: center; }
+  .fval { font-size: 38px; font-weight: 900; color: #00dc82; letter-spacing: -2px; line-height: 1; margin-bottom: 8px; direction: ltr; }
+  .fkey { font-size: 14px; font-weight: 400; color: rgba(0,220,130,0.4); }
+
+  /* الهام گرفته */
+  .tribute {
+    position: relative; z-index: 10;
+    margin: 44px 50px 0;
+    padding: 28px 32px;
+    background: rgba(0,220,130,0.04);
+    border: 1px solid rgba(0,220,130,0.12);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .tribute-icon {
+    font-size: 36px;
+    flex-shrink: 0;
+  }
+  .tribute-text {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(180,220,200,0.55);
+    line-height: 1.7;
+  }
+  .tribute-text b {
+    color: #00dc82;
+    font-weight: 700;
+  }
+
+  /* CTA - آدرس سایت خیلی برجسته */
+  .cta {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    z-index: 10;
+    padding: 0 50px 72px;
+  }
+
+  .sep { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,220,130,0.3), transparent); margin-bottom: 44px; }
+
+  .url-block {
+    background: linear-gradient(135deg, #00dc82 0%, #00b568 100%);
+    border-radius: 28px;
+    padding: 36px 52px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,220,130,0.35), 0 0 0 1px rgba(0,220,130,0.5);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .url-block::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: 50%;
+    transform: translateX(-50%);
+    width: 300px; height: 100px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 50%;
+    filter: blur(20px);
+  }
+
+  .url-label {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(6,10,8,0.6);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    direction: ltr;
+  }
+
+  .url-main {
+    font-size: 64px;
+    font-weight: 900;
+    color: #060a08;
+    direction: ltr;
+    letter-spacing: -3px;
+    line-height: 1;
+  }
+
+  .url-caption {
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(6,10,8,0.55);
+  }
 </style>
 </head>
 <body>
-<div class="canvas">
-  <div class="bg-gradient"></div>
-  <div class="bg-grid"></div>
-  <div class="glow-top"></div>
+<div class="story">
+  <div class="grid"></div>
+  <div class="glow1"></div>
+  <div class="glow2"></div>
 
-  <div class="content">
-
-    <!-- Status -->
-    <div class="status-pill">
-      <div class="status-dot"></div>
-      <span class="status-text">Coming Soon</span>
+  <div class="topbar">
+    <div class="logo">
+      <div class="logo-box">NR</div>
+      <div class="logo-name">NIRA</div>
     </div>
-
-    <!-- Headline -->
-    <div class="headline">
-      <span class="hl-top">Nira Training Platform</span>
-      <span class="hl-main">Master</span>
-      <span class="hl-accent">NIRA.</span>
-      <span class="hl-light">From Zero.</span>
-    </div>
-
-    <!-- Sub -->
-    <p class="sub">
-      آموزش حرفه‌ای <span>رزرواسیون</span> و <span>کنترل نیرا</span> —<br>مستقیم در ترمینال واقعی
-    </p>
-
-    <!-- Terminal -->
-    <div class="terminal-card">
-      <div class="t-bar">
-        <div class="td r"></div>
-        <div class="td y"></div>
-        <div class="td g"></div>
-        <span class="t-label">NRS Terminal · Educational</span>
-        <span class="t-live">● LIVE</span>
-      </div>
-
-      <!-- آموزش تعاملی badge -->
-      <div class="t-interactive-bar">
-        <div class="ti-icon">
-          <svg viewBox="0 0 24 24">
-            <polygon points="5 3 19 12 5 21 5 3"/>
-          </svg>
-        </div>
-        <span class="ti-text">آموزش تعاملی</span>
-        <div class="ti-dot"></div>
-        <span class="ti-sub">دستور را تایپ کنید، نتیجه را ببینید</span>
-      </div>
-
-      <div class="t-body">
-        <div><span class="t-dim">A* THR001 &nbsp; 09:22 YY THR001</span></div>
-        <div><span class="t-caret">&gt; </span><span class="t-cmd">AY THRLCD10JAN</span></div>
-        <div><span class="t-dim">1 IR 101 F4 J9 Y9 &nbsp; THR LCD 0630 0820</span></div>
-        <div class="t-active-row">
-          <span class="t-caret">&gt;&nbsp;</span>
-          <span class="t-active-cmd">SK 2 IR101/10JAN</span>
-        </div>
-        <div><span class="t-ok">✓ RLR — BOOKING CONFIRMED / OK</span></div>
-        <div style="margin-top:3px;"><span class="t-caret">&gt; </span><span class="blink"></span></div>
-      </div>
-    </div>
-
-    <!-- Chips -->
-    <div class="chips">
-      <div class="chip">
-        <div class="chip-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2z"/>
-            <line x1="9" y1="12" x2="15" y2="12"/>
-          </svg>
-        </div>
-        <div class="chip-title">Reservation</div>
-        <div class="chip-desc">رزرو و صدور بلیط</div>
-      </div>
-      <div class="chip">
-        <div class="chip-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19.5 2.5c-1.5-1.5-3.5-1.5-4.5 0L11 6 2.8 4.2 1.4 5.6l6 6.4-1 5-1 1 3.5 3.5 1-1 5-1 6.4 6 1.4-1.4-2-8.1z"/>
-          </svg>
-        </div>
-        <div class="chip-title">Control</div>
-        <div class="chip-desc">کنترل پرواز</div>
-      </div>
-      <div class="chip">
-        <div class="chip-icon">
-          <svg viewBox="0 0 24 24">
-            <polyline points="4 17 10 11 4 5"/>
-            <line x1="12" y1="19" x2="20" y2="19"/>
-          </svg>
-        </div>
-        <div class="chip-title">Terminal</div>
-        <div class="chip-desc">شبیه‌ساز واقعی</div>
-      </div>
-    </div>
-
-    <!-- Quote -->
-    <div class="quote">
-      <p class="quote-text">
-        «دانستن نباید انحصاری باشد» —<br>
-        <em>همه چیز را می‌آموزی، مستقیم در ترمینال.</em>
-      </p>
-    </div>
-
-    <!-- Bottom -->
-    <div class="bottom">
-      <div class="cta">
-        <div class="cta-left">
-          <span class="cta-title">به‌زودی در دسترس</span>
-          <span class="cta-sub">برای علاقه‌مندان نیرا</span>
-        </div>
-        <div class="cta-arrow">
-          <svg viewBox="0 0 24 24">
-            <line x1="5" y1="12" x2="19" y2="12"/>
-            <polyline points="12 5 19 12 12 19"/>
-          </svg>
-        </div>
-      </div>
-      <div class="footer">
-        <div class="footer-logo">
-          <div class="footer-nr">NR</div>
-          <span class="footer-name">NIRA</span>
-        </div>
-        <span class="footer-url">nirasoft.ir</span>
-      </div>
-    </div>
-
+    <div class="pill">v 2.0</div>
   </div>
+
+  <div class="hero">
+    <div class="pre-title">شبیه‌ساز آموزش تعاملی رزرواسیون</div>
+    <div class="main-title">
+      تایپ کن،<br>
+      <span class="green">یاد بگیر.</span>
+    </div>
+    <div class="subtitle">
+      آموزش نرم‌افزار نیرا با ترمینال واقعی<br>
+      دستور بزن — نتیجه ببین — مسلط شو
+    </div>
+  </div>
+
+  <div class="terminal-wrap">
+    <div class="terminal">
+      <div class="tbar">
+        <div class="dots"><div class="d r"></div><div class="d y"></div><div class="d g"></div></div>
+        <div class="tbar-title">NRS Terminal — Educational</div>
+        <div class="online"><div class="blink"></div>ONLINE</div>
+      </div>
+      <div class="tbody">
+        <div class="sys">A* THR001.TEST01 · PSA SYSTEM ONLINE · CHANNEL: 0</div>
+        <div class="cmdline">
+          <span class="pr">&gt;</span>
+          <span class="ci">AY THR-DXB 12JAN</span>
+          <span class="cur"></span>
+        </div>
+        <div class="table-out">
+          <div class="th"><span>FLT</span><span>DEPARTS</span><span>STS</span><span>AVAIL</span></div>
+          <div class="tr"><span class="f">IR721</span><span class="dep">08:00</span><span class="ok">OP</span><span class="cls">Y9 B7 <span class="av">M4</span> Q2</span></div>
+          <div class="tr"><span class="f">IR723</span><span class="dep">14:30</span><span class="ok">OP</span><span class="cls">Y9 B9 <span class="av">M6</span> Q4</span></div>
+          <div class="tr"><span class="f">IR725</span><span class="dep">21:00</span><span class="ok">OP</span><span class="cls">Y7 B5 M3 <span class="no">Q0</span></span></div>
+        </div>
+        <div class="res">✓ &nbsp; ۳ پرواز یافت شد · روی دستور کلیک کن و تمرین کن</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feats">
+    <div class="feat"><div class="fval">۲</div><div class="fkey">دوره تخصصی</div></div>
+    <div class="feat"><div class="fval">۱۰+</div><div class="fkey">درس رایگان</div></div>
+    <div class="feat"><div class="fval">24/7</div><div class="fkey">آنلاین</div></div>
+  </div>
+
+  <!-- جمله الهام -->
+  <div class="tribute">
+    <div class="tribute-icon">🌿</div>
+    <div class="tribute-text">
+      الهام گرفته از آموزش‌های رایگان و بی‌دریغ<br>
+      <b>امیرحسین وثوق</b><br>
+      پیشگام آموزش آزاد نیرا
+    </div>
+  </div>
+
+  <!-- آدرس سایت برجسته -->
+  <div class="cta">
+    <div class="sep"></div>
+    <div class="url-block">
+      <div class="url-label">همین الان شروع کن · Start Free</div>
+      <div class="url-main">Nirahelp.ir</div>
+      <div class="url-caption">ترمینال را باز کن · یاد بگیر · پرواز کن</div>
+    </div>
+  </div>
+
 </div>
 </body>
 </html>
