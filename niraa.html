@@ -17,12 +17,12 @@
   .grid {
     position: absolute; inset: 0;
     background-image:
-      linear-gradient(rgba(0,255,140,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,255,140,0.025) 1px, transparent 1px);
+      linear-gradient(rgba(0,255,140,0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,140,0.022) 1px, transparent 1px);
     background-size: 48px 48px; pointer-events: none;
   }
-  .glow1 { position:absolute; top:-200px; left:50%; transform:translateX(-50%); width:1100px; height:900px; background:radial-gradient(ellipse, rgba(0,220,130,0.11) 0%, transparent 60%); pointer-events:none; }
-  .glow2 { position:absolute; bottom:-100px; left:-100px; width:700px; height:700px; background:radial-gradient(ellipse, rgba(0,80,255,0.06) 0%, transparent 65%); pointer-events:none; }
+  .glow1 { position:absolute; top:-200px; left:50%; transform:translateX(-50%); width:1100px; height:900px; background:radial-gradient(ellipse, rgba(0,220,130,0.10) 0%, transparent 60%); pointer-events:none; }
+  .glow2 { position:absolute; bottom:-100px; left:-100px; width:700px; height:700px; background:radial-gradient(ellipse, rgba(0,80,255,0.05) 0%, transparent 65%); pointer-events:none; }
 
   /* TOP BAR */
   .topbar {
@@ -36,189 +36,172 @@
   .logo-name { font-size:26px; font-weight:800; color:#e0f5eb; direction:ltr; letter-spacing:2px; }
   .pill { font-size:13px; color:#00dc82; border:1px solid rgba(0,220,130,0.3); border-radius:100px; padding:9px 22px; direction:ltr; font-family:monospace; }
 
-  /* ─── HERO: تایپ کن، یاد بگیر وسط ─── */
-  .hero {
+  /* ─── NIRA BIG ─── */
+  .nira-big {
     position: relative; z-index: 10;
-    padding: 44px 64px 0;
+    padding: 38px 64px 0;
     flex-shrink: 0;
     text-align: center;
   }
 
-  .eyebrow {
-    font-size: 19px; font-weight: 500;
-    color: rgba(0,220,130,0.65);
-    margin-bottom: 20px;
-    letter-spacing: 1px;
+  .nira-eyebrow {
+    font-size: 17px; font-weight: 500;
+    color: rgba(0,220,130,0.5);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .nira-word {
+    font-size: 200px; font-weight: 900;
+    color: #00dc82;
+    line-height: 0.88;
+    letter-spacing: -8px;
+    direction: ltr;
+    text-shadow: 0 0 120px rgba(0,220,130,0.3);
+  }
+
+  .nira-sub {
+    font-size: 28px; font-weight: 700;
+    color: #e8f5ee;
+    margin-top: 16px;
+    letter-spacing: 0;
+  }
+  .nira-sub span { color: #00dc82; }
+
+  /* ─── HERO TAGLINE ─── */
+  .hero {
+    position: relative; z-index: 10;
+    padding: 28px 64px 0;
+    flex-shrink: 0;
+    text-align: center;
   }
 
   .main-title {
-    font-size: 148px; font-weight: 900;
-    line-height: 0.92; letter-spacing: -4px;
+    font-size: 100px; font-weight: 900;
+    line-height: 0.94; letter-spacing: -3px;
     color: #e8f5ee;
-    text-align: center;
   }
-  .main-title .green {
-    color: #00dc82;
-    display: block;
-    font-size: 148px;
-  }
+  .main-title .green { color: #00dc82; display: block; }
 
-  /* بزرگ وسط */
-  .interactive-badge {
-    margin-top: 28px;
-    display: inline-block;
-    background: rgba(0,220,130,0.1);
-    border: 1.5px solid rgba(0,220,130,0.35);
-    border-radius: 100px;
-    padding: 14px 44px;
-    font-size: 26px; font-weight: 700;
-    color: #00dc82;
-    letter-spacing: 1px;
-  }
-
-  /* ─── امکانات ─── */
+  /* ─── ۴ ویژگی با آیکون SVG تک‌رنگ ─── */
   .features-row {
     position: relative; z-index: 10;
-    margin: 38px 48px 0;
+    margin: 32px 48px 0;
     display: grid; grid-template-columns: repeat(4,1fr); gap: 14px;
     flex-shrink: 0;
   }
+
   .feat-card {
     background: rgba(0,220,130,0.04);
     border: 1px solid rgba(0,220,130,0.13);
-    border-radius: 18px; padding: 22px 14px;
-    text-align: center;
-    position: relative; overflow: hidden;
+    border-radius: 18px; padding: 22px 12px 18px;
+    text-align: center; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
   }
   .feat-card::before {
     content:''; position:absolute; top:0; left:0; right:0; height:2px;
     background: linear-gradient(90deg, transparent, #00dc82, transparent);
   }
-  .feat-icon { font-size: 30px; margin-bottom: 10px; }
-  .feat-title { font-size: 15px; font-weight: 700; color: #c8f0dc; margin-bottom: 4px; }
-  .feat-sub { font-size: 12px; font-weight: 300; color: rgba(0,220,130,0.4); line-height: 1.5; }
+
+  .feat-icon-wrap {
+    width: 48px; height: 48px;
+    background: rgba(0,220,130,0.08);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .feat-icon-wrap svg {
+    width: 24px; height: 24px;
+    stroke: #00dc82; fill: none;
+    stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  .feat-title { font-size: 14px; font-weight: 700; color: #c8f0dc; }
+  .feat-sub { font-size: 11px; font-weight: 300; color: rgba(0,220,130,0.38); line-height: 1.5; }
 
   /* ─── TERMINAL ─── */
   .terminal-wrap {
     position: relative; z-index: 10;
-    margin: 34px 48px 0; flex-shrink: 0;
+    margin: 26px 48px 0; flex-shrink: 0;
   }
   .terminal {
     background: #0a0f0d;
     border: 1px solid rgba(0,220,130,0.18);
-    border-radius: 20px; overflow: hidden;
-    box-shadow: 0 30px 70px rgba(0,0,0,0.6), 0 0 50px rgba(0,220,130,0.04);
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.55);
   }
-  .tbar { background:#0f1712; padding:15px 22px; display:flex; align-items:center; border-bottom:1px solid rgba(0,220,130,0.08); direction:ltr; }
+  .tbar { background:#0f1712; padding:14px 22px; display:flex; align-items:center; border-bottom:1px solid rgba(0,220,130,0.08); direction:ltr; }
   .dots{display:flex;gap:8px} .d{width:12px;height:12px;border-radius:50%}
   .d.r{background:#ff5f57}.d.y{background:#febc2e}.d.g{background:#28c840}
   .tbar-title{flex:1;text-align:center;font-size:11px;font-family:monospace;color:rgba(0,220,130,0.25);letter-spacing:2px}
   .online{display:flex;align-items:center;gap:6px;font-size:11px;font-family:monospace;color:#00dc82}
   .blink{width:6px;height:6px;border-radius:50%;background:#00dc82;animation:bl 1.8s infinite}
   @keyframes bl{0%,100%{opacity:1}50%{opacity:.15}}
-
-  .tbody{padding:20px 24px;font-family:monospace;direction:ltr}
-  .sys{font-size:11px;color:rgba(0,220,130,0.18);margin-bottom:14px}
-  .cmdline{display:flex;align-items:baseline;gap:9px;background:rgba(0,220,130,0.05);border-left:3px solid #00dc82;border-radius:7px;padding:10px 14px;margin-bottom:12px}
-  .pr{color:#00dc82;font-weight:700;font-size:16px}.ci{color:#e8f5ee;font-size:14px}
-  .cur{display:inline-block;width:8px;height:16px;background:#00dc82;margin-right:2px;vertical-align:middle;animation:bl 1s infinite}
-  .table-out{background:rgba(255,255,255,0.015);border-radius:9px;overflow:hidden;margin-bottom:12px}
-  .th{display:grid;grid-template-columns:78px 88px 54px 1fr;padding:8px 14px;font-size:11px;color:rgba(0,220,130,0.28);letter-spacing:1px;background:rgba(0,220,130,0.03);border-bottom:1px solid rgba(0,220,130,0.06)}
-  .tr{display:grid;grid-template-columns:78px 88px 54px 1fr;padding:10px 14px;font-size:13px;border-bottom:1px solid rgba(0,220,130,0.04)}
+  .tbody{padding:18px 22px;font-family:monospace;direction:ltr}
+  .sys{font-size:11px;color:rgba(0,220,130,0.18);margin-bottom:12px}
+  .cmdline{display:flex;align-items:baseline;gap:8px;background:rgba(0,220,130,0.05);border-left:3px solid #00dc82;border-radius:7px;padding:10px 13px;margin-bottom:11px}
+  .pr{color:#00dc82;font-weight:700;font-size:15px}.ci{color:#e8f5ee;font-size:14px}
+  .cur{display:inline-block;width:8px;height:15px;background:#00dc82;margin-right:2px;vertical-align:middle;animation:bl 1s infinite}
+  .table-out{background:rgba(255,255,255,0.015);border-radius:8px;overflow:hidden;margin-bottom:11px}
+  .th{display:grid;grid-template-columns:76px 86px 52px 1fr;padding:8px 13px;font-size:10px;color:rgba(0,220,130,0.28);letter-spacing:1px;background:rgba(0,220,130,0.03);border-bottom:1px solid rgba(0,220,130,0.06)}
+  .tr{display:grid;grid-template-columns:76px 86px 52px 1fr;padding:10px 13px;font-size:13px;border-bottom:1px solid rgba(0,220,130,0.04)}
   .tr:last-child{border-bottom:none}
   .f{color:#e0f5eb;font-weight:600}.dep{color:#79c0ff}.ok{color:#00dc82}
   .cls{color:#4a6a56;font-size:12px}.av{color:#00dc82;font-weight:700}.no{color:#ff6b6b}
-  .res{display:flex;align-items:center;gap:9px;background:rgba(0,220,130,0.07);border-radius:8px;padding:10px 14px;font-size:13px;color:#00dc82;direction:rtl;font-family:'Vazirmatn',sans-serif}
+  .res{display:flex;align-items:center;gap:9px;background:rgba(0,220,130,0.07);border-radius:8px;padding:10px 13px;font-size:13px;color:#00dc82;direction:rtl;font-family:'Vazirmatn',sans-serif}
 
-  /* ─── TRIBUTE یک سطری ─── */
+  /* ─── TRIBUTE ─── */
   .tribute {
     position: relative; z-index: 10;
-    margin: 30px 48px 0;
-    padding: 20px 28px;
+    margin: 22px 48px 0;
+    padding: 18px 24px;
     background: rgba(0,220,130,0.04);
-    border: 1px solid rgba(0,220,130,0.12);
-    border-radius: 16px;
+    border: 1px solid rgba(0,220,130,0.1);
+    border-radius: 14px;
     display: flex; align-items: center; gap: 14px;
     flex-shrink: 0;
   }
-  .trib-icon { font-size: 26px; flex-shrink: 0; }
-  .trib-text {
-    font-size: 18px; font-weight: 400;
-    color: rgba(180,220,200,0.55); line-height: 1.5;
-  }
-  .trib-text b { color: #00dc82; font-weight: 800; font-size: 20px; }
+  .trib-svg { flex-shrink:0; opacity:0.6; }
+  .trib-svg svg { width:22px; height:22px; stroke:#00dc82; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .trib-text { font-size: 16px; font-weight: 400; color: rgba(180,220,200,0.5); }
+  .trib-text b { color: #00dc82; font-weight: 800; font-size: 18px; }
 
   /* ─── CTA URL ─── */
   .cta-wrap {
     position: relative; z-index: 10;
-    margin: 30px 48px 0; flex-shrink: 0;
+    margin: 22px 48px 0; flex-shrink: 0;
   }
 
   .url-block {
-    border-radius: 26px; overflow: hidden;
-    position: relative;
-    box-shadow: 0 0 0 2px rgba(0,220,130,0.5), 0 20px 70px rgba(0,220,130,0.45), 0 0 120px rgba(0,220,130,0.18);
+    border-radius: 24px; overflow: hidden; position: relative;
+    box-shadow: 0 0 0 2px rgba(0,220,130,0.55), 0 20px 70px rgba(0,220,130,0.45), 0 0 120px rgba(0,220,130,0.18);
   }
-
-  /* خط‌های دکوراتیو پشت */
   .url-bg {
     position: absolute; inset: 0;
     background: linear-gradient(135deg, #00dc82 0%, #00b568 60%, #009050 100%);
   }
   .url-bg::before {
     content:''; position:absolute; inset:0;
-    background: repeating-linear-gradient(
-      45deg, transparent, transparent 30px,
-      rgba(255,255,255,0.04) 30px, rgba(255,255,255,0.04) 31px
-    );
+    background: repeating-linear-gradient(45deg, transparent, transparent 28px, rgba(255,255,255,0.04) 28px, rgba(255,255,255,0.04) 29px);
   }
   .url-bg::after {
     content:''; position:absolute; top:-80px; left:50%; transform:translateX(-50%);
-    width:600px; height:200px;
-    background:rgba(255,255,255,0.18); border-radius:50%; filter:blur(40px);
+    width:600px; height:200px; background:rgba(255,255,255,0.18); border-radius:50%; filter:blur(40px);
   }
+  .url-content { position:relative; z-index:2; padding:32px 44px; text-align:center; }
+  .url-label-top { font-size:15px; font-weight:500; color:rgba(3,20,10,0.55); margin-bottom:8px; }
+  .url-main { font-size:80px; font-weight:900; color:#03140a; direction:ltr; letter-spacing:-3px; line-height:1; }
+  .url-divider { margin:12px auto; width:50px; height:2px; background:rgba(3,20,10,0.2); border-radius:2px; }
+  .url-caption { font-size:15px; font-weight:500; color:rgba(3,20,10,0.58); }
 
-  .url-content {
-    position: relative; z-index: 2;
-    padding: 38px 44px;
-    text-align: center;
-  }
-
-  .url-label-top {
-    font-size: 15px; font-weight: 500;
-    color: rgba(3,20,10,0.55);
-    margin-bottom: 10px; letter-spacing: 1px;
-  }
-
-  .url-main {
-    font-size: 82px; font-weight: 900;
-    color: #03140a; direction: ltr;
-    letter-spacing: -3px; line-height: 1;
-    text-shadow: 0 2px 0 rgba(0,0,0,0.1);
-  }
-
-  .url-divider {
-    margin: 14px auto;
-    width: 60px; height: 2px;
-    background: rgba(3,20,10,0.2);
-    border-radius: 2px;
-  }
-
-  .url-caption {
-    font-size: 17px; font-weight: 500;
-    color: rgba(3,20,10,0.6);
-  }
-
-  /* BOTTOM */
-  .spacer { flex: 1; min-height: 0; }
+  .spacer { flex:1; min-height:0; }
   .bottom-line {
-    position: relative; z-index: 10;
-    margin: 0 48px 50px;
-    display: flex; align-items: center; justify-content: center;
-    gap: 10px; flex-shrink: 0;
+    position:relative; z-index:10;
+    margin:0 48px 42px;
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-shrink:0;
   }
-  .bl-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,220,130,0.25)}
-  .bl-text{font-size:13px;color:rgba(0,220,130,0.25);letter-spacing:1px}
+  .bl-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,220,130,0.2)}
+  .bl-text{font-size:12px;color:rgba(0,220,130,0.2);letter-spacing:1px; direction:ltr;}
 </style>
 </head>
 <body>
@@ -233,41 +216,59 @@
       <div class="logo-box">NR</div>
       <div class="logo-name">NIRA</div>
     </div>
-    <div class="pill">v 2.0</div>
+    <div class="pill">Reservation System</div>
   </div>
 
-  <!-- HERO وسط -->
+  <!-- NIRA بزرگ -->
+  <div class="nira-big">
+    <div class="nira-eyebrow">سیستم رزرواسیون هواپیمایی</div>
+    <div class="nira-word">NIRA</div>
+    <div class="nira-sub">آموزش <span>تعاملی</span> نرم‌افزار نیرا</div>
+  </div>
+
+  <!-- TAGLINE -->
   <div class="hero">
-    <div class="eyebrow">شبیه‌ساز رزرواسیون هوشمند</div>
     <div class="main-title">
       تایپ کن،
       <span class="green">یاد بگیر.</span>
     </div>
-    <div class="interactive-badge">🎯 &nbsp; آموزش تعاملی</div>
   </div>
 
-  <!-- ۴ ویژگی -->
+  <!-- ۴ ویژگی SVG تک‌رنگ -->
   <div class="features-row">
+
     <div class="feat-card">
-      <div class="feat-icon">🎬</div>
+      <div class="feat-icon-wrap">
+        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
       <div class="feat-title">فیلم آموزشی</div>
       <div class="feat-sub">ویدیوهای گام‌به‌گام</div>
     </div>
+
     <div class="feat-card">
-      <div class="feat-icon">📄</div>
+      <div class="feat-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
       <div class="feat-title">جزوه PDF</div>
       <div class="feat-sub">مرجع کامل دستورات</div>
     </div>
+
     <div class="feat-card">
-      <div class="feat-icon">💻</div>
+      <div class="feat-icon-wrap">
+        <svg viewBox="0 0 24 24"><polyline points="4,17 10,11 4,5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+      </div>
       <div class="feat-title">ترمینال زنده</div>
       <div class="feat-sub">تمرین واقعی آنلاین</div>
     </div>
+
     <div class="feat-card">
-      <div class="feat-icon">🤖</div>
+      <div class="feat-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="10" x2="9" y2="10" stroke-width="2.5"/><line x1="12" y1="10" x2="12" y2="10" stroke-width="2.5"/><line x1="15" y1="10" x2="15" y2="10" stroke-width="2.5"/></svg>
+      </div>
       <div class="feat-title">چت‌بات هوشمند</div>
       <div class="feat-sub">سوال و جواب فوری</div>
     </div>
+
   </div>
 
   <!-- TERMINAL -->
@@ -275,11 +276,11 @@
     <div class="terminal">
       <div class="tbar">
         <div class="dots"><div class="d r"></div><div class="d y"></div><div class="d g"></div></div>
-        <div class="tbar-title">NRS Terminal — Educational</div>
+        <div class="tbar-title">NIRA NRS Terminal — Educational</div>
         <div class="online"><div class="blink"></div>ONLINE</div>
       </div>
       <div class="tbody">
-        <div class="sys">A* THR001.TEST01 · PSA SYSTEM ONLINE · CHANNEL: 0</div>
+        <div class="sys">A* THR001.TEST01 · NIRA PSA SYSTEM ONLINE · CHANNEL: 0</div>
         <div class="cmdline">
           <span class="pr">&gt;</span>
           <span class="ci">AY THR-DXB 12JAN</span>
@@ -296,15 +297,17 @@
     </div>
   </div>
 
-  <!-- TRIBUTE یک سطری -->
+  <!-- TRIBUTE -->
   <div class="tribute">
-    <div class="trib-icon">🌿</div>
+    <div class="trib-svg">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
     <div class="trib-text">
-      الهام گرفته از آموزش‌های بی‌دریغ &nbsp;<b>امیرحسین وثوق</b>&nbsp; پیشگام آموزش آزاد نیرا
+      الهام گرفته از آموزش‌های بی‌دریغ &nbsp;<b>امیرحسین وثوق</b>&nbsp; — پیشگام آموزش آزاد نیرا
     </div>
   </div>
 
-  <!-- URL برجسته -->
+  <!-- URL -->
   <div class="cta-wrap">
     <div class="url-block">
       <div class="url-bg"></div>
@@ -312,7 +315,7 @@
         <div class="url-label-top">همین الان شروع کن — رایگان</div>
         <div class="url-main">Nirahelp.ir</div>
         <div class="url-divider"></div>
-        <div class="url-caption">ترمینال · جزوه · فیلم · چت‌بات هوشمند ✈️</div>
+        <div class="url-caption">ترمینال · جزوه · فیلم · چت‌بات هوشمند</div>
       </div>
     </div>
   </div>
@@ -324,6 +327,7 @@
     <div class="bl-text">niratraining.github.io/Nira</div>
     <div class="bl-dot"></div>
   </div>
+
 </div>
 </body>
 </html>
