@@ -19,215 +19,206 @@
     background-image:
       linear-gradient(rgba(0,255,140,0.025) 1px, transparent 1px),
       linear-gradient(90deg, rgba(0,255,140,0.025) 1px, transparent 1px);
-    background-size: 50px 50px;
-    pointer-events: none;
+    background-size: 48px 48px; pointer-events: none;
   }
+  .glow1 { position:absolute; top:-200px; left:50%; transform:translateX(-50%); width:1100px; height:900px; background:radial-gradient(ellipse, rgba(0,220,130,0.11) 0%, transparent 60%); pointer-events:none; }
+  .glow2 { position:absolute; bottom:-100px; left:-100px; width:700px; height:700px; background:radial-gradient(ellipse, rgba(0,80,255,0.06) 0%, transparent 65%); pointer-events:none; }
 
-  .glow1 {
-    position: absolute; top: -150px; right: -100px;
-    width: 800px; height: 800px;
-    background: radial-gradient(ellipse, rgba(0,220,130,0.10) 0%, transparent 65%);
-    pointer-events: none;
-  }
-  .glow2 {
-    position: absolute; bottom: -50px; left: -150px;
-    width: 700px; height: 700px;
-    background: radial-gradient(ellipse, rgba(0,80,255,0.07) 0%, transparent 65%);
-    pointer-events: none;
-  }
-
-  /* ─── TOP BAR ─── */
+  /* TOP BAR */
   .topbar {
     position: relative; z-index: 10;
-    padding: 58px 64px 0;
+    padding: 52px 64px 0;
     display: flex; align-items: center; justify-content: space-between;
     flex-shrink: 0;
   }
+  .logo { display:flex; align-items:center; gap:14px; }
+  .logo-box { width:54px; height:54px; background:#00dc82; border-radius:14px; display:flex; align-items:center; justify-content:center; font-family:monospace; font-weight:800; font-size:19px; color:#060a08; direction:ltr; }
+  .logo-name { font-size:26px; font-weight:800; color:#e0f5eb; direction:ltr; letter-spacing:2px; }
+  .pill { font-size:13px; color:#00dc82; border:1px solid rgba(0,220,130,0.3); border-radius:100px; padding:9px 22px; direction:ltr; font-family:monospace; }
 
-  .logo { display: flex; align-items: center; gap: 14px; }
-  .logo-box {
-    width: 56px; height: 56px; background: #00dc82;
-    border-radius: 14px; display: flex; align-items: center; justify-content: center;
-    font-family: monospace; font-weight: 800; font-size: 20px; color: #060a08; direction: ltr;
-  }
-  .logo-name { font-size: 28px; font-weight: 800; color: #e0f5eb; direction: ltr; letter-spacing: 2px; }
-
-  .pill {
-    font-size: 13px; color: #00dc82;
-    border: 1px solid rgba(0,220,130,0.35);
-    border-radius: 100px; padding: 10px 24px;
-    direction: ltr; font-family: monospace; letter-spacing: 2px;
-  }
-
-  /* ─── HERO ─── */
+  /* ─── HERO: تایپ کن، یاد بگیر وسط ─── */
   .hero {
     position: relative; z-index: 10;
-    padding: 52px 64px 0;
+    padding: 44px 64px 0;
     flex-shrink: 0;
+    text-align: center;
   }
 
   .eyebrow {
-    font-size: 16px; font-weight: 400;
-    color: rgba(0,220,130,0.55);
-    margin-bottom: 18px;
-    display: flex; align-items: center; gap: 12px;
+    font-size: 19px; font-weight: 500;
+    color: rgba(0,220,130,0.65);
+    margin-bottom: 20px;
+    letter-spacing: 1px;
   }
-  .eyebrow::after { content: ''; flex: 1; height: 1px; background: rgba(0,220,130,0.15); }
 
   .main-title {
-    font-size: 108px; font-weight: 900;
-    color: #e8f5ee; line-height: 0.98; letter-spacing: -3px;
+    font-size: 148px; font-weight: 900;
+    line-height: 0.92; letter-spacing: -4px;
+    color: #e8f5ee;
+    text-align: center;
   }
-  .main-title .green { color: #00dc82; display: block; }
+  .main-title .green {
+    color: #00dc82;
+    display: block;
+    font-size: 148px;
+  }
 
-  .subtitle {
-    margin-top: 26px; font-size: 23px; font-weight: 400;
-    color: rgba(180,220,200,0.6); line-height: 1.75;
+  /* بزرگ وسط */
+  .interactive-badge {
+    margin-top: 28px;
+    display: inline-block;
+    background: rgba(0,220,130,0.1);
+    border: 1.5px solid rgba(0,220,130,0.35);
+    border-radius: 100px;
+    padding: 14px 44px;
+    font-size: 26px; font-weight: 700;
+    color: #00dc82;
+    letter-spacing: 1px;
   }
-  .subtitle b { color: #c8f0dc; font-weight: 700; }
+
+  /* ─── امکانات ─── */
+  .features-row {
+    position: relative; z-index: 10;
+    margin: 38px 48px 0;
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 14px;
+    flex-shrink: 0;
+  }
+  .feat-card {
+    background: rgba(0,220,130,0.04);
+    border: 1px solid rgba(0,220,130,0.13);
+    border-radius: 18px; padding: 22px 14px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .feat-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, transparent, #00dc82, transparent);
+  }
+  .feat-icon { font-size: 30px; margin-bottom: 10px; }
+  .feat-title { font-size: 15px; font-weight: 700; color: #c8f0dc; margin-bottom: 4px; }
+  .feat-sub { font-size: 12px; font-weight: 300; color: rgba(0,220,130,0.4); line-height: 1.5; }
 
   /* ─── TERMINAL ─── */
   .terminal-wrap {
     position: relative; z-index: 10;
-    margin: 48px 48px 0;
-    flex-shrink: 0;
+    margin: 34px 48px 0; flex-shrink: 0;
   }
-
   .terminal {
     background: #0a0f0d;
-    border: 1px solid rgba(0,220,130,0.2);
+    border: 1px solid rgba(0,220,130,0.18);
     border-radius: 20px; overflow: hidden;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.65), 0 0 60px rgba(0,220,130,0.05);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.6), 0 0 50px rgba(0,220,130,0.04);
   }
+  .tbar { background:#0f1712; padding:15px 22px; display:flex; align-items:center; border-bottom:1px solid rgba(0,220,130,0.08); direction:ltr; }
+  .dots{display:flex;gap:8px} .d{width:12px;height:12px;border-radius:50%}
+  .d.r{background:#ff5f57}.d.y{background:#febc2e}.d.g{background:#28c840}
+  .tbar-title{flex:1;text-align:center;font-size:11px;font-family:monospace;color:rgba(0,220,130,0.25);letter-spacing:2px}
+  .online{display:flex;align-items:center;gap:6px;font-size:11px;font-family:monospace;color:#00dc82}
+  .blink{width:6px;height:6px;border-radius:50%;background:#00dc82;animation:bl 1.8s infinite}
+  @keyframes bl{0%,100%{opacity:1}50%{opacity:.15}}
 
-  .tbar {
-    background: #0f1712; padding: 16px 24px;
-    display: flex; align-items: center;
-    border-bottom: 1px solid rgba(0,220,130,0.08);
-    direction: ltr;
-  }
-  .dots { display: flex; gap: 8px; }
-  .d { width: 13px; height: 13px; border-radius: 50%; }
-  .d.r{background:#ff5f57} .d.y{background:#febc2e} .d.g{background:#28c840}
-  .tbar-title { flex:1; text-align:center; font-size:12px; font-family:monospace; color:rgba(0,220,130,0.28); letter-spacing:2px; }
-  .online { display:flex; align-items:center; gap:6px; font-size:12px; font-family:monospace; color:#00dc82; }
-  .blink { width:7px; height:7px; border-radius:50%; background:#00dc82; animation:bl 1.8s infinite; }
-  @keyframes bl { 0%,100%{opacity:1} 50%{opacity:.15} }
-
-  .tbody { padding: 24px 26px; font-family: monospace; direction: ltr; }
-  .sys { font-size:12px; color:rgba(0,220,130,0.2); margin-bottom:16px; }
-
-  .cmdline {
-    display:flex; align-items:baseline; gap:9px;
-    background:rgba(0,220,130,0.05); border-left:3px solid #00dc82;
-    border-radius:8px; padding:11px 15px; margin-bottom:14px;
-  }
-  .pr { color:#00dc82; font-weight:700; font-size:17px; }
-  .ci { color:#e8f5ee; font-size:15px; }
-  .cur { display:inline-block; width:9px; height:17px; background:#00dc82; margin-right:2px; vertical-align:middle; animation:bl 1s infinite; }
-
-  .table-out { background:rgba(255,255,255,0.015); border-radius:10px; overflow:hidden; margin-bottom:13px; }
-  .th { display:grid; grid-template-columns:82px 92px 58px 1fr; padding:9px 15px; font-size:11px; color:rgba(0,220,130,0.3); letter-spacing:2px; background:rgba(0,220,130,0.03); border-bottom:1px solid rgba(0,220,130,0.06); }
-  .tr { display:grid; grid-template-columns:82px 92px 58px 1fr; padding:11px 15px; font-size:14px; border-bottom:1px solid rgba(0,220,130,0.04); }
+  .tbody{padding:20px 24px;font-family:monospace;direction:ltr}
+  .sys{font-size:11px;color:rgba(0,220,130,0.18);margin-bottom:14px}
+  .cmdline{display:flex;align-items:baseline;gap:9px;background:rgba(0,220,130,0.05);border-left:3px solid #00dc82;border-radius:7px;padding:10px 14px;margin-bottom:12px}
+  .pr{color:#00dc82;font-weight:700;font-size:16px}.ci{color:#e8f5ee;font-size:14px}
+  .cur{display:inline-block;width:8px;height:16px;background:#00dc82;margin-right:2px;vertical-align:middle;animation:bl 1s infinite}
+  .table-out{background:rgba(255,255,255,0.015);border-radius:9px;overflow:hidden;margin-bottom:12px}
+  .th{display:grid;grid-template-columns:78px 88px 54px 1fr;padding:8px 14px;font-size:11px;color:rgba(0,220,130,0.28);letter-spacing:1px;background:rgba(0,220,130,0.03);border-bottom:1px solid rgba(0,220,130,0.06)}
+  .tr{display:grid;grid-template-columns:78px 88px 54px 1fr;padding:10px 14px;font-size:13px;border-bottom:1px solid rgba(0,220,130,0.04)}
   .tr:last-child{border-bottom:none}
-  .f{color:#e0f5eb;font-weight:600} .dep{color:#79c0ff} .ok{color:#00dc82}
-  .cls{color:#5a7a66;font-size:13px} .av{color:#00dc82;font-weight:700} .no{color:#ff6b6b}
+  .f{color:#e0f5eb;font-weight:600}.dep{color:#79c0ff}.ok{color:#00dc82}
+  .cls{color:#4a6a56;font-size:12px}.av{color:#00dc82;font-weight:700}.no{color:#ff6b6b}
+  .res{display:flex;align-items:center;gap:9px;background:rgba(0,220,130,0.07);border-radius:8px;padding:10px 14px;font-size:13px;color:#00dc82;direction:rtl;font-family:'Vazirmatn',sans-serif}
 
-  .res { display:flex; align-items:center; gap:10px; background:rgba(0,220,130,0.07); border-radius:9px; padding:11px 15px; font-size:14px; color:#00dc82; direction:rtl; font-family:'Vazirmatn',sans-serif; }
-
-  /* ─── STATS ─── */
-  .feats {
-    position: relative; z-index: 10;
-    margin: 40px 48px 0;
-    display: grid; grid-template-columns: repeat(3,1fr); gap: 14px;
-    flex-shrink: 0;
-  }
-  .feat {
-    background: rgba(0,220,130,0.04);
-    border: 1px solid rgba(0,220,130,0.12);
-    border-radius: 16px; padding: 26px 12px; text-align: center;
-  }
-  .fval { font-size: 42px; font-weight: 900; color: #00dc82; line-height: 1; margin-bottom: 6px; direction: ltr; }
-  .fkey { font-size: 15px; font-weight: 500; color: rgba(0,220,130,0.45); }
-
-  /* ─── TRIBUTE ─── */
+  /* ─── TRIBUTE یک سطری ─── */
   .tribute {
     position: relative; z-index: 10;
-    margin: 36px 48px 0;
-    padding: 28px 30px;
-    background: rgba(0,220,130,0.05);
-    border: 1px solid rgba(0,220,130,0.15);
-    border-radius: 18px;
-    display: flex; align-items: center; gap: 18px;
+    margin: 30px 48px 0;
+    padding: 20px 28px;
+    background: rgba(0,220,130,0.04);
+    border: 1px solid rgba(0,220,130,0.12);
+    border-radius: 16px;
+    display: flex; align-items: center; gap: 14px;
     flex-shrink: 0;
   }
-  .trib-icon { font-size: 38px; flex-shrink: 0; }
-  .trib-body {}
-  .trib-line1 { font-size: 16px; font-weight: 400; color: rgba(180,220,200,0.5); margin-bottom: 6px; }
-  .trib-name { font-size: 26px; font-weight: 900; color: #00dc82; margin-bottom: 4px; }
-  .trib-line2 { font-size: 15px; font-weight: 300; color: rgba(180,220,200,0.4); }
+  .trib-icon { font-size: 26px; flex-shrink: 0; }
+  .trib-text {
+    font-size: 18px; font-weight: 400;
+    color: rgba(180,220,200,0.55); line-height: 1.5;
+  }
+  .trib-text b { color: #00dc82; font-weight: 800; font-size: 20px; }
 
   /* ─── CTA URL ─── */
   .cta-wrap {
     position: relative; z-index: 10;
-    margin: 36px 48px 0;
-    flex-shrink: 0;
+    margin: 30px 48px 0; flex-shrink: 0;
   }
 
   .url-block {
-    background: linear-gradient(135deg, #00dc82, #009e5c);
-    border-radius: 26px;
-    padding: 42px 48px;
+    border-radius: 26px; overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 0 2px rgba(0,220,130,0.5), 0 20px 70px rgba(0,220,130,0.45), 0 0 120px rgba(0,220,130,0.18);
+  }
+
+  /* خط‌های دکوراتیو پشت */
+  .url-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #00dc82 0%, #00b568 60%, #009050 100%);
+  }
+  .url-bg::before {
+    content:''; position:absolute; inset:0;
+    background: repeating-linear-gradient(
+      45deg, transparent, transparent 30px,
+      rgba(255,255,255,0.04) 30px, rgba(255,255,255,0.04) 31px
+    );
+  }
+  .url-bg::after {
+    content:''; position:absolute; top:-80px; left:50%; transform:translateX(-50%);
+    width:600px; height:200px;
+    background:rgba(255,255,255,0.18); border-radius:50%; filter:blur(40px);
+  }
+
+  .url-content {
+    position: relative; z-index: 2;
+    padding: 38px 44px;
     text-align: center;
-    box-shadow:
-      0 0 0 2px rgba(0,220,130,0.4),
-      0 24px 60px rgba(0,220,130,0.4),
-      0 0 100px rgba(0,220,130,0.15);
-    position: relative; overflow: hidden;
   }
 
-  .url-block::before {
-    content: '';
-    position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
-    width: 500px; height: 150px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 50%; filter: blur(30px);
-  }
-
-  .url-hint {
-    font-size: 16px; font-weight: 500;
-    color: rgba(3,20,10,0.6);
-    letter-spacing: 1px;
-    margin-bottom: 14px;
+  .url-label-top {
+    font-size: 15px; font-weight: 500;
+    color: rgba(3,20,10,0.55);
+    margin-bottom: 10px; letter-spacing: 1px;
   }
 
   .url-main {
-    font-size: 76px; font-weight: 900;
-    color: #03140a;
-    direction: ltr; letter-spacing: -3px; line-height: 1;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.15);
+    font-size: 82px; font-weight: 900;
+    color: #03140a; direction: ltr;
+    letter-spacing: -3px; line-height: 1;
+    text-shadow: 0 2px 0 rgba(0,0,0,0.1);
+  }
+
+  .url-divider {
+    margin: 14px auto;
+    width: 60px; height: 2px;
+    background: rgba(3,20,10,0.2);
+    border-radius: 2px;
   }
 
   .url-caption {
-    margin-top: 14px;
     font-size: 17px; font-weight: 500;
-    color: rgba(3,20,10,0.55);
-    letter-spacing: 0.5px;
+    color: rgba(3,20,10,0.6);
   }
 
-  /* فضای انعطافی */
-  .spacer { flex: 1; }
-
-  /* خط پایین */
+  /* BOTTOM */
+  .spacer { flex: 1; min-height: 0; }
   .bottom-line {
     position: relative; z-index: 10;
-    margin: 0 48px 58px;
+    margin: 0 48px 50px;
     display: flex; align-items: center; justify-content: center;
     gap: 10px; flex-shrink: 0;
   }
-  .bl-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(0,220,130,0.3); }
-  .bl-text { font-size: 13px; font-weight: 400; color: rgba(0,220,130,0.3); letter-spacing: 1px; }
-
+  .bl-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,220,130,0.25)}
+  .bl-text{font-size:13px;color:rgba(0,220,130,0.25);letter-spacing:1px}
 </style>
 </head>
 <body>
@@ -245,16 +236,37 @@
     <div class="pill">v 2.0</div>
   </div>
 
-  <!-- HERO -->
+  <!-- HERO وسط -->
   <div class="hero">
-    <div class="eyebrow">شبیه‌ساز آموزش تعاملی رزرواسیون</div>
+    <div class="eyebrow">شبیه‌ساز رزرواسیون هوشمند</div>
     <div class="main-title">
       تایپ کن،
       <span class="green">یاد بگیر.</span>
     </div>
-    <div class="subtitle">
-      آموزش <b>نرم‌افزار نیرا</b> با <b>ترمینال واقعی</b><br>
-      دستور بزن — نتیجه ببین — مسلط شو
+    <div class="interactive-badge">🎯 &nbsp; آموزش تعاملی</div>
+  </div>
+
+  <!-- ۴ ویژگی -->
+  <div class="features-row">
+    <div class="feat-card">
+      <div class="feat-icon">🎬</div>
+      <div class="feat-title">فیلم آموزشی</div>
+      <div class="feat-sub">ویدیوهای گام‌به‌گام</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📄</div>
+      <div class="feat-title">جزوه PDF</div>
+      <div class="feat-sub">مرجع کامل دستورات</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">💻</div>
+      <div class="feat-title">ترمینال زنده</div>
+      <div class="feat-sub">تمرین واقعی آنلاین</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🤖</div>
+      <div class="feat-title">چت‌بات هوشمند</div>
+      <div class="feat-sub">سوال و جواب فوری</div>
     </div>
   </div>
 
@@ -284,43 +296,34 @@
     </div>
   </div>
 
-  <!-- STATS -->
-  <div class="feats">
-    <div class="feat"><div class="fval">۲</div><div class="fkey">دوره تخصصی</div></div>
-    <div class="feat"><div class="fval">۱۰+</div><div class="fkey">درس رایگان</div></div>
-    <div class="feat"><div class="fval">24/7</div><div class="fkey">آنلاین</div></div>
-  </div>
-
-  <!-- TRIBUTE -->
+  <!-- TRIBUTE یک سطری -->
   <div class="tribute">
     <div class="trib-icon">🌿</div>
-    <div class="trib-body">
-      <div class="trib-line1">الهام گرفته از آموزش‌های رایگان و بی‌دریغ</div>
-      <div class="trib-name">امیرحسین وثوق</div>
-      <div class="trib-line2">پیشگام آموزش آزاد نیرا در ایران</div>
+    <div class="trib-text">
+      الهام گرفته از آموزش‌های بی‌دریغ &nbsp;<b>امیرحسین وثوق</b>&nbsp; پیشگام آموزش آزاد نیرا
+    </div>
+  </div>
+
+  <!-- URL برجسته -->
+  <div class="cta-wrap">
+    <div class="url-block">
+      <div class="url-bg"></div>
+      <div class="url-content">
+        <div class="url-label-top">همین الان شروع کن — رایگان</div>
+        <div class="url-main">Nirahelp.ir</div>
+        <div class="url-divider"></div>
+        <div class="url-caption">ترمینال · جزوه · فیلم · چت‌بات هوشمند ✈️</div>
+      </div>
     </div>
   </div>
 
   <div class="spacer"></div>
 
-  <!-- URL برجسته -->
-  <div class="cta-wrap">
-    <div class="url-block">
-      <div class="url-hint">همین الان شروع کن — رایگان</div>
-      <div class="url-main">Nirahelp.ir</div>
-      <div class="url-caption">ترمینال را باز کن · یاد بگیر · پرواز کن ✈️</div>
-    </div>
-  </div>
-
-  <div class="spacer" style="max-height:36px"></div>
-
-  <!-- BOTTOM -->
   <div class="bottom-line">
     <div class="bl-dot"></div>
     <div class="bl-text">niratraining.github.io/Nira</div>
     <div class="bl-dot"></div>
   </div>
-
 </div>
 </body>
 </html>
