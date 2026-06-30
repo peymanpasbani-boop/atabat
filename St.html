@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>استوری</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F3EC;
+    --ink:#26231F;
+    --ink-soft:#5B564D;
+    --gold:#B2823B;
+    --line:#D9CFBE;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:#111;
+    font-family:'Vazirmatn', sans-serif;
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px;
+    justify-content:center;
+    padding:24px;
+  }
+  .story{
+    width:1080px;
+    height:1920px;
+    position:relative;
+    background:var(--paper);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  .story::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(ellipse at 18% 8%, rgba(178,130,59,0.10), transparent 45%),
+      radial-gradient(ellipse at 85% 95%, rgba(178,130,59,0.08), transparent 50%);
+    pointer-events:none;
+  }
+  .frame{
+    position:absolute;
+    inset:48px;
+    border:1px solid var(--line);
+    pointer-events:none;
+  }
+  .tag{
+    position:absolute;
+    top:96px;
+    right:96px;
+    left:96px;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size:24px;
+    letter-spacing:1px;
+    color:var(--ink-soft);
+  }
+  .tag .num{
+    font-weight:700;
+    color:var(--gold);
+    font-variant-numeric:tabular-nums;
+  }
+  .content{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:0 130px;
+    position:relative;
+    z-index:2;
+  }
+  .eyebrow{
+    font-size:30px;
+    color:var(--gold);
+    font-weight:500;
+    margin-bottom:28px;
+  }
+  h1{
+    font-size:64px;
+    font-weight:900;
+    line-height:1.32;
+    color:var(--ink);
+    margin-bottom:48px;
+  }
+  h1 .accent{ color:var(--gold); }
+  p{
+    font-size:32px;
+    font-weight:400;
+    line-height:1.85;
+    color:var(--ink-soft);
+    margin-bottom:30px;
+  }
+  p strong{
+    color:var(--ink);
+    font-weight:600;
+  }
+  .divider{
+    width:64px;
+    height:3px;
+    background:var(--gold);
+    margin:8px 0 40px;
+  }
+  .quote{
+    margin-top:8px;
+    font-size:38px;
+    font-weight:700;
+    color:var(--ink);
+    line-height:1.6;
+    border-right:4px solid var(--gold);
+    padding-right:28px;
+  }
+  .footer{
+    position:absolute;
+    bottom:96px;
+    right:96px;
+    left:96px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:24px;
+    color:var(--ink-soft);
+    z-index:2;
+  }
+  .dots{
+    display:flex;
+    gap:10px;
+  }
+  .dot{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--line);
+  }
+  .dot.active{ background:var(--gold); }
+
+  /* Story 2 specifics */
+  .checklist{
+    margin-top:8px;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+  .check-item{
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+    font-size:30px;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+  .check-mark{
+    flex:none;
+    width:36px;height:36px;
+    border-radius:8px;
+    border:2px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--gold);
+    font-size:22px;
+    font-weight:700;
+    margin-top:4px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- STORY 1 -->
+  <div class="story">
+    <div class="frame"></div>
+    <div class="tag"><span>روایت یه ایده</span><span class="num">۰۱ / ۰۲</span></div>
+
+    <div class="content">
+      <div class="eyebrow">یه روز، یه شرکت چهار-اسمه</div>
+      <h1>ما می‌دویدیم دنبال <span class="accent">نرخ‌ها.</span></h1>
+
+      <p>چندتا ساین سپهر، هرکدوم چند مسیر؛ من و یه نفر دیگه باید دستی می‌رفتیم چک می‌کردیم و نرخ می‌زدیم. اول هیجان داشت، بعد شد تکرار خسته‌کننده.</p>
+
+      <p>همون لحظه‌ای که خیلیا فقط <strong>غر می‌زنن و رد می‌شن</strong>، یه سوال توی ذهنم موند:</p>
+
+      <div class="divider"></div>
+      <div class="quote">چرا باید ما بریم دنبال نرخ‌ها؟</div>
+    </div>
+
+    <div class="footer">
+      <span>زاویه‌ی نگاه، عوض شد ›</span>
+      <div class="dots"><span class="dot active"></span><span class="dot"></span></div>
+    </div>
+  </div>
+
+  <!-- STORY 2 -->
+  <div class="story">
+    <div class="frame"></div>
+    <div class="tag"><span>روایت یه ایده</span><span class="num">۰۲ / ۰۲</span></div>
+
+    <div class="content">
+      <div class="eyebrow">از آرزو تا سیستم</div>
+      <h1>حالا <span class="accent">نرخ‌ها</span> می‌آن دنبال ما.</h1>
+
+      <p>مثل یه کارتابل: نرخ‌ها می‌شینن جلوت، کار تو می‌مونه یه تأیید. آدمی که قبلاً برای چند مسیر می‌دوید، حالا ده‌ها شرکت و ده‌ها مسیر رو هم‌زمان زیر نظر داره.</p>
+
+      <p>اما بازار ایران دیتای الکی و هیجانی هم زیاد داره. برای همین:</p>
+
+      <div class="checklist">
+        <div class="check-item"><span class="check-mark">✓</span><span>هوش مصنوعی <strong>دستیاره</strong>، نه تصمیم‌گیرنده</span></div>
+        <div class="check-item"><span class="check-mark">✓</span><span>نرخ رو می‌ذاره جلوت، استدلالش رو هم می‌گه</span></div>
+        <div class="check-item"><span class="check-mark">✓</span><span>تیک آخر، همیشه دست خودته</span></div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="quote">عقل ماشین رو قرض بگیر؛ تصمیم آخر دست آدمیه که بازار رو از نزدیک دیده.</div>
+    </div>
+
+    <div class="footer">
+      <span>پایان</span>
+      <div class="dots"><span class="dot"></span><span class="dot active"></span></div>
+    </div>
+  </div>
+
+</body>
+</html>
