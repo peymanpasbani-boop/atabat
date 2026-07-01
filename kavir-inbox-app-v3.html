@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>کارتابل نرخ</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F2F7; --elevated:#FFFFFF; --sep:#E3E3E8; --sep-soft:#ECECF1;
+    --label:#1C1C1E; --label-2:#6C6C70; --label-3:#AEAEB4;
+    --blue:#0A84FF; --green:#30B855; --red:#FF3B30; --orange:#FF9500;
+    --fill:#EDEDF2; --amber:#F2A73B;
+    --violet:#7C6FF0; --violet-2:#5B4FE0; --violet-ink:#4B3FCB;
+    --radius:18px;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ height:100%; margin:0; }
+  body{
+    background:#DCDCE2;
+    font-family:"Vazirmatn", Tahoma, "Segoe UI", sans-serif;
+    font-optical-sizing:auto;
+    color:var(--label);
+    display:flex; align-items:flex-start; justify-content:center;
+  }
+  button, input{ font-family:inherit; }
+  .num{ direction:ltr; unicode-bidi:isolate; font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1; letter-spacing:.1px; }
+  ::-webkit-scrollbar{ display:none; }
+  :focus-visible{ outline:2px solid var(--blue); outline-offset:2px; }
+
+  /* ---------------- device shell ---------------- */
+  .stage{ width:100%; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:34px 12px; }
+  .device{
+    width:402px; height:874px; background:#0b0b0d; border-radius:56px; padding:12px;
+    box-shadow:0 40px 80px -30px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.04) inset;
+    position:relative;
+  }
+  .screen{ position:relative; width:100%; height:100%; background:var(--bg); border-radius:44px; overflow:hidden; }
+  .notch{ position:absolute; top:12px; left:50%; transform:translateX(-50%); width:120px; height:28px; background:#0b0b0d; border-radius:16px; z-index:50; }
+  .home-indicator{ position:absolute; bottom:8px; left:50%; transform:translateX(-50%); width:130px; height:5px; border-radius:99px; background:#0b0b0d; opacity:.85; z-index:50; }
+
+  /* ---------------- account bar (logged-in identity, replaces phone status bar) ---------------- */
+  .account-bar{ height:58px; display:flex; align-items:center; justify-content:space-between; padding:0 14px; flex:0 0 auto; background:var(--elevated); border-bottom:1px solid var(--sep); }
+  .account-identity{ display:flex; align-items:center; gap:9px; background:none; border:none; padding:2px 4px 2px 2px; border-radius:12px; }
+  .account-identity:active{ background:var(--fill); }
+  .account-avatar{ position:relative; width:36px; height:36px; border-radius:50%; flex:0 0 auto; background:linear-gradient(135deg,var(--violet),var(--violet-2)); color:#fff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 14px -6px rgba(91,79,224,.6); }
+  .account-avatar::after{ content:""; position:absolute; bottom:-1px; inset-inline-start:-1px; width:10px; height:10px; border-radius:50%; background:var(--green); border:2px solid var(--elevated); }
+  .account-text{ display:flex; flex-direction:column; align-items:flex-start; }
+  .account-name{ font-size:13.5px; font-weight:800; color:var(--label); line-height:1.3; }
+  .account-role{ font-size:10.5px; color:var(--label-3); font-weight:600; margin-top:1px; }
+  .account-bell{ position:relative; width:36px; height:36px; border-radius:50%; background:var(--fill); border:none; display:flex; align-items:center; justify-content:center; color:var(--label-2); flex:0 0 auto; }
+  .account-bell:active{ background:var(--sep); }
+  .account-bell-dot{ position:absolute; top:5px; inset-inline-end:5px; min-width:15px; height:15px; padding:0 3px; border-radius:99px; background:var(--red); color:#fff; font-size:9px; font-weight:800; display:flex; align-items:center; justify-content:center; border:2px solid var(--elevated); }
+  .account-bell-dot:empty{ display:none; }
+
+  .tabbar{
+    flex:0 0 auto; height:64px; display:flex; border-top:1px solid var(--sep);
+    background:rgba(249,249,251,.92); backdrop-filter:blur(20px);
+    padding-bottom:6px;
+  }
+  .tab-item{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; background:none; border:none; color:var(--label-3); font-size:10.5px; font-weight:600; }
+  .tab-item.active{ color:var(--blue); }
+  .tab-item svg{ width:23px; height:23px; }
+
+  .app-body{ position:relative; flex:1 1 auto; height:calc(100% - 58px - 64px); overflow:hidden; }
+  .device-inner{ display:flex; flex-direction:column; height:100%; }
+
+  /* ---------------- views (push nav) ---------------- */
+  .view{ position:absolute; inset:0; background:var(--bg); overflow-y:auto; -webkit-overflow-scrolling:touch; transition:transform .34s cubic-bezier(.32,.72,0,1); }
+  .view-inbox{ transform:translateX(0); z-index:1; }
+  .view-inbox::before{ content:""; position:absolute; inset:0; background:#000; opacity:0; pointer-events:none; transition:opacity .34s; z-index:5; }
+  .view-inbox.pushed::before{ opacity:.16; }
+  .view-inbox.pushed{ transform:translateX(-26%); }
+  .view-detail{ transform:translateX(100%); z-index:10; }
+  .view-detail.active{ transform:translateX(0); }
+  .view-reports{ transform:translateX(0); display:none; }
+  .view-reports.active{ display:block; }
+
+  /* ---------------- nav bar ---------------- */
+  .navbar{ padding:6px 16px 8px; flex:0 0 auto; }
+  .navbar-row{ display:flex; align-items:center; justify-content:space-between; height:30px; }
+  .back-btn{ display:flex; align-items:center; gap:2px; background:none; border:none; color:var(--blue); font-size:16px; font-weight:500; padding:0; }
+  .nav-icon-btn{ background:none; border:none; color:var(--blue); font-size:15px; font-weight:600; }
+  .icon-btn-circle{ width:32px; height:32px; border-radius:50%; background:var(--fill); border:none; display:flex; align-items:center; justify-content:center; color:var(--label-2); flex:0 0 auto; position:relative; }
+  .icon-btn-circle:active{ background:var(--sep); }
+  .header-actions{ display:flex; align-items:center; gap:6px; }
+  .header-action-dot{ position:absolute; top:2px; inset-inline-end:2px; width:8px; height:8px; border-radius:50%; background:var(--red); border:1.5px solid var(--elevated); display:none; }
+  .header-action-dot.show{ display:block; }
+  .large-title{ font-size:32px; font-weight:900; letter-spacing:-.02em; margin:2px 0 2px; }
+  .large-sub{ font-size:12.5px; color:var(--label-2); margin-bottom:12px; }
+
+  /* route chip scroller */
+  .route-scroll{ display:flex; gap:8px; overflow-x:auto; padding:2px 16px 14px; scroll-snap-type:x proximity; }
+  .route-chip{
+    scroll-snap-align:start; flex:0 0 auto; display:flex; align-items:center; gap:6px;
+    background:var(--elevated); border:1px solid var(--sep); color:var(--label-2);
+    font-size:13px; font-weight:700; padding:8px 15px; border-radius:99px;
+    box-shadow:0 1px 2px rgba(20,20,30,.05);
+    transition:background .2s, color .2s, border-color .2s, box-shadow .2s;
+  }
+  .route-chip.active{
+    background:linear-gradient(135deg,var(--violet),var(--violet-2)); border-color:transparent; color:#fff;
+    box-shadow:0 8px 18px -8px rgba(91,79,224,.6);
+  }
+  .route-chip-badge{ background:rgba(0,0,0,.08); color:inherit; font-size:10px; font-weight:800; padding:1px 6px; border-radius:99px; }
+  .route-chip.active .route-chip-badge{ background:rgba(255,255,255,.28); }
+
+  /* segmented control */
+  .segmented{ display:flex; background:var(--fill); border-radius:11px; padding:2px; margin:0 16px 10px; }
+  .seg-btn{ flex:1; border:none; background:none; padding:7px 2px; font-size:11px; font-weight:600; color:var(--label-2); border-radius:9px; transition:background .15s, color .15s; white-space:nowrap; }
+  .seg-btn.active{ background:var(--elevated); color:var(--label); box-shadow:0 1px 3px rgba(0,0,0,.14); }
+  .seg-btn.urgent-seg{ color:var(--red); }
+  .seg-btn.urgent-seg.active{ color:var(--red); }
+
+  /* ---------------- last-check / manual refresh bar ---------------- */
+  .refresh-bar{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin:0 16px 12px; padding:9px 12px; background:var(--fill); border-radius:12px; }
+  .refresh-bar-text{ font-size:11px; color:var(--label-2); font-weight:600; }
+  .refresh-bar-text b{ color:var(--label); font-weight:800; }
+  .refresh-btn{ display:flex; align-items:center; gap:5px; background:var(--elevated); border:1px solid var(--sep); color:var(--blue); font-size:11.5px; font-weight:700; padding:6px 11px; border-radius:99px; box-shadow:0 1px 2px rgba(20,20,30,.05); flex:0 0 auto; white-space:nowrap; }
+  .refresh-btn:active{ background:var(--sep); }
+  .refresh-btn svg{ width:13px; height:13px; }
+  .refresh-btn.loading svg{ animation:refreshSpin .8s linear infinite; }
+  .refresh-btn:disabled{ opacity:.7; }
+  @keyframes refreshSpin{ to{ transform:rotate(360deg); } }
+
+  /* ---------------- date/rate overview strip ---------------- */
+  .date-strip-wrap{ margin:2px 0 14px; }
+  .date-strip-label{ display:flex; align-items:center; gap:6px; padding:0 16px; margin-bottom:10px; font-size:13px; font-weight:700; color:var(--label-2); }
+  .date-strip-label svg{ width:14px; height:14px; color:var(--violet); flex:0 0 auto; }
+  .date-strip{ display:flex; gap:8px; overflow-x:auto; padding:10px 16px 8px; scroll-snap-type:x proximity; align-items:flex-start; }
+  .date-card{
+    scroll-snap-align:start; flex:0 0 auto; width:86px; height:104px; text-align:center; background:var(--elevated);
+    border-radius:14px; padding:9px 6px 8px; border:1.5px solid rgba(20,20,30,.045); position:relative;
+    box-shadow:0 1px 2px rgba(20,20,30,.04), 0 10px 20px -16px rgba(20,20,30,.24); transition:transform .12s;
+    display:flex; flex-direction:column; line-height:1.25;
+  }
+  .dc-content{ display:flex; flex-direction:column; flex:1 1 auto; min-height:0; overflow:hidden; }
+  .date-card:active{ transform:scale(.96); }
+  .date-card.today{
+    border-color:transparent; background:linear-gradient(165deg,#F4F2FF,#FFFFFF 62%);
+    box-shadow:0 12px 24px -12px rgba(91,79,224,.45), 0 0 0 1.5px var(--violet) inset;
+  }
+  .date-card.today::before{
+    content:"امروز"; display:block; align-self:center; margin-bottom:5px;
+    background:linear-gradient(135deg,var(--violet),var(--violet-2)); color:#fff; font-size:9.5px; font-weight:700; line-height:1.4;
+    padding:2.5px 9px; border-radius:99px; box-shadow:0 4px 10px -4px rgba(91,79,224,.65); white-space:nowrap; flex:0 0 auto;
+  }
+  .dc-weekday{ font-size:10.5px; font-weight:600; color:var(--label-2); line-height:1.3; }
+  .date-card.today .dc-weekday{ color:var(--violet-ink); }
+  .dc-day{ font-size:13px; font-weight:800; margin-top:3px; line-height:1.3; }
+  .dc-divider{ height:1px; background:var(--sep); margin:7px 0; flex:0 0 auto; }
+  .date-card.today .dc-divider{ background:rgba(91,79,224,.25); }
+  .dc-bottom{ display:flex; flex-direction:column; align-items:center; justify-content:center; flex:0 0 auto; gap:4px; }
+  .dc-rate{ font-size:13px; font-weight:800; line-height:1.3; }
+  .dc-rate.empty{ color:var(--label-3); font-weight:600; font-size:9.5px; line-height:1.3; }
+  .dc-supplier{ font-size:9.5px; font-weight:600; color:var(--label-3); max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding:0 2px; line-height:1.3; }
+  .dc-supplier.own{ color:var(--violet-ink); font-weight:700; }
+
+  /* ---------------- inbox list (each message as a separated, shadowed card) ---------------- */
+  .list{ padding:2px 12px 20px; }
+  .row-wrap{ position:relative; overflow:hidden; border-radius:16px; margin-bottom:10px; box-shadow:0 1px 2px rgba(20,20,30,.05), 0 12px 24px -18px rgba(20,20,30,.28); }
+  .row-bg{ position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between; padding:0 18px; }
+  .row-bg-action{ font-size:12px; font-weight:800; display:flex; align-items:center; gap:5px; opacity:0; transition:opacity .12s; }
+  .row-bg-action.approve{ color:#fff; }
+  .row-bg-action.reject{ color:#fff; }
+  .row-content{
+    position:relative; display:flex; align-items:flex-start; gap:11px; padding:14px 16px;
+    background:var(--elevated); touch-action:pan-y; transition:background .15s; border:1px solid rgba(20,20,30,.045);
+  }
+  .row-wrap.flagged .row-content{ border-inline-start:3px solid var(--amber); padding-inline-start:14px; background:linear-gradient(90deg, rgba(242,167,59,.08), var(--elevated) 45%); }
+
+  /* alert badge = what the assistant wants to do, at a glance */
+  .alert-badge{ width:36px; height:36px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex:0 0 auto; margin-top:1px; position:relative; }
+  .alert-badge svg{ width:17px; height:17px; }
+  .alert-badge.up{ background:linear-gradient(135deg,#34C471,#1F9C4C); color:#fff; box-shadow:0 6px 14px -6px rgba(31,156,76,.5); }
+  .alert-badge.down{ background:linear-gradient(135deg,#FF6259,#E0342A); color:#fff; box-shadow:0 6px 14px -6px rgba(224,52,42,.55); }
+  .alert-badge.flat{ background:var(--fill); color:var(--label-2); }
+  .alert-badge.unread::after{ content:""; position:absolute; top:-2px; left:-2px; width:9px; height:9px; border-radius:50%; background:var(--amber); border:2px solid var(--elevated); }
+  @keyframes pulseRing{ 0%{ box-shadow:0 0 0 0 rgba(242,167,59,.55);} 70%{ box-shadow:0 0 0 6px rgba(242,167,59,0);} 100%{ box-shadow:0 0 0 0 rgba(242,167,59,0);} }
+  .alert-badge.unread{ animation:pulseRing 2.6s infinite; }
+
+  .row-main{ flex:1; min-width:0; }
+  .row-top{ display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
+  .row-title-wrap{ display:flex; align-items:baseline; gap:6px; min-width:0; }
+  .row-title{ font-size:17px; font-weight:800; letter-spacing:-.01em; }
+  .row-weekday{ font-size:12px; color:var(--label-3); font-weight:600; }
+  .row-flag-ico{ color:var(--amber); font-size:11px; flex:0 0 auto; }
+  .row-new-badge{ background:var(--red); color:#fff; font-size:9.5px; font-weight:800; padding:2px 7px; border-radius:99px; flex:0 0 auto; }
+  .row-time{ font-size:11.5px; color:var(--label-2); font-weight:700; flex:0 0 auto; white-space:nowrap; }
+  .row-alert-line{ font-size:12.5px; color:var(--label-2); margin-top:4px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .row-bottom{ display:flex; align-items:center; gap:7px; margin-top:8px; flex-wrap:wrap; }
+  .row-target{ font-size:15px; font-weight:900; letter-spacing:-.01em; color:var(--label); }
+  .row-badge{ font-size:10.5px; font-weight:800; padding:2.5px 8px; border-radius:99px; }
+  .row-status-txt{ font-size:10.5px; color:var(--label-3); font-weight:600; margin-inline-start:auto; }
+  .row-chevron{ color:var(--label-3); font-size:16px; padding-top:10px; flex:0 0 auto; }
+
+  /* ---------------- detail view ---------------- */
+  .detail-nav{ display:flex; align-items:center; justify-content:space-between; padding:6px 12px; }
+  .detail-header{ padding:6px 20px 16px; border-bottom:1px solid var(--sep); background:var(--elevated); }
+  .detail-eyebrow{ font-size:11px; font-weight:700; color:var(--blue); text-transform:none; margin-bottom:6px; display:flex; align-items:center; gap:5px; }
+  .detail-subject{ font-size:19px; font-weight:800; line-height:1.5; }
+  .detail-ourflight{ font-size:12.5px; color:var(--violet-ink); font-weight:800; margin-top:5px; }
+  .detail-meta{ font-size:11.5px; color:var(--label-2); margin-top:6px; }
+
+  .detail-body{ padding:16px; padding-bottom:110px; }
+  .card{ background:var(--elevated); border-radius:var(--radius); padding:16px; margin-bottom:12px; box-shadow:0 1px 2px rgba(20,20,30,.04), 0 12px 26px -18px rgba(20,20,30,.22); border:1px solid rgba(20,20,30,.04); }
+  .card-title{ font-size:11.5px; font-weight:700; color:var(--label-2); margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+
+  .stat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .stat-cell{ text-align:center; }
+  .stat-cell .v{ font-size:16.5px; font-weight:900; letter-spacing:-.01em; }
+  .stat-cell .l{ font-size:10px; color:var(--label-3); margin-top:2px; }
+  .stat-cell.min .v{ color:var(--green); }
+  .stat-cell.max .v{ color:var(--red); }
+  .stat-cell.avg .v{ color:var(--orange); }
+  .stat-divider{ height:1px; background:var(--sep); margin:12px 0; }
+
+  .alt-track{ position:relative; height:8px; border-radius:99px; background:linear-gradient(90deg,#d6f3e2,#fde4bd,#fdd9d6); margin-top:22px; }
+  .alt-needle{ position:absolute; top:-6px; width:2px; height:20px; background:var(--label); border-radius:2px; }
+  .alt-needle::after{ content:""; position:absolute; top:-4px; left:50%; transform:translateX(-50%); width:8px; height:8px; border-radius:50%; background:var(--label); box-shadow:0 0 0 3px var(--elevated); }
+  .alt-tag{ position:absolute; top:-30px; transform:translateX(50%); font-size:10.5px; font-weight:800; background:var(--label); color:#fff; padding:3px 7px; border-radius:7px; white-space:nowrap; }
+  .alt-labels{ display:flex; justify-content:space-between; font-size:10px; color:var(--label-3); margin-top:8px; }
+
+  /* --- assistant / suggestion card (signature element) --- */
+  .suggestion-card{ background:linear-gradient(165deg,#F4F2FF,#FFFFFF 58%); border:1px solid #E4DEFB; position:relative; overflow:hidden; }
+  .suggestion-card::before{ content:""; position:absolute; top:-46px; left:-46px; width:150px; height:150px; border-radius:50%; background:radial-gradient(circle,rgba(124,111,240,.20),transparent 70%); pointer-events:none; }
+  .assistant-head{ display:flex; align-items:center; gap:10px; margin-bottom:12px; position:relative; }
+  .assistant-avatar{ width:32px; height:32px; border-radius:11px; background:linear-gradient(135deg,var(--violet),var(--violet-2)); display:flex; align-items:center; justify-content:center; flex:0 0 auto; box-shadow:0 6px 14px -6px rgba(91,79,224,.65); }
+  .assistant-avatar svg{ width:16px; height:16px; }
+  .assistant-name{ font-size:12.5px; font-weight:800; color:var(--violet-ink); }
+  .assistant-sub{ font-size:10.5px; color:var(--label-3); margin-top:1px; }
+  .factor-row{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; position:relative; }
+  .factor-chip{ font-size:10.5px; font-weight:700; background:rgba(124,111,240,.12); color:var(--violet-ink); padding:4.5px 10px; border-radius:99px; }
+  .factor-chip.warn{ background:#FFE9CE; color:#A85E00; }
+  .factor-chip.good{ background:#DFF6E6; color:#1F9C4C; }
+  .suggestion-text{ font-size:13px; line-height:2; color:#3c3a45; margin-bottom:12px; position:relative; }
+  .suggestion-target{ display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; position:relative; }
+  .suggestion-target .fig{ font-size:19px; font-weight:900; letter-spacing:-.01em; }
+  .delta-chip{ font-size:11px; font-weight:800; padding:3px 9px; border-radius:99px; }
+  .delta-up{ background:#DFF6E6; color:#1F9C4C; }
+  .delta-down{ background:#FFE5E3; color:#D8342A; }
+  .delta-flat{ background:var(--fill); color:var(--label-2); }
+
+  .manifest-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; padding:9px 0; border-bottom:1px solid var(--sep-soft); }
+  .manifest-row:last-child{ border-bottom:none; }
+  .m-left{ display:flex; align-items:center; gap:8px; min-width:0; }
+  .airline-dot{ width:8px; height:8px; border-radius:50%; flex:0 0 auto; }
+  .m-name{ font-size:13px; font-weight:700; }
+  .m-agency{ font-size:10.5px; color:var(--blue); margin-top:1px; }
+  .m-right{ text-align:left; flex:0 0 auto; }
+  .m-price{ font-size:14px; font-weight:900; }
+  .m-price.cheapest{ color:var(--green); }
+  .m-meta{ font-size:10px; color:var(--label-3); margin-top:1px; }
+  .cheapest-tag{ display:inline-block; font-size:9px; font-weight:800; color:var(--green); background:#DFF6E6; padding:1px 6px; border-radius:99px; margin-inline-start:5px; }
+
+  /* status pill in detail */
+  .status-pill{ font-size:10.5px; font-weight:800; padding:4px 10px; border-radius:99px; }
+  .status-pending{ background:#FFF1D6; color:#B4780C; }
+  .status-approved{ background:#DFF6E6; color:#1F9C4C; }
+  .status-rejected{ background:var(--fill); color:var(--label-2); }
+  .status-manual{ background:#E1EFFF; color:#0A66C8; }
+
+  /* bottom action bar (detail) */
+  .action-bar{
+    position:absolute; left:0; right:0; bottom:0; z-index:20;
+    background:rgba(249,249,251,.92); backdrop-filter:blur(20px);
+    border-top:1px solid var(--sep); padding:8px 14px 18px; display:flex; gap:8px;
+  }
+  .abtn{ flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; background:none; border:none; padding:7px 2px; border-radius:12px; }
+  .abtn svg{ width:21px; height:21px; }
+  .abtn span{ font-size:10.5px; font-weight:700; }
+  .abtn.reject{ color:var(--label-2); }
+  .abtn.manual{ color:var(--blue); }
+  .abtn.approve{ color:var(--green); }
+  .abtn:active{ background:var(--fill); }
+
+  .inline-manual{ padding:0 16px 12px; }
+  .inline-manual-row{ display:flex; gap:8px; }
+  .inline-manual-row input{ flex:1; background:var(--elevated); border:1px solid var(--sep); border-radius:11px; padding:9px 12px; font-size:13px; outline:none; }
+  .inline-manual-row input:focus{ border-color:var(--blue); }
+  .inline-manual-row button{ background:var(--blue); color:#fff; border:none; border-radius:11px; padding:0 16px; font-size:12.5px; font-weight:700; }
+
+  /* ---------------- action sheet ---------------- */
+  .sheet-scrim{ position:absolute; inset:0; background:rgba(0,0,0,.32); z-index:60; opacity:0; pointer-events:none; transition:opacity .25s; }
+  .sheet-scrim.open{ opacity:1; pointer-events:auto; }
+  .sheet{ position:absolute; left:10px; right:10px; bottom:10px; z-index:61; transform:translateY(120%); transition:transform .3s cubic-bezier(.32,.72,0,1); }
+  .sheet.open{ transform:translateY(0); }
+  .sheet-group{ background:rgba(249,249,251,.98); border-radius:14px; overflow:hidden; margin-bottom:8px; }
+  .sheet-hint{ text-align:center; font-size:12px; color:var(--label-2); padding:10px 16px; border-bottom:1px solid var(--sep); }
+  .sheet-hint-title{ text-align:center; font-size:12px; font-weight:800; color:var(--label-2); padding:2px 16px 8px; }
+  .sheet-option{ width:100%; background:none; border:none; padding:14px; font-size:15.5px; text-align:center; color:var(--blue); font-weight:500; border-bottom:1px solid var(--sep); }
+  .sheet-option:last-child{ border-bottom:none; }
+  .sheet-option.destructive{ color:var(--red); }
+  .sheet-cancel{ width:100%; background:rgba(249,249,251,.98); border:none; border-radius:14px; padding:14px; font-size:16px; font-weight:700; color:var(--blue); }
+  .flight-list-group{ max-height:min(52vh,420px); overflow-y:auto; }
+  .flight-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px 14px; border-bottom:1px solid var(--sep); }
+  .flight-row:last-child{ border-bottom:none; }
+  .flight-row.own-row{ background:rgba(91,79,224,.07); }
+  .flight-row.own-row .flight-airline{ color:var(--violet-ink); }
+  .flight-row.cheapest-row{ background:rgba(48,184,85,.06); }
+  .flight-row-main{ display:flex; flex-direction:column; gap:3px; text-align:right; min-width:0; }
+  .flight-airline{ font-size:13px; font-weight:800; color:var(--label); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .flight-no{ font-size:10.5px; color:var(--label-3); font-weight:600; }
+  .flight-agency{ font-size:10.5px; color:var(--label-3); font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .flight-row-side{ display:flex; flex-direction:column; align-items:flex-end; gap:3px; flex:0 0 auto; text-align:left; }
+  .flight-time{ font-size:11px; color:var(--label-2); font-weight:700; }
+  .flight-price{ font-size:13.5px; font-weight:900; color:var(--label); letter-spacing:-.01em; }
+  .flight-seats{ font-size:10px; color:var(--label-3); font-weight:600; }
+  .mgr-msg{ padding:12px 14px; border-bottom:1px solid var(--sep); text-align:right; }
+  .mgr-msg:last-child{ border-bottom:none; }
+  .mgr-msg-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; }
+  .mgr-msg-from{ font-size:12.5px; font-weight:800; color:var(--label); display:flex; align-items:center; gap:5px; }
+  .mgr-msg-from .dot{ width:6px; height:6px; border-radius:50%; background:var(--red); flex:0 0 auto; }
+  .mgr-msg-date{ font-size:10.5px; color:var(--label-3); font-weight:600; }
+  .mgr-msg-text{ font-size:13px; color:var(--label-2); line-height:1.6; }
+
+  /* ---------------- notification banner ---------------- */
+  .banner-host{ position:absolute; top:0; left:0; right:0; z-index:80; display:flex; justify-content:center; padding-top:8px; pointer-events:none; }
+  .banner{ width:calc(100% - 16px); max-width:370px; background:rgba(255,255,255,.88); backdrop-filter:blur(20px); border-radius:16px; box-shadow:0 12px 30px -10px rgba(0,0,0,.3); padding:10px 12px; display:flex; gap:9px; align-items:flex-start; transform:translateY(-140%); transition:transform .38s cubic-bezier(.32,.85,.2,1); pointer-events:auto; }
+  .banner.show{ transform:translateY(0); }
+  .banner-icon{ width:30px; height:30px; border-radius:8px; background:linear-gradient(135deg,var(--amber),#c9862c); display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
+  .banner-icon svg{ width:16px; height:16px; }
+  .banner-title-row{ display:flex; justify-content:space-between; align-items:baseline; }
+  .banner-app{ font-size:11px; font-weight:700; color:var(--label-2); }
+  .banner-time{ font-size:11px; color:var(--label-3); }
+  .banner-title{ font-size:13px; font-weight:800; margin-top:1px; }
+  .banner-msg{ font-size:12px; color:var(--label-2); margin-top:1px; line-height:1.5; }
+
+  /* ---------------- reports view ---------------- */
+  .grouped-card{ background:var(--elevated); border-radius:var(--radius); overflow:hidden; margin:0 16px 16px; box-shadow:0 1px 2px rgba(20,20,30,.04), 0 12px 26px -18px rgba(20,20,30,.2); border:1px solid rgba(20,20,30,.04); }
+  .grouped-row{ display:flex; align-items:center; justify-content:space-between; padding:12px 14px; border-bottom:1px solid var(--sep-soft); font-size:13.5px; }
+  .grouped-row:last-child{ border-bottom:none; }
+  .grouped-row .l{ color:var(--label); display:flex; align-items:center; gap:6px; }
+  .grouped-row .r{ font-weight:800; }
+
+  .kpi-grid{ display:grid; grid-template-columns:1fr 1fr; }
+  .kpi-cell{ padding:14px; text-align:center; border-bottom:1px solid var(--sep-soft); }
+  .kpi-cell:nth-child(odd){ border-left:1px solid var(--sep-soft); }
+  .kpi-cell .v{ font-size:22px; font-weight:900; letter-spacing:-.01em; }
+  .kpi-cell .l{ font-size:10.5px; color:var(--label-2); margin-top:3px; }
+
+  .chart-card{ background:var(--elevated); border-radius:var(--radius); padding:16px; margin:0 16px 16px; box-shadow:0 1px 2px rgba(20,20,30,.04), 0 12px 26px -18px rgba(20,20,30,.2); border:1px solid rgba(20,20,30,.04); }
+  .chart-legend{ display:flex; gap:14px; font-size:11px; color:var(--label-2); margin-bottom:12px; }
+  .legend-dot{ width:8px; height:8px; border-radius:2px; display:inline-block; margin-inline-end:5px; }
+  .bars{ display:flex; align-items:flex-end; gap:10px; height:130px; }
+  .bar-col{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; }
+  .bar-stack{ display:flex; align-items:flex-end; gap:3px; height:100%; }
+  .bar{ width:11px; border-radius:4px 4px 2px 2px; }
+  .bar-market{ background:#C9CFE0; }
+  .bar-ours{ background:var(--amber); }
+  .bar-date{ font-size:9.5px; color:var(--label-3); margin-top:6px; }
+
+  .empty{ text-align:center; padding:60px 20px; color:var(--label-3); font-size:13px; }
+  .empty svg{ opacity:.35; margin-bottom:10px; }
+
+  @media (max-width:480px){
+    .stage{ padding:0; }
+    .device{ width:100vw; height:100vh; border-radius:0; padding:0; box-shadow:none; }
+    .screen{ border-radius:0; height:100vh; }
+    .notch, .home-indicator{ display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="device">
+    <div class="notch"></div>
+    <div class="screen">
+      <div class="device-inner">
+        <div class="account-bar" id="accountBar">
+          <button class="account-identity" id="btnAccount" title="حساب کاربری">
+            <span class="account-avatar">س.ر</span>
+            <span class="account-text">
+              <span class="account-name">سارا رضایی</span>
+              <span class="account-role">کارشناس نرخ‌گذاری</span>
+            </span>
+          </button>
+          <button class="account-bell" id="btnNotif" title="اعلان‌ها">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="account-bell-dot" id="notifDot"></span>
+          </button>
+        </div>
+
+        <div class="app-body">
+          <div class="banner-host"><div class="banner" id="banner"></div></div>
+
+          <!-- INBOX -->
+          <div class="view view-inbox" id="viewInbox">
+            <div class="navbar">
+              <div class="navbar-row">
+                <span></span>
+                <div class="header-actions">
+                  <button class="icon-btn-circle" id="btnManagerMsgs" title="پیام‌های مدیر">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    <span class="header-action-dot" id="managerMsgDot"></span>
+                  </button>
+                  <button class="icon-btn-circle" id="btnHome" title="خانه">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+                  </button>
+                  <button class="icon-btn-circle" id="btnLogout" title="خروج از حساب">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="large-title">کارتابل نرخ</div>
+              <div class="large-sub" id="inboxSub">تهران–استانبول · بازار بین‌المللی</div>
+            </div>
+
+            <div class="route-scroll" id="routeScrollInbox"></div>
+
+            <div class="segmented">
+              <button class="seg-btn" data-filter="all">همه</button>
+              <button class="seg-btn active" data-filter="pending">در انتظار</button>
+              <button class="seg-btn urgent-seg" data-filter="urgent">فوری</button>
+              <button class="seg-btn" data-filter="decided">بررسی‌شده</button>
+            </div>
+
+            <div class="refresh-bar">
+              <span class="refresh-bar-text">آخرین بررسی سامانه: <b id="lastCheckLabel">همین الان</b></span>
+              <button class="refresh-btn" id="btnCheckNow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
+                <span class="refresh-btn-text">بررسی الان</span>
+              </button>
+            </div>
+
+            <div class="date-strip-wrap">
+              <div class="date-strip-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                وضعیت نرخ این مسیر تا پایان ماه
+              </div>
+              <div class="date-strip" id="dateStrip"></div>
+            </div>
+
+            <div class="list" id="inboxList"></div>
+          </div>
+
+          <!-- DETAIL -->
+          <div class="view view-detail" id="viewDetail">
+            <div class="detail-nav">
+              <button class="back-btn" id="btnBack"><span>›</span> کارتابل</button>
+              <button class="icon-btn-circle" id="btnMore" title="گزینه‌های بیشتر">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+              </button>
+            </div>
+            <div id="detailContent"></div>
+          </div>
+
+          <!-- REPORTS -->
+          <div class="view view-reports" id="viewReports">
+            <div class="navbar">
+              <div class="large-title">گزارش</div>
+              <div class="large-sub" id="reportsSub">بازار تهران–استانبول · خلاصه‌ی عملکرد این هفته</div>
+            </div>
+            <div class="route-scroll" id="routeScrollReports"></div>
+            <div id="reportsContent"></div>
+          </div>
+
+          <div class="sheet-scrim" id="sheetScrim"></div>
+          <div class="sheet" id="sheet"></div>
+        </div>
+
+        <div class="tabbar">
+          <button class="tab-item active" data-tab="inbox">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11Z"/></svg>
+            کارتابل
+          </button>
+          <button class="tab-item" data-tab="reports">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+            گزارش
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="home-indicator"></div>
+  </div>
+</div>
+
+<script>
+/* ============================== ابزار کمکی ============================== */
+const AIRLINE_COLORS = {
+  "ماهان":"#e5484d","آتا":"#3b82f6","آسمان":"#06b6d4","وارش":"#f97316",
+  "کاسپین":"#22c55e","قشم ایر":"#14b8a6","ایران‌ایر":"#2563eb","معراج":"#ec4899",
+  "زاگرس":"#a855f7","فلای پرشیا":"#eab308",
+};
+const airlineColor = (n)=> AIRLINE_COLORS[n] || "#8E8E93";
+const fmt = (n)=> n.toLocaleString("fa-IR");
+/* نمایش فشرده‌ی نرخ به میلیون تومان با یک رقم اعشار، مثل ۱۹/۲ */
+const fmtShort = (n)=>{
+  const millions = Math.round(n/100000)/10;
+  const [intPart, decPart="0"] = millions.toFixed(1).split(".");
+  return `${toFaNum(intPart)}/${toFaNum(decPart)}`;
+};
+
+/* ابزار تقویم شمسی (تبدیل دقیق میلادی↔شمسی، بدون وابستگی به داده‌های ثابت) */
+const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
+const toFaNum = (n)=> String(n).replace(/\d/g, d=>FA_DIGITS[d]);
+const PERSIAN_WEEK = ["شنبه","یکشنبه","دوشنبه","سه‌شنبه","چهارشنبه","پنجشنبه","جمعه"];
+const PERSIAN_MONTHS = ["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"];
+const PERSIAN_MONTH_DAYS = { "فروردین":31,"اردیبهشت":31,"خرداد":31,"تیر":31,"مرداد":31,"شهریور":31,"مهر":30,"آبان":30,"آذر":30,"دی":30,"بهمن":30,"اسفند":29 };
+
+/* الگوریتم دقیق تبدیل تاریخ میلادی به شمسی (jalaali) */
+function _div(a,b){ return ~~(a/b); }
+function _mod(a,b){ return a - ~~(a/b)*b; }
+function _jalCal(jy){
+  const breaks=[-61,9,38,199,426,686,756,818,1111,1181,1210,1635,2060,2097,2192,2262,2324,2394,2456,3178];
+  let gy=jy+621, leapJ=-14, jp=breaks[0], jm, jump=0, n;
+  for(let i=1;i<breaks.length;i++){
+    jm=breaks[i]; jump=jm-jp;
+    if(jy<jm) break;
+    leapJ = leapJ + _div(jump,33)*8 + _div(_mod(jump,33),4);
+    jp=jm;
+  }
+  n = jy-jp;
+  leapJ = leapJ + _div(n,33)*8 + _div(_mod(n,33)+3,4);
+  if(_mod(jump,33)===4 && jump-n===4) leapJ+=1;
+  const leapG = _div(gy,4) - _div((_div(gy,100)+1)*3,4) - 150;
+  const march = 20 + leapJ - leapG;
+  return { gy, march };
+}
+function _g2d(gy,gm,gd){
+  let d = _div((gy+_div(gm-8,6)+100100)*1461,4) + _div(153*_mod(gm+9,12)+2,5) + gd - 34840408;
+  d = d - _div(_div(gy+100100+_div(gm-8,6),100)*3,4) + 752;
+  return d;
+}
+function _d2g(jdn){
+  let j = 4*jdn + 139361631;
+  j = j + _div(_div(4*jdn+183187720,146097)*3,4)*4 - 3908;
+  const i = _div(_mod(j,1461),4)*5 + 308;
+  const gd = _div(_mod(i,153),5) + 1;
+  const gm = _mod(_div(i,153),12) + 1;
+  const gy = _div(j,1461) - 100100 + _div(8-gm,6);
+  return { gy, gm, gd };
+}
+function gregorianToJalali(gy,gm,gd){
+  const jdn = _g2d(gy,gm,gd);
+  const gy2 = _d2g(jdn).gy, jy0 = gy2-621, r=_jalCal(jy0), jdn1f=_g2d(gy2,3,r.march);
+  let k = jdn - jdn1f, jy=jy0, jm, jd;
+  if(k>=0){
+    if(k<=185){ jm=1+_div(k,31); jd=_mod(k,31)+1; return {jy,jm,jd}; }
+    k-=186;
+  } else { jy-=1; k+=179; }
+  jm=7+_div(k,30); jd=_mod(k,30)+1;
+  return { jy, jm, jd };
+}
+
+/* «امروز» واقعی دستگاه، به‌عنوان مبنای همه‌ی تاریخ‌های نمایشی */
+const NOW = new Date();
+const TODAY_GREG = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate());
+const TODAY_JALALI = gregorianToJalali(TODAY_GREG.getFullYear(), TODAY_GREG.getMonth()+1, TODAY_GREG.getDate());
+const TODAY_WEEKDAY_IDX = (TODAY_GREG.getDay()+1) % 7; // نگاشت یکشنبه۰..شنبه۶ جاوااسکریپت به شنبه۰..جمعه۶ تقویم ایرانی
+
+/* برچسب کامل تاریخ شمسی و روز هفته برای هر آفست (روز نسبت به امروز) */
+function jalaliInfoForOffset(offsetDays){
+  const g = new Date(TODAY_GREG); g.setDate(g.getDate()+offsetDays);
+  const j = gregorianToJalali(g.getFullYear(), g.getMonth()+1, g.getDate());
+  const weekdayIdx = (g.getDay()+1) % 7;
+  let timeLabel;
+  if(offsetDays===0) timeLabel="امروز";
+  else if(offsetDays===1) timeLabel="فردا";
+  else if(offsetDays===-1) timeLabel="دیروز";
+  else if(offsetDays<-1) timeLabel=`${toFaNum(-offsetDays)} روز پیش`;
+  else timeLabel=`${toFaNum(offsetDays)} روز دیگر`;
+  return {
+    jalali: `${toFaNum(j.jd)} ${PERSIAN_MONTHS[j.jm-1]}`,
+    weekday: PERSIAN_WEEK[weekdayIdx],
+    time: timeLabel,
+    jy:j.jy, jm:j.jm, jd:j.jd,
+  };
+}
+
+/* منطق کارت: ارزان‌ترین نرخ آن روز بین «نرخ خودمان» و «همه‌ی رقبا»، به‌همراه نام تأمین‌کننده */
+function cheapestOfDay(entry){
+  const stats = computeStats(entry.flights);
+  const ourRate = state.ourRates[entry.key];
+  const isOwn = ourRate <= stats.min;
+  return {
+    price: isOwn ? ourRate : stats.min,
+    isOwn,
+    supplier: isOwn ? "خودم" : (stats.cheapest.agency || stats.cheapest.airline),
+  };
+}
+
+/* از امروز تا پایان همان ماه شمسی، تقویم نرخ این مسیر را می‌سازد */
+function buildMonthStrip(route){
+  const dates = route.dates;
+  const monthName = PERSIAN_MONTHS[TODAY_JALALI.jm-1];
+  const monthLen = PERSIAN_MONTH_DAYS[monthName] || 31;
+  const byDay = {};
+  dates.forEach(d=>{ if(d.jy===TODAY_JALALI.jy && d.jm===TODAY_JALALI.jm) byDay[d.jd] = d; });
+  const cards = [];
+  for(let day=TODAY_JALALI.jd; day<=monthLen; day++){
+    const weekdayIdx = ((TODAY_WEEKDAY_IDX + (day - TODAY_JALALI.jd)) % 7 + 7) % 7;
+    const entry = byDay[day];
+    let cheapest = null;
+    if(entry) cheapest = cheapestOfDay(entry);
+    cards.push({
+      day, month:monthName, weekday:PERSIAN_WEEK[weekdayIdx], isToday: day===TODAY_JALALI.jd,
+      key: entry ? entry.key : null,
+      cheapest,
+    });
+  }
+  return cards;
+}
+function renderDateStrip(){
+  const host = document.getElementById("dateStrip");
+  if(!host) return;
+  const cards = buildMonthStrip(getRoute());
+  host.innerHTML = cards.map(c=>`
+    <button class="date-card ${c.isToday?"today":""}" data-key="${c.key||""}">
+      <div class="dc-content">
+      <div class="dc-top">
+        <div class="dc-weekday">${c.weekday}</div>
+        <div class="dc-day num">${toFaNum(c.day)} ${c.month}</div>
+      </div>
+      <div class="dc-divider"></div>
+      <div class="dc-bottom">
+      ${c.cheapest
+        ? `<div class="dc-rate num">${fmtShort(c.cheapest.price)}</div>
+           <div class="dc-supplier ${c.cheapest.isOwn?'own':''}">${c.cheapest.isOwn?'★ خودم':c.cheapest.supplier}</div>`
+        : `<div class="dc-rate empty">پرواز موجود نیست</div>`}
+      </div>
+      </div>
+    </button>
+  `).join("");
+  host.querySelectorAll(".date-card").forEach(btn=>{
+    if(btn.dataset.key) btn.addEventListener("click", ()=> openDateFlightsSheet(btn.dataset.key));
+  });
+}
+
+/* PRNG قطعی برای تولید داده‌های نمونه‌ی هر مسیر (خروجی همیشه ثابت است) */
+function mulberry32(seed){
+  return function(){
+    seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = (t + Math.imul(t ^ t >>> 7, 61 | t)) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+/* دو تاریخ (آفست‌های روز نسبت به امروز) را به فیلدهای شمسی واقعی متصل می‌کند */
+function withOffset(offset, obj){ return Object.assign({}, obj, jalaliInfoForOffset(offset)); }
+
+function genDates(routeKey, seed, o){
+  const rnd = mulberry32(seed);
+  const pick = arr => arr[Math.floor(rnd()*arr.length)];
+  const dates = [];
+  for(let i=0;i<o.dayOffsets.length;i++){
+    const flights = [];
+    const usedNo = new Set();
+    for(let j=0;j<o.flightsPerDate;j++){
+      let flightNo;
+      do{ flightNo = String(1000+Math.floor(rnd()*8999)); } while(usedNo.has(flightNo));
+      usedNo.add(flightNo);
+      const hh = String(Math.floor(rnd()*24)).padStart(2,"0");
+      const mm = pick(["00","15","30","45"]);
+      const price = Math.round((o.priceMin + rnd()*(o.priceMax-o.priceMin))/50000)*50000;
+      flights.push({
+        airline: pick(o.airlines), flightNo, time:`${hh}:${mm}`,
+        price, seatsLeft: 1+Math.floor(rnd()*9), agency: pick(o.agencies),
+      });
+    }
+    const ourRate = Math.round((o.ourRateMin + rnd()*(o.ourRateMax-o.ourRateMin))/50000)*50000;
+    let ourFlightNo;
+    do{ ourFlightNo = String(1000+Math.floor(rnd()*8999)); } while(usedNo.has(ourFlightNo));
+    dates.push(withOffset(o.dayOffsets[i], {
+      key:`${routeKey}_d${i+1}`,
+      ourRate, ourSeats:{ left: 1+Math.floor(rnd()*o.seatsTotal*0.35), total:o.seatsTotal },
+      ourFlight:{ airline:pick(o.airlines), flightNo:ourFlightNo },
+      flights,
+    }));
+  }
+  return dates;
+}
+
+/* ============================== مسیرها و داده‌ها ============================== */
+const ROUTES = [
+  {
+    key:"ikat", label:"تهران–استانبول", short:"استانبول", sub:"بازار بین‌المللی",
+    dates:[
+      withOffset(-3, { key:"ikat_d1", ourRate:34200000, ourSeats:{left:19,total:144},
+        ourFlight:{ airline:"کاسپین", flightNo:"546" },
+        flights:[
+          {airline:"وارش", flightNo:"6858", time:"21:30", price:32000000, seatsLeft:4, agency:"ریحان پرواز امین"},
+          {airline:"قشم ایر", flightNo:"2215", time:"18:30", price:33200000, seatsLeft:5, agency:"پینگو تریپ"},
+          {airline:"وارش", flightNo:"6846", time:"20:00", price:35000000, seatsLeft:5, agency:"گشت نوید"},
+          {airline:"کاسپین", flightNo:"7902", time:"05:30", price:36500000, seatsLeft:8, agency:"گلفام سفر"},
+          {airline:"فلای پرشیا", flightNo:"3287", time:"04:45", price:39000000, seatsLeft:2, agency:"مهرآگین سیر"},
+        ]}),
+      withOffset(-2, { key:"ikat_d2", ourRate:41800000, ourSeats:{left:4,total:144},
+        ourFlight:{ airline:"وارش", flightNo:"6810" },
+        flights:[
+          {airline:"ماهان", flightNo:"112", time:"19:00", price:32300000, seatsLeft:9, agency:"۳۲ فروشنده"},
+          {airline:"آتا", flightNo:"6619", time:"20:00", price:38000000, seatsLeft:3, agency:"گسترش سیاحت اطلس"},
+          {airline:"آسمان", flightNo:"9210", time:"17:00", price:39200000, seatsLeft:5, agency:"ره‌بال آسمان"},
+          {airline:"کاسپین", flightNo:"7972", time:"04:30", price:40000000, seatsLeft:6, agency:"گلفام سفر"},
+          {airline:"وارش", flightNo:"6846", time:"20:00", price:40500000, seatsLeft:1, agency:"ریحان پرواز امین"},
+        ]}),
+      withOffset(0, { key:"ikat_d3", ourRate:21500000, ourSeats:{left:38,total:144},
+        ourFlight:{ airline:"معراج", flightNo:"4790" },
+        flights:[
+          {airline:"آتا", flightNo:"6619", time:"20:00", price:19000000, seatsLeft:2, agency:"پرشین پرواز کویر"},
+          {airline:"وارش", flightNo:"6846", time:"06:00", price:20000000, seatsLeft:5, agency:"همنواز آسمان آبی"},
+          {airline:"ایران‌ایر", flightNo:"769", time:"17:30", price:20200000, seatsLeft:6, agency:"آدم و حوا"},
+          {airline:"معراج", flightNo:"4805", time:"07:15", price:20600000, seatsLeft:9, agency:"شهران گشت"},
+          {airline:"آسمان", flightNo:"9214", time:"04:30", price:21000000, seatsLeft:7, agency:"ره‌بال آسمان"},
+        ]}),
+      withOffset(1, { key:"ikat_d4", ourRate:20700000, ourSeats:{left:22,total:144},
+        ourFlight:{ airline:"ایران‌ایر", flightNo:"733" },
+        flights:[
+          {airline:"زاگرس", flightNo:"8256", time:"19:30", price:19600000, seatsLeft:1, agency:"۵۳ فروشنده"},
+          {airline:"کاسپین", flightNo:"7902", time:"05:30", price:19900000, seatsLeft:7, agency:"پرشین پرواز کویر"},
+          {airline:"آتا", flightNo:"6617", time:"06:45", price:19900000, seatsLeft:7, agency:"پرشین پرواز کویر"},
+          {airline:"ایران‌ایر", flightNo:"719", time:"06:15", price:20000000, seatsLeft:8, agency:"آدم و حوا"},
+          {airline:"قشم ایر", flightNo:"2213", time:"04:45", price:20300000, seatsLeft:9, agency:"۵۲ فروشنده"},
+        ]}),
+      withOffset(3, { key:"ikat_d5", ourRate:22600000, ourSeats:{left:11,total:144},
+        ourFlight:{ airline:"فلای پرشیا", flightNo:"3301" },
+        flights:[
+          {airline:"آسمان", flightNo:"9214", time:"04:30", price:19200000, seatsLeft:6, agency:"ره‌بال آسمان"},
+          {airline:"فلای پرشیا", flightNo:"3287", time:"04:45", price:20000000, seatsLeft:5, agency:"مهرآگین سیر"},
+          {airline:"کاسپین", flightNo:"7902", time:"05:30", price:20900000, seatsLeft:7, agency:"پرشین پرواز کویر"},
+          {airline:"ایران‌ایر", flightNo:"719", time:"06:15", price:21000000, seatsLeft:8, agency:"آدم و حوا"},
+          {airline:"وارش", flightNo:"6846", time:"07:00", price:21000000, seatsLeft:1, agency:"همنواز آسمان آبی"},
+        ]}),
+      withOffset(5, { key:"ikat_d6", ourRate:25300000, ourSeats:{left:28,total:144},
+        ourFlight:{ airline:"قشم ایر", flightNo:"8657" },
+        flights:[
+          {airline:"آسمان", flightNo:"9214", time:"04:30", price:22500000, seatsLeft:7, agency:"ره‌بال آسمان"},
+          {airline:"قشم ایر", flightNo:"2213", time:"08:45", price:22600000, seatsLeft:1, agency:"پینگو تریپ"},
+          {airline:"کاسپین", flightNo:"7972", time:"21:00", price:23000000, seatsLeft:3, agency:"پینگو تریپ"},
+          {airline:"ماهان", flightNo:"114", time:"17:15", price:23500000, seatsLeft:1, agency:"۲۹ فروشنده"},
+          {airline:"آتا", flightNo:"6617", time:"06:45", price:24000000, seatsLeft:9, agency:"پرشین پرواز کویر"},
+        ]}),
+    ],
+  },
+  {
+    key:"najaf", label:"تهران–نجف", short:"نجف", sub:"پرواز زیارتی",
+    dates: genDates("najaf", 1001, {
+      dayOffsets:[-1,0,2,4,6],
+      flightsPerDate:5, priceMin:27000000, priceMax:52000000, ourRateMin:30000000, ourRateMax:44000000,
+      seatsTotal:180,
+      airlines:["ماهان","معراج","وارش","آسمان","ایران‌ایر","کاسپین"],
+      agencies:["کاروان کربلا","زائرسرای رضوان","آوان سیر","پرشین پرواز کویر","سفرهای نور","گشت نوید","۴۱ فروشنده"],
+    }),
+  },
+  {
+    key:"mashhad", label:"تهران–مشهد", short:"مشهد", sub:"پرواز داخلی",
+    dates: genDates("mashhad", 2002, {
+      dayOffsets:[0,1,2,3,4,5],
+      flightsPerDate:6, priceMin:3200000, priceMax:7800000, ourRateMin:3600000, ourRateMax:6500000,
+      seatsTotal:168,
+      airlines:["کاسپین","زاگرس","معراج","وارش","آسمان","قشم ایر","ایران‌ایر"],
+      agencies:["پرشین پرواز کویر","گلفام سفر","پینگو تریپ","ره‌بال آسمان","۲۹ فروشنده","چارتر مشهد","۵۲ فروشنده"],
+    }),
+  },
+  {
+    key:"kish", label:"تهران–کیش", short:"کیش", sub:"پرواز داخلی",
+    dates: genDates("kish", 3003, {
+      dayOffsets:[0,1,3,5,7],
+      flightsPerDate:5, priceMin:4000000, priceMax:11500000, ourRateMin:4800000, ourRateMax:9500000,
+      seatsTotal:180,
+      airlines:["زاگرس","فلای پرشیا","وارش","قشم ایر","کاسپین","ماهان"],
+      agencies:["پرشین پرواز کویر","مهرآگین سیر","گشت نوید","۳۲ فروشنده","پینگو تریپ","همنواز آسمان آبی"],
+    }),
+  },
+];
+
+/* ============================== شبیه‌سازی «زمان دریافت» هر مورد ============================== */
+/* هر تاریخ به‌صورت پیوسته توسط سامانه پردازش می‌شود؛ این مقدار زمان آخرین دریافت/پردازش را نشان می‌دهد */
+function hashStr(s){ let h=0; for(let i=0;i<s.length;i++){ h=(h*31 + s.charCodeAt(i))|0; } return h>>>0; }
+const state_lastUpdated = {};
+ROUTES.flatMap(r=>r.dates).forEach(d=>{
+  const rnd = mulberry32(hashStr(d.key));
+  const minutesAgo = 2 + Math.floor(rnd()*180); // بین ۲ دقیقه تا ۳ ساعت پیش
+  state_lastUpdated[d.key] = Date.now() - minutesAgo*60000;
+});
+/* دو پیام تازه‌ی نمونه: زمان دریافتشان عمداً بسیار نزدیک به «الان» است تا در بالای کارتابل بنشینند
+   (نه به‌خاطر تاریخ پرواز، بلکه چون تازه‌ترین پیام‌های دریافتی هستند) */
+state_lastUpdated["ikat_d1"] = Date.now() - 1*60000;  // پیام تغییر نرخ کاسپین ۵۴۶ · ۷ تیر
+state_lastUpdated["ikat_d6"] = Date.now() - 4*60000;  // پیام افزایش نرخ قشم‌ایر ۸۶۵۷ · ۱۵ تیر
+/* کلیدهایی که به‌تازگی رسیده‌اند و هنوز باز نشده‌اند، نشان «جدید» می‌گیرند */
+const state_freshKeys = new Set(["ikat_d1","ikat_d6"]);
+function relativeTime(ts){
+  if(!ts) return "—";
+  const diff = Math.max(0, Date.now()-ts);
+  const min = Math.floor(diff/60000);
+  if(min<1) return "همین الان";
+  if(min<60) return `${toFaNum(min)} دقیقه پیش`;
+  const hours = Math.floor(min/60);
+  if(hours<24) return `${toFaNum(hours)} ساعت پیش`;
+  const days = Math.floor(hours/24);
+  return `${toFaNum(days)} روز پیش`;
+}
+
+/* ============================== تحلیل ============================== */
+function computeStats(flights){
+  const prices = flights.map(f=>f.price);
+  const min=Math.min(...prices), max=Math.max(...prices);
+  const avg=Math.round(prices.reduce((a,b)=>a+b,0)/prices.length);
+  const cheapest=flights.find(f=>f.price===min);
+  return {min,max,avg,cheapest};
+}
+const AI_HEADLINES = {
+  competitive: { text:"فاصله از کف بازار زیاد است — کاهش پیشنهاد می‌شود", tone:"down" },
+  critical:    { text:"ظرفیت رو به اتمام — افزایش نرخ پیشنهاد می‌شود", tone:"up" },
+  loose:       { text:"ظرفیت خالی بالاست — کاهش نرخ برای فروش سریع‌تر", tone:"down" },
+  hold:        { text:"نرخ در محدوده‌ی مناسب بازار قرار دارد", tone:"flat" },
+};
+function aiSuggest(ourRate, ourSeats, stats){
+  const freePct = Math.round((ourSeats.left/ourSeats.total)*100);
+  const critical = freePct < 12, loose = freePct > 35;
+  let target, reasoning, type;
+  if(ourRate > stats.min*1.06 && !critical){
+    type = "competitive";
+    target = Math.round((stats.min*1.03)/10000)*10000;
+    reasoning = `ارزان‌ترین رقیب فعال «${stats.cheapest.airline} ${stats.cheapest.flightNo}» با نرخ ${fmt(stats.min)} تومان پرواز می‌کند. نرخ فعلی شما حدود ${(((ourRate-stats.min)/stats.min)*100).toFixed(1)}٪ بالاتر از کف بازار است؛ نزدیک‌شدن به ${fmt(target)} تومان رقابت‌پذیری را حفظ می‌کند و همچنان زیر میانگین بازار (${fmt(stats.avg)} تومان) باقی می‌ماند.`;
+  } else if(critical){
+    type = "critical";
+    target = Math.round((ourRate*1.05)/10000)*10000;
+    reasoning = `فقط ${fmt(ourSeats.left)} صندلی از ${fmt(ourSeats.total)} باقی مانده (${fmt(freePct)}٪ ظرفیت آزاد) — تقاضا برای این تاریخ بالاست. با وجود میانگین بازار ${fmt(stats.avg)} تومان، کمبود ظرفیت افزایش نرخ تا ${fmt(target)} تومان را بدون از‌دست‌دادن مسافر توجیه می‌کند.`;
+  } else if(loose){
+    type = "loose";
+    target = Math.round((stats.avg*0.97)/10000)*10000;
+    reasoning = `${fmt(freePct)}٪ از ظرفیت این پرواز هنوز خالی است. میانگین بازار ${fmt(stats.avg)} تومان است؛ کاهش نرخ به ${fmt(target)} تومان (کمی زیر میانگین) می‌تواند سرعت فروش صندلی‌های باقی‌مانده را بالا ببرد.`;
+  } else {
+    type = "hold";
+    target = ourRate;
+    reasoning = `نرخ فعلی شما (${fmt(ourRate)} تومان) در محدوده‌ی منطقی بازار (کف ${fmt(stats.min)} تا میانگین ${fmt(stats.avg)} تومان) قرار دارد و ظرفیت باقی‌مانده (${fmt(freePct)}٪) متعادل است. تغییری پیشنهاد نمی‌شود.`;
+  }
+  const headline = AI_HEADLINES[type];
+  return {target,reasoning,freePct,critical,loose,type,headline:headline.text,tone:headline.tone};
+}
+function alertIcon(tone){
+  if(tone==="up") return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="6 11 12 5 18 11"/></svg>';
+  if(tone==="down") return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="6 13 12 19 18 13"/></svg>';
+  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+}
+
+/* ============================== وضعیت ============================== */
+const state = {
+  tab:"inbox",
+  route:"ikat",
+  filter:"pending",
+  search:"",
+  openKey:null,
+  ourRates: Object.fromEntries(ROUTES.flatMap(r=>r.dates).map(d=>[d.key,d.ourRate])),
+  decisions:{},
+  flags:{},
+  managerMsgsRead:false,
+  lastUpdated: state_lastUpdated,
+  freshKeys: state_freshKeys,
+  lastCheckTs: Math.max(...Object.values(state_lastUpdated)),
+};
+/* ترتیب کارتابل: نه بر اساس تاریخ پرواز، بلکه بر اساس ترتیب دریافت پیام —
+   جدیدترین پیام (چه تصمیم‌گیری‌شده چه در انتظار) همیشه بالای فهرست می‌نشیند.
+   موردی که تصمیم گرفته شده با زمان همان تصمیم مرتب می‌شود تا در تب «بررسی‌شده» هم
+   جدیدترین رسیدگی‌ها بالا باشند. */
+function sortByReceived(items){
+  return [...items].sort((a,b)=>{
+    const da = state.decisions[a.key], db = state.decisions[b.key];
+    const ta = da ? (da.ts||0) : (state.lastUpdated[a.key]||0);
+    const tb = db ? (db.ts||0) : (state.lastUpdated[b.key]||0);
+    return tb - ta;
+  });
+}
+const MANAGER_MESSAGES = [
+  {from:"محمد کریمی", role:"مدیر نرخ‌گذاری", date:"۳ تیر", text:"لطفاً نرخ مسیر تهران–استانبول رو تا پایان امروز نهایی کن، چند تا فروشنده منتظرن."},
+  {from:"محمد کریمی", role:"مدیر نرخ‌گذاری", date:"۲۹ خرداد", text:"گزارش عملکرد هفته‌ی گذشته‌ت رو دیدم، خیلی خوب بود. همینطور ادامه بده."},
+  {from:"محمد کریمی", role:"مدیر نرخ‌گذاری", date:"۲۵ خرداد", text:"برای مسیر مشهد یه نوسان نرخ داریم، یه نگاهی به کارتابل بنداز."},
+];
+function getRoute(){ return ROUTES.find(r=>r.key===state.route); }
+function getDates(){ return getRoute().dates; }
+function findDate(key){ return ROUTES.flatMap(r=>r.dates).find(d=>d.key===key); }
+function pendingCount(){ return getDates().filter(d=>!state.decisions[d.key]).length; }
+function decidedCount(){ return getDates().filter(d=>state.decisions[d.key]).length; }
+function isUrgent(d){
+  if(state.decisions[d.key]) return false;
+  if(state.flags[d.key]) return true;
+  const stats = computeStats(d.flights);
+  return aiSuggest(state.ourRates[d.key], d.ourSeats, stats).type === "critical";
+}
+function urgentCount(){ return getDates().filter(isUrgent).length; }
+function allPendingCount(){ return ROUTES.flatMap(r=>r.dates).filter(d=>!state.decisions[d.key]).length; }
+
+/* ============================== بنر اطلاع‌رسانی ============================== */
+function showBanner(kind, title, message){
+  const el = document.getElementById("banner");
+  const iconColor = { approved:"#30B855", rejected:"#8E8E93", manual:"#0A84FF" }[kind] || "#F2A73B";
+  el.innerHTML = `
+    <div class="banner-icon" style="background:${iconColor}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-1 .1-1.3.5l-.7.7c-.4.4-.3 1 .2 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.5.9.6 1.3.2l.7-.7c.4-.3.6-.8.5-1.3Z"/></svg>
+    </div>
+    <div style="flex:1; min-width:0;">
+      <div class="banner-title-row"><span class="banner-app">کارتابل نرخ</span><span class="banner-time">الان</span></div>
+      <div class="banner-title">${title}</div>
+      <div class="banner-msg">${message}</div>
+    </div>`;
+  requestAnimationFrame(()=> el.classList.add("show"));
+  clearTimeout(window.__bannerTimer);
+  window.__bannerTimer = setTimeout(()=> el.classList.remove("show"), 3600);
+}
+
+/* ============================== شیت اقدام ============================== */
+function openSheet(html){
+  document.getElementById("sheet").innerHTML = html;
+  document.getElementById("sheetScrim").classList.add("open");
+  requestAnimationFrame(()=> document.getElementById("sheet").classList.add("open"));
+}
+function closeSheet(){
+  document.getElementById("sheet").classList.remove("open");
+  document.getElementById("sheetScrim").classList.remove("open");
+  setTimeout(()=> document.getElementById("sheet").innerHTML = "", 300);
+}
+document.getElementById("sheetScrim").addEventListener("click", closeSheet);
+
+function openScopeSheet(dateKey, target, reasoning){
+  openSheet(`
+    <div class="sheet-group">
+      <div class="sheet-hint">پیش از ثبت روی سامانه فروش، دامنه‌ی اعمال را انتخاب کنید</div>
+      <button class="sheet-option" data-scope="rate">فقط نرخ تغییر کند</button>
+      <button class="sheet-option" data-scope="full">نرخ + ظرفیت نمایش</button>
+    </div>
+    <button class="sheet-cancel" id="sheetCancel">انصراف</button>
+  `);
+  document.querySelectorAll(".sheet-option").forEach(btn=>{
+    btn.onclick = ()=>{
+      const note = btn.dataset.scope==="full" ? " — نرخ و ظرفیت نمایش به‌روزرسانی شد" : " — فقط نرخ به‌روزرسانی شد";
+      applyDecision(dateKey,"approved",target,reasoning,note);
+      closeSheet();
+    };
+  });
+  document.getElementById("sheetCancel").onclick = closeSheet;
+}
+
+/* ------ شیت لیست رقبا (کلیک روی کارت هر تاریخ) ------ */
+function openDateFlightsSheet(key){
+  const d = findDate(key);
+  if(!d) return;
+  const ourRate = state.ourRates[key];
+  const sorted = [...d.flights].sort((a,b)=>a.price-b.price);
+  const minPrice = sorted[0].price;
+  openSheet(`
+    <div class="sheet-hint-title">${d.jalali} · ${d.weekday} — پروازهای رقبا</div>
+    <div class="sheet-group flight-list-group">
+      <div class="flight-row own-row">
+        <div class="flight-row-main">
+          <span class="flight-airline">★ نرخ و ظرفیت ما</span>
+        </div>
+        <div class="flight-row-side">
+          <span class="flight-price num">${fmt(ourRate)} تومان</span>
+          <span class="flight-seats">${fmt(d.ourSeats.left)} از ${fmt(d.ourSeats.total)} صندلی</span>
+        </div>
+      </div>
+      ${sorted.map(f=>`
+        <div class="flight-row ${f.price===minPrice?'cheapest-row':''}">
+          <div class="flight-row-main">
+            <span class="flight-airline">${f.airline}</span>
+            <span class="flight-agency">${f.agency}${f.price===minPrice?' · کف بازار':''}</span>
+          </div>
+          <div class="flight-row-side">
+            <span class="flight-time num">${f.time}</span>
+            <span class="flight-price num">${fmt(f.price)} تومان</span>
+            <span class="flight-seats">${fmt(f.seatsLeft)} صندلی باقی‌مانده</span>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+    <button class="sheet-cancel" id="sheetCancel">بستن</button>
+  `);
+  document.getElementById("sheetCancel").onclick = closeSheet;
+}
+
+/* ------ شیت اقدام سریع (لمس طولانی روی هر ردیف) ------ */
+function openQuickSheet(key){
+  const d = findDate(key);
+  const stats = computeStats(d.flights);
+  const ai = aiSuggest(state.ourRates[key], d.ourSeats, stats);
+  const flagged = !!state.flags[key];
+  openSheet(`
+    <div class="sheet-hint-title">${d.jalali} · ${d.weekday}</div>
+    <div class="sheet-group">
+      <button class="sheet-option" id="qApprove">تأیید پیشنهاد (${fmt(ai.target)} تومان)</button>
+      <button class="sheet-option" id="qReject">بدون تغییر</button>
+      <button class="sheet-option" id="qFlag">${flagged?"حذف پرچم":"پرچم‌گذاری برای بازبینی"}</button>
+      <button class="sheet-option" id="qOpen">مشاهده جزئیات کامل</button>
+    </div>
+    <button class="sheet-cancel" id="sheetCancel">انصراف</button>
+  `);
+  document.getElementById("qApprove").onclick = ()=> openScopeSheet(key, ai.target, ai.reasoning);
+  document.getElementById("qReject").onclick = ()=>{ applyDecision(key,"rejected",state.ourRates[key],ai.reasoning,""); closeSheet(); };
+  document.getElementById("qFlag").onclick = ()=>{
+    state.flags[key] = !state.flags[key];
+    closeSheet(); renderInboxList();
+    showBanner(state.flags[key]?"manual":"rejected", state.flags[key]?"پرچم‌گذاری شد":"پرچم برداشته شد", `${d.jalali} · ${d.weekday}`);
+  };
+  document.getElementById("qOpen").onclick = ()=>{ closeSheet(); openDetail(key); };
+  document.getElementById("sheetCancel").onclick = closeSheet;
+}
+
+/* ------ نوار حساب کاربری (بالای صفحه) ------ */
+function updateNotifDot(){
+  const el = document.getElementById("notifDot");
+  if(!el) return;
+  const n = allPendingCount();
+  el.textContent = n>0 ? fmt(n) : "";
+}
+function openAccountSheet(){
+  openSheet(`
+    <div class="sheet-hint">امروز ${fmt(decidedCount())} مورد را بررسی کرده‌اید — ${fmt(pendingCount())} مورد در این بازار در انتظار تصمیم شماست</div>
+    <div class="sheet-group">
+      <button class="sheet-option" id="acctReports">پروفایل و عملکرد</button>
+      <button class="sheet-option" id="acctAlerts">تنظیمات اعلان‌ها</button>
+      <button class="sheet-option destructive" id="acctLogout">خروج از حساب</button>
+    </div>
+    <button class="sheet-cancel" id="sheetCancel">انصراف</button>
+  `);
+  document.getElementById("acctReports").onclick = ()=>{ closeSheet(); document.querySelector('.tab-item[data-tab="reports"]').click(); };
+  document.getElementById("acctAlerts").onclick = ()=>{ closeSheet(); showBanner("manual","تنظیمات اعلان‌ها","این بخش به‌زودی در دسترس قرار می‌گیرد."); };
+  document.getElementById("acctLogout").onclick = ()=>{ doLogout(); };
+  document.getElementById("sheetCancel").onclick = closeSheet;
+}
+function openNotifSheet(){
+  const urgent = urgentCount(), pending = pendingCount();
+  openSheet(`
+    <div class="sheet-hint-title">اعلان‌ها · بازار ${getRoute().short}</div>
+    <div class="sheet-group">
+      <button class="sheet-option" id="notifUrgent" ${urgent===0?'style="color:var(--label-3)"':''}>${urgent>0?`${fmt(urgent)} مورد فوری نیازمند بررسی`:"مورد فوری‌ای در انتظار نیست"}</button>
+      <button class="sheet-option" id="notifPending" ${pending===0?'style="color:var(--label-3)"':''}>${pending>0?`${fmt(pending)} مورد در انتظار تصمیم`:"همه‌چیز بررسی شده است"}</button>
+    </div>
+    <button class="sheet-cancel" id="sheetCancel">بستن</button>
+  `);
+  const goFilter = (f)=>{
+    closeSheet();
+    state.tab = "inbox";
+    document.querySelectorAll(".tab-item").forEach(b=>b.classList.toggle("active", b.dataset.tab==="inbox"));
+    document.getElementById("viewReports").classList.remove("active");
+    state.filter = f;
+    document.querySelectorAll(".seg-btn").forEach(b=>b.classList.toggle("active", b.dataset.filter===f));
+    renderInboxList();
+  };
+  document.getElementById("notifUrgent").onclick = ()=>{ if(urgent>0) goFilter("urgent"); };
+  document.getElementById("notifPending").onclick = ()=>{ if(pending>0) goFilter("pending"); };
+  document.getElementById("sheetCancel").onclick = closeSheet;
+}
+document.getElementById("btnAccount").addEventListener("click", openAccountSheet);
+document.getElementById("btnNotif").addEventListener("click", openNotifSheet);
+
+/* ------ منوی «بیشتر» در صفحه‌ی جزئیات ------ */
+function openMoreSheet(key){
+  const d = findDate(key);
+  const flagged = !!state.flags[key];
+  openSheet(`
+    <div class="sheet-group">
+      <button class="sheet-option" id="optCopy">کپی خلاصه‌ی تحلیل</button>
+      <button class="sheet-option" id="optShare">اشتراک‌گذاری با تیم</button>
+      <button class="sheet-option" id="optFlag">${flagged?"حذف پرچم":"پرچم‌گذاری برای بازبینی"}</button>
+    </div>
+    <button class="sheet-cancel" id="sheetCancel">انصراف</button>
+  `);
+  document.getElementById("optCopy").onclick = ()=>{
+    const stats = computeStats(d.flights);
+    const ai = aiSuggest(state.ourRates[key], d.ourSeats, stats);
+    const text = `${getRoute().label} · ${d.jalali} (${d.weekday})\nنرخ فعلی: ${fmt(state.ourRates[key])} تومان\nپیشنهاد سامانه: ${fmt(ai.target)} تومان\n${ai.reasoning}`;
+    if(navigator.clipboard){ navigator.clipboard.writeText(text).then(()=> showBanner("manual","کپی شد","خلاصه‌ی تحلیل در کلیپ‌بورد ذخیره شد.")); }
+    closeSheet();
+  };
+  document.getElementById("optShare").onclick = ()=>{
+    const stats = computeStats(d.flights);
+    const ai = aiSuggest(state.ourRates[key], d.ourSeats, stats);
+    const text = `${getRoute().label} · ${d.jalali}: پیشنهاد ${fmt(ai.target)} تومان`;
+    if(navigator.share){ navigator.share({title:"کارتابل نرخ", text}).catch(()=>{}); }
+    else if(navigator.clipboard){ navigator.clipboard.writeText(text); showBanner("manual","آماده اشتراک‌گذاری","متن در کلیپ‌بورد کپی شد؛ آن را برای تیم ارسال کنید."); }
+    closeSheet();
+  };
+  document.getElementById("optFlag").onclick = ()=>{
+    state.flags[key] = !state.flags[key];
+    showBanner(state.flags[key]?"manual":"rejected", state.flags[key]?"پرچم‌گذاری شد":"پرچم برداشته شد", `${d.jalali} · ${d.weekday}`);
+    closeSheet();
+    renderInboxList();
+    if(state.openKey===key) renderDetail(key);
+  };
+  document.getElementById("sheetCancel").onclick = closeSheet;
+}
+document.getElementById("btnMore").addEventListener("click", ()=>{ if(state.openKey) openMoreSheet(state.openKey); });
+
+/* ============================== تصمیم ============================== */
+function applyDecision(dateKey, status, newRate, reasoning, note){
+  state.ourRates[dateKey] = newRate;
+  state.decisions[dateKey] = { status, reasoning, ts: Date.now() };
+  const d = findDate(dateKey);
+  const labels = { approved:"پیشنهاد تأیید شد", rejected:"بدون تغییر باقی ماند", manual:"نرخ دستی ثبت شد" };
+  showBanner(status, labels[status], `${d.jalali} (${d.weekday}) · نرخ: ${fmt(newRate)} تومان${note||""}`);
+  if(state.openKey===dateKey) renderDetail(dateKey);
+  renderRouteChips("routeScrollInbox"); renderRouteChips("routeScrollReports");
+  renderInboxList();
+  if(state.tab==="reports") renderReports();
+}
+
+/* ============================== سوایپ + لمس طولانی روی ردیف ============================== */
+function attachRowGestures(rowContent, wrap, key, onApprove, onReject){
+  let startX=0, dx=0, dragging=false, longPressFired=false, timer=null;
+  const max=88;
+  rowContent.addEventListener("pointerdown",(e)=>{
+    dragging=true; startX=e.clientX; dx=0; longPressFired=false;
+    rowContent.setPointerCapture(e.pointerId);
+    rowContent.style.transition="none";
+    timer = setTimeout(()=>{
+      if(dragging && Math.abs(dx)<10){
+        longPressFired = true;
+        rowContent.style.transform = "translateX(0)";
+        openQuickSheet(key);
+      }
+    }, 480);
+  });
+  rowContent.addEventListener("pointermove",(e)=>{
+    if(!dragging || longPressFired) return;
+    dx = e.clientX - startX;
+    if(Math.abs(dx)>10) clearTimeout(timer);
+    dx = Math.max(-max, Math.min(max, dx));
+    rowContent.style.transform = `translateX(${dx}px)`;
+    const bg = wrap.querySelector(".row-bg");
+    const appr = bg.querySelector(".approve"), rej = bg.querySelector(".reject");
+    if(dx < -8){ appr.style.opacity = Math.min(1, -dx/max); rej.style.opacity=0; bg.style.background="#30B855"; }
+    else if(dx > 8){ rej.style.opacity = Math.min(1, dx/max); appr.style.opacity=0; bg.style.background="#8E8E93"; }
+    else { appr.style.opacity=0; rej.style.opacity=0; }
+  });
+  const end = ()=>{
+    clearTimeout(timer);
+    if(!dragging) return;
+    dragging=false;
+    if(longPressFired){ dx=0; return; }
+    rowContent.style.transition="transform .25s ease";
+    rowContent.style.transform="translateX(0)";
+    if(dx < -60) onApprove();
+    else if(dx > 60) onReject();
+    dx=0;
+    setTimeout(()=>{ const bg=wrap.querySelector(".row-bg"); if(bg){ bg.querySelectorAll(".row-bg-action").forEach(a=>a.style.opacity=0); } },200);
+  };
+  rowContent.addEventListener("pointerup", end);
+  rowContent.addEventListener("pointercancel", ()=>{ clearTimeout(timer); dragging=false; });
+}
+
+/* ============================== رندر: چیپ‌های مسیر ============================== */
+function renderRouteChips(hostId){
+  const host = document.getElementById(hostId);
+  if(!host) return;
+  host.innerHTML = ROUTES.map(r=>{
+    const pending = r.dates.filter(d=>!state.decisions[d.key]).length;
+    const active = r.key===state.route;
+    return `<button class="route-chip ${active?"active":""}" data-route="${r.key}">
+      <span>${r.short}</span>
+      ${pending>0?`<span class="route-chip-badge">${fmt(pending)}</span>`:""}
+    </button>`;
+  }).join("");
+  host.querySelectorAll(".route-chip").forEach(btn=>{
+    btn.onclick = ()=>{
+      if(state.route===btn.dataset.route) return;
+      state.route = btn.dataset.route;
+      state.search=""; state.filter="pending";
+      document.querySelectorAll(".seg-btn").forEach(b=>b.classList.toggle("active", b.dataset.filter==="pending"));
+      updateRouteHeader();
+      renderRouteChips("routeScrollInbox");
+      renderRouteChips("routeScrollReports");
+      renderDateStrip();
+      renderInboxList();
+      if(state.tab==="reports") renderReports();
+      btn.scrollIntoView({behavior:"smooth", inline:"center", block:"nearest"});
+    };
+  });
+}
+function updateRouteHeader(){
+  const r = getRoute();
+  document.getElementById("inboxSub").textContent = `${r.label} · ${r.sub}`;
+  document.getElementById("reportsSub").textContent = `${r.label} · خلاصه‌ی عملکرد این هفته`;
+}
+
+/* ============================== رندر: لیست کارتابل ============================== */
+function renderInboxList(){
+  const host = document.getElementById("inboxList");
+  let items = getDates();
+  if(state.filter==="pending") items = items.filter(d=>!state.decisions[d.key]);
+  if(state.filter==="urgent") items = items.filter(isUrgent);
+  if(state.filter==="decided") items = items.filter(d=>state.decisions[d.key]);
+  if(state.search.trim()){
+    const q = state.search.trim();
+    items = items.filter(d=> (d.jalali+d.weekday).includes(q) || d.flights.some(f=>f.airline.includes(q)));
+  }
+  items = sortByReceived(items);
+
+  document.querySelectorAll(".seg-btn").forEach(b=>{
+    if(b.dataset.filter==="pending") b.textContent = `در انتظار ${fmt(pendingCount())}`;
+    if(b.dataset.filter==="urgent") b.textContent = urgentCount()>0 ? `فوری ${fmt(urgentCount())}` : "فوری";
+    if(b.dataset.filter==="decided") b.textContent = `بررسی‌شده ${fmt(decidedCount())}`;
+    if(b.dataset.filter==="all") b.textContent = `همه ${fmt(getDates().length)}`;
+  });
+  updateNotifDot();
+
+  if(items.length===0){
+    host.innerHTML = `<div class="empty">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <div>موردی برای نمایش نیست</div>
+    </div>`;
+    return;
+  }
+
+  host.innerHTML = items.map(d=>{
+    const decision = state.decisions[d.key];
+    const status = decision ? decision.status : "pending";
+    const stats = computeStats(d.flights);
+    const ai = aiSuggest(state.ourRates[d.key], d.ourSeats, stats);
+    const delta = ai.target - state.ourRates[d.key];
+    const badgeCls = delta>0 ? "delta-up" : delta<0 ? "delta-down" : "delta-flat";
+    const badgeTxt = delta===0 ? "بدون تغییر" : (delta>0? "+":"−")+fmt(Math.abs(delta));
+    const statusTxt = { pending:"نیازمند تصمیم", approved:"تأیید شد", rejected:"بدون تغییر", manual:"نرخ دستی" }[status];
+    const updatedTxt = decision ? `تصمیم: ${relativeTime(decision.ts||state.lastUpdated[d.key])}` : `دریافت: ${relativeTime(state.lastUpdated[d.key])}`;
+    const flagged = !!state.flags[d.key];
+    const isUnread = status==="pending";
+    const isFresh = isUnread && state.freshKeys && state.freshKeys.has(d.key);
+    const ourFlightTxt = d.ourFlight ? `${d.ourFlight.airline} <span class="num">#${d.ourFlight.flightNo}</span>` : "";
+    return `
+    <div class="row-wrap ${flagged?"flagged":""}" data-key="${d.key}">
+      <div class="row-bg">
+        <span class="row-bg-action reject">رد سریع ✕</span>
+        <span class="row-bg-action approve">تأیید سریع ✓</span>
+      </div>
+      <div class="row-content" data-key="${d.key}">
+        <span class="alert-badge ${ai.tone} ${isUnread?'unread':''}">${alertIcon(ai.tone)}</span>
+        <div class="row-main">
+          <div class="row-top">
+            <span class="row-title-wrap">
+              <span class="row-title">${d.jalali}</span>
+              <span class="row-weekday">${d.weekday}</span>
+              ${flagged?'<span class="row-flag-ico">⚑</span>':''}
+              ${isFresh?'<span class="row-new-badge">جدید</span>':''}
+            </span>
+            ${ourFlightTxt?`<span class="row-time">${ourFlightTxt}</span>`:""}
+          </div>
+          <div class="row-alert-line">${ai.headline}</div>
+          <div class="row-bottom">
+            <span class="row-target num">${fmt(ai.target)} تومان</span>
+            <span class="row-badge ${badgeCls}">${badgeTxt}</span>
+            <span class="row-status-txt">${statusTxt} · ${updatedTxt}</span>
+          </div>
+        </div>
+        <span class="row-chevron">‹</span>
+      </div>
+    </div>`;
+  }).join("");
+
+  host.querySelectorAll(".row-wrap").forEach(wrap=>{
+    const key = wrap.dataset.key;
+    const content = wrap.querySelector(".row-content");
+    content.addEventListener("click", (e)=>{
+      if(Math.abs(parseFloat((content.style.transform.match(/-?\d+/)||[0])[0]))>4) return;
+      openDetail(key);
+    });
+    const d = findDate(key);
+    const stats = computeStats(d.flights);
+    const ai = aiSuggest(state.ourRates[key], d.ourSeats, stats);
+    attachRowGestures(content, wrap, key,
+      ()=> openScopeSheet(key, ai.target, ai.reasoning),
+      ()=> applyDecision(key,"rejected", state.ourRates[key], ai.reasoning, "")
+    );
+  });
+}
+
+/* ============================== رندر: جزئیات ============================== */
+function openDetail(key){
+  state.openKey = key;
+  state.freshKeys.delete(key);
+  document.getElementById("viewInbox").classList.add("pushed");
+  document.getElementById("viewDetail").classList.add("active");
+  renderDetail(key);
+}
+function closeDetail(){
+  document.getElementById("viewInbox").classList.remove("pushed");
+  document.getElementById("viewDetail").classList.remove("active");
+  state.openKey = null;
+  renderInboxList();
+}
+document.getElementById("btnBack").addEventListener("click", closeDetail);
+
+function renderDetail(key){
+  const d = findDate(key);
+  const ourRate = state.ourRates[key];
+  const stats = computeStats(d.flights);
+  const ai = aiSuggest(ourRate, d.ourSeats, stats);
+  const decision = state.decisions[key];
+  const status = decision ? decision.status : "pending";
+  const delta = ai.target - ourRate;
+  const deltaPct = ourRate ? Math.abs(((delta/ourRate)*100)).toFixed(1) : "0.0";
+  const deltaCls = delta>0?"delta-up":delta<0?"delta-down":"delta-flat";
+  const deltaSign = delta>0?"+":delta<0?"−":"";
+  const sorted = [...d.flights].sort((a,b)=>a.price-b.price);
+  const range = stats.max-stats.min || 1;
+  const pos = Math.min(100, Math.max(0, ((ourRate-stats.min)/range)*100));
+  const statusMap = { pending:["status-pending","نیازمند تصمیم"], approved:["status-approved","تأیید شد"], rejected:["status-rejected","بدون تغییر"], manual:["status-manual","نرخ دستی ثبت شد"] };
+  const [statusCls,statusTxt] = statusMap[status];
+  const distMinPct = (((ourRate-stats.min)/stats.min)*100).toFixed(1);
+  const capacityLabel = ai.critical ? "ظرفیت بحرانی" : ai.loose ? "ظرفیت آزاد بالا" : "ظرفیت متعادل";
+  const capacityCls = ai.critical ? "warn" : ai.loose ? "good" : "";
+
+  document.getElementById("detailContent").innerHTML = `
+    <div class="detail-header">
+      <div class="detail-eyebrow">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-1 .1-1.3.5l-.7.7c-.4.4-.3 1 .2 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.5.9.6 1.3.2l.7-.7c.4-.3.6-.8.5-1.3Z"/></svg>
+        بازار ${getRoute().label}
+      </div>
+      <div class="detail-subject">پیشنهاد قیمت‌گذاری برای ${d.jalali}، ${d.weekday}</div>
+      ${d.ourFlight?`<div class="detail-ourflight">پرواز خودمان · ${d.ourFlight.airline} <span class="num">#${d.ourFlight.flightNo}</span></div>`:""}
+      <div class="detail-meta"><span class="status-pill ${statusCls}">${statusTxt}</span> · ${fmt(d.flights.length)} پرواز رقیب ثبت‌شده</div>
+    </div>
+
+    <div class="detail-body">
+      <div class="card">
+        <div class="card-title">آمار بازار</div>
+        <div class="stat-grid">
+          <div class="stat-cell min"><div class="v num">${fmt(stats.min)}</div><div class="l">کف</div></div>
+          <div class="stat-cell avg"><div class="v num">${fmt(stats.avg)}</div><div class="l">میانگین</div></div>
+          <div class="stat-cell max"><div class="v num">${fmt(stats.max)}</div><div class="l">سقف</div></div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="alt-track">
+          <div class="alt-needle" style="right:${pos}%;"><span class="alt-tag num">${fmt(ourRate)}</span></div>
+        </div>
+        <div class="alt-labels"><span>کف بازار</span><span>جایگاه نرخ شما</span><span>سقف بازار</span></div>
+      </div>
+
+      <div class="card suggestion-card">
+        <div class="assistant-head">
+          <div class="assistant-avatar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><rect x="4" y="8" width="16" height="12" rx="4"/><circle cx="9" cy="14" r="1.4" fill="#fff" stroke="none"/><circle cx="15" cy="14" r="1.4" fill="#fff" stroke="none"/></svg>
+          </div>
+          <div>
+            <div class="assistant-name">دستیار قیمت‌گذاری</div>
+            <div class="assistant-sub">تحلیل خودکار بر پایه‌ی ${fmt(d.flights.length)} پرواز رقیب زنده</div>
+          </div>
+        </div>
+        <div class="factor-row">
+          <span class="factor-chip">کف بازار ${fmt(stats.min)}</span>
+          <span class="factor-chip">میانگین ${fmt(stats.avg)}</span>
+          <span class="factor-chip ${capacityCls}">${capacityLabel} · ${fmt(ai.freePct)}٪ خالی</span>
+          <span class="factor-chip">فاصله تا کف ${distMinPct}٪</span>
+        </div>
+        <div class="suggestion-text">${ai.reasoning}</div>
+        <div class="suggestion-target">
+          <span class="fig num">${fmt(ai.target)} تومان</span>
+          <span class="delta-chip ${deltaCls}">${deltaSign}${fmt(Math.abs(delta))} (${deltaSign}${deltaPct}٪)</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">فهرست رقبا در این تاریخ</div>
+        ${sorted.map(f=>`
+          <div class="manifest-row">
+            <div class="m-left">
+              <span class="airline-dot" style="background:${airlineColor(f.airline)}"></span>
+              <div>
+                <div class="m-name">${f.airline} <span class="num" style="color:var(--label-3); font-weight:400; font-size:10.5px;">#${f.flightNo}</span>${f.price===stats.min?'<span class="cheapest-tag">کف بازار</span>':''}</div>
+                <div class="m-agency">${f.agency}</div>
+              </div>
+            </div>
+            <div class="m-right">
+              <div class="m-price ${f.price===stats.min?'cheapest':''} num">${fmt(f.price)}</div>
+              <div class="m-meta num">${f.time} · ${fmt(f.seatsLeft)} صندلی</div>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+
+    <div class="inline-manual" id="inlineManual" style="display:none;">
+      <div class="inline-manual-row">
+        <input type="text" inputmode="numeric" id="manualInput" placeholder="نرخ دستی به تومان">
+        <button id="manualSubmit">ثبت</button>
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <button class="abtn reject" id="btnReject">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <span>بدون تغییر</span>
+      </button>
+      <button class="abtn manual" id="btnManual">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+        <span>نرخ دستی</span>
+      </button>
+      <button class="abtn approve" id="btnApprove">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>تأیید و اعمال</span>
+      </button>
+    </div>
+  `;
+
+  document.getElementById("btnApprove").onclick = ()=> openScopeSheet(key, ai.target, ai.reasoning);
+  document.getElementById("btnReject").onclick = ()=> applyDecision(key,"rejected",ourRate,ai.reasoning,"");
+  document.getElementById("btnManual").onclick = ()=>{
+    const box = document.getElementById("inlineManual");
+    box.style.display = box.style.display==="none" ? "block" : "none";
+  };
+  document.getElementById("manualSubmit").onclick = ()=>{
+    const raw = document.getElementById("manualInput").value.replace(/[^0-9]/g,"");
+    if(!raw) return;
+    applyDecision(key,"manual",parseInt(raw,10),ai.reasoning,"");
+  };
+}
+
+/* ============================== رندر: گزارش ============================== */
+function renderReports(){
+  const dates = getDates();
+  const approved = dates.filter(d=>state.decisions[d.key]?.status==="approved").length;
+  const manual = dates.filter(d=>state.decisions[d.key]?.status==="manual").length;
+  const rejected = dates.filter(d=>state.decisions[d.key]?.status==="rejected").length;
+  const pending = pendingCount();
+  const maxVal = Math.max(...dates.map(d=>Math.max(computeStats(d.flights).avg, state.ourRates[d.key])));
+
+  document.getElementById("reportsContent").innerHTML = `
+    <div class="grouped-card">
+      <div class="kpi-grid">
+        <div class="kpi-cell"><div class="v" style="color:#30B855;">${fmt(approved)}</div><div class="l">تأیید شده</div></div>
+        <div class="kpi-cell"><div class="v" style="color:#0A84FF;">${fmt(manual)}</div><div class="l">نرخ دستی</div></div>
+        <div class="kpi-cell"><div class="v" style="color:var(--label-2);">${fmt(rejected)}</div><div class="l">بدون تغییر</div></div>
+        <div class="kpi-cell"><div class="v" style="color:var(--amber);">${fmt(pending)}</div><div class="l">در انتظار</div></div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="card-title">میانگین بازار در برابر نرخ شما</div>
+      <div class="chart-legend">
+        <span><span class="legend-dot" style="background:#C9CFE0;"></span>میانگین بازار</span>
+        <span><span class="legend-dot" style="background:var(--amber);"></span>نرخ شما</span>
+      </div>
+      <div class="bars">
+        ${dates.map(d=>{
+          const avg = computeStats(d.flights).avg;
+          const ours = state.ourRates[d.key];
+          const avgH = Math.max(6,(avg/maxVal)*100), oursH = Math.max(6,(ours/maxVal)*100);
+          return `<div class="bar-col">
+            <div class="bar-stack">
+              <div class="bar bar-market" style="height:${avgH}%;"></div>
+              <div class="bar bar-ours" style="height:${oursH}%;"></div>
+            </div>
+            <div class="bar-date">${d.jalali}</div>
+          </div>`;
+        }).join("")}
+      </div>
+    </div>
+
+    <div class="grouped-card">
+      ${dates.map(d=>{
+        const dec = state.decisions[d.key];
+        const label = dec ? ({approved:"تأیید شد",rejected:"بدون تغییر",manual:"نرخ دستی"})[dec.status] : "در انتظار";
+        const color = dec ? ({approved:"#30B855",rejected:"var(--label-2)",manual:"#0A84FF"})[dec.status] : "var(--amber)";
+        const flagged = state.flags[d.key] ? '<span class="row-flag-ico">⚑</span>' : "";
+        return `<div class="grouped-row"><span class="l">${flagged}${d.jalali} · ${d.weekday}</span><span class="r" style="color:${color}">${label}</span></div>`;
+      }).join("")}
+    </div>
+  `;
+}
+
+/* ============================== ناوبری تب و فیلتر ============================== */
+document.querySelectorAll(".tab-item").forEach(btn=>{
+  btn.onclick = ()=>{
+    document.querySelectorAll(".tab-item").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    state.tab = btn.dataset.tab;
+    document.getElementById("viewReports").classList.toggle("active", state.tab==="reports");
+    if(state.tab==="reports") renderReports();
+  };
+});
+document.querySelectorAll(".seg-btn").forEach(btn=>{
+  btn.onclick = ()=>{
+    document.querySelectorAll(".seg-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    state.filter = btn.dataset.filter;
+    renderInboxList();
+  };
+});
+function goHome(){
+  if(state.openKey) closeDetail();
+  if(state.tab!=="inbox"){
+    state.tab="inbox";
+    document.querySelectorAll(".tab-item").forEach(b=>b.classList.toggle("active", b.dataset.tab==="inbox"));
+    document.getElementById("viewReports").classList.remove("active");
+  }
+  state.search=""; state.filter="pending";
+  document.querySelectorAll(".seg-btn").forEach(b=>b.classList.toggle("active", b.dataset.filter==="pending"));
+  renderInboxList();
+  const list=document.getElementById("inboxList"); if(list) list.scrollIntoView({behavior:"smooth", block:"start"});
+}
+document.getElementById("btnHome").addEventListener("click", goHome);
+
+function doLogout(){
+  closeSheet();
+  showBanner("rejected","خروج از حساب","این یک نسخه‌ی نمایشی است؛ اتصال به سامانه‌ی احراز هویت فعال نیست.");
+}
+document.getElementById("btnLogout").addEventListener("click", doLogout);
+
+function updateManagerMsgDot(){
+  document.getElementById("managerMsgDot").classList.toggle("show", !state.managerMsgsRead);
+}
+function openManagerMsgsSheet(){
+  openSheet(`
+    <div class="sheet-hint-title">پیام‌های محمد کریمی · مدیر نرخ‌گذاری</div>
+    <div class="sheet-group">
+      ${MANAGER_MESSAGES.map((m,i)=>`
+        <div class="mgr-msg">
+          <div class="mgr-msg-head">
+            <span class="mgr-msg-from">${!state.managerMsgsRead && i===0?'<span class="dot"></span>':''}${m.from}</span>
+            <span class="mgr-msg-date">${m.date}</span>
+          </div>
+          <div class="mgr-msg-text">${m.text}</div>
+        </div>
+      `).join("")}
+    </div>
+    <button class="sheet-cancel" id="sheetCancel">بستن</button>
+  `);
+  state.managerMsgsRead = true;
+  updateManagerMsgDot();
+}
+document.getElementById("btnManagerMsgs").addEventListener("click", openManagerMsgsSheet);
+updateManagerMsgDot();
+
+function updateLastCheckLabel(){
+  const el = document.getElementById("lastCheckLabel");
+  if(el) el.textContent = relativeTime(state.lastCheckTs);
+}
+let checkingNow = false;
+function checkNowAllRates(){
+  if(checkingNow) return;
+  checkingNow = true;
+  const btn = document.getElementById("btnCheckNow");
+  const label = btn.querySelector(".refresh-btn-text");
+  btn.classList.add("loading"); btn.disabled = true;
+  label.textContent = "در حال بررسی…";
+  setTimeout(()=>{
+    const now = Date.now();
+    /* «بررسی الان» یعنی سامانه پیام‌های تازه را استعلام می‌کند — نه اینکه همه‌ی موارد را
+       دست‌کاری کند. فقط چند مورد در انتظار به‌صورت تصادفی «پیام تازه» تلقی می‌شوند و با
+       زمان دریافت جدید به بالای کارتابل می‌آیند؛ بقیه‌ی موارد دست‌نخورده باقی می‌مانند. */
+    const candidates = ROUTES.flatMap(r=>r.dates).filter(d=>!state.decisions[d.key]);
+    const freshCount = Math.min(candidates.length, 1+Math.floor(Math.random()*2));
+    const picked = [...candidates].sort(()=>Math.random()-0.5).slice(0, freshCount);
+    picked.forEach(d=>{ state.lastUpdated[d.key] = now; state.freshKeys.add(d.key); });
+    state.lastCheckTs = now;
+    updateLastCheckLabel();
+    renderDateStrip();
+    renderInboxList();
+    btn.classList.remove("loading"); btn.disabled = false;
+    label.textContent = "بررسی الان";
+    checkingNow = false;
+    const pend = pendingCount();
+    const msg = picked.length>0
+      ? `${fmt(picked.length)} پیام تازه دریافت شد و به بالای کارتابل آمد — ${fmt(pend)} مورد در این بازار در انتظار تصمیم شماست`
+      : "بررسی شد، پیام تازه‌ای دریافت نشد.";
+    showBanner("manual","بررسی کامل شد", msg);
+  }, 1300);
+}
+document.getElementById("btnCheckNow").addEventListener("click", checkNowAllRates);
+updateLastCheckLabel();
+setInterval(updateLastCheckLabel, 30000);
+
+/* ============================== راه‌اندازی ============================== */
+updateRouteHeader();
+renderRouteChips("routeScrollInbox");
+renderRouteChips("routeScrollReports");
+renderDateStrip();
+renderInboxList();
+</script>
+</body>
+</html>
