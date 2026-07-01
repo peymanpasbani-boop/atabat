@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;900&display=swap');
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html,body{
+    width:1080px; height:1920px;
+    background:#0e1013;
+    font-family:'Vazirmatn', sans-serif;
+    overflow:hidden;
+  }
+
+  .stage{
+    position:relative;
+    width:1080px; height:1920px;
+    background:
+      radial-gradient(900px 700px at 85% 8%, rgba(212,166,86,0.10), transparent 60%),
+      radial-gradient(800px 600px at 5% 95%, rgba(212,166,86,0.06), transparent 60%),
+      linear-gradient(175deg, #14161b 0%, #0e1013 55%, #0b0d10 100%);
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    padding:120px 90px;
+  }
+
+  .quote-mark{
+    font-family:Georgia, serif;
+    font-size:150px;
+    color:#d4a656;
+    line-height:0.5;
+    opacity:0.9;
+    align-self:flex-end;
+    margin-bottom:10px;
+    transform:scaleX(-1); /* mirror for RTL feel */
+  }
+
+  .rule{
+    width:90px; height:4px;
+    background:#d4a656;
+    border-radius:2px;
+    margin-bottom:56px;
+    box-shadow:0 0 14px rgba(212,166,86,0.5);
+  }
+
+  .body{
+    text-align:right;
+    font-size:48px;
+    line-height:1.95;
+    color:#f1f2f4;
+    font-weight:500;
+    letter-spacing:0.2px;
+  }
+
+  .body b{
+    color:#d4a656;
+    font-weight:700;
+  }
+
+  .spacer{ flex:1; }
+
+  .footer{
+    align-self:flex-end;
+    text-align:right;
+    border-top:1px solid rgba(212,166,86,0.25);
+    padding-top:28px;
+    width:100%;
+  }
+
+  .footer .name{
+    font-size:28px;
+    font-weight:700;
+    color:#e7e9eb;
+  }
+
+  .footer .tag{
+    font-size:22px;
+    color:#8b929a;
+    margin-top:6px;
+    font-weight:400;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="quote-mark">”</div>
+    <div class="rule"></div>
+
+    <div class="body">
+      هرجا رفتم، ذهنم دنبال یک چیز بود:<br>
+      چطور کار رو <b>ساده‌تر</b> کنم؟
+      <br><br>
+      توی صنعت سفر، بارها دیدم بچه‌های باانگیزه،
+      وقت و انرژی‌شون صرف کارهای تکراری می‌شد؛
+      به‌جای رشد، گیرِ روزمرگی می‌افتادن.
+      <br><br>
+      نرخ‌گذاری دقیقاً همین بود.
+      وقت زیادی از تیم -حتی توی خونه- صرف
+      آپدیت نرخ روی <b>سپهر</b> و <b>مقیم</b> می‌شد.
+      <br><br>
+      الان این چرخه شکسته.
+      سینما بشین، نرخ رو تعیین کن.
+      کافه بشین، تاییدش کن.
+      ربات خودش روی سپهر و مقیم اعمالش می‌کنه.
+      <br><br>
+      این فقط اتوماسیون نیست؛
+      <b>پس‌گرفتنِ وقتیه که باید صرف ساختن بشه.</b>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="footer">
+      <div class="name">نرخ‌گذاری هوشمند</div>
+      <div class="tag">اتوماسیون سپهر و مقیم</div>
+    </div>
+  </div>
+</body>
+</html>
