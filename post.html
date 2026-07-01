@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html,body{
+    width:1080px; height:1080px;
+    background:#05070c;
+    font-family:'Vazirmatn', sans-serif;
+    overflow:hidden;
+  }
+
+  .stage{
+    position:relative;
+    width:1080px; height:1080px;
+    background:
+      radial-gradient(1200px 700px at 78% -10%, rgba(57,255,136,0.10), transparent 60%),
+      radial-gradient(900px 600px at -10% 110%, rgba(57,255,136,0.06), transparent 60%),
+      linear-gradient(180deg, #060911 0%, #05070c 60%, #04060a 100%);
+  }
+
+  /* faint grid, like a nav display */
+  .grid{
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(57,255,136,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(57,255,136,0.045) 1px, transparent 1px);
+    background-size:54px 54px;
+    mask-image: radial-gradient(700px 700px at 50% 40%, black, transparent 75%);
+  }
+
+  .vignette{
+    position:absolute; inset:0;
+    box-shadow: inset 0 0 220px rgba(0,0,0,0.75);
+  }
+
+  /* top bar */
+  .topbar{
+    position:absolute; top:64px; left:72px; right:72px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{ display:flex; align-items:center; gap:14px; }
+  .mark{
+    width:42px; height:42px; border-radius:9px;
+    background:linear-gradient(160deg, rgba(57,255,136,0.16), rgba(57,255,136,0.02));
+    border:1px solid rgba(57,255,136,0.35);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono', monospace; font-weight:700;
+    color:#39ff88; font-size:20px;
+  }
+  .brand-text{ font-family:'JetBrains Mono', monospace; color:#7fe6ab; font-size:16px; letter-spacing:0.5px; direction:ltr; }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace; font-size:15px; color:#5fce8c;
+    border:1px solid rgba(95,206,140,0.4); border-radius:999px;
+    padding:8px 18px; letter-spacing:0.5px;
+    background:rgba(57,255,136,0.05);
+  }
+  .eyebrow b{ color:#39ff88; }
+
+  /* headline block */
+  .headline{
+    position:absolute; top:172px; right:72px; left:72px;
+    text-align:right;
+  }
+  .kicker{
+    font-family:'JetBrains Mono', monospace; color:#ffb84d; font-size:19px;
+    letter-spacing:1px; margin-bottom:18px; direction:ltr; text-align:right;
+  }
+  h1{
+    font-size:88px; line-height:1.14; color:#eef2f6; font-weight:900;
+    letter-spacing:-1px;
+  }
+  h1 .accent{ color:#39ff88; text-shadow:0 0 26px rgba(57,255,136,0.45); }
+  .rule{
+    width:120px; height:4px; background:#39ff88; border-radius:2px;
+    margin:26px 0 0 auto; box-shadow:0 0 14px rgba(57,255,136,0.6);
+  }
+  .sub{
+    margin-top:22px; font-size:26px; color:#8fa0ad; font-weight:600;
+  }
+  .sub span{ color:#39ff88; font-family:'JetBrains Mono', monospace; font-size:23px; }
+
+  /* terminal */
+  .term{
+    position:absolute; top:520px; right:72px; left:72px;
+    background:#080c14;
+    border:1px solid rgba(57,255,136,0.28);
+    border-radius:16px;
+    box-shadow:
+      0 30px 70px rgba(0,0,0,0.55),
+      0 0 0 1px rgba(0,0,0,0.4),
+      inset 0 0 60px rgba(57,255,136,0.04);
+    overflow:hidden;
+  }
+  .term-bar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 22px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
+    border-bottom:1px solid rgba(57,255,136,0.16);
+  }
+  .dots{ display:flex; gap:9px; direction:ltr; }
+  .dot{ width:11px; height:11px; border-radius:50%; background:#233042; }
+  .term-title{
+    font-family:'JetBrains Mono', monospace; font-size:15px; color:#5c7182;
+    letter-spacing:1px; direction:ltr;
+  }
+  .term-body{
+    padding:30px 30px 34px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:24px; line-height:1.85;
+    direction:ltr; text-align:left;
+  }
+  .term-body .l0{ color:#39ff88; text-shadow:0 0 10px rgba(57,255,136,0.35); }
+  .term-body .l0::before{ content:"> "; color:#5fce8c; }
+  .term-body .out{ color:#8fe0ac; opacity:0.92; }
+  .term-body .out b{ color:#c9ffdd; font-weight:600; }
+  .term-body .dim{ color:#3d5a48; }
+  .cursor{
+    display:inline-block; width:12px; height:24px; background:#39ff88;
+    margin-inline-start:4px; box-shadow:0 0 10px rgba(57,255,136,0.7);
+    vertical-align:middle;
+  }
+  .scan{
+    position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(180deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 3px);
+    mix-blend-mode:overlay;
+  }
+
+  /* footer line */
+  .footer{
+    position:absolute; bottom:66px; right:72px; left:72px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .foot-line{
+    font-size:25px; color:#c7d2da; font-weight:600;
+  }
+  .foot-line span{ color:#39ff88; }
+  .foot-url{
+    font-family:'JetBrains Mono', monospace; font-size:16px; color:#4c6355;
+    direction:ltr;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="grid"></div>
+
+    <div class="topbar">
+      <div class="eyebrow">آموزش نیرا <b>·</b> درس ۰۱</div>
+      <div class="brand">
+        <div class="brand-text">nirahelp.ir</div>
+        <div class="mark">N</div>
+      </div>
+    </div>
+
+    <div class="headline">
+      <div class="kicker">NRS &middot; RESERVATION TERMINAL</div>
+      <h1>برنامه پروازی<br>یک <span class="accent">مسیر</span></h1>
+      <div class="rule"></div>
+      <div class="sub">دستور <span>SK</span> در ترمینال نیرا</div>
+    </div>
+
+    <div class="term">
+      <div class="term-bar">
+        <div class="term-title">NRS TERMINAL — آموزشی</div>
+        <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      </div>
+      <div class="term-body">
+        <div class="l0">SK 15JUL THR NJF<span class="cursor"></span></div>
+        <div class="dim">&nbsp;&nbsp;&nbsp;THR &rarr; NJF &nbsp;&nbsp; 15 JUL</div>
+        <div class="out">&nbsp;1&nbsp; <b>W5&nbsp;4231</b>&nbsp; THR 10:05 &nbsp;-&nbsp; NJF 12:00 &nbsp; 738</div>
+        <div class="out">&nbsp;2&nbsp; <b>W5&nbsp;4233</b>&nbsp; THR 14:30 &nbsp;-&nbsp; NJF 16:25 &nbsp; 738</div>
+      </div>
+      <div class="scan"></div>
+    </div>
+
+    <div class="footer">
+      <div class="foot-line">با یک دستور، تمام پرواز‌های یک مسیر را ببین <span>→</span></div>
+      <div class="foot-url">NIRAHELP.IR</div>
+    </div>
+
+    <div class="vignette"></div>
+  </div>
+</body>
+</html>
