@@ -38,8 +38,19 @@
   .notch{ position:absolute; top:12px; left:50%; transform:translateX(-50%); width:120px; height:28px; background:#0b0b0d; border-radius:16px; z-index:50; }
   .home-indicator{ position:absolute; bottom:8px; left:50%; transform:translateX(-50%); width:130px; height:5px; border-radius:99px; background:#0b0b0d; opacity:.85; z-index:50; }
 
-  .statusbar{ height:47px; display:flex; align-items:center; justify-content:space-between; padding:0 26px; font-size:15px; font-weight:700; color:var(--label); flex:0 0 auto; }
-  .statusbar .icons{ display:flex; gap:5px; align-items:center; }
+  /* ---------------- account bar (logged-in identity, replaces phone status bar) ---------------- */
+  .account-bar{ height:58px; display:flex; align-items:center; justify-content:space-between; padding:0 14px; flex:0 0 auto; background:var(--elevated); border-bottom:1px solid var(--sep); }
+  .account-identity{ display:flex; align-items:center; gap:9px; background:none; border:none; padding:2px 4px 2px 2px; border-radius:12px; }
+  .account-identity:active{ background:var(--fill); }
+  .account-avatar{ position:relative; width:36px; height:36px; border-radius:50%; flex:0 0 auto; background:linear-gradient(135deg,var(--violet),var(--violet-2)); color:#fff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 14px -6px rgba(91,79,224,.6); }
+  .account-avatar::after{ content:""; position:absolute; bottom:-1px; inset-inline-start:-1px; width:10px; height:10px; border-radius:50%; background:var(--green); border:2px solid var(--elevated); }
+  .account-text{ display:flex; flex-direction:column; align-items:flex-start; }
+  .account-name{ font-size:13.5px; font-weight:800; color:var(--label); line-height:1.3; }
+  .account-role{ font-size:10.5px; color:var(--label-3); font-weight:600; margin-top:1px; }
+  .account-bell{ position:relative; width:36px; height:36px; border-radius:50%; background:var(--fill); border:none; display:flex; align-items:center; justify-content:center; color:var(--label-2); flex:0 0 auto; }
+  .account-bell:active{ background:var(--sep); }
+  .account-bell-dot{ position:absolute; top:5px; inset-inline-end:5px; min-width:15px; height:15px; padding:0 3px; border-radius:99px; background:var(--red); color:#fff; font-size:9px; font-weight:800; display:flex; align-items:center; justify-content:center; border:2px solid var(--elevated); }
+  .account-bell-dot:empty{ display:none; }
 
   .tabbar{
     flex:0 0 auto; height:64px; display:flex; border-top:1px solid var(--sep);
@@ -50,7 +61,7 @@
   .tab-item.active{ color:var(--blue); }
   .tab-item svg{ width:23px; height:23px; }
 
-  .app-body{ position:relative; flex:1 1 auto; height:calc(100% - 47px - 64px); overflow:hidden; }
+  .app-body{ position:relative; flex:1 1 auto; height:calc(100% - 58px - 64px); overflow:hidden; }
   .device-inner{ display:flex; flex-direction:column; height:100%; }
 
   /* ---------------- views (push nav) ---------------- */
@@ -92,8 +103,10 @@
 
   /* segmented control */
   .segmented{ display:flex; background:var(--fill); border-radius:11px; padding:2px; margin:0 16px 10px; }
-  .seg-btn{ flex:1; border:none; background:none; padding:7px 4px; font-size:12px; font-weight:600; color:var(--label-2); border-radius:9px; transition:background .15s, color .15s; }
+  .seg-btn{ flex:1; border:none; background:none; padding:7px 2px; font-size:11px; font-weight:600; color:var(--label-2); border-radius:9px; transition:background .15s, color .15s; white-space:nowrap; }
   .seg-btn.active{ background:var(--elevated); color:var(--label); box-shadow:0 1px 3px rgba(0,0,0,.14); }
+  .seg-btn.urgent-seg{ color:var(--red); }
+  .seg-btn.urgent-seg.active{ color:var(--red); }
 
   /* search */
   .search-wrap{ margin:0 16px 10px; }
@@ -291,12 +304,18 @@
     <div class="notch"></div>
     <div class="screen">
       <div class="device-inner">
-        <div class="statusbar">
-          <span class="num">9:41</span>
-          <div class="icons">
-            <svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x="0" y="6" width="3" height="5" rx="0.6" fill="#1C1C1E"/><rect x="4.5" y="4" width="3" height="7" rx="0.6" fill="#1C1C1E"/><rect x="9" y="2" width="3" height="9" rx="0.6" fill="#1C1C1E"/><rect x="13.5" y="0" width="3" height="11" rx="0.6" fill="#1C1C1E"/></svg>
-            <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3" stroke="#1C1C1E"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#1C1C1E"/><rect x="22" y="4" width="1.5" height="4" rx="0.7" fill="#1C1C1E"/></svg>
-          </div>
+        <div class="account-bar" id="accountBar">
+          <button class="account-identity" id="btnAccount" title="حساب کاربری">
+            <span class="account-avatar">س.ر</span>
+            <span class="account-text">
+              <span class="account-name">سارا رضایی</span>
+              <span class="account-role">کارشناس نرخ‌گذاری</span>
+            </span>
+          </button>
+          <button class="account-bell" id="btnNotif" title="اعلان‌ها">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="account-bell-dot" id="notifDot"></span>
+          </button>
         </div>
 
         <div class="app-body">
@@ -318,6 +337,7 @@
             <div class="segmented">
               <button class="seg-btn active" data-filter="all">همه</button>
               <button class="seg-btn" data-filter="pending">در انتظار</button>
+              <button class="seg-btn urgent-seg" data-filter="urgent">فوری</button>
               <button class="seg-btn" data-filter="decided">بررسی‌شده</button>
             </div>
             <div class="search-wrap">
@@ -571,6 +591,14 @@ function getDates(){ return getRoute().dates; }
 function findDate(key){ return ROUTES.flatMap(r=>r.dates).find(d=>d.key===key); }
 function pendingCount(){ return getDates().filter(d=>!state.decisions[d.key]).length; }
 function decidedCount(){ return getDates().filter(d=>state.decisions[d.key]).length; }
+function isUrgent(d){
+  if(state.decisions[d.key]) return false;
+  if(state.flags[d.key]) return true;
+  const stats = computeStats(d.flights);
+  return aiSuggest(state.ourRates[d.key], d.ourSeats, stats).type === "critical";
+}
+function urgentCount(){ return getDates().filter(isUrgent).length; }
+function allPendingCount(){ return ROUTES.flatMap(r=>r.dates).filter(d=>!state.decisions[d.key]).length; }
 
 /* ============================== بنر اطلاع‌رسانی ============================== */
 function showBanner(kind, title, message){
@@ -648,6 +676,54 @@ function openQuickSheet(key){
   document.getElementById("qOpen").onclick = ()=>{ closeSheet(); openDetail(key); };
   document.getElementById("sheetCancel").onclick = closeSheet;
 }
+
+/* ------ نوار حساب کاربری (بالای صفحه) ------ */
+function updateNotifDot(){
+  const el = document.getElementById("notifDot");
+  if(!el) return;
+  const n = allPendingCount();
+  el.textContent = n>0 ? fmt(n) : "";
+}
+function openAccountSheet(){
+  openSheet(`
+    <div class="sheet-hint">امروز ${fmt(decidedCount())} مورد را بررسی کرده‌اید — ${fmt(pendingCount())} مورد در این بازار در انتظار تصمیم شماست</div>
+    <div class="sheet-group">
+      <button class="sheet-option" id="acctReports">پروفایل و عملکرد</button>
+      <button class="sheet-option" id="acctAlerts">تنظیمات اعلان‌ها</button>
+      <button class="sheet-option destructive" id="acctLogout">خروج از حساب</button>
+    </div>
+    <button class="sheet-cancel" id="sheetCancel">انصراف</button>
+  `);
+  document.getElementById("acctReports").onclick = ()=>{ closeSheet(); document.querySelector('.tab-item[data-tab="reports"]').click(); };
+  document.getElementById("acctAlerts").onclick = ()=>{ closeSheet(); showBanner("manual","تنظیمات اعلان‌ها","این بخش به‌زودی در دسترس قرار می‌گیرد."); };
+  document.getElementById("acctLogout").onclick = ()=>{ closeSheet(); showBanner("rejected","خروج از حساب","این یک نسخه‌ی نمایشی است؛ اتصال به سامانه‌ی احراز هویت فعال نیست."); };
+  document.getElementById("sheetCancel").onclick = closeSheet;
+}
+function openNotifSheet(){
+  const urgent = urgentCount(), pending = pendingCount();
+  openSheet(`
+    <div class="sheet-hint-title">اعلان‌ها · بازار ${getRoute().short}</div>
+    <div class="sheet-group">
+      <button class="sheet-option" id="notifUrgent" ${urgent===0?'style="color:var(--label-3)"':''}>${urgent>0?`${fmt(urgent)} مورد فوری نیازمند بررسی`:"مورد فوری‌ای در انتظار نیست"}</button>
+      <button class="sheet-option" id="notifPending" ${pending===0?'style="color:var(--label-3)"':''}>${pending>0?`${fmt(pending)} مورد در انتظار تصمیم`:"همه‌چیز بررسی شده است"}</button>
+    </div>
+    <button class="sheet-cancel" id="sheetCancel">بستن</button>
+  `);
+  const goFilter = (f)=>{
+    closeSheet();
+    state.tab = "inbox";
+    document.querySelectorAll(".tab-item").forEach(b=>b.classList.toggle("active", b.dataset.tab==="inbox"));
+    document.getElementById("viewReports").classList.remove("active");
+    state.filter = f;
+    document.querySelectorAll(".seg-btn").forEach(b=>b.classList.toggle("active", b.dataset.filter===f));
+    renderInboxList();
+  };
+  document.getElementById("notifUrgent").onclick = ()=>{ if(urgent>0) goFilter("urgent"); };
+  document.getElementById("notifPending").onclick = ()=>{ if(pending>0) goFilter("pending"); };
+  document.getElementById("sheetCancel").onclick = closeSheet;
+}
+document.getElementById("btnAccount").addEventListener("click", openAccountSheet);
+document.getElementById("btnNotif").addEventListener("click", openNotifSheet);
 
 /* ------ منوی «بیشتر» در صفحه‌ی جزئیات ------ */
 function openMoreSheet(key){
@@ -783,6 +859,7 @@ function renderInboxList(){
   const host = document.getElementById("inboxList");
   let items = getDates();
   if(state.filter==="pending") items = items.filter(d=>!state.decisions[d.key]);
+  if(state.filter==="urgent") items = items.filter(isUrgent);
   if(state.filter==="decided") items = items.filter(d=>state.decisions[d.key]);
   if(state.search.trim()){
     const q = state.search.trim();
@@ -791,9 +868,11 @@ function renderInboxList(){
 
   document.querySelectorAll(".seg-btn").forEach(b=>{
     if(b.dataset.filter==="pending") b.textContent = `در انتظار ${fmt(pendingCount())}`;
+    if(b.dataset.filter==="urgent") b.textContent = urgentCount()>0 ? `فوری ${fmt(urgentCount())}` : "فوری";
     if(b.dataset.filter==="decided") b.textContent = `بررسی‌شده ${fmt(decidedCount())}`;
     if(b.dataset.filter==="all") b.textContent = `همه ${fmt(getDates().length)}`;
   });
+  updateNotifDot();
 
   if(items.length===0){
     host.innerHTML = `<div class="empty">
