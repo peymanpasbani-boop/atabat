@@ -23,7 +23,7 @@
     display:flex; align-items:flex-start; justify-content:center;
   }
   button, input{ font-family:inherit; }
-  .num{ direction:ltr; unicode-bidi:isolate; font-variant-numeric:tabular-nums; }
+  .num{ direction:ltr; unicode-bidi:isolate; font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1; letter-spacing:.1px; }
   ::-webkit-scrollbar{ display:none; }
   :focus-visible{ outline:2px solid var(--blue); outline-offset:2px; }
 
@@ -82,7 +82,7 @@
   .nav-icon-btn{ background:none; border:none; color:var(--blue); font-size:15px; font-weight:600; }
   .icon-btn-circle{ width:32px; height:32px; border-radius:50%; background:var(--fill); border:none; display:flex; align-items:center; justify-content:center; color:var(--label-2); flex:0 0 auto; }
   .icon-btn-circle:active{ background:var(--sep); }
-  .large-title{ font-size:32px; font-weight:800; letter-spacing:-.01em; margin:2px 0 2px; }
+  .large-title{ font-size:32px; font-weight:900; letter-spacing:-.02em; margin:2px 0 2px; }
   .large-sub{ font-size:12.5px; color:var(--label-2); margin-bottom:12px; }
 
   /* route chip scroller */
@@ -116,18 +116,47 @@
   .search-field input{ border:none; background:none; outline:none; font-size:14px; flex:1; color:var(--label); }
   .search-field input::placeholder{ color:var(--label-3); }
 
-  /* ---------------- inbox list ---------------- */
-  .list{ padding-bottom:20px; }
-  .row-wrap{ position:relative; overflow:hidden; border-bottom:1px solid var(--sep-soft); }
+  /* ---------------- date/rate overview strip ---------------- */
+  .date-strip-wrap{ margin:2px 0 14px; }
+  .date-strip-label{ display:flex; align-items:center; gap:6px; padding:0 16px; margin-bottom:9px; font-size:11.5px; font-weight:800; color:var(--label-2); }
+  .date-strip-label svg{ width:13px; height:13px; color:var(--violet); flex:0 0 auto; }
+  .date-strip{ display:flex; gap:9px; overflow-x:auto; padding:3px 16px 8px; scroll-snap-type:x proximity; }
+  .date-card{
+    scroll-snap-align:start; flex:0 0 auto; width:82px; text-align:center; background:var(--elevated);
+    border-radius:16px; padding:11px 6px 10px; border:1.5px solid rgba(20,20,30,.045); position:relative;
+    box-shadow:0 1px 2px rgba(20,20,30,.04), 0 10px 20px -16px rgba(20,20,30,.24); transition:transform .12s;
+  }
+  .date-card:active{ transform:scale(.96); }
+  .date-card.today{
+    border-color:transparent; background:linear-gradient(165deg,#F4F2FF,#FFFFFF 62%);
+    box-shadow:0 12px 24px -12px rgba(91,79,224,.45), 0 0 0 1.5px var(--violet) inset;
+  }
+  .date-card.today::before{
+    content:"امروز"; position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+    background:linear-gradient(135deg,var(--violet),var(--violet-2)); color:#fff; font-size:9px; font-weight:800;
+    padding:2.5px 9px; border-radius:99px; box-shadow:0 4px 10px -4px rgba(91,79,224,.65); white-space:nowrap;
+  }
+  .dc-weekday{ font-size:10.5px; font-weight:700; color:var(--label-2); }
+  .date-card.today .dc-weekday{ color:var(--violet-ink); }
+  .dc-day{ font-size:13.5px; font-weight:900; letter-spacing:-.01em; margin-top:2px; }
+  .dc-divider{ height:1px; background:var(--sep); margin:9px 0 8px; }
+  .date-card.today .dc-divider{ background:rgba(91,79,224,.25); }
+  .dc-rate{ font-size:11.5px; font-weight:900; letter-spacing:-.01em; }
+  .dc-rate.empty{ color:var(--label-3); font-weight:600; font-size:10px; line-height:1.45; }
+  .dc-unit{ font-size:8.5px; color:var(--label-3); font-weight:600; margin-top:1px; }
+
+  /* ---------------- inbox list (each message as a separated, shadowed card) ---------------- */
+  .list{ padding:2px 12px 20px; }
+  .row-wrap{ position:relative; overflow:hidden; border-radius:16px; margin-bottom:10px; box-shadow:0 1px 2px rgba(20,20,30,.05), 0 12px 24px -18px rgba(20,20,30,.28); }
   .row-bg{ position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between; padding:0 18px; }
   .row-bg-action{ font-size:12px; font-weight:800; display:flex; align-items:center; gap:5px; opacity:0; transition:opacity .12s; }
   .row-bg-action.approve{ color:#fff; }
   .row-bg-action.reject{ color:#fff; }
   .row-content{
-    position:relative; display:flex; align-items:flex-start; gap:11px; padding:13px 16px;
-    background:var(--bg); touch-action:pan-y; transition:background .15s;
+    position:relative; display:flex; align-items:flex-start; gap:11px; padding:14px 16px;
+    background:var(--elevated); touch-action:pan-y; transition:background .15s; border:1px solid rgba(20,20,30,.045);
   }
-  .row-wrap.flagged .row-content{ border-inline-start:3px solid var(--amber); padding-inline-start:13px; background:linear-gradient(90deg, rgba(242,167,59,.08), transparent 45%); }
+  .row-wrap.flagged .row-content{ border-inline-start:3px solid var(--amber); padding-inline-start:14px; background:linear-gradient(90deg, rgba(242,167,59,.08), var(--elevated) 45%); }
 
   /* alert badge = what the assistant wants to do, at a glance */
   .alert-badge{ width:36px; height:36px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex:0 0 auto; margin-top:1px; position:relative; }
@@ -135,7 +164,7 @@
   .alert-badge.up{ background:linear-gradient(135deg,#FF6259,#E0342A); color:#fff; box-shadow:0 6px 14px -6px rgba(224,52,42,.55); }
   .alert-badge.down{ background:linear-gradient(135deg,#34C471,#1F9C4C); color:#fff; box-shadow:0 6px 14px -6px rgba(31,156,76,.5); }
   .alert-badge.flat{ background:var(--fill); color:var(--label-2); }
-  .alert-badge.unread::after{ content:""; position:absolute; top:-2px; left:-2px; width:9px; height:9px; border-radius:50%; background:var(--amber); border:2px solid var(--bg); }
+  .alert-badge.unread::after{ content:""; position:absolute; top:-2px; left:-2px; width:9px; height:9px; border-radius:50%; background:var(--amber); border:2px solid var(--elevated); }
   @keyframes pulseRing{ 0%{ box-shadow:0 0 0 0 rgba(242,167,59,.55);} 70%{ box-shadow:0 0 0 6px rgba(242,167,59,0);} 100%{ box-shadow:0 0 0 0 rgba(242,167,59,0);} }
   .alert-badge.unread{ animation:pulseRing 2.6s infinite; }
 
@@ -148,7 +177,7 @@
   .row-time{ font-size:11.5px; color:var(--label-3); flex:0 0 auto; }
   .row-alert-line{ font-size:12.5px; color:var(--label-2); margin-top:4px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .row-bottom{ display:flex; align-items:center; gap:7px; margin-top:8px; flex-wrap:wrap; }
-  .row-target{ font-size:13px; font-weight:800; }
+  .row-target{ font-size:15px; font-weight:900; letter-spacing:-.01em; color:var(--label); }
   .row-badge{ font-size:10.5px; font-weight:800; padding:2.5px 8px; border-radius:99px; }
   .row-status-txt{ font-size:10.5px; color:var(--label-3); font-weight:600; margin-inline-start:auto; }
   .row-chevron{ color:var(--label-3); font-size:16px; padding-top:10px; flex:0 0 auto; }
@@ -166,7 +195,7 @@
 
   .stat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
   .stat-cell{ text-align:center; }
-  .stat-cell .v{ font-size:15px; font-weight:800; }
+  .stat-cell .v{ font-size:16.5px; font-weight:900; letter-spacing:-.01em; }
   .stat-cell .l{ font-size:10px; color:var(--label-3); margin-top:2px; }
   .stat-cell.min .v{ color:var(--green); }
   .stat-cell.max .v{ color:var(--red); }
@@ -193,7 +222,7 @@
   .factor-chip.good{ background:#DFF6E6; color:#1F9C4C; }
   .suggestion-text{ font-size:13px; line-height:2; color:#3c3a45; margin-bottom:12px; position:relative; }
   .suggestion-target{ display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; position:relative; }
-  .suggestion-target .fig{ font-size:17px; font-weight:800; }
+  .suggestion-target .fig{ font-size:19px; font-weight:900; letter-spacing:-.01em; }
   .delta-chip{ font-size:11px; font-weight:800; padding:3px 9px; border-radius:99px; }
   .delta-up{ background:#FFE5E3; color:#D8342A; }
   .delta-down{ background:#DFF6E6; color:#1F9C4C; }
@@ -206,7 +235,7 @@
   .m-name{ font-size:13px; font-weight:700; }
   .m-agency{ font-size:10.5px; color:var(--blue); margin-top:1px; }
   .m-right{ text-align:left; flex:0 0 auto; }
-  .m-price{ font-size:13px; font-weight:800; }
+  .m-price{ font-size:14px; font-weight:900; }
   .m-price.cheapest{ color:var(--green); }
   .m-meta{ font-size:10px; color:var(--label-3); margin-top:1px; }
   .cheapest-tag{ display:inline-block; font-size:9px; font-weight:800; color:var(--green); background:#DFF6E6; padding:1px 6px; border-radius:99px; margin-inline-start:5px; }
@@ -273,7 +302,7 @@
   .kpi-grid{ display:grid; grid-template-columns:1fr 1fr; }
   .kpi-cell{ padding:14px; text-align:center; border-bottom:1px solid var(--sep-soft); }
   .kpi-cell:nth-child(odd){ border-left:1px solid var(--sep-soft); }
-  .kpi-cell .v{ font-size:20px; font-weight:800; }
+  .kpi-cell .v{ font-size:22px; font-weight:900; letter-spacing:-.01em; }
   .kpi-cell .l{ font-size:10.5px; color:var(--label-2); margin-top:3px; }
 
   .chart-card{ background:var(--elevated); border-radius:var(--radius); padding:16px; margin:0 16px 16px; box-shadow:0 1px 2px rgba(20,20,30,.04), 0 12px 26px -18px rgba(20,20,30,.2); border:1px solid rgba(20,20,30,.04); }
@@ -329,7 +358,7 @@
                 <button class="nav-icon-btn" id="btnEditPlaceholder">ویرایش</button>
               </div>
               <div class="large-title">کارتابل نرخ</div>
-              <div class="large-sub" id="inboxSub">بازار تهران–استانبول · سپهر۳۶۰</div>
+              <div class="large-sub" id="inboxSub">تهران–استانبول · بازار بین‌المللی</div>
             </div>
 
             <div class="route-scroll" id="routeScrollInbox"></div>
@@ -346,6 +375,15 @@
                 <input type="text" id="searchInput" placeholder="جستجوی تاریخ یا هوابرد">
               </div>
             </div>
+
+            <div class="date-strip-wrap">
+              <div class="date-strip-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                وضعیت نرخ این مسیر تا پایان ماه
+              </div>
+              <div class="date-strip" id="dateStrip"></div>
+            </div>
+
             <div class="list" id="inboxList"></div>
           </div>
 
@@ -400,6 +438,58 @@ const AIRLINE_COLORS = {
 const airlineColor = (n)=> AIRLINE_COLORS[n] || "#8E8E93";
 const fmt = (n)=> n.toLocaleString("fa-IR");
 
+/* ابزار تاریخ شمسی برای نوار افقی نرخ‌ها */
+const FA_DIGITS = "۰۱۲۳۴۵۶۷۸۹";
+const toFaNum = (n)=> String(n).replace(/\d/g, d=>FA_DIGITS[d]);
+const faToEnDigit = (s)=> s.replace(/[۰-۹]/g, d=>String(FA_DIGITS.indexOf(d)));
+const PERSIAN_WEEK = ["شنبه","یکشنبه","دوشنبه","سه‌شنبه","چهارشنبه","پنجشنبه","جمعه"];
+const PERSIAN_MONTH_DAYS = { "فروردین":31,"اردیبهشت":31,"خرداد":31,"تیر":31,"مرداد":31,"شهریور":31,"مهر":30,"آبان":30,"آذر":30,"دی":30,"بهمن":30,"اسفند":29 };
+function parseJalali(label){
+  const parts = label.trim().split(" ");
+  return { day: parseInt(faToEnDigit(parts[0]),10), month: parts.slice(1).join(" ") };
+}
+/* از داده‌های واقعی همان مسیر، تقویم نرخ از «امروز» تا پایان ماه می‌سازد */
+function buildMonthStrip(route){
+  const dates = route.dates;
+  if(!dates.length) return [];
+  const anchor = parseJalali(dates[0].jalali);
+  const anchorWeekdayIdx = PERSIAN_WEEK.indexOf(dates[0].weekday);
+  const monthLen = PERSIAN_MONTH_DAYS[anchor.month] || 31;
+  const byDay = {};
+  dates.forEach(d=>{ byDay[parseJalali(d.jalali).day] = d; });
+  const todayEntries = dates.filter(d=> d.time==="امروز");
+  const todayDay = todayEntries.length ? Math.min(...todayEntries.map(d=>parseJalali(d.jalali).day)) : anchor.day;
+  const cards = [];
+  for(let day=todayDay; day<=monthLen; day++){
+    const weekdayIdx = ((anchorWeekdayIdx + (day - anchor.day)) % 7 + 7) % 7;
+    const entry = byDay[day];
+    cards.push({
+      day, month:anchor.month, weekday:PERSIAN_WEEK[weekdayIdx], isToday: day===todayDay,
+      key: entry ? entry.key : null,
+      rate: entry ? computeStats(entry.flights).min : null,
+    });
+  }
+  return cards;
+}
+function renderDateStrip(){
+  const host = document.getElementById("dateStrip");
+  if(!host) return;
+  const cards = buildMonthStrip(getRoute());
+  host.innerHTML = cards.map(c=>`
+    <button class="date-card ${c.isToday?"today":""}" data-key="${c.key||""}">
+      <div class="dc-weekday">${c.weekday}</div>
+      <div class="dc-day num">${toFaNum(c.day)} ${c.month}</div>
+      <div class="dc-divider"></div>
+      ${c.rate!=null
+        ? `<div class="dc-rate num">${fmt(c.rate)}</div><div class="dc-unit">تومان</div>`
+        : `<div class="dc-rate empty">پرواز موجود<br>نیست</div>`}
+    </button>
+  `).join("");
+  host.querySelectorAll(".date-card").forEach(btn=>{
+    if(btn.dataset.key) btn.addEventListener("click", ()=> openDetail(btn.dataset.key));
+  });
+}
+
 /* PRNG قطعی برای تولید داده‌های نمونه‌ی هر مسیر (خروجی همیشه ثابت است) */
 function mulberry32(seed){
   return function(){
@@ -441,7 +531,7 @@ function genDates(routeKey, seed, o){
 /* ============================== مسیرها و داده‌ها ============================== */
 const ROUTES = [
   {
-    key:"ikat", label:"تهران–استانبول", short:"استانبول", sub:"بازار بین‌المللی · سپهر۳۶۰",
+    key:"ikat", label:"تهران–استانبول", short:"استانبول", sub:"بازار بین‌المللی",
     dates:[
       { key:"ikat_d1", jalali:"۱۰ تیر", weekday:"چهارشنبه", time:"دیروز", ourRate:34200000, ourSeats:{left:19,total:144},
         flights:[
@@ -494,7 +584,7 @@ const ROUTES = [
     ],
   },
   {
-    key:"najaf", label:"تهران–نجف", short:"نجف", sub:"پرواز زیارتی · سپهر۳۶۰",
+    key:"najaf", label:"تهران–نجف", short:"نجف", sub:"پرواز زیارتی",
     dates: genDates("najaf", 1001, {
       dayNumbers:["۱۲ تیر","۱۳ تیر","۱۵ تیر","۱۷ تیر","۱۹ تیر"],
       weekdays:["جمعه","شنبه","دوشنبه","چهارشنبه","جمعه"],
@@ -506,7 +596,7 @@ const ROUTES = [
     }),
   },
   {
-    key:"mashhad", label:"تهران–مشهد", short:"مشهد", sub:"پرواز داخلی · سپهر۳۶۰",
+    key:"mashhad", label:"تهران–مشهد", short:"مشهد", sub:"پرواز داخلی",
     dates: genDates("mashhad", 2002, {
       dayNumbers:["۱۳ تیر","۱۴ تیر","۱۵ تیر","۱۶ تیر","۱۷ تیر","۱۸ تیر"],
       weekdays:["شنبه","یکشنبه","دوشنبه","سه‌شنبه","چهارشنبه","پنجشنبه"],
@@ -518,7 +608,7 @@ const ROUTES = [
     }),
   },
   {
-    key:"kish", label:"تهران–کیش", short:"کیش", sub:"پرواز داخلی · سپهر۳۶۰",
+    key:"kish", label:"تهران–کیش", short:"کیش", sub:"پرواز داخلی",
     dates: genDates("kish", 3003, {
       dayNumbers:["۱۳ تیر","۱۴ تیر","۱۶ تیر","۱۸ تیر","۲۰ تیر"],
       weekdays:["شنبه","یکشنبه","سه‌شنبه","پنجشنبه","شنبه"],
@@ -842,6 +932,7 @@ function renderRouteChips(hostId){
       updateRouteHeader();
       renderRouteChips("routeScrollInbox");
       renderRouteChips("routeScrollReports");
+      renderDateStrip();
       renderInboxList();
       if(state.tab==="reports") renderReports();
       btn.scrollIntoView({behavior:"smooth", inline:"center", block:"nearest"});
@@ -850,7 +941,7 @@ function renderRouteChips(hostId){
 }
 function updateRouteHeader(){
   const r = getRoute();
-  document.getElementById("inboxSub").textContent = `${r.sub} · بازار ${r.label}`;
+  document.getElementById("inboxSub").textContent = `${r.label} · ${r.sub}`;
   document.getElementById("reportsSub").textContent = `${r.label} · خلاصه‌ی عملکرد این هفته`;
 }
 
@@ -1161,6 +1252,7 @@ document.getElementById("btnEditPlaceholder").addEventListener("click", ()=>{
 updateRouteHeader();
 renderRouteChips("routeScrollInbox");
 renderRouteChips("routeScrollReports");
+renderDateStrip();
 renderInboxList();
 </script>
 </body>
