@@ -2,188 +2,277 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<title>پوستر آموزش SSR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
-
   * { margin:0; padding:0; box-sizing:border-box; }
-
   html,body{
-    width:1080px; height:1080px;
-    background:#05070c;
-    font-family:'Vazirmatn', sans-serif;
-    overflow:hidden;
+    height:100%;
+    background:#05100C;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Vazirmatn',sans-serif;
   }
 
   .stage{
+    width:100%;
+    max-width:480px;
+    aspect-ratio:1080/1350;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:14px;
+  }
+
+  .poster{
     position:relative;
-    width:1080px; height:1080px;
+    width:100%;
+    height:100%;
     background:
-      radial-gradient(1200px 700px at 78% -10%, rgba(57,255,136,0.10), transparent 60%),
-      radial-gradient(900px 600px at -10% 110%, rgba(57,255,136,0.06), transparent 60%),
-      linear-gradient(180deg, #060911 0%, #05070c 60%, #04060a 100%);
+      radial-gradient(ellipse at 30% 0%, rgba(61,255,154,0.10), transparent 55%),
+      linear-gradient(180deg,#081712 0%, #050D0A 60%, #040A08 100%);
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(61,255,154,0.12);
+    color:#ECF3EE;
   }
 
-  /* faint grid, like a nav display */
-  .grid{
+  .scanlines{
     position:absolute; inset:0;
-    background-image:
-      linear-gradient(rgba(57,255,136,0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(57,255,136,0.045) 1px, transparent 1px);
-    background-size:54px 54px;
-    mask-image: radial-gradient(700px 700px at 50% 40%, black, transparent 75%);
+    background:repeating-linear-gradient(
+      to bottom,
+      rgba(0,0,0,0) 0px,
+      rgba(0,0,0,0) 2px,
+      rgba(0,0,0,0.18) 3px
+    );
+    mix-blend-mode:multiply;
+    pointer-events:none;
+    z-index:5;
   }
-
   .vignette{
     position:absolute; inset:0;
-    box-shadow: inset 0 0 220px rgba(0,0,0,0.75);
+    box-shadow:inset 0 0 160px rgba(0,0,0,0.65);
+    pointer-events:none;
+    z-index:6;
   }
 
-  /* top bar */
-  .topbar{
-    position:absolute; top:64px; left:72px; right:72px;
-    display:flex; align-items:center; justify-content:space-between;
+  .code-bg{
+    position:absolute;
+    inset:0;
+    padding:36px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    line-height:2.1;
+    color:rgba(61,255,154,0.14);
+    letter-spacing:0.3px;
+    white-space:pre;
+    z-index:1;
+    direction:ltr;
+    text-align:left;
   }
-  .brand{ display:flex; align-items:center; gap:14px; }
-  .mark{
-    width:42px; height:42px; border-radius:9px;
-    background:linear-gradient(160deg, rgba(57,255,136,0.16), rgba(57,255,136,0.02));
-    border:1px solid rgba(57,255,136,0.35);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'JetBrains Mono', monospace; font-weight:700;
-    color:#39ff88; font-size:20px;
+
+  .content{
+    position:relative;
+    z-index:10;
+    height:100%;
+    display:flex;
+    flex-direction:column;
   }
-  .brand-text{ font-family:'JetBrains Mono', monospace; color:#7fe6ab; font-size:16px; letter-spacing:0.5px; direction:ltr; }
+
   .eyebrow{
-    font-family:'JetBrains Mono', monospace; font-size:15px; color:#5fce8c;
-    border:1px solid rgba(95,206,140,0.4); border-radius:999px;
-    padding:8px 18px; letter-spacing:0.5px;
-    background:rgba(57,255,136,0.05);
+    margin:44px 40px 0 40px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:1px;
+    color:#3DFF9A;
+    direction:ltr;
   }
-  .eyebrow b{ color:#39ff88; }
+  .eyebrow .dot{
+    width:7px;height:7px;border-radius:50%;
+    background:#3DFF9A;
+    box-shadow:0 0 8px 2px rgba(61,255,154,0.7);
+  }
+  .eyebrow .tag{
+    color:rgba(236,243,238,0.55);
+  }
 
-  /* headline block */
   .headline{
-    position:absolute; top:172px; right:72px; left:72px;
-    text-align:right;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:0 40px;
   }
   .kicker{
-    font-family:'JetBrains Mono', monospace; color:#ffb84d; font-size:19px;
-    letter-spacing:1px; margin-bottom:18px; direction:ltr; text-align:right;
+    font-size:19px;
+    font-weight:500;
+    color:#FFB347;
+    margin-bottom:14px;
   }
-  h1{
-    font-size:88px; line-height:1.14; color:#eef2f6; font-weight:900;
-    letter-spacing:-1px;
+  .title{
+    font-size:76px;
+    font-weight:900;
+    line-height:1.18;
+    color:#F5FAF7;
+    text-shadow:0 0 26px rgba(61,255,154,0.25);
   }
-  h1 .accent{ color:#39ff88; text-shadow:0 0 26px rgba(57,255,136,0.45); }
-  .rule{
-    width:120px; height:4px; background:#39ff88; border-radius:2px;
-    margin:26px 0 0 auto; box-shadow:0 0 14px rgba(57,255,136,0.6);
+  .title .cursor{
+    display:inline-block;
+    width:14px;height:58px;
+    background:#3DFF9A;
+    margin-inline-start:8px;
+    vertical-align:-8px;
+    box-shadow:0 0 14px rgba(61,255,154,0.8);
+    animation:blink 1.1s steps(2,start) infinite;
   }
+  @keyframes blink{ 50%{opacity:0;} }
+
   .sub{
-    margin-top:22px; font-size:26px; color:#8fa0ad; font-weight:600;
+    margin-top:22px;
+    font-size:23px;
+    font-weight:400;
+    color:rgba(236,243,238,0.72);
+    max-width:560px;
+    line-height:1.7;
   }
-  .sub span{ color:#39ff88; font-family:'JetBrains Mono', monospace; font-size:23px; }
-
-  /* terminal */
-  .term{
-    position:absolute; top:520px; right:72px; left:72px;
-    background:#080c14;
-    border:1px solid rgba(57,255,136,0.28);
-    border-radius:16px;
-    box-shadow:
-      0 30px 70px rgba(0,0,0,0.55),
-      0 0 0 1px rgba(0,0,0,0.4),
-      inset 0 0 60px rgba(57,255,136,0.04);
-    overflow:hidden;
-  }
-  .term-bar{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:16px 22px;
-    background:linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
-    border-bottom:1px solid rgba(57,255,136,0.16);
-  }
-  .dots{ display:flex; gap:9px; direction:ltr; }
-  .dot{ width:11px; height:11px; border-radius:50%; background:#233042; }
-  .term-title{
-    font-family:'JetBrains Mono', monospace; font-size:15px; color:#5c7182;
-    letter-spacing:1px; direction:ltr;
-  }
-  .term-body{
-    padding:30px 30px 34px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:24px; line-height:1.85;
-    direction:ltr; text-align:left;
-  }
-  .term-body .l0{ color:#39ff88; text-shadow:0 0 10px rgba(57,255,136,0.35); }
-  .term-body .l0::before{ content:"> "; color:#5fce8c; }
-  .term-body .out{ color:#8fe0ac; opacity:0.92; }
-  .term-body .out b{ color:#c9ffdd; font-weight:600; }
-  .term-body .dim{ color:#3d5a48; }
-  .cursor{
-    display:inline-block; width:12px; height:24px; background:#39ff88;
-    margin-inline-start:4px; box-shadow:0 0 10px rgba(57,255,136,0.7);
-    vertical-align:middle;
-  }
-  .scan{
-    position:absolute; inset:0; pointer-events:none;
-    background:repeating-linear-gradient(180deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 3px);
-    mix-blend-mode:overlay;
+  .sub b{
+    color:#3DFF9A;
+    font-weight:700;
   }
 
-  /* footer line */
-  .footer{
-    position:absolute; bottom:66px; right:72px; left:72px;
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .foot-line{
-    font-size:25px; color:#c7d2da; font-weight:600;
-  }
-  .foot-line span{ color:#39ff88; }
-  .foot-url{
-    font-family:'JetBrains Mono', monospace; font-size:16px; color:#4c6355;
+  .snippet{
+    margin-top:30px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:15px;
+    color:#3DFF9A;
+    background:rgba(61,255,154,0.07);
+    border:1px solid rgba(61,255,154,0.3);
+    padding:12px 16px;
+    border-radius:8px;
     direction:ltr;
+    text-align:left;
+    width:fit-content;
+    max-width:100%;
+  }
+  .snippet .prompt{ color:#FFB347; }
+
+  .tear{
+    position:relative;
+    height:0;
+    margin:0 0;
+  }
+  .tear::before{
+    content:"";
+    position:absolute;
+    left:-14px; right:-14px; top:-1px;
+    height:2px;
+    background:repeating-linear-gradient(to right, rgba(236,243,238,0.35) 0 10px, transparent 10px 20px);
+  }
+  .notch-l, .notch-r{
+    position:absolute; top:calc(100% - 14px);
+    width:28px; height:28px; border-radius:50%;
+    background:#05100C;
+    z-index:11;
+  }
+
+  .footer{
+    position:relative;
+    padding:26px 40px 34px 40px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-top:1px dashed rgba(236,243,238,0.28);
+  }
+  .footer .brand{
+    font-family:'JetBrains Mono',monospace;
+    font-size:15px;
+    letter-spacing:0.5px;
+    color:rgba(236,243,238,0.85);
+    direction:ltr;
+  }
+  .footer .brand b{ color:#3DFF9A; }
+  .footer .barcode{
+    display:flex;
+    gap:3px;
+    align-items:flex-end;
+    height:26px;
+  }
+  .footer .barcode span{
+    display:block;
+    width:3px;
+    background:rgba(61,255,154,0.55);
   }
 </style>
 </head>
 <body>
-  <div class="stage">
-    <div class="grid"></div>
 
-    <div class="topbar">
-      <div class="eyebrow">آموزش نیرا <b>·</b> درس ۰۱</div>
-      <div class="brand">
-        <div class="brand-text">nirahelp.ir</div>
-        <div class="mark">N</div>
-      </div>
-    </div>
+<div class="stage">
+  <div class="poster" id="poster">
 
-    <div class="headline">
-      <div class="kicker">NRS &middot; RESERVATION TERMINAL</div>
-      <h1>برنامه پروازی<br>یک <span class="accent">مسیر</span></h1>
-      <div class="rule"></div>
-      <div class="sub">دستور <span>SK</span> در ترمینال نیرا</div>
-    </div>
-
-    <div class="term">
-      <div class="term-bar">
-        <div class="term-title">NRS TERMINAL — آموزشی</div>
-        <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-      </div>
-      <div class="term-body">
-        <div class="l0">SK 15JUL THR NJF<span class="cursor"></span></div>
-        <div class="dim">&nbsp;&nbsp;&nbsp;THR &rarr; NJF &nbsp;&nbsp; 15 JUL</div>
-        <div class="out">&nbsp;1&nbsp; <b>W5&nbsp;4231</b>&nbsp; THR 10:05 &nbsp;-&nbsp; NJF 12:00 &nbsp; 738</div>
-        <div class="out">&nbsp;2&nbsp; <b>W5&nbsp;4233</b>&nbsp; THR 14:30 &nbsp;-&nbsp; NJF 16:25 &nbsp; 738</div>
-      </div>
-      <div class="scan"></div>
-    </div>
-
-    <div class="footer">
-      <div class="foot-line">با یک دستور، تمام پرواز‌های یک مسیر را ببین <span>→</span></div>
-      <div class="foot-url">NIRAHELP.IR</div>
-    </div>
-
+    <div class="code-bg" id="codebg"></div>
+    <div class="scanlines"></div>
     <div class="vignette"></div>
+
+    <div class="content">
+
+      <div class="eyebrow">
+        <span class="dot"></span>
+        NIRA · RESERVATION SYSTEM
+        <span class="tag">// آموزش</span>
+      </div>
+
+      <div class="headline">
+        <div class="kicker">شناسنامه‌ی دیجیتال مسافر</div>
+        <div class="title">کدهای<br>SSR<span class="cursor"></span></div>
+        <div class="sub">وقتی اسم مسافر <b>کافی نیست</b>؛ سیستم نیرا هویت کامل او را با یک کد استاندارد می‌خواهد.</div>
+        <div class="snippet"><span class="prompt">SSR:</span>ALL DOCS HK1/I//…</div>
+      </div>
+
+      <div class="tear">
+        <div class="notch-l" style="left:-14px;"></div>
+        <div class="notch-r" style="right:-14px;"></div>
+      </div>
+
+      <div class="footer">
+        <div class="brand"><b>nirahelp</b>.ir</div>
+        <div class="barcode" id="barcode"></div>
+      </div>
+
+    </div>
   </div>
+</div>
+
+<script>
+  const lines = [
+    "SSR:ALL DOCS HK1/I//1234567890//010190/M////P1",
+    "SSR:ALL DOCS HK1/P/THR/A1234567/IRN/010190/F/300130/HASHEMI/SARA/P2",
+    "SSR:WCHR HK1 - assistance in terminal",
+    "SSR:WCHS HK1 - assistance to seat",
+    "SSR:WCHC HK1 - full assistance required",
+    "SSR:ALL DOCS HK1/I//0021458796//150322/MI////P3",
+  ];
+  const bg = document.getElementById('codebg');
+  let out = '';
+  for (let i=0;i<26;i++){ out += lines[i % lines.length] + '\n'; }
+  bg.textContent = out;
+
+  const bc = document.getElementById('barcode');
+  for(let i=0;i<18;i++){
+    const b = document.createElement('span');
+    const h = 8 + Math.random()*18;
+    b.style.height = h+'px';
+    b.style.opacity = 0.4 + Math.random()*0.6;
+    bc.appendChild(b);
+  }
+</script>
+
 </body>
 </html>
