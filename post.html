@@ -149,25 +149,47 @@
   }
 
   .term-body{
-    padding:40px 40px 46px;
+    padding:46px 46px 50px;
+    direction:rtl;
+    text-align:right;
+  }
+
+  .lesson-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
     font-family:'JetBrains Mono', monospace;
+    font-size:22px;
+    color:var(--amber);
+    background:rgba(244,183,64,0.10);
+    border:1px solid rgba(244,183,64,0.35);
+    padding:8px 20px;
+    border-radius:999px;
+    margin-bottom:26px;
+  }
+  .lesson-tag .dot{ width:9px; height:9px; border-radius:50%; background:var(--amber); }
+
+  .lesson-title{
+    font-size:34px;
+    font-weight:800;
+    color:var(--text-primary);
+    margin-bottom:22px;
+    line-height:1.5;
+  }
+  .lesson-title span{ color:var(--mint); }
+
+  .lesson-text{
     font-size:27px;
-    line-height:1.9;
-    direction:ltr;
-    text-align:left;
+    line-height:2.05;
+    color:#cfe3df;
+    font-weight:500;
+  }
+  .lesson-text b{
+    color:var(--cyan);
+    font-weight:700;
   }
 
-  .term-body .comment{ color:var(--amber); opacity:0.9; }
-  .term-body .cmd{ color:var(--cyan); font-weight:600; }
-  .term-body .out{ color:var(--text-primary); }
-  .term-body .dim{ color:var(--text-muted); }
-  .term-body .mint{ color:var(--mint); }
-
-  .prompt-line{ display:flex; align-items:center; margin-top:14px; }
-  .prompt-line .caret{
-    color:var(--mint);
-    margin-left:2px;
-  }
+  .prompt-line{ display:flex; align-items:center; margin-top:26px; direction:ltr; }
   .blink{
     display:inline-block;
     width:15px; height:32px;
@@ -295,13 +317,12 @@
         <div class="term-title">NRS Terminal — نمونه درس</div>
       </div>
       <div class="term-body">
-        <div class="comment">// مرحله ۴ — نرخ‌گیری بلیط</div>
-        <div class="cmd">YY FARES</div>
-        <div class="out">01 L&nbsp;&nbsp;ADT&nbsp;&nbsp;9,270,000.00 IRR&nbsp;&nbsp;2 PS 20 KG&nbsp;&nbsp;INF 10 KG</div>
-        <div class="dim">RBD:Y</div>
-        <div class="out">&nbsp;&nbsp;&nbsp;ADT 11,230,000.00 IRR&nbsp;&nbsp;2 PS 20 KG&nbsp;&nbsp;INF 10 KG</div>
+        <div class="lesson-tag"><span class="dot"></span>نمونه درس</div>
+        <div class="lesson-title">تعریف <span>برنامه پرواز</span> (Flight Schedule)</div>
+        <div class="lesson-text">
+          پیش از آنکه پروازی برای فروش بلیت در دسترس باشد، باید در سیستم به‌عنوان یک <b>برنامه پرواز (Flight Schedule)</b> تعریف شود؛ یعنی مسیر، ساعات، روزهای پروازی و بازه تاریخی اجرای آن مشخص گردد. این کار، مانند تعریف دفتر فروش و کاربر، فقط از نسخه وب نیرا قابل انجام است.
+        </div>
         <div class="prompt-line">
-          <span class="mint">&gt;FSPKIHTHR</span>
           <span class="blink"></span>
         </div>
       </div>
