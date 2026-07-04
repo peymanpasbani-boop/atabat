@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پوستر ایده‌ها — پیمان</title>
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css?family=vazirmatn:400,500,600,700,800,900|jetbrains-mono:400,500,600,700" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A1A22;--ink-2:#102832;--ink-3:#163542;
+  --text:#ECE7DC;--muted:#92ABB2;
+  --amber:#FFB627;--coral:#FF6B4A;--mint:#46E0B8;--sky:#6FC8FF;--lavender:#B9A6FF;
+  --line:rgba(236,231,220,0.14);--line-soft:rgba(236,231,220,0.07);
+}
+html,body{background:#05111780;background:#040B0F;color:var(--text);font-family:'Vazirmatn',Tahoma,sans-serif;min-height:100vh}
+body{display:flex;flex-direction:column;align-items:center;padding:22px 14px 40px;gap:16px}
+.mono{font-family:'JetBrains Mono',monospace;direction:ltr;unicode-bidi:isolate}
+
+.toolbar{width:100%;max-width:520px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.toolbar-title{font-size:13px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;direction:ltr}
+.toolbar-count{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);background:rgba(255,182,39,0.1);border:1px solid rgba(255,182,39,0.3);padding:4px 10px;border-radius:100px}
+
+/* ===== poster ===== */
+.stage{width:100%;max-width:520px;aspect-ratio:1/1;position:relative}
+.poster{position:absolute;inset:0;border-radius:22px;overflow:hidden;background:var(--ink);
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:34px 32px;box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);border:1px solid var(--line)}
+
+/* background variants */
+.bg-a::before{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse 75% 60% at 50% 30%,black 25%,transparent 100%);
+  pointer-events:none}
+.bg-a::after{content:'';position:absolute;top:-140px;left:-120px;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);opacity:0.5;pointer-events:none}
+
+.bg-b::before{content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(-45deg,var(--line-soft) 0 1px,transparent 1px 26px);
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 100%,black 20%,transparent 100%);
+  pointer-events:none}
+.bg-b::after{content:'';position:absolute;bottom:-160px;right:-120px;width:460px;height:460px;border-radius:50%;
+  background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);opacity:0.55;pointer-events:none}
+
+.bg-c .ghost-num{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);
+  font-family:'JetBrains Mono',monospace;font-size:340px;font-weight:700;color:transparent;
+  -webkit-text-stroke:1.5px rgba(236,231,220,0.07);line-height:1;pointer-events:none;user-select:none;z-index:0}
+.bg-c::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 90% 70% at 50% 0%,var(--accent-glow) 0%,transparent 60%);opacity:0.35;pointer-events:none}
+
+.bg-d::before{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+  background-size:60px 60px;opacity:0.6;pointer-events:none}
+.bg-d .corner-bar{position:absolute;top:0;right:0;width:8px;height:100%;background:linear-gradient(180deg,var(--accent) 0%,transparent 90%)}
+
+/* header row */
+.p-head{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.p-brand{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;direction:ltr}
+.p-brand .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.p-status{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  padding:5px 12px;border-radius:100px;display:flex;align-items:center;gap:6px;white-space:nowrap;
+  background:var(--status-bg);color:var(--status-color);border:1px solid var(--status-border)}
+.p-status .sd{width:6px;height:6px;border-radius:50%;background:var(--status-color)}
+
+/* body */
+.p-body{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:10px 0}
+.p-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--accent);text-transform:uppercase}
+.p-title{font-size:clamp(26px,6.4vw,34px);font-weight:800;line-height:1.32;color:var(--text)}
+.p-line{font-size:clamp(14px,3.4vw,16.5px);line-height:1.9;color:rgba(236,231,220,0.82);max-width:96%}
+
+/* footer */
+.p-foot{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.p-foot-name{font-size:12.5px;font-weight:700;color:var(--text)}
+.p-foot-role{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);letter-spacing:0.5px;margin-top:2px}
+.p-barcode{width:34px;height:16px;background-image:repeating-linear-gradient(90deg,var(--muted) 0 1px,transparent 1px 2px,var(--muted) 2px 4px,transparent 4px 5px,var(--muted) 5px 7px,transparent 7px 9px,var(--muted) 9px 10px,transparent 10px 12px);opacity:0.55}
+
+/* nav controls (outside poster, not part of screenshot) */
+.controls{width:100%;max-width:520px;display:flex;align-items:center;justify-content:center;gap:14px;margin-top:2px}
+.nav-btn{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--ink-2);color:var(--text);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.2s,color 0.2s}
+.nav-btn:hover{border-color:var(--amber);color:var(--amber)}
+.nav-btn svg{width:18px;height:18px}
+.jump{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);padding:0 6px;min-width:70px;text-align:center}
+.hint{max-width:520px;text-align:center;font-size:12px;color:var(--muted);line-height:1.8;padding:0 10px}
+.hint b{color:var(--amber)}
+
+@media (max-width:380px){.poster{padding:26px 22px}}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <span class="toolbar-title">peyman · ideas · posters</span>
+  <span class="toolbar-count mono" id="counter">01 / 35</span>
+</div>
+
+<div class="stage">
+  <div class="poster" id="poster"></div>
+</div>
+
+<div class="controls">
+  <button class="nav-btn" id="prevBtn" aria-label="قبلی">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg>
+  </button>
+  <span class="jump mono" id="jumpLabel">1</span>
+  <button class="nav-btn" id="nextBtn" aria-label="بعدی">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+</div>
+
+<p class="hint">فقط از کادر مربعی بالا <b>اسکرین‌شات</b> بگیر (دکمه‌های ناوبری پایینش داخل شات نمیفتن). با فلش‌های صفحه‌کلید هم می‌تونی جابه‌جا بشی.</p>
+
+<script>
+const IDEAS = [{"title": "آسمانه ✈ — سامانه استیفای حقوق مسافران هوایی ایران", "line": "هر ساله میلیون‌ها مسافر ایرانی به دلیل تأخیر، لغو پرواز یا ممانعت از پرواز، حق قانونی دارند غرامت…", "status": "live"}, {"title": "قیمت‌گذاری گروهی زنده برای تور", "line": "یه مکانیزم قیمت‌گذاری پلکانی زنده برای تورهای گروهی: هرچقدر آدم‌های بیشتری ثبت‌نام کنن، قیمت برای…", "status": "wip"}, {"title": "موتور جستجوی سفر بر اساس بودجه", "line": "به‌جای ساخت دیتابیس بسته خودش، این موتور دقیقاً مثل یه سرچ‌انجین عمل می‌کنه: کاربر فقط بودجه کل،…", "status": "idea"}, {"title": "دستیار هوشمند برنامه‌ریزی سفر", "line": "یه چت‌بات فارسی که با استفاده از Amadeus API و مدل‌های زبانی بزرگ، برنامه سفر شخصی‌سازی‌شده میده.", "status": "wip"}, {"title": "پلتفرم بورس سفر ایرانی‌ها", "line": "مارکت‌پلیسی که مسافرین ایرانی بتونن بلیط، هتل، یا تور نیمه‌کاره‌شون رو به هم بفروشن.", "status": "idea"}, {"title": "مقایسه قیمت پرواز با NDC", "line": "موتور جستجوی پرواز که از NDC مستقیماً با ایرلاین‌ها ارتباط میگیره و قیمت‌های اکسکلوسیو نشون میده که…", "status": "idea"}, {"title": "سیستم مدیریت تجربه گردشگر", "line": "یه SaaS برای هتل‌ها و اقامتگاه‌های ایرانی که بتونن چرخه کامل مهمان رو مدیریت کنن: pre-arrival،…", "status": "wip"}, {"title": "داده‌کاوی الگوهای سفر ایرانیان خارج", "line": "تحلیل داده سفر ایرانیان مقیم خارج برای شناخت الگوهای بازگشت، مقصدهای محبوب، و فصل‌های پیک.", "status": "idea"}, {"title": "نرخ‌گذاری اتوماتیک بلیط بر اساس نیاز بازار", "line": "موتور نرخ‌گذاری هوشمندی که قیمت بلیط‌های هواپیما رو بر اساس تقاضای لحظه‌ای بازار، تحلیل رقبا…", "status": "live"}, {"title": "پیشنهاد چارتر مردن مسیر پروازی با AI", "line": "سیستمی که بر اساس شاخص‌های عملیاتی (نرخ پر شدن صندلی، فرکانس پرواز، روند فروش تاریخی) پیشنهاد می‌ده…", "status": "idea"}, {"title": "ربات اتومات انتقال اطلاعات بلیط از سپهر/مقیم به نیرا", "line": "آژانس‌های هواپیمایی ایران بلیط رو در سامانه‌های سپهر یا مقیم صادر می‌کنن — بعد از صدور، اپراتور…", "status": "wip"}, {"title": "Amadeus Navitaire Stratos — پلتفرم رتیلینگ هوشمند", "line": "آمادئوس یه پلتفرم ابری بومی به اسم Navitaire Stratos راه‌اندازی کرده که ایرلاین‌ها رو از سیستم‌های…", "status": "live"}, {"title": "Amadeus Max — لایه دستیار AI روی تمام محصولات", "line": "آمادئوس یه لایه AI به اسم \"Amadeus Max\" راه‌اندازی کرده که مثل یه دستیار هوشمند روی تمام محصولاتش…", "status": "live"}, {"title": "ترکیش ایر · سیستم بیومتریک پرواز داخلی", "line": "ترکیش ایر یه سیستم سفر بیومتریک راه‌اندازی کرده که مسافران ثبت‌نامی می‌تونن در پروازهای داخلی ترکیه…", "status": "live"}, {"title": "ترکیش ایر · چت‌بات چندوجهی مسافر", "line": "ترکیش ایر در حال استقرار یک چت‌بات چندوجهی (متن + صدا + تصویر) هست که از AI پیشرفته برای پشتیبانی…", "status": "live"}, {"title": "ترکیش ایر · مرکز داده‌ی استانبول و ستون دیجیتال", "line": "ترکیش ایر داره یه مرکز داده‌ی اختصاصی در استانبول می‌سازه که ستون فقرات دیجیتال عملیات ایرلاین…", "status": "live"}, {"title": "مقاله: تقاضاپیشی با ترکیب ML و مدل تحلیلی", "line": "در تیم آمادئوس روی ترکیب مدل‌های تحلیلی کلاسیک Revenue Management با Machine Learning کار کردیم تا…", "status": "live"}, {"title": "مقاله: قیمت‌گذاری پویا در دقایق پایانی — Reinforcement Learning", "line": "یکی از حوزه‌هایی که در آمادئوس روش کار کردیم، قیمت‌گذاری پویا در ساعات و دقایق پایانی پروازه.", "status": "wip"}, {"title": "مقاله: آیا RMS از تحول Offer/Order جان سالم به در می‌بره؟", "line": "یکی از بحث‌های مهمی که در آمادئوس روش کار کردیم اینه که وقتی ایرلاین‌ها به مدل Offer & Order مدرن…", "status": "wip"}, {"title": "موتور خلاصه‌سازی بلیط با GenAI برای آژانس‌های ایران", "line": "ابزاری که اپراتورهای آژانس بتونن فایل PNR یا تصویر بلیط رو آپلود کنن و خلاصه فارسی کامل همراه با…", "status": "live"}, {"title": "داشبورد real-time مانیتورینگ نرخ رقبا", "line": "داشبوردی که نرخ بلیط تمام رقبا روی مسیرهای هدف رو در real-time رصد می‌کنه و وقتی اختلاف قیمت از…", "status": "live"}, {"title": "پیش‌بینی نرخ بلیط با LSTM برای مسافر", "line": "ابزاری برای مسافر که قیمت بلیط رو روی یه مسیر مشخص رصد کنه و با مدل LSTM پیش‌بینی کنه آیا قیمت طی…", "status": "live"}, {"title": "سیستم تشخیص تقلب در صدور بلیط با ML", "line": "مدلی که الگوهای غیرعادی در صدور بلیط رو شناسایی می‌کنه: ترنسکشن‌های بیش از حد سریع، خریدهای از IP…", "status": "idea"}, {"title": "پنل تحلیل سودآوری مسیر برای آژانس‌های کوچک", "line": "داشبوردی که آژانس‌های کوچک بتونن بفهمن کدام مسیرها، کدام ایرلاین‌ها، و کدام بازه‌های زمانی برای…", "status": "idea"}, {"title": "موتور بسته‌بندی هوشمند بلیط + هتل + ترانسفر", "line": "موتوری که از داده‌های تاریخی رزرو، مقصد، و پروفایل مشتری، بسته‌های ترکیبی (بلیط + هتل + ترانسفر +…", "status": "idea"}, {"title": "سیستم هشدار اتوماتیک شرایط استرداد بلیط", "line": "سیستمی که تمام بلیط‌های صادره یه آژانس رو رصد می‌کنه و قبل از رسیدن به deadline‌های استرداد، تغییر…", "status": "idea"}, {"title": "داشبورد BI عملکرد اپراتورهای آژانس", "line": "داشبوردی برای مدیران آژانس که عملکرد هر اپراتور رو بر اساس تعداد بلیط صادره، ارزش ریالی تراکنش، نرخ…", "status": "idea"}, {"title": "موتور اتوماتیک گزارش BSP و تطبیق مالی", "line": "ابزاری که گزارش‌های BSP (Billing and Settlement Plan) IATA رو به صورت خودکار پارس می‌کنه، با سیستم…", "status": "idea"}, {"title": "پیشنهاد مسیر جایگزین در زمان ایرراپشن", "line": "وقتی یه پرواز کنسل یا دیلی می‌شه، سیستم فوری بهترین مسیرهای جایگزین رو با در نظر گرفتن هزینه، زمان…", "status": "idea"}, {"title": "API پیش‌بینی تقاضای مسیر برای آژانس‌های حجم‌دار", "line": "یه API که آژانس‌های حجم‌دار بتونن SubscrIbe کنن و پیش‌بینی تقاضای ۳۰/۶۰/۹۰ روزه رو بر اساس…", "status": "idea"}, {"title": "سیستم اتوماسیون QC بلیط قبل از صدور نهایی", "line": "قبل از اینکه اپراتور دکمه‌ی «صدور» رو بزنه، یه لایه QC خودکار روی PNR چک می‌کنه: اسم با پاسپورت…", "status": "idea"}, {"title": "پلتفرم وفاداری white-label برای آژانس‌های مستقل", "line": "ایرلاین‌های بزرگ سیستم‌های وفاداری پیچیده دارن — آژانس‌های مستقل ندارن.", "status": "idea"}, {"title": "سامانه آنلاین رزرو هتل‌های نجف و کربلا", "line": "در عراق برخلاف ایران (که اقامت۲۴ و امثالش رزرو هتل رو حل کردن) هیچ سامانه متمرکزی برای رزرو آنلاین…", "status": "idea"}, {"title": "پلتفرم سفرساز انفرادی زیارت — بدون کاروان", "line": "اکثر زائران ایرانی به نجف و کربلا فقط از طریق کاروان‌های گروهی می‌رن — چون هیچ ابزاری برای…", "status": "idea"}, {"title": "پلتفرم چارتر و مدیریت اسناد حمل اموات به نجف", "line": "انتقال پیکر متوفی برای تدفین در قبرستان وادی‌السلام نجف یه بازار واقعی و فعاله، ولی کاملاً پراکنده…", "status": "idea"}];
+
+const ACCENTS = [
+  {name:'amber', color:'var(--amber)', glow:'rgba(255,182,39,0.22)'},
+  {name:'coral', color:'var(--coral)', glow:'rgba(255,107,74,0.20)'},
+  {name:'mint',  color:'var(--mint)',  glow:'rgba(70,224,184,0.20)'},
+  {name:'sky',   color:'var(--sky)',   glow:'rgba(111,200,255,0.20)'},
+  {name:'lavender', color:'var(--lavender)', glow:'rgba(185,166,255,0.20)'},
+];
+
+const STATUS_MAP = {
+  live: {label:'زنده', color:'var(--mint)', bg:'rgba(70,224,184,0.12)', border:'rgba(70,224,184,0.3)'},
+  wip:  {label:'در حال اجرا', color:'var(--amber)', bg:'rgba(255,182,39,0.12)', border:'rgba(255,182,39,0.3)'},
+  idea: {label:'ایده‌پردازی', color:'var(--sky)', bg:'rgba(111,200,255,0.12)', border:'rgba(111,200,255,0.3)'},
+};
+
+let idx = 0;
+const posterEl = document.getElementById('poster');
+const counterEl = document.getElementById('counter');
+const jumpEl = document.getElementById('jumpLabel');
+
+function pad(n){ return String(n).padStart(2,'0'); }
+
+function render(i){
+  const item = IDEAS[i];
+  const accent = ACCENTS[i % ACCENTS.length];
+  const bgClass = 'bg-' + ['a','b','c','d'][i % 4];
+  const status = STATUS_MAP[item.status] || STATUS_MAP.idea;
+
+  posterEl.className = 'poster ' + bgClass;
+  posterEl.style.setProperty('--accent', accent.color);
+  posterEl.style.setProperty('--accent-glow', accent.glow);
+  posterEl.style.setProperty('--status-color', status.color);
+  posterEl.style.setProperty('--status-bg', status.bg);
+  posterEl.style.setProperty('--status-border', status.border);
+
+  const ghost = bgClass === 'bg-c' ? `<div class="ghost-num">${pad(i+1)}</div>` : '';
+  const cornerBar = bgClass === 'bg-d' ? `<div class="corner-bar"></div>` : '';
+
+  posterEl.innerHTML = `
+    ${ghost}${cornerBar}
+    <div class="p-head">
+      <div class="p-brand"><span class="dot"></span>PEYMAN · IDEAS</div>
+      <div class="p-status"><span class="sd"></span>${status.label}</div>
+    </div>
+    <div class="p-body">
+      <div class="p-eyebrow">IDEA · ${pad(i+1)}</div>
+      <div class="p-title">${item.title}</div>
+      <div class="p-line">${item.line}</div>
+    </div>
+    <div class="p-foot">
+      <div>
+        <div class="p-foot-role mono">Software Engineer · Amadeus IT Group</div>
+      </div>
+      <div class="p-barcode"></div>
+    </div>
+  `;
+
+  counterEl.textContent = `${pad(i+1)} / ${IDEAS.length}`;
+  jumpEl.textContent = `${i+1}`;
+}
+
+function go(delta){
+  idx = (idx + delta + IDEAS.length) % IDEAS.length;
+  render(idx);
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => go(-1));
+document.getElementById('nextBtn').addEventListener('click', () => go(1));
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'ArrowLeft') go(1);   // RTL: left arrow = next visually
+  if(e.key === 'ArrowRight') go(-1);
+});
+
+render(idx);
+</script>
+</body>
+</html>
