@@ -38,7 +38,6 @@
   }
   ::selection{ background: var(--gold-soft); color:#fff; }
 
-  /* progress bar */
   #progress{
     position:fixed; top:0; right:0; left:0; height:3px; z-index:60;
     background:transparent;
@@ -48,7 +47,6 @@
     transition:width .08s linear;
   }
 
-  /* top bar */
   header.topbar{
     position:sticky; top:3px; z-index:50;
     background: rgba(245,239,224,.92);
@@ -84,7 +82,6 @@
   .btn.solid:hover{ background:var(--navy-2); border-color:var(--navy-2); }
   .btn svg{ width:15px; height:15px; }
 
-  /* layout */
   .layout{
     max-width:1180px; margin:0 auto; padding:38px 24px 100px;
     display:grid; grid-template-columns: 250px minmax(0,1fr); gap:48px;
@@ -179,7 +176,6 @@
     background:var(--gold-soft);
   }
 
-  /* critical callout */
   .callout{
     background:var(--brick-bg); border-right:3px solid var(--brick);
     border-radius:6px; padding:16px 18px; margin:18px 0 26px;
@@ -194,7 +190,6 @@
   .callout ul.blist li::before{ background:var(--brick); }
   .callout ul.blist li{ color:#4A2A22; }
 
-  /* insight card (opportunity, not risk) */
   .insight{
     background:var(--card); border:1px solid var(--gold-soft);
     border-radius:6px; padding:16px 18px; margin:18px 0 26px;
@@ -205,7 +200,6 @@
   }
   .insight p{ margin:0; }
 
-  /* table */
   .tablewrap{ overflow-x:auto; margin:10px 0 30px; border-radius:8px; border:1px solid var(--line); }
   table{ border-collapse:collapse; width:100%; min-width:640px; background:var(--card); }
   thead th{
@@ -232,7 +226,6 @@
     text-align:center; padding:50px 24px 70px; color:var(--ink-faint); font-size:13px;
   }
 
-  /* PDF modal */
   .modal-overlay{
     position:fixed; inset:0; background:rgba(30,25,18,.72);
     display:none; align-items:center; justify-content:center; z-index:100;
@@ -258,7 +251,6 @@
 
   a.dl-link{ color:var(--navy); font-weight:600; text-decoration:underline; }
 
-  /* gated supplementary articles */
   .gate-list{ display:flex; flex-direction:column; gap:12px; margin:10px 0 26px; }
   .gate-card{
     background:var(--card); border:1px solid var(--line); border-radius:9px;
@@ -311,7 +303,6 @@
   .gate-err{ color:var(--brick); font-size:12px; margin-top:8px; min-height:16px; }
   .gate-box .gate-actions{ display:flex; gap:8px; margin-top:16px; }
 
-  /* scroll to top */
   #toTop{
     position:fixed; bottom:24px; left:24px; z-index:40;
     width:42px; height:42px; border-radius:50%;
@@ -322,7 +313,6 @@
   }
   #toTop.show{ opacity:1; pointer-events:auto; }
 
-  /* ===== Per-section comment widget ===== */
   .comment-widget{
     margin: 10px 0 30px; border: 1px solid var(--line); border-radius: 10px;
     background: var(--bg-panel); overflow: hidden;
@@ -376,7 +366,6 @@
   }
   .comment-saved-text{ font-size:14.5px; color:#2b3f27; line-height:1.8; white-space:pre-wrap; }
 
-  /* ===== Final review CTA ===== */
   .final-cta{
     margin:50px 0; border:1px solid var(--gold-soft); border-radius:14px;
     background: linear-gradient(180deg, var(--card), var(--bg-panel));
@@ -394,7 +383,6 @@
   .final-btn:hover{ background:var(--navy-2); }
   .final-cta.submitted .fc-default{ display:none; }
 
-  /* ===== Review modal ===== */
   .review-overlay{
     position:fixed; inset:0; background:rgba(30,25,18,.72); display:none;
     align-items:center; justify-content:center; z-index:200; padding:20px;
@@ -422,7 +410,6 @@
     border-top:1px solid var(--line); position:sticky; bottom:0; background:var(--bg);
   }
 
-  /* ===== Thank-you state ===== */
   .thankyou{ display:none; text-align:center; }
   .thankyou.show{ display:block; }
   .thankyou svg{ width:44px; height:44px; color:#3E6E3A; margin-bottom:10px; }
@@ -733,7 +720,6 @@
   </div>
 </div>
 
-<!-- ===== Comment-review modal (final CTA) ===== -->
 <div class="review-overlay" id="reviewOverlay">
   <div class="review-box">
     <div class="review-head">
@@ -762,7 +748,6 @@
   document.getElementById('closePdf').addEventListener('click', () => modal.classList.remove('open'));
   modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('open'); });
 
-  // progress bar
   const bar = document.getElementById('progress-bar');
   window.addEventListener('scroll', () => {
     const h = document.documentElement;
@@ -773,7 +758,6 @@
 
   document.getElementById('toTop').addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
-  // گاتد: مقالات تخصصی تکمیلی
   const GATE_PASSWORD = "pingotrip1405";
 
   const gateArticles = [
@@ -880,7 +864,6 @@
   document.getElementById('gateSubmitBtn').addEventListener('click', tryGateUnlock);
   gatePwInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') tryGateUnlock(); });
 
-  // TOC active state
   const tocLinks = [...document.querySelectorAll('[data-toc]')];
   const sections = tocLinks.map(a => document.querySelector(a.getAttribute('href')));
   const io = new IntersectionObserver((entries) => {
@@ -895,13 +878,11 @@
   sections.forEach(s => s && io.observe(s));
 </script>
 
-<!-- ===== Comment-widget system: init + submit-all-to-Cloudflare-Worker ===== -->
 <script>
 (function(){
   const STORAGE_PREFIX = 'pingotrip_comment_';
   const SUBMIT_FLAG = 'pingotrip_all_comments_submitted';
 
-  // مقدار زیر را بعد از دیپلوی Worker با آدرس واقعی خودتان جایگزین کنید
   const SUBMIT_ENDPOINT = 'https://pingotrip-comments.YOUR-SUBDOMAIN.workers.dev/api/comments';
 
   function chevronSVG(){
