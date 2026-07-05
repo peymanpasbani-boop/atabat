@@ -2,347 +2,112 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>NIRA — Instagram Story</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>پوستر استوری</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-
-  :root{
-    --bg-deep:#060a10;
-    --bg-panel:#0c131a;
-    --bg-panel-2:#0f1922;
-    --mint:#2be0a8;
-    --mint-dark:#17a883;
-    --cyan:#38bdf8;
-    --amber:#f4b740;
-    --text-primary:#eaf3f0;
-    --text-muted:#84a0a2;
-    --line:rgba(43,224,168,0.22);
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    background: #05060a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Vazirmatn', 'IRANSans', 'Tahoma', 'Arial', sans-serif;
   }
-
-  *{ margin:0; padding:0; box-sizing:border-box; }
-
-  html,body{
-    width:1080px;
-    height:1920px;
-    background:var(--bg-deep);
-    overflow:hidden;
-    font-family:'Vazirmatn', sans-serif;
-    color:var(--text-primary);
-  }
-
-  .stage{
-    position:relative;
-    width:1080px;
-    height:1920px;
+  .frame {
+    position: relative;
+    width: min(100vw, 56.25vh);
+    aspect-ratio: 9 / 16;
     background:
-      radial-gradient(ellipse 900px 500px at 50% -5%, rgba(43,224,168,0.16), transparent 60%),
-      radial-gradient(ellipse 700px 600px at 100% 100%, rgba(56,189,248,0.10), transparent 55%),
-      radial-gradient(ellipse 600px 500px at 0% 85%, rgba(244,183,64,0.08), transparent 55%),
-      var(--bg-deep);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+      radial-gradient(120% 60% at 50% 0%, rgba(255,176,32,0.10) 0%, rgba(255,176,32,0) 60%),
+      #05060a;
+    overflow: hidden;
+    border: 1px solid #1a1c22;
+    padding: 7% 8%;
+    display: flex;
+    flex-direction: column;
+  }
+  .rule {
+    border: none;
+    border-top: 2px solid #ffb020;
+    opacity: 0.55;
+  }
+  .rule.top { margin-bottom: 5%; }
+  .rule.bottom { margin-top: auto; }
+
+  .eyebrow {
+    color: #ffb020;
+    font-size: 3.6vw;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    margin-bottom: 4%;
   }
 
-  /* faint grid, ties to terminal/GDS world */
-  .grid-overlay{
-    position:absolute; inset:0;
-    background-image:
-      linear-gradient(rgba(43,224,168,0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(43,224,168,0.035) 1px, transparent 1px);
-    background-size:54px 54px;
-    -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.15) 55%, transparent 78%);
-    mask-image:linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.15) 55%, transparent 78%);
-    pointer-events:none;
+  .story-text {
+    color: #e9e9ec;
+    font-size: 4.6vw;
+    line-height: 1.9;
+    font-weight: 400;
+    margin-bottom: 6%;
+  }
+  .story-text b { color: #ffffff; font-weight: 700; }
+
+  .questions {
+    display: flex;
+    flex-direction: column;
+    gap: 4%;
+  }
+  .q {
+    display: flex;
+    align-items: flex-start;
+    gap: 3%;
+  }
+  .q .mark {
+    color: #ffb020;
+    font-size: 4.2vw;
+    line-height: 1.5;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+  .q p {
+    color: #f4f4f5;
+    font-size: 4.1vw;
+    line-height: 1.65;
+    font-weight: 600;
   }
 
-  /* ---------- Header ---------- */
-  .header{
-    position:relative;
-    z-index:2;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    margin-top:96px;
-  }
-
-  .logo-mark{
-    width:104px; height:104px;
-    border-radius:28px;
-    background:linear-gradient(150deg, var(--mint) 0%, var(--mint-dark) 100%);
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 0 0 1px rgba(43,224,168,0.35), 0 20px 50px -12px rgba(43,224,168,0.55);
-    margin-bottom:28px;
-  }
-  .logo-mark span{
-    font-family:'JetBrains Mono', monospace;
-    font-weight:700;
-    font-size:52px;
-    color:#04120d;
-  }
-
-  .eyebrow{
-    font-family:'JetBrains Mono', monospace;
-    font-size:24px;
-    letter-spacing:1px;
-    color:var(--mint);
-    background:rgba(43,224,168,0.08);
-    border:1px solid var(--line);
-    padding:10px 26px;
-    border-radius:999px;
-    margin-bottom:34px;
-  }
-
-  h1.headline{
-    font-size:104px;
-    font-weight:900;
-    line-height:1.12;
-    text-align:center;
-    background:linear-gradient(95deg, #ffffff 20%, var(--mint) 75%);
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-    padding:0 60px;
-  }
-
-  .subhead{
-    margin-top:22px;
-    font-size:36px;
-    font-weight:500;
-    color:var(--text-muted);
-    text-align:center;
-  }
-  .subhead b{ color:var(--cyan); font-weight:600; }
-
-  /* ---------- Terminal ---------- */
-  .terminal-wrap{
-    position:relative;
-    z-index:2;
-    width:900px;
-    margin-top:58px;
-    border-radius:22px;
-    background:linear-gradient(180deg, var(--bg-panel-2), var(--bg-panel));
-    border:1px solid var(--line);
-    box-shadow:0 40px 90px -30px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.02) inset;
-    overflow:hidden;
-  }
-
-  .term-bar{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:22px 30px;
-    background:rgba(255,255,255,0.03);
-    border-bottom:1px solid var(--line);
-  }
-  .term-bar .dots{ display:flex; gap:12px; }
-  .dot{ width:16px; height:16px; border-radius:50%; }
-  .dot.d1{ background:var(--amber); }
-  .dot.d2{ background:var(--cyan); }
-  .dot.d3{ background:var(--mint); }
-
-  .term-title{
-    font-family:'JetBrains Mono', monospace;
-    font-size:24px;
-    color:var(--text-muted);
-    letter-spacing:0.5px;
-  }
-
-  .term-body{
-    padding:46px 46px 50px;
-    direction:rtl;
-    text-align:right;
-  }
-
-  .lesson-tag{
-    display:inline-flex;
-    align-items:center;
-    gap:12px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:22px;
-    color:var(--amber);
-    background:rgba(244,183,64,0.10);
-    border:1px solid rgba(244,183,64,0.35);
-    padding:8px 20px;
-    border-radius:999px;
-    margin-bottom:26px;
-  }
-  .lesson-tag .dot{ width:9px; height:9px; border-radius:50%; background:var(--amber); }
-
-  .lesson-title{
-    font-size:34px;
-    font-weight:800;
-    color:var(--text-primary);
-    margin-bottom:22px;
-    line-height:1.5;
-  }
-  .lesson-title span{ color:var(--mint); }
-
-  .lesson-text{
-    font-size:27px;
-    line-height:2.05;
-    color:#cfe3df;
-    font-weight:500;
-  }
-  .lesson-text b{
-    color:var(--cyan);
-    font-weight:700;
-  }
-
-  .prompt-line{ display:flex; align-items:center; margin-top:26px; direction:ltr; }
-  .blink{
-    display:inline-block;
-    width:15px; height:32px;
-    background:var(--mint);
-    margin-right:6px;
-    animation:blink 1.05s steps(1) infinite;
-    vertical-align:-6px;
-  }
-  @keyframes blink{ 50%{ opacity:0; } }
-
-  /* ---------- Feature chips ---------- */
-  .chips{
-    position:relative;
-    z-index:2;
-    display:flex;
-    gap:22px;
-    margin-top:56px;
-  }
-  .chip{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    background:rgba(255,255,255,0.035);
-    border:1px solid var(--line);
-    padding:20px 30px;
-    border-radius:16px;
-    font-size:26px;
-    font-weight:600;
-    color:var(--text-primary);
-  }
-  .chip .bullet{
-    width:12px; height:12px; border-radius:50%;
-  }
-  .chip:nth-child(1) .bullet{ background:var(--mint); }
-  .chip:nth-child(2) .bullet{ background:var(--cyan); }
-  .chip:nth-child(3) .bullet{ background:var(--amber); }
-
-  /* ---------- CTA ---------- */
-  .cta{
-    position:relative;
-    z-index:2;
-    margin-top:auto;
-    margin-bottom:74px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    width:100%;
-  }
-
-  .cta-line{
-    font-size:32px;
-    font-weight:500;
-    color:var(--text-muted);
-    margin-bottom:18px;
-  }
-  .cta-line b{ color:var(--text-primary); font-weight:700; }
-
-  .site-badge{
-    position:relative;
-    padding:34px 70px;
-    border-radius:26px;
-    background:linear-gradient(120deg, rgba(43,224,168,0.14), rgba(56,189,248,0.10));
-    border:2px solid var(--mint);
-    box-shadow:0 0 0 8px rgba(43,224,168,0.06), 0 30px 80px -20px rgba(43,224,168,0.45);
-  }
-  .site-badge .url{
-    direction:ltr;
-    font-family:'JetBrains Mono', monospace;
-    font-weight:700;
-    font-size:96px;
-    letter-spacing:1px;
-    background:linear-gradient(95deg, #ffffff 10%, var(--mint) 60%, var(--cyan) 100%);
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-  }
-
-  .swipe{
-    margin-top:46px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    color:var(--text-muted);
-    font-size:24px;
-    font-weight:500;
-  }
-  .chevrons{ display:flex; flex-direction:column; align-items:center; margin-bottom:10px; }
-  .chevrons span{
-    width:34px; height:34px;
-    border-top:5px solid var(--mint);
-    border-right:5px solid var(--mint);
-    transform:rotate(-45deg);
-    margin-top:-9px;
-    opacity:0.35;
-    animation:rise 1.6s ease-in-out infinite;
-  }
-  .chevrons span:nth-child(1){ animation-delay:0s; }
-  .chevrons span:nth-child(2){ animation-delay:0.18s; }
-  .chevrons span:nth-child(3){ animation-delay:0.36s; }
-  @keyframes rise{
-    0%{ opacity:0; transform:rotate(-45deg) translateY(10px); }
-    35%{ opacity:1; transform:rotate(-45deg) translateY(0px); }
-    100%{ opacity:0; transform:rotate(-45deg) translateY(-6px); }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 5%;
+    color: #6b6f76;
+    font-size: 2.8vw;
+    letter-spacing: 0.03em;
   }
 </style>
 </head>
 <body>
-  <div class="stage">
-    <div class="grid-overlay"></div>
+  <div class="frame">
+    <div class="eyebrow">پرسش برای تیم‌های پلتفرم‌های سفر</div>
+    <hr class="rule top">
 
-    <div class="header">
-      <div class="logo-mark"><span>N</span></div>
-      <div class="eyebrow">NRS · سیستم رزرواسیون و کنترل پرواز</div>
-      <h1 class="headline">آموزش تعاملی نیرا</h1>
-      <div class="subhead">بیش از <b>۹۰ درس کاربردی</b> با محیط ترمینال آنلاین</div>
+    <div class="story-text">
+      دیشب داشتم یه پروژه‌ی مرتبط با سفر رو با هیجان به داداشم می‌گفتم. گفت «فرق داره؟ یعنی با علی‌بابا یا فلای‌تودی؟»
+      با خودم گفتم عجب سوالی! برا همون الان یه حس فضولی عجیب دارم نسبت به کسایی که دارن برای این پلتفرم‌های جدید سفر کار می‌کنن؛ چه <b>پینگوتریپ</b>، چه <b>دات‌وان</b>، چه اونایی که <b>سرآوا</b> روشون سرمایه‌گذاری کرده:
     </div>
 
-    <div class="terminal-wrap">
-      <div class="term-bar">
-        <div class="dots">
-          <span class="dot d1"></span>
-          <span class="dot d2"></span>
-          <span class="dot d3"></span>
-        </div>
-        <div class="term-title">NRS Terminal — نمونه درس</div>
-      </div>
-      <div class="term-body">
-        <div class="lesson-tag"><span class="dot"></span>نمونه درس</div>
-        <div class="lesson-title">تعریف <span>برنامه پرواز</span> (Flight Schedule)</div>
-        <div class="lesson-text">
-          پیش از آنکه پروازی برای فروش بلیت در دسترس باشد، باید در سیستم به‌عنوان یک <b>برنامه پرواز (Flight Schedule)</b> تعریف شود؛ یعنی مسیر، ساعات، روزهای پروازی و بازه تاریخی اجرای آن مشخص گردد. این کار، مانند تعریف دفتر فروش و کاربر، فقط از نسخه وب نیرا قابل انجام است.
-        </div>
-        <div class="prompt-line">
-          <span class="blink"></span>
-        </div>
-      </div>
+    <div class="questions">
+      <div class="q"><span class="mark">◂</span><p>شما که از داخل می‌بینید، واقعاً این پلتفرم چه فرقی با علی‌بابا و فلای‌تودی داره؟</p></div>
+      <div class="q"><span class="mark">◂</span><p>وقتی دوست و آشناتون می‌پرسه «این شرکتی که توش کار می‌کنی چیکار می‌کنه که بقیه نمی‌کنن؟»، چی جواب می‌دید؟</p></div>
+      <div class="q"><span class="mark">◂</span><p>از داخل تیم حس می‌کنید فرقی دارید با وایت‌لیبل‌های ۱۹۹ هزار تومانی سفر که همون هتل و بلیط رو رزرو می‌کنن؟</p></div>
+      <div class="q"><span class="mark">◂</span><p>ته دلتون یه مزیت واقعی و ملموس تو محصول می‌بینید یا حس می‌کنید فقط نسخه‌ی گرون‌تر و کندترش رو می‌سازید؟</p></div>
     </div>
 
-    <div class="chips">
-      <div class="chip"><span class="bullet"></span>Availability</div>
-      <div class="chip"><span class="bullet"></span>صدور بلیط</div>
-      <div class="chip"><span class="bullet"></span>مدیریت PNR</div>
-    </div>
-
-    <div class="cta">
-      <div class="cta-line">برای مشاهده <b>آموزش کامل نیرا</b> به آدرس زیر برید</div>
-      <div class="site-badge">
-        <div class="url">Nirahelp.ir</div>
-      </div>
-      <div class="swipe">
-        <div class="chevrons"><span></span><span></span><span></span></div>
-        بزن بریم
-      </div>
+    <hr class="rule bottom">
+    <div class="footer">
+      <span>#صنعت_سفر</span>
+      <span>سؤال صادقانه</span>
     </div>
   </div>
 </body>
