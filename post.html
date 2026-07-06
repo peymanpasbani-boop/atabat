@@ -1,114 +1,2136 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>پوستر استوری</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tripza — برنامه‌ریز هوشمند سفر</title>
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body {
-    height: 100%;
-    background: #05060a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Vazirmatn', 'IRANSans', 'Tahoma', 'Arial', sans-serif;
-  }
-  .frame {
-    position: relative;
-    width: min(100vw, 56.25vh);
-    aspect-ratio: 9 / 16;
-    background:
-      radial-gradient(120% 60% at 50% 0%, rgba(255,176,32,0.10) 0%, rgba(255,176,32,0) 60%),
-      #05060a;
-    overflow: hidden;
-    border: 1px solid #1a1c22;
-    padding: 7% 8%;
-    display: flex;
-    flex-direction: column;
-  }
-  .rule {
-    border: none;
-    border-top: 2px solid #ffb020;
-    opacity: 0.55;
-  }
-  .rule.top { margin-bottom: 5%; }
-  .rule.bottom { margin-top: auto; }
-
-  .eyebrow {
-    color: #ffb020;
-    font-size: 3.6vw;
-    letter-spacing: 0.08em;
-    font-weight: 700;
-    margin-bottom: 4%;
-  }
-
-  .story-text {
-    color: #e9e9ec;
-    font-size: 4.6vw;
-    line-height: 1.9;
-    font-weight: 400;
-    margin-bottom: 6%;
-  }
-  .story-text b { color: #ffffff; font-weight: 700; }
-
-  .questions {
-    display: flex;
-    flex-direction: column;
-    gap: 4%;
-  }
-  .q {
-    display: flex;
-    align-items: flex-start;
-    gap: 3%;
-  }
-  .q .mark {
-    color: #ffb020;
-    font-size: 4.2vw;
-    line-height: 1.5;
-    flex-shrink: 0;
-    font-weight: 700;
-  }
-  .q p {
-    color: #f4f4f5;
-    font-size: 4.1vw;
-    line-height: 1.65;
-    font-weight: 600;
-  }
-
-  .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 5%;
-    color: #6b6f76;
-    font-size: 2.8vw;
-    letter-spacing: 0.03em;
-  }
+  @font-face { font-family: 'Vazirmatn'; src: local('Vazirmatn'); }
+  html, body { font-family: 'Vazirmatn', 'Tahoma', system-ui, sans-serif; }
+  #root { min-height: 100vh; }
+  .btn-press:active { transform: scale(0.97); }
+  .focus-ring:focus-visible { outline: 2px solid #E8792A; outline-offset: 2px; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .animate-fadeUp { animation: fadeUp .25s ease; }
+  @keyframes toastIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+  .toast-in { animation: toastIn .25s ease; }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  html, body { font-family: 'Vazirmatn', 'Tahoma', system-ui, sans-serif !important; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+    "lucide-react": "https://esm.sh/lucide-react@0.383.0?external=react"
+  }
+}
+</script>
 </head>
-<body>
-  <div class="frame">
-    <div class="eyebrow">پرسش برای تیم‌های پلتفرم‌های سفر</div>
-    <hr class="rule top">
+<body style="background:#FBF1E1;">
+<div id="root"></div>
+<script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
+<script type="text/babel" data-type="module" data-presets="react">
+import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom/client";
+import {
+  Plane, Camera, ShoppingBag, Landmark, Waves, Building2, MapPin,
+  Wallet, Moon, Sun, Sunset, UtensilsCrossed, Check,
+  ChevronLeft, ChevronRight, ChevronDown, Sparkles, RotateCcw, CalendarDays,
+  Compass, Route, Search, Star, ArrowUpRight, Play,
+  Ticket, BedDouble, TramFront, Ship, CableCar, Footprints,
+  GripVertical, AlertTriangle, Clock, Package, Map as MapIcon,
+  Copy, Download, Cloud, CloudRain, CloudSnow, CloudSun, Receipt, TrendingUp, TrendingDown,
+  Phone, MessageCircle, Send, ShieldCheck, FileCheck2,
+} from "lucide-react";
 
-    <div class="story-text">
-      دیشب داشتم یه پروژه‌ی مرتبط با سفر رو با هیجان به داداشم می‌گفتم. گفت «فرق داره؟ یعنی با علی‌بابا یا فلای‌تودی؟»
-      با خودم گفتم عجب سوالی! برا همون الان یه حس فضولی عجیب دارم نسبت به کسایی که دارن برای این پلتفرم‌های جدید سفر کار می‌کنن؛ چه <b>پینگوتریپ</b>، چه <b>دات‌وان</b>، چه اونایی که <b>سرآوا</b> روشون سرمایه‌گذاری کرده:
-    </div>
+/* ---------------------------------------------------------------
+   TOKENS
+   Subject: Istanbul — the one city that is physically two continents.
+   The signature device throughout is "the strait": a wavy line that
+   separates a warm terracotta (Asia-side rooftops) register from a
+   cool İznik-teal (Europe-side tile) register. It shows up as the
+   hero divider, the checklist spine, and the itinerary timeline.
+------------------------------------------------------------------*/
+const T = {
+  night: "#101B3D",
+  paper: "#FBF1E1",
+  panel: "#FFFFFF",
+  tile: "#E8792A",
+  tileDeep: "#B85A16",
+  tileTint: "#FBE7D6",
+  clay: "#F0965A",
+  clayTint: "#FDEEE1",
+  gold: "#F5B87A",
+  heroAmber: "#F5A623",
+  heroAmberDeep: "#E38A0C",
+  heroCream: "#FFEFD3",
+  mist: "#F6EEE0",
+  ink: "#2C1B12",
+  inkSoft: "#7C6552",
+  line: "#EADDC7",
+  hairline: "rgba(35,20,9,0.09)",
+  shadowSm: "0 1px 2px rgba(35,20,9,0.06), 0 1px 1px rgba(35,20,9,0.05)",
+  shadowMd: "0 2px 4px rgba(35,20,9,0.05), 0 12px 28px -14px rgba(35,20,9,0.26)",
+  shadowLg: "0 8px 16px -6px rgba(35,20,9,0.32), 0 24px 48px -20px rgba(35,20,9,0.4)",
+  // brand-blue — organizational identity tokens (hero, primary CTAs, core
+  // brand accents), matching the requested minimal corporate blue look.
+  brand: "#E8792A",
+  brandDeep: "#B85A16",
+  brandTint: "#FBE7D6",
+  brandInk: "#3A2213",
+};
 
-    <div class="questions">
-      <div class="q"><span class="mark">◂</span><p>شما که از داخل می‌بینید، واقعاً این پلتفرم چه فرقی با علی‌بابا و فلای‌تودی داره؟</p></div>
-      <div class="q"><span class="mark">◂</span><p>وقتی دوست و آشناتون می‌پرسه «این شرکتی که توش کار می‌کنی چیکار می‌کنه که بقیه نمی‌کنن؟»، چی جواب می‌دید؟</p></div>
-      <div class="q"><span class="mark">◂</span><p>از داخل تیم حس می‌کنید فرقی دارید با وایت‌لیبل‌های ۱۹۹ هزار تومانی سفر که همون هتل و بلیط رو رزرو می‌کنن؟</p></div>
-      <div class="q"><span class="mark">◂</span><p>ته دلتون یه مزیت واقعی و ملموس تو محصول می‌بینید یا حس می‌کنید فقط نسخه‌ی گرون‌تر و کندترش رو می‌سازید؟</p></div>
-    </div>
+const waveSpine = (color) =>
+  `url("data:image/svg+xml,${encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' width='16' height='28'><path d='M8 0 C13 6 3 8 8 14 C13 20 3 22 8 28' fill='none' stroke='${color}' stroke-width='2' stroke-linecap='round'/></svg>`
+  )}")`;
 
-    <hr class="rule bottom">
-    <div class="footer">
-      <span>#صنعت_سفر</span>
-      <span>سؤال صادقانه</span>
+/* ---------------------------------------------------------------
+   DESTINATIONS — Tripza is built to grow beyond one city. Istanbul
+   is the only destination with real content today; the others are
+   placeholders so the switcher, badges, and copy never hardcode a
+   single city name. Adding a real destination later means giving it
+   its own SPOTS array and flipping `active` to true — no UI changes.
+------------------------------------------------------------------*/
+const DESTINATIONS = [
+  { id: "istanbul", name: "استانبول", tagline: "شهر دو قاره", code: "ISTANBUL", active: true },
+  { id: "moscow", name: "مسکو", tagline: "به‌زودی", code: "MOSCOW", active: false },
+  { id: "yerevan", name: "ایروان", tagline: "به‌زودی", code: "YEREVAN", active: false },
+  { id: "baku", name: "باکو", tagline: "به‌زودی", code: "BAKU", active: false },
+];
+
+const SPOTS = [
+  { id: "sultanahmet", name: "میدان سلطان‌احمد", area: "فاتح", note: "نور غروب روی گنبدهای مسجد آبی — ساعت بهتر: یک ساعت قبل از غروب.", bestHour: [17, 19], bestHourLabel: "۱۷–۱۹", from: "#EFC17E", to: "#1B3A4B", pattern: "arches", Icon: Landmark, tag: "تاریخی",
+    frames: ["نور غروب که به گنبد آبی می‌خوره، این‌جا رنگ عوض می‌کنه.", "بهترین ساعت: یک ساعت مونده به غروب، قبل از شلوغی شام.", "این استاپ رو به مسیرت اضافه کن."] },
+  { id: "bluemosque", name: "مسجد سلطان‌احمد (مسجد آبی)", area: "سلطان‌احمد", note: "بیش از بیست هزار کاشی ایزنیک آبی روی دیوار و سقف؛ صبح زود نور از پنجره‌های گنبد اصلی می‌تابد داخل.", bestHour: [6, 8], bestHourLabel: "۶–۸", from: "#1B4965", to: "#8FC1D9", pattern: "arches", Icon: Moon, tag: "معنوی",
+    frames: ["پا که به حیاطش می‌ذاری، شش مناره هم‌زمان بالای سرته.", "داخل، بیش از بیست هزار کاشی آبی ایزنیک کار شده؛ صبح زود نورش یه‌جور دیگه‌ست.", "این استاپ رو به مسیرت اضافه کن."] },
+  { id: "galata", name: "برج گالاتا و کاراکوی", area: "بی‌اوغلو", note: "دید ۳۶۰ درجه به کل استانبول؛ کوچه‌های اطرافش هم دیدنی‌ست.", bestHour: [8, 10], bestHourLabel: "۸–۱۰", from: "#2B3A42", to: "#C68A3D", pattern: "stripes", Icon: Building2, tag: "عکاسی",
+    ticket: "بلیط برج رو آنلاین از سایت رسمی برج گالاتا بگیر تا صف صبح رو رد کنی.",
+    ticketPriceUSD: 20,
+    frames: ["برج گالاتا از پایین؛ کوچه‌های سنگ‌فرش دورش پر از کافه‌ست.", "بالای برج، دید ۳۶۰ درجه به کل استانبول رو می‌بینی.", "این استاپ رو به مسیرت اضافه کن."] },
+  { id: "bazaar", name: "بازار بزرگ", area: "فاتح", note: "سقف‌های تزئینی و چراغ‌های سنتی؛ برای چانه‌زدن وقت بگذارید.", bestHour: [10, 12], bestHourLabel: "۱۰–۱۲", from: "#3A2140", to: "#C79238", pattern: "dots", Icon: ShoppingBag, tag: "خرید",
+    frames: ["زیر سقف‌های تزئینی بازار بزرگ، هزار غرفه چشمک می‌زنه.", "برای چانه‌زدن روی قیمت‌ها وقت بذار؛ این‌جا رسمشه.", "این استاپ رو به مسیرت اضافه کن."] },
+  { id: "balat", name: "محله بالات", area: "فاتح", note: "خانه‌های رنگی و درهای قدیمی؛ صبح زود خلوت‌تر و نورش بهتر است.", bestHour: [7, 9], bestHourLabel: "۷–۹", from: "#1F7A73", to: "#D0684F", pattern: "grid", Icon: Camera, tag: "عکاسی",
+    frames: ["درهای رنگی بالات، هر کدوم یه داستان جدا دارن.", "صبح زود برو؛ هم خلوت‌تره هم نورش بهتره.", "این استاپ رو به مسیرت اضافه کن."] },
+  { id: "kadikoy", name: "کادیکوی", area: "سمت آسیایی", note: "زندگی روزمره واقعی شهر، دور از ازدحام گردشگرها.", bestHour: [16, 20], bestHourLabel: "۱۶–۲۰", from: "#7FA9B6", to: "#33475B", pattern: "stripes", Icon: MapPin, tag: "غذا",
+    frames: ["کادیکوی یعنی زندگی روزمره واقعی استانبول، دور از ازدحام توریست‌ها.", "بازار محلی و کافه‌های کنار دریا رو از دست نده.", "این استاپ رو به مسیرت اضافه کن."] },
+  { id: "bosphorus", name: "گشت با کشتی در بسفر", area: "بین دو قاره", note: "عبور از آب بین اروپا و آسیا؛ نزدیک غروب رزرو کنید.", bestHour: [18, 20], bestHourLabel: "۱۸–۲۰", from: "#123B57", to: "#5FA3C9", pattern: "waves", Icon: Waves, tag: "بسفر و طبیعت",
+    ticket: "بلیط گشت رو از باجه کنار اسکله یا آنلاین بخر؛ نزدیک غروب زود پر می‌شه، از قبل رزرو کن.",
+    ticketPriceUSD: 15,
+    frames: ["وسط آب، بین دو قاره؛ اروپا یه طرفه، آسیا یه طرف دیگه.", "نزدیک غروب رزرو کن تا نور رو کامل ببینی.", "این استاپ رو به مسیرت اضافه کن."] },
+  { id: "suleymaniye", name: "مسجد سلیمانیه", area: "فاتح", note: "دید پانوراما به رودخانه و پشت‌بام‌های قدیمی شهر.", bestHour: [15, 17], bestHourLabel: "۱۵–۱۷", from: "#D9A85E", to: "#223A55", pattern: "arches", Icon: Landmark, tag: "تاریخی",
+    frames: ["از حیاط مسجد سلیمانیه، کل رودخونه و پشت‌بوم‌های شهر زیر پاته.", "بعدازظهرهای آروم، بهترین وقت برای این‌جاست.", "این استاپ رو به مسیرت اضافه کن."] },
+  { id: "topkapi", name: "کاخ توپکاپی", area: "فاتح", note: "تاریخ امپراتوری عثمانی؛ برای حیاط‌ها نیم‌روز کنار بگذارید.", bestHour: [9, 13], bestHourLabel: "۹–۱۳", from: "#2E5C4A", to: "#C7A252", pattern: "grid", Icon: Landmark, tag: "تاریخی",
+    ticket: "بلیط ورودی کاخ (و حرمخانه، جدا حساب می‌شه) رو از سایت muze.gov.tr یا صبح زود دم در بخر.",
+    ticketPriceUSD: 30,
+    frames: ["کاخ توپکاپی یعنی چند قرن تاریخ امپراتوری عثمانی، حیاط به حیاط.", "برای دیدن کامل حیاط‌ها، نیم روز کنار بذار.", "این استاپ رو به مسیرت اضافه کن."] },
+  { id: "istiklal", name: "خیابان استقلال و تقسیم", area: "بی‌اوغلو", note: "نبض شبانه شهر؛ مغازه‌ها و کافه‌های قدیمی تا دیروقت باز است.", bestHour: [20, 23], bestHourLabel: "۲۰–۲۳", from: "#1A2233", to: "#B2545F", pattern: "dots", Icon: Sparkles, tag: "غذا",
+    frames: ["خیابون استقلال شب‌ها بیدار می‌مونه؛ تراموای قرمزش رو حتما ببین.", "مغازه‌ها و کافه‌های قدیمی تا دیروقت بازن.", "این استاپ رو به مسیرت اضافه کن."] },
+  { id: "spice", name: "بازار ادویه", area: "امینونو", note: "بوی زعفران و دارچین؛ رنگ‌های محشر برای عکس نزدیک.", bestHour: [9, 11], bestHourLabel: "۹–۱۱", from: "#D69A38", to: "#BE5A34", pattern: "grid", Icon: ShoppingBag, tag: "خرید",
+    frames: ["بوی زعفران و دارچین از در بازار ادویه میاد بیرون.", "رنگ‌های تند ادویه‌ها بهترین سوژه عکسه.", "این استاپ رو به مسیرت اضافه کن."] },
+];
+
+
+
+/* ---------------------------------------------------------------
+   TRAVEL PERSONA QUIZ — a fun first step instead of a bare interest
+   checklist. Picking a persona pre-selects a sensible interest set;
+   the chips below stay live so the traveler can still fine-tune it.
+------------------------------------------------------------------*/
+const PERSONAS = [
+  { id: "photographer", label: "عکاسم", desc: "دنبال نور و فریم‌های خفنم", Icon: Camera, interests: ["عکاسی", "بسفر و طبیعت"] },
+  { id: "market", label: "پرسه‌زن بازارم", desc: "کوچه‌پس‌کوچه و چانه‌زدن رو دوست دارم", Icon: ShoppingBag, interests: ["خرید", "غذا"] },
+  { id: "history", label: "عاشق تاریخم", desc: "قصر و مسجد و بازار قدیمی اول اولویتمه", Icon: Landmark, interests: ["تاریخی"] },
+];
+
+const genSteps = (destName) => [
+  { label: `بررسی نرخ بلیط تهران–${destName}`, Icon: Plane },
+  { label: "تعیین تعداد شب‌های لازم", Icon: CalendarDays },
+  { label: "چیدن مسیر بر اساس فاصله و ساعت‌های نور", Icon: Route },
+  { label: "تنظیم بودجه بر اساس انتخاب‌های شما", Icon: Wallet },
+];
+
+/* ---------------------------------------------------------------
+   TRANSIT — per-area hub, with the exact line + station (not just
+   the neighborhood name), plus a `mode` used to pick the route-card
+   icon/color in <TransitRouteCard>.
+------------------------------------------------------------------*/
+const TRANSIT_HUBS = {
+  "فاتح": { mode: "tram", line: "تراموای T1", station: "ایستگاه سلطان‌احمد یا بایزید", desc: "بیشتر لوکیشن‌های این منطقه با پیاده‌روی به هم وصل‌اند؛ تراموای T1 کل محور رو هم پوشش می‌ده." },
+  "امینونو": { mode: "tram", line: "تراموای T1", station: "ایستگاه امینونو", desc: "اسکله‌های کشتی به‌سمت بسفر و کادیکوی هم از همین ایستگاه چند قدمی‌ان." },
+  "بی‌اوغلو": { mode: "funicular", line: "فونیکولر تاریخی تونل (T2)", station: "ایستگاه کاراکوی – تونل", desc: "از کاراکوی با تونل یا پیاده از روی پل گالاتا می‌رسی؛ برگشت هم از همون مسیر." },
+  "سمت آسیایی": { mode: "ferry", line: "خط دریایی امینونو–کادیکوی", station: "اسکله کادیکوی", desc: "کشتی از امینونو یا کاراکوی حدود ۲۰ دقیقه طول می‌کشه و خودش بخشی از تجربه‌ست." },
+  "بین دو قاره": { mode: "ferry", line: "تور کشتی بسفر", station: "اسکله امینونو یا بشیکتاش", desc: "بلیط گشت رو از همون اسکله یا آنلاین از قبل بگیر." },
+};
+
+const MODE_META = {
+  tram: { Icon: TramFront, color: T.tile, label: "تراموا" },
+  ferry: { Icon: Ship, color: T.tileDeep, label: "کشتی" },
+  funicular: { Icon: CableCar, color: T.clay, label: "فونیکولر" },
+  walk: { Icon: Footprints, color: T.inkSoft, label: "پیاده" },
+};
+
+const HOTELS = [
+  { id: "h1", area: "فاتح", name: "اقامتگاه محور سلطان‌احمد", note: "چند قدمی مسجد آبی، بازار بزرگ و کاخ توپکاپی؛ بیشتر روزهای تاریخی رو پیاده می‌ری.", priceTier: "متوسط", nightlyUSD: 55 },
+  { id: "h2", area: "بی‌اوغلو", name: "اقامتگاه محور کاراکوی–بی‌اوغلو", note: "نزدیک برج گالاتا و خیابان استقلال؛ دسترسی مستقیم به مترو و تراموا.", priceTier: "متوسط به بالا", nightlyUSD: 85 },
+  { id: "h3", area: "امینونو", name: "اقامتگاه محور امینونو", note: "کنار اسکله‌ها؛ برای رفت‌وآمد به بسفر و کادیکوی از همه‌جا نزدیک‌تره.", priceTier: "اقتصادی تا متوسط", nightlyUSD: 35 },
+  { id: "h4", area: "سمت آسیایی", name: "اقامتگاه محور کادیکوی", note: "دورتر از ازدحام توریستی و ارزان‌تر؛ هر روز با کشتی به سمت اروپا می‌ری.", priceTier: "اقتصادی", nightlyUSD: 25 },
+];
+
+// Demo per-area hotel suggestions (real booking data isn't available inside
+// the sandboxed artifact) — shown once the traveler picks a stay area, so
+// they can see actual named options with star rating + nightly price.
+const AREA_HOTELS = {
+  "فاتح": [
+    { name: "Sultanahmet Palace Hotel", stars: 4, nightlyUSD: 58 },
+    { name: "Blue House Boutique", stars: 3, nightlyUSD: 38 },
+    { name: "Ottoman Suites Topkapi", stars: 5, nightlyUSD: 92 },
+  ],
+  "بی‌اوغلو": [
+    { name: "Galata Tower View Inn", stars: 4, nightlyUSD: 74 },
+    { name: "Istiklal Central Hotel", stars: 3, nightlyUSD: 49 },
+    { name: "Karaköy Loft Rooms", stars: 5, nightlyUSD: 110 },
+  ],
+  "امینونو": [
+    { name: "Golden Horn Pier Hotel", stars: 3, nightlyUSD: 33 },
+    { name: "Spice Bazaar Rooms", stars: 3, nightlyUSD: 27 },
+    { name: "Eminönü Ferry Suites", stars: 4, nightlyUSD: 52 },
+  ],
+  "سمت آسیایی": [
+    { name: "Kadıköy Local Stay", stars: 3, nightlyUSD: 22 },
+    { name: "Moda Seaside Rooms", stars: 4, nightlyUSD: 40 },
+    { name: "Bahariye Budget Inn", stars: 2, nightlyUSD: 16 },
+  ],
+};
+
+function StarRow({ count }) {
+  return (
+    <span className="inline-flex items-center gap-0.5">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Star
+          key={i}
+          size={11}
+          style={{ color: T.gold }}
+          fill={i < count ? T.gold : "none"}
+          strokeWidth={1.5}
+        />
+      ))}
+    </span>
+  );
+}
+
+
+
+// Approximate real coordinates, used only to build working Yandex Maps
+// route links (no live routing API call from inside the sandboxed artifact —
+// this opens the actual Yandex Maps route in a new tab instead).
+const AREA_COORDS = {
+  "فاتح": [41.0055, 28.9769],
+  "امینونو": [41.0175, 28.9706],
+  "بی‌اوغلو": [41.0370, 28.9850],
+  "سمت آسیایی": [40.9906, 29.0274],
+  "بین دو قاره": [41.0430, 29.0090],
+};
+
+// Approximate real per-spot coordinates (more precise than the per-area
+// centroids above) — used for the mini interactive map, the walking/transit
+// time estimate between consecutive stops in a day, and backtrack detection.
+const SPOT_COORDS = {
+  sultanahmet: [41.0054, 28.9768],
+  galata: [41.0256, 28.9744],
+  bazaar: [41.0106, 28.9681],
+  balat: [41.0298, 28.9487],
+  kadikoy: [40.9906, 29.0274],
+  bosphorus: [41.0210, 28.9740],
+  suleymaniye: [41.0161, 28.9640],
+  topkapi: [41.0115, 28.9834],
+  istiklal: [41.0345, 28.9776],
+  spice: [41.0166, 28.9705],
+};
+
+function yandexRouteUrl(fromArea, toArea) {
+  const from = AREA_COORDS[fromArea];
+  const to = AREA_COORDS[toArea];
+  if (!from || !to) return null;
+  return `https://yandex.com/maps/?rtext=${from[0]},${from[1]}~${to[0]},${to[1]}&rtt=mt`;
+}
+
+// Used by Travel Day Mode: a one-tap "walk from wherever I'm standing right
+// now" link. Leaving the origin (~) empty tells Yandex Maps to use the
+// phone's live location instead of a fixed area centroid — the area-level
+// yandexRouteUrl above is for planning ahead of time, this one is for
+// live navigation to one exact spot while already out in the city.
+function yandexNavUrl(coord) {
+  if (!coord) return null;
+  return `https://yandex.com/maps/?rtext=~${coord[0]},${coord[1]}&rtt=pd`;
+}
+
+function addDaysToDate(date, days) {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+}
+
+// ---- Flight price mock (demo data only — no live fares available inside
+// the artifact sandbox; deterministic so it doesn't flicker on re-render) ----
+function hashDate(dateStr) {
+  let h = 0;
+  for (let i = 0; i < dateStr.length; i++) h = (h * 31 + dateStr.charCodeAt(i)) >>> 0;
+  return h;
+}
+function priceForDate(date) {
+  const key = date.toISOString().slice(0, 10);
+  return 210 + (hashDate(key) % 140); // $210–$350 per person, demo range
+}
+function buildFlightDays() {
+  const days = [];
+  for (let i = 1; i <= 14; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() + i);
+    days.push({ date: d, key: d.toISOString().slice(0, 10), price: priceForDate(d), label: d.toLocaleDateString("fa-IR", { weekday: "short", day: "numeric", month: "short" }) });
+  }
+  return days;
+}
+
+// ---- Weather mock (demo heuristic only — no live forecast API available
+// inside the artifact sandbox). Derives a plausible daily condition/temp
+// range from the season implied by the chosen flight month, then seeds a
+// per-day variation off the same deterministic hashDate() used for flight
+// prices — so it's stable across re-renders but still varies day to day.
+const SEASON_TEMP_RANGE = {
+  winter: [4, 11],
+  spring: [12, 19],
+  summer: [23, 31],
+  autumn: [13, 20],
+};
+const WEATHER_CONDITIONS = {
+  winter: [
+    { Icon: CloudRain, label: "بارونی" },
+    { Icon: Cloud, label: "ابری" },
+    { Icon: CloudSnow, label: "احتمال برف" },
+  ],
+  spring: [
+    { Icon: CloudSun, label: "نیمه‌ابری" },
+    { Icon: CloudRain, label: "رگبار کوتاه" },
+    { Icon: Sun, label: "آفتابی" },
+  ],
+  summer: [
+    { Icon: Sun, label: "آفتابی" },
+    { Icon: Sun, label: "گرم و صاف" },
+    { Icon: CloudSun, label: "نیمه‌ابری" },
+  ],
+  autumn: [
+    { Icon: CloudSun, label: "نیمه‌ابری" },
+    { Icon: CloudRain, label: "بارون پراکنده" },
+    { Icon: Cloud, label: "ابری" },
+  ],
+};
+function weatherForDay(flightDate, dayIndex) {
+  if (!flightDate) return null;
+  const season = seasonForMonth(flightDate.getMonth());
+  const seedDate = new Date(flightDate);
+  seedDate.setDate(seedDate.getDate() + dayIndex);
+  const seed = hashDate(seedDate.toISOString().slice(0, 10));
+  const [lo, hi] = SEASON_TEMP_RANGE[season];
+  const temp = lo + (seed % (hi - lo + 1));
+  const conditions = WEATHER_CONDITIONS[season];
+  const condition = conditions[seed % conditions.length];
+  return { temp, season, ...condition };
+}
+
+const DEFAULT_TRAVELERS = 2;
+
+function estimateCost({ selected, hotel, nights, flightPrice }) {
+  const travelers = DEFAULT_TRAVELERS;
+  const rooms = Math.max(1, Math.ceil(travelers / 2));
+  const hotelTotal = hotel ? hotel.nightlyUSD * rooms * nights : 0;
+  const flightTotal = flightPrice ? flightPrice * travelers : 0;
+  const foodTotal = travelers * nights * 20;
+  const transportTotal = travelers * nights * 6;
+  const activitiesTotal = selected.filter((s) => s.ticketPriceUSD).reduce((sum, s) => sum + s.ticketPriceUSD * travelers, 0);
+  const total = hotelTotal + flightTotal + foodTotal + transportTotal + activitiesTotal;
+  return {
+    total,
+    parts: [
+      { label: "بلیط پرواز", value: flightTotal, color: T.tile },
+      { label: "اقامت", value: hotelTotal, color: T.clay },
+      { label: "غذا", value: foodTotal, color: T.gold },
+      { label: "حمل‌ونقل محلی", value: transportTotal, color: T.tileDeep },
+      { label: "ورودی و فعالیت‌ها", value: activitiesTotal, color: T.inkSoft },
+    ],
+  };
+}
+
+/* ---------------------------------------------------------------
+   SHARE / EXPORT — builds one clean, copy-pasteable Persian summary
+   of the whole trip (hotel, flight, day-by-day plan). No PDF library
+   is available inside this sandboxed artifact, so "export" here means
+   clipboard copy plus a downloadable .txt file — the same content a
+   PDF would hold, just without the binary rendering step.
+------------------------------------------------------------------*/
+function buildShareText({ dayBundles, hotel, flightDay, nights, destName = "استانبول" }) {
+  const lines = [];
+  lines.push(`✈️ برنامه سفر ${destName}`);
+  lines.push("————————————————");
+  lines.push(`مدت: ${nights || dayBundles.length} شب`);
+  if (hotel) lines.push(`اقامت: ${hotel.name} (${hotel.area})`);
+  if (flightDay) lines.push(`پرواز: ${flightDay.label} — حدود $${flightDay.price} برای هر نفر`);
+  lines.push("");
+  dayBundles.forEach((b, i) => {
+    lines.push(`روز ${i + 1} — ${b.title}`);
+    if (b.morning) lines.push(`  صبح: ${b.morning}`);
+    if (b.afternoon) lines.push(`  ظهر/عصر: ${b.afternoon}`);
+    if (b.evening) lines.push(`  شب: ${b.evening}`);
+    if (b.foodTip) lines.push(`  غذا: ${b.foodTip}`);
+    lines.push("");
+  });
+  lines.push(`تهیه‌شده با Tripza — برنامه‌ریز سفر ${destName}`);
+  return lines.join("\n");
+}
+
+/* ---------------------------------------------------------------
+   POSTER — a downloadable, Instagram-story-shaped (1080×1920) PNG
+   summary of the whole trip, drawn in the exact strait palette
+   (clay/tile/gold) with the same wavy-seam motif used in the hero
+   and checklist spine. Pure canvas 2D, no image assets required.
+------------------------------------------------------------------*/
+const POSTER_W = 1080;
+const POSTER_H = 1920;
+
+function roundRectPath(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+function wrapCanvasText(ctx, text, maxWidth) {
+  const words = String(text || "").split(" ");
+  const lines = [];
+  let line = "";
+  words.forEach((w) => {
+    const test = line ? `${line} ${w}` : w;
+    if (ctx.measureText(test).width > maxWidth && line) {
+      lines.push(line);
+      line = w;
+    } else {
+      line = test;
+    }
+  });
+  if (line) lines.push(line);
+  return lines;
+}
+
+function drawTripPosterSync(canvas, { dayBundles, hotel, flightDay, nights, destName = "استانبول" }) {
+  if (!canvas) return;
+  canvas.width = POSTER_W;
+  canvas.height = POSTER_H;
+  const ctx = canvas.getContext("2d");
+  ctx.direction = "rtl";
+
+  ctx.fillStyle = T.paper;
+  ctx.fillRect(0, 0, POSTER_W, POSTER_H);
+
+  // Hero band — the strait: clay meets tile behind a wavy seam
+  const heroH = 640;
+  const heroGrad = ctx.createLinearGradient(0, 0, POSTER_W, heroH);
+  heroGrad.addColorStop(0, T.clay);
+  heroGrad.addColorStop(1, T.tileDeep);
+  ctx.fillStyle = heroGrad;
+  ctx.fillRect(0, 0, POSTER_W, heroH);
+
+  ctx.strokeStyle = "rgba(255,255,255,0.5)";
+  ctx.lineWidth = 5;
+  ctx.beginPath();
+  for (let y = 0; y <= heroH; y += 4) {
+    const x = POSTER_W / 2 + Math.sin(y / 28) * 28;
+    if (y === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+
+  ctx.textAlign = "center";
+  ctx.fillStyle = "white";
+  ctx.font = "800 72px Vazirmatn, sans-serif";
+  ctx.fillText(destName, POSTER_W / 2, 170);
+  ctx.font = "500 32px Vazirmatn, sans-serif";
+  ctx.fillStyle = "rgba(255,255,255,0.88)";
+  ctx.fillText("شهری روی دو قاره", POSTER_W / 2, 220);
+
+  ctx.font = "800 210px Vazirmatn, sans-serif";
+  ctx.fillStyle = T.gold;
+  ctx.fillText(String(nights || dayBundles.length || "–"), POSTER_W / 2, 460);
+  ctx.font = "600 38px Vazirmatn, sans-serif";
+  ctx.fillStyle = "white";
+  ctx.fillText("شب سفر", POSTER_W / 2, 526);
+
+  // Stats card
+  const cardY = heroH + 36;
+  const cardH = 300;
+  ctx.fillStyle = T.panel;
+  roundRectPath(ctx, 48, cardY, POSTER_W - 96, cardH, 36);
+  ctx.fill();
+
+  const totalStops = dayBundles.reduce((sum, b) => sum + (b.spots ? b.spots.length : 0), 0);
+  ctx.textAlign = "right";
+  let statY = cardY + 68;
+  ctx.font = "700 36px Vazirmatn, sans-serif";
+  ctx.fillStyle = T.ink;
+  ctx.fillText(`${totalStops} لوکیشن سفر`, POSTER_W - 68, statY);
+
+  if (hotel) {
+    statY += 62;
+    ctx.font = "700 36px Vazirmatn, sans-serif";
+    ctx.fillStyle = T.ink;
+    ctx.fillText(hotel.name, POSTER_W - 68, statY);
+    statY += 40;
+    ctx.font = "400 26px Vazirmatn, sans-serif";
+    ctx.fillStyle = T.inkSoft;
+    ctx.fillText(hotel.area, POSTER_W - 68, statY);
+  }
+  if (flightDay) {
+    statY += 62;
+    ctx.font = "700 36px Vazirmatn, sans-serif";
+    ctx.fillStyle = T.ink;
+    ctx.fillText(`${flightDay.label} · $${flightDay.price}`, POSTER_W - 68, statY);
+  }
+
+  // Day-by-day list
+  let y = cardY + cardH + 76;
+  dayBundles.slice(0, 8).forEach((b, i) => {
+    const color = i % 2 === 0 ? T.tile : T.clay;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(POSTER_W - 74, y - 12, 15, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "white";
+    ctx.font = "700 22px monospace";
+    ctx.textAlign = "center";
+    ctx.fillText(String(i + 1), POSTER_W - 74, y - 4);
+
+    ctx.textAlign = "right";
+    ctx.font = "600 30px Vazirmatn, sans-serif";
+    ctx.fillStyle = T.ink;
+    const lines = wrapCanvasText(ctx, b.title || "", POSTER_W - 230);
+    ctx.fillText(lines[0] || "", POSTER_W - 118, y);
+    y += 72;
+  });
+
+  // Footer wave + brand
+  ctx.strokeStyle = T.line;
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  for (let x = 48; x <= POSTER_W - 48; x += 4) {
+    const yy = POSTER_H - 92 + Math.sin(x / 30) * 8;
+    if (x === 48) ctx.moveTo(x, yy); else ctx.lineTo(x, yy);
+  }
+  ctx.stroke();
+  ctx.textAlign = "center";
+  ctx.font = "500 24px Vazirmatn, sans-serif";
+  ctx.fillStyle = T.inkSoft;
+  ctx.fillText(`ساخته‌شده با Tripza — برنامه‌ریز سفر ${destName}`, POSTER_W / 2, POSTER_H - 38);
+}
+
+async function drawTripPoster(canvas, data) {
+  try {
+    await Promise.all([
+      document.fonts.load("800 72px Vazirmatn"),
+      document.fonts.load("700 36px Vazirmatn"),
+      document.fonts.load("500 32px Vazirmatn"),
+    ]);
+    await document.fonts.ready;
+  } catch {
+    /* font API unavailable — canvas still falls back to a system font that supports Persian */
+  }
+  drawTripPosterSync(canvas, data);
+}
+
+/* ---------------------------------------------------------------
+   TRIP LOGIC — the planner decides pacing, not the user. Nights and
+   the day-by-day grouping are computed deterministically from the
+   selected spots (area proximity), so the structure never depends
+   on the AI call succeeding — only the narrative text does.
+------------------------------------------------------------------*/
+function computeNights(selected) {
+  if (selected.length < 3) return 3;
+  const areaCount = new Set(selected.map((s) => s.area)).size;
+  const base = Math.ceil(selected.length / 2.3);
+  const spread = areaCount >= 4 ? 1 : 0;
+  return Math.min(8, Math.max(3, base + spread));
+}
+
+function nightsReason(selected, nights) {
+  const areaCount = new Set(selected.map((s) => s.area)).size;
+  return `با ${selected.length} لوکیشن انتخابی در ${areaCount} منطقه، ${nights} شب کافیه تا بدون عجله و پیاده‌روی زیاد همه‌شون رو ببینید.`;
+}
+
+function clusterDays(selected, nights) {
+  const byArea = {};
+  selected.forEach((s) => { (byArea[s.area] ||= []).push(s); });
+  const ordered = Object.values(byArea).flat();
+  const perDay = Math.max(1, Math.ceil(ordered.length / nights));
+  const days = [];
+  for (let i = 0; i < ordered.length; i += perDay) {
+    days.push(ordered.slice(i, i + perDay));
+  }
+  return days;
+}
+
+function dayArea(dayGroup) {
+  const counts = {};
+  dayGroup.forEach((s) => { counts[s.area] = (counts[s.area] || 0) + 1; });
+  return Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+}
+
+function buildTransitRoute(hotel, area) {
+  if (!hotel) return null;
+  if (hotel.area === area) {
+    return { same: true, desc: "امروز نیازی به وسیله نقلیه نیست؛ همه‌چی با پیاده‌روی از هتل در دسترسه." };
+  }
+  const to = TRANSIT_HUBS[area];
+  if (!to) return null;
+  const from = TRANSIT_HUBS[hotel.area];
+  return {
+    same: false,
+    mode: to.mode,
+    from: from ? { station: from.station, line: from.line } : { station: hotel.area, line: "" },
+    to: { station: to.station, line: to.line },
+    desc: to.desc,
+  };
+}
+
+function sortedHotels(selected) {
+  const freq = {};
+  selected.forEach((s) => { freq[s.area] = (freq[s.area] || 0) + 1; });
+  return [...HOTELS].sort((a, b) => (freq[b.area] || 0) - (freq[a.area] || 0));
+}
+
+/* computeBudget replaced by estimateCost() above, which derives cost from
+   the chosen hotel, chosen flight date, and ticketed activities instead
+   of a user-set budget slider. */
+
+/* ---------------------------------------------------------------
+   PRECISE SCHEDULING — real distances (haversine, in km) between
+   consecutive stops in a day drive both the "~15 دقیقه" leg chip and
+   the exact start/end clock times per stop. Times cascade: editing
+   one stop's start time shifts every stop after it in that same day.
+------------------------------------------------------------------*/
+function distanceKm(a, b) {
+  if (!a || !b) return 1;
+  const R = 6371;
+  const dLat = ((b[0] - a[0]) * Math.PI) / 180;
+  const dLon = ((b[1] - a[1]) * Math.PI) / 180;
+  const lat1 = (a[0] * Math.PI) / 180;
+  const lat2 = (b[0] * Math.PI) / 180;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+// Under ~1.1km assumes walking (~4.5km/h); beyond that assumes a tram/
+// ferry/funicular hop with ~6min of wait/transfer baked in.
+function estimateTravelMinutes(km) {
+  if (km <= 1.1) return Math.max(5, Math.round((km / 4.5) * 60));
+  return Math.max(10, Math.round((km / 16) * 60) + 6);
+}
+
+function bearingDeg(a, b) {
+  const φ1 = (a[0] * Math.PI) / 180, φ2 = (b[0] * Math.PI) / 180;
+  const λ1 = (a[1] * Math.PI) / 180, λ2 = (b[1] * Math.PI) / 180;
+  const y = Math.sin(λ2 - λ1) * Math.cos(φ2);
+  const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(λ2 - λ1);
+  return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
+}
+function angleDiff(a, b) {
+  const d = Math.abs(a - b) % 360;
+  return d > 180 ? 360 - d : d;
+}
+
+// Flags a day whose stop order zig-zags — i.e. the direction of travel
+// swings by more than ~110° between two consecutive legs, meaning the
+// traveler would double back across ground already covered.
+function detectBacktrack(spots) {
+  if (spots.length < 3) return false;
+  for (let i = 0; i < spots.length - 2; i++) {
+    const a = SPOT_COORDS[spots[i].id], b = SPOT_COORDS[spots[i + 1].id], c = SPOT_COORDS[spots[i + 2].id];
+    if (!a || !b || !c) continue;
+    if (angleDiff(bearingDeg(a, b), bearingDeg(b, c)) > 110) return true;
+  }
+  return false;
+}
+
+function addMinutes(hhmm, mins) {
+  const [h, m] = hhmm.split(":").map(Number);
+  const total = (((h * 60 + m + mins) % 1440) + 1440) % 1440;
+  return `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
+}
+
+const DEFAULT_DURATION_MIN = {
+  "تاریخی": 90,
+  "عکاسی": 45,
+  "خرید": 75,
+  "غذا": 90,
+  "بسفر و طبیعت": 120,
+};
+const defaultDurationFor = (spot) => DEFAULT_DURATION_MIN[spot.tag] || 60;
+
+// Builds the per-stop clock schedule for one day, chaining off either the
+// previous stop's computed end time or a manual override the traveler typed
+// in — so nudging one stop's start time cascades through the rest of the day.
+function scheduleForBundle(bundle, overrides) {
+  let cursor = "09:00";
+  return bundle.spots.map((s, i) => {
+    let leg = null;
+    if (i > 0) {
+      const km = distanceKm(SPOT_COORDS[bundle.spots[i - 1].id], SPOT_COORDS[s.id]);
+      const minutes = estimateTravelMinutes(km);
+      leg = { km, minutes };
+      cursor = addMinutes(cursor, minutes);
+    }
+    const start = overrides[`${bundle.key}-${s.id}`] || cursor;
+    const duration = defaultDurationFor(s);
+    const end = addMinutes(start, duration);
+    cursor = end;
+    return { spot: s, start, end, duration, leg };
+  });
+}
+
+function reorderArray(arr, fromIndex, toIndex) {
+  const copy = [...arr];
+  const [moved] = copy.splice(fromIndex, 1);
+  copy.splice(toIndex, 0, moved);
+  return copy;
+}
+
+/* ---------------------------------------------------------------
+   ROUTE AUTO-OPTIMIZE — a simple greedy nearest-neighbor pass over
+   a day's stops, starting from the hotel's area (or the day's first
+   stop if there's no hotel yet). This is intentionally the same
+   lightweight heuristic real trip planners use for a one-tap "sort
+   my day" action: not a true TSP solve, just "always walk to the
+   closest thing you haven't seen yet" — which is exactly what kills
+   the zig-zag backtracking that detectBacktrack() flags.
+------------------------------------------------------------------*/
+function nearestNeighborOrder(spots, startCoord) {
+  if (spots.length <= 2) return spots;
+  const remaining = [...spots];
+  const ordered = [];
+  let current = startCoord || SPOT_COORDS[remaining[0].id] || null;
+  while (remaining.length) {
+    let bestIdx = 0;
+    let bestDist = Infinity;
+    remaining.forEach((s, i) => {
+      const coord = SPOT_COORDS[s.id];
+      const d = current && coord ? distanceKm(current, coord) : 0;
+      if (d < bestDist) { bestDist = d; bestIdx = i; }
+    });
+    const [next] = remaining.splice(bestIdx, 1);
+    ordered.push(next);
+    current = SPOT_COORDS[next.id] || current;
+  }
+  return ordered;
+}
+
+/* ---------------------------------------------------------------
+   PACKING CHECKLIST — a short base list plus a few extra items
+   pulled in by whichever interests/tags are actually in the trip
+   (bazaar haggling cash, mosque headscarf, Bosphorus windbreaker...).
+------------------------------------------------------------------*/
+const PACKING_BASE = [
+  "پاسپورت و پرینت رزرو هتل/پرواز",
+  "پریز تبدیل (نوع C/F رایج در ترکیه)",
+  "کفش پیاده‌روی راحت",
+  "پاوربانک",
+];
+const PACKING_BY_TAG = {
+  "خرید": ["کیف پارچه‌ای اضافه برای خریدها", "نقد لیر/یورو برای چانه‌زدن"],
+  "بسفر و طبیعت": ["ژاکت بادگیر (باد بسفر سرده)", "عینک آفتابی"],
+  "تاریخی": ["روسری/شال برای ورود به مساجد", "جوراب اضافه (جلوی مسجد کفش درمیارید)"],
+  "عکاسی": ["شارژر/باتری اضافه دوربین", "دستمال لنز"],
+  "غذا": ["کمک‌هاضم یا آنتی‌اسید", "دستمال مرطوب"],
+};
+
+// Seasonal add-ons keyed off the actual month of the chosen flight date —
+// Istanbul swings from damp/cold winters to hot/dry summers, so the same
+// activity-based list needs different layers depending on when you fly.
+const SEASONAL_PACKING = {
+  winter: ["کاپشن گرم ضدآب", "شال‌گردن و دستکش", "لایه زیرپوش گرم"],
+  spring: ["چتر کوچک تاشو (بارون بهاره)", "ژاکت سبک برای هوای متغیر"],
+  summer: ["کرم ضدآفتاب SPF بالا", "کلاه لبه‌دار و عینک آفتابی", "لباس نخی و سبک"],
+  autumn: ["ژاکت سبک ضدباد", "چتر جمع‌وجور"],
+};
+function seasonForMonth(monthIndex) {
+  if ([11, 0, 1].includes(monthIndex)) return "winter";
+  if ([2, 3, 4].includes(monthIndex)) return "spring";
+  if ([5, 6, 7].includes(monthIndex)) return "summer";
+  return "autumn";
+}
+const SEASON_LABEL = { winter: "زمستانی", spring: "بهاری", summer: "تابستانی", autumn: "پاییزی" };
+
+function buildPackingList(selectedSpots, interests, flightDate) {
+  const tags = new Set([...(interests || []), ...selectedSpots.map((s) => s.tag)]);
+  const items = [...PACKING_BASE];
+  tags.forEach((tag) => {
+    (PACKING_BY_TAG[tag] || []).forEach((it) => { if (!items.includes(it)) items.push(it); });
+  });
+  if (flightDate) {
+    const season = seasonForMonth(flightDate.getMonth());
+    (SEASONAL_PACKING[season] || []).forEach((it) => { if (!items.includes(it)) items.push(it); });
+  }
+  return items;
+}
+
+/* ---------------------------------------------------------------
+   Transit route card — shown per itinerary day. Reads like a small
+   metro-map segment: origin station/line on the right, a circular
+   mode badge (tram/ferry/funicular) in the middle on a dashed rail,
+   destination station/line on the left. Exact station + line names
+   always shown, never just the neighborhood name.
+------------------------------------------------------------------*/
+function TransitRouteCard({ transit, mapUrl }) {
+  if (!transit) return null;
+
+  if (transit.same) {
+    const { Icon, color } = MODE_META.walk;
+    return (
+      <div className="flex items-center gap-2 pt-1.5 mt-1.5" style={{ borderTop: `1px solid ${T.line}` }}>
+        <Icon size={15} className="flex-shrink-0" style={{ color }} />
+        <span className="text-xs" style={{ color: T.inkSoft }}>{transit.desc}</span>
+      </div>
+    );
+  }
+
+  const { Icon, color, label } = MODE_META[transit.mode] || MODE_META.tram;
+
+  return (
+    <div className="pt-2 mt-1.5" style={{ borderTop: `1px solid ${T.line}` }}>
+      <div className="rounded-2xl p-3" style={{ background: T.tileTint }}>
+        <div className="flex items-center gap-2">
+          <div className="flex-1 min-w-0 text-right">
+            <p className="text-[9px] font-mono mb-0.5 tracking-wide" style={{ color: T.inkSoft }}>مبدأ</p>
+            <p className="text-xs font-medium truncate" style={{ color: T.night }}>{transit.from.station}</p>
+            {transit.from.line && (
+              <p className="text-[10px] font-mono mt-0.5 truncate" style={{ color: T.tile }}>{transit.from.line}</p>
+            )}
+          </div>
+
+          <div className="flex flex-col items-center flex-shrink-0 px-1">
+            <div className="w-9 h-9 rounded-full flex items-center justify-center shadow-sm" style={{ background: color }}>
+              <Icon size={16} color="white" />
+            </div>
+            <span className="text-[9px] font-mono mt-1 whitespace-nowrap" style={{ color }}>{label}</span>
+          </div>
+
+          <div className="flex-1 min-w-0 text-left">
+            <p className="text-[9px] font-mono mb-0.5 tracking-wide" style={{ color: T.inkSoft }}>مقصد</p>
+            <p className="text-xs font-medium truncate" style={{ color: T.night }}>{transit.to.station}</p>
+            <p className="text-[10px] font-mono mt-0.5 truncate" style={{ color: T.tile }}>{transit.to.line}</p>
+          </div>
+        </div>
+
+        <div
+          className="h-px my-2.5"
+          style={{ backgroundImage: `repeating-linear-gradient(to right, ${color}66 0, ${color}66 4px, transparent 4px, transparent 8px)` }}
+        />
+
+        <p className="text-[11px]" style={{ color: T.inkSoft }}>{transit.desc}</p>
+
+        {mapUrl && (
+          <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 mt-2 text-xs font-medium" style={{ color: T.tile }}>
+            <MapPin size={12} /> مسیر رو در Yandex Maps ببین <ArrowUpRight size={11} />
+          </a>
+        )}
+      </div>
     </div>
-  </div>
-</body>
-</html>
+  );
+}
+
+/* ---------------------------------------------------------------
+   Drag-to-reorder list — generic, pointer-events based (works with
+   both mouse and touch, unlike native HTML5 drag which iOS Safari
+   doesn't support on arbitrary elements). Press the grip handle,
+   drag over a sibling row, and the two swap places live; lift your
+   finger/mouse to drop. Used for both day order and stop order.
+------------------------------------------------------------------*/
+function DragReorderList({ items, getKey, onReorder, renderItem, className }) {
+  const [draggingKey, setDraggingKey] = useState(null);
+  const dragState = useRef({ fromIndex: -1 });
+
+  const startDrag = (e, index) => {
+    e.preventDefault();
+    dragState.current.fromIndex = index;
+    setDraggingKey(getKey(items[index]));
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+  };
+
+  const onPointerMove = (e) => {
+    if (dragState.current.fromIndex < 0) return;
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    const row = el && el.closest("[data-drag-index]");
+    if (!row) return;
+    const hoverIndex = Number(row.getAttribute("data-drag-index"));
+    const fromIndex = dragState.current.fromIndex;
+    if (!Number.isNaN(hoverIndex) && hoverIndex !== fromIndex) {
+      onReorder(reorderArray(items, fromIndex, hoverIndex));
+      dragState.current.fromIndex = hoverIndex;
+    }
+  };
+
+  const endDrag = () => {
+    dragState.current.fromIndex = -1;
+    setDraggingKey(null);
+  };
+
+  return (
+    <div className={className} onPointerMove={onPointerMove} onPointerUp={endDrag} onPointerCancel={endDrag}>
+      {items.map((item, index) => {
+        const key = getKey(item);
+        return (
+          <div
+            key={key}
+            data-drag-index={index}
+            style={{
+              opacity: draggingKey === key ? 0.5 : 1,
+              transform: draggingKey === key ? "scale(1.02)" : "scale(1)",
+              transition: "opacity .15s ease, transform .15s ease",
+            }}
+          >
+            {renderItem(item, index, (e) => startDrag(e, index))}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function DragHandle({ onPointerDown, style }) {
+  return (
+    <button
+      aria-label="جابه‌جایی با کشیدن"
+      onPointerDown={onPointerDown}
+      className="flex-shrink-0"
+      style={{ color: T.inkSoft, touchAction: "none", cursor: "grab", ...style }}
+    >
+      <GripVertical size={15} />
+    </button>
+  );
+}
+
+/* ---------------------------------------------------------------
+   Leg chip — the "~15 دقیقه" connector shown between two consecutive
+   stops in a day's precise schedule, using real haversine distance.
+------------------------------------------------------------------*/
+function LegChip({ leg }) {
+  if (!leg) return null;
+  const walking = leg.km <= 1.1;
+  const Icon = walking ? Footprints : TramFront;
+  return (
+    <div className="flex items-center gap-1.5 py-1 px-1" style={{ color: T.inkSoft }}>
+      <div className="w-5 flex justify-center flex-shrink-0"><Icon size={12} /></div>
+      <span className="text-[10px] font-mono">
+        ~{leg.minutes} دقیقه · {leg.km.toFixed(1)} کیلومتر {walking ? "(پیاده)" : "(با مترو/تراموا/کشتی)"}
+      </span>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------
+   Mini interactive trip map — plain SVG, no external tiles (the
+   artifact sandbox can't reliably load a live tile server), but
+   built from the same real coordinates used for distance/backtrack
+   math above. Each day gets its own color-coded route line; tapping
+   a pin scrolls to that day's card.
+------------------------------------------------------------------*/
+function buildProjection(coordsList, width, height, padding) {
+  const lats = coordsList.map((c) => c[0]);
+  const lons = coordsList.map((c) => c[1]);
+  const minLat = Math.min(...lats), maxLat = Math.max(...lats);
+  const minLon = Math.min(...lons), maxLon = Math.max(...lons);
+  const latSpan = maxLat - minLat || 1;
+  const lonSpan = maxLon - minLon || 1;
+  return ([lat, lon]) => [
+    padding + ((lon - minLon) / lonSpan) * (width - 2 * padding),
+    padding + ((maxLat - lat) / latSpan) * (height - 2 * padding),
+  ];
+}
+
+function TripMap({ dayBundles, hotel, onPinClick }) {
+  const W = 320, H = 210, PAD = 26;
+  const allCoords = [];
+  dayBundles.forEach((b) => b.spots.forEach((s) => { if (SPOT_COORDS[s.id]) allCoords.push(SPOT_COORDS[s.id]); }));
+  if (hotel && AREA_COORDS[hotel.area]) allCoords.push(AREA_COORDS[hotel.area]);
+  if (allCoords.length < 2) return null;
+  const project = buildProjection(allCoords, W, H, PAD);
+
+  return (
+    <div className="rounded-2xl p-4 mb-4" style={{ background: T.panel, border: `1px solid ${T.line}`, boxShadow: T.shadowMd }}>
+      <p className="text-sm mb-1 flex items-center gap-2"><MapIcon size={15} style={{ color: T.tile }} /> نقشه سفر</p>
+      <p className="text-[11px] mb-3" style={{ color: T.inkSoft }}>هر رنگ یعنی یک روز؛ روی هر پین بزن تا برنامه همون روز رو ببینی.</p>
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl" style={{ background: T.mist }}>
+        {dayBundles.map((b, bi) => {
+          const color = bi % 2 === 0 ? T.tile : T.clay;
+          const pts = b.spots.map((s) => SPOT_COORDS[s.id]).filter(Boolean).map(project);
+          if (pts.length < 2) return null;
+          return (
+            <polyline
+              key={b.key}
+              points={pts.map((p) => p.join(",")).join(" ")}
+              fill="none"
+              stroke={color}
+              strokeWidth="2"
+              strokeDasharray="1 6"
+              strokeLinecap="round"
+              opacity="0.8"
+            />
+          );
+        })}
+        {hotel && AREA_COORDS[hotel.area] && (() => {
+          const [x, y] = project(AREA_COORDS[hotel.area]);
+          return (
+            <g>
+              <circle cx={x} cy={y} r="7" fill={T.night} />
+              <circle cx={x} cy={y} r="7" fill="none" stroke="white" strokeWidth="1.5" />
+            </g>
+          );
+        })()}
+        {dayBundles.map((b, bi) => {
+          const color = bi % 2 === 0 ? T.tile : T.clay;
+          return b.spots.map((s, si) => {
+            const coord = SPOT_COORDS[s.id];
+            if (!coord) return null;
+            const [x, y] = project(coord);
+            return (
+              <g key={`${b.key}-${s.id}`} onClick={() => onPinClick(b.key)} style={{ cursor: "pointer" }}>
+                <circle cx={x} cy={y} r="9" fill={color} stroke="white" strokeWidth="1.5" />
+                <text x={x} y={y + 3} textAnchor="middle" fontSize="8" fontFamily="monospace" fill="white">{si + 1}</text>
+              </g>
+            );
+          });
+        })}
+      </svg>
+      <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2">
+        {hotel && (
+          <span className="flex items-center gap-1 text-[10px]" style={{ color: T.inkSoft }}>
+            <span className="w-2 h-2 rounded-full" style={{ background: T.night }} /> هتل
+          </span>
+        )}
+        {dayBundles.map((b, bi) => (
+          <span key={b.key} className="flex items-center gap-1 text-[10px]" style={{ color: T.inkSoft }}>
+            <span className="w-2 h-2 rounded-full" style={{ background: bi % 2 === 0 ? T.tile : T.clay }} /> روز {bi + 1}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------
+   TRAVEL DAY MODE — the "trip is actually happening" view. Everything
+   else in the results screen is a planning tool (drag to reorder,
+   editable times, backtrack warnings); none of that is useful while
+   standing on a street corner in Balat. This view instead surfaces
+   exactly one thing: the stop you should be at right now, a button
+   that opens live walking directions to it from wherever the phone
+   currently is, and a big "seen it" action that advances to the next
+   one. "Visited" state persists per stop so closing/reopening the
+   view (or switching days) doesn't lose progress.
+------------------------------------------------------------------*/
+function nextUnvisitedIndex(schedule, bundleKey, visited) {
+  for (let i = 0; i < schedule.length; i++) {
+    if (!visited[`${bundleKey}-${schedule[i].spot.id}`]) return i;
+  }
+  return Math.max(0, schedule.length - 1);
+}
+
+function TravelDayMode({ dayBundles, hotel, flightDay, timeOverrides, visitedStops, onToggleVisited, dayIdx, setDayIdx, onExit }) {
+  const bundle = dayBundles[dayIdx];
+  if (!bundle || bundle.spots.length === 0) return null;
+
+  const schedule = scheduleForBundle(bundle, timeOverrides);
+  const curIdx = nextUnvisitedIndex(schedule, bundle.key, visitedStops);
+  const cur = schedule[curIdx];
+  const next = schedule[curIdx + 1];
+  const area = dayArea(bundle.spots);
+  const transit = curIdx === 0 ? buildTransitRoute(hotel, area) : null;
+  const dayDate = flightDay ? addDaysToDate(flightDay.date, dayIdx) : null;
+  const weather = flightDay ? weatherForDay(flightDay.date, dayIdx) : null;
+  const allVisited = schedule.every((row) => visitedStops[`${bundle.key}-${row.spot.id}`]);
+  const navUrl = yandexNavUrl(SPOT_COORDS[cur.spot.id]);
+  const Icon = cur.spot.Icon;
+
+  return (
+    <div className="animate-fadeUp mb-4">
+      <div className="flex items-center justify-between mb-3">
+        <button
+          onClick={onExit}
+          className="btn-press focus-ring flex items-center gap-1.5 text-xs rounded-full px-3 py-1.5"
+          style={{ background: T.tileTint, color: T.tile }}
+        >
+          <RotateCcw size={12} /> برگشت به برنامه کامل
+        </button>
+        {weather && (
+          <div className="flex items-center gap-1 text-xs" style={{ color: T.inkSoft }}>
+            <weather.Icon size={14} style={{ color: T.gold }} />
+            <span className="font-mono">{weather.temp}°</span>
+            <span>{weather.label}</span>
+          </div>
+        )}
+      </div>
+
+      <div className="flex gap-1.5 overflow-x-auto pb-1 mb-2">
+        {dayBundles.map((b, i) => {
+          const active = i === dayIdx;
+          const bSchedule = scheduleForBundle(b, timeOverrides);
+          const bDone = bSchedule.length > 0 && bSchedule.every((row) => visitedStops[`${b.key}-${row.spot.id}`]);
+          return (
+            <button
+              key={b.key}
+              onClick={() => setDayIdx(i)}
+              className="btn-press focus-ring flex-shrink-0 rounded-full px-3 py-1.5 text-xs flex items-center gap-1 border"
+              style={{
+                background: active ? T.night : bDone ? T.tileTint : "transparent",
+                color: active ? "white" : bDone ? T.tile : T.inkSoft,
+                borderColor: active ? T.night : T.line,
+              }}
+            >
+              {bDone && <Check size={11} />} روز {i + 1}
+            </button>
+          );
+        })}
+      </div>
+
+      {dayDate && (
+        <p className="text-[11px] mb-3" style={{ color: T.inkSoft }}>
+          {dayDate.toLocaleDateString("fa-IR", { weekday: "long", day: "numeric", month: "long" })}
+        </p>
+      )}
+
+      {transit && <div className="mb-3"><TransitRouteCard transit={transit} mapUrl={hotel ? yandexRouteUrl(hotel.area, area) : null} /></div>}
+
+      {allVisited ? (
+        <div className="rounded-3xl p-6 text-center" style={{ background: T.night, boxShadow: T.shadowLg }}>
+          <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3" style={{ background: T.gold }}>
+            <Check size={22} color={T.night} strokeWidth={3} />
+          </div>
+          <p className="text-white text-sm mb-1">همه استاپ‌های امروز رو دیدی</p>
+          <p className="text-white/60 text-xs mb-4">
+            {dayIdx < dayBundles.length - 1 ? "هروقت آماده بودی، برو سراغ برنامه فردا." : "این آخرین روز برنامه‌ات بود — سفر خوبی داشته باشی."}
+          </p>
+          {dayIdx < dayBundles.length - 1 && (
+            <button
+              onClick={() => setDayIdx(dayIdx + 1)}
+              className="btn-press focus-ring rounded-2xl px-4 py-2.5 text-sm inline-flex items-center gap-1.5"
+              style={{ background: T.gold, color: T.night }}
+            >
+              برو به روز {dayIdx + 2} <ChevronLeft size={14} />
+            </button>
+          )}
+        </div>
+      ) : (
+        <>
+          <div className="rounded-3xl p-5 mb-3" style={{ background: T.night, boxShadow: T.shadowLg }}>
+            <p className="text-[11px] font-mono mb-3" style={{ color: T.gold }}>استاپ {curIdx + 1} از {schedule.length}</p>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(255,255,255,0.1)" }}>
+                <Icon size={22} style={{ color: T.gold }} />
+              </div>
+              <div className="min-w-0">
+                <p className="text-white text-lg font-medium truncate">{cur.spot.name}</p>
+                <p className="text-white/60 text-xs font-mono">{cur.start} تا {cur.end}</p>
+              </div>
+            </div>
+            <p className="text-white/80 text-sm mb-4 leading-6">{cur.spot.note}</p>
+            {cur.spot.ticket && (
+              <div className="flex items-start gap-2 mb-4 p-2.5 rounded-xl" style={{ background: "rgba(255,255,255,0.08)" }}>
+                <Ticket size={14} className="mt-0.5 flex-shrink-0" style={{ color: T.gold }} />
+                <span className="text-xs text-white/85">{cur.spot.ticket}</span>
+              </div>
+            )}
+            <div className="flex gap-2">
+              {navUrl && (
+                <a
+                  href={navUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-press focus-ring flex-1 rounded-2xl py-3 flex items-center justify-center gap-2 text-sm font-medium"
+                  style={{ background: T.gold, color: T.night }}
+                >
+                  <MapPin size={15} /> مسیر تا اینجا
+                </a>
+              )}
+              <button
+                onClick={() => onToggleVisited(bundle.key, cur.spot.id)}
+                className="btn-press focus-ring flex-1 rounded-2xl py-3 flex items-center justify-center gap-2 text-sm"
+                style={{ background: "rgba(255,255,255,0.12)", color: "white" }}
+              >
+                <Check size={15} /> دیدم، برو بعدی
+              </button>
+            </div>
+          </div>
+
+          {next && (
+            <div className="rounded-2xl p-3 flex items-center gap-2" style={{ background: T.panel, border: `1px dashed ${T.line}` }}>
+              <LegChip leg={next.leg} />
+              <div className="min-w-0 flex-1 text-left">
+                <p className="text-[9px] font-mono mb-0.5" style={{ color: T.inkSoft }}>استاپ بعدی</p>
+                <p className="text-sm truncate">
+                  {next.spot.name} <span className="font-mono text-xs" style={{ color: T.inkSoft }}>· {next.start}</span>
+                </p>
+              </div>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------
+   FEATURE SHOWCASE — the platform's core pitch, done as an
+   asymmetric bento grid (not a boxed list): oversized ghost numerals,
+   full-bleed brand-color blocks per card, no shared container edge.
+   This is the most important real estate on the intro screen, so it
+   gets the boldest treatment on the page.
+------------------------------------------------------------------*/
+function FeatureDrawer() {
+  const [open, setOpen] = useState(false);
+  const features = [
+    { label: "چند شب لازمه", desc: "مدت دقیق سفر رو بر اساس لوکیشن‌هایی که انتخاب می‌کنی حساب می‌کنیم.", Icon: CalendarDays },
+    { label: "نزدیک‌ترین منطقه", desc: "بهترین منطقه برای اقامت رو پیدا می‌کنیم.", Icon: MapPin },
+    { label: "کدوم هتل", desc: "متناسب با مسیر روزانه‌ات پیشنهاد می‌دیم.", Icon: BedDouble },
+    { label: "روز اول از کجا شروع کنی", desc: "با چه وسیله‌ای و چطور دقیق بهش برسی.", Icon: Route },
+  ];
+  return (
+    <div style={{ borderTop: `1px solid ${T.line}`, background: `linear-gradient(180deg, ${T.brandTint} 0%, ${T.panel} 100%)` }}>
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="btn-press focus-ring w-full flex items-center justify-between px-5 pt-2.5 pb-1"
+        aria-expanded={open}
+      >
+        <span className="text-[10px] font-bold" style={{ color: T.brand }}>{open ? "بستن جزئیات" : "همه‌چیز رو می‌سنجیم"}</span>
+        <div
+          className="w-6 h-6 rounded-full flex items-center justify-center"
+          style={{ background: T.panel, border: `1px solid ${T.brand}22` }}
+        >
+          <ChevronDown size={12} style={{ color: T.brand, transform: open ? "rotate(180deg)" : "rotate(0deg)", transition: "transform .25s ease" }} />
+        </div>
+      </button>
+
+      {/* collapsed preview — four equal-weight icon chips, same size,
+          same baseline, so they read as one engineered system rather
+          than a loose row of icons */}
+      {!open && (
+        <div className="flex items-stretch justify-between px-5 pb-3 pt-1 gap-1">
+          {features.map((f, i) => (
+            <div key={i} className="flex-1 flex flex-col items-center gap-1">
+              <div
+                className="w-8 h-8 rounded-lg flex items-center justify-center"
+                style={{ background: T.brand, boxShadow: `0 3px 8px -3px ${T.brand}66` }}
+              >
+                <f.Icon size={14} color="#fff" strokeWidth={2.25} />
+              </div>
+              <span className="text-[8px] leading-tight text-center font-medium" style={{ color: T.inkSoft, maxWidth: "60px" }}>{f.label}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {open && (
+        <div className="animate-fadeUp" style={{ background: T.panel, borderTop: `1px solid ${T.line}` }}>
+          {features.map((f, i) => (
+            <div
+              key={i}
+              className="flex items-start gap-3 p-4"
+              style={{ borderBottom: i < features.length - 1 ? `1px solid ${T.line}` : "none" }}
+            >
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: T.brandTint }}>
+                <f.Icon size={16} color={T.brand} />
+              </div>
+              <div className="flex-1">
+                <div className="text-[13px] font-bold mb-0.5" style={{ color: T.ink }}>{f.label}</div>
+                <div className="text-[11px] leading-snug" style={{ color: T.inkSoft }}>{f.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------
+   Tour-guide mascot — a small flat-vector character in the site's
+   own brand palette (no photoreal render, no external asset), meant
+   to hang above the persona-selector card like a friendly host
+   welcoming the visitor in. Built entirely from primitive SVG shapes
+   so it stays crisp at any size and costs nothing to load.
+------------------------------------------------------------------*/
+function TourGuideMascot({ size = 104 }) {
+  return (
+    <svg
+      width={size}
+      height={size * 1.25}
+      viewBox="0 0 120 150"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ filter: "drop-shadow(0 10px 18px rgba(51,85,255,0.32))" }}
+    >
+      {/* jacket / shoulders */}
+      <path d="M28 150 L28 118 C28 104 40 96 60 96 C80 96 92 104 92 118 L92 150 Z" fill={T.tile} />
+      <path d="M52 100 L60 113 L68 100 L60 96 Z" fill="#EAF0FF" />
+      {/* bow tie */}
+      <path d="M60 108 L50 102 L50 114 Z" fill={T.night} />
+      <path d="M60 108 L70 102 L70 114 Z" fill={T.night} />
+      <circle cx="60" cy="108" r="3" fill={T.night} />
+
+      {/* neck */}
+      <rect x="52" y="82" width="16" height="18" rx="6" fill="#FFD7B5" />
+
+      {/* head */}
+      <circle cx="60" cy="58" r="34" fill="#FFD7B5" />
+
+      {/* ears */}
+      <circle cx="27" cy="60" r="6" fill="#FFD7B5" />
+      <circle cx="93" cy="60" r="6" fill="#FFD7B5" />
+
+      {/* hair — swept modern style in brand blue */}
+      <path d="M24 52 C21 22 40 9 60 9 C83 9 99 27 95 53 C90 44 85 50 79 41 C73 50 62 37 56 44 C48 35 38 46 24 52 Z" fill={T.brand} />
+      <path d="M86 28 C97 33 101 46 92 54 C95 42 89 35 86 28 Z" fill={T.brand} />
+
+      {/* eyebrows */}
+      <rect x="42" y="52" width="14" height="4" rx="2" fill={T.brand} />
+      <rect x="64" y="52" width="14" height="4" rx="2" fill={T.brand} />
+
+      {/* eyes */}
+      <circle cx="49" cy="60" r="3" fill="#20222B" />
+      <circle cx="71" cy="60" r="3" fill="#20222B" />
+
+      {/* cheeks */}
+      <ellipse cx="42" cy="70" rx="6" ry="4" fill="#FF9E9E" opacity="0.45" />
+      <ellipse cx="78" cy="70" rx="6" ry="4" fill="#FF9E9E" opacity="0.45" />
+
+      {/* gentleman mustache — curled, sits above the smile */}
+      <path d="M44 73 C40 69 42 64 48 65 C52 66 54 70 56 72 C58 70 58 68 60 68 C62 68 62 70 64 72 C66 70 68 66 72 65 C78 64 80 69 76 73 C72 77 66 75 60 71 C54 75 48 77 44 73 Z" fill={T.brand} />
+
+      {/* smile */}
+      <path d="M50 76 Q60 82 70 76" stroke="#B5651D" strokeWidth="3" strokeLinecap="round" fill="none" />
+
+      {/* raised arm holding a small pennant flag — the "tour leader" tell */}
+      <path d="M90 116 C101 108 107 93 105 79" stroke={T.tile} strokeWidth="12" strokeLinecap="round" fill="none" />
+      <circle cx="105" cy="77" r="7" fill="#FFD7B5" />
+      <line x1="105" y1="28" x2="105" y2="77" stroke="#8C6A4E" strokeWidth="3" strokeLinecap="round" />
+      <path d="M105 28 L126 37 L105 46 Z" fill={T.clay} />
+
+      {/* waving arm */}
+      <path d="M30 116 C19 109 13 97 17 85" stroke={T.tile} strokeWidth="12" strokeLinecap="round" fill="none" />
+      <circle cx="17" cy="83" r="7" fill="#FFD7B5" />
+    </svg>
+  );
+}
+
+/* ---------------------------------------------------------------
+   Site footer — short, minimal, corporate. Carries only what a
+   registered platform is expected to show: contact channels,
+   physical address, and trust/license marks. Deliberately compact
+   (no link columns, no sitemap) so it reads as a serious product,
+   not a content site.
+------------------------------------------------------------------*/
+function Footer() {
+  return (
+    <footer className="w-full mt-8" style={{ background: `linear-gradient(180deg, ${T.brandTint} 0%, ${T.panel} 65%)` }}>
+      <div style={{ height: "3px", background: `linear-gradient(90deg, ${T.brand}, ${T.tile} 55%, ${T.clay})` }} />
+      <div className="max-w-md mx-auto px-5 py-6 text-center">
+        <div className="flex items-center justify-center gap-2 mb-3">
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: T.panel, border: `1px solid ${T.line}` }}>
+            <Compass size={14} color={T.brand} />
+          </div>
+          <span className="logo-wordmark text-[15px]" style={{ color: T.ink }}>Tripza</span>
+        </div>
+
+        <div className="flex items-center justify-center gap-5 mb-3.5">
+          <a href="tel:+982100000000" className="btn-press focus-ring flex flex-col items-center gap-1" style={{ color: T.inkSoft }}>
+            <Phone size={15} />
+            <span className="text-[10px]">تماس</span>
+          </a>
+          <a href="https://wa.me/989000000000" target="_blank" rel="noreferrer" className="btn-press focus-ring flex flex-col items-center gap-1" style={{ color: T.inkSoft }}>
+            <MessageCircle size={15} />
+            <span className="text-[10px]">واتساپ</span>
+          </a>
+          <a href="https://t.me/tripza" target="_blank" rel="noreferrer" className="btn-press focus-ring flex flex-col items-center gap-1" style={{ color: T.inkSoft }}>
+            <Send size={15} />
+            <span className="text-[10px]">تلگرام</span>
+          </a>
+        </div>
+
+        <p className="text-[11px] leading-5 mb-4" style={{ color: T.inkSoft }}>
+          تهران، خیابان ولیعصر، پلاک ۰۰۰ — کد پستی ۰۰۰۰۰۰۰۰۰۰
+        </p>
+
+        <div className="flex items-center justify-center gap-2 mb-4">
+          <span className="inline-flex items-center gap-1 text-[10px] px-2.5 py-1.5 rounded-lg" style={{ background: T.panel, border: `1px solid ${T.line}`, color: T.inkSoft }}>
+            <ShieldCheck size={12} color={T.brand} /> نماد اعتماد الکترونیکی
+          </span>
+          <span className="inline-flex items-center gap-1 text-[10px] px-2.5 py-1.5 rounded-lg" style={{ background: T.panel, border: `1px solid ${T.line}`, color: T.inkSoft }}>
+            <FileCheck2 size={12} color={T.brand} /> مجوز گردشگری
+          </span>
+        </div>
+
+        <p className="text-[10px]" style={{ color: T.inkSoft, opacity: 0.7 }}>© {new Date().getFullYear()} Tripza — تمامی حقوق محفوظ است</p>
+      </div>
+    </footer>
+  );
+}
+
+/* ---------------------------------------------------------------
+   Progress rail — minimal, single-line stepper. Replaces the old
+   boxed checklist card: same "trip is taking shape" idea, compressed
+   into one row of connected icon-dots so it doesn't eat vertical space.
+------------------------------------------------------------------*/
+function ChecklistRail({ items }) {
+  const done = items.filter((i) => i.done).length;
+  return (
+    <div className="flex items-center gap-2.5 px-1">
+      <div className="flex items-center flex-1">
+        {items.map((item, i) => (
+          <React.Fragment key={i}>
+            <div className="relative flex-shrink-0 group" title={item.label}>
+              <div
+                className="w-6 h-6 rounded-full flex items-center justify-center transition-colors"
+                style={{
+                  background: item.done ? T.brand : T.panel,
+                  border: item.done ? "none" : `1.5px solid ${T.line}`,
+                }}
+                aria-label={item.label}
+              >
+                <item.Icon size={11} color={item.done ? "white" : T.inkSoft} strokeWidth={2.5} />
+              </div>
+            </div>
+            {i < items.length - 1 && (
+              <div className="flex-1 h-[1.5px] mx-0.5" style={{ background: item.done ? T.brand : T.line }} />
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+      <span className="eyebrow-mono text-[10px] flex-shrink-0" dir="ltr" style={{ color: T.inkSoft }}>
+        {done}/{items.length}
+      </span>
+    </div>
+  );
+}
+
+/* ---------------------------------------------------------------
+   Story feed card — the site's core hook, shown inline (no click
+   needed to "enter" it). Sized at a true 9:16 story/reel ratio so
+   real photos or reels drop in and fill the frame edge-to-edge,
+   exactly like Instagram. Until real media is attached, a gradient
+   placeholder stands in. Each card autoplays on its own progress
+   bar; scroll for the next spot, tap to nudge a frame forward/back.
+
+   To go live with real content: give a spot's frame a `media` url
+   (jpg/png/webp → shown as a photo, mp4/webm/mov → autoplays as a
+   muted reel). Example:
+     frames: [
+       { caption: "...", media: "https://your-cdn.com/sultanahmet-1.jpg" },
+       { caption: "...", media: "https://your-cdn.com/sultanahmet.mp4" },
+     ]
+------------------------------------------------------------------*/
+const FRAME_MS = 3400;
+const isVideoUrl = (url = "") => /\.(mp4|webm|mov)(\?|$)/i.test(url);
+
+/* ---------------------------------------------------------------
+   BEST-HOUR BAR — a 24-slice visual strip (Google "Popular Times"
+   idea, redrawn in the strait palette) showing when a spot is at
+   its best, layered under the text note. Always laid out left→right
+   (chronological), independent of the page's RTL direction.
+------------------------------------------------------------------*/
+function BestHourBar({ range, label }) {
+  if (!range) return null;
+  const [start, end] = range;
+  return (
+    <div dir="ltr" className="mb-2">
+      <div className="flex gap-[2px] h-[13px] mb-1">
+        {Array.from({ length: 24 }).map((_, h) => {
+          const inRange = start <= end ? h >= start && h < end : h >= start || h < end;
+          return (
+            <div
+              key={h}
+              className="flex-1 rounded-[2px]"
+              style={{ background: inRange ? T.gold : "rgba(255,255,255,0.22)" }}
+            />
+          );
+        })}
+      </div>
+      <div className="flex justify-between text-[9px] font-mono text-white/55">
+        <span>0</span>
+        <span>6</span>
+        <span>12</span>
+        <span>18</span>
+        <span>24</span>
+      </div>
+    </div>
+  );
+}
+
+function StoryFeedCard({ spot, active, onToggle }) {
+  const [frame, setFrame] = useState(0);
+  const [fill, setFill] = useState(false);
+  const timerRef = useRef(null);
+  const Icon = spot.Icon;
+  const current = spot.frames[frame];
+  const caption = typeof current === "string" ? current : current.caption;
+  const media = typeof current === "string" ? null : current.media;
+
+  useEffect(() => {
+    setFill(false);
+    const raf = requestAnimationFrame(() => setFill(true));
+    clearTimeout(timerRef.current);
+    // real video frames advance on their own "ended" event; only auto-timeout for photos/placeholders
+    if (!media || !isVideoUrl(media)) {
+      timerRef.current = setTimeout(() => {
+        setFrame((f) => (f + 1) % spot.frames.length);
+      }, FRAME_MS);
+    }
+    return () => { cancelAnimationFrame(raf); clearTimeout(timerRef.current); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [frame]);
+
+  const goTo = (i) => setFrame(((i % spot.frames.length) + spot.frames.length) % spot.frames.length);
+
+  return (
+    <div className="relative rounded-3xl overflow-hidden select-none w-full" style={{ aspectRatio: "9 / 16" }}>
+      {/* real media, when attached — fills the 9:16 frame like an actual story/reel */}
+      {media ? (
+        isVideoUrl(media) ? (
+          <video
+            key={media}
+            src={media}
+            className="absolute inset-0 w-full h-full object-cover"
+            autoPlay
+            muted
+            playsInline
+            onEnded={() => setFrame((f) => (f + 1) % spot.frames.length)}
+          />
+        ) : (
+          <img key={media} src={media} alt={spot.name} className="absolute inset-0 w-full h-full object-cover story-kenburns" />
+        )
+      ) : (
+        <div
+          key={frame}
+          className={`absolute inset-0 pattern-${spot.pattern} story-kenburns`}
+          style={{ background: `linear-gradient(150deg, ${spot.from}, ${spot.to})` }}
+        />
+      )}
+      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.05) 24%, rgba(0,0,0,0.05) 58%, rgba(0,0,0,0.78) 100%)" }} />
+      {!media && <Icon size={170} color="rgba(255,255,255,0.14)" className="absolute" style={{ bottom: "20%", left: "-8%" }} />}
+
+      {/* tap zones — nudge the frame within this card only */}
+      <button aria-label="فریم بعد" onClick={() => goTo(frame + 1)} className="absolute inset-y-0 right-0 w-[70%] z-10" />
+      <button aria-label="فریم قبل" onClick={() => goTo(frame - 1)} className="absolute inset-y-0 left-0 w-[30%] z-10" />
+
+      {/* top: progress + credit line */}
+      <div className="absolute top-0 inset-x-0 z-20 p-4 pointer-events-none">
+        <div className="flex gap-1.5 mb-3.5">
+          {spot.frames.map((_, i) => (
+            <div key={i} className="flex-1 h-[2px] rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.3)" }}>
+              <div
+                className="h-full rounded-full"
+                style={{
+                  background: T.gold,
+                  width: i < frame ? "100%" : i === frame && fill ? "100%" : "0%",
+                  transition: i === frame ? `width ${FRAME_MS}ms linear` : "none",
+                }}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.28)" }}>
+              <Compass size={13} color="white" />
+            </div>
+            <span className="eyebrow-mono text-white/85 text-[10px]">گذرگاه</span>
+          </div>
+          <span className="eyebrow-mono text-white/70 text-[10px] px-2 py-1 rounded-full" style={{ background: "rgba(255,255,255,0.12)" }}>{spot.tag}</span>
+        </div>
+      </div>
+
+      {/* caption */}
+      <div className="absolute inset-x-0 z-20 px-5 pointer-events-none" style={{ bottom: "134px" }}>
+        <div className="w-6 h-[2px] mb-2.5" style={{ background: T.gold }} />
+        <p className="text-white text-lg font-medium leading-relaxed" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.45)" }}>
+          {caption}
+        </p>
+      </div>
+
+      {/* footer */}
+      <div className="absolute inset-x-0 bottom-0 z-20 p-4">
+        {spot.bestHour && (
+          <div className="flex items-center gap-1.5 mb-1.5 text-white/85 text-[11px] pointer-events-none">
+            <Clock size={11} /> بهترین ساعت بازدید: <span className="font-mono">{spot.bestHourLabel}</span>
+          </div>
+        )}
+        <BestHourBar range={spot.bestHour} />
+        <div className="flex items-center gap-1.5 mb-2.5 text-white/85 text-xs">
+          <MapPin size={12} /> {spot.name} · {spot.area}
+        </div>
+        <button
+          onClick={(e) => { e.stopPropagation(); onToggle(spot.id); }}
+          className="btn-press w-full rounded-2xl py-3 flex items-center justify-center gap-2 font-body text-sm"
+          style={active ? { background: T.tile, color: "white" } : { background: "white", color: T.night, boxShadow: "0 4px 14px rgba(0,0,0,0.18)" }}
+        >
+          {active ? <Check size={16} strokeWidth={3} /> : <Sparkles size={16} />}
+          {active ? "به مسیرت اضافه شد" : "اضافه کردن به مسیر"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
+/* ---------------------------------------------------------------
+   REEL DECK — a fanned "deck of stories" widget, distinct from the
+   scrolling story feed above: 4 cards stacked on top of each other
+   like a hand of cards / a stack of Instagram stories. Tap the front
+   card and it flies off to reveal the next one underneath — built so
+   real reels can be dropped in later with zero layout changes.
+
+   To go live: give any entry a `media` url exactly like the story
+   feed above (mp4/webm/mov autoplays muted+looped, jpg/png/webp shows
+   as a photo):
+     { id: "r1", media: "https://your-cdn.com/reel-1.mp4", caption: "...", tag: "ریلز" }
+------------------------------------------------------------------*/
+const REEL_DECK_DATA = [
+  { id: "r1", media: null, caption: "پشت‌صحنه‌ی مسیرهایی که با داده برات می‌چینیم", tag: "ریلز", Icon: Compass, from: T.brandDeep, to: T.brand },
+  { id: "r2", media: null, caption: "یه استوری تازه از استانبول، به‌زودی دقیقاً همین‌جا", tag: "استوری", Icon: Camera, from: T.tileDeep, to: T.tile },
+  { id: "r3", media: null, caption: "لحظه‌های واقعی از انتخاب‌های هوشمند تیم تریپزا", tag: "ریلز", Icon: Sparkles, from: T.clay, to: T.brandDeep },
+  { id: "r4", media: null, caption: "قسمت بعدی در راهه... منتظرمون بمون", tag: "استوری", Icon: Play, from: T.brand, to: T.tileDeep },
+];
+
+function ReelDeck() {
+  const [order, setOrder] = useState(() => REEL_DECK_DATA.map((_, i) => i));
+  const [flying, setFlying] = useState(false);
+  const layers = order.slice(0, 4);
+  const frontId = REEL_DECK_DATA[layers[0]].id;
+
+  const advance = () => {
+    if (flying) return;
+    setFlying(true);
+    setTimeout(() => {
+      setOrder((o) => [...o.slice(1), o[0]]);
+      setFlying(false);
+    }, 320);
+  };
+
+  return (
+    <div className="mt-1">
+      <div className="relative w-full max-w-[210px] mx-auto" style={{ aspectRatio: "9 / 16" }}>
+        {/* ambient glow — the bit of "special / cutting-edge" polish behind the stack */}
+        <div
+          className="absolute -inset-3 rounded-[32px] opacity-30 blur-xl pointer-events-none"
+          style={{ background: `linear-gradient(135deg, ${T.brand}, ${T.tile})` }}
+        />
+        {layers.slice().reverse().map((dataIdx, revIdx) => {
+          const depth = layers.length - 1 - revIdx; // 0 = front-most card
+          const item = REEL_DECK_DATA[dataIdx];
+          const isFront = depth === 0;
+          const rot = [0, -7, 6, -3][depth] || 0;
+          const dx = [0, -14, 16, 4][depth] || 0;
+          const dy = depth * 8;
+          const scale = 1 - depth * 0.05;
+          const media = item.media;
+          return (
+            <div
+              key={item.id}
+              onClick={isFront ? advance : undefined}
+              className="absolute inset-0 rounded-[26px] overflow-hidden transition-all duration-300 ease-out"
+              style={{
+                zIndex: 20 - depth,
+                transform: isFront && flying
+                  ? "translate(120%, -10px) rotate(16deg) scale(0.94)"
+                  : `translate(${dx}px, ${dy}px) rotate(${rot}deg) scale(${scale})`,
+                opacity: isFront && flying ? 0 : 1,
+                boxShadow: depth === 0 ? T.shadowLg : "0 10px 24px -14px rgba(35,20,9,0.35)",
+                border: depth === 0 ? "1px solid rgba(255,255,255,0.18)" : "1px solid rgba(255,255,255,0.08)",
+                cursor: isFront ? "pointer" : "default",
+              }}
+            >
+              {media ? (
+                isVideoUrl(media) ? (
+                  <video src={media} className="absolute inset-0 w-full h-full object-cover" autoPlay muted loop playsInline />
+                ) : (
+                  <img src={media} alt={item.caption} className="absolute inset-0 w-full h-full object-cover" />
+                )
+              ) : (
+                <div className="absolute inset-0" style={{ background: `linear-gradient(150deg, ${item.from}, ${item.to})` }} />
+              )}
+              <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.02) 38%, rgba(0,0,0,0.05) 60%, rgba(0,0,0,0.72) 100%)" }} />
+              {!media && <item.Icon size={130} color="rgba(255,255,255,0.14)" className="absolute" style={{ bottom: "8%", left: "-6%" }} />}
+
+              {isFront && (
+                <>
+                  <div className="absolute top-3 inset-x-3 flex items-center gap-1.5 z-10">
+                    <span className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "rgba(255,255,255,0.16)", border: "1px solid rgba(255,255,255,0.3)" }}>
+                      <item.Icon size={12} color="#fff" />
+                    </span>
+                    <span className="eyebrow-mono text-white/85 text-[10px]">{item.tag}</span>
+                    <span className="mr-auto flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] text-white" style={{ background: "rgba(255,60,60,0.85)" }}>
+                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      زنده
+                    </span>
+                  </div>
+                  <div className="absolute bottom-3 inset-x-3 z-10">
+                    <div className="w-5 h-[2px] mb-2" style={{ background: T.gold }} />
+                    <p className="text-white text-[12.5px] leading-relaxed" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.45)" }}>
+                      {item.caption}
+                    </p>
+                  </div>
+                </>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="flex items-center justify-center gap-1.5 mt-3">
+        {REEL_DECK_DATA.map((item) => (
+          <span
+            key={item.id}
+            className="rounded-full transition-all duration-300"
+            style={{ width: item.id === frontId ? "14px" : "5px", height: "5px", background: item.id === frontId ? T.brand : T.line }}
+          />
+        ))}
+      </div>
+      <p className="text-center text-[10.5px] mt-1.5 flex items-center justify-center gap-1" style={{ color: T.inkSoft }}>
+        <Play size={10} /> برای دیدن بعدی لمس کن
+      </p>
+    </div>
+  );
+}
+
+export default function IstanbulTripPlanner() {
+  const [activeDestination] = useState(() => DESTINATIONS.find((d) => d.active) || DESTINATIONS[0]);
+  const [pickedDestId, setPickedDestId] = useState(activeDestination.id);
+  const [destSwitcherOpen, setDestSwitcherOpen] = useState(false);
+  const GEN_STEPS = React.useMemo(() => genSteps(activeDestination.name), [activeDestination]);
+  const [step, setStep] = useState(0);
+  const [nights, setNights] = useState(null);
+  const [dayGroups, setDayGroups] = useState([]);
+  const [interests, setInterests] = useState(["عکاسی"]);
+  const [persona, setPersona] = useState(null);
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [selectedHotelId, setSelectedHotelId] = useState(null);
+  const [flightDateKey, setFlightDateKey] = useState(null);
+  const [summaryOpen, setSummaryOpen] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [genStepIdx, setGenStepIdx] = useState(0);
+  const [apiError, setApiError] = useState(false);
+  const [itinerary, setItinerary] = useState(null);
+  const [toast, setToast] = useState(null);
+  const [dayBundles, setDayBundles] = useState([]);
+  const [timeOverrides, setTimeOverrides] = useState({});
+  const [packingChecked, setPackingChecked] = useState({});
+  const [actualCosts, setActualCosts] = useState({});
+  const [trackingActuals, setTrackingActuals] = useState(false);
+  const [travelMode, setTravelMode] = useState(false);
+  const [travelDayIdx, setTravelDayIdx] = useState(0);
+  const [visitedStops, setVisitedStops] = useState({});
+  const genTimer = useRef(null);
+  const flightDays = useRef(buildFlightDays()).current;
+  const dayRefs = useRef({});
+  const posterCanvasRef = useRef(null);
+
+  const choosePersona = (p) => {
+    setPersona(p.id);
+    setInterests(p.interests);
+    showToast(`علایقت رو بر اساس «${p.label}» تنظیم کردیم`);
+  };
+
+  const toggleSpot = (id) =>
+    setSelectedIds((cur) => (cur.includes(id) ? cur.filter((s) => s !== id) : [...cur, id]));
+
+  const showToast = (msg) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2600);
+  };
+
+  const buildFallback = (groups) => {
+    const days = groups.map((chunk, i) => {
+      const [m, a, e] = chunk;
+      return {
+        day: i + 1,
+        title: dayArea(chunk),
+        morning: `بازدید از ${m.name} — ${m.note}`,
+        afternoon: a ? `سر بزنید به ${a.name} — ${a.note}` : "امروز رو آروم بگذرونید؛ یک روز بدون عجله هم لازمه.",
+        evening: e ? `غروب را در ${e.name} تجربه کنید — ${e.note}` : "برای شام یک جای محلی همین نزدیکی رو امتحان کنید.",
+        foodTip: "یک رستوران محلی همان محله را امتحان کنید؛ قیمت‌ها معمولاً پایین‌تر از مناطق توریستی‌ست.",
+      };
+    });
+    return { days };
+  };
+
+  useEffect(() => {
+    if (loading) {
+      genTimer.current = setInterval(() => {
+        setGenStepIdx((i) => (i + 1) % GEN_STEPS.length);
+      }, 1100);
+    }
+    return () => clearInterval(genTimer.current);
+  }, [loading]);
+
+  useEffect(() => {
+    if (itinerary && !selectedHotelId) {
+      const recommended = sortedHotels(SPOTS.filter((s) => selectedIds.includes(s.id)))[0];
+      if (recommended) setSelectedHotelId(recommended.id);
+    }
+  }, [itinerary]);
+
+  // Combines the AI-written narrative (title/morning/afternoon/evening/foodTip)
+  // with its day's actual spot list into one reorderable "bundle" per day —
+  // this is what drag-and-drop reordering (of both days and stops) operates on.
+  useEffect(() => {
+    if (itinerary) {
+      setDayBundles(
+        itinerary.days.map((d, i) => ({
+          key: `bundle-${i}`,
+          title: d.title,
+          morning: d.morning,
+          afternoon: d.afternoon,
+          evening: d.evening,
+          foodTip: d.foodTip,
+          spots: dayGroups[i] || [],
+        }))
+      );
+      setTimeOverrides({});
+    } else {
+      setDayBundles([]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [itinerary]);
+
+  const reorderStopsInDay = (bundleKey, newSpots) => {
+    setDayBundles((prev) => prev.map((b) => (b.key === bundleKey ? { ...b, spots: newSpots } : b)));
+  };
+
+  // One-tap route fix: nearest-neighbor from the hotel's area, per day.
+  // bundleKey=null runs it across every day at once; a single key
+  // fixes just that day (used inline on the backtrack warning).
+  const optimizeRoutes = (bundleKey = null) => {
+    const hotel = HOTELS.find((h) => h.id === selectedHotelId);
+    const startCoord = hotel ? AREA_COORDS[hotel.area] : null;
+    setDayBundles((prev) =>
+      prev.map((b) =>
+        !bundleKey || b.key === bundleKey
+          ? { ...b, spots: nearestNeighborOrder(b.spots, startCoord) }
+          : b
+      )
+    );
+    showToast(bundleKey ? "ترتیب امروز بهینه شد" : "ترتیب مسیر همه روزها بهینه شد");
+  };
+
+  const copyItinerary = async () => {
+    const hotel = HOTELS.find((h) => h.id === selectedHotelId);
+    const flightDay = flightDays.find((d) => d.key === flightDateKey);
+    const text = buildShareText({ dayBundles, hotel, flightDay, nights, destName: activeDestination.name });
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast("برنامه در کلیپ‌بورد کپی شد");
+    } catch {
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        showToast("برنامه در کلیپ‌بورد کپی شد");
+      } catch {
+        showToast("کپی خودکار ممکن نشد");
+      }
+    }
+  };
+
+  // Redraws the poster canvas whenever anything it shows changes, so the
+  // small live preview stays in sync and downloadPoster() always grabs
+  // an up-to-date frame.
+  useEffect(() => {
+    if (!itinerary || !posterCanvasRef.current) return;
+    const hotel = HOTELS.find((h) => h.id === selectedHotelId);
+    const flightDay = flightDays.find((d) => d.key === flightDateKey);
+    drawTripPoster(posterCanvasRef.current, { dayBundles, hotel, flightDay, nights, destName: activeDestination.name });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [itinerary, dayBundles, selectedHotelId, flightDateKey, nights]);
+
+  const downloadPoster = () => {
+    const canvas = posterCanvasRef.current;
+    if (!canvas) return;
+    canvas.toBlob((blob) => {
+      if (!blob) { showToast("دانلود پوستر ممکن نشد"); return; }
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `پوستر-سفر-${activeDestination.name}.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("پوستر استوری دانلود شد");
+    }, "image/png");
+  };
+
+  const downloadItinerary = () => {
+    const hotel = HOTELS.find((h) => h.id === selectedHotelId);
+    const flightDay = flightDays.find((d) => d.key === flightDateKey);
+    const text = buildShareText({ dayBundles, hotel, flightDay, nights, destName: activeDestination.name });
+    try {
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `برنامه-سفر-${activeDestination.name}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("فایل برنامه دانلود شد");
+    } catch {
+      showToast("دانلود ممکن نشد؛ از کپی برنامه استفاده کنید");
+    }
+  };
+
+  const setStopStart = (bundleKey, spotId, value) => {
+    setTimeOverrides((prev) => ({ ...prev, [`${bundleKey}-${spotId}`]: value }));
+  };
+
+  const scrollToDay = (bundleKey) => {
+    dayRefs.current[bundleKey]?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  const togglePackingItem = (item) =>
+    setPackingChecked((prev) => ({ ...prev, [item]: !prev[item] }));
+
+  // Marks a stop seen in Travel Day Mode. Only ever sets it true here —
+  // there's no "undo" button in that view on purpose, since a wrong tap
+  // mid-walk shouldn't require the user to hunt for an undo control; if
+  // they really need to revisit a stop, going back to the full plan and
+  // reordering handles that instead.
+  const markStopVisited = (bundleKey, spotId) =>
+    setVisitedStops((prev) => ({ ...prev, [`${bundleKey}-${spotId}`]: true }));
+
+  const updateActualCost = (label, value) => {
+    const num = value === "" ? "" : Math.max(0, Number(value) || 0);
+    setActualCosts((prev) => ({ ...prev, [label]: num }));
+  };
+
+  const handleGenerate = async () => {
+    const selected = SPOTS.filter((s) => selectedIds.includes(s.id));
+    const computedNights = computeNights(selected);
+    const groups = clusterDays(selected, computedNights);
+    setNights(computedNights);
+    setDayGroups(groups);
+    setStep(2);
+    setLoading(true);
+    setGenStepIdx(0);
+    setApiError(false);
+    try {
+      const groupsDesc = groups
+        .map((chunk, i) => `روز ${i + 1} (${dayArea(chunk)}): ${chunk.map((s) => s.name).join("، ")}`)
+        .join("\n");
+
+      const prompt = `تو یک برنامه‌ریز سفر متخصص ${activeDestination.name} هستی. این سفر به ${activeDestination.name} با علایق: ${interests.join("، ") || "عمومی"} است.
+لوکیشن‌های هر روز از قبل بر اساس منطقه جغرافیایی تعیین شده؛ فقط برای هر روز یک عنوان کوتاه و توضیح صبح/ظهر/عصر/یک نکته غذایی (هرکدام حداکثر یک جمله فارسی) بنویس. مکان‌های هر روز را عیناً همان‌ها نگه دار، چیزی اضافه یا کم نکن و ترتیبشان را عوض نکن:
+${groupsDesc}
+فقط یک JSON خالص برگردون، بدون توضیح و بدون backtick، دقیقاً با این ساختار:
+{"days":[{"day":1,"title":"...","morning":"...","afternoon":"...","evening":"...","foodTip":"..."}]}
+تعداد آیتم‌های days باید دقیقاً برابر ${groups.length} باشد.`;
+
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-6",
+          max_tokens: 1000,
+          messages: [{ role: "user", content: prompt }],
+        }),
+      });
+      if (!res.ok) throw new Error("bad response");
+      const data = await res.json();
+      const text = (data.content || []).map((b) => b.text || "").join("");
+      const clean = text.replace(/```json|```/g, "").trim();
+      const parsed = JSON.parse(clean);
+      if (!parsed.days || !Array.isArray(parsed.days) || parsed.days.length !== groups.length) throw new Error("bad shape");
+      setItinerary(parsed);
+    } catch (err) {
+      setItinerary(buildFallback(groups));
+      setApiError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const reset = () => {
+    setStep(0);
+    setSelectedIds([]);
+    setSelectedHotelId(null);
+    setFlightDateKey(null);
+    setItinerary(null);
+    setDayGroups([]);
+    setNights(null);
+    setApiError(false);
+    setSummaryOpen(true);
+    setDayBundles([]);
+    setTimeOverrides({});
+    setPackingChecked({});
+    setActualCosts({});
+    setTrackingActuals(false);
+    setPersona(null);
+    setTravelMode(false);
+    setTravelDayIdx(0);
+    setVisitedStops({});
+  };
+
+  const selectedCount = selectedIds.length;
+  const progressPct = (step / 2) * 100;
+
+  const checklistItems = [
+    { label: "مقصد", done: true, Icon: MapPin },
+    { label: "علایق", done: interests.length > 0, Icon: Sparkles },
+    { label: "لوکیشن‌ها", done: selectedCount >= 3, Icon: Route },
+    { label: "هتل", done: !!selectedHotelId, Icon: BedDouble },
+    { label: "روز پرواز", done: !!flightDateKey, Icon: Plane },
+  ];
+
+  return (
+    <div dir="rtl" style={{ background: T.mist, minHeight: "100vh" }} className="w-full flex flex-col items-center relative overflow-x-hidden">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@600;700&display=swap');
+        .font-display { font-family: 'Vazirmatn', sans-serif; font-weight: 800; letter-spacing: -0.01em; }
+        .logo-wordmark { font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -0.01em; }
+        .font-body { font-family: 'Vazirmatn', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        * { font-family: 'Vazirmatn', sans-serif; }
+        .eyebrow-mono { font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
+        .eyebrow-mono-lat { font-family: 'JetBrains Mono', monospace; letter-spacing: 0.12em; text-transform: uppercase; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fadeUp { animation: fadeUp .45s ease both; }
+        @media (prefers-reduced-motion: reduce) { .animate-fadeUp { animation: none; } }
+        .btn-press { transition: transform .12s ease, opacity .12s ease, box-shadow .2s ease, background-color .2s ease; }
+        .btn-press:active { transform: scale(0.97); }
+        .btn-primary { box-shadow: 0 1px 2px rgba(10,27,36,0.3), 0 12px 24px -10px rgba(10,27,36,0.55); }
+        .btn-primary:active { box-shadow: 0 1px 2px rgba(10,27,36,0.3), 0 4px 10px -4px rgba(10,27,36,0.5); }
+        .card-hover { transition: box-shadow .25s ease, border-color .25s ease; }
+        .toast-in { animation: fadeUp .3s ease both; }
+        .pattern-waves { background-image: repeating-linear-gradient(0deg, rgba(255,255,255,0.16) 0 2px, transparent 2px 14px); }
+        .pattern-dots { background-image: radial-gradient(rgba(255,255,255,0.28) 1.5px, transparent 1.5px); background-size: 16px 16px; }
+        .pattern-stripes { background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.14) 0 3px, transparent 3px 20px); }
+        .pattern-grid { background-image: linear-gradient(rgba(255,255,255,0.16) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.16) 1px, transparent 1px); background-size: 22px 22px; }
+        .pattern-arches { background-image: radial-gradient(circle at 50% 130%, rgba(255,255,255,0.28) 0 42%, transparent 43%); background-size: 64px 64px; }
+        @keyframes storyKenBurns { from { transform: scale(1); } to { transform: scale(1.1); } }
+        .story-kenburns { animation: storyKenBurns ${FRAME_MS + 400}ms ease-out forwards; }
+        @media (prefers-reduced-motion: reduce) { .story-kenburns { animation: none; } }
+        .strait-spine { background-repeat: repeat-y; background-position: center top; }
+        .focus-ring:focus-visible { outline: 2px solid ${T.brand}; outline-offset: 2px; }
+
+        @keyframes heroPhotoDrift { from { transform: scale(1.06) translate(0, 0); } to { transform: scale(1.16) translate(-1.5%, -1%); } }
+        .hero-photo-drift { animation: heroPhotoDrift 16s ease-in-out infinite alternate; }
+        @keyframes heroCloudDrift { from { transform: translateX(0); } to { transform: translateX(14px); } }
+        .hero-cloud-drift { animation: heroCloudDrift 9s ease-in-out infinite alternate; }
+        @keyframes chipFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+        .chip-float { animation: chipFloat 3.6s ease-in-out infinite; }
+        @keyframes pulseRing { 0% { box-shadow: 0 0 0 0 rgba(35,20,9,0.28); } 70% { box-shadow: 0 0 0 13px rgba(35,20,9,0); } 100% { box-shadow: 0 0 0 0 rgba(35,20,9,0); } }
+        .pulse-ring { animation: pulseRing 2.6s ease-out infinite; }
+        @keyframes arrowBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+        .arrow-bounce { animation: arrowBounce 1.8s ease-in-out infinite; }
+        .shimmer-cta { position: relative; overflow: hidden; }
+        .shimmer-cta::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 35%; background: linear-gradient(115deg, transparent, rgba(255,255,255,0.22), transparent); transform: skewX(-18deg); animation: shimmerSweep 3.4s ease-in-out infinite; }
+        @keyframes shimmerSweep { 0% { left: -60%; } 45% { left: 130%; } 100% { left: 130%; } }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-photo-drift, .hero-cloud-drift, .chip-float, .pulse-ring, .arrow-bounce, .shimmer-cta::after { animation: none; }
+        }
+      `}</style>
+
+      {/* BRAND BAND — behind step 0 this is an abstract, modern cloud-gradient
+          layer (no photograph): a warm base gradient, two soft blurred light
+          washes for depth, and a single wavy horizon line — echoing the same
+          "strait" divider motif used elsewhere in the app — bridging into the
+          paper content below. From step 1 onward it collapses to a slim
+          compact strip so the flow stays task-focused. */}
+      {step === 0 ? (
+        <div className="absolute inset-x-0 top-0 w-full overflow-hidden" style={{ height: "300px", background: T.paper }}>
+          <div className="absolute rounded-full" style={{ width: "340px", height: "340px", right: "-120px", top: "-140px", background: T.brandTint, filter: "blur(2px)" }} />
+        </div>
+      ) : (
+        <div className="absolute inset-x-0 top-0 w-full" style={{ height: "150px" }}>
+          <div className="absolute inset-0" style={{ background: `linear-gradient(120deg, ${T.brand} 0%, ${T.brand} 45%, ${T.brandDeep} 60%, ${T.brandDeep} 100%)` }} />
+          <div className="absolute inset-0" style={{ background: "radial-gradient(130% 70% at 12% 0%, rgba(255,255,255,0.16), transparent 55%)" }} />
+          <div className="absolute inset-0 pattern-dots" style={{ opacity: 0.5 }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.14) 100%)" }} />
+        </div>
+      )}
+
+      <div className="w-full max-w-md font-body relative z-10 py-8 px-3" style={{ color: T.ink }}>
+
+        {/* BRAND BAR */}
+        <div className="flex items-center justify-between mb-5 px-1">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: step === 0 ? T.brandTint : "rgba(255,255,255,0.16)", border: `1px solid ${step === 0 ? "rgba(51,85,255,0.18)" : "rgba(255,255,255,0.26)"}` }}>
+              <Compass size={18} color={step === 0 ? T.brand : "white"} />
+            </div>
+            <div>
+              <div className="logo-wordmark text-[18px] leading-none" style={{ color: step === 0 ? T.ink : "white" }}>Tripza</div>
+              <div className="eyebrow-mono-lat text-[9px] mt-1" style={{ color: step === 0 ? T.inkSoft : "rgba(255,255,255,0.6)" }}>TRIP PLANNER</div>
+            </div>
+          </div>
+          {step === 0 ? (
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] px-3 py-1.5 rounded-full font-medium" style={{ border: `1px solid ${T.line}`, color: T.ink }}>دانلود اپ</span>
+              <span className="text-[11px] font-medium" style={{ color: T.brand }}>ورود</span>
+            </div>
+          ) : (
+            <div className="relative">
+              <button
+                onClick={() => setDestSwitcherOpen((v) => !v)}
+                className="btn-press focus-ring eyebrow-mono-lat text-[10px] px-2.5 py-1 rounded-full text-white/90 flex items-center gap-1"
+                style={{ background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.24)" }}
+              >
+                {activeDestination.code} <ChevronDown size={11} />
+              </button>
+              {destSwitcherOpen && (
+                <div className="absolute left-0 top-full mt-1.5 rounded-xl overflow-hidden z-20 animate-fadeUp" style={{ background: T.panel, boxShadow: T.shadowLg, minWidth: "132px" }}>
+                  {DESTINATIONS.map((d) => (
+                    <div
+                      key={d.id}
+                      className="flex items-center justify-between gap-2 px-3 py-2 text-[11px]"
+                      style={{ color: d.active ? T.ink : T.inkSoft, opacity: d.active ? 1 : 0.65 }}
+                    >
+                      <span className="font-medium">{d.name}</span>
+                      {!d.active && (
+                        <span className="eyebrow-mono-lat text-[8px] px-1.5 py-0.5 rounded-full" style={{ background: T.line, color: T.inkSoft }}>به‌زودی</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {step === 0 ? (
+          /* HERO — the sunset photo carries the atmosphere; type and motion
+             carry the polish. Headline, copy, and actions reveal in a short
+             staggered sequence on mount instead of all popping in at once. */
+          <div className="relative mb-5 px-1 text-center" style={{ minHeight: "260px" }}>
+            <h1 className="font-display leading-[1.05] mb-3 animate-fadeUp mx-auto" style={{ color: T.ink, fontSize: "30px", fontWeight: 900, animationDelay: "0.05s" }}>
+              سفر دقیق، بدون سردرگمی
+            </h1>
+
+            {/* persona selector — the hero's centerpiece: gradient-bordered
+                "tech" panel. The destination row is fused to it as a
+                h
