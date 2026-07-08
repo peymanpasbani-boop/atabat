@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Латинский язык — демо страницы</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;1,500&family=Cormorant+Garamond:wght@600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;1,500&family=Cormorant+Garamond:wght@600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Vazirmatn:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --parchment: #ECE1C6;
@@ -119,6 +119,19 @@
     color:var(--ink-soft);
   }
 
+  /* clickable elements that carry a Persian translation */
+  [data-fa]{
+    cursor:pointer;
+    border-radius:6px;
+    transition:background .2s ease;
+    padding:2px 4px;
+    margin:0 -4px 14px;
+  }
+  h2.section[data-fa], h1.title[data-fa]{ margin-bottom:14px; }
+  [data-fa].source-active{
+    background:rgba(169,129,46,0.14);
+  }
+
   .entries{
     list-style:none;
     margin:0 0 20px;
@@ -130,8 +143,14 @@
     font-size:16px;
     line-height:1.5;
     color:var(--ink-soft);
+    cursor:pointer;
+    border-radius:6px;
+    transition:background .2s ease;
   }
   .entries li:last-child{border-bottom:none;}
+  .entries li.source-active{
+    background:rgba(169,129,46,0.14);
+  }
 
   .term{
     position:relative;
@@ -211,6 +230,91 @@
     font-size:12.5px;
     color:var(--gold);
     margin:-10px 0 22px;
+    cursor:default;
+  }
+
+  /* ---- glass translation card ---- */
+  .glass-card{
+    position:fixed;
+    width:280px;
+    max-width:calc(100vw - 32px);
+    background:rgba(255,255,255,0.22);
+    backdrop-filter:blur(16px) saturate(170%);
+    -webkit-backdrop-filter:blur(16px) saturate(170%);
+    border:1px solid rgba(255,255,255,0.45);
+    border-radius:16px;
+    padding:14px 16px 12px;
+    box-shadow:0 10px 34px rgba(38,32,22,0.28), inset 0 1px 0 rgba(255,255,255,0.5);
+    z-index:999;
+    opacity:0;
+    transform:translateY(8px) scale(0.96);
+    transition:opacity .22s ease, transform .22s ease;
+    pointer-events:none;
+  }
+  .glass-card.show{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    pointer-events:auto;
+  }
+  .glass-card::before{
+    content:"";
+    position:absolute;
+    top:-7px;
+    right:22px;
+    width:14px;
+    height:14px;
+    background:inherit;
+    border-left:1px solid rgba(255,255,255,0.45);
+    border-top:1px solid rgba(255,255,255,0.45);
+    transform:rotate(45deg);
+    border-radius:3px 0 0 0;
+    backdrop-filter:blur(16px);
+  }
+  .glass-card.arrow-bottom::before{
+    top:auto;
+    bottom:-7px;
+    border-left:none;
+    border-top:none;
+    border-right:1px solid rgba(255,255,255,0.45);
+    border-bottom:1px solid rgba(255,255,255,0.45);
+    border-radius:0 0 3px 0;
+  }
+  .glass-label{
+    font-family:'PT Serif', serif;
+    font-style:italic;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--rubric-deep);
+    margin-bottom:6px;
+    text-align:right;
+    opacity:.75;
+  }
+  .glass-text{
+    font-family:'Vazirmatn', 'PT Serif', sans-serif;
+    direction:rtl;
+    text-align:right;
+    font-size:15.5px;
+    line-height:2;
+    color:var(--ink);
+    font-weight:500;
+  }
+  .glass-close{
+    position:absolute;
+    top:6px;
+    left:8px;
+    width:22px;
+    height:22px;
+    border:none;
+    background:rgba(38,32,22,0.12);
+    color:var(--ink);
+    border-radius:50%;
+    font-size:14px;
+    line-height:1;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
 </style>
 </head>
@@ -227,32 +331,32 @@
   <div class="page">
     <div class="kicker">Латинский язык и основы медицинской терминологии</div>
 
-    <h1 class="title">Произношение гласных звуков</h1>
+    <h1 class="title" data-fa="تلفظ حروف صدادار">Произношение гласных звуков</h1>
     <div class="title-rule"></div>
 
     <p class="hint">Коснитесь слова, чтобы услышать его произношение</p>
 
-    <p>6 гласных звуков, изображаемых буквами <em>a, e, i, o, u, y</em>, произносятся как соответствующие звуки русского языка. Например:</p>
+    <p data-fa="۶ حرف صدادار که با حروف a، e، i، o، u، y نوشته می‌شوند، درست همانند صداهای متناظرشان در زبان روسی تلفظ می‌گردند؛ برای نمونه:">6 гласных звуков, изображаемых буквами <em>a, e, i, o, u, y</em>, произносятся как соответствующие звуки русского языка. Например:</p>
 
     <ul class="entries" id="group1"></ul>
 
-    <p>Буква <strong>e</strong> соответствует русскому <em>э</em>. Например:</p>
+    <p data-fa="حرف e معادل صدای «اِ» در زبان روسی است؛ برای نمونه:">Буква <strong>e</strong> соответствует русскому <em>э</em>. Например:</p>
     <ul class="entries" id="group2"></ul>
 
-    <p><strong>Y</strong> принято произносить как русское <em>и</em>:</p>
+    <p data-fa="حرف y معمولاً همچون «ای» روسی تلفظ می‌شود:"><strong>Y</strong> принято произносить как русское <em>и</em>:</p>
     <ul class="entries" id="group3"></ul>
 
-    <h2 class="section">Диграфы и дифтонги</h2>
+    <h2 class="section" data-fa="دوحرفی‌ها و دوصدایی‌ها">Диграфы и дифтонги</h2>
 
-    <p>В латинском языке существуют два дифтонга (сочетания двух различных гласных, которые произносятся как один слог):</p>
-    <p><strong>1) au</strong> — произносится как <em>ay</em> — ударение падает на первый слог. Например:</p>
+    <p data-fa="در زبان لاتین دو دوصدایی وجود دارد؛ یعنی ترکیب دو مصوت متفاوت که در یک هجا تلفظ می‌شوند:">В латинском языке существуют два дифтонга (сочетания двух различных гласных, которые произносятся как один слог):</p>
+    <p data-fa="۱) au — همچون «آئو» تلفظ می‌شود و تکیهٔ کلام بر هجای نخست می‌نشیند؛ برای نمونه:"><strong>1) au</strong> — произносится как <em>ay</em> — ударение падает на первый слог. Например:</p>
     <ul class="entries" id="group4"></ul>
 
-    <p><strong>2) eu</strong> — произносится как <em>эу</em>. Например:</p>
+    <p data-fa="۲) eu — همچون «اِئو» تلفظ می‌شود؛ برای نمونه:"><strong>2) eu</strong> — произносится как <em>эу</em>. Например:</p>
     <ul class="entries" id="group5"></ul>
 
-    <p>В латинском языке есть два диграфа (сочетания двух различных гласных, которые произносятся как один звук):</p>
-    <p><strong>1) ae</strong> — произносится как русское <em>э</em>. Например:</p>
+    <p data-fa="در زبان لاتین دو دوحرفی نیز وجود دارد؛ یعنی ترکیب دو مصوت متفاوت که تنها یک صدا از آن‌ها شنیده می‌شود:">В латинском языке есть два диграфа (сочетания двух различных гласных, которые произносятся как один звук):</p>
+    <p data-fa="۱) ae — همچون «اِ» روسی تلفظ می‌شود؛ برای نمونه:"><strong>1) ae</strong> — произносится как русское <em>э</em>. Например:</p>
     <ul class="entries" id="group6"></ul>
 
     <div class="note">Демо-страница: озвучивание работает через голосовой синтез браузера (Web Speech API) и воспроизводит русскую транскрипцию слова, приближая её к латинскому произношению. Качество и наличие голоса зависят от устройства пользователя.</div>
@@ -264,32 +368,32 @@
 <script>
 const groups = {
   group1: [
-    ["vena", "вэ́на", "вена"],
-    ["ager", "а́гер", "поле"],
-    ["opus", "о́пус", "произведение"],
-    ["rima", "ри́ма", "щель"],
-    ["udus", "у́дус", "мокрый"],
+    ["vena", "вэ́на", "вена", "vena (وِنا) به معنای «ورید» است."],
+    ["ager", "а́гер", "поле", "ager (آگر) به معنای «کشتزار» یا «مزرعه» است."],
+    ["opus", "о́пус", "произведение", "opus (اوپوس) به معنای «اثر» یا «کار» است."],
+    ["rima", "ри́ма", "щель", "rima (ریما) به معنای «شکاف» است."],
+    ["udus", "у́дус", "мокрый", "udus (اودوس) به معنای «خیس» یا «مرطوب» است."],
   ],
   group2: [
-    ["vertebra", "вэ́ртэбра", "позвонок"],
-    ["caverna", "кавэ́рна", "пещера"],
-    ["foramen", "фора́мэн", "отверстие"],
+    ["vertebra", "вэ́ртэбра", "позвонок", "vertebra (وِرتِبرا) به معنای «مهره» است."],
+    ["caverna", "кавэ́рна", "пещера", "caverna (کاوِرنا) به معنای «غار» است."],
+    ["foramen", "фора́мэн", "отверстие", "foramen (فورامن) به معنای «روزنه» یا «سوراخ» است."],
   ],
   group3: [
-    ["pyon", "пи́он", "гной"],
-    ["lyra", "ли́ра", "лира"],
+    ["pyon", "пи́он", "гной", "pyon (پیون) به معنای «چرک» است."],
+    ["lyra", "ли́ра", "лира", "lyra (لیرا) به معنای «چنگ» یا «لیر» — سازی زهی — است."],
   ],
   group4: [
-    ["auris", "а́урис", "ухо"],
-    ["aurum", "а́урум", "золото"],
+    ["auris", "а́урис", "ухо", "auris (آئوریس) به معنای «گوش» است."],
+    ["aurum", "а́урум", "золото", "aurum (آئوروم) به معنای «طلا» است."],
   ],
   group5: [
-    ["pneumonia", "пнэумо́ния", "воспаление лёгких"],
-    ["Europa", "Эуро́па", "Европа"],
+    ["pneumonia", "пнэумо́ния", "воспаление лёгких", "pneumonia (پنئومونیا) به معنای «ذات‌الریه» یا «التهاب ریه» است."],
+    ["Europa", "Эуро́па", "Европа", "Europa (اِئوروپا) نام «اروپا» است."],
   ],
   group6: [
-    ["costae", "ко́стэ", "рёбра"],
-    ["saepe", "сэ́пэ", "часто"],
+    ["costae", "ко́стэ", "рёбра", "costae (کوستائه) به معنای «دنده‌ها» است."],
+    ["saepe", "сэ́пэ", "часто", "saepe (سائپه) به معنای «غالباً» یا «بارها» است."],
   ],
 };
 
@@ -299,8 +403,9 @@ function speaker(){
 
 function buildList(id, items){
   const ul = document.getElementById(id);
-  items.forEach(([latin, pron, meaning]) => {
+  items.forEach(([latin, pron, meaning, fa]) => {
     const li = document.createElement('li');
+    li.setAttribute('data-fa', fa);
     li.innerHTML =
       `<button type="button" class="term" data-pron="${pron}">${latin}<span class="drop"></span></button> `
       + `${speaker()} <span class="gloss">(${pron})</span> — ${meaning};`;
@@ -339,10 +444,91 @@ function speakTerm(btn){
   window.speechSynthesis.speak(utter);
 }
 
+/* ---- glass translation card logic ---- */
+let currentCard = null;
+let currentSource = null;
+
+function removeCard(){
+  if (currentCard){
+    currentCard.classList.remove('show');
+    const toRemove = currentCard;
+    setTimeout(() => toRemove.remove(), 200);
+    currentCard = null;
+  }
+  if (currentSource){
+    currentSource.classList.remove('source-active');
+    currentSource = null;
+  }
+}
+
+function showTranslation(el, text){
+  const sameTarget = currentSource === el;
+  removeCard();
+  if (sameTarget) return; // clicking the same line again just closes it
+
+  el.classList.add('source-active');
+  currentSource = el;
+
+  const card = document.createElement('div');
+  card.className = 'glass-card';
+  card.innerHTML =
+    `<button type="button" class="glass-close" aria-label="بستن">×</button>`
+    + `<div class="glass-label">ترجمه</div>`
+    + `<div class="glass-text">${text}</div>`;
+  document.body.appendChild(card);
+
+  const rect = el.getBoundingClientRect();
+  const cardWidth = Math.min(280, window.innerWidth - 32);
+  card.style.width = cardWidth + 'px';
+
+  const deviceRect = document.querySelector('.device').getBoundingClientRect();
+  let left = rect.left;
+  const maxLeft = deviceRect.right - cardWidth - 8;
+  const minLeft = deviceRect.left + 8;
+  left = Math.max(minLeft, Math.min(left, maxLeft));
+
+  const estimatedHeight = card.offsetHeight || 100;
+  let top = rect.bottom + 14;
+  let arrowBottom = false;
+  if (top + estimatedHeight > window.innerHeight - 12){
+    top = rect.top - estimatedHeight - 14;
+    arrowBottom = true;
+  }
+  if (arrowBottom) card.classList.add('arrow-bottom');
+
+  card.style.left = left + 'px';
+  card.style.top = top + 'px';
+
+  requestAnimationFrame(() => card.classList.add('show'));
+
+  card.querySelector('.glass-close').addEventListener('click', (e) => {
+    e.stopPropagation();
+    removeCard();
+  });
+
+  currentCard = card;
+}
+
 document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.term');
-  if (btn) speakTerm(btn);
+  const term = e.target.closest('.term');
+  if (term){
+    speakTerm(term);
+    return;
+  }
+
+  if (e.target.closest('.glass-card')) return;
+
+  const faTarget = e.target.closest('[data-fa]');
+  if (faTarget){
+    showTranslation(faTarget, faTarget.getAttribute('data-fa'));
+    return;
+  }
+
+  removeCard();
 });
+
+window.addEventListener('scroll', removeCard, { passive: true });
+window.addEventListener('resize', removeCard);
 </script>
 
 </body>
