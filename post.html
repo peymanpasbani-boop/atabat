@@ -1,535 +1,751 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Латинский язык — демо страницы</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;1,500&family=Cormorant+Garamond:wght@600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Vazirmatn:wght@400;500;600&display=swap" rel="stylesheet">
+<title>AFIS · Aeronautical Flight Permission System (Replica)</title>
 <style>
   :root{
-    --parchment: #ECE1C6;
-    --parchment-deep: #E2D3AC;
-    --ink: #262016;
-    --ink-soft: #4A4130;
-    --rubric: #9B3A24;
-    --rubric-deep: #7A2A18;
-    --gold: #A9812E;
-    --rule: #C9B788;
+    --menu-top:#eef5fc;
+    --menu-bot:#a9c9ea;
+    --menu-border:#6f9bc9;
+    --menu-text:#1c2f45;
+    --panel-navy:#516693;      /* Request Flight Permission / User Info / Pending headers */
+    --panel-navy-dk:#3d4f74;
+    --panel-route:#abcdf0;     /* Permission Route header */
+    --panel-route-dk:#7fa9d6;
+    --panel-teal:#34a98c;      /* Fleet Types header */
+    --panel-teal-dk:#218066;
+    --panel-violet:#ae78ac;    /* Permission Dates header */
+    --panel-violet-dk:#8a5a89;
+    --panel-gold:#98791f;      /* Amendment header */
+    --panel-gold-dk:#7a6019;
+    --thead-slate:#97a0af;
+    --row-green:#90ee90;
+    --row-green-dk:#7bdb7b;
+    --line:#c9c9c9;
+    --paper:#f2f2f2;
+    --ink:#1a1a1a;
+    --btn-face:#e9e9e9;
+    --btn-shadow:#7a7a7a;
+    --btn-hi:#ffffff;
   }
-
   *{box-sizing:border-box;}
+  body{
+    margin:0;background:#dfe6ee;color:var(--ink);
+    font-family:Tahoma,Verdana,Arial,sans-serif;font-size:12px;
+  }
+  /* classic beveled 3D button */
+  .win-btn{
+    font-family:inherit;font-size:11.5px;
+    background:var(--btn-face);
+    border-top:1px solid var(--btn-hi);border-left:1px solid var(--btn-hi);
+    border-right:1px solid var(--btn-shadow);border-bottom:1px solid var(--btn-shadow);
+    padding:4px 12px;cursor:pointer;color:#111;
+  }
+  .win-btn:active{
+    border-top:1px solid var(--btn-shadow);border-left:1px solid var(--btn-shadow);
+    border-right:1px solid var(--btn-hi);border-bottom:1px solid var(--btn-hi);
+  }
+  .win-btn.small{padding:2px 8px;font-size:11px;}
 
-  html,body{
-    margin:0;
-    padding:0;
-    background:#3B2E22;
-    font-family:'PT Serif', serif;
-    color:var(--ink);
-  }
+  /* ===== top app frame ===== */
+  .app{max-width:1040px;margin:14px auto;background:#fff;border:1px solid #7f9ab8;box-shadow:0 2px 10px rgba(0,0,0,.25);}
+  .titlebar{background:linear-gradient(180deg,#3a5f8a,#1f3f66);color:#fff;padding:6px 12px;font-weight:bold;font-size:13px;display:flex;justify-content:space-between;}
+  .titlebar span.sub{font-weight:normal;font-size:10.5px;color:#bcd3ec;}
 
-  .device{
-    max-width:430px;
-    margin:0 auto;
-    min-height:100vh;
-    background:var(--parchment);
-    position:relative;
-    background-image:
-      radial-gradient(circle at 15% 8%, rgba(169,129,46,0.08), transparent 40%),
-      radial-gradient(circle at 90% 85%, rgba(155,58,36,0.06), transparent 45%);
+  /* ===== menu bar ===== */
+  nav.menu{background:linear-gradient(180deg,var(--menu-top),var(--menu-bot));border-bottom:1px solid var(--menu-border);display:flex;padding:0 6px;position:relative;z-index:20;}
+  .menu-item{position:relative;}
+  .menu-item>button{
+    background:none;border:none;color:var(--menu-text);font-family:inherit;font-size:12px;font-weight:bold;
+    padding:8px 14px;cursor:pointer;
   }
+  .menu-item>button:hover,.menu-item.open>button{background:#c9deef;}
+  .menu-item.current-branch>button{background:#dfeaf6;text-decoration:underline;}
+  .submenu{
+    position:absolute;top:100%;left:0;min-width:170px;background:#eef5fc;border:1px solid var(--menu-border);
+    display:none;flex-direction:column;box-shadow:2px 3px 6px rgba(0,0,0,.3);
+  }
+  .menu-item.open .submenu{display:flex;}
+  .submenu button{background:none;border:none;text-align:left;padding:7px 12px;font-family:inherit;font-size:11.5px;color:var(--menu-text);cursor:pointer;border-bottom:1px solid #d7e6f4;}
+  .submenu button:hover{background:#a9c9ea;color:#fff;}
+  .submenu button.current{background:#7fa9d6;color:#fff;font-weight:bold;}
+  .menu-spacer{flex:1;}
 
-  /* faux status bar so it reads like a phone page, quiet + non-functional */
-  .statusbar{
-    height:34px;
-    background:var(--ink);
-    color:var(--parchment);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 18px;
-    font-family:'PT Serif', serif;
-    font-size:12px;
-    letter-spacing:0.03em;
-  }
+  main{padding:14px;}
+  .page{display:none;}
+  .page.active{display:block;}
 
-  .folio{
-    display:flex;
-    justify-content:flex-start;
-    padding:18px 22px 0;
-  }
-  .folio span{
-    background:var(--ink);
-    color:var(--parchment);
-    font-size:12px;
-    letter-spacing:0.06em;
-    padding:6px 14px;
-    border-radius:999px;
-    font-family:'PT Serif', serif;
-  }
+  /* ===== search bar ===== */
+  .searchbar{background:linear-gradient(180deg,#dce9f7,#a9c9ea);border:1px solid var(--menu-border);padding:7px 12px;display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .searchbar label{font-weight:bold;font-size:11.5px;color:var(--menu-text);}
+  .searchbar input[type=text]{border:1px solid #7f9ab8;padding:3px 6px;font-family:inherit;font-size:11.5px;width:140px;}
+  .adv-link{margin-left:auto;color:#1f3f66;text-decoration:underline;cursor:pointer;font-size:11.5px;}
 
-  .page{
-    padding:14px 26px 60px;
-  }
+  /* ===== generic panel ===== */
+  .panel{border:1px solid var(--line);margin-bottom:12px;background:#fff;}
+  .panel-head{color:#fff;font-weight:bold;font-size:12px;padding:6px 10px;}
+  .ph-navy{background:var(--panel-navy);}
+  .ph-route{background:var(--panel-route);color:#1a2b40;}
+  .ph-teal{background:var(--panel-teal);}
+  .ph-violet{background:var(--panel-violet);}
+  .ph-gold{background:var(--panel-gold);}
+  .panel-body{padding:12px;background:#f5f5f5;}
 
-  .kicker{
-    font-family:'PT Serif', serif;
-    font-style:italic;
-    font-size:12.5px;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:var(--rubric-deep);
-    border-bottom:1px solid var(--rule);
-    padding-bottom:12px;
-    margin-bottom:26px;
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;}
+  .field label{display:block;font-size:11px;font-weight:bold;margin-bottom:3px;color:#333;}
+  .field input[type=text],.field select,.field input[type=date]{
+    width:100%;font-family:inherit;font-size:11.5px;padding:4px 6px;border:1px solid #9aa7b5;background:#fff;
   }
+  .field input:disabled{background:#e6e6e6;color:#777;}
+  .call-sign-hl{background:#e9ffe9!important;border-color:#7bc47f!important;font-weight:bold;}
+  .radiorow{display:flex;gap:14px;align-items:center;font-size:11.5px;flex-wrap:wrap;}
+  .radiorow label{display:flex;gap:4px;align-items:center;font-weight:normal;}
 
-  h1.title{
-    font-family:'Cormorant Garamond', serif;
-    font-weight:700;
-    font-size:28px;
-    line-height:1.15;
-    text-align:center;
-    color:var(--ink);
-    margin:0 0 6px;
-    letter-spacing:0.01em;
-  }
-  .title-rule{
-    width:64px;
-    height:2px;
-    background:var(--rubric);
-    margin:14px auto 26px;
-  }
+  /* three-color advanced search sections */
+  .adv-violet{border:2px solid #8064a2;background:#f4f0f9;padding:10px 14px;}
+  .adv-green{border:2px solid #4e9a4e;background:#eaf6ea;padding:10px 14px;border-top:none;}
+  .adv-blue{border:2px solid #6a86ad;background:#e7edf5;padding:10px 14px;border-top:none;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .adv-dark-green{border:2px solid #2f6b3f;background:#dcefdf;padding:10px 14px;border-top:none;display:flex;justify-content:space-between;align-items:center;}
 
-  h2.section{
-    font-family:'Cormorant Garamond', serif;
-    font-weight:700;
-    font-size:19px;
-    color:var(--rubric-deep);
-    letter-spacing:0.03em;
-    margin:34px 0 14px;
-  }
+  table{width:100%;border-collapse:collapse;font-size:11px;}
+  thead th{background:var(--thead-slate);color:#fff;text-align:left;padding:5px 8px;font-size:11px;border:1px solid #7f8a9a;}
+  tbody td{padding:5px 8px;border:1px solid var(--line);}
+  tbody tr.row-green td{background:var(--row-green);}
+  tbody tr.row-green:hover td{background:var(--row-green-dk);}
+  .empty-row{padding:10px;text-align:center;color:#666;font-size:11.5px;background:#fafafa;}
 
-  p{
-    font-size:16px;
-    line-height:1.65;
-    margin:0 0 14px;
-    text-align:justify;
-    hyphens:auto;
-    color:var(--ink-soft);
-  }
+  .route-add{display:flex;gap:10px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap;}
+  .route-add .field{flex:1;min-width:100px;}
 
-  /* clickable elements that carry a Persian translation */
-  [data-fa]{
-    cursor:pointer;
-    border-radius:6px;
-    transition:background .2s ease;
-    padding:2px 4px;
-    margin:0 -4px 14px;
-  }
-  h2.section[data-fa], h1.title[data-fa]{ margin-bottom:14px; }
-  [data-fa].source-active{
-    background:rgba(169,129,46,0.14);
-  }
+  .fleet-list{display:flex;flex-direction:column;gap:2px;max-height:200px;overflow:auto;}
+  .fleet-list label{display:flex;gap:6px;align-items:center;font-size:11.5px;padding:3px 4px;}
+  .fleet-list label:nth-child(even){background:#eaeaea;}
 
-  .entries{
-    list-style:none;
-    margin:0 0 20px;
-    padding:0;
-  }
-  .entries li{
-    padding:9px 0 9px 4px;
-    border-bottom:1px dotted var(--rule);
-    font-size:16px;
-    line-height:1.5;
-    color:var(--ink-soft);
-    cursor:pointer;
-    border-radius:6px;
-    transition:background .2s ease;
-  }
-  .entries li:last-child{border-bottom:none;}
-  .entries li.source-active{
-    background:rgba(169,129,46,0.14);
-  }
+  .status-pill{display:inline-block;padding:2px 8px;border-radius:3px;font-size:10.5px;font-weight:bold;border:1px solid;}
+  .st-pending{background:#fdf1cf;color:#8a6d1f;border-color:#e0c374;}
+  .st-approved{background:#e2f3e2;color:#1f6b2b;border-color:#7bc47f;}
+  .st-cancelled{background:#fbe4e2;color:#a13a2e;border-color:#d99089;}
+  .st-denied{background:#eee;color:#555;border-color:#bbb;}
 
-  .term{
-    position:relative;
-    display:inline-block;
-    font-family:'EB Garamond', serif;
-    font-weight:600;
-    font-style:italic;
-    color:var(--ink);
-    background:none;
-    border:none;
-    padding:1px 3px;
-    font-size:17px;
-    cursor:pointer;
-    -webkit-tap-highlight-color:transparent;
-    border-bottom:1.5px dotted var(--rubric);
-    transition:color .15s ease;
-  }
-  .term:active{ color:var(--rubric-deep); }
+  .footer-actions{padding:10px 12px;border-top:1px solid var(--line);background:#eaeaea;display:flex;gap:8px;}
 
-  .term .drop{
-    position:absolute;
-    left:50%; top:50%;
-    width:8px; height:8px;
-    margin:-4px 0 0 -4px;
-    border-radius:50%;
-    background:var(--rubric);
-    opacity:0;
-    pointer-events:none;
-    transform:scale(1);
-  }
-  .term.playing .drop{
-    animation:ink-drop .55s ease-out;
-  }
-  @keyframes ink-drop{
-    0%{ opacity:.55; transform:scale(1); }
-    100%{ opacity:0; transform:scale(9); }
-  }
+  .pager{display:flex;align-items:center;gap:8px;padding:6px 10px;font-size:11px;background:#eee;border-top:1px solid var(--line);}
+  .pager .sp{flex:1;}
+  .pager input{width:36px;padding:2px;}
 
-  .gloss{
-    font-family:'PT Serif', serif;
-    font-style:normal;
-    color:var(--gold);
-    font-size:15px;
-  }
+  .notice{background:#fff2e0;border:1px solid #e0b878;padding:8px 12px;font-size:11.5px;color:#7a4a10;margin-bottom:10px;}
+  .notice .fa{direction:rtl;color:#a13a2e;display:block;margin-top:4px;font-size:11.5px;}
 
-  .speaker{
-    display:inline-block;
-    width:12px;
-    opacity:.55;
-    transform:translateY(1px);
-  }
+  .cal-mini{border:1px solid #9aa7b5;background:#fff;width:220px;font-size:11px;}
+  .cal-mini .cal-head{background:#dce9f7;padding:4px 8px;display:flex;justify-content:space-between;font-weight:bold;}
+  .cal-mini table{width:100%;}
+  .cal-mini td{text-align:center;padding:3px;border:none;cursor:pointer;}
+  .cal-mini td:hover{background:#a9c9ea;}
+  .cal-mini .today-row{background:#eef5fc;font-size:10px;text-align:center;padding:3px;}
 
-  .note{
-    margin-top:38px;
-    padding:16px 18px;
-    border:1px solid var(--rule);
-    background:rgba(169,129,46,0.07);
-    font-family:'PT Serif', serif;
-    font-style:italic;
-    font-size:13.5px;
-    color:var(--ink-soft);
-    line-height:1.55;
-    text-align:left;
-  }
+  .two-col{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;}
 
-  .pagenum{
-    text-align:left;
-    margin-top:30px;
-    font-size:14px;
-    color:var(--ink-soft);
-  }
+  .detail-bar{background:var(--panel-navy);color:#fff;padding:6px 10px;display:flex;justify-content:space-between;align-items:center;font-weight:bold;}
+  .detail-close{background:#c0392b;color:#fff;border:1px solid #7a251d;width:20px;height:20px;cursor:pointer;font-weight:bold;}
 
-  .hint{
-    text-align:center;
-    font-family:'PT Serif', serif;
-    font-style:italic;
-    font-size:12.5px;
-    color:var(--gold);
-    margin:-10px 0 22px;
-    cursor:default;
-  }
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(10px);background:#1f3f66;color:#fff;padding:9px 18px;border-radius:4px;font-size:12px;opacity:0;pointer-events:none;transition:.2s;box-shadow:0 4px 14px rgba(0,0,0,.3);}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-  /* ---- glass translation card ---- */
-  .glass-card{
-    position:fixed;
-    width:280px;
-    max-width:calc(100vw - 32px);
-    background:rgba(255,255,255,0.22);
-    backdrop-filter:blur(16px) saturate(170%);
-    -webkit-backdrop-filter:blur(16px) saturate(170%);
-    border:1px solid rgba(255,255,255,0.45);
-    border-radius:16px;
-    padding:14px 16px 12px;
-    box-shadow:0 10px 34px rgba(38,32,22,0.28), inset 0 1px 0 rgba(255,255,255,0.5);
-    z-index:999;
-    opacity:0;
-    transform:translateY(8px) scale(0.96);
-    transition:opacity .22s ease, transform .22s ease;
-    pointer-events:none;
-  }
-  .glass-card.show{
-    opacity:1;
-    transform:translateY(0) scale(1);
-    pointer-events:auto;
-  }
-  .glass-card::before{
-    content:"";
-    position:absolute;
-    top:-7px;
-    right:22px;
-    width:14px;
-    height:14px;
-    background:inherit;
-    border-left:1px solid rgba(255,255,255,0.45);
-    border-top:1px solid rgba(255,255,255,0.45);
-    transform:rotate(45deg);
-    border-radius:3px 0 0 0;
-    backdrop-filter:blur(16px);
-  }
-  .glass-card.arrow-bottom::before{
-    top:auto;
-    bottom:-7px;
-    border-left:none;
-    border-top:none;
-    border-right:1px solid rgba(255,255,255,0.45);
-    border-bottom:1px solid rgba(255,255,255,0.45);
-    border-radius:0 0 3px 0;
-  }
-  .glass-label{
-    font-family:'PT Serif', serif;
-    font-style:italic;
-    font-size:11px;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--rubric-deep);
-    margin-bottom:6px;
-    text-align:right;
-    opacity:.75;
-  }
-  .glass-text{
-    font-family:'Vazirmatn', 'PT Serif', sans-serif;
-    direction:rtl;
-    text-align:right;
-    font-size:15.5px;
-    line-height:2;
-    color:var(--ink);
-    font-weight:500;
-  }
-  .glass-close{
-    position:absolute;
-    top:6px;
-    left:8px;
-    width:22px;
-    height:22px;
-    border:none;
-    background:rgba(38,32,22,0.12);
-    color:var(--ink);
-    border-radius:50%;
-    font-size:14px;
-    line-height:1;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
+  .crumb{font-size:10.5px;color:#556;padding:6px 14px 0;}
+  .helper{font-size:11px;color:#555;margin:0 0 10px;}
+  .persian{direction:rtl;font-family:Tahoma,sans-serif;}
 </style>
 </head>
 <body>
 
-<div class="device">
-  <div class="statusbar">
-    <span>14:29</span>
-    <span>●●●</span>
+<div class="app">
+  <div class="titlebar">
+    <span>AFIS — Aeronautical Flight Permission System <span class="sub">(desktop replica, from user manual)</span></span>
+    <span class="sub" id="clock"></span>
   </div>
 
-  <div class="folio"><span>стр. 8 из 383</span></div>
+  <nav class="menu" id="menu">
+    <div class="menu-item"><button onclick="toggleMenu(this)">Base Data</button>
+      <div class="submenu">
+        <button onclick="alert('Not covered in the manual excerpt.')">Airports</button>
+        <button onclick="alert('Not covered in the manual excerpt.')">Airlines</button>
+        <button onclick="alert('Not covered in the manual excerpt.')">Fleet Types</button>
+      </div>
+    </div>
+    <div class="menu-item open current-branch" id="branch-permission"><button onclick="toggleMenu(this)">Permission</button>
+      <div class="submenu">
+        <button class="current" data-page="request" onclick="go('request',this)">Request</button>
+        <button data-page="cancel" onclick="go('cancel',this)">Approving or Canceling</button>
+      </div>
+    </div>
+    <div class="menu-item"><button onclick="toggleMenu(this)">Report</button>
+      <div class="submenu"><button data-page="report" onclick="go('report',this)">Permission Report</button></div>
+    </div>
+    <div class="menu-item"><button onclick="toggleMenu(this)">Access</button>
+      <div class="submenu">
+        <button data-page="users" onclick="go('users',this)">Users</button>
+        <button onclick="alert('Not covered in the manual excerpt.')">System Parts</button>
+        <button onclick="alert('Not covered in the manual excerpt.')">Work Groups</button>
+        <button onclick="alert('Not covered in the manual excerpt.')">Roles</button>
+      </div>
+    </div>
+    <div class="menu-spacer"></div>
+    <div class="menu-item"><button onclick="toast('Demo — nowhere to log off to.')">Log Off !</button></div>
+  </nav>
 
-  <div class="page">
-    <div class="kicker">Латинский язык и основы медицинской терминологии</div>
+  <div class="crumb" id="crumb">Permission &nbsp;▸&nbsp; Request</div>
 
-    <h1 class="title" data-fa="مامان پرند جان، این صفحه دربارهٔ «تلفظ حروف صدادار» صحبت می‌کنه.">Произношение гласных звуков</h1>
-    <div class="title-rule"></div>
+  <main>
 
-    <p class="hint">Коснитесь слова, чтобы услышать его произношение</p>
+  <!-- ============ PAGE: PERMISSION REQUEST ============ -->
+  <section class="page active" id="page-request">
+    <div class="searchbar">
+      <label>Reference</label>
+      <input type="text" placeholder="e.g. 34171">
+      <button class="win-btn" onclick="toast('Searching reference…')">Search</button>
+      <span class="adv-link" onclick="toggleAdvanced('adv-request')">+ Advanced Search</span>
+    </div>
 
-    <p data-fa="مامان پرند، اینجا می‌گه: شش تا حرف صدادار داریم — a، e، i، o، u، y — و همه‌شون دقیقاً مثل صداهای متناظرشون توی زبان روسی تلفظ می‌شن. حالا بیا چند تا مثال با هم ببینیم:">6 гласных звуков, изображаемых буквами <em>a, e, i, o, u, y</em>, произносятся как соответствующие звуки русского языка. Например:</p>
+    <div class="panel" id="adv-request" style="display:none;">
+      <div class="adv-violet">
+        <div class="grid2">
+          <div class="field"><label>Airline</label><input type="text"></div>
+          <div class="field"><label>Call Sign</label><input type="text"></div>
+          <div class="field"><label>Domestic / International</label>
+            <div class="radiorow"><label><input type="radio" name="di1">Domestic</label><label><input type="radio" name="di1">International</label><label><input type="radio" name="di1" checked>Both</label></div>
+          </div>
+          <div class="field"><label>Permission Type</label>
+            <select><option>— Select —</option><option>Schedule</option><option>Adhoc</option><option>Schedule Charter</option><option>Adhoc Charter</option><option>Extra Flights</option><option>Urgent</option><option>Ferry Flight</option></select>
+          </div>
+          <div class="field"><label>Request Before</label><input type="date"></div>
+          <div class="field"><label>Request After</label><input type="date"></div>
+          <div class="field"><label>Flying Season</label><select><option>2011</option><option>2026</option></select></div>
+          <div class="field"><label>&nbsp;</label><div class="radiorow"><label><input type="radio" name="season1" checked>Winter</label><label><input type="radio" name="season1">Summer</label></div></div>
+        </div>
+      </div>
+      <div class="adv-green">
+        <div class="grid2">
+          <div class="field"><label>From Airport</label><input type="text"></div>
+          <div class="field"><label>To Airport</label><input type="text"></div>
+          <div class="field"><label>Country</label><input type="text"></div>
+        </div>
+        <div style="margin-top:10px" class="radiorow">
+          <label><input type="radio" name="datemode1" checked>Flying Date From</label>
+          <input type="date" style="width:150px"><span>to</span><input type="date" style="width:150px">
+        </div>
+        <div class="radiorow" style="margin-top:6px">
+          <label><input type="radio" name="datemode1">A Week Containing</label>
+          <label><input type="radio" name="datemode1">A Month Starting From</label>
+        </div>
+        <p class="helper" style="margin-top:10px">If you fill in <b>Flying Season</b> above, you won't need these date-range fields — the search runs on the season instead.</p>
+      </div>
+      <div class="adv-blue">
+        <div class="radiorow">
+          <label><input type="radio" name="flightwith1" checked>Has a Flight With</label>
+          <label><input type="radio" name="flightwith1">All Flights Are</label>
+          <select><option>— Select —</option><option>Pending</option><option>Primary Approved</option><option>Final Approved</option></select>
+        </div>
+        <label style="font-size:11.5px"><input type="checkbox"> Show Approved Flights Only <span style="color:#a13a2e;font-size:10.5px;display:block">selecting this ignores the specific status search option</span></label>
+      </div>
+    </div>
 
-    <ul class="entries" id="group1"></ul>
+    <div class="panel">
+      <div class="panel-head ph-navy">Request Flight Permission</div>
+      <div class="panel-body">
+        <div class="grid2">
+          <div class="field"><label>Airline Name</label><input type="text" value="IRAN AIR" disabled></div>
+          <div class="field"><label>Call Sign</label><input type="text" id="callsign" value="IRA" class="call-sign-hl"></div>
+          <div class="field"><label>Permission Type</label>
+            <select id="ptype"><option>— Select —</option><option>Schedule</option><option>Adhoc</option><option>Schedule Charter</option><option>Adhoc Charter</option><option>Extra Flights</option><option>Urgent</option><option>Ferry Flight</option></select>
+          </div>
+          <div class="field"><label>Request Remark</label><input type="text" placeholder="optional"></div>
+        </div>
+        <p class="helper" style="margin-top:10px"><b>Notice:</b> for any given call sign, the flight date must be unique.</p>
+      </div>
+    </div>
 
-    <p data-fa="مامان پرند، دقت کن: حرف e همیشه مثل «اِ» توی زبان روسی خونده می‌شه. مثلاً:">Буква <strong>e</strong> соответствует русскому <em>э</em>. Например:</p>
-    <ul class="entries" id="group2"></ul>
+    <div class="panel">
+      <div class="panel-head ph-route">Permission Route</div>
+      <div class="panel-body">
+        <div class="route-add">
+          <div class="field"><label>Source</label><input type="text" id="r-src" placeholder="e.g. Ilam"></div>
+          <div class="field"><label>Destination</label><input type="text" id="r-dst" placeholder="e.g. Ramsar"></div>
+          <div class="field"><label>Dep Time</label><input type="text" id="r-dep" placeholder="10:00"></div>
+          <div class="field"><label>Arr Time</label><input type="text" id="r-arr" placeholder="10:20"></div>
+          <button class="win-btn" onclick="addLeg()">Add</button>
+        </div>
+        <table id="leg-table" style="display:none">
+          <thead><tr><th>Leg No.</th><th>Source</th><th>Destination</th><th>Dep. Time</th><th>Arr. Time</th><th></th><th></th></tr></thead>
+          <tbody id="leg-rows"></tbody>
+        </table>
+        <div class="empty-row" id="leg-empty">There Is No Record ... !</div>
+      </div>
+    </div>
 
-    <p data-fa="مامان پرند جان، حرف y رو معمولاً مثل «ای» تلفظ می‌کنیم:"><strong>Y</strong> принято произносить как русское <em>и</em>:</p>
-    <ul class="entries" id="group3"></ul>
+    <div class="panel">
+      <div class="panel-head ph-teal">Permission Fleet Types</div>
+      <div class="panel-body">
+        <div class="fleet-list">
+          <label><input type="checkbox"> Airbus [A300B4-600, C4-600, F4-600]</label>
+          <label><input type="checkbox"> Airbus [A300B2, B4, C4, F4]</label>
+          <label><input type="checkbox"> Airbus [A310, CC-150 Polaris]</label>
+          <label><input type="checkbox" checked> Airbus [A320-231]</label>
+          <label><input type="checkbox"> Airbus [A300-600ST Beluga]</label>
+          <label><input type="checkbox"> Boeing [727-200]</label>
+          <label><input type="checkbox"> Boeing [737-200]</label>
+          <label><input type="checkbox"> Boeing [747SP]</label>
+          <label><input type="checkbox"> Fokker [100]</label>
+        </div>
+      </div>
+    </div>
 
-    <h2 class="section" data-fa="مامان پرند، حالا می‌ریم سراغ یه بخش جدید: دوحرفی‌ها و دوصدایی‌ها.">Диграфы и дифтонги</h2>
+    <div class="panel">
+      <div class="panel-head ph-violet">Permission Dates</div>
+      <div class="panel-body two-col">
+        <div>
+          <div class="field" style="max-width:160px;margin-bottom:8px"><label>Date From</label><input type="text" id="date-from-txt" placeholder="click to pick" readonly onclick="document.getElementById('mini-cal').style.display='block'"></div>
+          <div class="cal-mini" id="mini-cal">
+            <div class="cal-head"><span onclick="calShift(-1)" style="cursor:pointer">◂</span><span id="cal-title">February, 2012</span><span onclick="calShift(1)" style="cursor:pointer">▸</span></div>
+            <table id="cal-body"></table>
+            <div class="today-row">Today: February 28, 2012</div>
+          </div>
+          <div style="margin:10px 0">
+            <button class="win-btn" onclick="addDate()">==&gt;</button>
+            <button class="win-btn" onclick="removeDateSel()">&lt;==</button>
+            <button class="win-btn" onclick="clearDates()">Clear List</button>
+          </div>
+          <label style="font-size:11.5px;display:flex;gap:6px;align-items:center"><input type="checkbox" id="recur-chk" onchange="toggleRecurrence()"> Recurrence</label>
+          <div id="recur-box" style="display:none;margin-top:10px;padding:10px;background:#fff;border:1px solid var(--line);">
+            <div class="radiorow" style="margin-bottom:8px">
+              <label><input type="radio" name="freq">Hourly</label>
+              <label><input type="radio" name="freq">Daily</label>
+              <label><input type="radio" name="freq" checked>Weekly</label>
+              <label><input type="radio" name="freq">Monthly</label>
+              <label><input type="radio" name="freq">Yearly</label>
+            </div>
+            <div style="font-size:11.5px;margin-bottom:6px">Recur every <input type="text" value="1" style="width:30px"> week(s) on</div>
+            <div class="radiorow" style="gap:10px">
+              <label><input type="checkbox"> Sunday</label><label><input type="checkbox"> Monday</label><label><input type="checkbox"> Tuesday</label>
+              <label><input type="checkbox"> Wednesday</label><label><input type="checkbox"> Thursday</label><label><input type="checkbox"> Friday</label>
+              <label><input type="checkbox" checked> Saturday</label>
+            </div>
+            <div class="radiorow" style="margin-top:10px">
+              <label><input type="radio" name="rend" checked>No end date</label>
+              <label><input type="radio" name="rend">End after <input type="text" style="width:30px"> occurrences</label>
+              <label><input type="radio" name="rend">End by <input type="date"></label>
+            </div>
+            <p class="helper" style="margin-top:8px"><b>Notice:</b> be sure to specify "End by".</p>
+          </div>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:bold">Selected dates</label>
+          <div id="date-list" style="margin-top:6px;border:1px solid var(--line);min-height:160px;padding:6px;background:#fff;font-size:11.5px;"></div>
+        </div>
+      </div>
+    </div>
 
-    <p data-fa="مامان پرند، توی لاتین دو تا دوصدایی داریم؛ یعنی دو مصوت کنار هم میان ولی توی یک هجا خونده می‌شن:">В латинском языке существуют два дифтонга (сочетания двух различных гласных, которые произносятся как один слог):</p>
-    <p data-fa="مامان پرند، دقت کن: au رو مثل «آئو» می‌خونیم و تکیهٔ کلام میفته روی هجای اول. مثلاً:"><strong>1) au</strong> — произносится как <em>ay</em> — ударение падает на первый слог. Например:</p>
-    <ul class="entries" id="group4"></ul>
+    <div class="panel">
+      <div class="panel-head ph-gold">Amendment</div>
+      <div class="panel-body">
+        <label style="font-size:11.5px;display:flex;gap:6px;align-items:center"><input type="checkbox" onchange="toggleAmend(this)"> Permission Is for Amendment</label>
+        <div id="amend-box" style="display:none;margin-top:10px" class="grid2">
+          <div class="field"><label>Type</label>
+            <div class="radiorow"><label><input type="radio" name="amend" checked>Complement</label><label><input type="radio" name="amend">Change</label></div>
+          </div>
+          <div class="field"><label>Original Permission No.</label><input type="text" placeholder="e.g. 34162"></div>
+          <div class="field" style="grid-column:1/-1"><label>Remark</label><input type="text"></div>
+          <div><button class="win-btn" onclick="toast('Shows dates that need to be cancelled for a Change amendment.')">Show Dates</button></div>
+        </div>
+      </div>
+    </div>
 
-    <p data-fa="مامان پرند، حالا eu رو داریم که مثل «اِئو» تلفظ می‌شه. مثلاً:"><strong>2) eu</strong> — произносится как <em>эу</em>. Например:</p>
-    <ul class="entries" id="group5"></ul>
+    <div class="panel">
+      <div class="panel-head ph-navy">Pending Flights Permissions</div>
+      <div style="padding:8px 12px;background:#f5f5f5;border-bottom:1px solid var(--line);">
+        <label style="font-size:11.5px;display:flex;gap:6px;align-items:center"><input type="checkbox" checked onchange="renderPermissions()"> Show Finalizes <span style="color:#666;font-size:10.5px">(any permission not yet responded by CAO)</span></label>
+      </div>
+      <table>
+        <thead><tr><th>No.</th><th>Reference</th><th>Call Sign</th><th>Permission Type</th><th>From</th><th>To</th><th></th><th></th><th></th><th></th><th></th><th>Edit</th><th>✕</th></tr></thead>
+        <tbody id="permission-rows"></tbody>
+      </table>
+      <div class="pager">
+        <span>page <b>1</b> of <b id="pg-count">51</b></span>
+        <div class="sp"></div>
+        Go to Page <input type="text"><button class="win-btn small">Go</button>
+        <button class="win-btn small">«</button><button class="win-btn small">‹</button><button class="win-btn small">›</button><button class="win-btn small">»</button>
+      </div>
+    </div>
 
-    <p data-fa="مامان پرند جان، حالا نوبت دوحرفی‌هاست؛ یعنی دو مصوت کنار هم که فقط یک صدا ازشون شنیده می‌شه:">В латинском языке есть два диграфа (сочетания двух различных гласных, которые произносятся как один звук):</p>
-    <p data-fa="مامان پرند، ae رو مثل «اِ» روسی می‌خونیم. مثلاً:"><strong>1) ae</strong> — произносится как русское <em>э</em>. Например:</p>
-    <ul class="entries" id="group6"></ul>
+    <div class="footer-actions">
+      <button class="win-btn" onclick="resetRequestForm()">Reset</button>
+      <button class="win-btn" onclick="addPermission()">Add</button>
+      <button class="win-btn" onclick="toast('Select a row first.')">Delete</button>
+    </div>
+  </section>
 
-    <div class="note">Демо-страница: озвучивание работает через голосовой синтез браузера (Web Speech API) и воспроизводит русскую транскрипцию слова, приближая её к латинскому произношению. Качество и наличие голоса зависят от устройства пользователя.</div>
+  <!-- ============ PAGE: USERS ============ -->
+  <section class="page" id="page-users">
+    <div class="panel">
+      <div class="panel-head ph-navy">User Information</div>
+      <div class="panel-body">
+        <p class="helper">Change your security details below, select the matching record in the grid, then press <b>Edit</b> to apply your changes to that record.</p>
+        <div class="grid2">
+          <div class="field"><label>User Group</label><select><option>CAO</option><option>Airline</option></select></div>
+          <div class="field"><label>Full Name</label><input type="text" id="u-fullname" value="Test"></div>
+          <div class="field"><label>System Role</label><select><option>CAO User</option><option>CAO Admin</option></select></div>
+          <div class="field"><label>User Name</label><input type="text" id="u-username" value="Test"></div>
+          <div class="field"><label>Password</label><input type="text" id="u-password" value="123"></div>
+          <div class="field"><label>Email</label><input type="text" id="u-email" placeholder="name@airline.com"></div>
+        </div>
+      </div>
+      <div class="footer-actions">
+        <button class="win-btn" onclick="resetUserForm()">Reset</button>
+        <button class="win-btn" onclick="addUserRow()">Add</button>
+        <button class="win-btn" onclick="deleteUserRow()">Delete</button>
+        <button class="win-btn" onclick="editUserRow()">Edit</button>
+        <button class="win-btn" onclick="toast('Showing all records.')">Show All</button>
+        <button class="win-btn" onclick="toast('Building user report…')">Report</button>
+      </div>
+    </div>
 
-    <div class="pagenum">8</div>
-  </div>
+    <div class="panel">
+      <table>
+        <thead><tr><th>No.</th><th>UserName</th><th>Full Name</th><th>Role</th><th>E-Mail</th><th>Remark</th><th>Edit</th><th>✕</th><th>H</th></tr></thead>
+        <tbody id="user-rows">
+          <tr class="row-green" data-idx="0" onclick="selectUserRow(this)">
+            <td>1</td><td>Test</td><td>Test</td><td>CAO User</td><td>—</td><td>—</td>
+            <td>✓</td><td>✕</td><td><a href="#">H</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ PAGE: CANCEL / APPROVE ============ -->
+  <section class="page" id="page-cancel">
+    <div class="searchbar">
+      <label>Reference</label>
+      <input type="text" placeholder="e.g. 32733">
+      <button class="win-btn" onclick="toast('Searching reference…')">Search</button>
+      <span class="adv-link" onclick="toast('Same Advanced Search filters as Permission Request.')">+ Advanced Search</span>
+    </div>
+
+    <div class="notice">
+      PLEASE NOTE: Grid buttons below are ONLY to facilitate and speed up the procedures. Please make sure before use!<br>
+      Using <b>Request</b> and <b>Revise</b> buttons sends a cancel request for all not finally-confirmed flights.<br>
+      Please click the <b>Show</b> button to view leg-level detail information.
+      <span class="fa">لطفا توجه فرمایید: نکته های جدول زیر صرفا به منظور تسهیل و تسریع در امور می‌باشد. لطفا از استفاده آن اطمینان حاصل نمایید!<br>
+      استفاده از نکته‌های Request و Revise به منزله ثبت درخواست کنسلی برای تمامی پروازهای تایید نهایی نشده می‌باشد.<br>
+      لطفا برای مشاهده جزئیات درخواست‌های روی گزینه Show کلیک نمایید.</span>
+    </div>
+
+    <div class="panel">
+      <table>
+        <thead><tr><th>Reference</th><th>Airline</th><th>Call Sign</th><th>Int'l</th><th>Routes</th><th>Request Date</th><th>Approve</th><th>Status</th><th>Request/Cancel</th><th>Details</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>32733</td><td>IRAN AIR</td><td>IRA3447</td><td>✓</td><td>GBT→BGW</td><td>2012/02/08</td><td>2</td>
+            <td><span class="status-pill st-approved">Fin. Approved</span></td>
+            <td><button class="win-btn small" onclick="openCancelDetail()">Request</button></td>
+            <td><button class="win-btn small" onclick="openCancelDetail()">Show</button></td>
+          </tr>
+          <tr>
+            <td>32621</td><td>IRAN AIR</td><td>IRA3366</td><td>✕</td><td>THR→MHD</td><td>2012/02/06</td><td>5</td>
+            <td><span class="status-pill st-approved">Fin. Approved</span></td>
+            <td><button class="win-btn small" onclick="toast('Cancel request registered for all legs.')">Request</button></td>
+            <td><button class="win-btn small" onclick="toast('Demo shows detail on the first row only.')">Show</button></td>
+          </tr>
+          <tr>
+            <td>30162</td><td>IRAN AIR</td><td>IRA2282</td><td>✕</td><td>KSH→THR</td><td>2011/12/27</td><td>1</td>
+            <td><span class="status-pill st-approved">Fin. Approved</span></td>
+            <td><button class="win-btn small" onclick="toast('Cancel request registered for all legs.')">Request</button></td>
+            <td><button class="win-btn small" onclick="toast('Demo shows detail on the first row only.')">Show</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel" id="cancel-detail" style="display:none">
+      <div class="detail-bar">
+        <span>IRAN AIR &nbsp; 32733 &nbsp; 2/8/2012 &nbsp; IRA3447 &nbsp; Schedule Charter</span>
+        <button class="detail-close" onclick="closeCancelDetail()">✕</button>
+      </div>
+      <div class="panel-body">
+        <p style="text-align:center;color:#a13a2e;font-weight:bold;margin-top:0">Gorgan ⇒ BAGHDAD Has no Duration</p>
+        <div style="display:flex;gap:14px;align-items:center;margin-bottom:10px;font-size:11.5px;flex-wrap:wrap">
+          <a href="#" onclick="return false">Hide Checking Panel</a>
+          <button class="win-btn small">Limit Date</button>
+          <a href="#" onclick="return false">All Days</a>
+          <span class="radiorow"><label><input type="checkbox"> Saturday</label><label><input type="checkbox"> Friday</label><label><input type="checkbox"> Thursday</label><label><input type="checkbox"> Wednesday</label><label><input type="checkbox"> Tuesday</label><label><input type="checkbox"> Monday</label><label><input type="checkbox"> Sunday</label></span>
+        </div>
+        <div class="two-col">
+          <div>
+            <label style="font-size:11px;font-weight:bold">All Flights</label>
+            <table style="margin-top:6px">
+              <thead><tr><th></th><th>Date</th><th>Day</th><th>Route</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td><input type="checkbox" class="cdet" data-row="0"></td><td>2012-03-18</td><td>SUN</td><td>GBT→BGW</td><td><span class="status-pill st-approved">Approved</span></td></tr>
+                <tr><td><input type="checkbox" class="cdet" data-row="1"></td><td>2012-03-11</td><td>SUN</td><td>GBT→BGW</td><td><span class="status-pill st-approved">Approved</span></td></tr>
+              </tbody>
+            </table>
+            <div style="text-align:center;margin:12px 0;">
+              <button class="win-btn" onclick="moveToCancel()">Move selected ⇒</button>
+            </div>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:bold">Flights of Status: Request Cancel</label>
+            <table style="margin-top:6px">
+              <thead><tr><th>Date</th><th>Day</th><th>Route</th></tr></thead>
+              <tbody id="cancel-target"></tbody>
+            </table>
+            <div class="empty-row" id="cancel-target-empty" style="margin-top:8px">Nothing selected yet.</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-actions">
+        <button class="win-btn" onclick="submitCancel()">Response — Register Cancel</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE: REPORT ============ -->
+  <section class="page" id="page-report">
+    <div class="searchbar">
+      <label>Reference</label>
+      <input type="text" placeholder="optional">
+      <button class="win-btn" onclick="toast('Building report…')">Search</button>
+    </div>
+
+    <div class="panel">
+      <div class="adv-violet">
+        <div class="grid2">
+          <div class="field"><label>Airline</label><input type="text" value="IRAN AIR" disabled></div>
+          <div class="field"><label>Call Sign</label><input type="text"></div>
+          <div class="field"><label>Domestic / International</label>
+            <div class="radiorow"><label><input type="radio" name="di2">Domestic</label><label><input type="radio" name="di2">International</label><label><input type="radio" name="di2" checked>Both</label></div>
+          </div>
+          <div class="field"><label>Permission Type</label><select><option>— Select —</option><option>Schedule</option><option>Adhoc</option><option>Ferry Flight</option></select></div>
+          <div class="field"><label>Flying Season</label><select><option>2011</option><option>2026</option></select></div>
+          <div class="field"><label>&nbsp;</label><div class="radiorow"><label><input type="radio" name="season2" checked>Winter</label><label><input type="radio" name="season2">Summer</label></div></div>
+        </div>
+      </div>
+      <div class="adv-green">
+        <div class="grid2">
+          <div class="field"><label>From Airport</label><input type="text"></div>
+          <div class="field"><label>To Airport</label><input type="text"></div>
+          <div class="field"><label>Country</label><input type="text"></div>
+        </div>
+        <div style="margin-top:10px" class="radiorow">
+          <label><input type="radio" name="datemode2" checked>Flying Date From</label><input type="date" style="width:150px"><span>to</span><input type="date" style="width:150px">
+        </div>
+        <div class="radiorow" style="margin-top:6px">
+          <label><input type="radio" name="datemode2">A Week Containing</label>
+          <label><input type="radio" name="datemode2">A Month Starting From</label>
+        </div>
+      </div>
+      <div class="adv-blue">
+        <div class="radiorow">
+          <label><input type="radio" name="flightwith2" checked>Has a Flight With</label>
+          <label><input type="radio" name="flightwith2">All Flights Are</label>
+          <select><option>— Select —</option><option>Pending</option><option>Final Approved</option></select>
+        </div>
+        <label style="font-size:11.5px"><input type="checkbox"> Show Approved Flights Only</label>
+      </div>
+      <div class="adv-dark-green">
+        <div class="radiorow persian">
+          <label><input type="radio" name="reptype" checked>گزارش آماری مجوزها</label>
+          <label><input type="radio" name="reptype">گزارش جزئی مجوزها</label>
+        </div>
+        <button class="win-btn" onclick="runReport()">Report</button>
+      </div>
+    </div>
+
+    <div class="panel" id="report-out" style="display:none">
+      <div class="panel-head ph-navy">Permissions Statistical Report</div>
+      <table>
+        <thead><tr><th>Reference</th><th>Call Sign</th><th>Type</th><th>Route</th><th>Status summary</th></tr></thead>
+        <tbody>
+          <tr><td>34171</td><td>IRA9001</td><td>Ferry Flight</td><td>IKA→THR</td><td>Wed has been approved</td></tr>
+          <tr><td>34169</td><td>IRA4709</td><td>Schedule</td><td>IKA→DXB</td><td>(Wed) under consideration</td></tr>
+          <tr><td>30162</td><td>IRA2282</td><td>Schedule</td><td>KSH→THR</td><td>No flightable dates</td></tr>
+        </tbody>
+      </table>
+      <p class="helper" style="padding:10px 12px 12px">1 — "Wed has been approved" means Wednesday flights were approved by CAO. 2 — "(Wed) under consideration" means the day is requested but still pending. 3 — "No flightable dates" means no legs have been permitted yet.</p>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head ph-teal">Status Legend</div>
+      <div class="panel-body grid2">
+        <div><span class="status-pill st-pending">Pending</span> — permission requests waiting for a response.</div>
+        <div><span class="status-pill st-pending">Primary Approved</span> — permissions that are primarily accepted.</div>
+        <div><span class="status-pill st-cancelled">Request Cancelled</span> — cancellation requested by the airline.</div>
+        <div><span class="status-pill st-cancelled">Primary Cancelled</span> — cancellation primarily approved by CAO.</div>
+        <div><span class="status-pill st-cancelled">Final Cancelled</span> — cancellation finally approved by CAO.</div>
+        <div><span class="status-pill st-denied">Primary Denied</span> — requests primarily rejected by CAO.</div>
+        <div><span class="status-pill st-denied">Final Denied</span> — requests thoroughly rejected by CAO.</div>
+        <div><span class="status-pill st-approved">Final Approved</span> — requests finally approved by CAO.</div>
+      </div>
+    </div>
+  </section>
+
+  </main>
 </div>
 
+<div class="toast" id="toast"></div>
+
 <script>
-const groups = {
-  group1: [
-    ["vena", "вэ́на", "вена", "مامان پرند، این کلمه vena هست و یعنی «ورید»."],
-    ["ager", "а́гер", "поле", "مامان پرند، ager یعنی «کشتزار» یا «مزرعه»."],
-    ["opus", "о́пус", "произведение", "مامان پرند، opus یعنی «اثر» یا «کار»."],
-    ["rima", "ри́ма", "щель", "مامان پرند، rima یعنی «شکاف»."],
-    ["udus", "у́дус", "мокрый", "مامان پرند، udus یعنی «خیس» یا «مرطوب»."],
-  ],
-  group2: [
-    ["vertebra", "вэ́ртэбра", "позвонок", "مامان پرند، vertebra یعنی «مهره»."],
-    ["caverna", "кавэ́рна", "пещера", "مامان پرند، caverna یعنی «غار»."],
-    ["foramen", "фора́мэн", "отверстие", "مامان پرند، foramen یعنی «روزنه» یا «سوراخ»."],
-  ],
-  group3: [
-    ["pyon", "пи́он", "гной", "مامان پرند، pyon یعنی «چرک»."],
-    ["lyra", "ли́ра", "лира", "مامان پرند، lyra یعنی «چنگ» یا «لیر»، یه ساز زهی قدیمی."],
-  ],
-  group4: [
-    ["auris", "а́урис", "ухо", "مامان پرند، auris یعنی «گوش»."],
-    ["aurum", "а́урум", "золото", "مامان پرند، aurum یعنی «طلا»."],
-  ],
-  group5: [
-    ["pneumonia", "пнэумо́ния", "воспаление лёгких", "مامان پرند، pneumonia یعنی «ذات‌الریه» یا «التهاب ریه»."],
-    ["Europa", "Эуро́па", "Европа", "مامان پرند، Europa یعنی «اروپا»."],
-  ],
-  group6: [
-    ["costae", "ко́стэ", "рёбра", "مامان پرند، costae یعنی «دنده‌ها»."],
-    ["saepe", "сэ́пэ", "часто", "مامان پرند، saepe یعنی «غالباً» یا «بارها»."],
-  ],
-};
+function tick(){document.getElementById('clock').textContent=new Date().toLocaleString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',day:'2-digit',month:'short',year:'numeric'});}
+tick();setInterval(tick,1000);
+let toastTimer;
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2300);}
 
-function speaker(){
-  return '<svg class="speaker" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 8a5 5 0 010 8"/></svg>';
+function toggleMenu(btn){const item=btn.parentElement;const wasOpen=item.classList.contains('open');document.querySelectorAll('.menu-item').forEach(m=>m.classList.remove('open'));if(!wasOpen)item.classList.add('open');}
+document.addEventListener('click',e=>{if(!e.target.closest('.menu-item'))document.querySelectorAll('.menu-item').forEach(m=>m.classList.remove('open'));});
+const crumbs={request:'Permission &nbsp;▸&nbsp; Request',cancel:'Permission &nbsp;▸&nbsp; Approving or Canceling',report:'Report &nbsp;▸&nbsp; Permission Report',users:'Access &nbsp;▸&nbsp; Users'};
+function go(pageId,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+pageId).classList.add('active');
+  document.querySelectorAll('.menu-item').forEach(m=>m.classList.remove('open','current-branch'));
+  document.querySelectorAll('.submenu button').forEach(b=>b.classList.remove('current'));
+  btn.classList.add('current');btn.closest('.menu-item').classList.add('current-branch');
+  document.getElementById('crumb').innerHTML=crumbs[pageId];
 }
 
-function buildList(id, items){
-  const ul = document.getElementById(id);
-  items.forEach(([latin, pron, meaning, fa]) => {
-    const li = document.createElement('li');
-    li.setAttribute('data-fa', fa);
-    li.innerHTML =
-      `<button type="button" class="term" data-pron="${pron}">${latin}<span class="drop"></span></button> `
-      + `${speaker()} <span class="gloss">(${pron})</span> — ${meaning};`;
-    ul.appendChild(li);
-  });
+function toggleAdvanced(id){const p=document.getElementById(id);p.style.display=p.style.display==='none'?'block':'none';}
+
+/* Route legs */
+let legs=[];
+function addLeg(){
+  const src=document.getElementById('r-src').value.trim(),dst=document.getElementById('r-dst').value.trim();
+  const dep=document.getElementById('r-dep').value.trim(),arr=document.getElementById('r-arr').value.trim();
+  if(!src||!dst){toast('Enter source and destination.');return;}
+  legs.push({src,dst,dep,arr});renderLegs();
+  document.getElementById('r-src').value='';document.getElementById('r-dst').value='';
+  document.getElementById('r-dep').value='';document.getElementById('r-arr').value='';
+}
+function removeLeg(i){legs.splice(i,1);renderLegs();}
+function renderLegs(){
+  const body=document.getElementById('leg-rows'),table=document.getElementById('leg-table'),empty=document.getElementById('leg-empty');
+  if(legs.length===0){table.style.display='none';empty.style.display='block';body.innerHTML='';return;}
+  table.style.display='table';empty.style.display='none';
+  body.innerHTML=legs.map((l,i)=>`<tr><td>${i+1}</td><td>${l.src}</td><td>${l.dst}</td><td>${l.dep||'—'}</td><td>${l.arr||'—'}</td>
+    <td><button class="win-btn small">Select</button></td><td><button class="win-btn small" onclick="removeLeg(${i})">Remove</button></td></tr>`).join('');
 }
 
-Object.entries(groups).forEach(([id, items]) => buildList(id, items));
-
-let voices = [];
-function loadVoices(){
-  voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
-}
-if ('speechSynthesis' in window){
-  loadVoices();
-  window.speechSynthesis.onvoiceschanged = loadVoices;
-}
-
-function speakTerm(btn){
-  const text = btn.getAttribute('data-pron');
-  if (!('speechSynthesis' in window)) return;
-
-  window.speechSynthesis.cancel();
-  const utter = new SpeechSynthesisUtterance(text);
-  utter.lang = 'ru-RU';
-  utter.rate = 0.82;
-  utter.pitch = 1.0;
-
-  const ruVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('ru'));
-  if (ruVoice) utter.voice = ruVoice;
-
-  btn.classList.add('playing');
-  utter.onend = () => btn.classList.remove('playing');
-  utter.onerror = () => btn.classList.remove('playing');
-
-  window.speechSynthesis.speak(utter);
-}
-
-/* ---- glass translation card logic ---- */
-let currentCard = null;
-let currentSource = null;
-
-function removeCard(){
-  if (currentCard){
-    currentCard.classList.remove('show');
-    const toRemove = currentCard;
-    setTimeout(() => toRemove.remove(), 200);
-    currentCard = null;
+/* Mini calendar */
+let calDate=new Date(2012,1,1);
+function renderCal(){
+  const y=calDate.getFullYear(),m=calDate.getMonth();
+  document.getElementById('cal-title').textContent=calDate.toLocaleString('en-GB',{month:'long',year:'numeric'});
+  const first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
+  let html='<tr>'+['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<th style="font-size:10px;color:#555">${d}</th>`).join('')+'</tr><tr>';
+  for(let i=0;i<first;i++)html+='<td></td>';
+  let col=first;
+  for(let d=1;d<=days;d++){
+    html+=`<td onclick="pickDate(${y},${m},${d})">${d}</td>`;col++;
+    if(col%7===0)html+='</tr><tr>';
   }
-  if (currentSource){
-    currentSource.classList.remove('source-active');
-    currentSource = null;
-  }
+  html+='</tr>';
+  document.getElementById('cal-body').innerHTML=html;
+}
+function calShift(n){calDate.setMonth(calDate.getMonth()+n);renderCal();}
+function pickDate(y,m,d){
+  const dt=new Date(y,m,d);
+  document.getElementById('date-from-txt').value=dt.toISOString().slice(0,10);
+  document.getElementById('mini-cal').style.display='none';
+}
+renderCal();
+
+/* Dates list */
+let dates=[],dateSel=null;
+function addDate(){
+  const v=document.getElementById('date-from-txt').value;
+  if(!v){toast('Pick a date first.');return;}
+  if(!dates.includes(v))dates.push(v);
+  dates.sort();renderDates();
+}
+function removeDateSel(){if(dateSel!==null){dates.splice(dateSel,1);dateSel=null;renderDates();}else toast('Select a date in the list first.');}
+function clearDates(){dates=[];renderDates();}
+function renderDates(){
+  const box=document.getElementById('date-list');
+  if(dates.length===0){box.innerHTML='<span style="color:#777">No dates selected.</span>';return;}
+  box.innerHTML=dates.map((d,i)=>`<div onclick="dateSel=${i};toast('Selected '+'${d}')" style="padding:4px 6px;border-bottom:1px solid #eee;cursor:pointer">${d} — ${new Date(d).toLocaleDateString('en-GB',{weekday:'short'})}</div>`).join('');
 }
 
-function showTranslation(el, text){
-  const sameTarget = currentSource === el;
-  removeCard();
-  if (sameTarget) return; // clicking the same line again just closes it
+function toggleRecurrence(){document.getElementById('recur-box').style.display=document.getElementById('recur-chk').checked?'block':'none';}
+function toggleAmend(cb){document.getElementById('amend-box').style.display=cb.checked?'grid':'none';}
 
-  el.classList.add('source-active');
-  currentSource = el;
+/* Permissions list */
+let permissions=[
+  {ref:34171,call:'IRA9001',type:'Ferry Flight',from:'IKA',to:'THR',status:'draft'},
+  {ref:34170,call:'IRA9000',type:'Ferry Flight',from:'THR',to:'IKA',status:'draft'},
+  {ref:34169,call:'IRA4709',type:'Schedule',from:'IKA',to:'DXB',status:'draft'},
+];
+function renderPermissions(){
+  const body=document.getElementById('permission-rows');
+  body.innerHTML=permissions.map((p,i)=>`<tr class="row-green">
+      <td>${i+1}</td><td>${p.ref}</td><td>${p.call}</td><td>${p.type}</td><td>${p.from}</td><td>${p.to}</td>
+      <td>${p.status==='finalized'?'<span class="status-pill st-approved">Finalized</span>':'<span class="status-pill st-pending">Draft</span>'}</td>
+      <td><button class="win-btn small" onclick="finalizePermission(${i})">Finalize</button></td>
+      <td><input type="text" value="IRA" style="width:56px" id="clone-${i}"></td>
+      <td><button class="win-btn small" onclick="clonePermission(${i})">Clone</button></td>
+      <td><button class="win-btn small" onclick="roundtripPermission(${i})">Make Roundtrip</button></td>
+      <td>✓</td><td>✕</td>
+    </tr>`).join('');
+}
+function addPermission(){
+  const call=document.getElementById('callsign').value.trim()||'IRA';
+  const type=document.getElementById('ptype').value;
+  if(type==='— Select —'||!type){toast('Choose a permission type.');return;}
+  if(legs.length===0){toast('Add at least one route leg.');return;}
+  const first=legs[0],last=legs[legs.length-1];
+  permissions.unshift({ref:34172+permissions.length,call,type,from:first.src,to:last.dst,status:'draft'});
+  renderPermissions();toast('Permission added — remember to Finalize when ready.');
+}
+function finalizePermission(i){permissions[i].status='finalized';renderPermissions();toast('Permission finalized and sent to CAO for review.');}
+function clonePermission(i){const call=document.getElementById('clone-'+i).value.trim()||permissions[i].call;const clone={...permissions[i],call,status:'draft'};permissions.splice(i,0,clone);renderPermissions();toast('Record cloned — update call sign and times before finalizing.');}
+function roundtripPermission(i){const p=permissions[i];const rt={...p,from:p.to,to:p.from,status:'draft'};permissions.splice(i,0,rt);renderPermissions();toast('Roundtrip leg created — ready to edit.');}
+function resetRequestForm(){legs=[];renderLegs();dates=[];renderDates();document.getElementById('ptype').value='— Select —';toast('Form reset.');}
+renderPermissions();renderDates();
 
-  const card = document.createElement('div');
-  card.className = 'glass-card';
-  card.innerHTML =
-    `<button type="button" class="glass-close" aria-label="بستن">×</button>`
-    + `<div class="glass-label">ترجمه</div>`
-    + `<div class="glass-text">${text}</div>`;
-  document.body.appendChild(card);
+/* Users */
+let userRowSelected=null;
+function selectUserRow(tr){document.querySelectorAll('#user-rows tr').forEach(r=>r.style.outline='');tr.style.outline='2px solid #4477aa';userRowSelected=tr;document.getElementById('u-fullname').value=tr.children[2].textContent;document.getElementById('u-username').value=tr.children[1].textContent;}
+function resetUserForm(){['u-fullname','u-username','u-password','u-email'].forEach(id=>document.getElementById(id).value='');userRowSelected=null;toast('Form cleared.');}
+function addUserRow(){
+  const name=document.getElementById('u-fullname').value||'New User';
+  const uname=document.getElementById('u-username').value||'user'+Math.floor(Math.random()*900+100);
+  const body=document.getElementById('user-rows');const idx=body.children.length;
+  const tr=document.createElement('tr');tr.className='row-green';tr.onclick=()=>selectUserRow(tr);
+  tr.innerHTML=`<td>${idx+1}</td><td>${uname}</td><td>${name}</td><td>CAO User</td><td>—</td><td>—</td><td>✓</td><td>✕</td><td><a href="#">H</a></td>`;
+  body.appendChild(tr);toast('User added.');
+}
+function editUserRow(){if(!userRowSelected){toast('Select a row in the grid first.');return;}userRowSelected.children[1].textContent=document.getElementById('u-username').value;userRowSelected.children[2].textContent=document.getElementById('u-fullname').value;toast('Record updated.');}
+function deleteUserRow(){if(!userRowSelected){toast('Select a row in the grid first.');return;}userRowSelected.remove();userRowSelected=null;toast('User deleted.');}
 
-  const rect = el.getBoundingClientRect();
-  const cardWidth = Math.min(280, window.innerWidth - 32);
-  card.style.width = cardWidth + 'px';
-
-  const deviceRect = document.querySelector('.device').getBoundingClientRect();
-  let left = rect.left;
-  const maxLeft = deviceRect.right - cardWidth - 8;
-  const minLeft = deviceRect.left + 8;
-  left = Math.max(minLeft, Math.min(left, maxLeft));
-
-  const estimatedHeight = card.offsetHeight || 100;
-  let top = rect.bottom + 14;
-  let arrowBottom = false;
-  if (top + estimatedHeight > window.innerHeight - 12){
-    top = rect.top - estimatedHeight - 14;
-    arrowBottom = true;
-  }
-  if (arrowBottom) card.classList.add('arrow-bottom');
-
-  card.style.left = left + 'px';
-  card.style.top = top + 'px';
-
-  requestAnimationFrame(() => card.classList.add('show'));
-
-  card.querySelector('.glass-close').addEventListener('click', (e) => {
-    e.stopPropagation();
-    removeCard();
-  });
-
-  currentCard = card;
+/* Cancel detail */
+function openCancelDetail(){document.getElementById('cancel-detail').style.display='block';document.getElementById('cancel-detail').scrollIntoView({behavior:'smooth',block:'start'});}
+function closeCancelDetail(){document.getElementById('cancel-detail').style.display='none';}
+let cancelTarget=[];
+function moveToCancel(){
+  const rows=[{date:'2012-03-18',day:'SUN',route:'GBT→BGW'},{date:'2012-03-11',day:'SUN',route:'GBT→BGW'}];
+  document.querySelectorAll('.cdet:checked').forEach(cb=>cancelTarget.push(rows[+cb.dataset.row]));
+  renderCancelTarget();
+}
+function renderCancelTarget(){
+  const body=document.getElementById('cancel-target'),empty=document.getElementById('cancel-target-empty');
+  if(cancelTarget.length===0){body.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  body.innerHTML=cancelTarget.map(r=>`<tr><td>${r.date}</td><td>${r.day}</td><td>${r.route}</td></tr>`).join('');
+}
+function submitCancel(){
+  if(cancelTarget.length===0){toast('Move at least one leg to the right panel first.');return;}
+  toast('Cancel request registered for '+cancelTarget.length+' leg(s).');
+  cancelTarget=[];renderCancelTarget();document.querySelectorAll('.cdet').forEach(cb=>cb.checked=false);
 }
 
-document.addEventListener('click', (e) => {
-  const term = e.target.closest('.term');
-  if (term){
-    speakTerm(term);
-    return;
-  }
-
-  if (e.target.closest('.glass-card')) return;
-
-  const faTarget = e.target.closest('[data-fa]');
-  if (faTarget){
-    showTranslation(faTarget, faTarget.getAttribute('data-fa'));
-    return;
-  }
-
-  removeCard();
-});
-
-window.addEventListener('scroll', removeCard, { passive: true });
-window.addEventListener('resize', removeCard);
+function runReport(){document.getElementById('report-out').style.display='block';document.getElementById('report-out').scrollIntoView({behavior:'smooth',block:'start'});toast('Report generated.');}
 </script>
-
 </body>
 </html>
