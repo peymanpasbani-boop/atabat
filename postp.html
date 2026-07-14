@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+  @font-face {
+    font-family: 'FreeSerif';
+    src: local('FreeSerif');
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 1200px;
+    height: 1200px;
+  }
+  body {
+    background: radial-gradient(circle at 30% 20%, #16324a 0%, #0b1622 45%, #060c14 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    font-family: 'FreeSerif', sans-serif;
+  }
+  .glow1 {
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,180,255,0.35) 0%, rgba(59,180,255,0) 70%);
+  }
+  .glow2 {
+    position: absolute;
+    bottom: -150px;
+    left: -150px;
+    width: 550px;
+    height: 550px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,180,60,0.20) 0%, rgba(255,180,60,0) 70%);
+  }
+  .card {
+    position: relative;
+    width: 1000px;
+    height: 1000px;
+    border-radius: 48px;
+    background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+    border: 2px solid rgba(120,170,220,0.25);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 70px;
+    box-sizing: border-box;
+  }
+  .badge {
+    background: linear-gradient(135deg,#3bb4ff,#1c7fd6);
+    color: #061420;
+    font-weight: bold;
+    font-size: 30px;
+    padding: 14px 38px;
+    border-radius: 40px;
+    margin-bottom: 50px;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 24px rgba(59,180,255,0.35);
+  }
+  .lifecycle-row {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 22px;
+    margin-bottom: 60px;
+  }
+  .chip {
+    width: 74px;
+    height: 74px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+    border: 2px solid rgba(255,255,255,0.15);
+  }
+  .chip.blue { background: rgba(59,180,255,0.15); color: #6fd0ff; }
+  .chip.green { background: rgba(70,220,150,0.15); color: #7bf0c0; }
+  .chip.orange { background: rgba(255,180,60,0.15); color: #ffc978; }
+  .chip.red { background: rgba(255,90,90,0.15); color: #ff9d9d; }
+
+  .title {
+    font-size: 66px;
+    line-height: 1.55;
+    color: #f2f7fb;
+    font-weight: bold;
+    text-align: center;
+    max-width: 850px;
+  }
+  .divider {
+    width: 140px;
+    height: 5px;
+    border-radius: 3px;
+    background: linear-gradient(90deg,#3bb4ff,#ffc978);
+    margin: 55px 0;
+  }
+  .subtitle {
+    font-size: 34px;
+    color: #a9c3d8;
+    text-align: center;
+  }
+  .footer {
+    position: absolute;
+    bottom: 55px;
+    font-size: 30px;
+    color: #7fa8c9;
+    letter-spacing: 2px;
+    direction: ltr;
+  }
+</style>
+</head>
+<body>
+  <div class="glow1"></div>
+  <div class="glow2"></div>
+  <div class="card">
+    <div class="badge">درس ۵۴ &nbsp;|&nbsp; آموزش بلیط هواپیما</div>
+    <div class="lifecycle-row">
+      <div class="chip blue">I</div>
+      <div class="chip green">L</div>
+      <div class="chip orange">S</div>
+      <div class="chip red">R</div>
+    </div>
+    <div class="title">آشنایی با وضعیت‌های مختلف<br>یک بلیت در طول چرخهٔ عمر آن</div>
+    <div class="divider"></div>
+    <div class="subtitle">از صدور تا استرداد؛ هر کد یعنی چه؟</div>
+  </div>
+  <div class="footer">nirahelp.ir</div>
+</body>
+</html>
