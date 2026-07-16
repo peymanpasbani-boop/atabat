@@ -2,297 +2,398 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>Flight Tracking Fusion — استوری</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پروازی — چند روز کافیه؟</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
   :root{
-    --bg:#080b10;
-    --bg2:#0d1219;
-    --radar:#3ea66b;
-    --radar-dim:#1f4a35;
-    --amber:#d68a4c;
-    --amber-dim:#5a3f28;
-    --text:#e9e7e0;
-    --muted:#7c8792;
-    --line:#1c2530;
+    --bg-deep:#0E1B2E;
+    --bg-panel:#152841;
+    --bg-card:#1C3454;
+    --bg-card-hi:#25436A;
+    --gold:#E7A94C;
+    --gold-dim:#B98638;
+    --teal:#57C6BA;
+    --text-warm:#F3EFE4;
+    --text-muted:#8FA1BC;
+    --border:rgba(255,255,255,0.08);
   }
-  *{box-sizing:border-box;margin:0;padding:0;}
-
-  html,body{
-    background:#000;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-  }
-
-  .stage{
-    width:1080px;
-    height:1920px;
-    position:relative;
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
     background:
-      radial-gradient(ellipse at 50% -10%, #10202a 0%, var(--bg) 45%),
-      var(--bg);
-    overflow:hidden;
-    font-family:'Vazirmatn',sans-serif;
-    color:var(--text);
+      radial-gradient(ellipse 900px 500px at 15% -5%, rgba(87,198,186,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(231,169,76,0.08), transparent 60%),
+      var(--bg-deep);
+    color:var(--text-warm);
+    font-family:'Vazirmatn', sans-serif;
+    min-height:100vh;
+    padding-bottom:60px;
+  }
+  .mono{font-family:'JetBrains Mono','Vazirmatn',monospace; direction:ltr; display:inline-block;}
+
+  /* ---------- shell ---------- */
+  .wrap{max-width:520px; margin:0 auto; padding:0 20px;}
+  header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 20px 10px;
+    max-width:520px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand-mark{
+    width:34px; height:34px; border-radius:10px;
+    background:linear-gradient(135deg, var(--gold), var(--teal));
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; color:#0E1B2E; font-size:15px;
+  }
+  .brand-name{font-weight:700; font-size:15px; letter-spacing:.2px;}
+  .eyebrow-pill{
+    font-size:11px; color:var(--text-muted);
+    border:1px solid var(--border); border-radius:999px;
+    padding:5px 12px;
   }
 
-  /* radar grid backdrop */
-  .grid{
-    position:absolute;inset:0;
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size:60px 60px;
-    opacity:.35;
-    mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 92%);
+  /* ---------- hero ---------- */
+  .hero{padding:28px 0 8px;}
+  .hero h1{
+    font-size:28px; line-height:1.5; font-weight:800;
+    letter-spacing:-.2px;
+  }
+  .hero h1 .hl{color:var(--gold);}
+  .hero p{
+    margin-top:12px; color:var(--text-muted); font-size:14.5px; line-height:1.9;
   }
 
-  .radar-ring{
-    position:absolute;
-    border:1px solid var(--radar-dim);
-    border-radius:50%;
-    left:50%; top:210px;
-    transform:translateX(-50%);
+  .field-card{
+    margin-top:22px;
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:18px;
   }
-  .r1{width:900px;height:900px;top:-190px;}
-  .r2{width:640px;height:640px;top:-60px;}
-  .r3{width:380px;height:380px;top:70px;}
-
-  .sweep{
-    position:absolute;
-    left:50%; top:210px;
-    width:450px; height:450px;
-    transform-origin:0% 0%;
-    background:conic-gradient(from 0deg, rgba(62,166,107,.55), transparent 30%);
-    border-radius:50%;
-    opacity:.55;
-    filter: blur(1px);
+  .field-label{font-size:12px; color:var(--text-muted); margin-bottom:8px; display:block;}
+  .dest-input{
+    width:100%; background:var(--bg-card); border:1px solid var(--border);
+    border-radius:12px; padding:13px 14px; color:var(--text-warm);
+    font-family:inherit; font-size:15px; font-weight:600; outline:none;
+    transition:border-color .2s;
   }
+  .dest-input:focus{border-color:var(--gold);}
 
-  .blip{
-    position:absolute;
-    width:7px;height:7px;
-    background:var(--radar);
-    border-radius:50%;
-    box-shadow:0 0 10px 2px rgba(62,166,107,.7);
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+  .chip{
+    font-size:12.5px; padding:9px 14px; border-radius:999px;
+    border:1px solid var(--border); background:var(--bg-card);
+    color:var(--text-muted); cursor:pointer; user-select:none;
+    transition:all .18s;
+  }
+  .chip.active{
+    background:rgba(231,169,76,0.14); border-color:var(--gold-dim);
+    color:var(--gold); font-weight:600;
   }
 
-  .content{
+  .calc-btn{
+    margin-top:18px; width:100%; padding:15px; border:none; border-radius:14px;
+    background:linear-gradient(90deg, var(--gold), #F0C27B);
+    color:#1a1206; font-weight:800; font-size:15px; cursor:pointer;
+    font-family:inherit;
+    transition:transform .15s, box-shadow .15s;
+    box-shadow:0 10px 24px -10px rgba(231,169,76,0.5);
+  }
+  .calc-btn:active{transform:scale(.98);}
+  .calc-btn:disabled{opacity:.6; cursor:default;}
+
+  /* ---------- loading ---------- */
+  .loading-row{
+    display:none; align-items:center; gap:10px; margin-top:16px;
+    color:var(--text-muted); font-size:13px;
+  }
+  .loading-row.show{display:flex;}
+  .dot-spin{
+    width:14px; height:14px; border-radius:50%;
+    border:2px solid var(--border); border-top-color:var(--gold);
+    animation:spin .8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* ---------- signature: route reveal ---------- */
+  .reveal{
+    display:none; margin-top:32px;
+    opacity:0; transform:translateY(14px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .reveal.show{display:block;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  .route-card{
+    background:var(--bg-panel); border:1px solid var(--border);
+    border-radius:20px; padding:20px 20px 8px; overflow:hidden;
     position:relative;
-    z-index:2;
-    padding:130px 84px 90px;
-    height:100%;
-    display:flex;
-    flex-direction:column;
+  }
+  .route-card svg{width:100%; height:auto; display:block;}
+  .route-path{
+    fill:none; stroke:var(--teal); stroke-width:1.6;
+    stroke-dasharray:600; stroke-dashoffset:600;
+  }
+  .route-card.animate .route-path{
+    animation:draw 1.6s ease forwards;
+  }
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  .route-dot{fill:var(--bg-deep); stroke:var(--gold); stroke-width:2; opacity:0;}
+  .route-card.animate .route-dot{animation:pop .35s ease forwards;}
+  .route-dot:nth-of-type(1){animation-delay:.05s;}
+  .route-dot:nth-of-type(2){animation-delay:.4s;}
+  .route-dot:nth-of-type(3){animation-delay:.75s;}
+  .route-dot:nth-of-type(4){animation-delay:1.1s;}
+  .route-dot:nth-of-type(5){animation-delay:1.45s;}
+  @keyframes pop{from{opacity:0; r:0;} to{opacity:1;}}
+  .route-label{
+    font-size:9.5px; fill:var(--text-muted); font-family:'Vazirmatn';
   }
 
-  .eyebrow{
-    font-family:'JetBrains Mono',monospace;
-    font-size:22px;
-    letter-spacing:.14em;
-    color:var(--radar);
-    text-transform:uppercase;
-    margin-bottom:22px;
+  .day-count{
+    text-align:center; padding:6px 0 18px;
   }
-  .eyebrow::before{content:"◆ ";}
+  .day-count .num{
+    font-size:56px; font-weight:800; color:var(--gold);
+    line-height:1; letter-spacing:-1px;
+  }
+  .day-count .lbl{font-size:14px; color:var(--text-muted); margin-top:6px;}
+  .reason{
+    font-size:13px; color:var(--text-muted); line-height:1.9;
+    text-align:center; padding:0 8px 20px; border-top:1px dashed var(--border);
+    margin-top:4px; padding-top:16px;
+  }
+  .reason b{color:var(--text-warm); font-weight:700;}
 
-  h1{
-    font-size:64px;
-    font-weight:800;
-    line-height:1.28;
-    color:#fff;
-    margin-bottom:14px;
+  /* ---------- itinerary strip ---------- */
+  .section-title{
+    font-size:14px; font-weight:700; margin:26px 0 12px; color:var(--text-warm);
+    display:flex; align-items:center; gap:8px;
   }
-  h1 span{
-    font-family:'JetBrains Mono',monospace;
-    font-weight:600;
-    font-size:40px;
-    color:var(--radar);
-    display:block;
-    margin-top:10px;
-    letter-spacing:.01em;
+  .section-title .tag{
+    font-size:10.5px; color:var(--teal); border:1px solid rgba(87,198,186,0.3);
+    background:rgba(87,198,186,0.08); padding:3px 9px; border-radius:999px; font-weight:600;
   }
-
-  .lede{
-    margin-top:34px;
-    font-size:30px;
-    line-height:1.95;
-    color:#c9cdd3;
-    font-weight:400;
+  .day-scroll{
+    display:flex; gap:12px; overflow-x:auto; padding:2px 2px 12px;
+    scroll-snap-type:x mandatory;
   }
-  .lede b{color:#fff;font-weight:600;}
-
-  .divider{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    margin:52px 0 40px;
+  .day-scroll::-webkit-scrollbar{height:5px;}
+  .day-scroll::-webkit-scrollbar-thumb{background:var(--border); border-radius:10px;}
+  .day-card{
+    flex:0 0 208px; scroll-snap-align:start;
+    background:var(--bg-card); border:1px solid var(--border);
+    border-radius:16px; padding:15px;
   }
-  .divider .line{flex:1;height:1px;background:linear-gradient(to left, var(--line), transparent);}
-  .divider .tag{
-    font-family:'JetBrains Mono',monospace;
-    font-size:24px;
-    color:var(--amber);
-    font-weight:600;
-    white-space:nowrap;
+  .day-card .d-num{
+    font-size:11px; color:var(--gold); font-weight:700; margin-bottom:6px;
+  }
+  .day-card h3{font-size:14.5px; font-weight:700; margin-bottom:8px; line-height:1.5;}
+  .day-card ul{list-style:none; display:flex; flex-direction:column; gap:5px;}
+  .day-card li{
+    font-size:12px; color:var(--text-muted); line-height:1.6;
+    padding-right:12px; position:relative;
+  }
+  .day-card li::before{
+    content:''; position:absolute; right:0; top:7px;
+    width:4px; height:4px; border-radius:50%; background:var(--teal);
   }
 
-  .story{
-    font-size:31px;
-    line-height:2.05;
-    color:#d8d3c8;
-  }
-  .story b{color:var(--amber);font-weight:700;}
-
-  .quote{
-    margin:38px 0 10px;
-    padding:28px 34px;
-    border-right:4px solid var(--amber);
-    background:rgba(214,138,76,.08);
-    border-radius:6px;
-    font-size:29px;
-    line-height:1.85;
-    color:#f0dfc9;
-    font-style:normal;
-  }
-
-  .gauge-wrap{
-    margin-top:auto;
-    padding-top:50px;
-    display:flex;
-    align-items:center;
-    gap:30px;
-  }
-
-  .gauge{
-    width:150px;height:150px;
+  /* ---------- bundle card ---------- */
+  .bundle-card{
+    margin-top:26px; background:linear-gradient(160deg, var(--bg-card-hi), var(--bg-panel));
+    border:1px solid var(--gold-dim); border-radius:20px; padding:20px;
     position:relative;
-    flex-shrink:0;
   }
-  .gauge svg{width:100%;height:100%;}
+  .bundle-badge{
+    position:absolute; top:-11px; right:18px;
+    background:var(--gold); color:#1a1206; font-size:11px; font-weight:800;
+    padding:5px 12px; border-radius:999px;
+  }
+  .bundle-title{font-size:15px; font-weight:700; margin-bottom:14px; margin-top:6px;}
+  .bundle-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:11px 0; border-bottom:1px solid var(--border);
+  }
+  .bundle-row:last-of-type{border-bottom:none;}
+  .bundle-row .k{font-size:12.5px; color:var(--text-muted);}
+  .bundle-row .v{font-size:13px; font-weight:700;}
+  .bundle-row .v.mono{font-size:12.5px; font-weight:600; color:var(--teal);}
+  .price-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-top:16px; padding-top:16px; border-top:1px dashed var(--border);
+  }
+  .price-row .k{font-size:12.5px; color:var(--text-muted);}
+  .price-row .v{font-size:22px; font-weight:800; color:var(--gold);}
+  .price-row .v small{font-size:12px; color:var(--text-muted); font-weight:500;}
+  .book-btn{
+    margin-top:16px; width:100%; padding:14px; border:none; border-radius:12px;
+    background:var(--text-warm); color:#1a1206; font-weight:800; font-size:14.5px;
+    cursor:pointer; font-family:inherit;
+  }
 
-  .gauge-label{
-    font-family:'JetBrains Mono',monospace;
+  .disclaimer{
+    text-align:center; font-size:11px; color:var(--text-muted);
+    margin-top:22px; opacity:.7; line-height:1.8;
   }
-  .gauge-label .name{
-    font-size:24px;
-    color:var(--muted);
-    letter-spacing:.02em;
-    margin-bottom:6px;
-  }
-  .gauge-label .val{
-    font-size:44px;
-    font-weight:700;
-    color:var(--amber);
-  }
-  .gauge-label .val small{
-    font-size:22px;
-    color:var(--muted);
-    font-weight:400;
-    margin-right:6px;
-  }
-
-  .closing{
-    margin-top:44px;
-    font-size:28px;
-    line-height:1.9;
-    color:#aab0b8;
-    padding-top:34px;
-    border-top:1px solid var(--line);
-  }
-  .closing b{color:#fff;font-weight:600;}
-
-  .footer{
-    margin-top:40px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    font-family:'JetBrains Mono',monospace;
-    font-size:20px;
-    color:var(--muted);
-    letter-spacing:.05em;
-  }
-  .footer .dot{color:var(--radar);}
 </style>
 </head>
 <body>
 
-<div class="stage">
-  <div class="grid"></div>
-  <div class="radar-ring r1"></div>
-  <div class="radar-ring r2"></div>
-  <div class="radar-ring r3"></div>
-  <div class="sweep"></div>
-
-  <div class="blip" style="left:38%; top:22%;"></div>
-  <div class="blip" style="left:63%; top:14%;"></div>
-  <div class="blip" style="left:52%; top:31%;"></div>
-  <div class="blip" style="left:70%; top:26%;"></div>
-  <div class="blip" style="left:44%; top:9%;"></div>
-
-  <div class="content">
-
-    <div class="eyebrow">DATA · ۱۴۰۴</div>
-
-    <h1>
-      چیزی که امسال واقعاً باهاش سروکله زدم
-      <span>Flight Tracking Fusion</span>
-    </h1>
-
-    <div class="lede">
-      ایده اینه: داده خام <b>ADS-B</b> رو با تاریخچه ثبت هواپیما قاطی کنی، ببینی کدوم ایرلاین مسیر پرتکرار داره، چه الگویی توی ساعت پرواز روزانه‌ش هست — و از اون الگو تقاضای آینده یا برنامه‌ریزی ناوگان رو دربیاری.
-      <br><br>
-      توی خیلی جاهای دنیا این کار جواب می‌ده، چون پشتش <b>منطق تجاری واقعی</b> هست: تقاضای مسافر، فصل گردشگری، قرارداد چارتر شرکتی.
-    </div>
-
-    <div class="divider">
-      <div class="tag">توی ایران؟</div>
-      <div class="line"></div>
-    </div>
-
-    <div class="story">
-      رفتم سراغ داده، منتظر یه الگوی زیبای اقتصادی بودم. به‌جاش با یه شبکه مواجه شدم که هیچ مدل ریاضی توضیحش نمی‌ده.
-      <br><br>
-      چون مرکز واقعی تصمیم‌گیری چارتر پرواز توی ایران، نه یه دفتر برنامه‌ریزیه، نه یه الگوریتم تقاضا —
-      <b>یه میز توی قهوه‌خونه دلژین آپادانا، تهران، ساعت یازده شب</b>.
-    </div>
-
-    <div class="quote">
-      «داداش یه چارتر می‌خوایم بریم مشهد، رفیقمونه، یه چیزی رو قیمت بیار پایین.»
-    </div>
-
-    <div class="story" style="margin-top:6px;">
-      هیچ <b>regression</b> و هیچ <b>time-series</b> نمی‌تونه اون متغیر رو مدل کنه.
-    </div>
-
-    <div class="gauge-wrap">
-      <div class="gauge">
-        <svg viewBox="0 0 150 150">
-          <path d="M 20 115 A 65 65 0 1 1 130 115" fill="none" stroke="#1c2530" stroke-width="12" stroke-linecap="round"/>
-          <path d="M 20 115 A 65 65 0 1 1 122 128" fill="none" stroke="#d68a4c" stroke-width="12" stroke-linecap="round"/>
-          <line x1="75" y1="115" x2="112" y2="88" stroke="#f0dfc9" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="75" cy="115" r="7" fill="#f0dfc9"/>
-        </svg>
-      </div>
-      <div class="gauge-label">
-        <div class="name">ضریب همبستگی آپادانا</div>
-        <div class="val">۰.۹۷<small>→ ۱</small></div>
-      </div>
-    </div>
-
-    <div class="closing">
-      برای همین نتایج ایران رو کنار گذاشتم. <b>بعضی دیتاست‌ها رو باید با مدل تحلیل کرد</b>، بعضی‌هاشون رو باید فقط رفت توی همون قهوه‌خونه نشست و گوش داد.
-    </div>
-
-    <div class="footer">
-      <span>ADS-B · FLEET SCHEDULING · ۱۴۰۴</span>
-      <span><span class="dot">●</span> LIVE</span>
-    </div>
-
+<header>
+  <div class="brand">
+    <div class="brand-mark">پ</div>
+    <div class="brand-name">پروازی</div>
   </div>
+  <div class="eyebrow-pill">دستیار سفر · دمو</div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <h1>چند روز برای <span class="hl">استانبول</span> کافیه؟<br>بذار ما حسابشو بکنیم.</h1>
+    <p>مقصد و حال‌وهوای سفرت رو بگو؛ نقطه‌های اصلی رو به هم وصل می‌کنیم و دقیق می‌گیم چند شب بمونی — بعد بلیط و هتلش رو هم برات می‌چینیم.</p>
+
+    <div class="field-card">
+      <span class="field-label">مقصد</span>
+      <input class="dest-input" type="text" value="استانبول، ترکیه" id="destInput">
+
+      <span class="field-label" style="margin-top:16px; display:block;">حال‌وهوای سفر</span>
+      <div class="chips" id="chips">
+        <div class="chip active" data-c="تاریخی">فرهنگی و تاریخی</div>
+        <div class="chip active" data-c="خرید">خیابون‌گردی و خرید</div>
+        <div class="chip" data-c="غذا">غذا و کافه</div>
+        <div class="chip active" data-c="آروم">آروم و بی‌عجله</div>
+      </div>
+
+      <button class="calc-btn" id="calcBtn">محاسبه کن، چند روز لازمه؟</button>
+      <div class="loading-row" id="loadingRow">
+        <div class="dot-spin"></div>
+        <span>داریم جاذبه‌ها رو روی نقشه به هم وصل می‌کنیم…</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal" id="revealSection">
+    <div class="route-card" id="routeCard">
+      <svg viewBox="0 0 380 150" xmlns="http://www.w3.org/2000/svg">
+        <path class="route-path" d="M 30 110 C 70 40, 110 40, 140 70 S 210 120, 240 65 S 320 20, 355 45"/>
+        <circle class="route-dot" cx="30" cy="110" r="5"/>
+        <circle class="route-dot" cx="140" cy="70" r="5"/>
+        <circle class="route-dot" cx="240" cy="65" r="5"/>
+        <circle class="route-dot" cx="300" cy="30" r="5"/>
+        <circle class="route-dot" cx="355" cy="45" r="5"/>
+        <text class="route-label" x="10" y="128" text-anchor="middle">سلطان‌احمد</text>
+        <text class="route-label" x="140" y="90" text-anchor="middle">توپکاپی</text>
+        <text class="route-label" x="240" y="85" text-anchor="middle">بازار بزرگ</text>
+        <text class="route-label" x="300" y="18" text-anchor="middle">بسفر</text>
+        <text class="route-label" x="355" y="65" text-anchor="middle">بشیکتاش</text>
+      </svg>
+
+      <div class="day-count">
+        <div class="num">۵ شب</div>
+        <div class="lbl">۶ روز پیشنهادی برای استانبول</div>
+      </div>
+      <div class="reason">
+        با <b>۵ نقطه اصلی</b> که انتخاب کردی و فاصله واقعی‌شون از هم، کمتر از این یعنی یه جا رو نصفه‌کاره ببینی یا کل روز آخر رو صرف رفت‌وآمد کنی.
+      </div>
+    </div>
+
+    <div class="section-title">برنامه روز به روز <span class="tag">پیش‌نویس خودکار</span></div>
+    <div class="day-scroll">
+      <div class="day-card">
+        <div class="d-num">روز ۱</div>
+        <h3>رسیدن + سلطان‌احمد</h3>
+        <ul><li>آیاصوفیه</li><li>مسجد سلطان‌احمد</li><li>غروب در میدان هیپودروم</li></ul>
+      </div>
+      <div class="day-card">
+        <div class="d-num">روز ۲</div>
+        <h3>کاخ توپکاپی و باب‌عالی</h3>
+        <ul><li>کاخ توپکاپی</li><li>سیسترن باسیلیکا</li><li>ناهار در محله سیرکجی</li></ul>
+      </div>
+      <div class="day-card">
+        <div class="d-num">روز ۳</div>
+        <h3>بازار بزرگ و خرید</h3>
+        <ul><li>بازار بزرگ استانبول</li><li>بازار ادویه</li><li>محله اورتاکوی</li></ul>
+      </div>
+      <div class="day-card">
+        <div class="d-num">روز ۴</div>
+        <h3>گشت تنگه بسفر</h3>
+        <ul><li>کروز بسفر</li><li>قلعه روملی حصار</li><li>ناهار کنار آب</li></ul>
+      </div>
+      <div class="day-card">
+        <div class="d-num">روز ۵</div>
+        <h3>بشیکتاش و استانبول مدرن</h3>
+        <ul><li>برج گالاتا</li><li>خیابان استقلال</li><li>شب در کاراکوی</li></ul>
+      </div>
+      <div class="day-card">
+        <div class="d-num">روز ۶</div>
+        <h3>خرید آخر و پرواز</h3>
+        <ul><li>وقت آزاد و سوغاتی</li><li>ترانسفر فرودگاه</li></ul>
+      </div>
+    </div>
+
+    <div class="bundle-card">
+      <div class="bundle-badge">دقیقاً برای همین ۵ شب</div>
+      <div class="bundle-title">بسته پیشنهادی پرواز + هتل</div>
+      <div class="bundle-row">
+        <span class="k">پرواز رفت‌وبرگشت</span>
+        <span class="v mono">THY · IKA–IST مستقیم</span>
+      </div>
+      <div class="bundle-row">
+        <span class="k">هتل</span>
+        <span class="v">۴ ستاره، سلطان‌احمد</span>
+      </div>
+      <div class="bundle-row">
+        <span class="k">مدت اقامت</span>
+        <span class="v">۵ شب / ۶ روز</span>
+      </div>
+      <div class="price-row">
+        <span class="k">قیمت تخمینی کل <small style="display:block;">برای یک نفر</small></span>
+        <span class="v">۲۸,۵۰۰,۰۰۰ <small>تومان</small></span>
+      </div>
+      <button class="book-btn">مشاهده و رزرو بسته</button>
+    </div>
+
+    <div class="disclaimer">این یک دموی مفهومی است — قیمت‌ها، پروازها و برنامه سفر نمونه هستند.</div>
+  </section>
+
 </div>
+
+<script>
+  document.querySelectorAll('.chip').forEach(c=>{
+    c.addEventListener('click', ()=> c.classList.toggle('active'));
+  });
+
+  const btn = document.getElementById('calcBtn');
+  const loadingRow = document.getElementById('loadingRow');
+  const revealSection = document.getElementById('revealSection');
+  const routeCard = document.getElementById('routeCard');
+
+  btn.addEventListener('click', ()=>{
+    if(btn.disabled) return;
+    btn.disabled = true;
+    btn.textContent = 'در حال محاسبه…';
+    loadingRow.classList.add('show');
+
+    setTimeout(()=>{
+      loadingRow.classList.remove('show');
+      btn.textContent = 'محاسبه کن، چند روز لازمه؟';
+      btn.disabled = false;
+
+      revealSection.classList.add('show');
+      requestAnimationFrame(()=>{
+        revealSection.classList.add('in');
+        routeCard.classList.add('animate');
+      });
+      setTimeout(()=>{
+        revealSection.scrollIntoView({behavior:'smooth', block:'start'});
+      }, 150);
+    }, 1400);
+  });
+</script>
 
 </body>
 </html>
